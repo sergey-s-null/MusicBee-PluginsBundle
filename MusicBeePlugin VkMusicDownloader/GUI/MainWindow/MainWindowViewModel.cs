@@ -81,7 +81,7 @@ namespace MusicBeePlugin_VkMusicDownloader
 
         private RelayCommand _applyCommand;
         public RelayCommand ApplyCommand
-            => _applyCommand ?? (_applyCommand = new RelayCommand(_ => ApplyDecorator()));
+            => _applyCommand ?? (_applyCommand = new RelayCommand(_ => Apply()));
 
         private VkAudioApi _vkApi;
         private int _audioDataShift = 0;
@@ -211,18 +211,18 @@ namespace MusicBeePlugin_VkMusicDownloader
             }
         }
 
-        private async Task ApplyDecorator()
+        private async Task Apply()
         {
             if (IsApplying)
                 return;
             IsApplying = true;
 
-            await Apply();
+            await ApplyDecorated();
 
             IsApplying = false;
         }
 
-        private async Task Apply()
+        private async Task ApplyDecorated()
         {
             string downloadDir = Plugin.Settings.DownloadDirectory;
             if (downloadDir.Length == 0)
@@ -234,9 +234,18 @@ namespace MusicBeePlugin_VkMusicDownloader
             List<VkAudioViewModel> viewModels = VkAudioList.ToList();
             viewModels.RemoveAll(vm => !vm.IsSelected);
 
-            var items = viewModels.Select(vm =>
+            int audiosPerBlock = 20;// TODO move
+            int lastIndex1 = MBAudioList.Count > 0 ? MBAudioList[0].Index1 : 1;
+            int lastIndex2 = MBAudioList.Count > 0 ? MBAudioList[0].Index2 : 1;
+            var items = viewModels.Select((vm, i) =>
             {
-                string filePath = Path.Combine(downloadDir, $"{vm.Artist} - {vm.Title}.mp3");
+                int i2 = lastIndex2 + viewModels.Count - i - 1;
+                int i1 = lastIndex1 + i2 / audiosPerBlock;
+                i2 = i2 % audiosPerBlock + 1;
+                string i1Str = i1.ToString().PadLeft(2, '0');
+                string i2Str = i2.ToString().PadLeft(2, '0');
+
+                string filePath = Path.Combine(downloadDir, $"[{i1Str}-{i2Str}] {vm.Artist} - {vm.Title}.mp3");
                 WebClient webClient = new WebClient();
                 Task task = webClient.DownloadFileTaskAsync(vm.Url, filePath);
 
@@ -244,7 +253,9 @@ namespace MusicBeePlugin_VkMusicDownloader
                 {
                     WebClient = webClient,
                     FilePath = filePath,
-                    Task = task
+                    Task = task,
+                    Index1 = i1,
+                    Index2 = i2
                 };
             }).ToArray();
 
@@ -265,16 +276,10 @@ namespace MusicBeePlugin_VkMusicDownloader
 
             if (isAllNice)
             {
-                int lastIndex1 = MBAudioList.Count > 0 ? MBAudioList[0].Index1 : 1;
-                int lastIndex2 = MBAudioList.Count > 0 ? MBAudioList[0].Index2 : 1;
-                int audiosPerBlock = 20;
                 for (int i = 0; i < viewModels.Count; ++i)
                 {
-                    int i2 = lastIndex2 + viewModels.Count - i;
-                    int i1 = lastIndex1 + i2 / audiosPerBlock;
-                    i2 = (i2 - 1) % audiosPerBlock + 1;
-
-                    string addedPath = AddToMBLibrary(items[i].FilePath, i1, i2, viewModels[i].Artist, viewModels[i].Title);
+                    string addedPath = AddToMBLibrary(items[i].FilePath, items[i].Index1, items[i].Index2, 
+                        viewModels[i].Artist, viewModels[i].Title);
                 }
             }
             else
@@ -285,16 +290,19 @@ namespace MusicBeePlugin_VkMusicDownloader
             }
 
             RefreshMBAudioList();
+
+            foreach (var vkAudio in VkAudioList)
+                vkAudio.IsSelected = false;
         }
 
-        private string AddToMBLibrary(string filePath, int index1, int index2, string defaultArtist, string defaultTitle)
+        private string AddToMBLibrary(string filePath, int index1, int index2, string artist, string title)
         {
             string addedPath = Plugin.MBApiInterface.Library_AddFileToLibrary(filePath, Plugin.LibraryCategory.Music);
 
             if (addedPath is object && addedPath.Length != 0)
             {
-                Plugin.MBApiInterface.Library_SetDefaultFileTag(addedPath, Plugin.MetaDataType.Artist, defaultArtist);
-                Plugin.MBApiInterface.Library_SetDefaultFileTag(addedPath, Plugin.MetaDataType.TrackTitle, defaultTitle);
+                Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.Artist, artist);
+                Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.TrackTitle, title);
 
                 Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.Custom1, index1.ToString().PadLeft(2, '0'));
                 Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.Custom2, index2.ToString().PadLeft(2, '0'));
