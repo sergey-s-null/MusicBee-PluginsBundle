@@ -15,7 +15,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _titleText = value;
-                NotifyPropertyChanged(nameof(TitleText));
+                NotifyPropChanged(nameof(TitleText));
             }
         }
 
@@ -26,7 +26,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _inputText = value;
-                NotifyPropertyChanged(nameof(InputText));
+                NotifyPropChanged(nameof(InputText));
             }
         }
     }

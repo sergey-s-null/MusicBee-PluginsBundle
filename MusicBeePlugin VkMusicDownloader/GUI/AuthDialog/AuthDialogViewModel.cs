@@ -15,7 +15,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _login = value;
-                NotifyPropertyChanged(nameof(Login));
+                NotifyPropChanged(nameof(Login));
             }
         }
 
@@ -26,7 +26,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _password = value;
-                NotifyPropertyChanged(nameof(Password));
+                NotifyPropChanged(nameof(Password));
             }
         }
     }

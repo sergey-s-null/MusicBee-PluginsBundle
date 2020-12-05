@@ -14,18 +14,52 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="0 0 0 6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Download directory:"/>
-            <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding DownloadDirectory, Mode=OneWay}"/>
-            <Button Grid.Column="2" Content="..." Padding="6 0"
-                    Command="{Binding ChangeDownloadDirCmd}" 
-                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
-        </Grid>
+        <GroupBox Grid.Row="0" Header="Templates" 
+                  Padding="0 0 0 -3" Margin="0 0 0 6">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Available tags:" HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="0 3" IsReadOnly="True"
+                         Text="{Binding AvailableTags, Mode=OneWay}"/>
+                
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Download dir template:" HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <Grid Grid.Row="1" Grid.Column="1" Margin="0 3 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding DownloadDirTemplate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Grid.Column="1" Content="..." Padding="6 0"
+                            Command="{Binding ChangeDownloadDirCmd}" 
+                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                </Grid>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text=">" HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Margin="0 0 0 3"
+                         Text="{Binding DownloadDirCheck, Mode=OneWay}"/>
+                
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="File name template:" HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <TextBox Grid.Row="3" Grid.Column="2" Margin="0 3 0 0"
+                         Text="{Binding FileNameTemplate, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text=">" HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <TextBox Grid.Row="4" Grid.Column="2" Margin="0 0 0 3" IsReadOnly="True"
+                         Text="{Binding FileNameCheck, Mode=OneWay}"/>
+            </Grid>
+        </GroupBox>
         <Grid Grid.Row="1" Margin="0 0 0 6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>

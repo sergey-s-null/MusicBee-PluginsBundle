@@ -16,6 +16,7 @@ namespace MusicBeePlugin
 {
     public partial class Plugin
     {
+        // TODO template for 
         // TODO encrypt cookies
         public static MusicBeeApiInterface MBApiInterface;
         public static Settings Settings;

@@ -15,7 +15,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _index1 = value;
-                NotifyPropertiesChanged(nameof(Index1), nameof(Index1Str));
+                NotifyPropChanged(nameof(Index1), nameof(Index1Str));
             }
         }
         public string Index1Str => _index1.ToString().PadLeft(2, '0');
@@ -27,7 +27,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _index2 = value;
-                NotifyPropertiesChanged(nameof(Index2), nameof(Index2Str));
+                NotifyPropChanged(nameof(Index2), nameof(Index2Str));
             }
         }
         public string Index2Str => _index2.ToString().PadLeft(2, '0');
@@ -39,7 +39,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _artist = value;
-                NotifyPropertyChanged(nameof(Artist));
+                NotifyPropChanged(nameof(Artist));
             }
         }
 
@@ -50,7 +50,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _title = value;
-                NotifyPropertyChanged(nameof(Title));
+                NotifyPropChanged(nameof(Title));
             }
         }
 

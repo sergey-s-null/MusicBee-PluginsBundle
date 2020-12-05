@@ -18,6 +18,8 @@ namespace MusicBeePlugin_VkMusicDownloader
 {
     class MainWindowViewModel : BaseViewModel
     {
+        #region Bindings
+
         private RelayCommand _autoCheckCommand;
         public RelayCommand AutoCheckCommand
             => _autoCheckCommand ?? (_autoCheckCommand = new RelayCommand(_ => AutoCheck()));
@@ -37,7 +39,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _isLoadingVkAudio = value;
-                NotifyPropertyChanged(nameof(IsLoadingVkAudio));
+                NotifyPropChanged(nameof(IsLoadingVkAudio));
             }
         }
         
@@ -75,7 +77,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _isApplying = value;
-                NotifyPropertyChanged(nameof(IsApplying));
+                NotifyPropChanged(nameof(IsApplying));
             }
         }
 
@@ -83,8 +85,11 @@ namespace MusicBeePlugin_VkMusicDownloader
         public RelayCommand ApplyCommand
             => _applyCommand ?? (_applyCommand = new RelayCommand(_ => Apply()));
 
+        #endregion
+
         private VkAudioApi _vkApi;
         private int _audioDataShift = 0;
+        private MBTagReplacer _tagReplacer = new MBTagReplacer();
 
         public MainWindowViewModel(VkAudioApi vkApi)
         {
@@ -224,8 +229,8 @@ namespace MusicBeePlugin_VkMusicDownloader
 
         private async Task ApplyDecorated()
         {
-            string downloadDir = Plugin.Settings.DownloadDirectory;
-            if (downloadDir.Length == 0)
+            string downloadDirTemplate = Plugin.Settings.DownloadDirTemplate;
+            if (downloadDirTemplate.Length == 0)
             {
                 MessageBox.Show("Download directory is empty. Set it in settings.");
                 return;
@@ -245,7 +250,11 @@ namespace MusicBeePlugin_VkMusicDownloader
                 string i1Str = i1.ToString().PadLeft(2, '0');
                 string i2Str = i2.ToString().PadLeft(2, '0');
 
-                string filePath = Path.Combine(downloadDir, $"[{i1Str}-{i2Str}] {vm.Artist} - {vm.Title}.mp3");
+                _tagReplacer.SetValues(i1Str, i2Str, vm.Artist, vm.Title);
+                string downloadDir = _tagReplacer.Prepare(downloadDirTemplate);
+                string fileName = _tagReplacer.Prepare(Plugin.Settings.FileNameTemplate) + ".mp3";
+
+                string filePath = Path.Combine(downloadDir, fileName);
                 WebClient webClient = new WebClient();
                 Task task = webClient.DownloadFileTaskAsync(vm.Url, filePath);
 
@@ -315,6 +324,9 @@ namespace MusicBeePlugin_VkMusicDownloader
                 return "";
             }
         }
+
+
+        
 
     }
 }

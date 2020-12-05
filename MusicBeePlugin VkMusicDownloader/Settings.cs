@@ -12,7 +12,7 @@ namespace MusicBeePlugin
     public class Settings
     {
         private string _downloadDirectory = "";
-        public string DownloadDirectory {
+        public string DownloadDirTemplate {
             get => _downloadDirectory;
             set
             {
@@ -31,6 +31,18 @@ namespace MusicBeePlugin
                 if (value is null)
                     return;
                 _ownerId = value;
+            }
+        }
+
+        private string _fileNameTemplate;
+        public string FileNameTemplate
+        {
+            get => _fileNameTemplate;
+            set
+            {
+                if (value is null)
+                    return;
+                _fileNameTemplate = value;
             }
         }
 
@@ -58,8 +70,9 @@ namespace MusicBeePlugin
             if (rootObj is null)
                 return false;
 
-            DownloadDirectory = rootObj.Value<string>(nameof(DownloadDirectory));
+            DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate));
             OwnerId = rootObj.Value<string>(nameof(OwnerId));
+            FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate));
             
             return true;
         }
@@ -67,8 +80,9 @@ namespace MusicBeePlugin
         public bool Save()
         {
             JObject rootObj = new JObject();
-            rootObj[nameof(DownloadDirectory)] = DownloadDirectory;
+            rootObj[nameof(DownloadDirTemplate)] = DownloadDirTemplate;
             rootObj[nameof(OwnerId)] = OwnerId;
+            rootObj[nameof(FileNameTemplate)] = FileNameTemplate;
 
             try
             {

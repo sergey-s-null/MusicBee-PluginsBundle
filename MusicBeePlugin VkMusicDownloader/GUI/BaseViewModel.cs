@@ -11,12 +11,12 @@ namespace MusicBeePlugin_VkMusicDownloader
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void NotifyPropertyChanged(string propertyName)
+        protected void NotifyPropChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected void NotifyPropertiesChanged(params string[] propertiesNames)
+        protected void NotifyPropChanged(params string[] propertiesNames)
         {
             foreach (string propertyName in propertiesNames)
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

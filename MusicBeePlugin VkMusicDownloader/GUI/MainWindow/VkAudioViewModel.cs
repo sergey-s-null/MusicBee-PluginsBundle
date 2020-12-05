@@ -15,7 +15,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _isSelected = value;
-                NotifyPropertyChanged(nameof(IsSelected));
+                NotifyPropChanged(nameof(IsSelected));
             }
         }
 
@@ -26,7 +26,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _id = value;
-                NotifyPropertyChanged(nameof(Id));
+                NotifyPropChanged(nameof(Id));
             }
         }
 
@@ -37,7 +37,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _artist = value;
-                NotifyPropertyChanged(nameof(Artist));
+                NotifyPropChanged(nameof(Artist));
             }
         }
 
@@ -48,7 +48,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _title = value;
-                NotifyPropertyChanged(nameof(Title));
+                NotifyPropChanged(nameof(Title));
             }
         }
 
@@ -59,7 +59,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set
             {
                 _duration = value;
-                NotifyPropertiesChanged(nameof(Duration), nameof(DurationString));
+                NotifyPropChanged(nameof(Duration), nameof(DurationString));
             }
         }
         public string DurationString

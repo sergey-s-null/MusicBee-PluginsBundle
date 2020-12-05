@@ -7,7 +7,7 @@
     <ProjectGuid>{622756AD-5BB9-41D7-B5DF-87614DF8102E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>MusicBeePlugin</RootNamespace>
-    <AssemblyName>mb_ChangeLater</AssemblyName>
+    <AssemblyName>mb_VKMusicDownloader</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -95,9 +95,12 @@
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SettingsDialog\SettingsDialogViewModel.cs" />
+    <Compile Include="MBTagReplacer.cs" />
     <Compile Include="MusicBeeInterface.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="StringEx.cs" />
+    <Compile Include="TagReplacer.cs" />
     <Compile Include="VkAudioApi.cs" />
     <Compile Include="GUI\MainWindow\VkAudioViewModel.cs" />
     <Compile Include="WebSession.cs" />
