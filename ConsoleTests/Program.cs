@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using MusicBeePlugin_VkMusicDownloader;
 
 namespace ConsoleTests
 {
@@ -11,19 +11,47 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-            //string cookiesFilename = "cookies.json";
+            TestAsync();
 
-            //VkAudioApi vkApi = new VkAudioApi(musicOwnerId, cookiesFilename);
-            //bool res = vkApi.TryAuth(GetAuthData, InputCode);
-            //Console.WriteLine($"auth res: {res}");
-            //res = vkApi.TryGetAudioData(0, 20, out List<VkMusicData> list);
-
-            //foreach (var data in list)
-            //    Console.WriteLine(data.Title);
-            
             Console.WriteLine();
             Console.WriteLine("Press...");
             Console.ReadKey();
+        }
+
+        private static async void TestAsync()
+        {
+            Task t1 = Task.Run(() =>
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("t1 done");
+                throw new Exception("1");
+            });
+            Task t2 = Task.Run(() =>
+            {
+                Thread.Sleep(10000);
+                Console.WriteLine("t2 done");
+                throw new Exception("2");
+            });
+
+            try
+            {
+                await Task.WhenAll(t1, t2);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Catched in WaitAll: {e.Message}");
+                Console.WriteLine(e);
+            }
+
+            try
+            {
+                await t1;
+                await t2;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Catched in each wait: {e.Message}");
+            }
         }
 
         private static bool GetAuthData(out string login, out string password)

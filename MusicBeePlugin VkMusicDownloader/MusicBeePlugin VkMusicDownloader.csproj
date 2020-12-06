@@ -77,6 +77,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryEx.cs" />
+    <Compile Include="FileEx.cs" />
     <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">
       <DependentUpon>AuthDialog.xaml</DependentUpon>
     </Compile>
@@ -97,6 +99,7 @@
     <Compile Include="GUI\SettingsDialog\SettingsDialogViewModel.cs" />
     <Compile Include="MBTagReplacer.cs" />
     <Compile Include="MusicBeeInterface.cs" />
+    <Compile Include="PathEx.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StringEx.cs" />

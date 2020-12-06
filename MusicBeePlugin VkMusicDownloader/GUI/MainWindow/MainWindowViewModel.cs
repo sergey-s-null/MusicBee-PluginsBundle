@@ -18,6 +18,8 @@ namespace MusicBeePlugin_VkMusicDownloader
 {
     class MainWindowViewModel : BaseViewModel
     {
+        private static readonly int AudiosPerBlock = 20;
+
         #region Bindings
 
         private RelayCommand _autoCheckCommand;
@@ -236,66 +238,71 @@ namespace MusicBeePlugin_VkMusicDownloader
                 return;
             }
 
-            List<VkAudioViewModel> viewModels = VkAudioList.ToList();
-            viewModels.RemoveAll(vm => !vm.IsSelected);
+            VkAudioViewModel[] viewModels = VkAudioList.Where(vm => vm.IsSelected).ToArray();
+            WebClient[] clients = new WebClient[viewModels.Length];
+            Task[] downloadTasks = new Task[viewModels.Length];
+            string[] indices1 = new string[viewModels.Length];
+            string[] indices2 = new string[viewModels.Length];
+            string[] filesPaths = new string[viewModels.Length];
 
-            int audiosPerBlock = 20;// TODO move
+            // prepare data, start downloading tasks
             int lastIndex1 = MBAudioList.Count > 0 ? MBAudioList[0].Index1 : 1;
             int lastIndex2 = MBAudioList.Count > 0 ? MBAudioList[0].Index2 : 1;
-            var items = viewModels.Select((vm, i) =>
+            for (int i = 0; i < viewModels.Length; ++i)
             {
-                int i2 = lastIndex2 + viewModels.Count - i - 1;
-                int i1 = lastIndex1 + i2 / audiosPerBlock;
-                i2 = i2 % audiosPerBlock + 1;
-                string i1Str = i1.ToString().PadLeft(2, '0');
-                string i2Str = i2.ToString().PadLeft(2, '0');
+                CalcIndices(lastIndex1, lastIndex2, viewModels.Length - i, out int i1, out int i2);
+                indices1[i] = i1.ToString().PadLeft(2, '0');
+                indices2[i] = i2.ToString().PadLeft(2, '0');
 
-                _tagReplacer.SetValues(i1Str, i2Str, vm.Artist, vm.Title);
+                _tagReplacer.SetValues(indices1[i], indices2[i], viewModels[i].Artist, viewModels[i].Title);
+
                 string downloadDir = _tagReplacer.Prepare(downloadDirTemplate);
-                string fileName = _tagReplacer.Prepare(Plugin.Settings.FileNameTemplate) + ".mp3";
-
-                string filePath = Path.Combine(downloadDir, fileName);
-                WebClient webClient = new WebClient();
-                Task task = webClient.DownloadFileTaskAsync(vm.Url, filePath);
-
-                return new
+                downloadDir = PathEx.RemoveInvalidDirChars(downloadDir);
+                if (!DirectoryEx.TryCreateDirectory(downloadDir))
                 {
-                    WebClient = webClient,
-                    FilePath = filePath,
-                    Task = task,
-                    Index1 = i1,
-                    Index2 = i2
-                };
-            }).ToArray();
+                    MessageBox.Show($"Error create directory: {downloadDir}.");
+                    return;
+                }
 
-            bool isAllNice;
+                string fileName = _tagReplacer.Prepare(Plugin.Settings.FileNameTemplate) + ".mp3";
+                fileName = PathEx.RemoveInvalidFileNameChars(fileName);
+                filesPaths[i] = Path.Combine(downloadDir, fileName);
+                clients[i] = new WebClient();
+                downloadTasks[i] = clients[i].DownloadFileTaskAsync(viewModels[i].Url, filesPaths[i]);
+            }
+            
+            // wait for downloading has done
             try
             {
-                foreach (var item in items)
-                {
-                    await item.Task;
-                    item.WebClient.Dispose();
-                }
-                isAllNice = true;
+                await Task.WhenAll(downloadTasks);
             }
-            catch
+            catch (Exception e)
             {
-                isAllNice = false;
+                List<string> notDeleted = new List<string>();
+                for (int i = 0; i < viewModels.Length; ++i)
+                    if (File.Exists(filesPaths[i]))
+                        if (!FileEx.TryDelete(filesPaths[i]))
+                            notDeleted.Add(filesPaths[i]);
+                if (notDeleted.Count > 0)
+                {
+                    string message = "Error downloading files. These files was not deleted:";
+                    message += notDeleted.Aggregate((a, b) => $"\n{a}\n{b}");
+                    MessageBox.Show(message);
+                }
+                else
+                    MessageBox.Show($"Error downloading file: {e.Message}.");
+                return;
+            }
+            finally
+            {
+                foreach (WebClient client in clients)
+                    client.Dispose();
             }
 
-            if (isAllNice)
+            for (int i = 0; i < viewModels.Length; ++i)
             {
-                for (int i = 0; i < viewModels.Count; ++i)
-                {
-                    string addedPath = AddToMBLibrary(items[i].FilePath, items[i].Index1, items[i].Index2, 
-                        viewModels[i].Artist, viewModels[i].Title);
-                }
-            }
-            else
-            {
-                foreach (var item in items)
-                    if (File.Exists(item.FilePath))
-                        File.Delete(item.FilePath);
+                AddToMBLibrary(filesPaths[i], indices1[i], indices2[i], 
+                    viewModels[i].Artist, viewModels[i].Title);
             }
 
             RefreshMBAudioList();
@@ -304,7 +311,14 @@ namespace MusicBeePlugin_VkMusicDownloader
                 vkAudio.IsSelected = false;
         }
 
-        private string AddToMBLibrary(string filePath, int index1, int index2, string artist, string title)
+        private void CalcIndices(int lastIndex1, int lastIndex2, int offsetIndex, out int i1, out int i2)
+        {
+            i2 = lastIndex2 + offsetIndex - 1;
+            i1 = lastIndex1 + i2 / AudiosPerBlock;
+            i2 = i2 % AudiosPerBlock + 1;
+        }
+
+        private string AddToMBLibrary(string filePath, string i1Str, string i2Str, string artist, string title)
         {
             string addedPath = Plugin.MBApiInterface.Library_AddFileToLibrary(filePath, Plugin.LibraryCategory.Music);
 
@@ -313,8 +327,8 @@ namespace MusicBeePlugin_VkMusicDownloader
                 Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.Artist, artist);
                 Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.TrackTitle, title);
 
-                Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.Custom1, index1.ToString().PadLeft(2, '0'));
-                Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.Custom2, index2.ToString().PadLeft(2, '0'));
+                Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.Custom1, i1Str);
+                Plugin.MBApiInterface.Library_SetFileTag(addedPath, Plugin.MetaDataType.Custom2, i2Str);
 
                 Plugin.MBApiInterface.Library_CommitTagsToFile(addedPath);
                 return addedPath;
