@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MusicBeePlugin_VkMusicDownloader
 {
-    class VkAudioViewModel : BaseViewModel
+    class VkAudioVM : BaseViewModel
     {
+        #region Bindings
+
         private bool _isSelected = false;
         public bool IsSelected
         {
@@ -65,9 +67,11 @@ namespace MusicBeePlugin_VkMusicDownloader
         public string DurationString
             => $"{_duration / 60}:" + (_duration % 60).ToString().PadLeft(2, '0');
 
+        #endregion
+
         public readonly string Url;
 
-        public VkAudioViewModel(string url)
+        public VkAudioVM(string url)
         {
             Url = url;
         }

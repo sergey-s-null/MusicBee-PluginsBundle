@@ -91,7 +91,7 @@
     </Compile>
     <Compile Include="GUI\InputDialog\InputDialogViewModel.cs" />
     <Compile Include="GUI\MainWindow\MainWindowViewModel.cs" />
-    <Compile Include="GUI\MainWindow\MBAudioViewModel.cs" />
+    <Compile Include="GUI\MainWindow\MBAudioVM.cs" />
     <Compile Include="GUI\RelayCommand.cs" />
     <Compile Include="GUI\SettingsDialog\SettingsDialog.xaml.cs">
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
@@ -105,7 +105,7 @@
     <Compile Include="StringEx.cs" />
     <Compile Include="TagReplacer.cs" />
     <Compile Include="VkAudioApi.cs" />
-    <Compile Include="GUI\MainWindow\VkAudioViewModel.cs" />
+    <Compile Include="GUI\MainWindow\VkAudioVM.cs" />
     <Compile Include="WebSession.cs" />
     <Page Include="GUI\AuthDialog\AuthDialog.xaml">
       <SubType>Designer</SubType>

@@ -54,13 +54,14 @@
                                                 <MultiBinding Converter="{StaticResource DefaultMultiValueConverter}">
                                                     <Binding/>
                                                     <Binding Path="SelectedItems"
-                                                                 RelativeSource="{RelativeSource AncestorType=ListView}"/>
+                                                             RelativeSource="{RelativeSource AncestorType=ListView}"/>
                                                 </MultiBinding>
                                             </CheckBox.CommandParameter>
                                         </CheckBox>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
+                            <GridViewColumn Header="Vk ID" DisplayMemberBinding="{Binding Id}"/>
                             <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}"/>
                             <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
                             <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding DurationString, Mode=OneWay}"/>
@@ -75,8 +76,10 @@
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
+                            <GridViewColumn Header="index" DisplayMemberBinding="{Binding Index}"/>
                             <GridViewColumn Header="i1" DisplayMemberBinding="{Binding Index1Str}"/>
                             <GridViewColumn Header="i2" DisplayMemberBinding="{Binding Index2Str}"/>
+                            <GridViewColumn Header="Vk ID" DisplayMemberBinding="{Binding VkId}"/>
                             <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}"/>
                             <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
                         </GridView.Columns>

@@ -6,31 +6,34 @@ using System.Threading.Tasks;
 
 namespace MusicBeePlugin_VkMusicDownloader
 {
-    class MBAudioViewModel : BaseViewModel
+    class MBAudioVM : BaseViewModel
     {
-        private int _index1 = 0;
-        public int Index1
-        {
-            get => _index1;
-            set
-            {
-                _index1 = value;
-                NotifyPropChanged(nameof(Index1), nameof(Index1Str));
-            }
-        }
-        public string Index1Str => _index1.ToString().PadLeft(2, '0');
+        #region Bindings
 
-        private int _index2 = 0;
-        public int Index2
+        private int _index = -1;
+        public int Index
         {
-            get => _index2;
+            get => _index;
             set
             {
-                _index2 = value;
-                NotifyPropChanged(nameof(Index2), nameof(Index2Str));
+                _index = value;
+                NotifyPropChanged(nameof(Index), nameof(Index1Str), nameof(Index2Str));
             }
         }
-        public string Index2Str => _index2.ToString().PadLeft(2, '0');
+
+        public string Index1Str => (Index / 20 + 1).ToString().PadLeft(2, '0');
+        public string Index2Str => (Index % 20 + 1).ToString().PadLeft(2, '0');
+
+        private string _vkId = "";
+        public string VkId
+        {
+            get => _vkId;
+            set
+            {
+                _vkId = value;
+                NotifyPropChanged(nameof(VkId));
+            }
+        }
 
         private string _artist = "";
         public string Artist
@@ -54,5 +57,6 @@ namespace MusicBeePlugin_VkMusicDownloader
             }
         }
 
+        #endregion
     }
 }

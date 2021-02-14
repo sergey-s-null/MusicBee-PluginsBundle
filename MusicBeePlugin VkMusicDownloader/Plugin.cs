@@ -9,7 +9,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 
 
 namespace MusicBeePlugin
@@ -134,6 +133,98 @@ namespace MusicBeePlugin
             // ignore
         }
 
+        // static
+        private const int _audiosPerBlock = 20;
+        public static void CalcIndices(int index, out int index1, out int index2)
+        {
+            index1 = index / _audiosPerBlock + 1;
+            index2 = index % _audiosPerBlock + 1;
+        }
 
+        //   custom tags protocol
+        private static MetaDataType _vkIdField = MetaDataType.Custom3;
+        private static MetaDataType _indexField = MetaDataType.Custom4;
+        private static MetaDataType _index1Field = MetaDataType.Custom1;
+        private static MetaDataType _index2Field = MetaDataType.Custom2;
+
+        public static bool TryGetVkId(string filePath, out string id)
+        {
+            id = MBApiInterface.Library_GetFileTag(filePath, _vkIdField);
+            return id.Length != 0;
+        }
+
+        public static bool SetVkId(string filePath, string id, bool commit = true)
+        {
+            bool res = MBApiInterface.Library_SetFileTag(filePath, _vkIdField, id);
+            if (!res)
+                return false;
+
+            if (commit)
+                return MBApiInterface.Library_CommitTagsToFile(filePath);
+            else
+                return true;
+        }
+
+        public static bool TryGetIndex(string filePath, out int index)
+        {
+            string indexStr = MBApiInterface.Library_GetFileTag(filePath, _indexField);
+            if (int.TryParse(indexStr, out index))
+                return true;
+            else
+            {
+                index = -1;
+                return false;
+            }
+        }
+
+        public static bool SetIndex(string filePath, int index, bool commit = true)
+        {
+            bool res = MBApiInterface.Library_SetFileTag(filePath, _indexField, index.ToString());
+            if (!res)
+                return false;
+
+            if (commit)
+                return MBApiInterface.Library_CommitTagsToFile(filePath);
+            else
+                return true;
+        }
+
+        public static bool TryGetIndex1(string filePath, out int index1)
+        {
+            string index1Str = MBApiInterface.Library_GetFileTag(filePath, _index1Field);
+            return int.TryParse(index1Str, out index1);
+        }
+
+        public static bool SetIndex1(string filePath, int index1, bool commit = true)
+        {
+            string i1Str = index1.ToString().PadLeft(2, '0');
+            bool res = MBApiInterface.Library_SetFileTag(filePath, _index1Field, i1Str);
+            if (!res)
+                return false;
+
+            if (commit)
+                return MBApiInterface.Library_CommitTagsToFile(filePath);
+            else
+                return true;
+        }
+
+        public static bool TryGetIndex2(string filePath, out int index2)
+        {
+            string index2Str = MBApiInterface.Library_GetFileTag(filePath, _index2Field);
+            return int.TryParse(index2Str, out index2);
+        }
+
+        public static bool SetIndex2(string filePath, int index2, bool commit = true)
+        {
+            string i2Str = index2.ToString().PadLeft(2, '0');
+            bool res = MBApiInterface.Library_SetFileTag(filePath, _index2Field, i2Str);
+            if (!res)
+                return false;
+
+            if (commit)
+                return MBApiInterface.Library_CommitTagsToFile(filePath);
+            else
+                return true;
+        }
     }
 }
