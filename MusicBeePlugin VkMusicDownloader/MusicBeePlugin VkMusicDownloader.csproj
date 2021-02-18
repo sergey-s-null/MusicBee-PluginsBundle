@@ -77,15 +77,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectoryEx.cs" />
-    <Compile Include="FileEx.cs" />
+    <Compile Include="Ex\CookieContainerEx.cs" />
+    <Compile Include="Ex\DirectoryEx.cs" />
+    <Compile Include="Ex\FileEx.cs" />
+    <Compile Include="Ex\WebResponseEx.cs" />
     <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">
       <DependentUpon>AuthDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\AuthDialog\AuthDialogViewModel.cs" />
     <Compile Include="CookieConvert.cs" />
     <Compile Include="GUI\DefaultMultiValueConverter.cs" />
-    <Compile Include="Extended.cs" />
     <Compile Include="GUI\InputDialog\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
@@ -99,10 +100,10 @@
     <Compile Include="GUI\SettingsDialog\SettingsDialogViewModel.cs" />
     <Compile Include="MBTagReplacer.cs" />
     <Compile Include="MusicBeeInterface.cs" />
-    <Compile Include="PathEx.cs" />
+    <Compile Include="Ex\PathEx.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="StringEx.cs" />
+    <Compile Include="Ex\StringEx.cs" />
     <Compile Include="TagReplacer.cs" />
     <Compile Include="VkAudioApi.cs" />
     <Compile Include="GUI\MainWindow\VkAudioVM.cs" />

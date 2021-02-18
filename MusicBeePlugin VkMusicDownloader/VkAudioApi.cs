@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Threading;
 using System.Web;
 using System.IO;
+using MusicBeePlugin;
 
 namespace MusicBeePlugin_VkMusicDownloader
 {
@@ -28,7 +29,7 @@ namespace MusicBeePlugin_VkMusicDownloader
 
         private int _msBetweenRequests = 1500;
         private long _lastRequestTime = 0;
-
+        
         public bool IsAuthorized => HasSid(_session.GetCookies());
 
         public VkAudioApi(string ownerId, string cookiesFilePath)

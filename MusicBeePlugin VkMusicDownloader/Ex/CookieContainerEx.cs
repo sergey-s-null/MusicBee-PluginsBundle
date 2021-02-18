@@ -1,32 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace MusicBeePlugin_VkMusicDownloader
+namespace MusicBeePlugin
 {
-    public static class Extended
+    public static class CookieContainerEx
     {
-        public static string ReadAllText(this WebResponse response)
-        {
-            using (var reader = new StreamReader(response.GetResponseStream()))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
-        public static string Reverse(this string str)
-        {
-            char[] chars = str.ToArray();
-            Array.Reverse(chars);
-            return new string(chars);
-        }
-
         public static List<Cookie> GetAllCookies(this CookieContainer container)
         {
             var table = (Hashtable)typeof(CookieContainer).InvokeMember("m_domainTable", BindingFlags.NonPublic |
@@ -47,6 +31,5 @@ namespace MusicBeePlugin_VkMusicDownloader
             }
             return cookies;
         }
-
     }
 }

@@ -18,5 +18,12 @@ namespace MusicBeePlugin
 
             return str.Substring(pos, containValue.Length) == containValue;
         }
+
+        public static string Reverse(this string str)
+        {
+            char[] chars = str.ToArray();
+            Array.Reverse(chars);
+            return new string(chars);
+        }
     }
 }
