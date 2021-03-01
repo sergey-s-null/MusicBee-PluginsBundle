@@ -1,15 +1,16 @@
-﻿<Window x:Class="MusicBeePlugin_VkMusicDownloader.MainWindow"
+﻿<Window x:Class="VkMusicDownloader.GUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MusicBeePlugin_VkMusicDownloader"
+        xmlns:conv="clr-namespace:VkMusicDownloader.GUI.Converters"
+        xmlns:gui="clr-namespace:VkMusicDownloader.GUI"
         mc:Ignorable="d"
         Title="Download VK audio to MusicBee library" Height="450" Width="1000"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <local:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter"/>
-        <local:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <conv:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter"/>
+        <conv:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     </Window.Resources>
     <Grid Margin="6">
         <Grid.RowDefinitions>
@@ -48,7 +49,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <CheckBox Command="{Binding DataContext.ApplyCheckStateToSelectedCommand,
-                                                RelativeSource={RelativeSource AncestorType=local:MainWindow}}"
+                                                RelativeSource={RelativeSource AncestorType=gui:MainWindow}}"
                                                       IsChecked="{Binding IsSelected, Mode=TwoWay}">
                                             <CheckBox.CommandParameter>
                                                 <MultiBinding Converter="{StaticResource DefaultMultiValueConverter}">

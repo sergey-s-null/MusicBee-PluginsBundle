@@ -11,8 +11,10 @@ using System.Threading;
 using System.Web;
 using System.IO;
 using MusicBeePlugin;
+using VkMusicDownloader.Ex;
+using VkMusicDownloader.Web;
 
-namespace MusicBeePlugin_VkMusicDownloader
+namespace VkMusicDownloader.VkApi
 {
     public delegate bool AuthDelegate(out string login, out string password);
     public delegate bool CodeInputDelegate(out string code);
@@ -478,21 +480,7 @@ namespace MusicBeePlugin_VkMusicDownloader
 
     }
 
-    public class FirstVkMusicData
-    {
-        public string OwnerId;
-        public string Id;
-        public string Hash1;
-        public string Hash2;
-    }
+    
 
-    public class VkMusicData
-    {
-        public string Id;
-        public string OwnderId;
-        public string Artist;
-        public string Title;
-        public int Duration;
-        public string Url;
-    }
+    
 }

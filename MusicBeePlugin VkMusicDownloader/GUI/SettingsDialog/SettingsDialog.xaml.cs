@@ -13,14 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MusicBeePlugin.GUI
+namespace VkMusicDownloader.GUI
 {
     /// <summary>
     /// Логика взаимодействия для SettingsDialog.xaml
     /// </summary>
     public partial class SettingsDialog : Window
     {
-        private SettingsDialogViewModel _viewModel = new SettingsDialogViewModel();
+        private SettingsDialogVM _viewModel = new SettingsDialogVM();
 
         public SettingsDialog()
         {

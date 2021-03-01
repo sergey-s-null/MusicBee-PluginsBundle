@@ -1,6 +1,4 @@
-﻿using MusicBeePlugin.GUI;
-using MusicBeePlugin_VkMusicDownloader;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +7,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-
+using VkMusicDownloader;
+using VkMusicDownloader.GUI;
+using VkMusicDownloader.VkApi;
 
 namespace MusicBeePlugin
 {
@@ -87,7 +87,7 @@ namespace MusicBeePlugin
             {
                 if (!_vkAudioApi.TryAuth(TryInputAuthData, TryInputCode))
                 {
-                    System.Windows.MessageBox.Show("Auth error.");
+                    MessageBox.Show("Auth error.");
                     return;
                 }
             }

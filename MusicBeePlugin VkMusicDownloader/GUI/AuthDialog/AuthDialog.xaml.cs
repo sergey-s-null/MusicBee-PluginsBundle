@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MusicBeePlugin_VkMusicDownloader
+namespace VkMusicDownloader.GUI
 {
     /// <summary>
     /// Логика взаимодействия для AuthDialog.xaml
@@ -31,7 +31,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set => _viewModel.Password = value;
         }
 
-        private AuthDialogViewModel _viewModel = new AuthDialogViewModel();
+        private AuthDialogVM _viewModel = new AuthDialogVM();
 
         public AuthDialog()
         {

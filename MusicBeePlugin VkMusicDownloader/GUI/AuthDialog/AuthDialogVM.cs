@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicBeePlugin_VkMusicDownloader
+namespace VkMusicDownloader.GUI
 {
-    class AuthDialogViewModel : BaseViewModel
+    public class AuthDialogVM : BaseViewModel
     {
         private string _login = "";
         public string Login

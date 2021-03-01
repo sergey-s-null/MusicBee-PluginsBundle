@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MusicBeePlugin_VkMusicDownloader
+namespace VkMusicDownloader.GUI
 {
     /// <summary>
     /// Логика взаимодействия для InputDialog.xaml
@@ -31,7 +31,7 @@ namespace MusicBeePlugin_VkMusicDownloader
             set => _viewModel.InputText = value;
         }
 
-        private InputDialogViewModel _viewModel = new InputDialogViewModel();
+        private InputDialogVM _viewModel = new InputDialogVM();
 
         public InputDialog()
         {

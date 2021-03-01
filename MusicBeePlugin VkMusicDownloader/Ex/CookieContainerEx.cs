@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace MusicBeePlugin
+namespace VkMusicDownloader.Ex
 {
     public static class CookieContainerEx
     {

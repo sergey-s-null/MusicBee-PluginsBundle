@@ -14,20 +14,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VkMusicDownloader.VkApi;
 
-namespace MusicBeePlugin_VkMusicDownloader
+namespace VkMusicDownloader.GUI
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel _viewModel;
+        private MainWindowVM _viewModel;
 
         public MainWindow(VkAudioApi vkApi)
         {
             InitializeComponent();
-            _viewModel = new MainWindowViewModel(vkApi);
+            _viewModel = new MainWindowVM(vkApi);
             DataContext = _viewModel;
         }
 

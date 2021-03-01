@@ -1,5 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using MusicBeePlugin_VkMusicDownloader;
+using MusicBeePlugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MusicBeePlugin.GUI
+namespace VkMusicDownloader.GUI
 {
-    class SettingsDialogViewModel : BaseViewModel
+    class SettingsDialogVM : BaseViewModel
     {
         #region Bindings
 
@@ -93,7 +93,7 @@ namespace MusicBeePlugin.GUI
 
         private MBTagReplacer _replacer = new MBTagReplacer();
 
-        public SettingsDialogViewModel()
+        public SettingsDialogVM()
         {
             char ob = MBTagReplacer.OpenBracket;
             char cb = MBTagReplacer.CloseBracket;

@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicBeePlugin_VkMusicDownloader
+namespace VkMusicDownloader.Web
 {
     public static class CookieConvert
     {

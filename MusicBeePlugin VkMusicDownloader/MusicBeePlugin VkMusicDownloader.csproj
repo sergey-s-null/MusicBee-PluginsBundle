@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{622756AD-5BB9-41D7-B5DF-87614DF8102E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MusicBeePlugin</RootNamespace>
+    <RootNamespace>VkMusicDownloader</RootNamespace>
     <AssemblyName>mb_VKMusicDownloader</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -84,20 +84,22 @@
     <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">
       <DependentUpon>AuthDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\AuthDialog\AuthDialogViewModel.cs" />
-    <Compile Include="CookieConvert.cs" />
-    <Compile Include="GUI\DefaultMultiValueConverter.cs" />
+    <Compile Include="GUI\AuthDialog\AuthDialogVM.cs" />
+    <Compile Include="Web\CookieConvert.cs" />
+    <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
+    <Compile Include="GUI\Converters\InverseBooleanConverter.cs" />
     <Compile Include="GUI\InputDialog\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\InputDialog\InputDialogViewModel.cs" />
-    <Compile Include="GUI\MainWindow\MainWindowViewModel.cs" />
+    <Compile Include="GUI\InputDialog\InputDialogVM.cs" />
+    <Compile Include="GUI\MainWindow\AudioVM.cs" />
+    <Compile Include="GUI\MainWindow\MainWindowVM.cs" />
     <Compile Include="GUI\MainWindow\MBAudioVM.cs" />
     <Compile Include="GUI\RelayCommand.cs" />
     <Compile Include="GUI\SettingsDialog\SettingsDialog.xaml.cs">
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\SettingsDialog\SettingsDialogViewModel.cs" />
+    <Compile Include="GUI\SettingsDialog\SettingsDialogVM.cs" />
     <Compile Include="MBTagReplacer.cs" />
     <Compile Include="MusicBeeInterface.cs" />
     <Compile Include="Ex\PathEx.cs" />
@@ -105,9 +107,11 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Ex\StringEx.cs" />
     <Compile Include="TagReplacer.cs" />
-    <Compile Include="VkAudioApi.cs" />
+    <Compile Include="VkApi\FirstVkMusicData.cs" />
+    <Compile Include="VkApi\VkAudioApi.cs" />
     <Compile Include="GUI\MainWindow\VkAudioVM.cs" />
-    <Compile Include="WebSession.cs" />
+    <Compile Include="VkApi\VkMusicData.cs" />
+    <Compile Include="Web\WebSession.cs" />
     <Page Include="GUI\AuthDialog\AuthDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +164,7 @@
   <ItemGroup>
     <Resource Include="Windows Logo.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)\*.dll" "C:\Program Files (x86)\MusicBee\Plugins"</PostBuildEvent>

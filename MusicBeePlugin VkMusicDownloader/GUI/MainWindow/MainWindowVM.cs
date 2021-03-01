@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using VkMusicDownloader.Ex;
+using VkMusicDownloader.VkApi;
 
 #pragma warning disable CS4014
 
-namespace MusicBeePlugin_VkMusicDownloader
+namespace VkMusicDownloader.GUI
 {
-    class MainWindowViewModel : BaseViewModel
+    class MainWindowVM : BaseViewModel
     {
         #region Bindings
 
@@ -91,7 +93,7 @@ namespace MusicBeePlugin_VkMusicDownloader
         private int _audioDataShift = 0;
         private MBTagReplacer _tagReplacer = new MBTagReplacer();
 
-        public MainWindowViewModel(VkAudioApi vkApi)
+        public MainWindowVM(VkAudioApi vkApi)
         {
             _vkApi = vkApi;
             Next10AudiosAsync();
