@@ -31,6 +31,17 @@ namespace Outer_Tests
             }
         }
 
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set
+            {
+                _isRefreshing = value;
+                NotifyPropChanged(nameof(IsRefreshing));
+            }
+        }
+
         private RelayCommand _refreshCmd;
         public RelayCommand RefreshCmd
             => _refreshCmd ?? (_refreshCmd = new RelayCommand(_ => Refresh()));
@@ -109,16 +120,17 @@ namespace Outer_Tests
             int insideIndex = 0;
             foreach (Audio audio in _vkApi.Audio.GetIter())
             {
-                if (audio.Id is null || insideIndex == 10)
+                if (audio.Id is null || insideIndex == 30)
                     break;
 
-                IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
+                bool isCorrapted = !IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
                 Audios.Add(new VkAudioVM()
                 {
                     Artist = audio.Artist,
                     Title = audio.Title,
                     InsideIndex = insideIndex++,
                     Url = mp3Url,
+                    IsCorraptedUrl = isCorrapted,
                     VkId = (long)audio.Id
                 });
             }

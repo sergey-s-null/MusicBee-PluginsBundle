@@ -46,6 +46,17 @@ namespace VkMusicDownloader.GUI
             }
         }
 
+        private bool _isCorraptedUrl = false;
+        public bool IsCorraptedUrl
+        {
+            get => _isCorraptedUrl;
+            set
+            {
+                _isCorraptedUrl = value;
+                NotifyPropChanged(nameof(IsCorraptedUrl));
+            }
+        }
+
         #endregion
 
         public override int CompareTo(object obj)

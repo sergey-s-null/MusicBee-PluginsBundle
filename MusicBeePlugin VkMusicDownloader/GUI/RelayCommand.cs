@@ -21,7 +21,7 @@ namespace VkMusicDownloader.GUI
             _canExecute = canExecute;
         }
 
-        event EventHandler ICommand.CanExecuteChanged
+        public event EventHandler CanExecuteChanged
         {
             add
             {
@@ -34,12 +34,12 @@ namespace VkMusicDownloader.GUI
             }
         }
 
-        bool ICommand.CanExecute(object parameter)
+        public bool CanExecute(object parameter)
         {
             return _canExecute == null || _canExecute(parameter);
         }
 
-        void ICommand.Execute(object parameter)
+        public void Execute(object parameter)
         {
             _execute(parameter);
         }

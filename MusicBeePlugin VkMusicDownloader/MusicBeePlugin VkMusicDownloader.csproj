@@ -112,10 +112,13 @@
     </Compile>
     <Compile Include="GUI\AuthDialog\AuthDialogVM.cs" />
     <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
+    <Compile Include="GUI\Converters\IsCorraptedUrlConverter.cs" />
     <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
     <Compile Include="GUI\MainWindow\IMainWindowVM.cs" />
     <Compile Include="GUI\MainWindow\MBAudioVM.cs" />
     <Compile Include="GUI\MainWindow\VkAudioVM.cs" />
+    <Compile Include="IAsyncEnumerable.cs" />
+    <Compile Include="IAsyncEnumerator.cs" />
     <Compile Include="Web\CookieConvert.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
     <Compile Include="GUI\Converters\InverseBooleanConverter.cs" />
@@ -137,9 +140,6 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Ex\StringEx.cs" />
     <Compile Include="TagReplacer.cs" />
-    <Compile Include="VkApi\FirstVkMusicData.cs" />
-    <Compile Include="VkApi\VkAudioApi.cs" />
-    <Compile Include="VkApi\VkMusicData.cs" />
     <Compile Include="Web\WebSession.cs" />
     <Page Include="GUI\AuthDialog\AuthDialog.xaml">
       <SubType>Designer</SubType>

@@ -32,34 +32,6 @@ namespace VkMusicDownloader.Ex
             
         }
 
-        public static bool TryAuth(this IVkApi vkApi, 
-            AuthDelegate authDelegate, CodeInputDelegate codeInputDelegate)
-        {
-            if (!authDelegate(out string login, out string password))
-                return false;
-
-            try
-            {
-                vkApi.Authorize(new ApiAuthParams()
-                {
-                    Login = login,
-                    Password = password,
-                    TwoFactorAuthorization = () =>
-                    {
-                        if (codeInputDelegate(out string code))
-                            return code;
-                        else
-                            return "";
-                    }
-                });
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         /// <param name="authDelegate">delegate to receive login with password</param>
         /// <param name="codeInputDelegate">delegate to receive two factor auth code</param>
         /// <returns>result of auth</returns>

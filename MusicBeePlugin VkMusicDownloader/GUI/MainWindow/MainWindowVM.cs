@@ -19,7 +19,6 @@ using VkNet.Model.Attachments;
 
 namespace VkMusicDownloader.GUI
 {
-    // TODO async calls
     class MainWindowVM : BaseViewModel, IMainWindowVM
     {
         #region Bindings
@@ -32,6 +31,17 @@ namespace VkMusicDownloader.GUI
             {
                 _isLoadingVkAudio = value;
                 NotifyPropChanged(nameof(IsLoadingVkAudio));
+            }
+        }
+
+        private bool _isRefreshing = false;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set
+            {
+                _isRefreshing = value;
+                NotifyPropChanged(nameof(IsRefreshing));
             }
         }
 
@@ -83,15 +93,10 @@ namespace VkMusicDownloader.GUI
 
         private MBTagReplacer _tagReplacer = new MBTagReplacer();
 
-        public MainWindowVM()
+        private async void Refresh()
         {
-            //Next10AudiosAsync();
-            //RefreshMBAudioList();
+            IsRefreshing = true;
 
-        }
-
-        private void Refresh()
-        {
             Audios.Clear();
 
             AddLastMBAudios(out long lastVkId);
@@ -102,7 +107,9 @@ namespace VkMusicDownloader.GUI
                 return;
             }
 
-            AddVkAudios(lastVkId);
+            await AddVkAudios(lastVkId);
+
+            IsRefreshing = false;
         }
 
         private void AddLastMBAudios(out long lastVkId, int count = 20)
@@ -149,7 +156,7 @@ namespace VkMusicDownloader.GUI
             }
         }
 
-        private void AddVkAudios(long lastVkId, int maxDepth = 50)
+        private async Task AddVkAudios(long lastVkId, int maxDepth = 50)
         {
             if (VkApi is null)
             {
@@ -158,8 +165,11 @@ namespace VkMusicDownloader.GUI
             }
 
             int insideIndex = 0;
-            foreach (Audio audio in VkApi.Audio.GetIter())
+            IAsyncEnumerator<Audio> enumerator = VkApi.Audio.GetAsyncEnumerator();
+            while (await enumerator.MoveNextAsync())
             {
+                Audio audio = enumerator.Current;
+
                 if (audio.Id is null || audio.Id == lastVkId)
                     break;
                 if (--maxDepth == 0)
@@ -168,7 +178,6 @@ namespace VkMusicDownloader.GUI
                     break;
                 }
 
-                // TODO mark in gui as corrapted if not converted
                 bool convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
                 Audios.Add(new VkAudioVM()
                 {
@@ -177,6 +186,7 @@ namespace VkMusicDownloader.GUI
                     Title = audio.Title,
                     InsideIndex = insideIndex++,
                     Url = mp3Url,
+                    IsCorraptedUrl = !convertRes,
                     VkId = (long)audio.Id
                 });
             }
@@ -227,7 +237,7 @@ namespace VkMusicDownloader.GUI
                     string i1Str = i1.ToString().PadLeft(2, '0');
                     string i2Str = i2.ToString().PadLeft(2, '0');
 
-                    // TODO add INDEX to tag replacer
+                    // TODOL add INDEX to tag replacer
                     _tagReplacer.SetValues(i1Str, i2Str, vm.Artist, vm.Title);
                     string downloadDir = _tagReplacer.Prepare(downloadDirTemplate);
                     downloadDir = PathEx.RemoveInvalidDirChars(downloadDir);

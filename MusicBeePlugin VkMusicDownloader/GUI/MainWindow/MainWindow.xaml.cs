@@ -19,8 +19,6 @@ using VkMusicDownloader.VkApi;
 
 namespace VkMusicDownloader.GUI
 {
-    // TODO delete stack panel from xaml
-
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -46,6 +44,13 @@ namespace VkMusicDownloader.GUI
             InitializeComponent();
             _viewModel = vm;
             DataContext = _viewModel;
+        }
+
+        protected override void OnContentRendered(EventArgs e)
+        {
+            if (!_viewModel.IsRefreshing)
+                _viewModel.RefreshCmd.Execute(null);
+            base.OnContentRendered(e);
         }
 
         protected override void OnClosing(CancelEventArgs e)

@@ -11,9 +11,10 @@
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <conv:DefaultMultiValueConverter x:Key="defaultMultiValueConverter"/>
-        <conv:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <conv:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
         <conv:TrueToHiddenConverter x:Key="trueToHiddenConverter"/>
         <conv:EqualsTypesConverter x:Key="equalsTypesConverter"/>
+        <conv:IsCorraptedUrlConverter x:Key="isCorraptedUrlConverter"/>
 
         <CollectionViewSource x:Key="sortedAudios" Source="{Binding Audios}">
             <CollectionViewSource.SortDescriptions>
@@ -27,18 +28,11 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-            </StackPanel>
-            
-            <Button Grid.Column="1" Content="Refresh"
-                    Command="{Binding RefreshCmd}"/>
-        </Grid>
+        <Button Grid.Row="0" Content="Refresh"
+                HorizontalAlignment="Right"
+                Command="{Binding RefreshCmd}"
+                IsEnabled="{Binding IsRefreshing, 
+                        Converter={StaticResource inverseBooleanConverter}}"/>
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Source={StaticResource sortedAudios}}">
             <ListView.ItemContainerStyle>
@@ -51,13 +45,16 @@
                             <Setter Property="BorderBrush" Value="{x:Null}"/>
                             <Setter Property="Focusable" Value="False"/>
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding ., Converter={StaticResource isCorraptedUrlConverter}}" Value="True">
+                            <Setter Property="Background" Value="#ffd4cc"/>
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="v">
+                        <GridViewColumn Header="v" Width="28px">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentControl Content="{Binding}">
@@ -81,7 +78,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Index">
+                        <GridViewColumn Header="Index" Width="44px">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentControl Content="{Binding}">
@@ -95,7 +92,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="i1">
+                        <GridViewColumn Header="i1" Width="26px">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentControl Content="{Binding}">
@@ -109,7 +106,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="i2">
+                        <GridViewColumn Header="i2" Width="26px">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentControl Content="{Binding}">
@@ -132,6 +129,6 @@
         </ListView>
         <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply" HorizontalAlignment="Center"
                 Margin="0 6 0 0" Command="{Binding ApplyCommand}"
-                IsEnabled="{Binding IsApplying, Converter={StaticResource InverseBooleanConverter}}"/>
+                IsEnabled="{Binding IsApplying, Converter={StaticResource inverseBooleanConverter}}"/>
     </Grid>
 </Window>

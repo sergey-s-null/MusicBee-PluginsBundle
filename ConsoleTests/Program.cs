@@ -37,7 +37,7 @@ namespace ConsoleTests
             serviceCollection.AddAudioBypass();
 
             var api = new VkApi(serviceCollection);
-            // TODOH delete auth data
+            // TODOL delete auth data
             string login = "";
             string password = "";
 
