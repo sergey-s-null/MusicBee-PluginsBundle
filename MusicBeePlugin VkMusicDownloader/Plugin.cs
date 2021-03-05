@@ -11,7 +11,6 @@ using System.Windows;
 using VkMusicDownloader;
 using VkMusicDownloader.Ex;
 using VkMusicDownloader.GUI;
-using VkMusicDownloader.VkApi;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;
 
