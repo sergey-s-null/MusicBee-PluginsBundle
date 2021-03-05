@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,23 +9,23 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using VkMusicDownloader;
+using VkMusicDownloader.Ex;
 using VkMusicDownloader.GUI;
 using VkMusicDownloader.VkApi;
+using VkNet;
+using VkNet.AudioBypassService.Extensions;
 
 namespace MusicBeePlugin
 {
     public partial class Plugin
     {
-        // TODO template for 
-        // TODO encrypt cookies
         public static MusicBeeApiInterface MBApiInterface;
         public static Settings Settings;
         private static string _settingsDirName = "Laiser399_VkAudioDownloader";
-        private static string _cookiesFileName = "cookies.json";
         private static string _settingsFileName = "settings.json";
 
         private PluginInfo about = new PluginInfo();
-        private VkAudioApi _vkAudioApi;
+        private VkApi _vkApi;
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
@@ -60,12 +61,6 @@ namespace MusicBeePlugin
             about.ConfigurationPanelHeight = 0;
         }
 
-        private void InitVkApi()
-        {
-            string dataPath = MBApiInterface.Setting_GetPersistentStoragePath();
-            _vkAudioApi = new VkAudioApi(Settings.OwnerId, Path.Combine(dataPath, _settingsDirName, _cookiesFileName));
-        }
-
         private void CreateSettingsDirectory()
         {
             string dataPath = MBApiInterface.Setting_GetPersistentStoragePath();
@@ -81,18 +76,35 @@ namespace MusicBeePlugin
             Settings = new Settings(settingsFilePath);
         }
 
-        private void OpenDownloadDialog()
+        private void InitVkApi()
         {
-            if (!_vkAudioApi.IsAuthorized)
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddAudioBypass();
+            _vkApi = new VkApi(serviceCollection);
+        }
+
+        private async void OpenDownloadDialog()
+        {
+            if (!_vkApi.IsAuthorized)
             {
-                if (!_vkAudioApi.TryAuth(TryInputAuthData, TryInputCode))
+                string token = Settings.AccessToken;
+
+                if (!_vkApi.TryAuth(token))
                 {
-                    MessageBox.Show("Auth error.");
-                    return;
+                    if (await _vkApi.TryAuthAsync(TryInputAuthData, TryInputCode))
+                    {
+                        Settings.AccessToken = _vkApi.Token;
+                        Settings.Save();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Auth error.");
+                        return;
+                    }
                 }
             }
 
-            var downloadDialog = new MainWindow(_vkAudioApi);
+            var downloadDialog = new MainWindow() { VkApi = _vkApi };
             downloadDialog.ShowDialog();
         }
 
@@ -124,8 +136,12 @@ namespace MusicBeePlugin
         {
             string dataPath = MBApiInterface.Setting_GetPersistentStoragePath();
             string settingsDirPath = Path.Combine(dataPath, _settingsDirName);
-            if (Directory.Exists(settingsDirPath))
-                Directory.Delete(settingsDirPath, true);
+            try
+            {
+                if (Directory.Exists(settingsDirPath))
+                    Directory.Delete(settingsDirPath, true);
+            }
+            catch { }
         }
 
         public void ReceiveNotification(string sourceFileUrl, NotificationType type)
@@ -147,15 +163,15 @@ namespace MusicBeePlugin
         private static MetaDataType _index1Field = MetaDataType.Custom1;
         private static MetaDataType _index2Field = MetaDataType.Custom2;
 
-        public static bool TryGetVkId(string filePath, out string id)
+        public static bool TryGetVkId(string filePath, out long id)
         {
-            id = MBApiInterface.Library_GetFileTag(filePath, _vkIdField);
-            return id.Length != 0;
+            string idStr = MBApiInterface.Library_GetFileTag(filePath, _vkIdField);
+            return long.TryParse(idStr, out id);
         }
 
-        public static bool SetVkId(string filePath, string id, bool commit = true)
+        public static bool SetVkId(string filePath, long id, bool commit = true)
         {
-            bool res = MBApiInterface.Library_SetFileTag(filePath, _vkIdField, id);
+            bool res = MBApiInterface.Library_SetFileTag(filePath, _vkIdField, id.ToString());
             if (!res)
                 return false;
 

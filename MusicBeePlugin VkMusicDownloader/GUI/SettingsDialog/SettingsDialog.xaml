@@ -3,17 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:VkMusicDownloader.GUI.Converters"
         mc:Ignorable="d"
         Title="VK audio downloader settings" Width="600"
         SizeToContent="Height" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="6">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Header="Templates" 
+    <Window.Resources>
+        <conv:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
+    </Window.Resources>
+    
+    <StackPanel Margin="6">
+        <GroupBox Header="Templates" 
                   Padding="0 0 0 -3" Margin="0 0 0 6">
             <Grid>
                 <Grid.RowDefinitions>
@@ -28,10 +28,12 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Available tags:" HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           Foreground="Gray"/>
                 <TextBox Grid.Row="0" Grid.Column="1" Margin="0 3" IsReadOnly="True"
+                         Foreground="Gray"
                          Text="{Binding AvailableTags, Mode=OneWay}"/>
-                
+
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Download dir template:" HorizontalAlignment="Right"
                            VerticalAlignment="Center"/>
                 <Grid Grid.Row="1" Grid.Column="1" Margin="0 3 0 0">
@@ -45,30 +47,39 @@
                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
                 </Grid>
                 <TextBlock Grid.Row="2" Grid.Column="0" Text=">" HorizontalAlignment="Right"
+                           Foreground="Gray"
                            VerticalAlignment="Center"/>
                 <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Margin="0 0 0 3"
+                         Foreground="Gray"
                          Text="{Binding DownloadDirCheck, Mode=OneWay}"/>
-                
+
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="File name template:" HorizontalAlignment="Right"
                            VerticalAlignment="Center"/>
                 <TextBox Grid.Row="3" Grid.Column="2" Margin="0 3 0 0"
                          Text="{Binding FileNameTemplate, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Grid.Row="4" Grid.Column="0" Text=">" HorizontalAlignment="Right"
+                           Foreground="Gray"
                            VerticalAlignment="Center"/>
                 <TextBox Grid.Row="4" Grid.Column="2" Margin="0 0 0 3" IsReadOnly="True"
+                         Foreground="Gray"
                          Text="{Binding FileNameCheck, Mode=OneWay}"/>
             </Grid>
         </GroupBox>
-        <Grid Grid.Row="1" Margin="0 0 0 6">
+        <Grid Margin="0 0 0 6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Owner vk id:"/>
-            <TextBox Grid.Column="1" Width="140px" HorizontalAlignment="Left"
-                     Text="{Binding OwnerId}"/>
+            <TextBlock Grid.Column="0" Text="Access token:"/>
+            <TextBox Grid.Column="1"
+                     Text="{Binding AccessToken}"
+                     IsReadOnly="{Binding IsEditAccessToken, 
+                            Converter={StaticResource inverseBooleanConverter}}"/>
+            <ToggleButton Grid.Column="2" Content="Edit"
+                          IsChecked="{Binding IsEditAccessToken}"/>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -77,5 +88,5 @@
                     Click="Ok_Click"/>
             <Button Grid.Column="1" Content="Cancel" IsCancel="True"/>
         </Grid>
-    </Grid>
+    </StackPanel>
 </Window>

@@ -20,6 +20,7 @@ namespace VkMusicDownloader.VkApi
     public delegate bool CodeInputDelegate(out string code);
 
 
+    // TODO delete useless vk api
     public class VkAudioApi
     {
         private string _ownerId;
@@ -262,7 +263,6 @@ namespace VkMusicDownloader.VkApi
             });
 
             string text = response.ReadAllText();
-            // TODO after 160 data is empty
             JArray dataArray = JsonConvert.DeserializeObject<JToken>(text)["data"][0].ToObject<JArray>();
 
             List<VkMusicData> result = new List<VkMusicData>();

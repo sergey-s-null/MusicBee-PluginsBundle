@@ -6,9 +6,23 @@ using System.Threading.Tasks;
 
 namespace VkMusicDownloader.GUI
 {
-    public class VkAudioVM : BaseViewModel
+    public class VkAudioVM : BaseAudioVM
     {
         #region Bindings
+
+        /// <summary>
+        /// Последняя добавленная аудиозапись имеет 0 индекс.
+        /// </summary>
+        private int _insideIndex = - 1;
+        public int InsideIndex
+        {
+            get => _insideIndex;
+            set
+            {
+                _insideIndex = value;
+                NotifyPropChanged(nameof(InsideIndex));
+            }
+        }
 
         private bool _isSelected = false;
         public bool IsSelected
@@ -21,60 +35,31 @@ namespace VkMusicDownloader.GUI
             }
         }
 
-        private string _id = "";
-        public string Id
+        private string _url = "";
+        public string Url
         {
-            get => _id;
+            get => _url;
             set
             {
-                _id = value;
-                NotifyPropChanged(nameof(Id));
+                _url = value;
+                NotifyPropChanged(nameof(Url));
             }
         }
-
-        private string _artist = "";
-        public string Artist
-        {
-            get => _artist;
-            set
-            {
-                _artist = value;
-                NotifyPropChanged(nameof(Artist));
-            }
-        }
-
-        private string _title = "";
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                NotifyPropChanged(nameof(Title));
-            }
-        }
-
-        private int _duration = 0;
-        public int Duration
-        {
-            get => _duration;
-            set
-            {
-                _duration = value;
-                NotifyPropChanged(nameof(Duration), nameof(DurationString));
-            }
-        }
-        public string DurationString
-            => $"{_duration / 60}:" + (_duration % 60).ToString().PadLeft(2, '0');
 
         #endregion
 
-        public readonly string Url;
-
-        public VkAudioVM(string url)
+        public override int CompareTo(object obj)
         {
-            Url = url;
-        }
+            if (this == obj)
+                return 0;
+            if (obj is VkAudioVM other)
+                return other.InsideIndex.CompareTo(InsideIndex);
+            if (obj is MBAudioVM otherMB)
+                return 1;
+            if (obj is BaseAudioVM)
+                throw new NotImplementedException();
 
+            throw new NotSupportedException();
+        }
     }
 }

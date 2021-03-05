@@ -22,18 +22,19 @@ namespace VkMusicDownloader
             }
         }
 
-        private string _ownerId = "";
-        public string OwnerId
-        {
-            get => _ownerId;
-            set
-            {
-                if (value is null)
-                    return;
-                _ownerId = value;
-            }
-        }
+        //private string _ownerId = "";
+        //public string OwnerId
+        //{
+        //    get => _ownerId;
+        //    set
+        //    {
+        //        if (value is null)
+        //            return;
+        //        _ownerId = value;
+        //    }
+        //}
 
+       
         private string _fileNameTemplate;
         public string FileNameTemplate
         {
@@ -43,6 +44,18 @@ namespace VkMusicDownloader
                 if (value is null)
                     return;
                 _fileNameTemplate = value;
+            }
+        }
+
+        private string _accessToken = "";
+        public string AccessToken
+        {
+            get => _accessToken;
+            set
+            {
+                if (value is null)
+                    return;
+                _accessToken = value;
             }
         }
 
@@ -71,9 +84,9 @@ namespace VkMusicDownloader
                 return false;
 
             DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate));
-            OwnerId = rootObj.Value<string>(nameof(OwnerId));
             FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate));
-            
+            AccessToken = rootObj.Value<string>(nameof(AccessToken));
+
             return true;
         }
 
@@ -81,8 +94,8 @@ namespace VkMusicDownloader
         {
             JObject rootObj = new JObject();
             rootObj[nameof(DownloadDirTemplate)] = DownloadDirTemplate;
-            rootObj[nameof(OwnerId)] = OwnerId;
             rootObj[nameof(FileNameTemplate)] = FileNameTemplate;
+            rootObj[nameof(AccessToken)] = AccessToken;
 
             try
             {

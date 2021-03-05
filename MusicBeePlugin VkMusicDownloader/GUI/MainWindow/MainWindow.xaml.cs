@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,17 +19,32 @@ using VkMusicDownloader.VkApi;
 
 namespace VkMusicDownloader.GUI
 {
+    // TODO delete stack panel from xaml
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowVM _viewModel;
+        private IMainWindowVM _viewModel;
 
-        public MainWindow(VkAudioApi vkApi)
+        public VkNet.VkApi VkApi
+        {
+            get => _viewModel.VkApi;
+            set => _viewModel.VkApi = value;
+        }
+
+        public MainWindow()
         {
             InitializeComponent();
-            _viewModel = new MainWindowVM(vkApi);
+            _viewModel = new MainWindowVM();
+            DataContext = _viewModel;
+        }
+
+        public MainWindow(IMainWindowVM vm)
+        {
+            InitializeComponent();
+            _viewModel = vm;
             DataContext = _viewModel;
         }
 
@@ -44,6 +60,5 @@ namespace VkMusicDownloader.GUI
             
             base.OnClosing(e);
         }
-
     }
 }

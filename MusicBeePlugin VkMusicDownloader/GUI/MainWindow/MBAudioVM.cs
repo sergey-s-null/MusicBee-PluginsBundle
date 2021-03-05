@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VkMusicDownloader.GUI
 {
-    public class MBAudioVM : BaseViewModel
+    public class MBAudioVM : BaseAudioVM
     {
         #region Bindings
 
@@ -17,46 +17,27 @@ namespace VkMusicDownloader.GUI
             set
             {
                 _index = value;
-                NotifyPropChanged(nameof(Index), nameof(Index1Str), nameof(Index2Str));
+                NotifyPropChanged(nameof(Index));
             }
         }
 
         public string Index1Str => (Index / 20 + 1).ToString().PadLeft(2, '0');
         public string Index2Str => (Index % 20 + 1).ToString().PadLeft(2, '0');
 
-        private string _vkId = "";
-        public string VkId
-        {
-            get => _vkId;
-            set
-            {
-                _vkId = value;
-                NotifyPropChanged(nameof(VkId));
-            }
-        }
-
-        private string _artist = "";
-        public string Artist
-        {
-            get => _artist;
-            set
-            {
-                _artist = value;
-                NotifyPropChanged(nameof(Artist));
-            }
-        }
-
-        private string _title = "";
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                NotifyPropChanged(nameof(Title));
-            }
-        }
-
         #endregion
+
+        public override int CompareTo(object obj)
+        {
+            if (this == obj)
+                return 0;
+            if (obj is MBAudioVM other)
+                return Index.CompareTo(other.Index);
+            if (obj is VkAudioVM otherVk)
+                return -1;
+            if (obj is BaseAudioVM)
+                throw new NotImplementedException();
+
+            throw new NotSupportedException();
+        }
     }
 }

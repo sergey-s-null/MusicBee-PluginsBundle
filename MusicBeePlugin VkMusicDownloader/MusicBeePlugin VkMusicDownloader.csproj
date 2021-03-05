@@ -40,6 +40,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.1.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
@@ -58,9 +70,15 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.6\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -72,6 +90,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="VkNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VkNet.1.55.0\lib\net461\VkNet.dll</HintPath>
+    </Reference>
+    <Reference Include="VkNet.AudioBypassService, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VkNet.AudioBypassService.1.7.0\lib\net461\VkNet.AudioBypassService.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -80,11 +104,18 @@
     <Compile Include="Ex\CookieContainerEx.cs" />
     <Compile Include="Ex\DirectoryEx.cs" />
     <Compile Include="Ex\FileEx.cs" />
+    <Compile Include="Ex\IAudioCategoryEx.cs" />
+    <Compile Include="Ex\IVkApiEx.cs" />
     <Compile Include="Ex\WebResponseEx.cs" />
     <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">
       <DependentUpon>AuthDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\AuthDialog\AuthDialogVM.cs" />
+    <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
+    <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
+    <Compile Include="GUI\MainWindow\IMainWindowVM.cs" />
+    <Compile Include="GUI\MainWindow\MBAudioVM.cs" />
+    <Compile Include="GUI\MainWindow\VkAudioVM.cs" />
     <Compile Include="Web\CookieConvert.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
     <Compile Include="GUI\Converters\InverseBooleanConverter.cs" />
@@ -92,9 +123,8 @@
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\InputDialog\InputDialogVM.cs" />
-    <Compile Include="GUI\MainWindow\AudioVM.cs" />
+    <Compile Include="GUI\MainWindow\BaseAudioVM.cs" />
     <Compile Include="GUI\MainWindow\MainWindowVM.cs" />
-    <Compile Include="GUI\MainWindow\MBAudioVM.cs" />
     <Compile Include="GUI\RelayCommand.cs" />
     <Compile Include="GUI\SettingsDialog\SettingsDialog.xaml.cs">
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
@@ -109,7 +139,6 @@
     <Compile Include="TagReplacer.cs" />
     <Compile Include="VkApi\FirstVkMusicData.cs" />
     <Compile Include="VkApi\VkAudioApi.cs" />
-    <Compile Include="GUI\MainWindow\VkAudioVM.cs" />
     <Compile Include="VkApi\VkMusicData.cs" />
     <Compile Include="Web\WebSession.cs" />
     <Page Include="GUI\AuthDialog\AuthDialog.xaml">

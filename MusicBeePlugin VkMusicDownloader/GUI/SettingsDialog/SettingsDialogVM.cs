@@ -70,14 +70,25 @@ namespace VkMusicDownloader.GUI
             }
         }
 
-        private string _ownerId = Plugin.Settings.OwnerId;
-        public string OwnerId
+        private string _accessToken = Plugin.Settings.AccessToken;
+        public string AccessToken
         {
-            get => _ownerId;
+            get => _accessToken;
             set
             {
-                _ownerId = value;
-                NotifyPropChanged(nameof(OwnerId));
+                _accessToken = value;
+                NotifyPropChanged(nameof(AccessToken));
+            }
+        }
+
+        private bool _isEditAccessToken = false;
+        public bool IsEditAccessToken
+        {
+            get => _isEditAccessToken;
+            set
+            {
+                _isEditAccessToken = value;
+                NotifyPropChanged(nameof(IsEditAccessToken));
             }
         }
 
@@ -113,7 +124,7 @@ namespace VkMusicDownloader.GUI
         public bool SaveChanges()
         {
             Plugin.Settings.DownloadDirTemplate = DownloadDirTemplate;
-            Plugin.Settings.OwnerId = OwnerId;
+            Plugin.Settings.AccessToken = AccessToken;
             Plugin.Settings.FileNameTemplate = FileNameTemplate;
             if (!Plugin.Settings.Save())
             {
