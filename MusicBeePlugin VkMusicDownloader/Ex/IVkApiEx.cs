@@ -71,11 +71,11 @@ namespace VkMusicDownloader.Ex
         }
 
         // static without this
-        private static Regex _regex = new Regex(@"/[a-zA-Z\d]{6,}(/.*?[a-zA-Z\d]+?)/index.m3u8()");
+        private static Regex _regex = new Regex(@"/[0-9a-f]+(/audios)?/([0-9a-f]+)/index.m3u8");
 
         public static bool ConvertToMp3(string m3u8Url, out string mp3Url)
         {
-            mp3Url = _regex.Replace(m3u8Url, @"$1$2.mp3");
+            mp3Url = _regex.Replace(m3u8Url, @"$1/$2.mp3");
             return mp3Url.IndexOf("m3u8", StringComparison.OrdinalIgnoreCase) == -1;
         }
     }

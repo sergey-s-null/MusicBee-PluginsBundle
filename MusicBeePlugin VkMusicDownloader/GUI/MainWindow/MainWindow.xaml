@@ -98,7 +98,7 @@
                                     <ContentControl Content="{Binding}">
                                         <ContentControl.Resources>
                                             <DataTemplate DataType="{x:Type gui:MBAudioVM}">
-                                                <TextBlock Text="{Binding Index2Str, Mode=OneWay}"/>
+                                                <TextBlock Text="{Binding Index1Str, Mode=OneWay}"/>
                                             </DataTemplate>
                                             <DataTemplate DataType="{x:Type gui:VkAudioVM}"/>
                                         </ContentControl.Resources>
@@ -112,7 +112,7 @@
                                     <ContentControl Content="{Binding}">
                                         <ContentControl.Resources>
                                             <DataTemplate DataType="{x:Type gui:MBAudioVM}">
-                                                <TextBlock Text="{Binding Index1Str, Mode=OneWay}"/>
+                                                <TextBlock Text="{Binding Index2Str, Mode=OneWay}"/>
                                             </DataTemplate>
                                             <DataTemplate DataType="{x:Type gui:VkAudioVM}"/>
                                         </ContentControl.Resources>

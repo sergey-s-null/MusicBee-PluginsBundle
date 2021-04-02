@@ -22,7 +22,8 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-            string tokenFilePath = @"C:\Users\Sergey\Desktop\vk_aga\token.txt";
+            // TODOL delete file
+            string tokenFilePath = @"tm_token.txt";
             string token;
             try
             {
