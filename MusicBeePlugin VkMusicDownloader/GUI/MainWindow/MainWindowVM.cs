@@ -84,8 +84,8 @@ namespace VkMusicDownloader.GUI
 
         #endregion
 
-        private VkNet.VkApi _vkApi = null;
-        public VkNet.VkApi VkApi
+        private VkApi _vkApi = null;
+        public VkApi VkApi
         {
             get => _vkApi;
             set => _vkApi = value;
@@ -99,7 +99,7 @@ namespace VkMusicDownloader.GUI
 
             Audios.Clear();
 
-            AddLastMBAudios(out long lastVkId);
+            MBAudioVM[] mbAudios = GetLastMBAudios(out long lastVkId);// TODO add
 
             if (lastVkId == -1)
             {
@@ -107,25 +107,29 @@ namespace VkMusicDownloader.GUI
                 return;
             }
 
-            await AddVkAudios(lastVkId);
+            List<VkAudioVM> vkAudios = await GetVkAudios(lastVkId);
+            
+            Audios.AddRange(mbAudios);
+            Audios.AddRange(vkAudios);
 
             IsRefreshing = false;
         }
 
-        private void AddLastMBAudios(out long lastVkId, int count = 20)
+        private MBAudioVM[] GetLastMBAudios(out long lastVkId, int count = 20)
         {
             if (!Plugin.MBApiInterface.Library_QueryFilesEx("", out string[] paths))
             {
                 lastVkId = -1;
-                return;
+                return Array.Empty<MBAudioVM>();
             }
 
+            // path -> (index, VkId, path)
             var list = paths.Select(path =>
             {
                 if (!Plugin.TryGetIndex(path, out int index))
                     return null;
                 if (!Plugin.TryGetVkId(path, out long vkId))
-                    return null;
+                    vkId = -1;
 
                 return new
                 {
@@ -142,26 +146,38 @@ namespace VkMusicDownloader.GUI
             if (list.Count > count)
                 list.RemoveRange(count, list.Count - count);
 
-            lastVkId = list.Count > 0 ? list[0].VkId : -1;
-
+            lastVkId = -1;
             foreach (var item in list)
             {
-                Audios.Add(new MBAudioVM()
+                if (item.VkId != -1)
                 {
-                    Artist = Plugin.MBApiInterface.Library_GetFileTag(item.Path, Plugin.MetaDataType.Artist),
-                    Title = Plugin.MBApiInterface.Library_GetFileTag(item.Path, Plugin.MetaDataType.TrackTitle),
-                    Index = item.Index,
-                    VkId = item.VkId
-                });
+                    lastVkId = item.VkId;
+                    break;
+                }
             }
+
+            MBAudioVM[] result = new MBAudioVM[list.Count];
+            for (int i = 0; i < list.Count; i++)
+            {
+                result[i] = new MBAudioVM()
+                {
+                    Artist = Plugin.MBApiInterface.Library_GetFileTag(list[i].Path, Plugin.MetaDataType.Artist),
+                    Title = Plugin.MBApiInterface.Library_GetFileTag(list[i].Path, Plugin.MetaDataType.TrackTitle),
+                    Index = list[i].Index,
+                    VkId = list[i].VkId
+                };
+            }
+            return result;
         }
 
-        private async Task AddVkAudios(long lastVkId, int maxDepth = 50)
+        private async Task<List<VkAudioVM>> GetVkAudios(long lastVkId, int maxDepth = 50)
         {
+            List<VkAudioVM> result = new List<VkAudioVM>();
+
             if (VkApi is null)
             {
                 MessageBox.Show("VkApi is null. Something went wrong(");
-                return;
+                return result;
             }
 
             int insideIndex = 0;
@@ -179,7 +195,7 @@ namespace VkMusicDownloader.GUI
                 }
 
                 bool convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
-                Audios.Add(new VkAudioVM()
+                result.Add(new VkAudioVM()
                 {
                     IsSelected = true,
                     Artist = audio.Artist,
@@ -190,6 +206,7 @@ namespace VkMusicDownloader.GUI
                     VkId = (long)audio.Id
                 });
             }
+            return result;
         }
 
         private void ApplyCheckStateToSelected(VkAudioVM triggered, IEnumerable<VkAudioVM> selected)

@@ -101,6 +101,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ex\CollectionEx.cs" />
     <Compile Include="Ex\CookieContainerEx.cs" />
     <Compile Include="Ex\DirectoryEx.cs" />
     <Compile Include="Ex\FileEx.cs" />
