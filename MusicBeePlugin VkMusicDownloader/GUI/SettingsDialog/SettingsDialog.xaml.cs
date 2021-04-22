@@ -33,15 +33,5 @@ namespace VkMusicDownloader.GUI
             if (_viewModel.SaveChanges())
                 DialogResult = true;
         }
-
-        private void Dots_Click(object sender, RoutedEventArgs e)
-        {
-            using (var dialog = new CommonOpenFileDialog())
-            {
-                dialog.IsFolderPicker = true;
-                if (dialog.ShowDialog(this) == CommonFileDialogResult.Ok)
-                    Console.WriteLine(dialog.FileName);
-            }
-        }
     }
 }
