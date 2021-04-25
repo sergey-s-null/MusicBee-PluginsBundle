@@ -50,6 +50,8 @@ namespace VkMusicDownloader.GUI
             Plugin.SetIndex(incomingAudio.FilePath, currentIndex, false);
             Plugin.SetIndex1(incomingAudio.FilePath, i1, false);
             Plugin.SetIndex2(incomingAudio.FilePath, i2, false);
+            Plugin.MBApiInterface.Library_SetFileTag(incomingAudio.FilePath, Plugin.MetaDataType.Artist, incomingAudio.Artist);
+            Plugin.MBApiInterface.Library_SetFileTag(incomingAudio.FilePath, Plugin.MetaDataType.TrackTitle, incomingAudio.Title);
             Plugin.MBApiInterface.Library_CommitTagsToFile(incomingAudio.FilePath);
 
             Refresh();
