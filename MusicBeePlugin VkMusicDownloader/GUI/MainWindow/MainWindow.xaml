@@ -7,128 +7,34 @@
         xmlns:gui="clr-namespace:VkMusicDownloader.GUI"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="Download VK audio to MusicBee library" Height="450" Width="700"
+        Title="Add music from VK or MBIncoming to the MBLibrary" Height="450" Width="700"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <conv:DefaultMultiValueConverter x:Key="defaultMultiValueConverter"/>
-        <conv:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
-        <conv:TrueToHiddenConverter x:Key="trueToHiddenConverter"/>
-        <conv:EqualsTypesConverter x:Key="equalsTypesConverter"/>
-        <conv:IsCorraptedUrlConverter x:Key="isCorraptedUrlConverter"/>
+        <ResourceDictionary>
 
-        <CollectionViewSource x:Key="sortedAudios" Source="{Binding Audios}">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="" Direction="Descending"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="AddingVk/AddingVk.xaml"/>
+                <ResourceDictionary Source="AddingIncoming/AddingIncoming.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="6">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="Refresh"
-                HorizontalAlignment="Right"
-                Command="{Binding RefreshCmd}"
-                IsEnabled="{Binding IsRefreshing, 
-                        Converter={StaticResource inverseBooleanConverter}}"/>
-        <ListView Grid.Row="1"
-                  ItemsSource="{Binding Source={StaticResource sortedAudios}}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ., Converter={StaticResource equalsTypesConverter},
-                                        ConverterParameter={x:Type gui:MBAudioVM}}"
-                                     Value="True">
-                            <Setter Property="Background" Value="{x:Null}"/>
-                            <Setter Property="BorderBrush" Value="{x:Null}"/>
-                            <Setter Property="Focusable" Value="False"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ., Converter={StaticResource isCorraptedUrlConverter}}" Value="True">
-                            <Setter Property="Background" Value="#ffd4cc"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridView.Columns>
-                        <GridViewColumn Header="v" Width="28px">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Resources>
-                                            <DataTemplate DataType="{x:Type gui:VkAudioVM}">
-                                                <CheckBox IsChecked="{Binding IsSelected}"
-                                                          Command="{Binding DataContext.ApplyCheckStateToSelectedCmd,
-                                                                RelativeSource={RelativeSource AncestorType=gui:MainWindow}}">
-                                                    <CheckBox.CommandParameter>
-                                                        <MultiBinding Converter="{StaticResource defaultMultiValueConverter}">
-                                                            <Binding/>
-                                                            <Binding RelativeSource="{RelativeSource AncestorType=ListView}"
-                                                                     Path="SelectedItems"/>
-                                                        </MultiBinding>
-                                                    </CheckBox.CommandParameter>
-                                                </CheckBox>
-                                            </DataTemplate>
-                                            <DataTemplate DataType="{x:Type gui:MBAudioVM}"/>
-                                        </ContentControl.Resources>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Index" Width="44px">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Resources>
-                                            <DataTemplate DataType="{x:Type gui:MBAudioVM}">
-                                                <TextBlock Text="{Binding Index, Mode=OneWay}"/>
-                                            </DataTemplate>
-                                            <DataTemplate DataType="{x:Type gui:VkAudioVM}"/>
-                                        </ContentControl.Resources>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="i1" Width="26px">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Resources>
-                                            <DataTemplate DataType="{x:Type gui:MBAudioVM}">
-                                                <TextBlock Text="{Binding Index1Str, Mode=OneWay}"/>
-                                            </DataTemplate>
-                                            <DataTemplate DataType="{x:Type gui:VkAudioVM}"/>
-                                        </ContentControl.Resources>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="i2" Width="26px">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Resources>
-                                            <DataTemplate DataType="{x:Type gui:MBAudioVM}">
-                                                <TextBlock Text="{Binding Index2Str, Mode=OneWay}"/>
-                                            </DataTemplate>
-                                            <DataTemplate DataType="{x:Type gui:VkAudioVM}"/>
-                                        </ContentControl.Resources>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Vk ID" DisplayMemberBinding="{Binding VkId}"/>
-                        <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}"/>
-                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
-                    </GridView.Columns>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply" HorizontalAlignment="Center"
-                Margin="0 6 0 0" Command="{Binding ApplyCommand}"
-                IsEnabled="{Binding IsApplying, Converter={StaticResource inverseBooleanConverter}}"/>
+
+    <Grid>
+        <TabControl x:Name="tabControl">
+            <TabItem Header="From VK" IsSelected="True">
+                <ContentControl Content="{Binding AddingVkVM}"/>
+            </TabItem>
+
+            <TabItem Header="From Incoming">
+                <ContentControl Content="{Binding AddingIncomingVM}"/>
+            </TabItem>
+        </TabControl>
+
+        <Button Content="Refresh" 
+                Margin="0 1 3 0"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Command="{Binding ElementName=tabControl, Path=SelectedContent.Content.RefreshCmd}"/>
     </Grid>
+    
+
 </Window>

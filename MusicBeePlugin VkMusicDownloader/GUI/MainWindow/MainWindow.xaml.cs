@@ -23,12 +23,12 @@ namespace VkMusicDownloader.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IMainWindowVM _viewModel;
+        private MainWindowVM _viewModel;
 
         public VkNet.VkApi VkApi
         {
-            get => _viewModel.VkApi;
-            set => _viewModel.VkApi = value;
+            get => _viewModel.AddingVkVM.VkApi;
+            set => _viewModel.AddingVkVM.VkApi = value;
         }
 
         public MainWindow()
@@ -38,23 +38,16 @@ namespace VkMusicDownloader.GUI
             DataContext = _viewModel;
         }
 
-        public MainWindow(IMainWindowVM vm)
-        {
-            InitializeComponent();
-            _viewModel = vm;
-            DataContext = _viewModel;
-        }
-
         protected override void OnContentRendered(EventArgs e)
         {
-            if (!_viewModel.IsRefreshing)
-                _viewModel.RefreshCmd.Execute(null);
+            if (!_viewModel.AddingVkVM.IsRefreshing)
+                _viewModel.AddingVkVM.RefreshCmd.Execute(null);
             base.OnContentRendered(e);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (_viewModel.IsApplying)
+            if (_viewModel.AddingVkVM.IsApplying)
             {
                 if (MessageBox.Show("Downloading in process. Are you sure to close window?", "!!!", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 {

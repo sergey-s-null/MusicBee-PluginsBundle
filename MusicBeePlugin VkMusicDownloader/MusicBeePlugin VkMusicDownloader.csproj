@@ -40,6 +40,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -115,7 +118,9 @@
     <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
     <Compile Include="GUI\Converters\IsCorraptedUrlConverter.cs" />
     <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
-    <Compile Include="GUI\MainWindow\IMainWindowVM.cs" />
+    <Compile Include="GUI\MainWindow\AddingIncoming\AddingIncomingVM.cs" />
+    <Compile Include="GUI\MainWindow\AddingIncoming\IncomingAudioVM.cs" />
+    <Compile Include="GUI\MainWindow\AddingVk\AddingVkVM.cs" />
     <Compile Include="GUI\MainWindow\MBAudioVM.cs" />
     <Compile Include="GUI\MainWindow\VkAudioVM.cs" />
     <Compile Include="IAsyncEnumerable.cs" />
@@ -147,6 +152,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\InputDialog\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\MainWindow\AddingIncoming\AddingIncoming.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\MainWindow\AddingVk\AddingVk.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
