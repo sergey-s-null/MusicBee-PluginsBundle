@@ -21,19 +21,6 @@ namespace VkMusicDownloader
                 _downloadDirectory = value;
             }
         }
-
-        //private string _ownerId = "";
-        //public string OwnerId
-        //{
-        //    get => _ownerId;
-        //    set
-        //    {
-        //        if (value is null)
-        //            return;
-        //        _ownerId = value;
-        //    }
-        //}
-
        
         private string _fileNameTemplate;
         public string FileNameTemplate

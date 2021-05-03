@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using VkMusicDownloader.Abstractions;
 using VkMusicDownloader.Ex;
 using VkNet;
 using VkNet.Model.Attachments;

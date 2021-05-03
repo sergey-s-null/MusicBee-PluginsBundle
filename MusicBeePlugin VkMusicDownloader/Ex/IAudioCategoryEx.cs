@@ -7,6 +7,7 @@ using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 using VkNet.Utils;
 using VkNet.Model.RequestParams;
+using VkMusicDownloader.Abstractions;
 
 namespace VkMusicDownloader.Ex
 {

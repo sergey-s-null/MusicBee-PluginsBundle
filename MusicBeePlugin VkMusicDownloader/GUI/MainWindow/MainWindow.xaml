@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:VkMusicDownloader.GUI.Converters"
-        xmlns:gui="clr-namespace:VkMusicDownloader.GUI"
-        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="Add music from VK or MBIncoming to the MBLibrary" Height="450" Width="700"
         WindowStartupLocation="CenterScreen">

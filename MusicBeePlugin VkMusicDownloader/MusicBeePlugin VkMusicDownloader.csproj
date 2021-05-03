@@ -123,9 +123,8 @@
     <Compile Include="GUI\MainWindow\AddingVk\AddingVkVM.cs" />
     <Compile Include="GUI\MainWindow\MBAudioVM.cs" />
     <Compile Include="GUI\MainWindow\VkAudioVM.cs" />
-    <Compile Include="IAsyncEnumerable.cs" />
-    <Compile Include="IAsyncEnumerator.cs" />
-    <Compile Include="Web\CookieConvert.cs" />
+    <Compile Include="Abstractions\IAsyncEnumerable.cs" />
+    <Compile Include="Abstractions\IAsyncEnumerator.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
     <Compile Include="GUI\Converters\InverseBooleanConverter.cs" />
     <Compile Include="GUI\InputDialog\InputDialog.xaml.cs">
@@ -139,14 +138,13 @@
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SettingsDialog\SettingsDialogVM.cs" />
-    <Compile Include="MBTagReplacer.cs" />
+    <Compile Include="TagReplacer\MBTagReplacer.cs" />
     <Compile Include="MusicBeeInterface.cs" />
     <Compile Include="Ex\PathEx.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Ex\StringEx.cs" />
-    <Compile Include="TagReplacer.cs" />
-    <Compile Include="Web\WebSession.cs" />
+    <Compile Include="TagReplacer\TagReplacer.cs" />
     <Page Include="GUI\AuthDialog\AuthDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -203,9 +201,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Windows Logo.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
