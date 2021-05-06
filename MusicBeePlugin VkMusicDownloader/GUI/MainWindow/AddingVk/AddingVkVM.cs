@@ -230,47 +230,10 @@ namespace VkMusicDownloader.GUI
 
             int lastIndex = (Audios.First(audio => audio is MBAudioVM) as MBAudioVM).Index;
 
-            var items = Audios
-                .Where(audio => audio is VkAudioVM vkAudio && vkAudio.IsSelected)
-                .Select(audio => (VkAudioVM)audio)
-                .Reverse()
-                .Select((vm, i) =>
-                {
-                    int index = lastIndex + i + 1;
-                    Plugin.CalcIndices(index, out int i1, out int i2);
-                    string i1Str = i1.ToString().PadLeft(2, '0');
-                    string i2Str = i2.ToString().PadLeft(2, '0');
+            SomeItem[] items = MakeSomeItems();
 
-                    // TODOL add INDEX to tag replacer
-                    _tagReplacer.SetValues(i1Str, i2Str, vm.Artist, vm.Title);
-                    string downloadDir = _tagReplacer.Prepare(downloadDirTemplate);
-                    downloadDir = PathEx.RemoveInvalidDirChars(downloadDir);
-
-                    string fileName = _tagReplacer.Prepare(Plugin.Settings.FileNameTemplate) + ".mp3";
-                    fileName = PathEx.RemoveInvalidFileNameChars(fileName);
-
-                    return new
-                    {
-                        VM = vm,
-                        Index = index,
-                        WebClient = new WebClient(),
-                        FilePath = Path.Combine(downloadDir, fileName)
-                    };
-                })
-                .ToArray();
-
-            List<Task> downloadTasks = new List<Task>();
-            foreach (var item in items)
-            {
-                string dirName = new FileInfo(item.FilePath).DirectoryName;
-                if (!DirectoryEx.TryCreateDirectory(dirName))
-                {
-                    MessageBox.Show($"Error create directory: {dirName}.");
-                    return;
-                }
-
-                downloadTasks.Add(item.WebClient.DownloadFileTaskAsync(item.VM.Url, item.FilePath));
-            }
+            if (!TryMakeDownloadTasks(items, out Task[] downloadTasks))
+                return;
 
             // wait for downloading has done
             try
@@ -279,28 +242,8 @@ namespace VkMusicDownloader.GUI
             }
             catch (Exception e)
             {
-                List<string> notDeleted = new List<string>();
-                foreach (var item in items)
-                {
-                    if (File.Exists(item.FilePath))
-                        if (!FileEx.TryDelete(item.FilePath))
-                            notDeleted.Add(item.FilePath);
-                }
-
-                if (notDeleted.Count > 0)
-                {
-                    string message = "Error downloading files. These files was not deleted:";
-                    message += notDeleted.Aggregate((a, b) => $"\n{a}\n{b}");
-                    MessageBox.Show(message);
-                }
-                else
-                    MessageBox.Show($"Error downloading file: {e.Message}.");
+                HandleDownloadError(e.Message);
                 return;
-            }
-            finally
-            {
-                foreach (var item in items)
-                    item.WebClient.Dispose();
             }
 
             foreach (var item in items)
@@ -318,6 +261,90 @@ namespace VkMusicDownloader.GUI
 
             Refresh();
 
+            #region Subfunctions
+
+            SomeItem[] MakeSomeItems()
+            {
+                return Audios
+                    .Where(audio => audio is VkAudioVM vkAudio && vkAudio.IsSelected)
+                    .Select(audio => (VkAudioVM)audio)
+                    .Reverse()
+                    .Select((vm, i) =>
+                    {
+                        int index = lastIndex + i + 1;
+                        Plugin.CalcIndices(index, out int i1, out int i2);
+                        string i1Str = i1.ToString().PadLeft(2, '0');
+                        string i2Str = i2.ToString().PadLeft(2, '0');
+
+                        // TODOL add INDEX to tag replacer
+                        _tagReplacer.SetValues(i1Str, i2Str, vm.Artist, vm.Title);
+                        string downloadDir = _tagReplacer.Prepare(downloadDirTemplate);
+                        downloadDir = PathEx.RemoveInvalidDirChars(downloadDir);
+
+                        string fileName = _tagReplacer.Prepare(Plugin.Settings.FileNameTemplate) + ".mp3";
+                        fileName = PathEx.RemoveInvalidFileNameChars(fileName);
+
+                        return new SomeItem(vm, index, Path.Combine(downloadDir, fileName));
+                    })
+                    .ToArray();
+            }
+
+            bool TryMakeDownloadTasks(SomeItem[] items, out Task[] downloadTasks)
+            {
+                downloadTasks = new Task[items.Length];
+                for (int i = 0; i < downloadTasks.Length; i++)
+                {
+                    string dirName = new FileInfo(items[i].FilePath).DirectoryName;
+                    if (!DirectoryEx.TryCreateDirectory(dirName))
+                    {
+                        MessageBox.Show($"Error create directory: {dirName}.");
+                        return false;
+                    }
+
+                    downloadTasks[i] = WebVk.DownloadAudioAsync(items[i].VM.Url, items[i].FilePath);
+                }
+                return true;
+            }
+
+            void HandleDownloadError(string message)
+            {
+                List<string> notDeleted = new List<string>();
+                foreach (var item in items)
+                {
+                    if (File.Exists(item.FilePath))
+                        if (!FileEx.TryDelete(item.FilePath))
+                            notDeleted.Add(item.FilePath);
+                }
+
+                if (notDeleted.Count > 0)
+                {
+                    string dialogMessage = "Error downloading files. These files was not deleted:";
+                    dialogMessage += notDeleted.Aggregate((a, b) => $"\n{a}\n{b}");
+                    MessageBox.Show(dialogMessage);
+                }
+                else
+                    MessageBox.Show($"Error downloading file: {message}.");
+            }
+
+            #endregion
         }
+
+        #region SubClasses
+
+        private class SomeItem
+        {
+            public VkAudioVM VM { get; private set; }
+            public int Index { get; private set; }
+            public string FilePath { get; private set; }
+
+            public SomeItem(VkAudioVM vm, int index, string filePath)
+            {
+                VM = vm;
+                Index = index;
+                FilePath = filePath;
+            }
+        }
+
+        #endregion
     }
 }

@@ -28,11 +28,14 @@ namespace ConsoleTests
         private static string _baseUrlFilePath = Path.GetFullPath(@"../../delete_this/baseUrl.txt");
         private static string _m3u8ConvertedFilePath = Path.GetFullPath(@"../../delete_this/converted.m3u8");
         private static string _resultFilePath = Path.GetFullPath(@"../../delete_this/result.ts");
+        private static string _encodedFilePath = Path.GetFullPath(@"../../delete_this/encoded.mp3");
+        // from console
+        private static string _compare1FilePath = Path.GetFullPath(@"../../delete_this/to_compare1.mp3");
+        // from vk
+        private static string _compare2FilePath = Path.GetFullPath(@"../../delete_this/to_compare2.mp3");
 
         static void Main(string[] args)
         {
-            Part4();
-
 
 
             Console.WriteLine();
@@ -40,6 +43,7 @@ namespace ConsoleTests
             Console.ReadKey();
         }
 
+        // download m3u8 and baseUrl
         private static void Part1()
         {
             var serviceCollection = new ServiceCollection();
@@ -64,8 +68,8 @@ namespace ConsoleTests
             api.Authorize(authParams);
             TrySaveToken(api.Token);
 
-            // TODO change indices
-            var audio = api.Audio.Get(new AudioGetParams() { Offset = 0, Count = 1 })[0];
+            // TODOL change indices
+            var audio = api.Audio.Get(new AudioGetParams() { Offset = 1, Count = 1 })[0];
 
             using (WebClient webClient = new WebClient())
             {
@@ -77,96 +81,6 @@ namespace ConsoleTests
             Match match = regex.Match(audio.Url.AbsoluteUri);
             string baseUrl = match.Groups[1].Value;
             File.WriteAllText(_baseUrlFilePath, baseUrl);
-        }
-
-        private static void Part2()
-        {
-            string baseUrl = File.ReadAllText(_baseUrlFilePath);
-
-            string[] lines = File.ReadLines(_m3u8FilePath).ToArray();
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (lines[i][0] != '#')
-                {
-                    lines[i] = baseUrl + lines[i];
-                }
-            }
-
-            File.WriteAllLines(_m3u8ConvertedFilePath, lines);
-        }
-
-        private static void Part3ffmpeg()
-        {
-            Process process = new Process();
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.FileName = "ffmpeg";
-            process.StartInfo.Arguments = $"-protocol_whitelist \"file,http,https,tcp,tls,crypto\" " +
-                $"-i \"{_m3u8ConvertedFilePath}\" " +
-                $"-c copy \"{_resultFilePath}\"";
-
-            process.Start();
-            process.WaitForExit();
-        }
-
-        private static void Part4()
-        {
-            string[] lines = File.ReadAllLines(_m3u8ConvertedFilePath);
-            Regex regex = new Regex("^#EXT-X-KEY:METHOD=(AES-128|NONE)(,URI=\"(.*)\")?");
-
-            using (FileStream stream = File.OpenWrite(_resultFilePath))
-            {
-                string method = "";
-                string keyUrl = "";
-                foreach (string line in lines)
-                {
-                    if (line.Length == 0)
-                        continue;
-                    if (line[0] == '#')
-                    {
-                        Match match = regex.Match(line);
-                        if (match.Success)
-                        {
-                            method = match.Groups[1].Value;
-                            keyUrl = match.Groups[3].Value;
-                        }
-                    }
-                    else
-                    {
-                        byte[] data;
-                        using (WebClient webClient = new WebClient())
-                        {
-                            data = webClient.DownloadData(line);
-                        }
-
-                        if (method.Equals("NONE"))
-                        {
-                            stream.Write(data, 0, data.Length);
-                        }
-                        else if (method.Equals("AES-128"))
-                        {
-                            byte[] keyData;
-                            using (WebClient webClient = new WebClient())
-                            {
-                                keyData = webClient.DownloadData(keyUrl);
-                            }
-
-                            Aes aes = Aes.Create();
-                            aes.Key = keyData;
-                            aes.IV = new byte[keyData.Length];
-                            using (CryptoStream crStream = new CryptoStream(new MemoryStream(data), 
-                                aes.CreateDecryptor(), CryptoStreamMode.Read))
-                            {
-                                crStream.CopyTo(stream);
-                            }
-                            
-                        }
-                        else
-                        {
-                            Console.WriteLine("Warning! Unknown method!");
-                        }
-                    }
-                }
-            }
         }
 
         private static bool TryLoadToken(out string token)
