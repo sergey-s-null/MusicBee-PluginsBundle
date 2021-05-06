@@ -23,6 +23,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            
             <ListView Grid.Row="0"
                       ItemsSource="{Binding Source={StaticResource sortedAudios}}">
                 <ListView.ItemContainerStyle>
@@ -44,7 +45,8 @@
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
-                            <GridViewColumn Header="v" Width="28px">
+                            <GridViewColumn Header="v" 
+                                            Width="{Binding ElementName=fieldColumn0, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <ContentControl Content="{Binding}">
@@ -68,7 +70,8 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Index" Width="44px">
+                            <GridViewColumn Header="Index" 
+                                            Width="{Binding ElementName=fieldColumn1, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <ContentControl Content="{Binding}">
@@ -82,7 +85,8 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="i1" Width="26px">
+                            <GridViewColumn Header="i1"
+                                            Width="{Binding ElementName=fieldColumn2, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <ContentControl Content="{Binding}">
@@ -96,7 +100,8 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="i2" Width="26px">
+                            <GridViewColumn Header="i2" 
+                                            Width="{Binding ElementName=fieldColumn3, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <ContentControl Content="{Binding}">
@@ -110,13 +115,38 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Vk ID" DisplayMemberBinding="{Binding VkId}"/>
-                            <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}"/>
-                            <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
+                            <GridViewColumn Header="Vk ID" 
+                                            Width="{Binding ElementName=fieldColumn4, Path=ActualWidth}"
+                                            DisplayMemberBinding="{Binding VkId}"/>
+                            <GridViewColumn Header="Artist" 
+                                            Width="{Binding ElementName=fieldColumn5, Path=ActualWidth}"
+                                            DisplayMemberBinding="{Binding Artist}"/>
+                            <GridViewColumn Header="Title" 
+                                            Width="{Binding ElementName=fieldColumn6, Path=ActualWidth}"
+                                            DisplayMemberBinding="{Binding Title}"/>
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>
             </ListView>
+            <Grid Margin="0 0 30 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="28px"/>
+                    <ColumnDefinition Width="44px"/>
+                    <ColumnDefinition Width="26px"/>
+                    <ColumnDefinition Width="26px"/>
+                    <ColumnDefinition Width="76px"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" x:Name="fieldColumn0"/>
+                <Grid Grid.Column="1" x:Name="fieldColumn1"/>
+                <Grid Grid.Column="2" x:Name="fieldColumn2"/>
+                <Grid Grid.Column="3" x:Name="fieldColumn3"/>
+                <Grid Grid.Column="4" x:Name="fieldColumn4"/>
+                <Grid Grid.Column="5" x:Name="fieldColumn5"/>
+                <Grid Grid.Column="6" x:Name="fieldColumn6"/>
+            </Grid>
+            
             <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply" HorizontalAlignment="Center"
                     Margin="0 6 0 0" Command="{Binding ApplyCommand}"
                     IsEnabled="{Binding IsApplying, Converter={StaticResource inverseBooleanConverter}}"/>
