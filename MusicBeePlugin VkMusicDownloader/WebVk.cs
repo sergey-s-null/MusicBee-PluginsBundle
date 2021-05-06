@@ -45,7 +45,8 @@ namespace VkMusicDownloader
                     RedirectStandardOutput = true,
                     FileName = "ffmpeg",
                     Arguments = "-i pipe: -f mp3 -b:a 320k pipe:",
-                    UseShellExecute = false
+                    UseShellExecute = false,
+                    CreateNoWindow = true
                 }
             };
             try
