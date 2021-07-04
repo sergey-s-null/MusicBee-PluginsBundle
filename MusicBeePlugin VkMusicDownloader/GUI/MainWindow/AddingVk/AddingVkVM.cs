@@ -180,6 +180,8 @@ namespace VkMusicDownloader.GUI
                     MessageBox.Show("Vk audios depth has achieved.", "Warning!");
                     break;
                 }
+                if (audio.Url is null)
+                    continue;
 
                 bool convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
                 result.Add(new VkAudioVM()
