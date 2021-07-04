@@ -86,15 +86,15 @@ namespace VkMusicDownloader.GUI
 
             Audios.Clear();
 
-            MBAudioVM[] mbAudios = GetLastMBAudios(out long lastVkId);
+            MBAudioVM[] mbAudios = GetLastMBAudios(out var gotVkIds);
 
-            if (lastVkId == -1)
+            if (gotVkIds.Count == 0)
             {
                 MessageBox.Show("Was not found valid MB audios. Can't download vk audios.");
                 return;
             }
 
-            List<VkAudioVM> vkAudios = await GetVkAudios(lastVkId);
+            List<VkAudioVM> vkAudios = await GetVkAudios(gotVkIds);
 
             Audios.AddRange(mbAudios);
             Audios.AddRange(vkAudios);
@@ -102,11 +102,11 @@ namespace VkMusicDownloader.GUI
             IsRefreshing = false;
         }
 
-        private MBAudioVM[] GetLastMBAudios(out long lastVkId, int count = 20)
+        private MBAudioVM[] GetLastMBAudios(out ISet<long> gotVkIds, int count = 20)
         {
             if (!Plugin.MBApiInterface.Library_QueryFilesEx("", out string[] paths))
             {
-                lastVkId = -1;
+                gotVkIds = new HashSet<long>();
                 return Array.Empty<MBAudioVM>();
             }
 
@@ -133,15 +133,9 @@ namespace VkMusicDownloader.GUI
             if (list.Count > count)
                 list.RemoveRange(count, list.Count - count);
 
-            lastVkId = -1;
-            foreach (var item in list)
-            {
-                if (item.VkId != -1)
-                {
-                    lastVkId = item.VkId;
-                    break;
-                }
-            }
+            gotVkIds = list
+                .Select(item => item.VkId)
+                .ToHashSet();
 
             MBAudioVM[] result = new MBAudioVM[list.Count];
             for (int i = 0; i < list.Count; i++)
@@ -157,7 +151,7 @@ namespace VkMusicDownloader.GUI
             return result;
         }
 
-        private async Task<List<VkAudioVM>> GetVkAudios(long lastVkId, int maxDepth = 50)
+        private async Task<List<VkAudioVM>> GetVkAudios(ISet<long> gotVkIds, int maxDepth = 50)
         {
             List<VkAudioVM> result = new List<VkAudioVM>();
 
@@ -173,14 +167,15 @@ namespace VkMusicDownloader.GUI
             {
                 Audio audio = enumerator.Current;
 
-                if (audio.Id is null || audio.Id == lastVkId)
+                
+                if (!audio.Id.HasValue || gotVkIds.Contains(audio.Id.Value))
                     break;
                 if (--maxDepth == 0)
                 {
                     MessageBox.Show("Vk audios depth has achieved.", "Warning!");
                     break;
                 }
-                if (audio.Url is null)
+                if (audio.Url is null)// TODO Url with ? in class definition
                     continue;
 
                 bool convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
