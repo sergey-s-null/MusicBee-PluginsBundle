@@ -1,34 +1,20 @@
-﻿using MusicBeePlugin;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace VkMusicDownloader.GUI
+namespace VkMusicDownloader.GUI.MainWindow
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowVM _viewModel;
+        private readonly MainWindowVM _viewModel;
         
-        public MainWindow(MainWindowVM mainWindowVm)
+        public MainWindow(MainWindowVM mainWindowVM)
         {
             InitializeComponent();
-            _viewModel = mainWindowVm;
+            _viewModel = mainWindowVM;
             DataContext = _viewModel;
         }
 

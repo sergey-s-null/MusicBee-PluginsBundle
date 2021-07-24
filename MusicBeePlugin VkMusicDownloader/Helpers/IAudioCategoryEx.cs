@@ -6,7 +6,7 @@ using VkNet.Model.Attachments;
 using VkNet.Model.RequestParams;
 using VkNet.Utils;
 
-namespace VkMusicDownloader.Ex
+namespace VkMusicDownloader.Helpers
 {
     public static class IAudioCategoryEx
     {

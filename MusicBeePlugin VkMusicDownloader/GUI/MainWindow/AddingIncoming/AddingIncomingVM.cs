@@ -1,16 +1,11 @@
-﻿using MusicBeePlugin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using VkMusicDownloader.Ex;
+using MusicBeePlugin;
+using VkMusicDownloader.Helpers;
 
-namespace VkMusicDownloader.GUI
+namespace VkMusicDownloader.GUI.MainWindow.AddingIncoming
 {
     public class AddingIncomingVM : BaseViewModel
     {
@@ -18,23 +13,15 @@ namespace VkMusicDownloader.GUI
 
         private RelayCommand _refreshCmd;
         public RelayCommand RefreshCmd
-            => _refreshCmd ?? (_refreshCmd = new RelayCommand(_ => Refresh()));
+            => _refreshCmd ??= new RelayCommand(_ => Refresh());
 
         private ObservableCollection<IncomingAudioVM> _incomingAudios;
         public ObservableCollection<IncomingAudioVM> IncomingAudios
-            => _incomingAudios ?? (_incomingAudios = new ObservableCollection<IncomingAudioVM>());
+            => _incomingAudios ??= new ObservableCollection<IncomingAudioVM>();
 
         private ObservableCollection<MBAudioVM> _lastMBAudios;
         public ObservableCollection<MBAudioVM> LastMBAudios
-            => _lastMBAudios ?? (_lastMBAudios = new ObservableCollection<MBAudioVM>());
-
-        private RelayCommand _addToMBLibraryCmd;
-        public RelayCommand AddToMBLibraryCmd
-            => _addToMBLibraryCmd ?? (_addToMBLibraryCmd = new RelayCommand(arg =>
-            {
-                if (arg is IncomingAudioVM incomingAudio)
-                    AddToMBLibrary(incomingAudio);
-            }));
+            => _lastMBAudios ??= new ObservableCollection<MBAudioVM>();
 
         #endregion
 
@@ -47,23 +34,6 @@ namespace VkMusicDownloader.GUI
             _mbApi = mbApi;
         }
         
-        private void AddToMBLibrary(IncomingAudioVM incomingAudio)
-        {
-            _prevIndex += 1;
-            int currentIndex = _prevIndex;
-
-            Plugin.CalcIndices(currentIndex, out int i1, out int i2);
-            _mbApi.Library_AddFileToLibrary(incomingAudio.FilePath, Plugin.LibraryCategory.Music);
-            _mbApi.SetIndex(incomingAudio.FilePath, currentIndex, false);
-            _mbApi.SetIndex1(incomingAudio.FilePath, i1, false);
-            _mbApi.SetIndex2(incomingAudio.FilePath, i2, false);
-            _mbApi.Library_SetFileTag(incomingAudio.FilePath, Plugin.MetaDataType.Artist, incomingAudio.Artist);
-            _mbApi.Library_SetFileTag(incomingAudio.FilePath, Plugin.MetaDataType.TrackTitle, incomingAudio.Title);
-            _mbApi.Library_CommitTagsToFile(incomingAudio.FilePath);
-
-            Refresh();
-        }
-
         private void Refresh()
         {
             IncomingAudios.Clear();
@@ -77,6 +47,7 @@ namespace VkMusicDownloader.GUI
             else
                 _prevIndex = -1;
 
+            
             IncomingAudios.AddRange(incomingAudios);
             LastMBAudios.AddRange(lastMBAudios);
         }
@@ -93,10 +64,32 @@ namespace VkMusicDownloader.GUI
                     Artist = _mbApi.Library_GetFileTag(path, Plugin.MetaDataType.Artist),
                     Title = _mbApi.Library_GetFileTag(path, Plugin.MetaDataType.TrackTitle)
                 })
+                .Select(a =>
+                {
+                    a.OnAddToMBLibrary += (sender, _) => AddToMBLibrary((IncomingAudioVM) sender);
+                    return a;
+                })
                 .ToList()
                 .AsReadOnly();
         }
 
+        private void AddToMBLibrary(IncomingAudioVM incomingAudio)
+        {
+            _prevIndex += 1;
+            int currentIndex = _prevIndex;
+
+            Plugin.CalcIndices(currentIndex, out int i1, out int i2);
+            _mbApi.Library_AddFileToLibrary(incomingAudio.FilePath, Plugin.LibraryCategory.Music);
+            _mbApi.SetIndex(incomingAudio.FilePath, currentIndex, false);
+            _mbApi.SetIndex1(incomingAudio.FilePath, i1, false);
+            _mbApi.SetIndex2(incomingAudio.FilePath, i2, false);
+            _mbApi.Library_SetFileTag(incomingAudio.FilePath, Plugin.MetaDataType.Artist, incomingAudio.Artist);
+            _mbApi.Library_SetFileTag(incomingAudio.FilePath, Plugin.MetaDataType.TrackTitle, incomingAudio.Title);
+            _mbApi.Library_CommitTagsToFile(incomingAudio.FilePath);
+
+            Refresh();
+        }
+        
         private MBAudioVM[] GetLastMBAudios()
         {
             if (!_mbApi.Library_QueryFilesEx("", out string[] paths))
@@ -116,7 +109,7 @@ namespace VkMusicDownloader.GUI
                     Path = path
                 };
             })
-            .Where(item => item is object)
+            .Where(item => item is not null)
             .ToList();
 
             list.Sort((a, b) => b.Index.CompareTo(a.Index));

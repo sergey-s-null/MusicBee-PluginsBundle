@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MusicBeePlugin;
 using Ninject;
-using VkMusicDownloader.Ex;
+using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;

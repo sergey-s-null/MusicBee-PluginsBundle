@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
-using VkMusicDownloader.Ex;
+using VkMusicDownloader.Helpers;
 
-namespace VkMusicDownloader
+namespace VkMusicDownloader.TagReplacer
 {
     class TagReplacer
     {

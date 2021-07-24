@@ -1,7 +1,7 @@
 ﻿using MusicBeePlugin;
 using Ninject;
 
-namespace VkMusicDownloader.Ex
+namespace VkMusicDownloader.Helpers
 {
     public static class KernelEx
     {

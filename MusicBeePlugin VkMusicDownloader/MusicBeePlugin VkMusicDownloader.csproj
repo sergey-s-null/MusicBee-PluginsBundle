@@ -131,7 +131,7 @@
     </Compile>
     <Compile Include="GUI\AuthDialog\AuthDialogVM.cs" />
     <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
-    <Compile Include="GUI\Converters\IsCorraptedUrlConverter.cs" />
+    <Compile Include="GUI\Converters\IsCorruptedUrlConverter.cs" />
     <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
     <Compile Include="GUI\MainWindow\AddingIncoming\AddingIncomingVM.cs" />
     <Compile Include="GUI\MainWindow\AddingIncoming\IncomingAudioVM.cs" />

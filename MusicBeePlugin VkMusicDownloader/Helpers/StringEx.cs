@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace VkMusicDownloader.Ex
+namespace VkMusicDownloader.Helpers
 {
     static class StringEx
     {

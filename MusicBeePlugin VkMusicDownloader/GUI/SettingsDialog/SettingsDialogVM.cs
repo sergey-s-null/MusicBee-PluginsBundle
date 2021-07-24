@@ -1,14 +1,10 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using MusicBeePlugin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using VkMusicDownloader.Settings;
+using VkMusicDownloader.TagReplacer;
 
-namespace VkMusicDownloader.GUI
+namespace VkMusicDownloader.GUI.SettingsDialog
 {
     public class SettingsDialogVM : BaseViewModel
     {

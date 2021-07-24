@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace VkMusicDownloader.Ex
+namespace VkMusicDownloader.Helpers
 {
     static class PathEx
     {

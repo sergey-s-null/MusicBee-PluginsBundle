@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 
-namespace VkMusicDownloader.Ex
+namespace VkMusicDownloader.Helpers
 {
     public static class WebResponseEx
     {

@@ -6,17 +6,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using MusicBeePlugin;
-using VkMusicDownloader.Ex;
+using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
+using VkMusicDownloader.TagReplacer;
 using VkNet;
 
-namespace VkMusicDownloader.GUI
+namespace VkMusicDownloader.GUI.MainWindow.AddingVk
 {
     public class AddingVkVM : BaseViewModel
     {
         #region Bindings
 
-        private bool _isRefreshing = false;
+        private bool _isRefreshing;
         public bool IsRefreshing
         {
             get => _isRefreshing;
@@ -48,7 +49,7 @@ namespace VkMusicDownloader.GUI
         public RelayCommand ApplyCommand
             => _applyCommand ?? (_applyCommand = new RelayCommand(_ => Apply()));
 
-        private bool _isApplying = false;
+        private bool _isApplying;
         public bool IsApplying
         {
             get => _isApplying;

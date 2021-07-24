@@ -1,9 +1,7 @@
-﻿using System.Configuration;
-using System.IO;
-using System.Reflection;
+﻿using System.IO;
 using MusicBeePlugin;
 
-namespace VkMusicDownloader.Ex
+namespace VkMusicDownloader.Helpers
 {
     public static class ConfigurationHelper
     {

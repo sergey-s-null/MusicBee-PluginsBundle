@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VkMusicDownloader.GUI
+﻿namespace VkMusicDownloader.GUI.AuthDialog
 {
     public class AuthDialogVM : BaseViewModel
     {

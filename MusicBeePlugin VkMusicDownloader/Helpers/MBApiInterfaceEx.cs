@@ -1,6 +1,6 @@
 ﻿using MusicBeePlugin;
 
-namespace VkMusicDownloader.Ex
+namespace VkMusicDownloader.Helpers
 {
     public static class MBApiInterfaceEx
     {

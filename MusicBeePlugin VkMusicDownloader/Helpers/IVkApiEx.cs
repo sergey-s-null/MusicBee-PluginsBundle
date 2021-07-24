@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using VkNet.Abstractions;
 using VkNet.Model;
 
-namespace VkMusicDownloader.Ex
+namespace VkMusicDownloader.Helpers
 {
     public static class IVkApiEx
     {

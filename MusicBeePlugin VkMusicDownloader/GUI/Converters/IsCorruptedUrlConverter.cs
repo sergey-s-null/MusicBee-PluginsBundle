@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
+using VkMusicDownloader.GUI.MainWindow;
 
 namespace VkMusicDownloader.GUI.Converters
 {
-    public class IsCorraptedUrlConverter : IValueConverter
+    public class IsCorruptedUrlConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

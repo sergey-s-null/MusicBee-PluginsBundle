@@ -1,22 +1,18 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using Ninject;
 using VkMusicDownloader;
-using VkMusicDownloader.Ex;
-using VkMusicDownloader.GUI;
+using VkMusicDownloader.GUI.AuthDialog;
+using VkMusicDownloader.GUI.InputDialog;
+using VkMusicDownloader.GUI.MainWindow;
+using VkMusicDownloader.GUI.SettingsDialog;
+using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkNet;
-using VkNet.AudioBypassService.Extensions;
 
+// ReSharper disable once CheckNamespace : Имя пространства должно быть таким, чтобы плагин запускался
 namespace MusicBeePlugin
 {
     public partial class Plugin

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace VkMusicDownloader.GUI
+namespace VkMusicDownloader.GUI.MainWindow.AddingIncoming
 {
     public class IncomingAudioVM : BaseViewModel
     {
+        public event EventHandler OnAddToMBLibrary;
+        
         #region Bindings
 
         private string _filePath = "";
@@ -46,6 +44,15 @@ namespace VkMusicDownloader.GUI
             }
         }
 
+        private RelayCommand _addToMBLibraryCmd;
+        public RelayCommand AddToMBLibraryCmd
+            => _addToMBLibraryCmd ??= new RelayCommand(_ => AddToMBLibrary());
+        
         #endregion
+
+        private void AddToMBLibrary()
+        {
+            OnAddToMBLibrary?.Invoke(this, EventArgs.Empty);
+        }
     }
 }
