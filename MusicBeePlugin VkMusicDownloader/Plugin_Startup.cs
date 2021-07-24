@@ -70,7 +70,7 @@ namespace MusicBeePlugin
 
         private void CreateSettingsDirectory()
         {
-            var dataPath = _kernel.GetMbApi().Setting_GetPersistentStoragePath();
+            var dataPath = _mbApi.Setting_GetPersistentStoragePath();
             var settingsDirPath = Path.Combine(dataPath, _settingsDirName);
             if (!Directory.Exists(settingsDirPath))
                 Directory.CreateDirectory(settingsDirPath);
@@ -78,8 +78,8 @@ namespace MusicBeePlugin
 
         private void InitSettings()
         {
-            string dataPath = _kernel.GetMbApi().Setting_GetPersistentStoragePath();
-            string settingsFilePath = Path.Combine(dataPath, _settingsDirName, _settingsFileName);
+            var dataPath = _mbApi.Setting_GetPersistentStoragePath();
+            var settingsFilePath = Path.Combine(dataPath, _settingsDirName, _settingsFileName);
             Settings = new Settings(settingsFilePath);
         }
         
@@ -116,13 +116,13 @@ namespace MusicBeePlugin
 
         private bool TryInputAuthData(out string login, out string password)
         {
-            AuthDialog dialog = new AuthDialog();
+            var dialog = new AuthDialog();
             return dialog.ShowDialog(out login, out password);
         }
 
         private bool TryInputCode(out string code)
         {
-            InputDialog dialog = new InputDialog();
+            var dialog = new InputDialog();
             return dialog.ShowDialog("Enter code:", out code);
         }
 
@@ -134,8 +134,8 @@ namespace MusicBeePlugin
         
         public void Uninstall()
         {
-            string dataPath = _mbApi.Setting_GetPersistentStoragePath();
-            string settingsDirPath = Path.Combine(dataPath, _settingsDirName);
+            var dataPath = _mbApi.Setting_GetPersistentStoragePath();
+            var settingsDirPath = Path.Combine(dataPath, _settingsDirName);
             try
             {
                 if (Directory.Exists(settingsDirPath))
