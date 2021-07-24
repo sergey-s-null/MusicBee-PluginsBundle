@@ -19,32 +19,23 @@ using VkNet.Model.Attachments;
 
 namespace VkMusicDownloader.GUI
 {
-    internal class MainWindowVM : BaseViewModel
+    public class MainWindowVM : BaseViewModel
     {
         #region Bindings
 
-        private AddingVkVM _addingVkVM;
-        public AddingVkVM AddingVkVM =>
-            _addingVkVM ??= new AddingVkVM();
+        private AddingVkVM _addingVkVm;
+        public AddingVkVM AddingVkVM => _addingVkVm;
 
-        private AddingIncomingVM _addingIncomingVM;
-        public AddingIncomingVM AddingIncomingVM
-            => _addingIncomingVM ??= new AddingIncomingVM();
-
-
-        private object _field;
-        public object Field
-        {
-            get => _field;
-            set
-            {
-                _field = value;
-                NotifyPropChanged(nameof(Field));
-            }
-        }
-
+        private AddingIncomingVM _addingIncomingVm;
+        public AddingIncomingVM AddingIncomingVM => _addingIncomingVm;
+        
         #endregion
 
-
+        public MainWindowVM(AddingVkVM addingVkVm,
+            AddingIncomingVM addingIncomingVm)
+        {
+            _addingVkVm = addingVkVm;
+            _addingIncomingVm = addingIncomingVm;
+        }
     }
 }

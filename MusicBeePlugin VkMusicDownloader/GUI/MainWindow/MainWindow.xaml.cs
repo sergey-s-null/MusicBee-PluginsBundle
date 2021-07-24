@@ -24,17 +24,11 @@ namespace VkMusicDownloader.GUI
     public partial class MainWindow : Window
     {
         private MainWindowVM _viewModel;
-
-        public VkNet.VkApi VkApi
-        {
-            get => _viewModel.AddingVkVM.VkApi;
-            set => _viewModel.AddingVkVM.VkApi = value;
-        }
-
-        public MainWindow()
+        
+        public MainWindow(MainWindowVM mainWindowVm)
         {
             InitializeComponent();
-            _viewModel = new MainWindowVM();
+            _viewModel = mainWindowVm;
             DataContext = _viewModel;
         }
 

@@ -68,16 +68,19 @@ namespace VkMusicDownloader.GUI
             => _audios ?? (_audios = new ObservableCollection<BaseAudioVM>());
 
         #endregion
-
-        private VkApi _vkApi = null;
-        public VkApi VkApi
-        {
-            get => _vkApi;
-            set => _vkApi = value;
-        }
-
+        
         private MBTagReplacer _tagReplacer = new MBTagReplacer();
-
+        
+        private readonly Plugin.MusicBeeApiInterface _mbApi;
+        private readonly VkApi _vkApi;
+        
+        public AddingVkVM(Plugin.MusicBeeApiInterface mbApi,
+            VkApi vkApi)
+        {
+            _mbApi = mbApi;
+            _vkApi = vkApi;
+        }
+        
         private async void Refresh()
         {
             if (IsRefreshing)
@@ -104,7 +107,7 @@ namespace VkMusicDownloader.GUI
 
         private MBAudioVM[] GetLastMBAudios(out ISet<long> gotVkIds, int count = 20)
         {
-            if (!Plugin.MBApiInterface.Library_QueryFilesEx("", out string[] paths))
+            if (!_mbApi.Library_QueryFilesEx("", out string[] paths))
             {
                 gotVkIds = new HashSet<long>();
                 return Array.Empty<MBAudioVM>();
@@ -113,9 +116,9 @@ namespace VkMusicDownloader.GUI
             // path -> (index, VkId, path)
             var list = paths.Select(path =>
             {
-                if (!Plugin.TryGetIndex(path, out int index))
+                if (!_mbApi.TryGetIndex(path, out int index))
                     return null;
-                if (!Plugin.TryGetVkId(path, out long vkId))
+                if (!_mbApi.TryGetVkId(path, out long vkId))
                     vkId = -1;
 
                 return new
@@ -142,8 +145,8 @@ namespace VkMusicDownloader.GUI
             {
                 result[i] = new MBAudioVM()
                 {
-                    Artist = Plugin.MBApiInterface.Library_GetFileTag(list[i].Path, Plugin.MetaDataType.Artist),
-                    Title = Plugin.MBApiInterface.Library_GetFileTag(list[i].Path, Plugin.MetaDataType.TrackTitle),
+                    Artist = _mbApi.Library_GetFileTag(list[i].Path, Plugin.MetaDataType.Artist),
+                    Title = _mbApi.Library_GetFileTag(list[i].Path, Plugin.MetaDataType.TrackTitle),
                     Index = list[i].Index,
                     VkId = list[i].VkId
                 };
@@ -154,15 +157,9 @@ namespace VkMusicDownloader.GUI
         private async Task<List<VkAudioVM>> GetVkAudios(ISet<long> gotVkIds, int maxDepth = 50)
         {
             List<VkAudioVM> result = new List<VkAudioVM>();
-
-            if (VkApi is null)
-            {
-                MessageBox.Show("VkApi is null. Something went wrong(");
-                return result;
-            }
-
+            
             int insideIndex = 0;
-            IAsyncEnumerator<Audio> enumerator = VkApi.Audio.GetAsyncEnumerator();
+            IAsyncEnumerator<Audio> enumerator = _vkApi.Audio.GetAsyncEnumerator();
             while (await enumerator.MoveNextAsync())
             {
                 Audio audio = enumerator.Current;
@@ -246,14 +243,14 @@ namespace VkMusicDownloader.GUI
             foreach (var item in items)
             {
                 Plugin.CalcIndices(item.Index, out int i1, out int i2);
-                Plugin.MBApiInterface.Library_AddFileToLibrary(item.FilePath, Plugin.LibraryCategory.Music);
-                Plugin.SetVkId(item.FilePath, item.VM.VkId, false);
-                Plugin.SetIndex(item.FilePath, item.Index, false);
-                Plugin.SetIndex1(item.FilePath, i1, false);
-                Plugin.SetIndex2(item.FilePath, i2, false);
-                Plugin.MBApiInterface.Library_SetFileTag(item.FilePath, Plugin.MetaDataType.Artist, item.VM.Artist);
-                Plugin.MBApiInterface.Library_SetFileTag(item.FilePath, Plugin.MetaDataType.TrackTitle, item.VM.Title);
-                Plugin.MBApiInterface.Library_CommitTagsToFile(item.FilePath);
+                _mbApi.Library_AddFileToLibrary(item.FilePath, Plugin.LibraryCategory.Music);
+                _mbApi.SetVkId(item.FilePath, item.VM.VkId, false);
+                _mbApi.SetIndex(item.FilePath, item.Index, false);
+                _mbApi.SetIndex1(item.FilePath, i1, false);
+                _mbApi.SetIndex2(item.FilePath, i2, false);
+                _mbApi.Library_SetFileTag(item.FilePath, Plugin.MetaDataType.Artist, item.VM.Artist);
+                _mbApi.Library_SetFileTag(item.FilePath, Plugin.MetaDataType.TrackTitle, item.VM.Title);
+                _mbApi.Library_CommitTagsToFile(item.FilePath);
             }
 
             Refresh();
