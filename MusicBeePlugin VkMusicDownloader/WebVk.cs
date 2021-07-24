@@ -127,9 +127,9 @@ namespace VkMusicDownloader
                 aes.Key = key;
                 aes.IV = new byte[key.Length];
 
-                using (MemoryStream outStream = new MemoryStream())
+                using (var outStream = new MemoryStream())
                 {
-                    using (CryptoStream crStream = new CryptoStream(new MemoryStream(data),
+                    using (var crStream = new CryptoStream(new MemoryStream(data),
                     aes.CreateDecryptor(), CryptoStreamMode.Read))
                     {
                         await crStream.CopyToAsync(outStream);

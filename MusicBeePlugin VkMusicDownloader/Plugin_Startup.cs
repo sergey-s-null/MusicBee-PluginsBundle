@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,6 +13,7 @@ using Ninject;
 using VkMusicDownloader;
 using VkMusicDownloader.Ex;
 using VkMusicDownloader.GUI;
+using VkMusicDownloader.Settings;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;
 
@@ -22,12 +24,7 @@ namespace MusicBeePlugin
         private IReadOnlyKernel _kernel;
         private MusicBeeApiInterface _mbApi;
         private VkApi _vkApi;
-        
-        public static Settings Settings;
-        private static string _settingsDirName = "Laiser399_VkAudioDownloader";
-        private static string _settingsFileName = "settings.json";
-
-        // private PluginInfo about = new PluginInfo();
+        private IMusicDownloaderSettings _settings;
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
@@ -36,12 +33,12 @@ namespace MusicBeePlugin
             _mbApi = new MusicBeeApiInterface();
             _mbApi.Initialise(apiInterfacePtr);
             
+            CreateSettingsDirectory();
+            
             _kernel = Bootstrapper.GetKernel(_mbApi);
             _vkApi = _kernel.Get<VkApi>();
+            _settings = _kernel.Get<IMusicDownloaderSettings>();
             
-            CreateSettingsDirectory();
-            InitSettings();
-
             _mbApi.MB_AddMenuItem("mnuTools/Laiser399: download vk audio",
                 "Laiser399: download vk audio", (_, _) => OpenDownloadDialog());
 
@@ -70,31 +67,23 @@ namespace MusicBeePlugin
 
         private void CreateSettingsDirectory()
         {
-            var dataPath = _mbApi.Setting_GetPersistentStoragePath();
-            var settingsDirPath = Path.Combine(dataPath, _settingsDirName);
+            var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
             if (!Directory.Exists(settingsDirPath))
                 Directory.CreateDirectory(settingsDirPath);
-        }
-
-        private void InitSettings()
-        {
-            var dataPath = _mbApi.Setting_GetPersistentStoragePath();
-            var settingsFilePath = Path.Combine(dataPath, _settingsDirName, _settingsFileName);
-            Settings = new Settings(settingsFilePath);
         }
         
         private async void OpenDownloadDialog()
         {
             if (!_vkApi.IsAuthorized)
             {
-                string token = Settings.AccessToken;
+                var token = _settings.AccessToken;
 
                 if (!_vkApi.TryAuth(token))
                 {
                     if (await _vkApi.TryAuthAsync(TryInputAuthData, TryInputCode))
                     {
-                        Settings.AccessToken = _vkApi.Token;
-                        Settings.Save();
+                        _settings.AccessToken = _vkApi.Token;
+                        _settings.Save();
                     }
                     else
                     {
@@ -110,19 +99,19 @@ namespace MusicBeePlugin
 
         private void OpenSettingsDialog()
         {
-            var settingsDialog = new SettingsDialog();
-            settingsDialog.ShowDialog();
+            var dialog = _kernel.Get<SettingsDialog>();
+            dialog.ShowDialog();
         }
 
         private bool TryInputAuthData(out string login, out string password)
         {
-            var dialog = new AuthDialog();
+            var dialog = _kernel.Get<AuthDialog>();
             return dialog.ShowDialog(out login, out password);
         }
 
         private bool TryInputCode(out string code)
         {
-            var dialog = new InputDialog();
+            var dialog = _kernel.Get<InputDialog>();
             return dialog.ShowDialog("Enter code:", out code);
         }
 
@@ -134,8 +123,7 @@ namespace MusicBeePlugin
         
         public void Uninstall()
         {
-            var dataPath = _mbApi.Setting_GetPersistentStoragePath();
-            var settingsDirPath = Path.Combine(dataPath, _settingsDirName);
+            var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
             try
             {
                 if (Directory.Exists(settingsDirPath))

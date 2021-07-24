@@ -1,26 +1,34 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MusicBeePlugin;
 using Ninject;
+using VkMusicDownloader.Ex;
+using VkMusicDownloader.Settings;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;
 
 namespace VkMusicDownloader
 {
-    public class Bootstrapper
+    public static class Bootstrapper
     {
-        public static IReadOnlyKernel GetKernel(Plugin.MusicBeeApiInterface mbApiInterface)
+        public static IReadOnlyKernel GetKernel(Plugin.MusicBeeApiInterface mbApi)
         {
             var kernel = new KernelConfiguration();
             
-            kernel.Bind<Plugin.MusicBeeApiInterface>().ToConstant(mbApiInterface);
-            
+            kernel.Bind<Plugin.MusicBeeApiInterface>().ToConstant(mbApi);
+            kernel.Bind<VkApi>().ToConstant(GetVkApi());
+            kernel.Bind<IMusicDownloaderSettings>()
+                .To<MusicDownloaderSettings>()
+                .WithConstructorArgument("filePath",
+                    ConfigurationHelper.GetSettingsFilePath(mbApi));
+
+            return kernel.BuildReadonlyKernel();
+        }
+
+        private static VkApi GetVkApi()
+        {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddAudioBypass();
-            var vkApi = new VkApi(serviceCollection);
-            kernel.Bind<VkApi>().ToConstant(vkApi);
-            
-            
-            return kernel.BuildReadonlyKernel();
+            return new VkApi(serviceCollection);
         }
     }
 }

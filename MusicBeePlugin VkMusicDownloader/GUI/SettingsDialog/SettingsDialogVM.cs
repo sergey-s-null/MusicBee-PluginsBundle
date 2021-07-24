@@ -6,31 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using VkMusicDownloader.Settings;
 
 namespace VkMusicDownloader.GUI
 {
-    class SettingsDialogVM : BaseViewModel
+    public class SettingsDialogVM : BaseViewModel
     {
         #region Bindings
 
+        // TODO проверить работает ли авто свойство
         private string _availableTags;
-        public string AvailableTags
-        {
-            get => _availableTags;
-            set
-            {
-                _availableTags = value;
-                NotifyPropChanged(nameof(AvailableTags));
-            }
-        }
-
-        private string _fileNameTemplate = Plugin.Settings.FileNameTemplate;
+        public string AvailableTags => _availableTags;
+        
         public string FileNameTemplate
         {
-            get => _fileNameTemplate;
+            get => _settings.FileNameTemplate;
             set
             {
-                _fileNameTemplate = value;
+                _settings.FileNameTemplate = value;
                 FileNameCheck = _replacer.Prepare(value);
                 NotifyPropChanged(nameof(FileNameTemplate));
             }
@@ -47,13 +40,12 @@ namespace VkMusicDownloader.GUI
             }
         }
         
-        private string _downloadDirTemplate = Plugin.Settings.DownloadDirTemplate;
         public string DownloadDirTemplate
         {
-            get => _downloadDirTemplate;
+            get => _settings.DownloadDirTemplate;
             set
             {
-                _downloadDirTemplate = value;
+                _settings.DownloadDirTemplate = value;
                 DownloadDirCheck = _replacer.Prepare(value);
                 NotifyPropChanged(nameof(DownloadDirTemplate));
             }
@@ -70,13 +62,12 @@ namespace VkMusicDownloader.GUI
             }
         }
 
-        private string _accessToken = Plugin.Settings.AccessToken;
         public string AccessToken
         {
-            get => _accessToken;
+            get => _settings.AccessToken;
             set
             {
-                _accessToken = value;
+                _settings.AccessToken = value;
                 NotifyPropChanged(nameof(AccessToken));
             }
         }
@@ -94,18 +85,22 @@ namespace VkMusicDownloader.GUI
 
         private RelayCommand _changeDownloadDirCmd;
         public RelayCommand ChangeDownloadDirCmd
-            => _changeDownloadDirCmd ?? (_changeDownloadDirCmd = new RelayCommand(arg =>
+            => _changeDownloadDirCmd ??= new RelayCommand(arg =>
             {
                 if (arg is Window ownerWindow)
                     ChangeDownloadDirectory(ownerWindow);
-            }));
+            });
         
         #endregion
 
-        private MBTagReplacer _replacer = new MBTagReplacer();
+        private readonly IMusicDownloaderSettings _settings;
 
-        public SettingsDialogVM()
+        private readonly MBTagReplacer _replacer = new();
+
+        public SettingsDialogVM(IMusicDownloaderSettings settings)
         {
+            _settings = settings;
+            
             char ob = MBTagReplacer.OpenBracket;
             char cb = MBTagReplacer.CloseBracket;
             _availableTags = MBTagReplacer.AvailableTags
@@ -117,16 +112,13 @@ namespace VkMusicDownloader.GUI
             _replacer.SetReplaceValue(MBTagReplacer.Tag.Artist, "Artist");
             _replacer.SetReplaceValue(MBTagReplacer.Tag.Title, "Title");
 
-            _fileNameCheck = _replacer.Prepare(_fileNameTemplate);
-            _downloadDirCheck = _replacer.Prepare(_downloadDirTemplate);
+            _fileNameCheck = _replacer.Prepare(FileNameTemplate);
+            _downloadDirCheck = _replacer.Prepare(DownloadDirTemplate);
         }
 
         public bool SaveChanges()
         {
-            Plugin.Settings.DownloadDirTemplate = DownloadDirTemplate;
-            Plugin.Settings.AccessToken = AccessToken;
-            Plugin.Settings.FileNameTemplate = FileNameTemplate;
-            if (!Plugin.Settings.Save())
+            if (!_settings.Save())
             {
                 MessageBox.Show("Error save settings.");
                 return false;
@@ -137,13 +129,14 @@ namespace VkMusicDownloader.GUI
 
         private void ChangeDownloadDirectory(Window ownerWindow)
         {
-            using (var dialog = new CommonOpenFileDialog())
+            using var dialog = new CommonOpenFileDialog
             {
-                dialog.IsFolderPicker = true;
-                dialog.DefaultDirectory = DownloadDirTemplate;
-                if (dialog.ShowDialog(ownerWindow) == CommonFileDialogResult.Ok)
-                    DownloadDirTemplate = dialog.FileName;
-            }
+                IsFolderPicker = true,
+                DefaultDirectory = DownloadDirTemplate
+            };
+            
+            if (dialog.ShowDialog(ownerWindow) == CommonFileDialogResult.Ok)
+                DownloadDirTemplate = dialog.FileName;
         }
     }
 }

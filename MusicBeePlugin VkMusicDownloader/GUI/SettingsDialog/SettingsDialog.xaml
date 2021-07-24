@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:VkMusicDownloader.GUI.Converters"
+        xmlns:gui="clr-namespace:VkMusicDownloader.GUI"
         mc:Ignorable="d"
         Title="VK audio downloader settings" Width="600"
         SizeToContent="Height" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance gui:SettingsDialogVM}">
     <Window.Resources>
-        <conv:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
+        <conv:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     </Window.Resources>
     
     <StackPanel Margin="6">
@@ -55,12 +57,12 @@
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="File name template:" HorizontalAlignment="Right"
                            VerticalAlignment="Center"/>
-                <TextBox Grid.Row="3" Grid.Column="2" Margin="0 3 0 0"
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="0 3 0 0"
                          Text="{Binding FileNameTemplate, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Grid.Row="4" Grid.Column="0" Text=">" HorizontalAlignment="Right"
                            Foreground="Gray"
                            VerticalAlignment="Center"/>
-                <TextBox Grid.Row="4" Grid.Column="2" Margin="0 0 0 3" IsReadOnly="True"
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="0 0 0 3" IsReadOnly="True"
                          Foreground="Gray"
                          Text="{Binding FileNameCheck, Mode=OneWay}"/>
             </Grid>
@@ -75,7 +77,7 @@
             <TextBox Grid.Column="1"
                      Text="{Binding AccessToken}"
                      IsReadOnly="{Binding IsEditAccessToken, 
-                            Converter={StaticResource inverseBooleanConverter}}"/>
+                            Converter={StaticResource InverseBooleanConverter}}"/>
             <ToggleButton Grid.Column="2" Content="Edit"
                           IsChecked="{Binding IsEditAccessToken}"/>
         </Grid>

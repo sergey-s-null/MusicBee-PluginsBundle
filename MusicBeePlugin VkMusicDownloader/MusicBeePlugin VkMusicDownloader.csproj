@@ -115,16 +115,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Ex\CollectionEx.cs" />
-    <Compile Include="Ex\CookieContainerEx.cs" />
-    <Compile Include="Ex\DirectoryEx.cs" />
-    <Compile Include="Ex\FileEx.cs" />
-    <Compile Include="Ex\IAudioCategoryEx.cs" />
-    <Compile Include="Ex\IVkApiEx.cs" />
-    <Compile Include="Ex\KernelEx.cs" />
-    <Compile Include="Ex\MBApiInterfaceEx.cs" />
-    <Compile Include="Ex\WebClientEx.cs" />
-    <Compile Include="Ex\WebResponseEx.cs" />
+    <Compile Include="Helpers\CollectionEx.cs" />
+    <Compile Include="Helpers\ConfigurationHelper.cs" />
+    <Compile Include="Helpers\CookieContainerEx.cs" />
+    <Compile Include="Helpers\DirectoryEx.cs" />
+    <Compile Include="Helpers\FileEx.cs" />
+    <Compile Include="Helpers\IAudioCategoryEx.cs" />
+    <Compile Include="Helpers\IVkApiEx.cs" />
+    <Compile Include="Helpers\KernelEx.cs" />
+    <Compile Include="Helpers\MBApiInterfaceEx.cs" />
+    <Compile Include="Helpers\WebClientEx.cs" />
+    <Compile Include="Helpers\WebResponseEx.cs" />
     <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">
       <DependentUpon>AuthDialog.xaml</DependentUpon>
     </Compile>
@@ -152,12 +153,14 @@
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SettingsDialog\SettingsDialogVM.cs" />
+    <Compile Include="Settings\BaseJsonFilePropertiesManager.cs" />
+    <Compile Include="Settings\IMusicDownloaderSettings.cs" />
+    <Compile Include="Settings\MusicDownloaderSettings.cs" />
     <Compile Include="TagReplacer\MBTagReplacer.cs" />
     <Compile Include="Plugin_MusicBeeInterface.cs" />
-    <Compile Include="Ex\PathEx.cs" />
+    <Compile Include="Helpers\PathEx.cs" />
     <Compile Include="Plugin_Startup.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="Ex\StringEx.cs" />
+    <Compile Include="Helpers\StringEx.cs" />
     <Compile Include="TagReplacer\TagReplacer.cs" />
     <Compile Include="WebVk.cs" />
     <Page Include="GUI\AuthDialog\AuthDialog.xaml">
@@ -217,7 +220,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)\*.dll" "C:\Program Files (x86)\MusicBee\Plugins"</PostBuildEvent>

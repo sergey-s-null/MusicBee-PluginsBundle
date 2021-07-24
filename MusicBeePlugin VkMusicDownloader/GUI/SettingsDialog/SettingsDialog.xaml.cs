@@ -20,12 +20,14 @@ namespace VkMusicDownloader.GUI
     /// </summary>
     public partial class SettingsDialog : Window
     {
-        private SettingsDialogVM _viewModel = new SettingsDialogVM();
+        private readonly SettingsDialogVM _viewModel;
 
-        public SettingsDialog()
+        public SettingsDialog(SettingsDialogVM viewModel)
         {
             InitializeComponent();
-            DataContext = _viewModel;
+            
+            _viewModel = viewModel;
+            DataContext = viewModel;
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)

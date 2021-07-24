@@ -1,17 +1,14 @@
-﻿using MusicBeePlugin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using VkMusicDownloader.Abstractions;
+using MusicBeePlugin;
 using VkMusicDownloader.Ex;
+using VkMusicDownloader.Settings;
 using VkNet;
-using VkNet.Model.Attachments;
 
 namespace VkMusicDownloader.GUI
 {
@@ -32,21 +29,20 @@ namespace VkMusicDownloader.GUI
 
         private RelayCommand _refreshCmd;
         public RelayCommand RefreshCmd
-            => _refreshCmd ?? (_refreshCmd = new RelayCommand(_ => Refresh()));
+            => _refreshCmd ??= new RelayCommand(_ => Refresh());
 
         private RelayCommand _applyCheckStateToSelectedCmd;
         public RelayCommand ApplyCheckStateToSelectedCmd
-            => _applyCheckStateToSelectedCmd ?? (_applyCheckStateToSelectedCmd = new RelayCommand(arg =>
+            => _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
             {
-                object[] arr = (object[])arg;
-                VkAudioVM triggered = (VkAudioVM)arr[0];
-                IList<object> selectedObjects = (IList<object>)arr[1];
-                IEnumerable<VkAudioVM> selected = selectedObjects
-                    .Where(obj => obj is VkAudioVM)
-                    .Select(obj => (VkAudioVM)obj);
+                var argsArr = (object[])arg;
+                var triggered = (VkAudioVM)argsArr[0];
+                var selectedObjects = (IList<object>)argsArr[1];
+                var selected = selectedObjects
+                    .OfType<VkAudioVM>();
 
                 ApplyCheckStateToSelected(triggered, selected);
-            }));
+            });
 
         private RelayCommand _applyCommand;
         public RelayCommand ApplyCommand
@@ -65,7 +61,7 @@ namespace VkMusicDownloader.GUI
 
         private ObservableCollection<BaseAudioVM> _audios;
         public ObservableCollection<BaseAudioVM> Audios
-            => _audios ?? (_audios = new ObservableCollection<BaseAudioVM>());
+            => _audios ??= new ObservableCollection<BaseAudioVM>();
 
         #endregion
         
@@ -73,12 +69,16 @@ namespace VkMusicDownloader.GUI
         
         private readonly Plugin.MusicBeeApiInterface _mbApi;
         private readonly VkApi _vkApi;
+        private readonly IMusicDownloaderSettings _settings;
         
-        public AddingVkVM(Plugin.MusicBeeApiInterface mbApi,
-            VkApi vkApi)
+        public AddingVkVM(
+            Plugin.MusicBeeApiInterface mbApi,
+            VkApi vkApi,
+            IMusicDownloaderSettings settings)
         {
             _mbApi = mbApi;
             _vkApi = vkApi;
+            _settings = settings;
         }
         
         private async void Refresh()
@@ -156,13 +156,13 @@ namespace VkMusicDownloader.GUI
 
         private async Task<List<VkAudioVM>> GetVkAudios(ISet<long> gotVkIds, int maxDepth = 50)
         {
-            List<VkAudioVM> result = new List<VkAudioVM>();
+            var result = new List<VkAudioVM>();
             
-            int insideIndex = 0;
-            IAsyncEnumerator<Audio> enumerator = _vkApi.Audio.GetAsyncEnumerator();
-            while (await enumerator.MoveNextAsync())
+            var insideIndex = 0;
+            var audiosEnumerator = _vkApi.Audio.GetAsyncEnumerator();
+            while (await audiosEnumerator.MoveNextAsync())
             {
-                Audio audio = enumerator.Current;
+                var  audio = audiosEnumerator.Current;
 
                 
                 if (!audio.Id.HasValue || gotVkIds.Contains(audio.Id.Value))
@@ -175,7 +175,7 @@ namespace VkMusicDownloader.GUI
                 if (audio.Url is null)// TODO Url with ? in class definition
                     continue;
 
-                bool convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
+                var convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
                 result.Add(new VkAudioVM()
                 {
                     IsSelected = true,
@@ -215,7 +215,7 @@ namespace VkMusicDownloader.GUI
 
         private async Task ApplyDecorated()
         {
-            string downloadDirTemplate = Plugin.Settings.DownloadDirTemplate;
+            var downloadDirTemplate = _settings.DownloadDirTemplate;
             if (downloadDirTemplate.Length == 0)
             {
                 MessageBox.Show("Download directory is empty. Set it in settings.");
@@ -275,7 +275,7 @@ namespace VkMusicDownloader.GUI
                         string downloadDir = _tagReplacer.Prepare(downloadDirTemplate);
                         downloadDir = PathEx.RemoveInvalidDirChars(downloadDir);
 
-                        string fileName = _tagReplacer.Prepare(Plugin.Settings.FileNameTemplate) + ".mp3";
+                        string fileName = _tagReplacer.Prepare(_settings.FileNameTemplate) + ".mp3";
                         fileName = PathEx.RemoveInvalidFileNameChars(fileName);
 
                         return new SomeItem(vm, index, Path.Combine(downloadDir, fileName));
