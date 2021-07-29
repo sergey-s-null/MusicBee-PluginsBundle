@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MusicBeePlugin;
-using Ninject;
+using Ninject.Modules;
+using Root;
 using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkNet;
@@ -8,22 +8,25 @@ using VkNet.AudioBypassService.Extensions;
 
 namespace VkMusicDownloader
 {
-    public static class Bootstrapper
+    public class MusicDownloaderModule : NinjectModule
     {
-        public static IReadOnlyKernel GetKernel(Plugin.MusicBeeApiInterface mbApi)
+        private readonly MusicBeeApiInterface _mbApi;
+        
+        public MusicDownloaderModule(MusicBeeApiInterface mbApi)
         {
-            var kernel = new KernelConfiguration();
-            
-            kernel.Bind<Plugin.MusicBeeApiInterface>().ToConstant(mbApi);
-            kernel.Bind<VkApi>().ToConstant(GetVkApi());
-            kernel.Bind<IMusicDownloaderSettings>()
+            _mbApi = mbApi;
+        }
+        
+        public override void Load()
+        {
+            Bind<MusicBeeApiInterface>().ToConstant(_mbApi);
+            Bind<VkApi>().ToConstant(GetVkApi());
+            Bind<IMusicDownloaderSettings>()
                 .To<MusicDownloaderSettings>()
                 .WithConstructorArgument("filePath",
-                    ConfigurationHelper.GetSettingsFilePath(mbApi));
-
-            return kernel.BuildReadonlyKernel();
+                    ConfigurationHelper.GetSettingsFilePath(_mbApi));
         }
-
+        
         private static VkApi GetVkApi()
         {
             var serviceCollection = new ServiceCollection();

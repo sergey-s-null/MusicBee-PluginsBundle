@@ -1,22 +1,21 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Windows;
 using Ninject;
-using VkMusicDownloader;
-using VkMusicDownloader.GUI.AuthDialog;
-using VkMusicDownloader.GUI.InputDialog;
+using Root;
 using VkMusicDownloader.GUI.MainWindow;
-using VkMusicDownloader.GUI.SettingsDialog;
 using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkNet;
 
-// ReSharper disable once CheckNamespace : Имя пространства должно быть таким, чтобы плагин запускался
 namespace MusicBeePlugin
 {
-    public partial class Plugin
+    public class Plugin
     {
+        private const short PluginInfoVersion = 1;
+        private const short MinInterfaceVersion = 40;// 41
+        private const short MinApiRevision = 53;
+        
         private IReadOnlyKernel _kernel;
         private MusicBeeApiInterface _mbApi;
         private VkApi _vkApi;
@@ -25,18 +24,23 @@ namespace MusicBeePlugin
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
             ServicePointManager.DefaultConnectionLimit = 20;
-
+            
             _mbApi = new MusicBeeApiInterface();
             _mbApi.Initialise(apiInterfacePtr);
-            
+
             CreateSettingsDirectory();
             
             _kernel = Bootstrapper.GetKernel(_mbApi);
+            
             _vkApi = _kernel.Get<VkApi>();
             _settings = _kernel.Get<IMusicDownloaderSettings>();
-            
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: download vk audio",
-                "Laiser399: download vk audio", (_, _) => OpenDownloadDialog());
+
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: TemplateAction",
+                "Laiser399: TemplateAction", (_, __) => SomeAction());
+
+            // TODO заменить на это
+            // _mbApi.MB_AddMenuItem("mnuTools/Laiser399: download vk audio",
+            //     "Laiser399: download vk audio", (_, _) => OpenDownloadDialog());
 
             return GetPluginInfo();
         }
@@ -61,6 +65,7 @@ namespace MusicBeePlugin
             };
         }
 
+        // TODO move out
         private void CreateSettingsDirectory()
         {
             var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
@@ -68,55 +73,64 @@ namespace MusicBeePlugin
                 Directory.CreateDirectory(settingsDirPath);
         }
         
-        private async void OpenDownloadDialog()
+        // TODO переделать
+        // private async void OpenDownloadDialog()
+        // {
+        //     if (!_vkApi.IsAuthorized)
+        //     {
+        //         var token = _settings.AccessToken;
+        //
+        //         if (!_vkApi.TryAuth(token))
+        //         {
+        //             if (await _vkApi.TryAuthAsync(TryInputAuthData, TryInputCode))
+        //             {
+        //                 _settings.AccessToken = _vkApi.Token;
+        //                 _settings.Save();
+        //             }
+        //             else
+        //             {
+        //                 MessageBox.Show("Auth error.");
+        //                 return;
+        //             }
+        //         }
+        //     }
+        //
+        //     var downloadDialog = _kernel.Get<MainWindow>();
+        //     downloadDialog.ShowDialog();
+        // }
+        
+        // private void OpenSettingsDialog()
+        // {
+        //     var dialog = _kernel.Get<SettingsDialog>();
+        //     dialog.ShowDialog();
+        // }
+        //
+        // private bool TryInputAuthData(out string login, out string password)
+        // {
+        //     var dialog = _kernel.Get<AuthDialog>();
+        //     return dialog.ShowDialog(out login, out password);
+        // }
+        //
+        // private bool TryInputCode(out string code)
+        // {
+        //     var dialog = _kernel.Get<InputDialog>();
+        //     return dialog.ShowDialog("Enter code:", out code);
+        // }
+        
+        private void SomeAction()
         {
-            if (!_vkApi.IsAuthorized)
-            {
-                var token = _settings.AccessToken;
-
-                if (!_vkApi.TryAuth(token))
-                {
-                    if (await _vkApi.TryAuthAsync(TryInputAuthData, TryInputCode))
-                    {
-                        _settings.AccessToken = _vkApi.Token;
-                        _settings.Save();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Auth error.");
-                        return;
-                    }
-                }
-            }
-
-            var downloadDialog = _kernel.Get<MainWindow>();
-            downloadDialog.ShowDialog();
-        }
-
-        private void OpenSettingsDialog()
-        {
-            var dialog = _kernel.Get<SettingsDialog>();
-            dialog.ShowDialog();
-        }
-
-        private bool TryInputAuthData(out string login, out string password)
-        {
-            var dialog = _kernel.Get<AuthDialog>();
-            return dialog.ShowDialog(out login, out password);
-        }
-
-        private bool TryInputCode(out string code)
-        {
-            var dialog = _kernel.Get<InputDialog>();
-            return dialog.ShowDialog("Enter code:", out code);
+            var wnd = _kernel.Get<MainWindow>();
+            wnd.ShowDialog();
         }
 
         public bool Configure(IntPtr panelHandle)
         {
-            OpenSettingsDialog();
+            // TODO переделать
+            // OpenSettingsDialog();
             return true;
         }
-        
+
+        // uninstall this plugin - clean up any persisted files
         public void Uninstall()
         {
             var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
@@ -131,14 +145,6 @@ namespace MusicBeePlugin
         public void ReceiveNotification(string sourceFileUrl, NotificationType type)
         {
             // ignore
-        }
-
-        // static
-        private const int _audiosPerBlock = 20;
-        public static void CalcIndices(int index, out int index1, out int index2)
-        {
-            index1 = index / _audiosPerBlock + 1;
-            index2 = index % _audiosPerBlock + 1;
         }
     }
 }
