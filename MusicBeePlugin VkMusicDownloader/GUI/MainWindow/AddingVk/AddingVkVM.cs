@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using MusicBeePlugin;
+using Root;
 using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkMusicDownloader.TagReplacer;
@@ -68,12 +68,12 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
         
         private MBTagReplacer _tagReplacer = new MBTagReplacer();
         
-        private readonly Plugin.MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiInterface _mbApi;
         private readonly VkApi _vkApi;
         private readonly IMusicDownloaderSettings _settings;
         
         public AddingVkVM(
-            Plugin.MusicBeeApiInterface mbApi,
+            MusicBeeApiInterface mbApi,
             VkApi vkApi,
             IMusicDownloaderSettings settings)
         {
@@ -146,8 +146,8 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
             {
                 result[i] = new MBAudioVM()
                 {
-                    Artist = _mbApi.Library_GetFileTag(list[i].Path, Plugin.MetaDataType.Artist),
-                    Title = _mbApi.Library_GetFileTag(list[i].Path, Plugin.MetaDataType.TrackTitle),
+                    Artist = _mbApi.Library_GetFileTag(list[i].Path, MetaDataType.Artist),
+                    Title = _mbApi.Library_GetFileTag(list[i].Path, MetaDataType.TrackTitle),
                     Index = list[i].Index,
                     VkId = list[i].VkId
                 };
@@ -243,14 +243,14 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
 
             foreach (var item in items)
             {
-                Plugin.CalcIndices(item.Index, out int i1, out int i2);
-                _mbApi.Library_AddFileToLibrary(item.FilePath, Plugin.LibraryCategory.Music);
+                SomeHelper.CalcIndices(item.Index, out int i1, out int i2);
+                _mbApi.Library_AddFileToLibrary(item.FilePath, LibraryCategory.Music);
                 _mbApi.SetVkId(item.FilePath, item.VM.VkId, false);
                 _mbApi.SetIndex(item.FilePath, item.Index, false);
                 _mbApi.SetIndex1(item.FilePath, i1, false);
                 _mbApi.SetIndex2(item.FilePath, i2, false);
-                _mbApi.Library_SetFileTag(item.FilePath, Plugin.MetaDataType.Artist, item.VM.Artist);
-                _mbApi.Library_SetFileTag(item.FilePath, Plugin.MetaDataType.TrackTitle, item.VM.Title);
+                _mbApi.Library_SetFileTag(item.FilePath, MetaDataType.Artist, item.VM.Artist);
+                _mbApi.Library_SetFileTag(item.FilePath, MetaDataType.TrackTitle, item.VM.Title);
                 _mbApi.Library_CommitTagsToFile(item.FilePath);
             }
 
@@ -267,7 +267,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
                     .Select((vm, i) =>
                     {
                         int index = lastIndex + i + 1;
-                        Plugin.CalcIndices(index, out int i1, out int i2);
+                        SomeHelper.CalcIndices(index, out int i1, out int i2);
                         string i1Str = i1.ToString().PadLeft(2, '0');
                         string i2Str = i2.ToString().PadLeft(2, '0');
 

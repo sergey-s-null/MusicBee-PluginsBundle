@@ -1,18 +1,18 @@
 ﻿using System.IO;
-using MusicBeePlugin;
+using Root;
 
 namespace VkMusicDownloader.Helpers
 {
     public static class ConfigurationHelper
     {
-        public static string GetSettingsFilePath(Plugin.MusicBeeApiInterface mbApi)
+        public static string GetSettingsFilePath(MusicBeeApiInterface mbApi)
         {
             var dataPath = mbApi.Setting_GetPersistentStoragePath();
             
             return Path.Combine(dataPath, SettingsDirName, SettingsFileName);
         }
         
-        public static string GetSettingsDirPath(Plugin.MusicBeeApiInterface mbApi)
+        public static string GetSettingsDirPath(MusicBeeApiInterface mbApi)
         {
             var dataPath = mbApi.Setting_GetPersistentStoragePath();
             

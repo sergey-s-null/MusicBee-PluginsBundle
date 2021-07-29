@@ -7,7 +7,7 @@
     <ProjectGuid>{622756AD-5BB9-41D7-B5DF-87614DF8102E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>VkMusicDownloader</RootNamespace>
-    <AssemblyName>mb_VKMusicDownloader</AssemblyName>
+    <AssemblyName>VKMusicDownloader</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -114,7 +114,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Helpers\CollectionEx.cs" />
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\CookieContainerEx.cs" />
@@ -122,7 +121,6 @@
     <Compile Include="Helpers\FileEx.cs" />
     <Compile Include="Helpers\IAudioCategoryEx.cs" />
     <Compile Include="Helpers\IVkApiEx.cs" />
-    <Compile Include="Helpers\KernelEx.cs" />
     <Compile Include="Helpers\MBApiInterfaceEx.cs" />
     <Compile Include="Helpers\WebClientEx.cs" />
     <Compile Include="Helpers\WebResponseEx.cs" />
@@ -153,13 +151,13 @@
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SettingsDialog\SettingsDialogVM.cs" />
+    <Compile Include="MusicDownloaderModule.cs" />
     <Compile Include="Settings\BaseJsonFilePropertiesManager.cs" />
     <Compile Include="Settings\IMusicDownloaderSettings.cs" />
     <Compile Include="Settings\MusicDownloaderSettings.cs" />
+    <Compile Include="SomeHelper.cs" />
     <Compile Include="TagReplacer\MBTagReplacer.cs" />
-    <Compile Include="Plugin_MusicBeeInterface.cs" />
     <Compile Include="Helpers\PathEx.cs" />
-    <Compile Include="Plugin_Startup.cs" />
     <Compile Include="Helpers\StringEx.cs" />
     <Compile Include="TagReplacer\TagReplacer.cs" />
     <Compile Include="WebVk.cs" />
@@ -220,8 +218,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Root\Root.csproj">
+      <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
+      <Name>Root</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)\*.dll" "C:\Program Files (x86)\MusicBee\Plugins"</PostBuildEvent>
-  </PropertyGroup>
 </Project>
