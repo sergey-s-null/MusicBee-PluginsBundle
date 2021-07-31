@@ -78,7 +78,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingIncoming
             _prevIndex += 1;
             int currentIndex = _prevIndex;
 
-            SomeHelper.CalcIndices(currentIndex, out int i1, out int i2);
+            MBApiHelper.CalcIndices(currentIndex, out int i1, out int i2);
             _mbApi.Library_AddFileToLibrary(incomingAudio.FilePath, LibraryCategory.Music);
             _mbApi.SetIndex(incomingAudio.FilePath, currentIndex, false);
             _mbApi.SetIndex1(incomingAudio.FilePath, i1, false);

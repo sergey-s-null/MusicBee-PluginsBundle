@@ -90,7 +90,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
 
             Audios.Clear();
 
-            MBAudioVM[] mbAudios = GetLastMBAudios(out var gotVkIds);
+            var mbAudios = GetLastMBAudios(out var gotVkIds);
 
             if (gotVkIds.Count == 0)
             {
@@ -98,7 +98,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
                 return;
             }
 
-            List<VkAudioVM> vkAudios = await GetVkAudios(gotVkIds);
+            var vkAudios = await GetVkAudios(gotVkIds);
 
             Audios.AddRange(mbAudios);
             Audios.AddRange(vkAudios);
@@ -108,7 +108,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
 
         private MBAudioVM[] GetLastMBAudios(out ISet<long> gotVkIds, int count = 20)
         {
-            if (!_mbApi.Library_QueryFilesEx("", out string[] paths))
+            if (!_mbApi.Library_QueryFilesEx("", out var paths))
             {
                 gotVkIds = new HashSet<long>();
                 return Array.Empty<MBAudioVM>();
@@ -117,9 +117,9 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
             // path -> (index, VkId, path)
             var list = paths.Select(path =>
             {
-                if (!_mbApi.TryGetIndex(path, out int index))
+                if (!_mbApi.TryGetIndex(path, out var index))
                     return null;
-                if (!_mbApi.TryGetVkId(path, out long vkId))
+                if (!_mbApi.TryGetVkId(path, out var vkId))
                     vkId = -1;
 
                 return new
@@ -141,8 +141,8 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
                 .Select(item => item.VkId)
                 .ToHashSet();
 
-            MBAudioVM[] result = new MBAudioVM[list.Count];
-            for (int i = 0; i < list.Count; i++)
+            var result = new MBAudioVM[list.Count];
+            for (var i = 0; i < list.Count; i++)
             {
                 result[i] = new MBAudioVM()
                 {
@@ -176,7 +176,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
                 if (audio.Url is null)// TODO Url with ? in class definition
                     continue;
 
-                var convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
+                var convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out var mp3Url);
                 result.Add(new VkAudioVM()
                 {
                     IsSelected = true,
@@ -196,7 +196,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
             if (!selected.Contains(triggered))
                 return;
 
-            foreach (VkAudioVM audioVM in selected)
+            foreach (var audioVM in selected)
             {
                 if (triggered != audioVM)
                     audioVM.IsSelected = triggered.IsSelected;
@@ -223,11 +223,11 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
                 return;
             }
 
-            int lastIndex = (Audios.First(audio => audio is MBAudioVM) as MBAudioVM).Index;
+            var lastIndex = (Audios.First(audio => audio is MBAudioVM) as MBAudioVM).Index;
 
-            SomeItem[] items = MakeSomeItems();
+            var items = MakeSomeItems();
 
-            if (!TryMakeDownloadTasks(items, out Task[] downloadTasks))
+            if (!TryMakeDownloadTasks(items, out var downloadTasks))
                 return;
 
             // wait for downloading has done
@@ -243,7 +243,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
 
             foreach (var item in items)
             {
-                SomeHelper.CalcIndices(item.Index, out int i1, out int i2);
+                MBApiHelper.CalcIndices(item.Index, out var i1, out var i2);
                 _mbApi.Library_AddFileToLibrary(item.FilePath, LibraryCategory.Music);
                 _mbApi.SetVkId(item.FilePath, item.VM.VkId, false);
                 _mbApi.SetIndex(item.FilePath, item.Index, false);
@@ -266,17 +266,17 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
                     .Reverse()
                     .Select((vm, i) =>
                     {
-                        int index = lastIndex + i + 1;
-                        SomeHelper.CalcIndices(index, out int i1, out int i2);
-                        string i1Str = i1.ToString().PadLeft(2, '0');
-                        string i2Str = i2.ToString().PadLeft(2, '0');
+                        var index = lastIndex + i + 1;
+                        MBApiHelper.CalcIndices(index, out var i1, out var i2);
+                        var i1Str = i1.ToString().PadLeft(2, '0');
+                        var i2Str = i2.ToString().PadLeft(2, '0');
 
-                        // TODOL add INDEX to tag replacer
+                        // TODO add INDEX to tag replacer
                         _tagReplacer.SetValues(i1Str, i2Str, vm.Artist, vm.Title);
-                        string downloadDir = _tagReplacer.Prepare(downloadDirTemplate);
+                        var downloadDir = _tagReplacer.Prepare(downloadDirTemplate);
                         downloadDir = PathEx.RemoveInvalidDirChars(downloadDir);
 
-                        string fileName = _tagReplacer.Prepare(_settings.FileNameTemplate) + ".mp3";
+                        var fileName = _tagReplacer.Prepare(_settings.FileNameTemplate) + ".mp3";
                         fileName = PathEx.RemoveInvalidFileNameChars(fileName);
 
                         return new SomeItem(vm, index, Path.Combine(downloadDir, fileName));
@@ -287,23 +287,23 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
             bool TryMakeDownloadTasks(SomeItem[] items, out Task[] downloadTasks)
             {
                 downloadTasks = new Task[items.Length];
-                for (int i = 0; i < downloadTasks.Length; i++)
+                for (var i = 0; i < downloadTasks.Length; i++)
                 {
-                    string dirName = new FileInfo(items[i].FilePath).DirectoryName;
+                    var dirName = new FileInfo(items[i].FilePath).DirectoryName;
                     if (!DirectoryEx.TryCreateDirectory(dirName))
                     {
                         MessageBox.Show($"Error create directory: {dirName}.");
                         return false;
                     }
 
-                    downloadTasks[i] = WebVk.DownloadAudioAsync(items[i].VM.Url, items[i].FilePath);
+                    downloadTasks[i] = AudioDownloadHelper.DownloadAudioAsync(items[i].VM.Url, items[i].FilePath);
                 }
                 return true;
             }
 
             void HandleDownloadError(string message)
             {
-                List<string> notDeleted = new List<string>();
+                var notDeleted = new List<string>();
                 foreach (var item in items)
                 {
                     if (File.Exists(item.FilePath))
@@ -313,7 +313,7 @@ namespace VkMusicDownloader.GUI.MainWindow.AddingVk
 
                 if (notDeleted.Count > 0)
                 {
-                    string dialogMessage = "Error downloading files. These files was not deleted:";
+                    var dialogMessage = "Error downloading files. These files was not deleted:";
                     dialogMessage += notDeleted.Aggregate((a, b) => $"\n{a}\n{b}");
                     MessageBox.Show(dialogMessage);
                 }

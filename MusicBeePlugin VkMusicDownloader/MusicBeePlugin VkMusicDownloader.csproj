@@ -114,6 +114,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AudioDownloadHelper.cs" />
     <Compile Include="Helpers\CollectionEx.cs" />
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\CookieContainerEx.cs" />
@@ -121,7 +122,7 @@
     <Compile Include="Helpers\FileEx.cs" />
     <Compile Include="Helpers\IAudioCategoryEx.cs" />
     <Compile Include="Helpers\IVkApiEx.cs" />
-    <Compile Include="Helpers\MBApiInterfaceEx.cs" />
+    <Compile Include="Helpers\MBApiHelper.cs" />
     <Compile Include="Helpers\WebClientEx.cs" />
     <Compile Include="Helpers\WebResponseEx.cs" />
     <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">
@@ -155,12 +156,10 @@
     <Compile Include="Settings\BaseJsonFilePropertiesManager.cs" />
     <Compile Include="Settings\IMusicDownloaderSettings.cs" />
     <Compile Include="Settings\MusicDownloaderSettings.cs" />
-    <Compile Include="SomeHelper.cs" />
     <Compile Include="TagReplacer\MBTagReplacer.cs" />
     <Compile Include="Helpers\PathEx.cs" />
     <Compile Include="Helpers\StringEx.cs" />
     <Compile Include="TagReplacer\TagReplacer.cs" />
-    <Compile Include="WebVk.cs" />
     <Page Include="GUI\AuthDialog\AuthDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

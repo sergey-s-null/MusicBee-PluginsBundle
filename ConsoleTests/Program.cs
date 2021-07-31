@@ -40,7 +40,7 @@ namespace ConsoleTests
             serviceCollection.AddAudioBypass();
 
             var api = new VkApi(serviceCollection);
-            // TODOL delete auth data
+            // TODO delete auth data
             string login = "";
             string password = "";
 
@@ -58,7 +58,7 @@ namespace ConsoleTests
             api.Authorize(authParams);
             TrySaveToken(api.Token);
 
-            // TODOL change indices
+            // TODO change indices
             var audio = api.Audio.Get(new AudioGetParams() { Offset = 1, Count = 1 })[0];
 
             using (WebClient webClient = new WebClient())
@@ -102,7 +102,7 @@ namespace ConsoleTests
 
         private static void TestVkNet()
         {
-            // TODOL delete file
+            // TODO delete file
             string tokenFilePath = @"tm_token.txt";
             string token;
             try
@@ -118,7 +118,7 @@ namespace ConsoleTests
             serviceCollection.AddAudioBypass();
 
             var api = new VkApi(serviceCollection);
-            // TODOL delete auth data
+            // TODO delete auth data
             string login = "";
             string password = "";
 
