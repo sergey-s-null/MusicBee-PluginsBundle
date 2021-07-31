@@ -90,6 +90,10 @@
         <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\Main\Main.csproj">
+        <Project>{23cbc01f-bd6d-48e0-9685-71e8eba58f04}</Project>
+        <Name>Main</Name>
+      </ProjectReference>
       <ProjectReference Include="..\Root\Root.csproj">
         <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
         <Name>Root</Name>
