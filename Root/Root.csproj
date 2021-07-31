@@ -32,15 +32,19 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="PresentationCore" />
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Drawing" />
         <Reference Include="System.Windows.Forms" />
+        <Reference Include="System.Windows.Presentation" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MusicBeeApiInterface.cs" />
+        <Compile Include="MVVM\BaseViewModel.cs" />
+        <Compile Include="MVVM\RelayCommand.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
