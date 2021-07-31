@@ -5,7 +5,7 @@ using System.Linq;
 using Root;
 using VkMusicDownloader.Helpers;
 
-namespace VkMusicDownloader.GUI.MainWindow.AddingIncoming
+namespace VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
 {
     public class AddingIncomingVM : BaseViewModel
     {

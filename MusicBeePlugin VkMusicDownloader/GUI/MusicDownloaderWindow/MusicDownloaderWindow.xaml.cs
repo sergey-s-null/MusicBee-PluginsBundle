@@ -2,19 +2,19 @@
 using System.ComponentModel;
 using System.Windows;
 
-namespace VkMusicDownloader.GUI.MainWindow
+namespace VkMusicDownloader.GUI.MusicDownloaderWindow
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MusicDownloaderWindow : Window
     {
-        private readonly MainWindowVM _viewModel;
+        private readonly MusicDownloaderWindowVM _viewModel;
         
-        public MainWindow(MainWindowVM mainWindowVM)
+        public MusicDownloaderWindow(MusicDownloaderWindowVM viewModel)
         {
             InitializeComponent();
-            _viewModel = mainWindowVM;
+            _viewModel = viewModel;
             DataContext = _viewModel;
         }
 

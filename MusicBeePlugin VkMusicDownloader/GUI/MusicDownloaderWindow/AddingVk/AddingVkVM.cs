@@ -11,7 +11,7 @@ using VkMusicDownloader.Settings;
 using VkMusicDownloader.TagReplacer;
 using VkNet;
 
-namespace VkMusicDownloader.GUI.MainWindow.AddingVk
+namespace VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk
 {
     public class AddingVkVM : BaseViewModel
     {

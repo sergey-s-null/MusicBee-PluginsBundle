@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using Ninject;
 using Root;
-using VkMusicDownloader.GUI.MainWindow;
+using VkMusicDownloader.GUI.MusicDownloaderWindow;
 using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkNet;
@@ -119,7 +119,7 @@ namespace MusicBeePlugin
         
         private void SomeAction()
         {
-            var wnd = _kernel.Get<MainWindow>();
+            var wnd = _kernel.Get<MusicDownloaderWindow>();
             wnd.ShowDialog();
         }
 

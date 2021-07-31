@@ -1,11 +1,11 @@
-﻿using VkMusicDownloader.GUI.MainWindow.AddingIncoming;
-using VkMusicDownloader.GUI.MainWindow.AddingVk;
+﻿using VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming;
+using VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk;
 
 #pragma warning disable CS4014
 
-namespace VkMusicDownloader.GUI.MainWindow
+namespace VkMusicDownloader.GUI.MusicDownloaderWindow
 {
-    public class MainWindowVM : BaseViewModel
+    public class MusicDownloaderWindowVM : BaseViewModel
     {
         #region Bindings
 
@@ -17,7 +17,7 @@ namespace VkMusicDownloader.GUI.MainWindow
         
         #endregion
 
-        public MainWindowVM(
+        public MusicDownloaderWindowVM(
             AddingVkVM addingVkVM,
             AddingIncomingVM addingIncomingVM)
         {

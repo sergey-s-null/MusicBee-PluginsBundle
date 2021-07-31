@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VkMusicDownloader.GUI.MainWindow
+namespace VkMusicDownloader.GUI.MusicDownloaderWindow
 {
     public abstract class BaseAudioVM : BaseViewModel, IComparable
     {

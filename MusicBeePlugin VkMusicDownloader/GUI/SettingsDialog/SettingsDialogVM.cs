@@ -97,8 +97,8 @@ namespace VkMusicDownloader.GUI.SettingsDialog
         {
             _settings = settings;
             
-            char ob = MBTagReplacer.OpenBracket;
-            char cb = MBTagReplacer.CloseBracket;
+            var ob = MBTagReplacer.OpenBracket;
+            var cb = MBTagReplacer.CloseBracket;
             _availableTags = MBTagReplacer.AvailableTags
                 .Select(tag => $"{ob}{tag}{cb}")
                 .Aggregate((a, b) => $"{a}; {b}");

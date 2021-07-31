@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                     xmlns:conv="clr-namespace:VkMusicDownloader.GUI.Converters"
-                    xmlns:addingVk="clr-namespace:VkMusicDownloader.GUI.MainWindow.AddingVk"
-                    xmlns:mainWindow="clr-namespace:VkMusicDownloader.GUI.MainWindow">
+                    xmlns:addingVk="clr-namespace:VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk"
+                    xmlns:mainWindow="clr-namespace:VkMusicDownloader.GUI.MusicDownloaderWindow">
     
     <conv:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter"/>
     <conv:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
@@ -55,7 +55,7 @@
                                                 <DataTemplate DataType="{x:Type mainWindow:VkAudioVM}">
                                                     <CheckBox IsChecked="{Binding IsSelected}"
                                                               Command="{Binding DataContext.AddingVkVM.ApplyCheckStateToSelectedCmd,
-                                                                    RelativeSource={RelativeSource AncestorType=mainWindow:MainWindow}}">
+                                                                    RelativeSource={RelativeSource AncestorType=mainWindow:MusicDownloaderWindow}}">
                                                         <CheckBox.CommandParameter>
                                                             <MultiBinding Converter="{StaticResource DefaultMultiValueConverter}">
                                                                 <Binding/>

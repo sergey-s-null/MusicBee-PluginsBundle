@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace VkMusicDownloader.GUI.MainWindow.AddingIncoming
+namespace VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
 {
     public class IncomingAudioVM : BaseViewModel
     {
