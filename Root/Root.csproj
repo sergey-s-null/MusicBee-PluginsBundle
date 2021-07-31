@@ -42,6 +42,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Abstractions\ISettings.cs" />
         <Compile Include="MusicBeeApiInterface.cs" />
         <Compile Include="MVVM\BaseViewModel.cs" />
         <Compile Include="MVVM\RelayCommand.cs" />

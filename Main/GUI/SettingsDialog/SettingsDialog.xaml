@@ -1,0 +1,45 @@
+﻿<Window x:Class="MusicBeePlugin.GUI.SettingsDialog.SettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MusicBeePlugin.GUI.SettingsDialog"
+        xmlns:gui="clr-namespace:MusicBeePlugin.GUI"
+        mc:Ignorable="d"
+        Title="SettingsDialog" Height="450" Width="800" 
+        d:DataContext="{d:DesignInstance local:SettingsDialogVM}">
+    <Window.Resources>
+        <gui:VMTemplateSelector x:Key="VMTemplateSelector">
+            <gui:VMTemplateSelector.ResourceDictionary>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <!-- <ResourceDictionary Source="../Trash/Trash.xaml"></ResourceDictionary> -->
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </gui:VMTemplateSelector.ResourceDictionary>
+        </gui:VMTemplateSelector>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180px"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <ListView Grid.Column="0"
+                  ItemsSource="{Binding Settings}"
+                  SelectionMode="Single"
+                  x:Name="ModuleSettingsList">
+        </ListView>
+        
+        <GridSplitter Grid.Column="1"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Center"
+                      Width="6"/>
+        
+        <ContentControl Grid.Column="2"
+                        Content="{Binding SelectedItem, ElementName=ModuleSettingsList}"
+                        ContentTemplateSelector="{StaticResource VMTemplateSelector}"/>
+    </Grid>
+</Window>
