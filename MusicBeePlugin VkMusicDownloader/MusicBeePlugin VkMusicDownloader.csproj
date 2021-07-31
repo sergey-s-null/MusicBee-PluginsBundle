@@ -147,7 +147,6 @@
     <Compile Include="GUI\InputDialog\InputDialogVM.cs" />
     <Compile Include="GUI\MusicDownloaderWindow\BaseAudioVM.cs" />
     <Compile Include="GUI\MusicDownloaderWindow\MusicDownloaderWindowVM.cs" />
-    <Compile Include="GUI\RelayCommand.cs" />
     <Compile Include="GUI\SettingsDialog\SettingsDialog.xaml.cs">
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
     </Compile>
@@ -180,7 +179,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="GUI\BaseViewModel.cs" />
     <Compile Include="GUI\MusicDownloaderWindow\MusicDownloaderWindow.xaml.cs">
       <DependentUpon>MusicDownloaderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

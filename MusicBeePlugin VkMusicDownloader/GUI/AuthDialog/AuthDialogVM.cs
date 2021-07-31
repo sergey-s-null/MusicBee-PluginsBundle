@@ -1,4 +1,6 @@
-﻿namespace VkMusicDownloader.GUI.AuthDialog
+﻿using Root.MVVM;
+
+namespace VkMusicDownloader.GUI.AuthDialog
 {
     public class AuthDialogVM : BaseViewModel
     {

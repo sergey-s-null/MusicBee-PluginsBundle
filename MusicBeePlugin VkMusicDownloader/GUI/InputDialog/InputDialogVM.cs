@@ -1,4 +1,6 @@
-﻿namespace VkMusicDownloader.GUI.InputDialog
+﻿using Root.MVVM;
+
+namespace VkMusicDownloader.GUI.InputDialog
 {
     class InputDialogVM : BaseViewModel
     {

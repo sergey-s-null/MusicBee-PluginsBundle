@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Root;
+using Root.MVVM;
 using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkMusicDownloader.TagReplacer;

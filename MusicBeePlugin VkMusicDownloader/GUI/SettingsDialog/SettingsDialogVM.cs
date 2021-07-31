@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Root.MVVM;
 using VkMusicDownloader.Settings;
 using VkMusicDownloader.TagReplacer;
 
