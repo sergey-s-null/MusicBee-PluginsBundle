@@ -14,6 +14,8 @@
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
                         <!-- <ResourceDictionary Source="../Trash/Trash.xaml"></ResourceDictionary> -->
+                        <!-- TODO check without     pack://application:,,,      -->
+                        <ResourceDictionary Source="pack://application:,,,/VkMusicDownloader;component/GUI/Settings/MusicDownloaderSettings.xaml"></ResourceDictionary>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </gui:VMTemplateSelector.ResourceDictionary>
@@ -30,7 +32,12 @@
         <ListView Grid.Column="0"
                   ItemsSource="{Binding Settings}"
                   SelectionMode="Single"
-                  x:Name="ModuleSettingsList">
+                  SelectedItem="{Binding SelectedSettingsModule}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding ModuleName, Mode=OneWay}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         
         <GridSplitter Grid.Column="1"
@@ -39,7 +46,7 @@
                       Width="6"/>
         
         <ContentControl Grid.Column="2"
-                        Content="{Binding SelectedItem, ElementName=ModuleSettingsList}"
+                        Content="{Binding SelectedSettingsModule.ModuleSettings, Mode=OneWay}"
                         ContentTemplateSelector="{StaticResource VMTemplateSelector}"/>
     </Grid>
 </Window>

@@ -1,0 +1,86 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="clr-namespace:VkMusicDownloader.GUI.Converters"
+                    xmlns:local="clr-namespace:VkMusicDownloader.GUI.Settings">
+
+    <DataTemplate DataType="{x:Type local:IMusicDownloaderSettingsVM}">
+        <DataTemplate.Resources>
+            <conv:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        </DataTemplate.Resources>
+        
+        <StackPanel Margin="6">
+            <GroupBox Header="Templates"
+                      Padding="0 0 0 -3" Margin="0 0 0 6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Available tags:" HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Foreground="Gray" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="0 3" IsReadOnly="True"
+                             Foreground="Gray"
+                             Text="{Binding AvailableTags, Mode=OneWay}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Download dir template:" HorizontalAlignment="Right"
+                               VerticalAlignment="Center" />
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="0 3 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding DownloadDirTemplate, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="1" Content="..." Padding="6 0"
+                                Command="{Binding ChangeDownloadDirCmd}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
+                    </Grid>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text=">" HorizontalAlignment="Right"
+                               Foreground="Gray"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Margin="0 0 0 3"
+                             Foreground="Gray"
+                             Text="{Binding DownloadDirCheck, Mode=OneWay}" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="File name template:" HorizontalAlignment="Right"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="0 3 0 0"
+                             Text="{Binding FileNameTemplate, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text=">" HorizontalAlignment="Right"
+                               Foreground="Gray"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="4" Grid.Column="1" Margin="0 0 0 3" IsReadOnly="True"
+                             Foreground="Gray"
+                             Text="{Binding FileNameCheck, Mode=OneWay}" />
+                </Grid>
+            </GroupBox>
+            
+            <Grid Margin="0 0 0 6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Access token:" />
+                <TextBox Grid.Column="1"
+                         Text="{Binding AccessToken}"
+                         IsReadOnly="{Binding IsChecked, 
+                            ElementName=IsEditAccessTokenToggleButton,
+                            Converter={StaticResource InverseBooleanConverter}}" />
+                <ToggleButton Grid.Column="2" Content="Edit"
+                              x:Name="IsEditAccessTokenToggleButton"/>
+                <!-- TODO проверить работает ли этот биндинг -->
+            </Grid>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,11 +1,9 @@
-﻿namespace VkMusicDownloader.Settings
+﻿using Root.Abstractions;
+
+namespace VkMusicDownloader.Settings
 {
-    public interface IMusicDownloaderSettings
+    public interface IMusicDownloaderSettings : ISettings
     {
-        bool IsLoaded { get; }
-        void Load();
-        bool Save();
-        
         string DownloadDirTemplate { get; set; }
         string FileNameTemplate { get; set; }
         string AccessToken { get; set; }

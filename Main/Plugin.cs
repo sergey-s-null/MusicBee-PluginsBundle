@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using MusicBeePlugin.GUI.SettingsDialog;
 using Ninject;
 using Root;
 using VkMusicDownloader.GUI.MusicDownloaderWindow;
@@ -123,10 +124,12 @@ namespace MusicBeePlugin
             wnd.ShowDialog();
         }
 
-        public bool Configure(IntPtr panelHandle)
+        public bool Configure(IntPtr _)
         {
-            // TODO переделать
-            // OpenSettingsDialog();
+            var dialog = _kernel.Get<SettingsDialog>();
+            
+            dialog.ShowDialog();
+            
             return true;
         }
 

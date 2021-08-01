@@ -4,11 +4,11 @@ namespace MusicBeePlugin.GUI.SettingsDialog
 {
     public partial class SettingsDialog : Window
     {
-        public SettingsDialog()
+        public SettingsDialog(SettingsDialogVM viewModel)
         {
             InitializeComponent();
 
-            DataContext = new SettingsDialogVM();
+            DataContext = viewModel;
         }
     }
 }

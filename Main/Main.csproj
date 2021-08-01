@@ -91,6 +91,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Bootstrapper.cs" />
+        <Compile Include="GUI\SettingsDialog\ModuleSettingsVM.cs" />
         <Compile Include="GUI\SettingsDialog\SettingsDialog.xaml.cs">
           <DependentUpon>SettingsDialog.xaml</DependentUpon>
         </Compile>

@@ -1,38 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Root.Abstractions;
 
 namespace VkMusicDownloader.Settings
 {
-    public class MusicDownloaderSettings : BaseJsonFilePropertiesManager, IMusicDownloaderSettings
+    public class MusicDownloaderSettings : BaseSettings, IMusicDownloaderSettings
     {
-
-        #region Settings Props With Reflection
-
-        private static readonly IReadOnlyCollection<string> PropsNamesList = new List<string>()
-        {
-            nameof(DownloadDirTemplate),
-            nameof(FileNameTemplate),
-            nameof(AccessToken)
-        };
-
-        private static readonly IReadOnlyCollection<PropertyInfo> PropsInfo = typeof(MusicDownloaderSettings)
-            .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-            .Where(p => PropsNamesList.Contains(p.Name))
-            .ToList()
-            .AsReadOnly();
-
-        protected override IEnumerable<PropertyInfo> PropertyInfos => PropsInfo;
-
         public string DownloadDirTemplate { get; set; } = "";
-
         public string FileNameTemplate { get; set; } = "";
-
         public string AccessToken { get; set; } = "";
-
-        #endregion
-
+        
         public MusicDownloaderSettings(string filePath) : base(filePath)
-        { }
+        {
+            
+        }
+        
+        protected override void PropertiesFromJObject(JToken rootObj)
+        {
+            DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate));
+            FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate));
+            AccessToken = rootObj.Value<string>(nameof(AccessToken));
+        }
+
+        protected override JObject PropertiesToJObject()
+        {
+            return new()
+            {
+                [nameof(DownloadDirTemplate)] = DownloadDirTemplate,
+                [nameof(FileNameTemplate)] = FileNameTemplate,
+                [nameof(AccessToken)] = AccessToken
+            };
+        }
     }
 }

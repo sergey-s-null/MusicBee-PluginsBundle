@@ -10,8 +10,8 @@ namespace Test_Desktop
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var wnd = new SettingsDialog();
-            wnd.ShowDialog();
+            // var wnd = new SettingsDialog();
+            // wnd.ShowDialog();
         }
     }
 }

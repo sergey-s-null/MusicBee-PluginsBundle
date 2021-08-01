@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using MusicBeePlugin.Annotations;
 using Root.Abstractions;
+using VkMusicDownloader.GUI.Settings;
 
 namespace MusicBeePlugin.GUI.SettingsDialog
 {
@@ -12,11 +13,16 @@ namespace MusicBeePlugin.GUI.SettingsDialog
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<ISettings> Settings { get; } = new ();
+        public ObservableCollection<ModuleSettingsVM> Settings { get; } = new ();
 
-        public SettingsDialogVM()
+        public ModuleSettingsVM SelectedSettingsModule { get; set; }
+        
+        public SettingsDialogVM(IMusicDownloaderSettingsVM musicDownloaderSettingsVM)
         {
+            Settings.Add(new ModuleSettingsVM("Music downloader", 
+                musicDownloaderSettingsVM));
             
+            musicDownloaderSettingsVM.Load();// TODO сделать это более универсализированным. Мб через ISettings
         }
     }
 }

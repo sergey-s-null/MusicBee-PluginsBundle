@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Ninject.Modules;
 using Root;
+using VkMusicDownloader.GUI.Settings;
 using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkNet;
@@ -25,6 +26,8 @@ namespace VkMusicDownloader
                 .To<MusicDownloaderSettings>()
                 .WithConstructorArgument("filePath",
                     ConfigurationHelper.GetSettingsFilePath(_mbApi));
+            Bind<IMusicDownloaderSettingsVM>()
+                .To<MusicDownloaderSettingsVM>();
         }
         
         private static VkApi GetVkApi()

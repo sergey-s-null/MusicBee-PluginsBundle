@@ -114,6 +114,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\Settings\IMusicDownloaderSettingsVM.cs" />
     <Compile Include="Helpers\AudioDownloadHelper.cs" />
     <Compile Include="Helpers\CollectionEx.cs" />
     <Compile Include="Helpers\ConfigurationHelper.cs" />
@@ -147,12 +148,8 @@
     <Compile Include="GUI\InputDialog\InputDialogVM.cs" />
     <Compile Include="GUI\MusicDownloaderWindow\BaseAudioVM.cs" />
     <Compile Include="GUI\MusicDownloaderWindow\MusicDownloaderWindowVM.cs" />
-    <Compile Include="GUI\SettingsDialog\SettingsDialog.xaml.cs">
-      <DependentUpon>SettingsDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\SettingsDialog\SettingsDialogVM.cs" />
+    <Compile Include="GUI\Settings\MusicDownloaderSettingsVM.cs" />
     <Compile Include="MusicDownloaderModule.cs" />
-    <Compile Include="Settings\BaseJsonFilePropertiesManager.cs" />
     <Compile Include="Settings\IMusicDownloaderSettings.cs" />
     <Compile Include="Settings\MusicDownloaderSettings.cs" />
     <Compile Include="TagReplacer\MBTagReplacer.cs" />
@@ -183,10 +180,7 @@
       <DependentUpon>MusicDownloaderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="GUI\SettingsDialog\SettingsDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Page Include="GUI\Settings\MusicDownloaderSettings.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
