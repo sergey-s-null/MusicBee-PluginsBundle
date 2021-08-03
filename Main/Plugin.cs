@@ -4,6 +4,7 @@ using System.Net;
 using MusicBeePlugin.GUI.SettingsDialog;
 using Ninject;
 using Root;
+using VkMusicDownloader.Exceptions;
 using VkMusicDownloader.GUI.MusicDownloaderWindow;
 using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
@@ -17,10 +18,8 @@ namespace MusicBeePlugin
         private const short MinInterfaceVersion = 40;// 41
         private const short MinApiRevision = 53;
         
-        private IReadOnlyKernel _kernel;
+        private IKernel _kernel;
         private MusicBeeApiInterface _mbApi;
-        private VkApi _vkApi;
-        private IMusicDownloaderSettings _settings;
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
@@ -33,15 +32,11 @@ namespace MusicBeePlugin
             
             _kernel = Bootstrapper.GetKernel(_mbApi);
             
-            _vkApi = _kernel.Get<VkApi>();
-            _settings = _kernel.Get<IMusicDownloaderSettings>();
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: download vk audio",
+                "Laiser399: download vk audio", (_, __) => OpenDownloadDialog());
 
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: TemplateAction",
-                "Laiser399: TemplateAction", (_, __) => SomeAction());
-
-            // TODO заменить на это
-            // _mbApi.MB_AddMenuItem("mnuTools/Laiser399: download vk audio",
-            //     "Laiser399: download vk audio", (_, _) => OpenDownloadDialog());
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export",
+                "Laiser399: Export", (_, __) => Export());
 
             return GetPluginInfo();
         }
@@ -66,59 +61,24 @@ namespace MusicBeePlugin
             };
         }
 
-        // TODO move out
         private void CreateSettingsDirectory()
         {
             var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
-            if (!Directory.Exists(settingsDirPath))
-                Directory.CreateDirectory(settingsDirPath);
+
+            try
+            {
+                if (!Directory.Exists(settingsDirPath))
+                {
+                    Directory.CreateDirectory(settingsDirPath);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new InitializeException($"Error creating settings dir: {settingsDirPath}", e);
+            }
         }
         
-        // TODO переделать
-        // private async void OpenDownloadDialog()
-        // {
-        //     if (!_vkApi.IsAuthorized)
-        //     {
-        //         var token = _settings.AccessToken;
-        //
-        //         if (!_vkApi.TryAuth(token))
-        //         {
-        //             if (await _vkApi.TryAuthAsync(TryInputAuthData, TryInputCode))
-        //             {
-        //                 _settings.AccessToken = _vkApi.Token;
-        //                 _settings.Save();
-        //             }
-        //             else
-        //             {
-        //                 MessageBox.Show("Auth error.");
-        //                 return;
-        //             }
-        //         }
-        //     }
-        //
-        //     var downloadDialog = _kernel.Get<MainWindow>();
-        //     downloadDialog.ShowDialog();
-        // }
-        
-        // private void OpenSettingsDialog()
-        // {
-        //     var dialog = _kernel.Get<SettingsDialog>();
-        //     dialog.ShowDialog();
-        // }
-        //
-        // private bool TryInputAuthData(out string login, out string password)
-        // {
-        //     var dialog = _kernel.Get<AuthDialog>();
-        //     return dialog.ShowDialog(out login, out password);
-        // }
-        //
-        // private bool TryInputCode(out string code)
-        // {
-        //     var dialog = _kernel.Get<InputDialog>();
-        //     return dialog.ShowDialog("Enter code:", out code);
-        // }
-        
-        private void SomeAction()
+        private void OpenDownloadDialog()
         {
             var wnd = _kernel.Get<MusicDownloaderWindow>();
             wnd.ShowDialog();
@@ -133,16 +93,21 @@ namespace MusicBeePlugin
             return true;
         }
 
-        // uninstall this plugin - clean up any persisted files
         public void Uninstall()
         {
             var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
+            
             try
             {
                 if (Directory.Exists(settingsDirPath))
+                {
                     Directory.Delete(settingsDirPath, true);
+                }
             }
-            catch { }
+            catch (Exception e)
+            {
+                throw new UninstallException($"Error delete directory: {settingsDirPath}", e);
+            }
         }
 
         public void ReceiveNotification(string sourceFileUrl, NotificationType type)

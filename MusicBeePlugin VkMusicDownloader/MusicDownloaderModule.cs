@@ -5,6 +5,7 @@ using VkMusicDownloader.GUI.Settings;
 using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkNet;
+using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
 
 namespace VkMusicDownloader
@@ -21,7 +22,7 @@ namespace VkMusicDownloader
         public override void Load()
         {
             Bind<MusicBeeApiInterface>().ToConstant(_mbApi);
-            Bind<VkApi>().ToConstant(GetVkApi());
+            Bind<IVkApi>().ToConstant(GetVkApi());
             Bind<IMusicDownloaderSettings>()
                 .To<MusicDownloaderSettings>()
                 .WithConstructorArgument("filePath",
@@ -30,7 +31,7 @@ namespace VkMusicDownloader
                 .To<MusicDownloaderSettingsVM>();
         }
         
-        private static VkApi GetVkApi()
+        private static IVkApi GetVkApi()
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddAudioBypass();

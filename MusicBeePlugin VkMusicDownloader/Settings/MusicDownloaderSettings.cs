@@ -15,7 +15,7 @@ namespace VkMusicDownloader.Settings
         public string FileNameTemplate { get; set; } = "";
         public string AccessToken { get; set; } = "";
         
-        public MusicDownloaderSettings(string filePath) : base(filePath)
+        public MusicDownloaderSettings(string filePath) : base(filePath, true)
         {
             
         }

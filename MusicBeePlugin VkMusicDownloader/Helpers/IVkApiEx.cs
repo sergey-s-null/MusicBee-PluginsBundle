@@ -28,17 +28,42 @@ namespace VkMusicDownloader.Helpers
             
         }
 
+        public static bool TryAuth(this IVkApi vkApi, 
+            AuthDelegate authDelegate, CodeInputDelegate codeInputDelegate)
+        {
+            if (!authDelegate(out var login, out var password))
+                return false;
+            
+            try
+            {
+                vkApi.Authorize(new ApiAuthParams()
+                {
+                    Login = login,
+                    Password = password,
+                    TwoFactorAuthorization = () 
+                        => codeInputDelegate(out var code) 
+                            ? code 
+                            : ""
+                });
+                
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
         /// <param name="authDelegate">delegate to receive login with password</param>
         /// <param name="codeInputDelegate">delegate to receive two factor auth code</param>
         /// <returns>result of auth</returns>
         public static async Task<bool> TryAuthAsync(this IVkApi vkApi, 
             AuthDelegate authDelegate, CodeInputDelegate codeInputDelegate)
         {
-            if (!authDelegate(out string login, out string password))
+            if (!authDelegate(out var login, out var password))
                 return false;
-
             
-            TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             try
             {
                 await vkApi.AuthorizeAsync(new ApiAuthParams()
@@ -47,14 +72,11 @@ namespace VkMusicDownloader.Helpers
                     Password = password,
                     TwoFactorAuthorization = () =>
                     {
-                        TaskFactory taskFactory = new TaskFactory(scheduler);
-                        Task<string> task = taskFactory.StartNew(() =>
-                        {
-                            if (codeInputDelegate(out string code))
-                                return code;
-                            else
-                                return "";
-                        });
+                        var taskFactory = new TaskFactory(scheduler);
+                        var task = taskFactory.StartNew(() 
+                            => codeInputDelegate(out var code) 
+                                ? code 
+                                : "");
                         return task.Result;
                     }
                 });

@@ -11,6 +11,7 @@ using VkMusicDownloader.Helpers;
 using VkMusicDownloader.Settings;
 using VkMusicDownloader.TagReplacer;
 using VkNet;
+using VkNet.Abstractions;
 
 namespace VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk
 {
@@ -70,12 +71,12 @@ namespace VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk
         private MBTagReplacer _tagReplacer = new MBTagReplacer();
         
         private readonly MusicBeeApiInterface _mbApi;
-        private readonly VkApi _vkApi;
+        private readonly IVkApi _vkApi;
         private readonly IMusicDownloaderSettings _settings;
         
         public AddingVkVM(
             MusicBeeApiInterface mbApi,
-            VkApi vkApi,
+            IVkApi vkApi,
             IMusicDownloaderSettings settings)
         {
             _mbApi = mbApi;

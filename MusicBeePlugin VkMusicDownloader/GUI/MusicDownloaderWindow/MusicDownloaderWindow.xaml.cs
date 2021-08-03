@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using VkMusicDownloader.Helpers;
+using VkMusicDownloader.Settings;
+using VkNet.Abstractions;
 
 namespace VkMusicDownloader.GUI.MusicDownloaderWindow
 {
@@ -10,14 +13,62 @@ namespace VkMusicDownloader.GUI.MusicDownloaderWindow
     public partial class MusicDownloaderWindow : Window
     {
         private readonly MusicDownloaderWindowVM _viewModel;
+
+        private readonly IVkApi _vkApi;
+        private readonly IMusicDownloaderSettings _settings;
         
-        public MusicDownloaderWindow(MusicDownloaderWindowVM viewModel)
+        public MusicDownloaderWindow(MusicDownloaderWindowVM viewModel,
+            IVkApi vkApi,
+            IMusicDownloaderSettings settings)
         {
             InitializeComponent();
+            
             _viewModel = viewModel;
+            _vkApi = vkApi;
+            _settings = settings;
+            
             DataContext = _viewModel;
         }
 
+        public new void ShowDialog()
+        {
+            if (!_vkApi.IsAuthorized)
+            {
+                var token = _settings.AccessToken;
+                if (!_vkApi.TryAuth(token))
+                {
+                    if (_vkApi.TryAuth(TryInputAuthData, TryInputCode))
+                    {
+                        _settings.AccessToken = _vkApi.Token;
+                        _settings.Save();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Auth error.");
+                        return;
+                    }
+                }
+            }
+
+            base.ShowDialog();
+        }
+        
+        // TODO move out
+        private bool TryInputAuthData(out string login, out string password)
+        {
+            var dialog = new AuthDialog.AuthDialog();
+            
+            return dialog.ShowDialog(out login, out password);
+        }
+        
+        // TODO move out
+        private bool TryInputCode(out string code)
+        {
+            var dialog = new InputDialog.InputDialog();
+
+            return dialog.ShowDialog("Enter code:", out code);
+        }
+        
         protected override void OnContentRendered(EventArgs e)
         {
             if (!_viewModel.AddingVkVM.IsRefreshing)

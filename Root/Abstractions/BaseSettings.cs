@@ -11,9 +11,14 @@ namespace Root.Abstractions
         
         private readonly string _filePath;
         
-        protected BaseSettings(string filePath)
+        protected BaseSettings(string filePath, bool load)
         {
             _filePath = filePath;
+
+            if (load)
+            {
+                Load();
+            }
         }
         
         public void Load()
