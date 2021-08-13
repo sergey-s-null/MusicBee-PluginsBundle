@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Main.Properties
+namespace MusicBeePlugin.Properties
 {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
