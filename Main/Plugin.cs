@@ -1,14 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using MusicBeePlugin.GUI.SettingsDialog;
-using Ninject;
-using Root;
+using System.Windows;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.DataExporter;
+using Module.DataExporter.Exceptions;
 using Module.VkMusicDownloader.Exceptions;
 using Module.VkMusicDownloader.GUI.MusicDownloaderWindow;
 using Module.VkMusicDownloader.Helpers;
-using VkNet;
+using MusicBeePlugin.GUI.SettingsDialog;
+using Ninject;
+using Root;
 
 namespace MusicBeePlugin
 {
@@ -82,6 +84,36 @@ namespace MusicBeePlugin
         {
             var wnd = _kernel.Get<MusicDownloaderWindow>();
             wnd.ShowDialog();
+        }
+
+        private void Export()
+        {
+            using var dialog = new CommonOpenFileDialog()
+            {
+                IsFolderPicker = true,
+                EnsurePathExists = true
+            };
+
+            if (dialog.ShowDialog() != CommonFileDialogResult.Ok)
+            {
+                return;
+            }
+
+            try
+            {
+                var service = _kernel.Get<DataExportService>();
+                service.Service(dialog.FileName);
+
+                MessageBox.Show("Экспорт выполнен успешно.", "Ок");
+            }
+            catch (MusicBeeApiException e)
+            {
+                MessageBox.Show(e.Message, "Error");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Unknown Error");
+            }
         }
 
         public bool Configure(IntPtr _)
