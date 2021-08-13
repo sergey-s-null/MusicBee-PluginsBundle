@@ -79,9 +79,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MusicBeePlugin VkMusicDownloader\MusicBeePlugin VkMusicDownloader.csproj">
+    <ProjectReference Include="..\Module.VkMusicDownloader\Module.VkMusicDownloader.csproj">
       <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>
-      <Name>MusicBeePlugin VkMusicDownloader</Name>
+      <Name>Module.VkMusicDownloader</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

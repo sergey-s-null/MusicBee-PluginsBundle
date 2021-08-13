@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
-using VkMusicDownloader.Helpers;
+using Module.VkMusicDownloader.Helpers;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;
 using VkNet.Model;

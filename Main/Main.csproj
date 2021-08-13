@@ -116,9 +116,13 @@
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\MusicBeePlugin VkMusicDownloader\MusicBeePlugin VkMusicDownloader.csproj">
+      <ProjectReference Include="..\Module.VkMusicDownloader\Module.VkMusicDownloader.csproj">
         <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>
-        <Name>MusicBeePlugin VkMusicDownloader</Name>
+        <Name>Module.VkMusicDownloader</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\Module.DataExporter\Module.DataExporter.csproj">
+        <Project>{d384e0fd-d73c-4e6e-87c9-c7c38aa95e62}</Project>
+        <Name>Module.DataExporter</Name>
       </ProjectReference>
       <ProjectReference Include="..\Root\Root.csproj">
         <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>

@@ -4,10 +4,10 @@ using System.Net;
 using MusicBeePlugin.GUI.SettingsDialog;
 using Ninject;
 using Root;
-using VkMusicDownloader.Exceptions;
-using VkMusicDownloader.GUI.MusicDownloaderWindow;
-using VkMusicDownloader.Helpers;
-using VkMusicDownloader.Settings;
+using Module.DataExporter;
+using Module.VkMusicDownloader.Exceptions;
+using Module.VkMusicDownloader.GUI.MusicDownloaderWindow;
+using Module.VkMusicDownloader.Helpers;
 using VkNet;
 
 namespace MusicBeePlugin

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicBeePlugin VkMusicDownloader", "MusicBeePlugin VkMusicDownloader\MusicBeePlugin VkMusicDownloader.csproj", "{622756AD-5BB9-41D7-B5DF-87614DF8102E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.VkMusicDownloader", "Module.VkMusicDownloader\Module.VkMusicDownloader.csproj", "{622756AD-5BB9-41D7-B5DF-87614DF8102E}"
 EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "MusicBee", "C:\Program Files (x86)\MusicBee\MusicBee.exe", "{443BF81F-DFE4-4499-AFF0-E6B9E25ABEAC}"
 	ProjectSection(DebuggerProjectSystem) = preProject

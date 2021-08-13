@@ -1,6 +1,6 @@
-﻿using Ninject;
+﻿using Module.VkMusicDownloader;
+using Ninject;
 using Root;
-using VkMusicDownloader;
 
 namespace MusicBeePlugin
 {
