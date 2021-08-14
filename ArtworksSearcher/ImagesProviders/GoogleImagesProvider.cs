@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
@@ -14,15 +13,15 @@ namespace ArtworksSearcher.ImagesProviders
 {
     public class GoogleImagesAsyncEnumerator : IAsyncEnumerator<BitmapImage>
     {
-        private const string _googleApiUrl = "https://www.googleapis.com/customsearch/v1";
+        private const string GoogleApiUrl = "https://www.googleapis.com/customsearch/v1";
 
-        private string _cx;
-        private string _key;
-        private string _query;
+        private readonly string _cx;
+        private readonly string _key;
+        private readonly string _query;
 
-        private int _requestOffset = 0;
-        private Queue<string> _urlsQueue = new Queue<string>();
-        private List<Task<byte[]>> _downloadingTasks = new List<Task<byte[]>>();
+        private int _requestOffset;
+        private readonly Queue<string> _urlsQueue = new();
+        private readonly List<Task<byte[]>> _downloadingTasks = new();
 
         public GoogleImagesAsyncEnumerator(string cx, string key, string query)
         {
@@ -33,14 +32,14 @@ namespace ArtworksSearcher.ImagesProviders
 
         #region IAsyncEnumerator
 
-        private BitmapImage _current = null;
+        private BitmapImage _current;
         public BitmapImage Current => _current;
 
         public async Task<bool> MoveNext()
         {
             while (true)
             {
-                int parallelTasksCount = Settings.MaxParallelDownloadsCount;
+                var parallelTasksCount = Settings.MaxParallelDownloadsCount;
                 while (_downloadingTasks.Count < parallelTasksCount)
                 {
                     if (_urlsQueue.Count == 0)
@@ -55,17 +54,17 @@ namespace ArtworksSearcher.ImagesProviders
 
                     while (_downloadingTasks.Count < parallelTasksCount && _urlsQueue.Count > 0)
                     {
-                        WebClient webClient = new WebClient();
+                        var webClient = new WebClient();
                         _downloadingTasks.Add(webClient.DownloadDataTaskAsync(_urlsQueue.Dequeue()));
                     }
                 }
 
-                Task<byte[]> doneTask = await Task.WhenAny(_downloadingTasks);
+                var doneTask = await Task.WhenAny(_downloadingTasks);
                 _downloadingTasks.Remove(doneTask);
                 try
                 {
-                    byte[] data = await doneTask;
-                    BitmapImage image = new BitmapImage();
+                    var data = await doneTask;
+                    var image = new BitmapImage();
                     image.BeginInit();
                     image.StreamSource = new MemoryStream(data);
                     image.EndInit();
@@ -74,7 +73,7 @@ namespace ArtworksSearcher.ImagesProviders
                 }
                 catch (Exception)
                 {
-                    continue;
+                    
                 }
             }
 
@@ -82,7 +81,7 @@ namespace ArtworksSearcher.ImagesProviders
 
         private async Task<bool> TryFillQueueAsync()
         {
-            string url = UrlEx.AddParameters(_googleApiUrl, new Dictionary<string, string>
+            var url = UrlEx.AddParameters(GoogleApiUrl, new Dictionary<string, string>
             {
                 ["key"] = _key,
                 ["cx"] = _cx,
@@ -91,15 +90,15 @@ namespace ArtworksSearcher.ImagesProviders
                 ["start"] = _requestOffset.ToString()
             });
 
-            using (WebClient webClient = new WebClient())
+            using (var webClient = new WebClient())
             {
                 try
                 {
-                    string response = await webClient.DownloadStringTaskAsync(url);
-                    JObject jObj = JsonConvert.DeserializeObject<JObject>(response);
-                    string[] imgUrls = jObj["items"].Select(item => item["link"].ToString()).ToArray();
+                    var response = await webClient.DownloadStringTaskAsync(url);
+                    var jObj = JsonConvert.DeserializeObject<JObject>(response);
+                    var imgUrls = jObj["items"].Select(item => item["link"].ToString()).ToArray();
 
-                    foreach (string imgUrl in imgUrls)
+                    foreach (var imgUrl in imgUrls)
                         _urlsQueue.Enqueue(imgUrl);
                     _requestOffset += imgUrls.Length;
 
@@ -117,9 +116,9 @@ namespace ArtworksSearcher.ImagesProviders
 
     public class GoogleImagesProvider : IImagesProvider
     {
-        private const string _googleApiUrl = "https://www.googleapis.com/customsearch/v1";
-        private string _cx;
-        private string _key;
+        private const string GoogleApiUrl = "https://www.googleapis.com/customsearch/v1";
+        private readonly string _cx;
+        private readonly string _key;
 
         public GoogleImagesProvider(string cx, string key)
         {
@@ -129,9 +128,9 @@ namespace ArtworksSearcher.ImagesProviders
 
         public IEnumerable<BitmapImage> GetImagesIter(string query)
         {
-            foreach (byte[] data in GetBinaryIter(query))
+            foreach (var data in GetBinaryIter(query))
             {
-                BitmapImage image = new BitmapImage();
+                var image = new BitmapImage();
                 image.BeginInit();
                 image.StreamSource = new MemoryStream(data);
                 image.EndInit();
@@ -141,11 +140,11 @@ namespace ArtworksSearcher.ImagesProviders
 
         public IEnumerable<byte[]> GetBinaryIter(string query)
         {
-            foreach (string imgUrl in GetImgUrlIter(query))
+            foreach (var imgUrl in GetImgUrlIter(query))
             {
-                using (WebClient webClient = new WebClient())
+                using (var webClient = new WebClient())
                 {
-                    if (webClient.TryDownloadData(imgUrl, out byte[] data))
+                    if (webClient.TryDownloadData(imgUrl, out var data))
                         yield return data;
                 }
             }
@@ -153,10 +152,10 @@ namespace ArtworksSearcher.ImagesProviders
 
         public IEnumerable<string> GetImgUrlIter(string query)
         {
-            int offset = 0;
+            var offset = 0;
             while (true)
             {
-                string url = UrlEx.AddParameters(_googleApiUrl, new Dictionary<string, string>
+                var url = UrlEx.AddParameters(GoogleApiUrl, new Dictionary<string, string>
                 {
                     ["key"] = _key,
                     ["cx"] = _cx,
@@ -165,11 +164,11 @@ namespace ArtworksSearcher.ImagesProviders
                     ["start"] = offset.ToString()
                 });
 
-                using (WebClient webClient = new WebClient())
+                using (var webClient = new WebClient())
                 {
-                    string response = webClient.DownloadString(url);
-                    JObject jObj = JsonConvert.DeserializeObject<JObject>(response);
-                    string[] imgUrls = jObj["items"].Select(item => item["link"].ToString()).ToArray();
+                    var response = webClient.DownloadString(url);
+                    var jObj = JsonConvert.DeserializeObject<JObject>(response);
+                    var imgUrls = jObj["items"].Select(item => item["link"].ToString()).ToArray();
                     foreach (var imgUrl in imgUrls)
                         yield return imgUrl;
                     offset += imgUrls.Length;

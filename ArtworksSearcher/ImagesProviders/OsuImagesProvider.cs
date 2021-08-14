@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
@@ -13,11 +12,11 @@ namespace ArtworksSearcher.ImagesProviders
     {
         private readonly string[] _imgExtensions = { ".jpg", ".png", ".jpeg" };
 
-        private DirectoryInfo _songsDir;
-        private string _query;
-        private long _minSize;
+        private readonly DirectoryInfo _songsDir;
+        private readonly string _query;
+        private readonly long _minSize;
 
-        private IEnumerator<FileInfo> _imagesEnumerator = null;
+        private IEnumerator<FileInfo> _imagesEnumerator;
 
         public OsuImagesAsyncEnumerator(string songsDirPath, string query, long minSize = 0)
             : this(new DirectoryInfo(songsDirPath), query, minSize)
@@ -46,7 +45,7 @@ namespace ArtworksSearcher.ImagesProviders
                 {
                     try
                     {
-                        byte[] data = File.ReadAllBytes(_imagesEnumerator.Current.FullName);
+                        var data = File.ReadAllBytes(_imagesEnumerator.Current.FullName);
                         _current = new BitmapImage();
                         _current.BeginInit();
                         _current.StreamSource = new MemoryStream(data);
@@ -62,7 +61,7 @@ namespace ArtworksSearcher.ImagesProviders
 
         private void InitImagesEnumerator()
         {
-            DirectoryInfo[] songsDirs = _songsDir.GetDirectories();
+            var songsDirs = _songsDir.GetDirectories();
             var items = songsDirs.Select(songDir => new
             {
                 SongDir = songDir,
@@ -78,7 +77,7 @@ namespace ArtworksSearcher.ImagesProviders
                         return Array.Empty<FileInfo>();
                     if (!_imgExtensions.Contains(songFile.Extension.ToLower()))
                         return Array.Empty<FileInfo>();
-                    return new FileInfo[] { songFile };
+                    return new[] {songFile};
                 });
             }).GetEnumerator();
         }
@@ -90,7 +89,7 @@ namespace ArtworksSearcher.ImagesProviders
     public class OsuImagesProvider : IImagesProvider
     {
         private readonly string[] _imgExtensions = { ".jpg", ".png", ".jpeg" };
-        private DirectoryInfo _songsDir;
+        private readonly DirectoryInfo _songsDir;
         public long MinSize = 0;
 
         public OsuImagesProvider(string songsDirPath)
@@ -105,9 +104,9 @@ namespace ArtworksSearcher.ImagesProviders
 
         public IEnumerable<BitmapImage> GetImagesIter(string query)
         {
-            foreach (byte[] data in GetBinaryIter(query))
+            foreach (var data in GetBinaryIter(query))
             {
-                BitmapImage image = new BitmapImage();
+                var image = new BitmapImage();
                 image.BeginInit();
                 image.StreamSource = new MemoryStream(data);
                 image.EndInit();
@@ -117,19 +116,19 @@ namespace ArtworksSearcher.ImagesProviders
 
         public IEnumerable<byte[]> GetBinaryIter(string query)
         {
-            foreach (FileInfo file in GetFilesIter(query))
+            foreach (var file in GetFilesIter(query))
                 yield return File.ReadAllBytes(file.FullName);
         }
 
         public IEnumerable<string> GetPathsIter(string query)
         {
-            foreach (FileInfo file in GetFilesIter(query))
+            foreach (var file in GetFilesIter(query))
                 yield return file.FullName;
         }
 
         public IEnumerable<FileInfo> GetFilesIter(string query)
         {
-            DirectoryInfo[] songsDirs = _songsDir.GetDirectories();
+            var songsDirs = _songsDir.GetDirectories();
             var items = songsDirs.Select(songDir => new
             {
                 SongDir = songDir,
@@ -139,7 +138,7 @@ namespace ArtworksSearcher.ImagesProviders
 
             foreach (var item in items)
             {
-                foreach (FileInfo file in item.SongDir.GetFiles())
+                foreach (var file in item.SongDir.GetFiles())
                 {
                     if (file.Length < MinSize)
                         continue;

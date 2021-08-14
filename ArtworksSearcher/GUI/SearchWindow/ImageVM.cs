@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 
 namespace ArtworksSearcher.GUI
 {
@@ -11,7 +6,7 @@ namespace ArtworksSearcher.GUI
     {
         #region Bindings
 
-        private int _number;
+        private readonly int _number;
         public int Number => _number;
 
         private BitmapImage _image;

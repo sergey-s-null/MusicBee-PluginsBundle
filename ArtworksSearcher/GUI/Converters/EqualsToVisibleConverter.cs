@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
@@ -15,7 +11,7 @@ namespace ArtworksSearcher.GUI.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is object && value.Equals(parameter))
+            if (value is not null && value.Equals(parameter))
                 return Visibility.Visible;
             else
                 return Visibility.Collapsed;
@@ -33,7 +29,7 @@ namespace ArtworksSearcher.GUI.Converters
         /// <summary>
         /// 
         /// </summary>
-        /// <exception cref="ArgumentException">values.Length < 2</exception>
+        /// <exception cref="ArgumentException">values.Length less than 2</exception>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values.Length < 2)
@@ -42,7 +38,7 @@ namespace ArtworksSearcher.GUI.Converters
             if (values[0] is null)
                 return parameter;
 
-            for (int i = 1; i < values.Length; i++)
+            for (var i = 1; i < values.Length; i++)
             {
                 if (!values[0].Equals(values[i]))
                     return parameter;

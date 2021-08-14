@@ -7,23 +7,23 @@ namespace ArtworksSearcher.GUI
 {
     public partial class SearchWindow : Window
     {
-        private SearchWindowVM _viewModel;
-        private bool _shown = false;
+        private readonly SearchWindowVM _viewModel;
+        private bool _shown;
 
-        private byte[] _imageData = null;
+        private byte[] _imageData;
         public byte[] ImageData => _imageData;
 
         public SearchWindow(string artist, string title)
         {
             InitializeComponent();
             _viewModel = new SearchWindowVM() { Artist = artist, Title = title };
-            _viewModel.OnClearResults += (s, a) => ResetScrollViewerOffset();
+            _viewModel.OnClearResults += (_, _) => ResetScrollViewerOffset();
             DataContext = _viewModel;
         }
 
         private void ResetScrollViewerOffset()
         {
-            _scrollViewer.ScrollToVerticalOffset(0);
+            ScrollViewer.ScrollToVerticalOffset(0);
         }
 
         protected override void OnContentRendered(EventArgs e)
@@ -41,7 +41,7 @@ namespace ArtworksSearcher.GUI
         // direct events
         private void LeftPanelScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            double maxVerticalOffset = e.ExtentHeight - e.ViewportHeight;
+            var maxVerticalOffset = e.ExtentHeight - e.ViewportHeight;
             if (e.ExtentHeight < e.ViewportHeight || e.VerticalOffset / maxVerticalOffset > 0.99)
             {
                 ICommand nextImageCmd = _viewModel.NextImageCmd;
@@ -63,7 +63,7 @@ namespace ArtworksSearcher.GUI
 
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
-            if (_viewModel.TryGetImageData(out byte[] imageData))
+            if (_viewModel.TryGetImageData(out var imageData))
             {
                 _imageData = imageData;
                 DialogResult = true;

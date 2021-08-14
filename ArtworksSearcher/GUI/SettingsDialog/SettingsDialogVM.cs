@@ -1,10 +1,6 @@
 ﻿// using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Collections.Generic;
+
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArtworksSearcher.GUI
@@ -75,7 +71,7 @@ namespace ArtworksSearcher.GUI
         #endregion
 
         private Window _ownerWindow;
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public SettingsDialogVM(Window ownerWindow, Settings settings)
         {
@@ -103,7 +99,7 @@ namespace ArtworksSearcher.GUI
 
         public bool SaveChanges()
         {
-            if (!int.TryParse(ParallelDownloadsCount, out int parallelDownloadsCount))
+            if (!int.TryParse(ParallelDownloadsCount, out var parallelDownloadsCount))
             {
                 MessageBox.Show("Wrong format of parallel downloads count.");
                 return false;
@@ -119,7 +115,7 @@ namespace ArtworksSearcher.GUI
                 MessageBox.Show("Specified osu songs directory does not exists.");
                 return false;
             }
-            if (!long.TryParse(MinOsuImageByteSize, out long minOsuImageByteSize))
+            if (!long.TryParse(MinOsuImageByteSize, out var minOsuImageByteSize))
             {
                 MessageBox.Show("Wrong format of min osu image size.");
                 return false;

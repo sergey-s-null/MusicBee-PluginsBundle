@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ArtworksSearcher.Ex
 {
@@ -12,9 +8,9 @@ namespace ArtworksSearcher.Ex
         {
             query = query.ToLower();
             text = text.ToLower();
-            string[] qTerms = query.Split(' ');
+            var qTerms = query.Split(' ');
             double coef = 1;
-            foreach (string term in qTerms)
+            foreach (var term in qTerms)
             {
                 if (text.Contains(term))
                     coef *= 10;
@@ -29,12 +25,12 @@ namespace ArtworksSearcher.Ex
             if (a.Length == 0 && b.Length == 0)
                 return double.PositiveInfinity;
 
-            HashSet<char> setA = new HashSet<char>(a.ToCharArray());
-            HashSet<char> setB = new HashSet<char>(b.ToCharArray());
-            int aCount = setA.Count;
-            int bCount = setB.Count;
+            var setA = new HashSet<char>(a.ToCharArray());
+            var setB = new HashSet<char>(b.ToCharArray());
+            var aCount = setA.Count;
+            var bCount = setB.Count;
             setA.IntersectWith(setB);
-            int cCount = setA.Count;
+            var cCount = setA.Count;
             return (double)cCount / (aCount + bCount - cCount);
         }
     }

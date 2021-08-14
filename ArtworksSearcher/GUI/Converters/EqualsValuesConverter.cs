@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace ArtworksSearcher.GUI.Converters
@@ -17,7 +13,7 @@ namespace ArtworksSearcher.GUI.Converters
             if (values[0] is null)
                 return false;
 
-            for (int i = 1; i < values.Length; i++)
+            for (var i = 1; i < values.Length; i++)
             {
                 if (values[i] is null)
                     return false;

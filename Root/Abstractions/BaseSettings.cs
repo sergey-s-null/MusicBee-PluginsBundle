@@ -7,7 +7,7 @@ namespace Root.Abstractions
 {
     public abstract class BaseSettings : ISettings
     {
-        public bool IsLoaded { get; private set; } = false;
+        public bool IsLoaded { get; private set; }
         
         private readonly string _filePath;
         

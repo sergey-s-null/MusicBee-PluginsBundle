@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArtworksSearcher
 {
@@ -66,7 +61,7 @@ namespace ArtworksSearcher
             }
         }
 
-        private long _minOsuImageByteSize = 0;
+        private long _minOsuImageByteSize;
         public long MinOsuImageByteSize
         {
             get => _minOsuImageByteSize;
@@ -81,7 +76,7 @@ namespace ArtworksSearcher
 
         #endregion
 
-        private string _filePath;
+        private readonly string _filePath;
 
         public Settings(string settingsFilePath)
         {
@@ -101,7 +96,7 @@ namespace ArtworksSearcher
                 return false;
             }
 
-            JObject rootObj = JsonConvert.DeserializeObject(content) as JObject;
+            var rootObj = JsonConvert.DeserializeObject(content) as JObject;
             if (rootObj is null)
                 return false;
 
@@ -116,7 +111,7 @@ namespace ArtworksSearcher
 
         public bool Save()
         {
-            JObject rootObj = new JObject();
+            var rootObj = new JObject();
             rootObj[nameof(GoogleCX)] = GoogleCX;
             rootObj[nameof(GoogleKey)] = GoogleKey;
             rootObj[nameof(ParallelDownloadsCount)] = ParallelDownloadsCount;

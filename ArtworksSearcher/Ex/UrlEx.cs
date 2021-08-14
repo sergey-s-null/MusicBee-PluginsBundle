@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ArtworksSearcher.Ex
 {
@@ -10,11 +7,11 @@ namespace ArtworksSearcher.Ex
     {
         public static string AddParameters(string url, Dictionary<string, string> parameters)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             builder.Append(url);
             if (url.Length > 0 && url[url.Length - 1] != '?')
                 builder.Append('?');
-            bool first = true;
+            var first = true;
             foreach (var pair in parameters)
             {
                 if (!first)

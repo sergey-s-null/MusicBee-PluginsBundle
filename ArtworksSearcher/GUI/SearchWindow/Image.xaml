@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:gui="clr-namespace:ArtworksSearcher.GUI"
                     xmlns:conv="clr-namespace:ArtworksSearcher.GUI.Converters">
-    <conv:EqualsToVisibleConverter x:Key="equalsToVisibleConverter"/>
+    <conv:EqualsToVisibleConverter x:Key="EqualsToVisibleConverter"/>
 
     <DataTemplate DataType="{x:Type gui:ImageVM}">
         <Grid Margin="3 12">
@@ -25,7 +25,7 @@
             <Grid Grid.Column="0" Grid.Row="1"
                   Background="LightBlue">
                 <Grid.Visibility>
-                    <MultiBinding Converter="{StaticResource equalsToVisibleConverter}" 
+                    <MultiBinding Converter="{StaticResource EqualsToVisibleConverter}" 
                                   ConverterParameter="{x:Static Visibility.Hidden}">
                         <Binding/>
                         <Binding Path="DataContext.SelectedResult"

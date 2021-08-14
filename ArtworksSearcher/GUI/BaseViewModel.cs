@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace ArtworksSearcher.GUI
 {
@@ -18,7 +13,7 @@ namespace ArtworksSearcher.GUI
 
         protected void NotifyPropChanged(params string[] propertiesNames)
         {
-            foreach (string propertyName in propertiesNames)
+            foreach (var propertyName in propertiesNames)
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

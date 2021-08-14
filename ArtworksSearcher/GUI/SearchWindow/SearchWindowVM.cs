@@ -1,14 +1,8 @@
 ﻿using ArtworksSearcher.ImagesProviders;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace ArtworksSearcher.GUI
@@ -55,17 +49,17 @@ namespace ArtworksSearcher.GUI
 
         private RelayCommand _resetSearchTextCmd;
         public RelayCommand ResetSearchTextCmd
-            => _resetSearchTextCmd ?? (_resetSearchTextCmd = new RelayCommand(_ => ResetSearchText()));
+            => _resetSearchTextCmd ??= new RelayCommand(_ => ResetSearchText());
 
         private RelayCommand _selectImageCmd;
         public RelayCommand SelectImageCmd
-            => _selectImageCmd ?? (_selectImageCmd = new RelayCommand(arg => SelectImage(arg)));
+            => _selectImageCmd ??= new RelayCommand(arg => SelectImage(arg));
 
         private ObservableCollection<ImageVM> _searchResults;
         public ObservableCollection<ImageVM> SearchResults =>
-            _searchResults ?? (_searchResults = new ObservableCollection<ImageVM>());
+            _searchResults ??= new ObservableCollection<ImageVM>();
 
-        private ImageVM _selectedResult = null;
+        private ImageVM _selectedResult;
         public ImageVM SelectedResult
         {
             get => _selectedResult;
@@ -85,14 +79,14 @@ namespace ArtworksSearcher.GUI
                 {
                     _imagesProviders = new ImagesProviderVM[]
                     {
-                        new ImagesProviderVM()
+                        new()
                         {
                             // TODO from settings
                             //Plugin.Settings.GoogleCX, Plugin.Settings.GoogleKey
                             Provider = new GoogleImagesProvider("", ""),
                             Name = "Google"
                         },
-                        new ImagesProviderVM()
+                        new()
                         {
                             // TODO from settings
                             // Plugin.Settings.OsuSongsDir
@@ -109,7 +103,7 @@ namespace ArtworksSearcher.GUI
         private ImagesProviderVM _selectedProvider;
         public ImagesProviderVM SelectedProvider
         {
-            get => _selectedProvider ?? (_selectedProvider = ImagesProviders[0]);
+            get => _selectedProvider ??= ImagesProviders[0];
             set
             {
                 _selectedProvider = value;
@@ -119,11 +113,11 @@ namespace ArtworksSearcher.GUI
 
         private RelayCommand _searchCmd;
         public RelayCommand SearchCmd
-            => _searchCmd ?? (_searchCmd = new RelayCommand(_ => Search()));
+            => _searchCmd ??= new RelayCommand(_ => Search());
 
         private RelayCommand _nextImageCmd;
         public RelayCommand NextImageCmd
-            => _nextImageCmd ?? (_nextImageCmd = new RelayCommand(_ => NextImage()));
+            => _nextImageCmd ??= new RelayCommand(_ => NextImage());
 
         #endregion
 
@@ -148,7 +142,7 @@ namespace ArtworksSearcher.GUI
             }
         }
 
-        private bool _goFlag = false;
+        private bool _goFlag;
         private void Search()
         {
             if (_goFlag)
@@ -165,7 +159,7 @@ namespace ArtworksSearcher.GUI
             _goFlag = false;
         }
 
-        private bool _nextFlag = false;
+        private bool _nextFlag;
         private async void NextImage()
         {
             if (_imagesAsyncEnumerator is null)
@@ -194,7 +188,7 @@ namespace ArtworksSearcher.GUI
                 return false;
             }
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
                 BitmapEncoder encoder = new JpegBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(SelectedResult.Image));
