@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Module.ArtworksSearcher.Ex
+namespace Module.ArtworksSearcher.Helpers
 {
-    public static class UrlEx
+    public static class UrlHelper
     {
         public static string AddParameters(string url, Dictionary<string, string> parameters)
         {

@@ -1,8 +1,8 @@
 ﻿using System.Net;
 
-namespace Module.ArtworksSearcher.Ex
+namespace Module.ArtworksSearcher.Helpers
 {
-    public static class WebClientEx
+    public static class WebClientHelper
     {
         public static bool TryDownloadData(this WebClient webClient, string address, out byte[] data)
         {

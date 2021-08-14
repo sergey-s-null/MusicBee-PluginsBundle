@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using Module.ArtworksSearcher.Ex;
+using Module.ArtworksSearcher.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Root.Abstractions;
@@ -82,7 +82,7 @@ namespace Module.ArtworksSearcher.ImagesProviders
 
         private async Task<bool> TryFillQueueAsync()
         {
-            var url = UrlEx.AddParameters(GoogleApiUrl, new Dictionary<string, string>
+            var url = UrlHelper.AddParameters(GoogleApiUrl, new Dictionary<string, string>
             {
                 ["key"] = _key,
                 ["cx"] = _cx,

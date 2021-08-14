@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
 
-namespace Module.ArtworksSearcher.Ex
+namespace Module.ArtworksSearcher.Helpers
 {
-    public static class StringEx
+    public static class StringHelper
     {
-        public static double CalcSimilarityCoef(string query, string text)
+        public static double CalcSimilarityCoefficient(string query, string text)
         {
             query = query.ToLower();
             text = text.ToLower();
             var qTerms = query.Split(' ');
-            double coef = 1;
+            double coefficient = 1;
             foreach (var term in qTerms)
             {
                 if (text.Contains(term))
-                    coef *= 10;
+                    coefficient *= 10;
                 else
-                    coef *= CalcJacquardCoef(term, text);
+                    coefficient *= CalcJacquardCoefficient(term, text);
             }
-            return coef;
+            return coefficient;
         }
 
-        private static double CalcJacquardCoef(string a, string b)
+        private static double CalcJacquardCoefficient(string a, string b)
         {
             if (a.Length == 0 && b.Length == 0)
                 return double.PositiveInfinity;

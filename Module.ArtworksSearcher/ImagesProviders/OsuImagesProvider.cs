@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
-using Module.ArtworksSearcher.Ex;
+using Module.ArtworksSearcher.Helpers;
 using Root.Abstractions;
 
 namespace Module.ArtworksSearcher.ImagesProviders
@@ -54,7 +54,7 @@ namespace Module.ArtworksSearcher.ImagesProviders
             var items = songsDirs.Select(songDir => new
             {
                 SongDir = songDir,
-                Coef = StringEx.CalcSimilarityCoef(query, songDir.Name)
+                Coef = StringHelper.CalcSimilarityCoefficient(query, songDir.Name)
             }).ToArray();
             Array.Sort(items, (a, b) => b.Coef.CompareTo(a.Coef));
 
