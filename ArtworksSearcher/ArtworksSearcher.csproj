@@ -70,8 +70,10 @@
           <DependentUpon>SettingsDialog.xaml</DependentUpon>
         </Compile>
         <Compile Include="GUI\SettingsDialog\SettingsDialogVM.cs" />
+        <Compile Include="ImagesProviders\GoogleImagesAsyncEnumerator.cs" />
         <Compile Include="ImagesProviders\GoogleImagesProvider.cs" />
         <Compile Include="ImagesProviders\IImagesProvider.cs" />
+        <Compile Include="ImagesProviders\OsuImagesAsyncEnumerator.cs" />
         <Compile Include="ImagesProviders\OsuImagesProvider.cs" />
         <Compile Include="Properties\AssemblyInfo.cs">
             <SubType>Code</SubType>
