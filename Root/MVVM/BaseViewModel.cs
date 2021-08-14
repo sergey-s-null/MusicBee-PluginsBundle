@@ -2,6 +2,7 @@
 
 namespace Root.MVVM
 {
+    // TODO избавиться от этого и полностью перейти на Fody
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

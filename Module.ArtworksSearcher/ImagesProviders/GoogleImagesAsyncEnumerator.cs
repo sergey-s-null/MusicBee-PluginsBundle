@@ -40,7 +40,8 @@ namespace Module.ArtworksSearcher.ImagesProviders
         {
             while (true)
             {
-                var parallelTasksCount = Settings.MaxParallelDownloadsCount;
+                // var parallelTasksCount = Settings.MaxParallelDownloadsCount;
+                var parallelTasksCount = 10;// TODO from settings
                 while (_downloadingTasks.Count < parallelTasksCount)
                 {
                     if (_urlsQueue.Count == 0)

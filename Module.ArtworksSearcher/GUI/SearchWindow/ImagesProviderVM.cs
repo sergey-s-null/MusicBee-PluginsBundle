@@ -1,4 +1,5 @@
 ﻿using Module.ArtworksSearcher.ImagesProviders;
+using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.SearchWindow
 {

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Module.ArtworksSearcher.ImagesProviders;
 using Root.Abstractions;
+using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.SearchWindow
 {

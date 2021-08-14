@@ -51,10 +51,10 @@ namespace Module.VkMusicDownloader.GUI.Settings
         {
             _settings = settings;
             
-            var ob = MBTagReplacer.OpenBracket;
-            var cb = MBTagReplacer.CloseBracket;
+            var openBracket = MBTagReplacer.OpenBracket;
+            var closeBracket = MBTagReplacer.CloseBracket;
             AvailableTags = MBTagReplacer.AvailableTags
-                .Select(tag => $"{ob}{tag}{cb}")
+                .Select(tag => $"{openBracket}{tag}{closeBracket}")
                 .Aggregate((a, b) => $"{a}; {b}");
 
             _replacer.SetReplaceValue(MBTagReplacer.Tag.Index1, "Index1");
@@ -81,6 +81,7 @@ namespace Module.VkMusicDownloader.GUI.Settings
             
             if (_settings.Save()) return true;
             
+            // TODO вероятно здесь не нужен диалог
             MessageBox.Show("Error save settings.");
             
             return false;

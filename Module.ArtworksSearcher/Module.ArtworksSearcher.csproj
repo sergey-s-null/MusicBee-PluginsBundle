@@ -51,25 +51,21 @@
         <Reference Include="PresentationFramework" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
+        <Compile Include="GUI\Settings\IArtworksSearcherSettingsVM.cs" />
         <Compile Include="Helpers\StringHelper.cs" />
         <Compile Include="Helpers\UrlHelper.cs" />
         <Compile Include="Helpers\WebClientHelper.cs" />
-        <Compile Include="GUI\BaseViewModel.cs" />
         <Compile Include="GUI\Converters\EqualsConverter.cs" />
         <Compile Include="GUI\Converters\EqualsToVisibleConverter.cs" />
         <Compile Include="GUI\Converters\EqualsValuesConverter.cs" />
         <Compile Include="GUI\Converters\ValueConverterGroup.cs" />
-        <Compile Include="GUI\RelayCommand.cs" />
         <Compile Include="GUI\SearchWindow\ImagesProviderVM.cs" />
         <Compile Include="GUI\SearchWindow\ImageVM.cs" />
         <Compile Include="GUI\SearchWindow\SearchWindow.xaml.cs">
           <DependentUpon>SearchWindow.xaml</DependentUpon>
         </Compile>
         <Compile Include="GUI\SearchWindow\SearchWindowVM.cs" />
-        <Compile Include="GUI\SettingsDialog\SettingsDialog.xaml.cs">
-          <DependentUpon>SettingsDialog.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="GUI\SettingsDialog\SettingsDialogVM.cs" />
         <Compile Include="ImagesProviders\GoogleImagesAsyncEnumerator.cs" />
         <Compile Include="ImagesProviders\GoogleImagesProvider.cs" />
         <Compile Include="ImagesProviders\IImagesProvider.cs" />
@@ -83,7 +79,8 @@
             <DesignTime>True</DesignTime>
             <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
-        <Compile Include="Settings.cs" />
+        <Compile Include="Settings\ArtworksSearcherSettings.cs" />
+        <Compile Include="Settings\IArtworksSearcherSettings.cs" />
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -98,7 +95,7 @@
       <Page Include="GUI\SearchWindow\Image.xaml" />
       <Page Include="GUI\SearchWindow\ImagesProvider.xaml" />
       <Page Include="GUI\SearchWindow\SearchWindow.xaml" />
-      <Page Include="GUI\SettingsDialog\SettingsDialog.xaml" />
+      <Page Include="GUI\Settings\ArtworksSearcherSettings.xaml" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Root\Root.csproj">
