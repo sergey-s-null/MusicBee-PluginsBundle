@@ -9,13 +9,14 @@ namespace MusicBeePlugin
     {
         public static IKernel GetKernel(MusicBeeApiInterface mbApi)
         {
-            var kernel = new StandardKernel(
-                new MusicDownloaderModule(mbApi),
-                new ArtworksSearcherModule(mbApi));
+            var kernel = new StandardKernel();
 
-
-
-
+            kernel.Bind<MusicBeeApiInterface>()
+                .ToConstant(mbApi);
+            
+            kernel.Load(new MusicDownloaderModule(mbApi));
+            kernel.Load(new ArtworksSearcherModule(mbApi));
+            
             return kernel;
         }
     }

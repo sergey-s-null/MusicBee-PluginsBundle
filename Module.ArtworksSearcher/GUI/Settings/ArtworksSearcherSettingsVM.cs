@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using Module.ArtworksSearcher.Settings;
+using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.Settings
 {
@@ -17,10 +18,9 @@ namespace Module.ArtworksSearcher.GUI.Settings
         public string OsuSongsDir { get; set; } = "";
         public long MinOsuImageByteSize { get; set; }
 
-        // TODO rename namespace
         private ICommand _changeOsuSongsDirCmd;
         public ICommand ChangeOsuSongsDirCmd =>
-            _changeOsuSongsDirCmd ??= new Root.MVVM.RelayCommand(_ => ChangeOsuSongsDir());
+            _changeOsuSongsDirCmd ??= new RelayCommand(_ => ChangeOsuSongsDir());
         
         public bool IsLoaded => _settings.IsLoaded;
 

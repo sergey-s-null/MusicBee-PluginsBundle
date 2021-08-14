@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using Module.ArtworksSearcher.Helpers;
+using Module.ArtworksSearcher.Settings;
 using Root.Abstractions;
 
 namespace Module.ArtworksSearcher.ImagesProviders
@@ -12,16 +13,13 @@ namespace Module.ArtworksSearcher.ImagesProviders
     {
         private readonly string[] _imgExtensions = { ".jpg", ".png", ".jpeg" };
         private readonly DirectoryInfo _songsDir;
-        public long MinSize = 0;
+        private readonly long _minImageSizeInBytes;
 
-        public OsuImagesProvider(string songsDirPath)
+        public OsuImagesProvider(IArtworksSearcherSettings settings)
         {
-            _songsDir = new DirectoryInfo(songsDirPath);
-        }
-
-        public OsuImagesProvider(DirectoryInfo songsDir)
-        {
-            _songsDir = songsDir;
+            _minImageSizeInBytes = settings.MinOsuImageByteSize;
+            
+            _songsDir = new DirectoryInfo(settings.OsuSongsDir);
         }
 
         public IEnumerable<BitmapImage> GetImagesIter(string query)
@@ -62,7 +60,7 @@ namespace Module.ArtworksSearcher.ImagesProviders
             {
                 foreach (var file in item.SongDir.GetFiles())
                 {
-                    if (file.Length < MinSize)
+                    if (file.Length < _minImageSizeInBytes)
                         continue;
                     if (_imgExtensions.Contains(file.Extension.ToLower()))
                         yield return file;
@@ -72,7 +70,7 @@ namespace Module.ArtworksSearcher.ImagesProviders
 
         public IAsyncEnumerator<BitmapImage> GetAsyncEnumerator(string query)
         {
-            return new OsuImagesAsyncEnumerator(_songsDir, query, MinSize);
+            return new OsuImagesAsyncEnumerator(_songsDir, query, _minImageSizeInBytes);
         }
 
     }

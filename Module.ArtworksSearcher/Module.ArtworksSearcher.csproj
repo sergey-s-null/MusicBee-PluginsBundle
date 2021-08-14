@@ -56,6 +56,8 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="ArtworksSearcherModule.cs" />
+        <Compile Include="Factories\GoogleImagesEnumeratorFactory.cs" />
+        <Compile Include="Factories\IGoogleImagesEnumeratorFactory.cs" />
         <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
         <Compile Include="GUI\Settings\IArtworksSearcherSettingsVM.cs" />
         <Compile Include="Helpers\ConfigurationHelper.cs" />
@@ -72,7 +74,7 @@
           <DependentUpon>SearchWindow.xaml</DependentUpon>
         </Compile>
         <Compile Include="GUI\SearchWindow\SearchWindowVM.cs" />
-        <Compile Include="ImagesProviders\GoogleImagesAsyncEnumerator.cs" />
+        <Compile Include="ImagesProviders\GoogleImagesEnumerator.cs" />
         <Compile Include="ImagesProviders\GoogleImagesProvider.cs" />
         <Compile Include="ImagesProviders\IImagesProvider.cs" />
         <Compile Include="ImagesProviders\OsuImagesAsyncEnumerator.cs" />

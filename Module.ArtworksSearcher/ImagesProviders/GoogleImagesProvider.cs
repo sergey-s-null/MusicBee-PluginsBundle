@@ -3,7 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Media.Imaging;
+using Module.ArtworksSearcher.Factories;
 using Module.ArtworksSearcher.Helpers;
+using Module.ArtworksSearcher.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Root.Abstractions;
@@ -16,10 +18,15 @@ namespace Module.ArtworksSearcher.ImagesProviders
         private readonly string _cx;
         private readonly string _key;
 
-        public GoogleImagesProvider(string cx, string key)
+        private readonly IGoogleImagesEnumeratorFactory _googleImagesEnumeratorFactory;
+        
+        public GoogleImagesProvider(IArtworksSearcherSettings settings,
+            IGoogleImagesEnumeratorFactory googleImagesEnumeratorFactory)
         {
-            _cx = cx;
-            _key = key;
+            _cx = settings.GoogleCX;
+            _key = settings.GoogleKey;
+
+            _googleImagesEnumeratorFactory = googleImagesEnumeratorFactory;
         }
 
         public IEnumerable<BitmapImage> GetImagesIter(string query)
@@ -70,7 +77,7 @@ namespace Module.ArtworksSearcher.ImagesProviders
 
         public IAsyncEnumerator<BitmapImage> GetAsyncEnumerator(string query)
         {
-            return new GoogleImagesAsyncEnumerator(_cx, _key, query);
+            return _googleImagesEnumeratorFactory.Create(query);
         }
 
     }

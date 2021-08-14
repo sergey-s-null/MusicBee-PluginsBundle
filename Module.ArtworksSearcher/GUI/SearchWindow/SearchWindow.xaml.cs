@@ -13,10 +13,16 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
 
         public byte[] ImageData { get; private set; }
 
-        public SearchWindow(string artist, string title)
+        public SearchWindow(string artist, string title,// TODO вероятно, можно сделать красивше. Например, через ShowDialog(a, t)
+            // DI
+            SearchWindowVM viewModel)
         {
             InitializeComponent();
-            ViewModel = new SearchWindowVM() { Artist = artist, Title = title };
+            
+            ViewModel = viewModel;
+            
+            ViewModel.Artist = artist;
+            ViewModel.Title = title;
             ViewModel.OnClearResults += (_, _) => ResetScrollViewerOffset();
             DataContext = ViewModel;
         }

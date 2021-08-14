@@ -21,7 +21,6 @@ namespace Module.VkMusicDownloader
         
         public override void Load()
         {
-            Bind<MusicBeeApiInterface>().ToConstant(_mbApi);
             Bind<IVkApi>().ToConstant(GetVkApi());
             Bind<IMusicDownloaderSettings>()
                 .To<MusicDownloaderSettings>()

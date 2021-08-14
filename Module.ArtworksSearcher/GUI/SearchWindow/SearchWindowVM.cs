@@ -72,35 +72,7 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
             }
         }
 
-        private ImagesProviderVM[] _imagesProviders;
-        public ImagesProviderVM[] ImagesProviders
-        {
-            get
-            {
-                if (_imagesProviders is null)
-                {
-                    _imagesProviders = new ImagesProviderVM[]
-                    {
-                        new()
-                        {
-                            // TODO from settings
-                            //Plugin.Settings.GoogleCX, Plugin.Settings.GoogleKey
-                            Provider = new GoogleImagesProvider("", ""),
-                            Name = "Google"
-                        },
-                        new()
-                        {
-                            // TODO from settings
-                            // Plugin.Settings.OsuSongsDir
-                            // MinSize = Plugin.Settings.MinOsuImageByteSize
-                            Provider = new OsuImagesProvider("C:\\Games\\osu!\\Songs") { MinSize = 4_000 },
-                            Name = "Osu!dir"
-                        }
-                    };
-                }
-                return _imagesProviders;
-            }
-        }
+        public ImagesProviderVM[] ImagesProviders { get; }
 
         private ImagesProviderVM _selectedProvider;
         public ImagesProviderVM SelectedProvider
@@ -126,8 +98,23 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
         private IAsyncEnumerator<BitmapImage> _imagesAsyncEnumerator;
         public event EventHandler OnClearResults;
 
-        public SearchWindowVM()
+        public SearchWindowVM(GoogleImagesProvider googleImagesProvider,// TODO возможно есть более красивый способ создание
+            OsuImagesProvider osuImagesProvider)
         {
+            ImagesProviders = new ImagesProviderVM[]
+            {
+                new()
+                {
+                    Provider = googleImagesProvider,
+                    Name = "Google"
+                },
+                new()
+                {
+                    Provider = osuImagesProvider,
+                    Name = "Osu!dir"
+                }
+            };
+            
             ResetSearchText();
         }
 
