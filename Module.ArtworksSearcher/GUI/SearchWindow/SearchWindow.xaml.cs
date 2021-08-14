@@ -11,18 +11,14 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
 
         private bool _shown;
 
-        public byte[] ImageData { get; private set; }
+        private byte[] _imageData;
 
-        public SearchWindow(string artist, string title,// TODO вероятно, можно сделать красивше. Например, через ShowDialog(a, t)
-            // DI
-            SearchWindowVM viewModel)
+        public SearchWindow(SearchWindowVM viewModel)
         {
             InitializeComponent();
             
             ViewModel = viewModel;
             
-            ViewModel.Artist = artist;
-            ViewModel.Title = title;
             ViewModel.OnClearResults += (_, _) => ResetScrollViewerOffset();
             DataContext = ViewModel;
         }
@@ -32,6 +28,21 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
             ScrollViewer.ScrollToVerticalOffset(0);
         }
 
+        public bool ShowDialog(string artist, string title, out byte[] imageData)
+        {
+            ViewModel.Artist = artist;
+            ViewModel.Title = title;
+            
+            if (ShowDialog() is true && _imageData is not null)
+            {
+                imageData = _imageData;
+                return true;
+            }
+
+            imageData = null;
+            return false;
+        }
+        
         protected override void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
@@ -71,7 +82,7 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
         {
             if (ViewModel.TryGetImageData(out var imageData))
             {
-                ImageData = imageData;
+                _imageData = imageData;
                 DialogResult = true;
             }
         }

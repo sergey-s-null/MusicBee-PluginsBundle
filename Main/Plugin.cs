@@ -34,7 +34,7 @@ namespace MusicBeePlugin
             CreateSettingsDirectory();
             
             _kernel = Bootstrapper.GetKernel(_mbApi);
-            
+
             _mbApi.MB_AddMenuItem("mnuTools/Laiser399: download vk audio",
                 "Laiser399: download vk audio", (_, __) => OpenDownloadDialog());
 
