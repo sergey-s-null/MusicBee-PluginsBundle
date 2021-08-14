@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.DataExporter", "Module.DataExporter\Module.DataExporter.csproj", "{D384E0FD-D73C-4E6E-87C9-C7C38AA95E62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtworksSearcher", "ArtworksSearcher\ArtworksSearcher.csproj", "{32886E03-E8E7-4CE4-9A75-5DF873F405DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,5 +58,9 @@ Global
 		{D384E0FD-D73C-4E6E-87C9-C7C38AA95E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D384E0FD-D73C-4E6E-87C9-C7C38AA95E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D384E0FD-D73C-4E6E-87C9-C7C38AA95E62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32886E03-E8E7-4CE4-9A75-5DF873F405DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32886E03-E8E7-4CE4-9A75-5DF873F405DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32886E03-E8E7-4CE4-9A75-5DF873F405DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32886E03-E8E7-4CE4-9A75-5DF873F405DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
