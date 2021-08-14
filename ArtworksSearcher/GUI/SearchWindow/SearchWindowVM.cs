@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using ArtworksSearcher.ImagesProviders;
+using Root.Abstractions;
 
 namespace ArtworksSearcher.GUI.SearchWindow
 {

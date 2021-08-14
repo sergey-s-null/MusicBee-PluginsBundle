@@ -1,4 +1,4 @@
-﻿namespace ArtworksSearcher
+﻿namespace Root.Abstractions
 {
     public interface IAsyncEnumerable<out T>
     {

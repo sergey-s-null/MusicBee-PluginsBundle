@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace ArtworksSearcher
+namespace Root.Abstractions
 {
     public interface IAsyncEnumerator<out T>
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
+using Root.Abstractions;
 
 namespace ArtworksSearcher.ImagesProviders
 {

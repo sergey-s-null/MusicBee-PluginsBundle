@@ -47,6 +47,8 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Abstractions\BaseSettings.cs" />
+        <Compile Include="Abstractions\IAsyncEnumerable.cs" />
+        <Compile Include="Abstractions\IAsyncEnumerator.cs" />
         <Compile Include="Abstractions\ISettings.cs" />
         <Compile Include="MusicBeeApiInterface.cs" />
         <Compile Include="MVVM\BaseViewModel.cs" />
