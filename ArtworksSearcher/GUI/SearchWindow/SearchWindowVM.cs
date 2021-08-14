@@ -168,7 +168,7 @@ namespace ArtworksSearcher.GUI.SearchWindow
                 return;
             _nextFlag = true;
 
-            if (await _imagesAsyncEnumerator.MoveNext())
+            if (await _imagesAsyncEnumerator.MoveNextAsync())
             {
                 SearchResults.Add(new ImageVM(SearchResults.Count + 1)
                 {

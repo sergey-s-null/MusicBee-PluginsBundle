@@ -35,7 +35,7 @@ namespace ArtworksSearcher.ImagesProviders
         private BitmapImage _current;
         public BitmapImage Current => _current;
 
-        public async Task<bool> MoveNext()
+        public async Task<bool> MoveNextAsync()
         {
             while (true)
             {
@@ -48,8 +48,8 @@ namespace ArtworksSearcher.ImagesProviders
                     {
                         if (_downloadingTasks.Count == 0)
                             return false;
-                        else
-                            break;
+                        
+                        break;
                     }
 
                     while (_downloadingTasks.Count < parallelTasksCount && _urlsQueue.Count > 0)

@@ -5,6 +5,6 @@ namespace ArtworksSearcher
     public interface IAsyncEnumerator<out T>
     {
         T Current { get; }
-        Task<bool> MoveNext();
+        Task<bool> MoveNextAsync();
     }
 }

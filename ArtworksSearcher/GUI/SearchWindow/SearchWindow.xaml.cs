@@ -7,18 +7,18 @@ namespace ArtworksSearcher.GUI.SearchWindow
 {
     public partial class SearchWindow : Window
     {
-        private readonly SearchWindowVM _viewModel;
+        public SearchWindowVM ViewModel { get; }
+
         private bool _shown;
 
-        private byte[] _imageData;
-        public byte[] ImageData => _imageData;
+        public byte[] ImageData { get; private set; }
 
         public SearchWindow(string artist, string title)
         {
             InitializeComponent();
-            _viewModel = new SearchWindowVM() { Artist = artist, Title = title };
-            _viewModel.OnClearResults += (_, _) => ResetScrollViewerOffset();
-            DataContext = _viewModel;
+            ViewModel = new SearchWindowVM() { Artist = artist, Title = title };
+            ViewModel.OnClearResults += (_, _) => ResetScrollViewerOffset();
+            DataContext = ViewModel;
         }
 
         private void ResetScrollViewerOffset()
@@ -34,8 +34,8 @@ namespace ArtworksSearcher.GUI.SearchWindow
                 return;
             _shown = true;
 
-            if (_viewModel.SearchCmd.CanExecute(null))
-                _viewModel.SearchCmd.Execute(null);
+            if (ViewModel.SearchCmd.CanExecute(null))
+                ViewModel.SearchCmd.Execute(null);
         }
 
         // direct events
@@ -44,7 +44,7 @@ namespace ArtworksSearcher.GUI.SearchWindow
             var maxVerticalOffset = e.ExtentHeight - e.ViewportHeight;
             if (e.ExtentHeight < e.ViewportHeight || e.VerticalOffset / maxVerticalOffset > 0.99)
             {
-                ICommand nextImageCmd = _viewModel.NextImageCmd;
+                ICommand nextImageCmd = ViewModel.NextImageCmd;
                 if (nextImageCmd.CanExecute(null))
                 {
                     nextImageCmd.Execute(null);
@@ -56,16 +56,16 @@ namespace ArtworksSearcher.GUI.SearchWindow
         {
             if (e.Key == Key.Enter)
             {
-                if (_viewModel.SearchCmd.CanExecute(null))
-                    _viewModel.SearchCmd.Execute(null);
+                if (ViewModel.SearchCmd.CanExecute(null))
+                    ViewModel.SearchCmd.Execute(null);
             }
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
-            if (_viewModel.TryGetImageData(out var imageData))
+            if (ViewModel.TryGetImageData(out var imageData))
             {
-                _imageData = imageData;
+                ImageData = imageData;
                 DialogResult = true;
             }
         }

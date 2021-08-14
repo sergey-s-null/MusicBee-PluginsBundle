@@ -34,7 +34,7 @@ namespace ArtworksSearcher.ImagesProviders
         private BitmapImage _current;
         public BitmapImage Current => _current;
 
-        public async Task<bool> MoveNext()
+        public async Task<bool> MoveNextAsync()
         {
             if (_imagesEnumerator is null)
                 InitImagesEnumerator();
