@@ -40,6 +40,9 @@ namespace MusicBeePlugin
 
             _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export",
                 "Laiser399: Export", (_, __) => Export());
+            
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Search Artworks",
+                "Laiser399: Search Artworks", (_, __) => SearchArtworks());
 
             return GetPluginInfo();
         }
@@ -117,6 +120,31 @@ namespace MusicBeePlugin
             }
         }
 
+        private void SearchArtworks()
+        {
+            _mbApi.Library_QueryFilesEx.Invoke("domain=SelectedFiles", out var files);
+
+            if (files is null || files.Length != 1)
+            {
+                MessageBox.Show("You must select single composition.");
+                return;
+            }
+            
+            var filePath = files[0];
+            
+            var artist = _mbApi.Library_GetFileTag.Invoke(filePath, MetaDataType.Artist);
+            var title = _mbApi.Library_GetFileTag.Invoke(filePath, MetaDataType.TrackTitle);
+                
+            var dialog = _kernel.Get<SearchWindow>();
+            if (dialog.ShowDialog(artist, title, out var imageData))
+            {
+                if (!_mbApi.Library_SetArtworkEx.Invoke(filePath, 0, imageData))
+                {
+                    MessageBox.Show("Обложка не была сохранена.", "Ошибка");
+                }
+            }
+        }
+        
         public bool Configure(IntPtr _)
         {
             var dialog = _kernel.Get<SettingsDialog>();
