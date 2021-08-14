@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ArtworksSearcher.GUI
+namespace ArtworksSearcher.GUI.SearchWindow
 {
     public partial class SearchWindow : Window
     {

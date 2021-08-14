@@ -1,6 +1,6 @@
 ﻿using ArtworksSearcher.ImagesProviders;
 
-namespace ArtworksSearcher.GUI
+namespace ArtworksSearcher.GUI.SearchWindow
 {
     public class ImagesProviderVM : BaseViewModel
     {

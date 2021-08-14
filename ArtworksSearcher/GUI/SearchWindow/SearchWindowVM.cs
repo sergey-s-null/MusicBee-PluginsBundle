@@ -1,11 +1,11 @@
-﻿using ArtworksSearcher.ImagesProviders;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using ArtworksSearcher.ImagesProviders;
 
-namespace ArtworksSearcher.GUI
+namespace ArtworksSearcher.GUI.SearchWindow
 {
     public class SearchWindowVM : BaseViewModel
     {

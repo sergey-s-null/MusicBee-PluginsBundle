@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ArtworksSearcher.GUI
+namespace ArtworksSearcher.GUI.SettingsDialog
 {
     public partial class SettingsDialog : Window
     {

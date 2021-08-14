@@ -3,7 +3,7 @@
 using System.IO;
 using System.Windows;
 
-namespace ArtworksSearcher.GUI
+namespace ArtworksSearcher.GUI.SettingsDialog
 {
     public class SettingsDialogVM : BaseViewModel
     {
