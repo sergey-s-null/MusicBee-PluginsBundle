@@ -13,9 +13,9 @@
             <gui:VMTemplateSelector.ResourceDictionary>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <!-- <ResourceDictionary Source="../Trash/Trash.xaml"></ResourceDictionary> -->
-                        <!-- TODO check without     pack://application:,,,      -->
-                        <ResourceDictionary Source="pack://application:,,,/VkMusicDownloader;component/GUI/Settings/MusicDownloaderSettings.xaml"></ResourceDictionary>
+                        <!-- pack://application:,,,      -->
+                        <ResourceDictionary Source="/Module.VKMusicDownloader;component/GUI/Settings/MusicDownloaderSettings.xaml"></ResourceDictionary>
+                        <ResourceDictionary Source="/Module.ArtworksSearcher;component/GUI/Settings/ArtworksSearcherSettings.xaml"></ResourceDictionary>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </gui:VMTemplateSelector.ResourceDictionary>

@@ -39,6 +39,10 @@
           <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
+          <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -51,8 +55,10 @@
         <Reference Include="PresentationFramework" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="ArtworksSearcherModule.cs" />
         <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
         <Compile Include="GUI\Settings\IArtworksSearcherSettingsVM.cs" />
+        <Compile Include="Helpers\ConfigurationHelper.cs" />
         <Compile Include="Helpers\StringHelper.cs" />
         <Compile Include="Helpers\UrlHelper.cs" />
         <Compile Include="Helpers\WebClientHelper.cs" />

@@ -25,6 +25,7 @@ namespace Module.VkMusicDownloader
             Bind<IVkApi>().ToConstant(GetVkApi());
             Bind<IMusicDownloaderSettings>()
                 .To<MusicDownloaderSettings>()
+                .InSingletonScope()
                 .WithConstructorArgument("filePath",
                     ConfigurationHelper.GetSettingsFilePath(_mbApi));
             Bind<IMusicDownloaderSettingsVM>()
