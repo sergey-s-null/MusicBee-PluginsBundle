@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.DataExporter", "Module.DataExporter\Module.DataExporter.csproj", "{D384E0FD-D73C-4E6E-87C9-C7C38AA95E62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtworksSearcher", "ArtworksSearcher\ArtworksSearcher.csproj", "{32886E03-E8E7-4CE4-9A75-5DF873F405DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.ArtworksSearcher", "Module.ArtworksSearcher\Module.ArtworksSearcher.csproj", "{32886E03-E8E7-4CE4-9A75-5DF873F405DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

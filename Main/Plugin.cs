@@ -2,9 +2,8 @@
 using System.IO;
 using System.Net;
 using System.Windows;
-using ArtworksSearcher.GUI;
-using ArtworksSearcher.GUI.SearchWindow;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Module.ArtworksSearcher.GUI.SearchWindow;
 using Module.DataExporter;
 using Module.DataExporter.Exceptions;
 using Module.VkMusicDownloader.Exceptions;

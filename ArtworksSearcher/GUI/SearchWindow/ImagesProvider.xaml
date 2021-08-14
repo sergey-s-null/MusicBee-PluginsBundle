@@ -1,8 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:gui="clr-namespace:ArtworksSearcher.GUI"
-                    xmlns:searchWindow="clr-namespace:ArtworksSearcher.GUI.SearchWindow">
-    <DataTemplate DataType="{x:Type searchWindow:ImagesProviderVM}">
-        <TextBlock Text="{Binding Name}"/>
-    </DataTemplate>
-</ResourceDictionary>
