@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Module.VkMusicDownloader.Helpers;
+using PropertyChanged;
 using Root;
 using Root.MVVM;
 
 namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
 {
-    public class AddingIncomingVM : BaseViewModel
+    [AddINotifyPropertyChangedInterface]
+    public class AddingIncomingVM
     {
         #region Bindings
 
+        // TODO используется ли вообще
         private RelayCommand _refreshCmd;
         public RelayCommand RefreshCmd
             => _refreshCmd ??= new RelayCommand(_ => Refresh());
 
-        private ObservableCollection<IncomingAudioVM> _incomingAudios;
-        public ObservableCollection<IncomingAudioVM> IncomingAudios
-            => _incomingAudios ??= new ObservableCollection<IncomingAudioVM>();
+        public ObservableCollection<IncomingAudioVM> IncomingAudios { get; } = new();
 
-        private ObservableCollection<MBAudioVM> _lastMBAudios;
-        public ObservableCollection<MBAudioVM> LastMBAudios
-            => _lastMBAudios ??= new ObservableCollection<MBAudioVM>();
+        public ObservableCollection<MBAudioVM> LastMBAudios { get; } = new();
 
         #endregion
 
@@ -77,9 +76,9 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
         private void AddToMBLibrary(IncomingAudioVM incomingAudio)
         {
             _prevIndex += 1;
-            int currentIndex = _prevIndex;
+            var currentIndex = _prevIndex;
 
-            MBApiHelper.CalcIndices(currentIndex, out int i1, out int i2);
+            MBApiHelper.CalcIndices(currentIndex, out var i1, out var i2);
             _mbApi.Library_AddFileToLibrary(incomingAudio.FilePath, LibraryCategory.Music);
             _mbApi.SetIndex(incomingAudio.FilePath, currentIndex, false);
             _mbApi.SetIndex1(incomingAudio.FilePath, i1, false);
@@ -93,14 +92,14 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
         
         private MBAudioVM[] GetLastMBAudios()
         {
-            if (!_mbApi.Library_QueryFilesEx("", out string[] paths))
+            if (!_mbApi.Library_QueryFilesEx("", out var paths))
                 return Array.Empty<MBAudioVM>();
 
             var list = paths.Select(path =>
             {
-                if (!_mbApi.TryGetIndex(path, out int index))
+                if (!_mbApi.TryGetIndex(path, out var index))
                     return null;
-                if (!_mbApi.TryGetVkId(path, out long vkId))
+                if (!_mbApi.TryGetVkId(path, out var vkId))
                     vkId = -1;
 
                 return new
@@ -115,7 +114,7 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
 
             list.Sort((a, b) => b.Index.CompareTo(a.Index));
 
-            int countOfLast = 3;
+            var countOfLast = 3;
             if (list.Count > countOfLast)
                 list.RemoveRange(countOfLast, list.Count - countOfLast);
 
@@ -127,7 +126,5 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
                 VkId = item.VkId
             }).ToArray();
         }
-
-        
     }
 }

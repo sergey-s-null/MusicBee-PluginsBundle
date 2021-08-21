@@ -1,29 +1,11 @@
-﻿using Root.MVVM;
+﻿using PropertyChanged;
 
 namespace Module.VkMusicDownloader.GUI.InputDialog
 {
-    class InputDialogVM : BaseViewModel
+    [AddINotifyPropertyChangedInterface]
+    class InputDialogVM
     {
-        private string _titleText = "";
-        public string TitleText
-        {
-            get => _titleText;
-            set
-            {
-                _titleText = value;
-                NotifyPropChanged(nameof(TitleText));
-            }
-        }
-
-        private string _inputText = "";
-        public string InputText
-        {
-            get => _inputText;
-            set
-            {
-                _inputText = value;
-                NotifyPropChanged(nameof(InputText));
-            }
-        }
+        public string TitleText { get; set; } = "";
+        public string InputText { get; set; } = "";
     }
 }

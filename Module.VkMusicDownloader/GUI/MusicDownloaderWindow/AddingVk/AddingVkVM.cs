@@ -8,31 +8,26 @@ using System.Windows;
 using Module.VkMusicDownloader.Helpers;
 using Module.VkMusicDownloader.Settings;
 using Module.VkMusicDownloader.TagReplacer;
+using PropertyChanged;
 using Root;
 using Root.MVVM;
 using VkNet.Abstractions;
 
 namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk
 {
-    public class AddingVkVM : BaseViewModel
+    // TODO отрефакторить класс
+    [AddINotifyPropertyChangedInterface]
+    public class AddingVkVM
     {
         #region Bindings
 
-        private bool _isRefreshing;
-        public bool IsRefreshing
-        {
-            get => _isRefreshing;
-            set
-            {
-                _isRefreshing = value;
-                NotifyPropChanged(nameof(IsRefreshing));
-            }
-        }
+        public bool IsRefreshing { get; private set; }
 
         private RelayCommand _refreshCmd;
         public RelayCommand RefreshCmd
             => _refreshCmd ??= new RelayCommand(_ => Refresh());
 
+        // TODO проверить, используется ли вообще
         private RelayCommand _applyCheckStateToSelectedCmd;
         public RelayCommand ApplyCheckStateToSelectedCmd
             => _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
@@ -50,16 +45,7 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk
         public RelayCommand ApplyCommand
             => _applyCommand ?? (_applyCommand = new RelayCommand(_ => Apply()));
 
-        private bool _isApplying;
-        public bool IsApplying
-        {
-            get => _isApplying;
-            set
-            {
-                _isApplying = value;
-                NotifyPropChanged(nameof(IsApplying));
-            }
-        }
+        public bool IsApplying { get; set; }
 
         private ObservableCollection<BaseAudioVM> _audios;
         public ObservableCollection<BaseAudioVM> Audios
@@ -130,7 +116,7 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk
                     Path = path
                 };
             })
-            .Where(item => item is object)
+            .Where(item => item is not null)
             .ToList();
 
             list.Sort((a, b) => b.Index.CompareTo(a.Index));
@@ -342,5 +328,6 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk
         }
 
         #endregion
+
     }
 }

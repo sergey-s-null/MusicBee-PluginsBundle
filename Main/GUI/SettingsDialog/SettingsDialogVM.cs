@@ -1,17 +1,16 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.VkMusicDownloader.GUI.Settings;
+using PropertyChanged;
 using Root.Abstractions;
 using Root.MVVM;
 
 namespace MusicBeePlugin.GUI.SettingsDialog
 {
-    public class SettingsDialogVM : ISettings, INotifyPropertyChanged
+    [AddINotifyPropertyChangedInterface]
+    public class SettingsDialogVM : ISettings
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public bool IsLoaded => Settings.All(s => s.ModuleSettings.IsLoaded);
         
         public ObservableCollection<ModuleSettingsVM> Settings { get; } = new ();

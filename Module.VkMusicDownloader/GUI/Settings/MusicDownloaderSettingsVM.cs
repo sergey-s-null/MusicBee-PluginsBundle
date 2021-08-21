@@ -5,33 +5,35 @@ using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.VkMusicDownloader.Settings;
 using Module.VkMusicDownloader.TagReplacer;
+using PropertyChanged;
 using Root.MVVM;
 
 namespace Module.VkMusicDownloader.GUI.Settings
 {
     // TODO turn on Fody
-    public class MusicDownloaderSettingsVM : IMusicDownloaderSettingsVM, INotifyPropertyChanged
+    [AddINotifyPropertyChangedInterface]
+    public class MusicDownloaderSettingsVM : IMusicDownloaderSettingsVM
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        
+        [OnChangedMethod(nameof(OnDownloadDirTemplateChanged))]
         public string DownloadDirTemplate { get; set; } = "";
+        public void OnDownloadDirTemplateChanged()
+        {
+            DownloadDirCheck = _replacer.Prepare(DownloadDirTemplate);
+        }
+        
+        [OnChangedMethod(nameof(OnFileNameTemplateChanged))]
         public string FileNameTemplate { get; set; } = "";
+        public void OnFileNameTemplateChanged()
+        {
+            FileNameCheck = _replacer.Prepare(FileNameTemplate);
+        }
+        
         public string AccessToken { get; set; } = "";
         
         // TODO проверить работает ли авто свойство
         public string AvailableTags { get; }
         public string DownloadDirCheck { get; private set; } = "";
         public string FileNameCheck { get; private set; } = "";
-        
-        public void OnFileNameTemplateChanged()
-        {
-            FileNameCheck = _replacer.Prepare(FileNameTemplate);
-        }
-        
-        public void OnDownloadDirTemplateChanged()
-        {
-            DownloadDirCheck = _replacer.Prepare(DownloadDirTemplate);
-        }
         
         private ICommand _changeDownloadDirCmd;
         public ICommand ChangeDownloadDirCmd

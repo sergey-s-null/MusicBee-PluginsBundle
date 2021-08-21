@@ -1,49 +1,21 @@
 ﻿using System;
 using System.IO;
+using PropertyChanged;
 using Root.MVVM;
 
 namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
 {
-    public class IncomingAudioVM : BaseViewModel
+    [AddINotifyPropertyChangedInterface]
+    public class IncomingAudioVM
     {
         public event EventHandler OnAddToMBLibrary;
         
         #region Bindings
 
-        private string _filePath = "";
-        public string FilePath
-        {
-            get => _filePath;
-            set
-            {
-                _filePath = value;
-                NotifyPropChanged(nameof(FilePath), nameof(FileName));
-            }
-        }
-
+        public string FilePath { get; set; } = "";
         public string FileName => Path.GetFileName(FilePath);
-
-        private string _artist = "";
-        public string Artist
-        {
-            get => _artist;
-            set
-            {
-                _artist = value;
-                NotifyPropChanged(nameof(Artist));
-            }
-        }
-
-        private string _title = "";
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                NotifyPropChanged(nameof(Title));
-            }
-        }
+        public string Artist { get; set; } = "";
+        public string Title { get; set; } = "";
 
         private RelayCommand _addToMBLibraryCmd;
         public RelayCommand AddToMBLibraryCmd
@@ -55,5 +27,6 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
         {
             OnAddToMBLibrary?.Invoke(this, EventArgs.Empty);
         }
+
     }
 }

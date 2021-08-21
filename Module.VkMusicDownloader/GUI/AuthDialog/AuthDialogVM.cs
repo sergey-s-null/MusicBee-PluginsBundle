@@ -1,29 +1,11 @@
-﻿using Root.MVVM;
+﻿using PropertyChanged;
 
 namespace Module.VkMusicDownloader.GUI.AuthDialog
 {
-    public class AuthDialogVM : BaseViewModel
+    [AddINotifyPropertyChangedInterface]
+    public class AuthDialogVM
     {
-        private string _login = "";
-        public string Login
-        {
-            get => _login;
-            set
-            {
-                _login = value;
-                NotifyPropChanged(nameof(Login));
-            }
-        }
-
-        private string _password = "";
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                _password = value;
-                NotifyPropChanged(nameof(Password));
-            }
-        }
+        public string Login { get; set; } = "";
+        public string Password { get; set; } = "";
     }
 }

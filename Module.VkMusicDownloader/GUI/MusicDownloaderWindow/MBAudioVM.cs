@@ -6,16 +6,7 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
     {
         #region Bindings
 
-        private int _index = -1;
-        public int Index
-        {
-            get => _index;
-            set
-            {
-                _index = value;
-                NotifyPropChanged(nameof(Index));
-            }
-        }
+        public int Index { get; set; } = -1;// TODO проверить как Fody работает с наследованием
 
         public string Index1Str => (Index / 20 + 1).ToString().PadLeft(2, '0');
         public string Index2Str => (Index % 20 + 1).ToString().PadLeft(2, '0');
@@ -26,14 +17,14 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
         {
             if (this == obj)
                 return 0;
-            if (obj is MBAudioVM other)
-                return Index.CompareTo(other.Index);
-            if (obj is VkAudioVM otherVk)
-                return -1;
-            if (obj is BaseAudioVM)
-                throw new NotImplementedException();
-
-            throw new NotSupportedException();
+            
+            return obj switch
+            {
+                MBAudioVM other => Index.CompareTo(other.Index),
+                VkAudioVM => -1,
+                BaseAudioVM unknown => throw new NotImplementedException($"Compare of type {unknown.GetType().Name} not implemented."),
+                _ => throw new NotSupportedException()
+            };
         }
     }
 }
