@@ -32,6 +32,7 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
         {
             ViewModel.Artist = artist;
             ViewModel.Title = title;
+            ViewModel.ResetSearchText();
             
             if (ShowDialog() is true && _imageData is not null)
             {

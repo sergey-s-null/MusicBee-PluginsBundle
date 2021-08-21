@@ -1,16 +1,15 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using Module.ArtworksSearcher.Settings;
+using PropertyChanged;
 using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.Settings
 {
     // TODO проверку ввода с помощью интерфейса
-    public class ArtworksSearcherSettingsVM : IArtworksSearcherSettingsVM, INotifyPropertyChanged
+    [AddINotifyPropertyChangedInterface]
+    public class ArtworksSearcherSettingsVM : IArtworksSearcherSettingsVM
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        
         public string GoogleCX { get; set; } = "";
         public string GoogleKey { get; set; } = "";
         public int MaxParallelDownloadsCount => _settings.MaxParallelDownloadsCount;

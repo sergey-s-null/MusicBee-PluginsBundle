@@ -4,50 +4,20 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Module.ArtworksSearcher.ImagesProviders;
+using PropertyChanged;
 using Root.Abstractions;
 using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.SearchWindow
 {
-    public class SearchWindowVM : BaseViewModel
+    [AddINotifyPropertyChangedInterface]
+    public class SearchWindowVM
     {
-
         #region Bindings
 
-        private string _artist = "";
-        public string Artist
-        {
-            get => _artist;
-            set
-            {
-                _artist = value;
-                ResetSearchText();
-                NotifyPropChanged(nameof(Artist));
-            }
-        }
-
-        private string _title = "";
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                ResetSearchText();
-                NotifyPropChanged(nameof(Title));
-            }
-        }
-
-        private string _searchText = "";
-        public string SearchText
-        {
-            get => _searchText;
-            set
-            {
-                _searchText = value;
-                NotifyPropChanged(nameof(SearchText));
-            }
-        }
+        public string Artist { get; set; }
+        public string Title { get; set; }
+        public string SearchText { get; set; }
 
         private RelayCommand _resetSearchTextCmd;
         public RelayCommand ResetSearchTextCmd
@@ -61,29 +31,11 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
         public ObservableCollection<ImageVM> SearchResults =>
             _searchResults ??= new ObservableCollection<ImageVM>();
 
-        private ImageVM _selectedResult;
-        public ImageVM SelectedResult
-        {
-            get => _selectedResult;
-            set
-            {
-                _selectedResult = value;
-                NotifyPropChanged(nameof(SelectedResult));
-            }
-        }
+        public ImageVM SelectedResult { get; set; }
 
         public ImagesProviderVM[] ImagesProviders { get; }
 
-        private ImagesProviderVM _selectedProvider;
-        public ImagesProviderVM SelectedProvider
-        {
-            get => _selectedProvider ??= ImagesProviders[0];
-            set
-            {
-                _selectedProvider = value;
-                NotifyPropChanged(nameof(SelectedProvider));
-            }
-        }
+        public ImagesProviderVM SelectedProvider { get; set; }
 
         private RelayCommand _searchCmd;
         public RelayCommand SearchCmd
@@ -98,7 +50,8 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
         private IAsyncEnumerator<BitmapImage> _imagesAsyncEnumerator;
         public event EventHandler OnClearResults;
 
-        public SearchWindowVM(GoogleImagesProvider googleImagesProvider,// TODO возможно есть более красивый способ создание
+        public SearchWindowVM(
+            GoogleImagesProvider googleImagesProvider,// TODO возможно есть более красивый способ создание
             OsuImagesProvider osuImagesProvider)
         {
             ImagesProviders = new ImagesProviderVM[]
@@ -114,11 +67,11 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
                     Name = "Osu!dir"
                 }
             };
-            
-            ResetSearchText();
+
+            SelectedProvider = ImagesProviders[0];
         }
 
-        private void ResetSearchText()
+        public void ResetSearchText()
         {
             SearchText = $"{Artist} - {Title}";
         }
