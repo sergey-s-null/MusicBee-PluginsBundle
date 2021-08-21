@@ -1,23 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Net;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Module.VkMusicDownloader.Helpers;
 using VkNet;
-using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
 using VkNet.Model;
-using VkNet.Model.Attachments;
-using VkNet.Utils;
 using VkNet.Model.RequestParams;
-using VkMusicDownloader.Ex;
-using System.Net;
-using System.Diagnostics;
-using System.Security.Cryptography;
 
 namespace ConsoleTests
 {
@@ -50,7 +40,7 @@ namespace ConsoleTests
             serviceCollection.AddAudioBypass();
 
             var api = new VkApi(serviceCollection);
-            // TODOL delete auth data
+            // TODO delete auth data
             string login = "";
             string password = "";
 
@@ -68,7 +58,7 @@ namespace ConsoleTests
             api.Authorize(authParams);
             TrySaveToken(api.Token);
 
-            // TODOL change indices
+            // TODO change indices
             var audio = api.Audio.Get(new AudioGetParams() { Offset = 1, Count = 1 })[0];
 
             using (WebClient webClient = new WebClient())
@@ -112,7 +102,7 @@ namespace ConsoleTests
 
         private static void TestVkNet()
         {
-            // TODOL delete file
+            // TODO delete file
             string tokenFilePath = @"tm_token.txt";
             string token;
             try
@@ -128,7 +118,7 @@ namespace ConsoleTests
             serviceCollection.AddAudioBypass();
 
             var api = new VkApi(serviceCollection);
-            // TODOL delete auth data
+            // TODO delete auth data
             string login = "";
             string password = "";
 

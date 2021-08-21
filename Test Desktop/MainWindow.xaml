@@ -1,0 +1,25 @@
+﻿<Window x:Class="Test_Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test_Desktop"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        d:DataContext="{d:DesignInstance local:MainWindowVM}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="SomeWindow.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- <local:SomeWindowVM x:Key="SomeWindowVM"></local:SomeWindowVM> -->
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid>
+        <!-- <ContentControl Content="{StaticResource SomeWindowVM}"/> -->
+        <ContentControl Content="{Binding SomeWindowVM}"
+                        ContentTemplate="{StaticResource ISomeWindowVM}"/>
+        <!-- <TextBox> asd</TextBox> -->
+    </Grid>
+</Window>
