@@ -1,11 +1,7 @@
-﻿using Root.MVVM;
-
-namespace Test_Desktop
+﻿namespace Test_Desktop
 {
-    public class MainWindowVM : BaseViewModel
+    public class MainWindowVM
     {
-        private readonly ISomeWindowVM _someWindowVM = new SomeWindowVM();
-        public ISomeWindowVM SomeWindowVM => _someWindowVM;
-
+        public ISomeWindowVM SomeWindowVM { get; } = new SomeWindowVM();
     }
 }

@@ -1,18 +1,11 @@
-﻿using Root.MVVM;
+﻿using PropertyChanged;
+using Root.MVVM;
 
 namespace Test_Desktop
 {
-    public class SomeWindowVM : BaseViewModel, ISomeWindowVM
+    [AddINotifyPropertyChangedInterface]
+    public class SomeWindowVM : ISomeWindowVM
     {
-        private string _field = "l;kasdjfas;lkfjds;   ";
-        public string Field
-        {
-            get => _field;
-            set
-            {
-                _field = value;
-                NotifyPropChanged(nameof(Field));
-            }
-        }
+        public string Field { get; set; } = "l;kasdjfas;lkfjds;   ";
     }
 }
