@@ -45,8 +45,36 @@
                       HorizontalAlignment="Center"
                       Width="6"/>
         
-        <ContentControl Grid.Column="2"
-                        Content="{Binding SelectedSettingsModule.ModuleSettings, Mode=OneWay}"
-                        ContentTemplateSelector="{StaticResource VMTemplateSelector}"/>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <ContentControl
+                            Content="{Binding SelectedSettingsModule.ModuleSettings, Mode=OneWay}"
+                            ContentTemplateSelector="{StaticResource VMTemplateSelector}"/>
+            
+            <Grid Grid.Row="1">
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="10 6"/>
+                        <Setter Property="Padding" Value="8 2"/>
+                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Content="Reset" Command="{Binding ResetCmd}"/>
+                <Button Grid.Column="2" Content="Ok" Click="Ok_Click"/>
+                <Button Grid.Column="3" Content="Cancel" IsCancel="True" IsDefault="True"/>
+            </Grid>
+        </Grid>
+        
     </Grid>
 </Window>
