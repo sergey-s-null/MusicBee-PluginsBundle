@@ -51,7 +51,6 @@
         <Compile Include="Abstractions\IAsyncEnumerator.cs" />
         <Compile Include="Abstractions\ISettings.cs" />
         <Compile Include="MusicBeeApiInterface.cs" />
-        <Compile Include="MVVM\BaseViewModel.cs" />
         <Compile Include="MVVM\RelayCommand.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
