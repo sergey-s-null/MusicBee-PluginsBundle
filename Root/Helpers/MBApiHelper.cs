@@ -1,6 +1,6 @@
-﻿using Root;
+﻿using System.Collections.Generic;
 
-namespace Module.VkMusicDownloader.Helpers
+namespace Root.Helpers
 {
     public static class MBApiHelper
     {
@@ -10,7 +10,32 @@ namespace Module.VkMusicDownloader.Helpers
         private const MetaDataType IndexField = MetaDataType.Custom4;
         private const MetaDataType Index1Field = MetaDataType.Custom1;
         private const MetaDataType Index2Field = MetaDataType.Custom2;
+        
+        public static bool Playlist_QueryPlaylistsEx(
+            this MusicBeeApiInterface mbApi, 
+            out IReadOnlyCollection<string> playlists)
+        {
+            if (!mbApi.Playlist_QueryPlaylists())
+            {
+                playlists = null;
+                return false;
+            }
 
+            var result = new List<string>();
+            while (true)
+            {
+                var next = mbApi.Playlist_QueryGetNextPlaylist();
+                if (string.IsNullOrEmpty(next))
+                {
+                    break;
+                }
+                result.Add(next);
+            }
+
+            playlists = result;
+            return true;
+        }
+        
         public static bool TryGetVkId(this MusicBeeApiInterface api, 
             string filePath, out long id)
         {

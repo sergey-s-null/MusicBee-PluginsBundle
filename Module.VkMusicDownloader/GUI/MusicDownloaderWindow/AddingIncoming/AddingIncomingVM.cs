@@ -5,6 +5,7 @@ using System.Linq;
 using Module.VkMusicDownloader.Helpers;
 using PropertyChanged;
 using Root;
+using Root.Helpers;
 using Root.MVVM;
 
 namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming

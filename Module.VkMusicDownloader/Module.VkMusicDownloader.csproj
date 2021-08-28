@@ -134,7 +134,6 @@
     <Compile Include="Helpers\FileEx.cs" />
     <Compile Include="Helpers\IAudioCategoryEx.cs" />
     <Compile Include="Helpers\IVkApiEx.cs" />
-    <Compile Include="Helpers\MBApiHelper.cs" />
     <Compile Include="Helpers\WebClientEx.cs" />
     <Compile Include="Helpers\WebResponseEx.cs" />
     <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">

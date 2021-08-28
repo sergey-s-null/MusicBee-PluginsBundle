@@ -10,6 +10,7 @@ using Module.VkMusicDownloader.Settings;
 using Module.VkMusicDownloader.TagReplacer;
 using PropertyChanged;
 using Root;
+using Root.Helpers;
 using Root.MVVM;
 using VkNet.Abstractions;
 
