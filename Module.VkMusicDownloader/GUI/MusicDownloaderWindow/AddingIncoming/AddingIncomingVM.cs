@@ -76,6 +76,7 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingIncoming
 
         private void AddToMBLibrary(IncomingAudioVM incomingAudio)
         {
+            // TODO удалить или заменить на InboxAddService
             _prevIndex += 1;
             var currentIndex = _prevIndex;
 

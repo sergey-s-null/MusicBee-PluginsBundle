@@ -149,6 +149,10 @@
         <Project>{32886e03-e8e7-4ce4-9a75-5df873f405dd}</Project>
         <Name>Module.ArtworksSearcher</Name>
       </ProjectReference>
+      <ProjectReference Include="..\Module.InboxAdder\Module.InboxAdder.csproj">
+        <Project>{81186c3a-364d-49b6-ad26-b1e0c78a650a}</Project>
+        <Name>Module.InboxAdder</Name>
+      </ProjectReference>
       <ProjectReference Include="..\Module.PlaylistsExporter\Module.PlaylistsExporter.csproj">
         <Project>{e74edc2a-19f4-4f7a-a976-24b7f778c038}</Project>
         <Name>Module.PlaylistsExporter</Name>

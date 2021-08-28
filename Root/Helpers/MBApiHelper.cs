@@ -80,6 +80,21 @@ namespace Root.Helpers
             return true;
         }
 
+        public static bool ClearIndex(this MusicBeeApiInterface mbApi, string filePath, bool commit = true)
+        {
+            if (!mbApi.Library_SetFileTag(filePath, IndexField, ""))
+            {
+                return false;
+            }
+
+            if (commit)
+            {
+                return mbApi.Library_CommitTagsToFile(filePath);
+            }
+
+            return true;
+        }
+        
         public static bool TryGetIndex1(this MusicBeeApiInterface api, 
             string filePath, out int index1)
         {
@@ -101,6 +116,21 @@ namespace Root.Helpers
             return true;
         }
 
+        public static bool ClearIndex1(this MusicBeeApiInterface mbApi, string filePath, bool commit = true)
+        {
+            if (!mbApi.Library_SetFileTag(filePath, Index1Field, ""))
+            {
+                return false;
+            }
+
+            if (commit)
+            {
+                return mbApi.Library_CommitTagsToFile(filePath);
+            }
+
+            return true;
+        }
+        
         public static bool TryGetIndex2(this MusicBeeApiInterface api, 
             string filePath, out int index2)
         {
@@ -119,6 +149,21 @@ namespace Root.Helpers
             if (commit)
                 return api.Library_CommitTagsToFile(filePath);
             
+            return true;
+        }
+        
+        public static bool ClearIndex2(this MusicBeeApiInterface mbApi, string filePath, bool commit = true)
+        {
+            if (!mbApi.Library_SetFileTag(filePath, Index2Field, ""))
+            {
+                return false;
+            }
+
+            if (commit)
+            {
+                return mbApi.Library_CommitTagsToFile(filePath);
+            }
+
             return true;
         }
         
