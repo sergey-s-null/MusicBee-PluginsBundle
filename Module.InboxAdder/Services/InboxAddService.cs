@@ -17,6 +17,11 @@ namespace Module.InboxAdder.Services
         
         public void AddToLibrary(string filePath)
         {
+            if (IsInLibrary(filePath))
+            {
+                return;
+            }
+
             var currentIndex = GetLastIndex() + 1;
             
             MBApiHelper.CalcIndices(currentIndex, out var i1, out var i2);
@@ -31,6 +36,11 @@ namespace Module.InboxAdder.Services
 
         public void RetrieveToInbox(string filePath)
         {
+            if (!IsInLibrary(filePath))
+            {
+                return;
+            }
+            
             _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Inbox);
             
             _mbApi.ClearIndex(filePath, false);
@@ -40,6 +50,12 @@ namespace Module.InboxAdder.Services
             _mbApi.Library_CommitTagsToFile(filePath);
         }
 
+        private bool IsInLibrary(string filePath)
+        {
+            return _mbApi.TryGetIndex(filePath, out var index) 
+                   && index >= 0;
+        }
+        
         private int GetLastIndex()
         {
             return GetFilePaths()
