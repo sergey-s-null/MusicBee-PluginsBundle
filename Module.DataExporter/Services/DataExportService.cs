@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Root;
 
-namespace Module.DataExporter
+namespace Module.DataExporter.Services
 {
-    public class DataExportService
+    public class DataExportService : IDataExportService
     {
         private readonly MusicBeeApiInterface _mbApi;
         
@@ -58,7 +58,7 @@ namespace Module.DataExporter
         /// <param name="dirPath"></param>
         /// <exception cref="MusicBeeApiException">Не получилось достать пути к файлам бибилиотеки</exception>
         /// <exception cref="Exception">Много исключений записи в файл</exception>
-        public void Service(string dirPath)
+        public void Export(string dirPath)
         {
             if (!_mbApi.Library_QueryFilesEx("", out var filePaths))
             {

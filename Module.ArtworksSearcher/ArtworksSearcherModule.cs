@@ -1,6 +1,8 @@
 ﻿using Module.ArtworksSearcher.Factories;
+using Module.ArtworksSearcher.GUI.SearchWindow;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.ArtworksSearcher.Helpers;
+using Module.ArtworksSearcher.ImagesProviders;
 using Module.ArtworksSearcher.Settings;
 using Ninject.Modules;
 using Root;
@@ -30,6 +32,10 @@ namespace Module.ArtworksSearcher
             Bind<IGoogleImagesEnumeratorFactory>()
                 .To<GoogleImagesEnumeratorFactory>()
                 .InSingletonScope();
+
+            Bind<OsuImagesProvider>().ToSelf();
+            Bind<GoogleImagesProvider>().ToSelf();
+            Bind<SearchWindowVM>().ToSelf();
         }
     }
 }

@@ -4,8 +4,8 @@ using System.Net;
 using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.GUI.SearchWindow;
-using Module.DataExporter;
 using Module.DataExporter.Exceptions;
+using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkMusicDownloader.Exceptions;
@@ -114,8 +114,8 @@ namespace MusicBeePlugin
 
             try
             {
-                var service = _kernel.Get<DataExportService>();
-                service.Service(dialog.FileName);
+                var service = _kernel.Get<IDataExportService>();
+                service.Export(dialog.FileName);
 
                 MessageBox.Show("Экспорт выполнен успешно.", "Ок");
             }

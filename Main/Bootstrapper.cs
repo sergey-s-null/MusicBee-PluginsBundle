@@ -1,7 +1,9 @@
 ﻿using Module.ArtworksSearcher;
+using Module.DataExporter;
 using Module.InboxAdder;
 using Module.PlaylistsExporter;
 using Module.VkMusicDownloader;
+using MusicBeePlugin.GUI.SettingsDialog;
 using Ninject;
 using Root;
 
@@ -20,6 +22,9 @@ namespace MusicBeePlugin
             kernel.Load(new ArtworksSearcherModule(mbApi));
             kernel.Load(new PlaylistsExporterModule(mbApi));
             kernel.Load(new InboxAdderModule());
+            kernel.Load(new DataExporterModule());
+
+            kernel.Bind<SettingsDialogVM>().ToSelf();
             
             return kernel;
         }
