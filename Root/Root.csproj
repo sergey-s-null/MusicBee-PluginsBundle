@@ -50,6 +50,9 @@
         <Compile Include="Abstractions\IAsyncEnumerable.cs" />
         <Compile Include="Abstractions\IAsyncEnumerator.cs" />
         <Compile Include="Abstractions\ISettings.cs" />
+        <Compile Include="Helpers\EnumerableHelper.cs" />
+        <Compile Include="Helpers\MusicBeeApiInterfaceHelper.cs" />
+        <Compile Include="Helpers\PathHelper.cs" />
         <Compile Include="MusicBeeApiInterface.cs" />
         <Compile Include="MVVM\RelayCommand.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

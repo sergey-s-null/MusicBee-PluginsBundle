@@ -72,6 +72,10 @@
           <HintPath>..\packages\WindowsAPICodePack.1.1.2\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="MoreLinq, Version=3.3.2.0, Culture=neutral, PublicKeyToken=384d532d7e88985d">
+          <HintPath>..\packages\morelinq.3.3.2\lib\net451\MoreLinq.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="mscorlib" />
         <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
           <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -88,12 +92,17 @@
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.Data.DataSetExtensions" />
         <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="System.Text.Encoding.CodePages, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="System.Windows.Forms" />
@@ -139,6 +148,10 @@
       <ProjectReference Include="..\Module.ArtworksSearcher\Module.ArtworksSearcher.csproj">
         <Project>{32886e03-e8e7-4ce4-9a75-5df873f405dd}</Project>
         <Name>Module.ArtworksSearcher</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\Module.PlaylistsExporter\Module.PlaylistsExporter.csproj">
+        <Project>{e74edc2a-19f4-4f7a-a976-24b7f778c038}</Project>
+        <Name>Module.PlaylistsExporter</Name>
       </ProjectReference>
       <ProjectReference Include="..\Module.VkMusicDownloader\Module.VkMusicDownloader.csproj">
         <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>

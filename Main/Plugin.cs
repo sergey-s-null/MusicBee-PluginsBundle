@@ -6,6 +6,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.GUI.SearchWindow;
 using Module.DataExporter;
 using Module.DataExporter.Exceptions;
+using Module.PlaylistsExporter.Services;
 using Module.VkMusicDownloader.Exceptions;
 using Module.VkMusicDownloader.GUI.MusicDownloaderWindow;
 using Module.VkMusicDownloader.Helpers;
@@ -35,15 +36,18 @@ namespace MusicBeePlugin
             
             _kernel = Bootstrapper.GetKernel(_mbApi);
 
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: download vk audio",
-                "Laiser399: download vk audio", (_, __) => OpenDownloadDialog());
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Download Vk Audio",
+                "Laiser399: Download Vk Audio", (_, __) => OpenDownloadDialog());
 
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export",
-                "Laiser399: Export", (_, __) => Export());
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export Library Data",
+                "Laiser399: Export Library Data", (_, __) => ExportLibraryData());
             
             _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Search Artworks",
                 "Laiser399: Search Artworks", (_, __) => SearchArtworks());
 
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export Playlists",
+                "Laiser399: Export Playlists", (_, __) => ExportPlaylists());
+            
             return GetPluginInfo();
         }
 
@@ -67,6 +71,7 @@ namespace MusicBeePlugin
             };
         }
 
+        // TODO избавиться или объединить с другими настройками
         private void CreateSettingsDirectory()
         {
             var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
@@ -90,7 +95,7 @@ namespace MusicBeePlugin
             wnd.ShowDialog();
         }
 
-        private void Export()
+        private void ExportLibraryData()
         {
             using var dialog = new CommonOpenFileDialog()
             {
@@ -144,7 +149,25 @@ namespace MusicBeePlugin
                 }
             }
         }
-        
+
+        private void ExportPlaylists()
+        {
+            var exportService = _kernel.Get<IPlaylistsExportService>();
+
+            try
+            {
+                exportService.Export();
+
+                MessageBox.Show("Export done successfully.", "(ง ͠° ͟ل͜ ͡°)ง");
+            }
+            catch (Exception e)
+            {
+                // TODO dialog
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public bool Configure(IntPtr _)
         {
             var dialog = _kernel.Get<SettingsDialog>();

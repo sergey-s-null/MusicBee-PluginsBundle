@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Module.ArtworksSearcher.GUI.Settings;
+using Module.PlaylistsExporter.GUI.Settings;
 using Module.VkMusicDownloader.GUI.Settings;
 using PropertyChanged;
 using Root.Abstractions;
@@ -23,12 +24,15 @@ namespace MusicBeePlugin.GUI.SettingsDialog
         
         public SettingsDialogVM(
             IMusicDownloaderSettingsVM musicDownloaderSettingsVM,
-            IArtworksSearcherSettingsVM artworksSearcherSettingsVM)
+            IArtworksSearcherSettingsVM artworksSearcherSettingsVM,
+            IPlaylistsExporterSettingsVM playlistsExporterSettingsVM)
         {
             Settings.Add(new ModuleSettingsVM("Music downloader", 
                 musicDownloaderSettingsVM));
             Settings.Add(new ModuleSettingsVM("Artworks searcher", 
                 artworksSearcherSettingsVM));
+            Settings.Add(new ModuleSettingsVM("Playlists exporter", 
+                playlistsExporterSettingsVM));
 
             SelectFirstSettingsModule();
             

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Module.ArtworksSearcher.Settings;
 
 namespace Module.ArtworksSearcher.GUI.Settings

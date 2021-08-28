@@ -1,4 +1,5 @@
 ﻿using Module.ArtworksSearcher;
+using Module.PlaylistsExporter;
 using Module.VkMusicDownloader;
 using Ninject;
 using Root;
@@ -16,6 +17,7 @@ namespace MusicBeePlugin
             
             kernel.Load(new MusicDownloaderModule(mbApi));
             kernel.Load(new ArtworksSearcherModule(mbApi));
+            kernel.Load(new PlaylistsExporterModule(mbApi));
             
             return kernel;
         }

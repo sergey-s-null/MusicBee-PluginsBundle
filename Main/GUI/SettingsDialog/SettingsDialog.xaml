@@ -16,6 +16,7 @@
                         <!-- pack://application:,,,      -->
                         <ResourceDictionary Source="/Module.VKMusicDownloader;component/GUI/Settings/MusicDownloaderSettings.xaml"></ResourceDictionary>
                         <ResourceDictionary Source="/Module.ArtworksSearcher;component/GUI/Settings/ArtworksSearcherSettings.xaml"></ResourceDictionary>
+                        <ResourceDictionary Source="/Module.PlaylistsExporter;component/GUI/Settings/PlaylistsExporterSettings.xaml"></ResourceDictionary>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </gui:VMTemplateSelector.ResourceDictionary>

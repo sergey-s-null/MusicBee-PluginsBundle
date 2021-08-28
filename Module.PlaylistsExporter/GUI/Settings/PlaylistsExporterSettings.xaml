@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Module.PlaylistsExporter.GUI.Settings">
+    <DataTemplate DataType="{x:Type local:IPlaylistsExporterSettingsVM}">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="Grid"
+                       x:Key="SomeStyle">
+                    <Setter Property="Margin" Value="4 3"/>
+                </Style>
+            </StackPanel.Resources>
+            
+            <Grid Style="{StaticResource SomeStyle}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="0"
+                           Text="Playlists directory path:"/>
+                
+                <TextBox Grid.Row="1" 
+                         Text="{Binding PlaylistsDirectoryPath}"/>
+            </Grid>
+            
+            <Grid Style="{StaticResource SomeStyle}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="0"
+                           Text="File library path:"/>
+                
+                <TextBox Grid.Row="1" 
+                         Text="{Binding FilesLibraryPath}"/>
+            </Grid>
+            
+            <Grid Style="{StaticResource SomeStyle}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="0"
+                           Text="Name of new directory for playlists:"/>
+                
+                <TextBox Grid.Row="1" 
+                         Text="{Binding PlaylistsNewDirectoryName}"/>
+            </Grid>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>
