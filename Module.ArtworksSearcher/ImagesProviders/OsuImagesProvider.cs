@@ -2,76 +2,80 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Media.Imaging;
 using Module.ArtworksSearcher.Helpers;
 using Module.ArtworksSearcher.Settings;
-using Root.Abstractions;
+using Root.Helpers;
 
 namespace Module.ArtworksSearcher.ImagesProviders
 {
-    public class OsuImagesProvider : IImagesProvider
+    public class OsuImagesProvider : IAsyncEnumerable<BitmapImage>
     {
         private readonly string[] _imgExtensions = { ".jpg", ".png", ".jpeg" };
+        
+        private readonly string _query;
         private readonly DirectoryInfo _songsDir;
-        private readonly long _minImageSizeInBytes;
+        private readonly long _minSize;
 
-        public OsuImagesProvider(IArtworksSearcherSettings settings)
+        public OsuImagesProvider(
+            string query,
+            // DI
+            IArtworksSearcherSettings settings)
         {
-            _minImageSizeInBytes = settings.MinOsuImageByteSize;
+            _query = query;
             
             _songsDir = new DirectoryInfo(settings.OsuSongsDir);
+            _minSize = settings.MinOsuImageByteSize;
         }
 
-        public IEnumerable<BitmapImage> GetImagesIter(string query)
+        public IAsyncEnumerator<BitmapImage> GetAsyncEnumerator(CancellationToken cancellationToken)
         {
-            foreach (var data in GetBinaryIter(query))
+            return GetImagesAsyncEnumerator(cancellationToken);
+        }
+        
+        private IAsyncEnumerator<BitmapImage> GetImagesAsyncEnumerator(CancellationToken cancellationToken)
+        {
+            var songsDirs = _songsDir.GetDirectories();
+
+            var orderedByRelevance = songsDirs
+                .ToAsyncEnumerable()
+                .Select(songDir => new
+                {
+                    SongDir = songDir,
+                    Coef = StringHelper.CalcSimilarityCoefficient(_query, songDir.Name)
+                })
+                .OrderByDescending(x => x.Coef)
+                .Select(x => x.SongDir);
+
+            return orderedByRelevance
+                .SelectMany(item => item.GetFiles().ToAsyncEnumerable())
+                .Where(fInfo => fInfo.Length >= _minSize)
+                .Where(fInfo => _imgExtensions.Contains(fInfo.Extension.ToLower()))
+                .Select(ToBitmapImageOrNull)
+                .WhereNotNull()
+                .GetAsyncEnumerator(cancellationToken);
+        }
+
+        private static BitmapImage? ToBitmapImageOrNull(FileInfo fileInfo)
+        {
+            try
             {
+                var data = File.ReadAllBytes(fileInfo.FullName);
+                
                 var image = new BitmapImage();
+                
                 image.BeginInit();
                 image.StreamSource = new MemoryStream(data);
                 image.EndInit();
-                yield return image;
+
+                return image;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
             }
         }
-
-        public IEnumerable<byte[]> GetBinaryIter(string query)
-        {
-            foreach (var file in GetFilesIter(query))
-                yield return File.ReadAllBytes(file.FullName);
-        }
-
-        public IEnumerable<string> GetPathsIter(string query)
-        {
-            foreach (var file in GetFilesIter(query))
-                yield return file.FullName;
-        }
-
-        public IEnumerable<FileInfo> GetFilesIter(string query)
-        {
-            var songsDirs = _songsDir.GetDirectories();
-            var items = songsDirs.Select(songDir => new
-            {
-                SongDir = songDir,
-                Coef = StringHelper.CalcSimilarityCoefficient(query, songDir.Name)
-            }).ToArray();
-            Array.Sort(items, (a, b) => b.Coef.CompareTo(a.Coef));
-
-            foreach (var item in items)
-            {
-                foreach (var file in item.SongDir.GetFiles())
-                {
-                    if (file.Length < _minImageSizeInBytes)
-                        continue;
-                    if (_imgExtensions.Contains(file.Extension.ToLower()))
-                        yield return file;
-                }
-            }
-        }
-
-        public IAsyncEnumerator<BitmapImage> GetAsyncEnumerator(string query)
-        {
-            return new OsuImagesAsyncEnumerator(_songsDir, query, _minImageSizeInBytes);
-        }
-
     }
 }

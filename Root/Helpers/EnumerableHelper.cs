@@ -9,5 +9,12 @@ namespace Root.Helpers
         {
             return items.ToList();
         }
+
+        public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> items)
+        {
+            return items
+                .Where(x => x is not null)
+                .Select(x => x!);
+        }
     }
 }

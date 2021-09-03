@@ -1,84 +1,30 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Media.Imaging;
 using Module.ArtworksSearcher.Factories;
-using Module.ArtworksSearcher.Helpers;
-using Module.ArtworksSearcher.Settings;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Root.Abstractions;
 
 namespace Module.ArtworksSearcher.ImagesProviders
 {
-    public class GoogleImagesProvider : IImagesProvider
+    public class GoogleImagesProvider : IAsyncEnumerable<BitmapImage>
     {
-        private const string GoogleApiUrl = "https://www.googleapis.com/customsearch/v1";
-        private readonly string _cx;
-        private readonly string _key;
+        private readonly string _query;
 
         private readonly IGoogleImagesEnumeratorFactory _googleImagesEnumeratorFactory;
         
-        public GoogleImagesProvider(IArtworksSearcherSettings settings,
+        public GoogleImagesProvider(
+            string query,
+            // DI
             IGoogleImagesEnumeratorFactory googleImagesEnumeratorFactory)
         {
-            _cx = settings.GoogleCX;
-            _key = settings.GoogleKey;
+            _query = query;
 
             _googleImagesEnumeratorFactory = googleImagesEnumeratorFactory;
         }
 
-        public IEnumerable<BitmapImage> GetImagesIter(string query)
+        public IAsyncEnumerator<BitmapImage> GetAsyncEnumerator(CancellationToken cancellationToken)
         {
-            foreach (var data in GetBinaryIter(query))
-            {
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.StreamSource = new MemoryStream(data);
-                image.EndInit();
-                yield return image;
-            }
+            return _googleImagesEnumeratorFactory.Create(_query, cancellationToken);
         }
-
-        public IEnumerable<byte[]> GetBinaryIter(string query)
-        {
-            foreach (var imgUrl in GetImgUrlIter(query))
-            {
-                using var webClient = new WebClient();
-                if (webClient.TryDownloadData(imgUrl, out var data))
-                    yield return data;
-            }
-        }
-
-        public IEnumerable<string> GetImgUrlIter(string query)
-        {
-            var offset = 0;
-            while (true)
-            {
-                var url = UrlHelper.AddParameters(GoogleApiUrl, new Dictionary<string, string>
-                {
-                    ["key"] = _key,
-                    ["cx"] = _cx,
-                    ["q"] = query,
-                    ["searchType"] = "image",
-                    ["start"] = offset.ToString()
-                });
-
-                using var webClient = new WebClient();
-                var response = webClient.DownloadString(url);
-                var jObj = JsonConvert.DeserializeObject<JObject>(response);
-                var imgUrls = jObj["items"].Select(item => item["link"].ToString()).ToArray();
-                foreach (var imgUrl in imgUrls)
-                    yield return imgUrl;
-                offset += imgUrls.Length;
-            }
-        }
-
-        public IAsyncEnumerator<BitmapImage> GetAsyncEnumerator(string query)
-        {
-            return _googleImagesEnumeratorFactory.Create(query);
-        }
-
     }
 }

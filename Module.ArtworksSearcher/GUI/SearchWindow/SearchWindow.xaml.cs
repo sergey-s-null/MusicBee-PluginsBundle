@@ -11,7 +11,7 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
 
         private bool _shown;
 
-        private byte[] _imageData;
+        private byte[]? _imageData;
 
         public SearchWindow(SearchWindowVM viewModel)
         {
@@ -28,7 +28,7 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
             ScrollViewer.ScrollToVerticalOffset(0);
         }
 
-        public bool ShowDialog(string artist, string title, out byte[] imageData)
+        public bool ShowDialog(string artist, string title, out byte[]? imageData)
         {
             ViewModel.Artist = artist;
             ViewModel.Title = title;

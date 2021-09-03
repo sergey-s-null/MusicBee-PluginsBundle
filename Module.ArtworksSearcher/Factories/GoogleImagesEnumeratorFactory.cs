@@ -1,4 +1,5 @@
-﻿using Module.ArtworksSearcher.ImagesProviders;
+﻿using System.Threading;
+using Module.ArtworksSearcher.ImagesProviders;
 using Module.ArtworksSearcher.Settings;
 
 namespace Module.ArtworksSearcher.Factories
@@ -13,9 +14,9 @@ namespace Module.ArtworksSearcher.Factories
             _settings = settings;
         }
         
-        public GoogleImagesEnumerator Create(string query)
+        public GoogleImagesAsyncEnumerator Create(string query, CancellationToken cancellationToken)
         {
-            return new(query, _settings);
+            return new(query, cancellationToken, _settings);
         }
     }
 }

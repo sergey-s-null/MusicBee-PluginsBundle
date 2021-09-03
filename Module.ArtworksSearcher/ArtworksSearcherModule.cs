@@ -32,10 +32,14 @@ namespace Module.ArtworksSearcher
             Bind<IGoogleImagesEnumeratorFactory>()
                 .To<GoogleImagesEnumeratorFactory>()
                 .InSingletonScope();
+            Bind<IImagesProvidersFactory>()
+                .To<ImagesProvidersFactory>()
+                .InSingletonScope();
 
             Bind<OsuImagesProvider>().ToSelf();
             Bind<GoogleImagesProvider>().ToSelf();
             Bind<SearchWindowVM>().ToSelf();
+            Bind<SearchWindow>().ToSelf();
         }
     }
 }

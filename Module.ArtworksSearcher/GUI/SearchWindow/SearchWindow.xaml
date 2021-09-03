@@ -61,7 +61,7 @@
             <ScrollViewer x:Name="ScrollViewer" 
                           Grid.Column="0" 
                           ScrollChanged="LeftPanelScrollViewer_ScrollChanged">
-                <ItemsControl ItemsSource="{Binding SearchResults}"/>
+                <ItemsControl ItemsSource="{Binding SelectedProvider.Images}"/>
             </ScrollViewer>
             <GridSplitter Grid.Column="1" Width="4"
                           HorizontalAlignment="Center"

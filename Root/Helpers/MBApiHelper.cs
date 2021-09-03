@@ -36,6 +36,14 @@ namespace Root.Helpers
             return true;
         }
         
+        public static long GetVkIdOrDefault(this MusicBeeApiInterface api, 
+            string filePath, long defaultId)
+        {
+            return api.TryGetVkId(filePath, out var id)
+                ? id
+                : defaultId;
+        } 
+        
         public static bool TryGetVkId(this MusicBeeApiInterface api, 
             string filePath, out long id)
         {
@@ -56,6 +64,14 @@ namespace Root.Helpers
             return true;
         }
 
+        public static int GetIndexOrDefault(this MusicBeeApiInterface api, 
+            string filePath, int defaultIndex)
+        {
+            return api.TryGetIndex(filePath, out var index) 
+                ? index 
+                : defaultIndex;
+        } 
+        
         public static bool TryGetIndex(this MusicBeeApiInterface api, 
             string filePath, out int index)
         {

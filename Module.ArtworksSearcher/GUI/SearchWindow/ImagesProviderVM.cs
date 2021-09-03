@@ -1,12 +1,44 @@
-﻿using Module.ArtworksSearcher.ImagesProviders;
-using PropertyChanged;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using Module.ArtworksSearcher.Delegates;
 
 namespace Module.ArtworksSearcher.GUI.SearchWindow
 {
-    [AddINotifyPropertyChangedInterface]
     public class ImagesProviderVM
     {
-        public IImagesProvider Provider { get; set; }
-        public string Name { get; set; }
+        private readonly GetImagesAsyncEnumeratorDelegate _getImagesEnumerator;
+        private IAsyncEnumerator<BitmapImage>? _imagesEnumerator;
+        
+        public string ProviderName { get; }
+        public ObservableCollection<ImageVM> Images { get; } = new();
+
+        public ImagesProviderVM(string providerName, GetImagesAsyncEnumeratorDelegate getImagesEnumerator)
+        {
+            _getImagesEnumerator = getImagesEnumerator;
+            
+            ProviderName = providerName;
+        }
+        
+        public void StartSearch(string query)
+        {
+            Images.Clear();
+                
+            _imagesEnumerator = _getImagesEnumerator(query);
+        }
+        
+        public async Task MoveNextAsync()
+        {
+            if (_imagesEnumerator is null)
+            {
+                return;
+            }
+
+            if (await _imagesEnumerator.MoveNextAsync())
+            {
+                Images.Add(new ImageVM(Images.Count + 1, _imagesEnumerator.Current));
+            }
+        }
     }
 }

@@ -5,8 +5,8 @@ namespace Module.ArtworksSearcher.Settings
 {
     public class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSettings
     {
-        public string GoogleCX { get; set; }
-        public string GoogleKey { get; set; }
+        public string GoogleCX { get; set; } = "";
+        public string GoogleKey { get; set; } = "";
         
         public int MaxParallelDownloadsCount => 10;// TODO from config
 
@@ -31,7 +31,7 @@ namespace Module.ArtworksSearcher.Settings
             }
         }
 
-        public string OsuSongsDir { get; set; }
+        public string OsuSongsDir { get; set; } = "";
         public long MinOsuImageByteSize { get; set; }
         
         public ArtworksSearcherSettings(string filePath) : base(filePath, true)
@@ -40,10 +40,10 @@ namespace Module.ArtworksSearcher.Settings
         
         protected override void PropertiesFromJObject(JToken rootObj)
         {
-            GoogleCX = rootObj.Value<string>(nameof(GoogleCX));
-            GoogleKey = rootObj.Value<string>(nameof(GoogleKey));
+            GoogleCX = rootObj.Value<string>(nameof(GoogleCX)) ?? "";
+            GoogleKey = rootObj.Value<string>(nameof(GoogleKey)) ?? "";
             ParallelDownloadsCount = rootObj.Value<int>(nameof(ParallelDownloadsCount));
-            OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir));
+            OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir)) ?? "";
             MinOsuImageByteSize = rootObj.Value<long>(nameof(MinOsuImageByteSize));
         }
         

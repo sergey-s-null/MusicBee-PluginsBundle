@@ -1,9 +1,10 @@
-﻿using Module.ArtworksSearcher.ImagesProviders;
+﻿using System.Threading;
+using Module.ArtworksSearcher.ImagesProviders;
 
 namespace Module.ArtworksSearcher.Factories
 {
     public interface IGoogleImagesEnumeratorFactory
     {
-        GoogleImagesEnumerator Create(string query);
+        GoogleImagesAsyncEnumerator Create(string query, CancellationToken cancellationToken);
     }
 }
