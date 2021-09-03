@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Test_Desktop"
         xmlns:selector="clr-namespace:MusicBeePlugin.GUI;assembly=mb_PluginsBundle"
         xmlns:win="clr-namespace:System.Windows;assembly=System"
-        xmlns:inst="clr-namespace:Module.PlaylistsExporter.GUI.Settings;assembly=Module.PlaylistsExporter"
+        xmlns:inst="clr-namespace:Module.VkMusicDownloader.GUI.MusicDownloaderWindow;assembly=Module.VKMusicDownloader"
         mc:Ignorable="d"
         Title="TestDataTemplate" Height="450" Width="800">
     <Window.Resources>
@@ -14,7 +14,7 @@
             <selector:VMTemplateSelector.ResourceDictionary>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="/Module.PlaylistsExporter;component/GUI/Settings/PlaylistsExporterSettings.xaml"/>
+                        <ResourceDictionary Source="/Module.VKMusicDownloader;component/GUI/Settings/PlaylistsExporterSettings.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </selector:VMTemplateSelector.ResourceDictionary>
@@ -28,7 +28,7 @@
     <Grid> 
         <ContentControl ContentTemplateSelector="{StaticResource VMTemplateSelector}">
             <ContentControl.Content>
-                <inst:PlaylistsExporterSettingsVM/>
+                <inst:MusicDownloaderWindowVM/>
             </ContentControl.Content>
         </ContentControl>
     </Grid>

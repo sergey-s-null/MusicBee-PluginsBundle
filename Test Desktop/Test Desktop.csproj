@@ -108,6 +108,10 @@
         <Project>{e74edc2a-19f4-4f7a-a976-24b7f778c038}</Project>
         <Name>Module.PlaylistsExporter</Name>
       </ProjectReference>
+      <ProjectReference Include="..\Module.VkMusicDownloader\Module.VkMusicDownloader.csproj">
+        <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>
+        <Name>Module.VkMusicDownloader</Name>
+      </ProjectReference>
       <ProjectReference Include="..\Root\Root.csproj">
         <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
         <Name>Root</Name>
