@@ -19,15 +19,7 @@
     </Window.Resources>
 
     <Grid>
-        <TabControl x:Name="TabControl">
-            <TabItem Header="From VK" IsSelected="True">
-                <ContentControl Content="{Binding AddingVkVM}"/>
-            </TabItem>
-
-            <TabItem Header="From Incoming">
-                <ContentControl Content="{Binding AddingIncomingVM}"/>
-            </TabItem>
-        </TabControl>
+        <ContentControl Content="{Binding AddingVkVM}"/>
 
         <Button Content="Refresh" 
                 Margin="0 1 3 0"

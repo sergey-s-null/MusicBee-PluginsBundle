@@ -12,6 +12,7 @@
 
     <DataTemplate DataType="{x:Type addingVk:AddingVkVM}">
         <Grid Margin="0 0 0 4">
+            
             <Grid.Resources>
                 <CollectionViewSource x:Key="SortedAudios" Source="{Binding Audios}">
                     <CollectionViewSource.SortDescriptions>
@@ -27,6 +28,7 @@
             
             <ListView Grid.Row="0"
                       ItemsSource="{Binding Source={StaticResource SortedAudios}}">
+                
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -43,6 +45,7 @@
                         </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>
+                
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
@@ -54,7 +57,7 @@
                                             <ContentControl.Resources>
                                                 <DataTemplate DataType="{x:Type mainWindow:VkAudioVM}">
                                                     <CheckBox IsChecked="{Binding IsSelected}"
-                                                              Command="{Binding DataContext.AddingVkVM.ApplyCheckStateToSelectedCmd,
+                                                              Command="{Binding ViewModel.AddingVkVM.ApplyCheckStateToSelectedCmd,
                                                                     RelativeSource={RelativeSource AncestorType=mainWindow:MusicDownloaderWindow}}">
                                                         <CheckBox.CommandParameter>
                                                             <MultiBinding Converter="{StaticResource DefaultMultiValueConverter}">
@@ -128,7 +131,9 @@
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>
+                
             </ListView>
+            
             <Grid Grid.Row="0" Margin="0 0 30 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="28px"/>

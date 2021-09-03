@@ -12,8 +12,8 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
     /// </summary>
     public partial class MusicDownloaderWindow : Window
     {
-        private readonly MusicDownloaderWindowVM _viewModel;
-
+        public MusicDownloaderWindowVM ViewModel { get; }
+        
         private readonly IVkApi _vkApi;
         private readonly IMusicDownloaderSettings _settings;
         
@@ -23,11 +23,11 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
         {
             InitializeComponent();
             
-            _viewModel = viewModel;
+            ViewModel = viewModel;
             _vkApi = vkApi;
             _settings = settings;
             
-            DataContext = _viewModel;
+            DataContext = ViewModel;
         }
 
         public new void ShowDialog()
@@ -71,14 +71,14 @@ namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
         
         protected override void OnContentRendered(EventArgs e)
         {
-            if (!_viewModel.AddingVkVM.IsRefreshing)
-                _viewModel.AddingVkVM.RefreshCmd.Execute(null);
+            if (!ViewModel.AddingVkVM.IsRefreshing)
+                ViewModel.AddingVkVM.RefreshCmd.Execute(null);
             base.OnContentRendered(e);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (_viewModel.AddingVkVM.IsApplying)
+            if (ViewModel.AddingVkVM.IsApplying)
             {
                 if (MessageBox.Show("Downloading in process. Are you sure to close window?", "!!!", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 {

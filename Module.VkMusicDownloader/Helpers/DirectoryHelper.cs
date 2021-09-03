@@ -2,7 +2,7 @@
 
 namespace Module.VkMusicDownloader.Helpers
 {
-    static class DirectoryEx
+    public static class DirectoryHelper
     {
         public static bool TryCreateDirectory(string dirPath)
         {
@@ -17,6 +17,14 @@ namespace Module.VkMusicDownloader.Helpers
             catch
             {
                 return false;
+            }
+        }
+
+        public static void CreateIfNotExists(string directoryPath)
+        {
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
             }
         }
     }
