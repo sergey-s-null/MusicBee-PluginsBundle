@@ -1,0 +1,6 @@
+group NetFramework
+    Ninject
+    System.Linq.Async
+    Newtonsoft.Json
+    morelinq
+    PropertyChanged.Fody

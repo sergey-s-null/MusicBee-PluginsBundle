@@ -1,0 +1,3 @@
+group NetFramework
+    Ninject
+    Newtonsoft.Json

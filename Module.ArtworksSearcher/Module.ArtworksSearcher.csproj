@@ -109,6 +109,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="FodyWeavers.xml" />
+      <Content Include="paket.references" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

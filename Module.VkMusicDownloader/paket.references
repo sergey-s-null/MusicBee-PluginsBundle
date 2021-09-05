@@ -1,0 +1,9 @@
+group NetFramework
+    Ninject
+    Newtonsoft.Json
+    VkNet
+    VkNet.AudioBypassService
+    PropertyChanged.Fody
+    WindowsAPICodePack
+    morelinq
+    System.Linq.Async

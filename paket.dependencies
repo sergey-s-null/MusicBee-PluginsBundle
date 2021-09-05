@@ -1,0 +1,14 @@
+group NetFramework
+
+source https://api.nuget.org/v3/index.json
+framework: net472
+
+nuget Fody
+nuget Newtonsoft.Json
+nuget Ninject
+nuget PropertyChanged.Fody
+nuget System.Linq.Async
+nuget VkNet
+nuget VkNet.AudioBypassService
+nuget WindowsAPICodePack
+nuget morelinq

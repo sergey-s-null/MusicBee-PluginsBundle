@@ -73,5 +73,8 @@
         <Name>Root</Name>
       </ProjectReference>
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="paket.references" />
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

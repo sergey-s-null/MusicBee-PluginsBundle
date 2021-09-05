@@ -1,0 +1,4 @@
+group NetFramework
+    Ninject
+    Newtonsoft.Json
+    morelinq

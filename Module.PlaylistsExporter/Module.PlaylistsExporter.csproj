@@ -87,5 +87,8 @@
     <ItemGroup>
       <Page Include="GUI\Settings\PlaylistsExporterSettings.xaml" />
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="paket.references" />
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
