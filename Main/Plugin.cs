@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Windows;
+using HackModule.AssemblyBindingRedirect;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.GUI.SearchWindow;
 using Module.DataExporter.Exceptions;
@@ -28,6 +29,8 @@ namespace MusicBeePlugin
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
+            AssemblyRedirectService.ApplyRedirects(AppDomain.CurrentDomain);
+            
             ServicePointManager.DefaultConnectionLimit = 20;
             
             _mbApi = new MusicBeeApiInterface();

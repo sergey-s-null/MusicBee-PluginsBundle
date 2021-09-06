@@ -77,6 +77,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HackModule.AssemblyBindingRedirect\HackModule.AssemblyBindingRedirect.csproj">
+      <Project>{5951fde8-ebad-4580-9825-8adbe222b1fb}</Project>
+      <Name>HackModule.AssemblyBindingRedirect</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Module.ArtworksSearcher\Module.ArtworksSearcher.csproj">
       <Project>{32886e03-e8e7-4ce4-9a75-5df873f405dd}</Project>
       <Name>Module.ArtworksSearcher</Name>
