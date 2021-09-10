@@ -36,24 +36,20 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="HtmlAgilityPack, Version=1.11.36.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a">
-          <HintPath>..\packages\HtmlAgilityPack.1.11.36\lib\Net45\HtmlAgilityPack.dll</HintPath>
+        <Reference Include="HtmlAgilityPack, Version=1.11.34.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a">
+          <HintPath>..\packages\HtmlAgilityPack.1.11.34\lib\Net45\HtmlAgilityPack.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-          <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+        <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.1.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="Microsoft.Extensions.DependencyInjection, Version=5.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-          <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.5.0.2\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+        <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-          <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-          <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+        <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -105,10 +101,6 @@
           <HintPath>..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-          <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
         <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
           <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
           <Private>True</Private>
@@ -119,7 +111,7 @@
             <RequiredTargetFramework>4.0</RequiredTargetFramework>
         </Reference>
         <Reference Include="VkNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\packages\VkNet.1.66.0\lib\netstandard2.0\VkNet.dll</HintPath>
+          <HintPath>..\packages\VkNet.1.65.0\lib\netstandard2.0\VkNet.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="WindowsBase" />
