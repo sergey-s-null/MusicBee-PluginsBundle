@@ -2,7 +2,7 @@
 using Module.DataExporter;
 using Module.InboxAdder;
 using Module.PlaylistsExporter;
-using Module.VkMusicDownloader;
+using Module.VkAudioDownloader;
 using MusicBeePlugin.GUI.SettingsDialog;
 using Ninject;
 using Root;

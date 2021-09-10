@@ -1,17 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\netframework\PropertyChanged.Fody\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\netframework\PropertyChanged.Fody\build\PropertyChanged.Fody.props')" Label="Paket" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FD3865DC-0F4C-4076-8B21-44AC23601DE7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ConsoleTests</RootNamespace>
-    <AssemblyName>ConsoleTests</AssemblyName>
+    <ProjectGuid>{622756AD-5BB9-41D7-B5DF-87614DF8102E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Module.VkAudioDownloader</RootNamespace>
+    <AssemblyName>Module.VKMusicDownloader</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,34 +36,142 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Resource Include="Windows Logo.png">
+      <Paket>True</Paket>
+    </Resource>
+    <Compile Include="Entities\VkAudioVMWithFileSavePath.cs" />
+    <Compile Include="Exceptions\InitializeException.cs" />
+    <Compile Include="Exceptions\UninstallException.cs" />
+    <Compile Include="GUI\Settings\IMusicDownloaderSettingsVM.cs" />
+    <Compile Include="Helpers\AudioCategoryHelper.cs" />
+    <Compile Include="Helpers\AudioDownloadHelper.cs" />
+    <Compile Include="Helpers\CollectionEx.cs" />
+    <Compile Include="Helpers\ConfigurationHelper.cs" />
+    <Compile Include="Helpers\CookieContainerEx.cs" />
+    <Compile Include="Helpers\DirectoryHelper.cs" />
+    <Compile Include="Helpers\FileEx.cs" />
+    <Compile Include="Helpers\IVkApiEx.cs" />
+    <Compile Include="Helpers\WebClientEx.cs" />
+    <Compile Include="Helpers\WebResponseEx.cs" />
+    <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">
+      <DependentUpon>AuthDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\AuthDialog\AuthDialogVM.cs" />
+    <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
+    <Compile Include="GUI\Converters\IsCorruptedUrlConverter.cs" />
+    <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\AddingVk\AddingVkVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\MBAudioVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioVM.cs" />
+    <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
+    <Compile Include="GUI\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="GUI\InputDialog\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\InputDialog\InputDialogVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\BaseAudioVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\MusicDownloaderWindowVM.cs" />
+    <Compile Include="GUI\Settings\MusicDownloaderSettingsVM.cs" />
+    <Compile Include="IsExternalInit.cs" />
+    <Compile Include="MusicDownloaderModule.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Settings\IMusicDownloaderSettings.cs" />
+    <Compile Include="Settings\MusicDownloaderSettings.cs" />
+    <Compile Include="TagReplacer\MBTagReplacer.cs" />
+    <Compile Include="Helpers\PathEx.cs" />
+    <Compile Include="Helpers\StringEx.cs" />
+    <Compile Include="TagReplacer\TagReplacer.cs" />
+    <Page Include="GUI\AuthDialog\AuthDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\InputDialog\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\VkAudioDownloaderWindow\AddingVk\AddingVk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\VkAudioDownloaderWindow\MusicDownloaderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="GUI\VkAudioDownloaderWindow\MusicDownloaderWindow.xaml.cs">
+      <DependentUpon>MusicDownloaderWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="GUI\Settings\MusicDownloaderSettings.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj">
-      <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>
-      <Name>Module.VkAudioDownloader</Name>
+    <ProjectReference Include="..\Root\Root.csproj">
+      <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
+      <Name>Root</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="license.txt">
+      <Paket>True</Paket>
+    </Content>
+    <Content Include="FodyWeavers.xml" />
     <Content Include="paket.references" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -76,9 +189,6 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="mscorlib">
-          <Paket>True</Paket>
-        </Reference>
         <Reference Include="Microsoft.Bcl.AsyncInterfaces">
           <HintPath>..\packages\netframework\Microsoft.Bcl.AsyncInterfaces\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
           <Private>True</Private>
@@ -123,8 +233,41 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="MoreLinq">
+          <HintPath>..\packages\netframework\morelinq\lib\net451\MoreLinq.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
         <Reference Include="Newtonsoft.Json">
           <HintPath>..\packages\netframework\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Ninject">
+          <HintPath>..\packages\netframework\Ninject\lib\net45\Ninject.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="PropertyChanged">
+          <HintPath>..\packages\netframework\PropertyChanged.Fody\lib\net40\PropertyChanged.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -169,6 +312,17 @@
       <ItemGroup>
         <Reference Include="System.Collections.Immutable">
           <HintPath>..\packages\netframework\System.Collections.Immutable\lib\net461\System.Collections.Immutable.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Linq.Async">
+          <HintPath>..\packages\netframework\System.Linq.Async\lib\net461\System.Linq.Async.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -236,6 +390,17 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="System.ValueTuple">
+          <HintPath>..\packages\netframework\System.ValueTuple\lib\net47\System.ValueTuple.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
         <Reference Include="VkNet">
           <HintPath>..\packages\netframework\VkNet\lib\netstandard2.0\VkNet.dll</HintPath>
           <Private>True</Private>
@@ -255,4 +420,36 @@
       </ItemGroup>
     </When>
   </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Microsoft.WindowsAPICodePack">
+          <HintPath>..\packages\netframework\WindowsAPICodePack\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Microsoft.WindowsAPICodePack.ExtendedLinguisticServices">
+          <HintPath>..\packages\netframework\WindowsAPICodePack\lib\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Microsoft.WindowsAPICodePack.Sensors">
+          <HintPath>..\packages\netframework\WindowsAPICodePack\lib\Microsoft.WindowsAPICodePack.Sensors.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Microsoft.WindowsAPICodePack.Shell">
+          <HintPath>..\packages\netframework\WindowsAPICodePack\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions">
+          <HintPath>..\packages\netframework\WindowsAPICodePack\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="..\packages\netframework\Fody\build\Fody.targets" Condition="Exists('..\packages\netframework\Fody\build\Fody.targets')" Label="Paket" />
 </Project>

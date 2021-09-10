@@ -93,9 +93,9 @@
       <Project>{e74edc2a-19f4-4f7a-a976-24b7f778c038}</Project>
       <Name>Module.PlaylistsExporter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Module.VkMusicDownloader\Module.VkMusicDownloader.csproj">
+    <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj">
       <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>
-      <Name>Module.VkMusicDownloader</Name>
+      <Name>Module.VkAudioDownloader</Name>
     </ProjectReference>
     <ProjectReference Include="..\Module.DataExporter\Module.DataExporter.csproj">
       <Project>{d384e0fd-d73c-4e6e-87c9-c7c38aa95e62}</Project>

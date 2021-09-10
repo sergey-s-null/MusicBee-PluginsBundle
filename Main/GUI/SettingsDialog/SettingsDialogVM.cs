@@ -2,7 +2,7 @@
 using System.Linq;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
-using Module.VkMusicDownloader.GUI.Settings;
+using Module.VkAudioDownloader.GUI.Settings;
 using PropertyChanged;
 using Root.Abstractions;
 using Root.MVVM;
