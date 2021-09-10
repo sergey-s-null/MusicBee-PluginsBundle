@@ -82,7 +82,7 @@
     <Compile Include="Helpers\CookieContainerEx.cs" />
     <Compile Include="Helpers\DirectoryHelper.cs" />
     <Compile Include="Helpers\FileEx.cs" />
-    <Compile Include="Helpers\IVkApiEx.cs" />
+    <Compile Include="Helpers\VkApiHelper.cs" />
     <Compile Include="Helpers\WebClientEx.cs" />
     <Compile Include="Helpers\WebResponseEx.cs" />
     <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">

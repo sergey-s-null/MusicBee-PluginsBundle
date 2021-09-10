@@ -6,7 +6,7 @@ using VkNet.Model;
 
 namespace Module.VkAudioDownloader.Helpers
 {
-    public static class IVkApiEx
+    public static class VkApiHelper
     {
         public delegate bool AuthDelegate(out string login, out string password);
         public delegate bool CodeInputDelegate(out string code);

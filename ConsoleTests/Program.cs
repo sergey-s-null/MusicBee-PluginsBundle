@@ -155,7 +155,7 @@ namespace ConsoleTests
             int count = 15;
             foreach (var audio in api.Audio.GetIter())
             {
-                IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
+                VkApiHelper.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
 
                 Console.WriteLine(audio.Artist);
                 Console.WriteLine(audio.Title);

@@ -139,7 +139,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
 
         private static VkAudioVM AudioToVkAudioVM(Audio audio, int index)
         {
-            var convertRes = IVkApiEx.ConvertToMp3(audio.Url.AbsoluteUri, out var mp3Url);
+            var convertRes = VkApiHelper.ConvertToMp3(audio.Url.AbsoluteUri, out var mp3Url);
             return new VkAudioVM
             {
                 IsSelected = true,
