@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                     xmlns:converters="clr-namespace:Module.VkMusicDownloader.GUI.Converters"
-                    xmlns:addingVk="clr-namespace:Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk"
-                    xmlns:mainWindow="clr-namespace:Module.VkMusicDownloader.GUI.MusicDownloaderWindow">
+                    xmlns:addingVk="clr-namespace:Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow.AddingVk"
+                    xmlns:mainWindow="clr-namespace:Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow">
     
     <converters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter"/>
     <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>

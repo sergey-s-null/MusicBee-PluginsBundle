@@ -1,4 +1,4 @@
-using Module.VkMusicDownloader.GUI.MusicDownloaderWindow;
+using Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow;
 
 namespace Module.VkMusicDownloader.Entities
 {

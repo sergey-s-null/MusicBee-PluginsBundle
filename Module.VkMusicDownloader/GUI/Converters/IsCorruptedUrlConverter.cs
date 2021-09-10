@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using Module.VkMusicDownloader.GUI.MusicDownloaderWindow;
+using Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow;
 
 namespace Module.VkMusicDownloader.GUI.Converters
 {

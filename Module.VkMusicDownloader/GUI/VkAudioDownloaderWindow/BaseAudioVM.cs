@@ -1,7 +1,7 @@
 ﻿using System;
 using PropertyChanged;
 
-namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
+namespace Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow
 {
     [AddINotifyPropertyChangedInterface]
     public abstract class BaseAudioVM : IComparable

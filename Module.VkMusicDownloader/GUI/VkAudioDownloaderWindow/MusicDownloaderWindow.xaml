@@ -1,9 +1,9 @@
-﻿<Window x:Class="Module.VkMusicDownloader.GUI.MusicDownloaderWindow.MusicDownloaderWindow"
+﻿<Window x:Class="Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow.MusicDownloaderWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Module.VkMusicDownloader.GUI.MusicDownloaderWindow"
+        xmlns:local="clr-namespace:Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow"
         mc:Ignorable="d"
         Title="Add music from VK or MBIncoming to the MBLibrary" Height="450" Width="700"
         WindowStartupLocation="CenterScreen"
@@ -13,7 +13,6 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="AddingVk/AddingVk.xaml"/>
-                <ResourceDictionary Source="AddingIncoming/AddingIncoming.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>

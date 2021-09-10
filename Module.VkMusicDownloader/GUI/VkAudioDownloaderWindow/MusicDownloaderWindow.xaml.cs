@@ -5,7 +5,7 @@ using Module.VkMusicDownloader.Helpers;
 using Module.VkMusicDownloader.Settings;
 using VkNet.Abstractions;
 
-namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
+namespace Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml

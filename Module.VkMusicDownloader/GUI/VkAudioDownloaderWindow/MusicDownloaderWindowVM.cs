@@ -1,6 +1,6 @@
-﻿using Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk;
+﻿using Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow.AddingVk;
 
-namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
+namespace Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow
 {
     public class MusicDownloaderWindowVM
     {

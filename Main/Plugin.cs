@@ -10,7 +10,7 @@ using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkMusicDownloader.Exceptions;
-using Module.VkMusicDownloader.GUI.MusicDownloaderWindow;
+using Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow;
 using Module.VkMusicDownloader.Helpers;
 using MusicBeePlugin.GUI.SettingsDialog;
 using Ninject;

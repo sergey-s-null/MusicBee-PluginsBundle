@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow
+namespace Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow
 {
     public class MBAudioVM : BaseAudioVM
     {

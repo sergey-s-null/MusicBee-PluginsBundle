@@ -17,7 +17,7 @@ using Root.MVVM;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 
-namespace Module.VkMusicDownloader.GUI.MusicDownloaderWindow.AddingVk
+namespace Module.VkMusicDownloader.GUI.VkAudioDownloaderWindow.AddingVk
 {
     // TODO отрефакторить класс
     [AddINotifyPropertyChangedInterface]

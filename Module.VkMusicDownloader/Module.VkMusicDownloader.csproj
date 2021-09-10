@@ -92,17 +92,17 @@
     <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
     <Compile Include="GUI\Converters\IsCorruptedUrlConverter.cs" />
     <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
-    <Compile Include="GUI\MusicDownloaderWindow\AddingVk\AddingVkVM.cs" />
-    <Compile Include="GUI\MusicDownloaderWindow\MBAudioVM.cs" />
-    <Compile Include="GUI\MusicDownloaderWindow\VkAudioVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\AddingVk\AddingVkVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\MBAudioVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioVM.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
     <Compile Include="GUI\Converters\InverseBooleanConverter.cs" />
     <Compile Include="GUI\InputDialog\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\InputDialog\InputDialogVM.cs" />
-    <Compile Include="GUI\MusicDownloaderWindow\BaseAudioVM.cs" />
-    <Compile Include="GUI\MusicDownloaderWindow\MusicDownloaderWindowVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\BaseAudioVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\MusicDownloaderWindowVM.cs" />
     <Compile Include="GUI\Settings\MusicDownloaderSettingsVM.cs" />
     <Compile Include="IsExternalInit.cs" />
     <Compile Include="MusicDownloaderModule.cs" />
@@ -121,15 +121,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\MusicDownloaderWindow\AddingVk\AddingVk.xaml">
+    <Page Include="GUI\VkAudioDownloaderWindow\AddingVk\AddingVk.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\MusicDownloaderWindow\MusicDownloaderWindow.xaml">
+    <Page Include="GUI\VkAudioDownloaderWindow\MusicDownloaderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="GUI\MusicDownloaderWindow\MusicDownloaderWindow.xaml.cs">
+    <Compile Include="GUI\VkAudioDownloaderWindow\MusicDownloaderWindow.xaml.cs">
       <DependentUpon>MusicDownloaderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
