@@ -92,8 +92,6 @@
     <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
     <Compile Include="GUI\Converters\IsCorruptedUrlConverter.cs" />
     <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
-    <Compile Include="GUI\MusicDownloaderWindow\AddingIncoming\AddingIncomingVM.cs" />
-    <Compile Include="GUI\MusicDownloaderWindow\AddingIncoming\IncomingAudioVM.cs" />
     <Compile Include="GUI\MusicDownloaderWindow\AddingVk\AddingVkVM.cs" />
     <Compile Include="GUI\MusicDownloaderWindow\MBAudioVM.cs" />
     <Compile Include="GUI\MusicDownloaderWindow\VkAudioVM.cs" />
@@ -120,10 +118,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\InputDialog\InputDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\MusicDownloaderWindow\AddingIncoming\AddingIncoming.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
