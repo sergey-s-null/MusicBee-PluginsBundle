@@ -17,28 +17,30 @@ using Root.MVVM;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 
-namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
+namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
 {
     // TODO отрефакторить класс
     [AddINotifyPropertyChangedInterface]
-    public class AddingVkVM
+    public class VkAudioDownloaderWindowVM
     {
         #region Bindings
 
         public bool IsRefreshing { get; private set; }
 
         private RelayCommand? _refreshCmd;
+
         public RelayCommand RefreshCmd
             => _refreshCmd ??= new RelayCommand(_ => Refresh());
 
         // TODO проверить, используется ли вообще
         private RelayCommand? _applyCheckStateToSelectedCmd;
+
         public RelayCommand ApplyCheckStateToSelectedCmd
             => _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
             {
-                var argsArr = (object[])arg;
-                var triggered = (VkAudioVM)argsArr[0];
-                var selectedObjects = (IList<object>)argsArr[1];
+                var argsArr = (object[]) arg;
+                var triggered = (VkAudioVM) argsArr[0];
+                var selectedObjects = (IList<object>) argsArr[1];
                 var selected = selectedObjects
                     .OfType<VkAudioVM>()
                     .ToReadOnlyCollection();
@@ -47,9 +49,10 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
             });
 
         private RelayCommand? _applyCommand;
+
         public RelayCommand ApplyCommand
             => _applyCommand ??= new RelayCommand(async _ => await Apply());
-        
+
         public bool IsApplying { get; set; }
 
         public ObservableCollection<BaseAudioVM> Audios { get; } = new();
@@ -57,12 +60,12 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
         #endregion
 
         private readonly MBTagReplacer _tagReplacer = new();
-        
+
         private readonly MusicBeeApiInterface _mbApi;
         private readonly IVkApi _vkApi;
         private readonly IMusicDownloaderSettings _settings;
-        
-        public AddingVkVM(
+
+        public VkAudioDownloaderWindowVM(
             MusicBeeApiInterface mbApi,
             IVkApi vkApi,
             IMusicDownloaderSettings settings)
@@ -71,7 +74,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
             _vkApi = vkApi;
             _settings = settings;
         }
-        
+
         private async void Refresh()
         {
             if (IsRefreshing)
@@ -83,8 +86,8 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
             var mbAudios = GetLastMBAudios();
 
             var gotVkIds = Enumerable.ToHashSet(mbAudios
-                    .Select(item => item.VkId));
-            
+                .Select(item => item.VkId));
+
             if (gotVkIds.Count == 0)
             {
                 MessageBox.Show("Was not found valid MB audios. Can't download vk audios.");
@@ -125,7 +128,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
                 VkId = _mbApi.GetVkIdOrDefault(filePath, -1)
             };
         }
-        
+
         private async Task<IReadOnlyCollection<VkAudioVM>> GetVkAudios(ICollection<long> gotVkIds, int maxDepth = 50)
         {
             return await _vkApi.Audio.AsAsyncEnumerable()
@@ -152,7 +155,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
                        ?? throw new Exception("This message is not being to be shown (If all is alright).")
             };
         }
-        
+
         private static void ApplyCheckStateToSelected(VkAudioVM triggered, IReadOnlyCollection<VkAudioVM> selected)
         {
             if (selected.Contains(triggered))
@@ -199,11 +202,11 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
             foreach (var (vkAudioVM, filePath) in items)
             {
                 _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Inbox);
-                
+
                 _mbApi.SetVkId(filePath, vkAudioVM.VkId, false);
                 _mbApi.Library_SetFileTag(filePath, MetaDataType.Artist, vkAudioVM.Artist);
                 _mbApi.Library_SetFileTag(filePath, MetaDataType.TrackTitle, vkAudioVM.Title);
-                
+
                 _mbApi.Library_CommitTagsToFile(filePath);
             }
 
@@ -257,10 +260,10 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow.AddingVk
             if (notDeleted.Count > 0)
             {
                 // TODO display with message in TextBox
-                var dialogMessage = 
-                    "Error downloading files.\n\n" + 
-                    $"Message: {message}\n\n" + 
-                    "These files was not deleted:\n" + 
+                var dialogMessage =
+                    "Error downloading files.\n\n" +
+                    $"Message: {message}\n\n" +
+                    "These files was not deleted:\n" +
                     string.Join(Environment.NewLine, notDeleted);
                 MessageBox.Show(dialogMessage);
             }

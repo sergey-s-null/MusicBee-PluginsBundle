@@ -28,7 +28,7 @@
     <Grid> 
         <ContentControl ContentTemplateSelector="{StaticResource VMTemplateSelector}">
             <ContentControl.Content>
-                <vkAudioDownloaderWindow:MusicDownloaderWindowVM/>
+                <vkAudioDownloaderWindow:VkAudioDownloaderWindowVM/>
             </ContentControl.Content>
         </ContentControl>
     </Grid>

@@ -10,14 +10,14 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MusicDownloaderWindow : Window
+    public partial class VkAudioDownloaderWindow : Window
     {
-        public MusicDownloaderWindowVM ViewModel { get; }
+        public VkAudioDownloaderWindowVM ViewModel { get; }
         
         private readonly IVkApi _vkApi;
         private readonly IMusicDownloaderSettings _settings;
         
-        public MusicDownloaderWindow(MusicDownloaderWindowVM viewModel,
+        public VkAudioDownloaderWindow(VkAudioDownloaderWindowVM viewModel,
             IVkApi vkApi,
             IMusicDownloaderSettings settings)
         {
@@ -71,14 +71,14 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         
         protected override void OnContentRendered(EventArgs e)
         {
-            if (!ViewModel.AddingVkVM.IsRefreshing)
-                ViewModel.AddingVkVM.RefreshCmd.Execute(null);
+            if (!ViewModel.IsRefreshing)
+                ViewModel.RefreshCmd.Execute(null);
             base.OnContentRendered(e);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (ViewModel.AddingVkVM.IsApplying)
+            if (ViewModel.IsApplying)
             {
                 if (MessageBox.Show("Downloading in process. Are you sure to close window?", "!!!", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 {

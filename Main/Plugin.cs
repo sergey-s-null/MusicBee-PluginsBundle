@@ -98,7 +98,7 @@ namespace MusicBeePlugin
         
         private void OpenDownloadDialog()
         {
-            var wnd = _kernel.Get<MusicDownloaderWindow>();
+            var wnd = _kernel.Get<VkAudioDownloaderWindow>();
             wnd.ShowDialog();
         }
 
