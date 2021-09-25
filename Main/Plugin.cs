@@ -7,12 +7,12 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.GUI.SearchWindow;
 using Module.DataExporter.Exceptions;
 using Module.DataExporter.Services;
-using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.Exceptions;
 using Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow;
 using Module.VkAudioDownloader.Helpers;
 using MusicBeePlugin.GUI.SettingsDialog;
+using MusicBeePlugin.Services;
 using Ninject;
 using Root;
 
@@ -40,20 +40,32 @@ namespace MusicBeePlugin
             
             _kernel = Bootstrapper.GetKernel(_mbApi);
 
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Search Artworks",
-                "Laiser399: Search Artworks", (_, __) => SearchArtworks());
-            
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Download Vk Audio",
-                "Laiser399: Download Vk Audio", (_, __) => OpenDownloadDialog());
+            var musicBeeInboxAddService = _kernel.Get<IMusicBeeInboxAddService>();
 
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Add to Library",
-                "Laiser399: Add to Library", (_, __) => AddToLibrary());
+            _mbApi.MB_AddMenuItem!(
+                "mnuTools/Laiser399: Search Artworks",
+                "Laiser399: Search Artworks", 
+                (_, _) => SearchArtworks());
             
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export Playlists",
-                "Laiser399: Export Playlists", (_, __) => ExportPlaylists());
+            _mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Download Vk Audio",
+                "Laiser399: Download Vk Audio", 
+                (_, _) => OpenDownloadDialog());
+
+            _mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Add to Library",
+                "Laiser399: Add to Library", 
+                (_, _) => musicBeeInboxAddService.AddSelectedFileToLibrary());
             
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export Library Data",
-                "Laiser399: Export Library Data", (_, __) => ExportLibraryData());
+            _mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Export Playlists",
+                "Laiser399: Export Playlists", 
+                (_, _) => ExportPlaylists());
+            
+            _mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Export Library Data",
+                "Laiser399: Export Library Data", 
+                (_, _) => ExportLibraryData());
 
             return GetPluginInfo();
         }
@@ -175,23 +187,6 @@ namespace MusicBeePlugin
             }
         }
 
-        private void AddToLibrary()
-        {
-            _mbApi.Library_QueryFilesEx.Invoke("domain=SelectedFiles", out var files);
-
-            if (files is null || files.Length != 1)
-            {
-                MessageBox.Show("You must select single item.");
-                return;
-            }
-
-            _kernel
-                .Get<IInboxAddService>()
-                .AddToLibrary(files[0]);
-
-            _mbApi.MB_RefreshPanels();
-        }
-        
         public bool Configure(IntPtr _)
         {
             var dialog = _kernel.Get<SettingsDialog>();
