@@ -52,8 +52,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\IMusicBeeInboxAddService.cs" />
-    <Compile Include="Services\MusicBeeInboxAddService.cs" />
+    <Compile Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenu.cs" />
+    <Compile Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenuVM.cs" />
+    <Compile Include="Services\IPluginActions.cs" />
+    <Compile Include="Services\PluginActions.cs" />
     <Resource Include="Windows Logo.png">
       <Paket>True</Paket>
     </Resource>
@@ -110,6 +112,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenu.xaml" />
     <Page Include="GUI\SettingsDialog\SettingsDialog.xaml" />
   </ItemGroup>
   <ItemGroup>

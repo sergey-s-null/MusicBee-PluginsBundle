@@ -26,8 +26,8 @@ namespace MusicBeePlugin
             kernel.Load(new DataExporterModule());
 
             kernel
-                .Bind<IMusicBeeInboxAddService>()
-                .To<MusicBeeInboxAddService>()
+                .Bind<IPluginActions>()
+                .To<PluginActions>()
                 .InSingletonScope();
             
             kernel.Bind<SettingsDialogVM>().ToSelf();

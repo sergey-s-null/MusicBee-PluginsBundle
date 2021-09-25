@@ -28,7 +28,7 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
             ScrollViewer.ScrollToVerticalOffset(0);
         }
 
-        public bool ShowDialog(string artist, string title, out byte[]? imageData)
+        public bool ShowDialog(string artist, string title, out byte[] imageData)
         {
             ViewModel.Artist = artist;
             ViewModel.Title = title;
@@ -40,7 +40,7 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
                 return true;
             }
 
-            imageData = null;
+            imageData = Array.Empty<byte>();
             return false;
         }
         

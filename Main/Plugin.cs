@@ -1,16 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Windows;
 using HackModule.AssemblyBindingRedirect;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Module.ArtworksSearcher.GUI.SearchWindow;
-using Module.DataExporter.Exceptions;
-using Module.DataExporter.Services;
-using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.Exceptions;
-using Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow;
 using Module.VkAudioDownloader.Helpers;
+using MusicBeePlugin.GUI.InboxRelocateContextMenu;
 using MusicBeePlugin.GUI.SettingsDialog;
 using MusicBeePlugin.Services;
 using Ninject;
@@ -23,53 +17,66 @@ namespace MusicBeePlugin
         private const short PluginInfoVersion = 1;
         private const short MinInterfaceVersion = 40;// 41
         private const short MinApiRevision = 53;
-        
-        private IKernel _kernel;
-        private MusicBeeApiInterface _mbApi;
 
+        private SettingsDialog? _settingsDialog;
+        private string? _settingsDirPath;
+        
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
             AssemblyRedirectService.ApplyRedirects(AppDomain.CurrentDomain);
             
             ServicePointManager.DefaultConnectionLimit = 20;
             
-            _mbApi = new MusicBeeApiInterface();
-            _mbApi.Initialise(apiInterfacePtr);
+            var mbApi = new MusicBeeApiInterface();
+            mbApi.Initialise(apiInterfacePtr);
 
-            CreateSettingsDirectory();
+            CreateSettingsDirectory(mbApi);
             
-            _kernel = Bootstrapper.GetKernel(_mbApi);
+            var kernel = Bootstrapper.GetKernel(mbApi);
 
-            var musicBeeInboxAddService = _kernel.Get<IMusicBeeInboxAddService>();
-
-            _mbApi.MB_AddMenuItem!(
-                "mnuTools/Laiser399: Search Artworks",
-                "Laiser399: Search Artworks", 
-                (_, _) => SearchArtworks());
+            _settingsDialog = kernel.Get<SettingsDialog>();
+            _settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
             
-            _mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Download Vk Audio",
-                "Laiser399: Download Vk Audio", 
-                (_, _) => OpenDownloadDialog());
-
-            _mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Add to Library",
-                "Laiser399: Add to Library", 
-                (_, _) => musicBeeInboxAddService.AddSelectedFileToLibrary());
-            
-            _mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Export Playlists",
-                "Laiser399: Export Playlists", 
-                (_, _) => ExportPlaylists());
-            
-            _mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Export Library Data",
-                "Laiser399: Export Library Data", 
-                (_, _) => ExportLibraryData());
+            var pluginActions = kernel.Get<IPluginActions>();
+            CreateMenuItems(mbApi, pluginActions);
 
             return GetPluginInfo();
         }
 
+        private static void CreateMenuItems(MusicBeeApiInterface mbApi, IPluginActions pluginActions)
+        {
+            mbApi.MB_AddMenuItem!(
+                "mnuTools/Laiser399: Search Artworks",
+                "Laiser399: Search Artworks", 
+                (_, _) => pluginActions.SearchArtworks());
+            
+            mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Download Vk Audio",
+                "Laiser399: Download Vk Audio", 
+                (_, _) => pluginActions.DownloadVkAudios());
+
+            mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Add to Library",
+                "Laiser399: Add to Library", 
+                (_, _) => pluginActions.AddSelectedFileToLibrary());
+            
+            mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Export Playlists",
+                "Laiser399: Export Playlists", 
+                (_, _) => pluginActions.ExportPlaylists());
+            
+            mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Export Library Data",
+                "Laiser399: Export Library Data", 
+                (_, _) => pluginActions.ExportLibraryData());
+
+            var inboxRelocateContextMenu = InboxRelocateContextMenu.Load();
+            mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Inbox relocate context menu",
+                "Laiser399: Inbox relocate context menu", 
+                (_, _) => inboxRelocateContextMenu.IsOpen = true);
+        }
+        
         private static PluginInfo GetPluginInfo()
         {
             return new()
@@ -91,9 +98,9 @@ namespace MusicBeePlugin
         }
 
         // TODO избавиться или объединить с другими настройками
-        private void CreateSettingsDirectory()
+        private static void CreateSettingsDirectory(MusicBeeApiInterface mbApi)
         {
-            var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
+            var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
 
             try
             {
@@ -108,108 +115,25 @@ namespace MusicBeePlugin
             }
         }
         
-        private void OpenDownloadDialog()
-        {
-            var wnd = _kernel.Get<VkAudioDownloaderWindow>();
-            wnd.ShowDialog();
-        }
-
-        private void ExportLibraryData()
-        {
-            using var dialog = new CommonOpenFileDialog()
-            {
-                IsFolderPicker = true,
-                EnsurePathExists = true
-            };
-
-            if (dialog.ShowDialog() != CommonFileDialogResult.Ok)
-            {
-                return;
-            }
-
-            try
-            {
-                var service = _kernel.Get<IDataExportService>();
-                service.Export(dialog.FileName);
-
-                MessageBox.Show("Экспорт выполнен успешно.", "Ок");
-            }
-            catch (MusicBeeApiException e)
-            {
-                MessageBox.Show(e.Message, "Error");
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Unknown Error");
-            }
-        }
-
-        private void SearchArtworks()
-        {
-            _mbApi.Library_QueryFilesEx.Invoke("domain=SelectedFiles", out var files);
-
-            if (files is null || files.Length != 1)
-            {
-                MessageBox.Show("You must select single composition.");
-                return;
-            }
-            
-            var filePath = files[0];
-            
-            var artist = _mbApi.Library_GetFileTag.Invoke(filePath, MetaDataType.Artist);
-            var title = _mbApi.Library_GetFileTag.Invoke(filePath, MetaDataType.TrackTitle);
-                
-            var dialog = _kernel.Get<SearchWindow>();
-            if (dialog.ShowDialog(artist, title, out var imageData))
-            {
-                if (!_mbApi.Library_SetArtworkEx.Invoke(filePath, 0, imageData))
-                {
-                    MessageBox.Show("Обложка не была сохранена.", "Ошибка");
-                }
-            }
-        }
-
-        private void ExportPlaylists()
-        {
-            var exportService = _kernel.Get<IPlaylistsExportService>();
-
-            try
-            {
-                exportService.Export();
-
-                MessageBox.Show("Export done successfully.", "(ง ͠° ͟ل͜ ͡°)ง");
-            }
-            catch (Exception e)
-            {
-                // TODO dialog
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
         public bool Configure(IntPtr _)
         {
-            var dialog = _kernel.Get<SettingsDialog>();
-            
-            dialog.ShowDialog();
+            _settingsDialog?.ShowDialog();
             
             return true;
         }
 
         public void Uninstall()
         {
-            var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(_mbApi);
-            
             try
             {
-                if (Directory.Exists(settingsDirPath))
+                if (Directory.Exists(_settingsDirPath))
                 {
-                    Directory.Delete(settingsDirPath, true);
+                    Directory.Delete(_settingsDirPath!, true);
                 }
             }
             catch (Exception e)
             {
-                throw new UninstallException($"Error delete directory: {settingsDirPath}", e);
+                throw new UninstallException($"Error delete directory: {_settingsDirPath}", e);
             }
         }
 
