@@ -71,14 +71,14 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         
         protected override void OnContentRendered(EventArgs e)
         {
-            if (!ViewModel.IsRefreshing)
-                ViewModel.RefreshCmd.Execute(null);
+            ViewModel.RefreshCmd.Execute(null);
+            
             base.OnContentRendered(e);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (ViewModel.IsApplying)
+            if (ViewModel.IsDownloading)
             {
                 if (MessageBox.Show("Downloading in process. Are you sure to close window?", "!!!", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 {
