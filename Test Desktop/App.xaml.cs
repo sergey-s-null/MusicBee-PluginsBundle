@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using MusicBeePlugin.GUI.SettingsDialog;
+using Test_Desktop.GUI.TestDialog;
 
 namespace Test_Desktop
 {
@@ -10,6 +11,8 @@ namespace Test_Desktop
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            var dialog = new TestDialog(new TestDialogVM());
+            dialog.Show();
             // var wnd = new SettingsDialog();
             // wnd.ShowDialog();
         }
