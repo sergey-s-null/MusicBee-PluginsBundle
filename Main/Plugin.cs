@@ -40,20 +40,20 @@ namespace MusicBeePlugin
             
             _kernel = Bootstrapper.GetKernel(_mbApi);
 
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Search Artworks",
+                "Laiser399: Search Artworks", (_, __) => SearchArtworks());
+            
             _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Download Vk Audio",
                 "Laiser399: Download Vk Audio", (_, __) => OpenDownloadDialog());
 
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export Library Data",
-                "Laiser399: Export Library Data", (_, __) => ExportLibraryData());
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Add to Library",
+                "Laiser399: Add to Library", (_, __) => AddToLibrary());
             
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Search Artworks",
-                "Laiser399: Search Artworks", (_, __) => SearchArtworks());
-
             _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export Playlists",
                 "Laiser399: Export Playlists", (_, __) => ExportPlaylists());
             
-            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Add to Library",
-                "Laiser399: Add to Library", (_, __) => AddToLibrary());
+            _mbApi.MB_AddMenuItem("mnuTools/Laiser399: Export Library Data",
+                "Laiser399: Export Library Data", (_, __) => ExportLibraryData());
 
             return GetPluginInfo();
         }
