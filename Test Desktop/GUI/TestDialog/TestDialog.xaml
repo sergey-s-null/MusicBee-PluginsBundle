@@ -6,23 +6,14 @@
         xmlns:testDialog="clr-namespace:Test_Desktop.GUI.TestDialog"
         mc:Ignorable="d"
         Title="TestDialog" Height="450" Width="800" d:DataContext="{d:DesignInstance testDialog:TestDialogVM}"
-        MaxHeight="0"
-        MaxWidth="0"
+        MaxHeight="1000"
+        MaxWidth="1000"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        ShowInTaskbar="False"
+        WindowStyle="ToolWindow"
+        ShowInTaskbar="True"
         ShowActivated="True">
     <Grid>
         <Button x:Name="Button" Content="ALSKJHDALKSJDH">
-            <Button.ContextMenu>
-                <ContextMenu Closed="ContextMenu_OnClosed" >
-                    <MenuItem 
-                        Command="{Binding SomeCommand}"
-                        Header="SomeCommand"/>
-                    <MenuItem>123</MenuItem>
-                </ContextMenu>
-            </Button.ContextMenu>
         </Button>
         
     </Grid>

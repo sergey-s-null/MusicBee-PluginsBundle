@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Test_Desktop.GUI.SpecContextMenu;
 
 namespace Test_Desktop.GUI.TestDialog
 {
@@ -8,14 +9,9 @@ namespace Test_Desktop.GUI.TestDialog
         {
             InitializeComponent();
             DataContext = vm;
-            vm.Button = Button;
-            
-            vm.OpenMenu();
-        }
 
-        private void ContextMenu_OnClosed(object sender, RoutedEventArgs e)
-        {
-            Close();
+            var contextMenu = ResourceMenuGetter.Get();
+            contextMenu.IsOpen = true;
         }
 
     }

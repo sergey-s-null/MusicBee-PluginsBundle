@@ -58,6 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GUI\SpecContextMenu\ResourceMenuGetter.cs" />
+    <Compile Include="GUI\SpecContextMenu\SpecContextMenuVM.cs" />
     <Compile Include="GUI\TestDialog\TestDialog.xaml.cs">
       <DependentUpon>TestDialog.xaml</DependentUpon>
     </Compile>
@@ -67,6 +69,7 @@
     <Compile Include="TestDataTemplate.xaml.cs">
       <DependentUpon>TestDataTemplate.xaml</DependentUpon>
     </Compile>
+    <Page Include="GUI\SpecContextMenu\SpecContextMenu.xaml" />
     <Page Include="GUI\TestDialog\TestDialog.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -122,9 +125,6 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
     <Content Include="paket.references" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GUI" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Choose>

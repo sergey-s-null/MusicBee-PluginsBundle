@@ -12,16 +12,10 @@ namespace Test_Desktop.GUI.TestDialog
         public RelayCommand SomeCommand => _someCommand
             ??= new RelayCommand(_ => SubTest());
         
-        public Button Button { get; set; }
-        
         private void SubTest()
         {
             Console.WriteLine("asd");
         }
 
-        public void OpenMenu()
-        {
-            Button.ContextMenu.IsOpen = true;
-        }
     }
 }
