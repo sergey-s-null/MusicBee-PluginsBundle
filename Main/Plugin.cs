@@ -8,6 +8,7 @@ using MusicBeePlugin.GUI.InboxRelocateContextMenu;
 using MusicBeePlugin.GUI.SettingsDialog;
 using MusicBeePlugin.Services;
 using Ninject;
+using Ninject.Syntax;
 using Root;
 
 namespace MusicBeePlugin
@@ -37,14 +38,16 @@ namespace MusicBeePlugin
             _settingsDialog = kernel.Get<SettingsDialog>();
             _settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
             
-            var pluginActions = kernel.Get<IPluginActions>();
-            CreateMenuItems(mbApi, pluginActions);
+            CreateMenuItems(kernel);
 
             return GetPluginInfo();
         }
 
-        private static void CreateMenuItems(MusicBeeApiInterface mbApi, IPluginActions pluginActions)
+        private static void CreateMenuItems(IResolutionRoot resolutionRoot)
         {
+            var mbApi = resolutionRoot.Get<MusicBeeApiInterface>();
+            var pluginActions = resolutionRoot.Get<IPluginActions>();
+            
             mbApi.MB_AddMenuItem!(
                 "mnuTools/Laiser399: Search Artworks",
                 "Laiser399: Search Artworks", 
@@ -70,7 +73,7 @@ namespace MusicBeePlugin
                 "Laiser399: Export Library Data", 
                 (_, _) => pluginActions.ExportLibraryData());
 
-            var inboxRelocateContextMenu = InboxRelocateContextMenu.Load();
+            var inboxRelocateContextMenu = resolutionRoot.LoadInboxRelocateContextMenu();
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Inbox relocate context menu",
                 "Laiser399: Inbox relocate context menu", 
