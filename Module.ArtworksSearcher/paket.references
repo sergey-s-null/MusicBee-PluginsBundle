@@ -1,5 +1,6 @@
 group NetFramework
     Ninject
+    Ninject.Extensions.Factory
     System.Linq.Async
     Newtonsoft.Json
     morelinq

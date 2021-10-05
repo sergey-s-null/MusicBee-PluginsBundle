@@ -14,7 +14,8 @@ namespace HackModule.AssemblyBindingRedirect
             "Microsoft.Extensions.DependencyInjection",
             "Microsoft.Extensions.Logging.Abstractions",
             "System.Runtime.CompilerServices.Unsafe",
-            "Microsoft.Bcl.AsyncInterfaces"
+            "Microsoft.Bcl.AsyncInterfaces",
+            "Ninject",
         };
         
         public static void ApplyRedirects(AppDomain appDomain)

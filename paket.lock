@@ -4,6 +4,7 @@ GROUP NetFramework
 RESTRICTION: == net472
 NUGET
   remote: https://api.nuget.org/v3/index.json
+    Castle.Core (4.4.1)
     Fody (6.5.2)
     HtmlAgilityPack (1.11.36)
     Microsoft.Bcl.AsyncInterfaces (5.0)
@@ -18,6 +19,9 @@ NUGET
       System.ValueTuple (>= 4.5)
     Newtonsoft.Json (13.0.1)
     Ninject (3.3.4)
+    Ninject.Extensions.Factory (3.3.3)
+      Castle.Core (>= 4.2)
+      Ninject (>= 3.3.3)
     PropertyChanged.Fody (3.4)
       Fody (>= 6.5.1)
     protobuf-net (3.0.101)

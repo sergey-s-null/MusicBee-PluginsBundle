@@ -6,6 +6,7 @@ framework: net472
 nuget Fody
 nuget Newtonsoft.Json
 nuget Ninject
+nuget Ninject.Extensions.Factory
 nuget PropertyChanged.Fody
 nuget System.Linq.Async
 nuget VkNet

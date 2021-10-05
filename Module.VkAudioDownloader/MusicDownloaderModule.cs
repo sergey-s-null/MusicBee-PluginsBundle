@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Module.VkAudioDownloader.Factories;
 using Module.VkAudioDownloader.GUI.Settings;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
+using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using Root;
 using VkNet;
@@ -29,6 +31,8 @@ namespace Module.VkAudioDownloader
                     ConfigurationHelper.GetSettingsFilePath(_mbApi));
             Bind<IMusicDownloaderSettingsVM>()
                 .To<MusicDownloaderSettingsVM>();
+            Bind<IVkAudioDownloaderWindowFactory>()
+                .ToFactory();
         }
         
         private static IVkApi GetVkApi()

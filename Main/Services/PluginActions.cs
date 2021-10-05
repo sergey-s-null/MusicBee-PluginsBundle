@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Module.ArtworksSearcher.GUI.SearchWindow;
+using Module.ArtworksSearcher.Factories;
 using Module.DataExporter.Exceptions;
 using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
-using Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow;
+using Module.VkAudioDownloader.Factories;
 using Root;
 
 namespace MusicBeePlugin.Services
@@ -17,24 +17,23 @@ namespace MusicBeePlugin.Services
         private readonly IDataExportService _dataExportService;
         private readonly IPlaylistsExportService _playlistsExportService;
         private readonly IInboxAddService _inboxAddService;
-
-        private readonly SearchWindow _searchWindow;
-        private readonly VkAudioDownloaderWindow _vkAudioDownloaderWindow;
+        private readonly ISearchWindowFactory _searchWindowFactory;
+        private readonly IVkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
 
         public PluginActions(
             MusicBeeApiInterface mbApi, 
             IDataExportService dataExportService, 
             IPlaylistsExportService playlistsExportService, 
             IInboxAddService inboxAddService, 
-            SearchWindow searchWindow, 
-            VkAudioDownloaderWindow vkAudioDownloaderWindow)
+            ISearchWindowFactory searchWindowFactory, 
+            IVkAudioDownloaderWindowFactory vkAudioDownloaderWindowFactory)
         {
             _mbApi = mbApi;
             _dataExportService = dataExportService;
             _playlistsExportService = playlistsExportService;
             _inboxAddService = inboxAddService;
-            _searchWindow = searchWindow;
-            _vkAudioDownloaderWindow = vkAudioDownloaderWindow;
+            _searchWindowFactory = searchWindowFactory;
+            _vkAudioDownloaderWindowFactory = vkAudioDownloaderWindowFactory;
         }
 
         public void SearchArtworks()
@@ -56,8 +55,9 @@ namespace MusicBeePlugin.Services
             
             var artist = _mbApi.Library_GetFileTag.Invoke(filePath, MetaDataType.Artist);
             var title = _mbApi.Library_GetFileTag.Invoke(filePath, MetaDataType.TrackTitle);
-                
-            if (_searchWindow.ShowDialog(artist, title, out var imageData))
+
+            var searchWindow = _searchWindowFactory.Create();
+            if (searchWindow.ShowDialog(artist, title, out var imageData))
             {
                 if (!_mbApi.Library_SetArtworkEx.Invoke(filePath, 0, imageData))
                 {
@@ -68,7 +68,9 @@ namespace MusicBeePlugin.Services
 
         public void DownloadVkAudios()
         {
-            _vkAudioDownloaderWindow.ShowDialog();
+            _vkAudioDownloaderWindowFactory
+                .Create()
+                .ShowDialog();
         }
 
         public void AddSelectedFileToLibrary()

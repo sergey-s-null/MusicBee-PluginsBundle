@@ -4,8 +4,8 @@ using System.Net;
 using HackModule.AssemblyBindingRedirect;
 using Module.VkAudioDownloader.Exceptions;
 using Module.VkAudioDownloader.Helpers;
+using MusicBeePlugin.Factories;
 using MusicBeePlugin.GUI.InboxRelocateContextMenu;
-using MusicBeePlugin.GUI.SettingsDialog;
 using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Syntax;
@@ -19,7 +19,7 @@ namespace MusicBeePlugin
         private const short MinInterfaceVersion = 40;// 41
         private const short MinApiRevision = 53;
 
-        private SettingsDialog? _settingsDialog;
+        private ISettingsDialogFactory? _settingsDialogFactory;
         private string? _settingsDirPath;
         
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
@@ -35,7 +35,7 @@ namespace MusicBeePlugin
             
             var kernel = Bootstrapper.GetKernel(mbApi);
 
-            _settingsDialog = kernel.Get<SettingsDialog>();
+            _settingsDialogFactory = kernel.Get<ISettingsDialogFactory>();
             _settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
             
             CreateMenuItems(kernel);
@@ -120,7 +120,9 @@ namespace MusicBeePlugin
         
         public bool Configure(IntPtr _)
         {
-            _settingsDialog?.ShowDialog();
+            _settingsDialogFactory?
+                .Create()
+                .ShowDialog();
             
             return true;
         }

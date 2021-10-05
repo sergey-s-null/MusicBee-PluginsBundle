@@ -52,6 +52,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\ISettingsDialogFactory.cs" />
     <Compile Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenu.cs" />
     <Compile Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenuVM.cs" />
     <Compile Include="Services\IPluginActions.cs" />
@@ -112,7 +113,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenu.xaml" />
+    <EmbeddedResource Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenu.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Include="GUI\SettingsDialog\SettingsDialog.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -129,8 +132,33 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="System.Configuration">
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Castle.Core">
+          <HintPath>..\packages\netframework\Castle.Core\lib\net45\Castle.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
         <Reference Include="Ninject">
           <HintPath>..\packages\netframework\Ninject\lib\net45\Ninject.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Ninject.Extensions.Factory">
+          <HintPath>..\packages\netframework\Ninject.Extensions.Factory\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

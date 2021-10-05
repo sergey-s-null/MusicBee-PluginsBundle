@@ -4,6 +4,7 @@ using Module.ArtworksSearcher.GUI.Settings;
 using Module.ArtworksSearcher.Helpers;
 using Module.ArtworksSearcher.ImagesProviders;
 using Module.ArtworksSearcher.Settings;
+using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using Root;
 
@@ -35,6 +36,9 @@ namespace Module.ArtworksSearcher
             Bind<IImagesProvidersFactory>()
                 .To<ImagesProvidersFactory>()
                 .InSingletonScope();
+
+            Bind<ISearchWindowFactory>()
+                .ToFactory();
 
             Bind<OsuImagesProvider>().ToSelf();
             Bind<GoogleImagesProvider>().ToSelf();

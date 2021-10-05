@@ -74,6 +74,7 @@
     <Compile Include="Entities\VkAudioVMWithFileSavePath.cs" />
     <Compile Include="Exceptions\InitializeException.cs" />
     <Compile Include="Exceptions\UninstallException.cs" />
+    <Compile Include="Factories\IVkAudioDownloaderWindowFactory.cs" />
     <Compile Include="GUI\Settings\IMusicDownloaderSettingsVM.cs" />
     <Compile Include="Helpers\AudioCategoryHelper.cs" />
     <Compile Include="Helpers\AudioDownloadHelper.cs" />
@@ -173,6 +174,17 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="Castle.Core">
+          <HintPath>..\packages\netframework\Castle.Core\lib\net45\Castle.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
         <Reference Include="HtmlAgilityPack">
           <HintPath>..\packages\netframework\HtmlAgilityPack\lib\Net45\HtmlAgilityPack.dll</HintPath>
           <Private>True</Private>
@@ -252,6 +264,17 @@
       <ItemGroup>
         <Reference Include="Ninject">
           <HintPath>..\packages\netframework\Ninject\lib\net45\Ninject.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Ninject.Extensions.Factory">
+          <HintPath>..\packages\netframework\Ninject.Extensions.Factory\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
