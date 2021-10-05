@@ -38,28 +38,19 @@ namespace MusicBeePlugin.Services
 
         public void SearchArtworks()
         {
-            var queryRes = _mbApi.Library_QueryFilesEx.Invoke("domain=SelectedFiles", out var files);
+            if (!TryGetSingleSelectedFile(out var selectedFilePath))
+            {
+                MessageBox.Show("You must select single item.");
+                return;
+            }
 
-            if (!queryRes)
-            {
-                MessageBox.Show("Library_QueryFilesEx error.");
-                return;
-            }
-            if (files.Length != 1)
-            {
-                MessageBox.Show("You must select single composition.");
-                return;
-            }
-            
-            var filePath = files[0];
-            
-            var artist = _mbApi.Library_GetFileTag.Invoke(filePath, MetaDataType.Artist);
-            var title = _mbApi.Library_GetFileTag.Invoke(filePath, MetaDataType.TrackTitle);
+            var artist = _mbApi.Library_GetFileTag.Invoke(selectedFilePath, MetaDataType.Artist);
+            var title = _mbApi.Library_GetFileTag.Invoke(selectedFilePath, MetaDataType.TrackTitle);
 
             var searchWindow = _searchWindowFactory.Create();
             if (searchWindow.ShowDialog(artist, title, out var imageData))
             {
-                if (!_mbApi.Library_SetArtworkEx.Invoke(filePath, 0, imageData))
+                if (!_mbApi.Library_SetArtworkEx.Invoke(selectedFilePath, 0, imageData))
                 {
                     MessageBox.Show("Обложка не была сохранена.", "Ошибка");
                 }
@@ -75,19 +66,30 @@ namespace MusicBeePlugin.Services
 
         public void AddSelectedFileToLibrary()
         {
-            var queryRes = _mbApi.Library_QueryFilesEx.Invoke("domain=SelectedFiles", out var files);
-
-            if (!queryRes || files.Length != 1)
+            if (!TryGetSingleSelectedFile(out var selectedFilePath))
             {
                 MessageBox.Show("You must select single item.");
                 return;
             }
 
-            _inboxAddService.AddToLibrary(files[0]);
+            _inboxAddService.AddToLibrary(selectedFilePath);
 
             _mbApi.MB_RefreshPanels();
         }
 
+        public void RetrieveSelectedFileToInbox()
+        {
+            if (!TryGetSingleSelectedFile(out var selectedFilePath))
+            {
+                MessageBox.Show("You must select single item.");
+                return;
+            }
+            
+            _inboxAddService.RetrieveToInbox(selectedFilePath);
+
+            _mbApi.MB_RefreshPanels();
+        }
+        
         public void ExportPlaylists()
         {
             try
@@ -131,6 +133,20 @@ namespace MusicBeePlugin.Services
             {
                 MessageBox.Show(e.Message, "Unknown Error");
             }
+        }
+
+        private bool TryGetSingleSelectedFile(out string filePath)
+        {
+            var queryRes = _mbApi.Library_QueryFilesEx.Invoke("domain=SelectedFiles", out var files);
+
+            if (!queryRes || files.Length != 1)
+            {
+                filePath = string.Empty;
+                return false;
+            }
+
+            filePath = files[0];
+            return true;
         }
     }
 }

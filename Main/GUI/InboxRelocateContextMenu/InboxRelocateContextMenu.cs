@@ -35,8 +35,9 @@ namespace MusicBeePlugin.GUI.InboxRelocateContextMenu
             }
 
             using var streamReader = new StreamReader(stream);
-            
-            return (ResourceDictionary) XamlReader.Parse(streamReader.ReadToEnd());
+
+            var rawXaml = streamReader.ReadToEnd();
+            return (ResourceDictionary) XamlReader.Parse(rawXaml);
         }
     }
 }

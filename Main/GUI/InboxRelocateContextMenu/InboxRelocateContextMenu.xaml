@@ -9,5 +9,9 @@
         <MenuItem 
             Header="To Library: at the end"
             Command="{Binding AddToLibraryCommand}"/>
+        
+        <MenuItem
+            Header="To Inbox"
+            Command="{Binding RetrieveToInboxCommand}"/>
     </ContextMenu>
 </ResourceDictionary>

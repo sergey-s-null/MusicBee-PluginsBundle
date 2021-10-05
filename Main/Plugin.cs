@@ -73,11 +73,14 @@ namespace MusicBeePlugin
                 "Laiser399: Export Library Data", 
                 (_, _) => pluginActions.ExportLibraryData());
 
-            var inboxRelocateContextMenu = resolutionRoot.LoadInboxRelocateContextMenu();
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Inbox relocate context menu",
-                "Laiser399: Inbox relocate context menu", 
-                (_, _) => inboxRelocateContextMenu.IsOpen = true);
+                "Laiser399: Inbox relocate context menu",
+                (_, _) =>
+                {
+                    var inboxRelocateContextMenu = resolutionRoot.LoadInboxRelocateContextMenu();
+                    inboxRelocateContextMenu.IsOpen = true;
+                });
         }
         
         private static PluginInfo GetPluginInfo()
