@@ -31,7 +31,7 @@ namespace Module.ArtworksSearcher
                 .To<ArtworksSearcherSettingsVM>();
 
             Bind<IGoogleImagesEnumeratorFactory>()
-                .To<GoogleImagesEnumeratorFactory>()
+                .ToFactory()
                 .InSingletonScope();
             Bind<IImagesProvidersFactory>()
                 .To<ImagesProvidersFactory>()

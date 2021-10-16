@@ -53,7 +53,6 @@
   <ItemGroup>
     <Compile Include="ArtworksSearcherModule.cs" />
     <Compile Include="Delegates\GetImagesAsyncEnumeratorDelegate.cs" />
-    <Compile Include="Factories\GoogleImagesEnumeratorFactory.cs" />
     <Compile Include="Factories\IGoogleImagesEnumeratorFactory.cs" />
     <Compile Include="Factories\ISearchWindowFactory.cs" />
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
