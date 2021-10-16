@@ -37,6 +37,11 @@ namespace MusicBeePlugin
                 .ToFactory();
             
             kernel.Bind<SettingsDialogVM>().ToSelf();
+
+            if (!kernel.HasModule("Ninject.Extensions.Factory.FuncModule"))
+            {
+                kernel.Load(new FuncModule());
+            }
             
             return kernel;
         }
