@@ -10,7 +10,6 @@ using Module.VkAudioDownloader.Entities;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
-using MoreLinq;
 using PropertyChanged;
 using Root;
 using Root.Helpers;
@@ -86,16 +85,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
 
                 var mbAudios = GetLastMBAudios();
 
-                var gotVkIds = Enumerable.ToHashSet(mbAudios
-                    .Select(item => item.VkId));
-
-                if (gotVkIds.Count == 0)
-                {
-                    MessageBox.Show("Was not found valid MB audios. Can't download vk audios.");
-                    return;
-                }
-
-                var vkAudios = await GetVkAudios(gotVkIds);
+                var vkAudios = await GetVkAudios();
 
                 Audios.AddRange(mbAudios);
                 Audios.AddRange(vkAudios);
@@ -154,11 +144,14 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         
         private static void ApplyCheckStateToSelected(VkAudioVM triggered, IReadOnlyCollection<VkAudioVM> selected)
         {
-            if (selected.Contains(triggered))
+            if (!selected.Contains(triggered))
             {
-                selected
-                    .Where(x => x != triggered)
-                    .ForEach(x => x.IsSelected = triggered.IsSelected);
+                return;
+            }
+            
+            foreach (var vkAudioVM in selected.Where(x => x != triggered))
+            {
+                vkAudioVM.IsSelected = triggered.IsSelected;
             }
         }
 
@@ -189,11 +182,13 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
             };
         }
 
-        private async Task<IReadOnlyCollection<VkAudioVM>> GetVkAudios(ICollection<long> gotVkIds, int maxDepth = 50)
+        private async Task<IReadOnlyCollection<VkAudioVM>> GetVkAudios(int maxDepth = 50)
         {
+            var vkIdsFromLibrary = _mbApi.EnumerateVkIds().ToHashSet();
+            
             return await _vkApi.Audio.AsAsyncEnumerable()
                 .TakeWhile(audio => audio.Id is not null
-                                    && !gotVkIds.Contains(audio.Id.Value))
+                                    && !vkIdsFromLibrary.Contains(audio.Id.Value))
                 .Take(maxDepth)
                 .Where(audio => audio.Url is not null)
                 .Select(AudioToVkAudioVM)

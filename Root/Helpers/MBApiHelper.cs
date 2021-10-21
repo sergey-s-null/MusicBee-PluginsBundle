@@ -35,7 +35,30 @@ namespace Root.Helpers
             playlists = result;
             return true;
         }
-        
+
+        public static IEnumerable<long> EnumerateVkIds(this MusicBeeApiInterface api)
+        {
+            const string query = 
+                "<Source Type=\"1\">" + // 1 - библиотека (без входящих)
+                "    <Conditions CombineMethod=\"All\">" +
+                "        <Condition Field=\"Custom3\" Comparison=\"IsNotNull\"/>" + // vk id не пусто
+                "    </Conditions>" +
+                "</Source>";
+            
+            if (!api.Library_QueryFilesEx(query, out var filePaths))
+            {
+                yield break;
+            }
+
+            foreach (var filePath in filePaths)
+            {
+                if (api.TryGetVkId(filePath, out var vkId))
+                {
+                    yield return vkId;
+                }
+            }
+        }
+
         public static long GetVkIdOrDefault(this MusicBeeApiInterface api, 
             string filePath, long defaultId)
         {
