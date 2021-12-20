@@ -2,3 +2,4 @@ group NetFramework
     Ninject
     Newtonsoft.Json
     morelinq
+    PropertyChanged.Fody

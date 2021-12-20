@@ -50,7 +50,7 @@ namespace Module.PlaylistsExporter.Services
         
         private Playlist CollectPlaylistInfo(string p)
         {
-            return new (SetM3UExtension(p), GetFilesForPlaylist(p));
+            return new Playlist(SetM3UExtension(p), GetFilesForPlaylist(p));
         }
         
         private static string SetM3UExtension(string path)

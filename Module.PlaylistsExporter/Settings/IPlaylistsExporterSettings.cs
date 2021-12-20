@@ -1,4 +1,5 @@
-﻿using Root.Abstractions;
+﻿using System.Collections.Generic;
+using Root.Abstractions;
 
 namespace Module.PlaylistsExporter.Settings
 {
@@ -7,5 +8,6 @@ namespace Module.PlaylistsExporter.Settings
         string PlaylistsDirectoryPath { get; set; }
         string FilesLibraryPath { get; set; }
         string PlaylistsNewDirectoryName { get; set; }
+        IReadOnlyCollection<string> PlaylistsForExport { get; set; }
     }
 }
