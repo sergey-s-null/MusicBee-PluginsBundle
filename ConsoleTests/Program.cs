@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 using Module.VkAudioDownloader.Helpers;
@@ -26,35 +29,22 @@ namespace ConsoleTests
 
         static void Main(string[] args)
         {
-            // var a = new Uri(@"D:\_BIG_FILES_\Music Library\");
-            // var b = new Uri(@"D:\_BIG_FILES_\Music Library");
-            
-            var res1 = GetRelativePath(
-                @"D:\_BIG_FILES_\Music Library\",
-                @"D:\_BIG_FILES_\Music Library\Linkin Park\");
+            var a = new Uri(@"D:\_BIG_FILES_\Music Library\Cdc");
+            var b = new Uri(@"D:\_BIG_FILES_\Music Library\Abs");
 
-            var res2 = GetRelativePath(
-                @"D:\_BIG_FILES_\Music Library",
-                @"D:\_BIG_FILES_\Music Library\Linkin Park");
             
-            Console.WriteLine(res1);
-            Console.WriteLine(res2);
-            
+
+
             // Console.WriteLine();
             // Console.WriteLine("Press...");
             // Console.ReadKey();
         }
+
         
-        private static string GetRelativePath(string relativeTo, string path)
-        {
-            var relativeToUri = new Uri(relativeTo);
-            var pathUri = new Uri(path);
-            var relativeUri = relativeToUri.MakeRelativeUri(pathUri);
-            
-            return Uri
-                .UnescapeDataString(relativeUri.ToString())
-                .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-        }
+
+        
+        
+        
 
         // download m3u8 and baseUrl
         private static void Part1()
