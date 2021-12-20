@@ -87,6 +87,7 @@
                                 <DataTemplate>
                                     <ContentControl Content="{Binding}">
                                         <ContentControl.Resources>
+                                            <!-- Такая сложная структура из-за того, что нужно вставить два темплейта для VkAudioVM и MBAudioVM -->
                                             <DataTemplate DataType="{x:Type mainWindow:VkAudioVM}">
                                                 <CheckBox IsChecked="{Binding IsSelected}"
                                                           Command="{Binding ViewModel.ApplyCheckStateToSelectedCmd,

@@ -10,6 +10,11 @@ namespace Root.Helpers
             return items.ToList();
         }
 
+        public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> items)
+        {
+            return items.ToList();
+        }
+
         public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> items)
         {
             return items
