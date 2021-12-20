@@ -3,3 +3,4 @@ group NetFramework
     Newtonsoft.Json
     morelinq
     PropertyChanged.Fody
+    Microsoft.Bcl.AsyncInterfaces
