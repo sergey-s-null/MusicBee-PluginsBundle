@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.Factories;
@@ -8,6 +9,7 @@ using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.Factories;
 using Root;
+using Root.Helpers;
 
 namespace MusicBeePlugin.Services
 {
@@ -92,17 +94,42 @@ namespace MusicBeePlugin.Services
         
         public void ExportPlaylists()
         {
+            const int showCount = 10;
             try
             {
-                _playlistsExportService.Export();
+                var deletingPlaylistsPaths = _playlistsExportService.GetExistingExportedPlaylists();
+                var deletingPlaylists = deletingPlaylistsPaths
+                    .Take(showCount)
+                    .Select(x => new Uri(x))
+                    .ToReadOnlyList();
+
+                var (common, particulars) = UriHelper.SplitOnCommonAndParticulars(deletingPlaylists);
+                
+                var joined = string.Join(Environment.NewLine, particulars.Select(x => $"\t{x.ToLocalOrBackSlashPath()}"));
+                var dialogResult = MessageBox.Show("These files will be deleted before export:\n" +
+                                                   $"{common.ToLocalOrBackSlashPath()}\n" +
+                                                   $"{joined}\n" +
+                                                   (deletingPlaylistsPaths.Count > showCount 
+                                                       ? $"\t{deletingPlaylistsPaths.Count - showCount} more...\n" 
+                                                       : string.Empty) +
+                                                   "Continue?",
+                    "('ʘᗩʘ)",
+                    MessageBoxButton.OKCancel);
+                if (dialogResult != MessageBoxResult.OK)
+                {
+                    return;
+                }
+                
+                _playlistsExportService.CleanAndExport();
 
                 MessageBox.Show("Export done successfully.", "(ง ͠° ͟ل͜ ͡°)ง");
             }
             catch (Exception e)
             {
-                // TODO dialog
-                Console.WriteLine(e);
-                throw;
+                MessageBox.Show($"Unknown error occured.\n" +
+                                $"Exception type: {e.GetType()}\n" +
+                                $"Message: {e.Message}",
+                    "(╥_╥)");
             }
         }
 

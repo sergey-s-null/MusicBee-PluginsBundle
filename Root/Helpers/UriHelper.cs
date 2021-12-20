@@ -7,6 +7,17 @@ namespace Root.Helpers
 {
     public static class UriHelper
     {
+        public static string ToLocalOrBackSlashPath(this Uri uri)
+        {
+            if (uri.IsAbsoluteUri)
+            {
+                return uri.LocalPath;
+            }
+
+            return Uri.UnescapeDataString(uri.ToString())
+                .Replace('/', '\\');
+        }
+        
         public static Uri GetCommonUriPart(Uri first, Uri second)
         {
             if (first.Scheme != second.Scheme)

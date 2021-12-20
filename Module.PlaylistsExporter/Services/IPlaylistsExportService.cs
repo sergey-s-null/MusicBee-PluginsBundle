@@ -1,7 +1,10 @@
-﻿namespace Module.PlaylistsExporter.Services
+﻿using System.Collections.Generic;
+
+namespace Module.PlaylistsExporter.Services
 {
     public interface IPlaylistsExportService
     {
-        void Export();
+        IReadOnlyCollection<string> GetExistingExportedPlaylists();
+        void CleanAndExport();
     }
 }

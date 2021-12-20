@@ -60,7 +60,7 @@ namespace Module.PlaylistsExporter.GUI.Settings
             
             PlaylistsBasePath = common.LocalPath;
             particulars
-                .Select(x => Uri.UnescapeDataString(x.ToString()).Replace('/', '\\'))
+                .Select(x => x.ToLocalOrBackSlashPath())
                 .ForEach(x => Playlists.Add(new PlaylistVM
                 {
                     Selected = IsPlaylistSelectedInSettings(x),

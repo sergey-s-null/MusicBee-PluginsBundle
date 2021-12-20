@@ -26,26 +26,43 @@ namespace Module.PlaylistsExporter.Services
             _mbApi = mbApi;
         }
         
-        public void Export()
+        public void CleanAndExport()
         {
-            var converted = GetPlaylists()
+            GetExistingExportedPlaylists()
+                .ForEach(File.Delete);
+
+            Directory.GetDirectories(GetExportDirectoryPath())
+                .ForEach(Directory.Delete);
+            
+            GetPlaylistsForExport()
                 .Select(CollectPlaylistInfo)
                 .Select(_converter.Convert)
-                .ToReadOnlyCollection();
-
-            // TODO удаление предыдущих, но с диалогом
-            converted.ForEach(Save);
+                .ToReadOnlyCollection()
+                .ForEach(Save);
         }
         
-        // TODO filter with settings
-        private IReadOnlyCollection<string> GetPlaylists()
+        public IReadOnlyCollection<string> GetExistingExportedPlaylists()
+        {
+            var exportDirectoryPath = GetExportDirectoryPath();
+            
+            return DirectoryHelper.GetFilesRecursively(exportDirectoryPath);
+        }
+
+        private string GetExportDirectoryPath()
+        {
+            return Path.Combine(_settings.FilesLibraryPath, _settings.PlaylistsNewDirectoryName);
+        }
+        
+        private IReadOnlyCollection<string> GetPlaylistsForExport()
         {
             if (!_mbApi.Playlist_QueryPlaylistsEx(out var playlistPaths))
             {
                 throw new Exception("Error on receiving playlists from MB Library");
             }
 
-            return playlistPaths!;
+            return playlistPaths!
+                .Intersect(_settings.PlaylistsForExport)
+                .ToReadOnlyCollection();
         }
         
         private Playlist CollectPlaylistInfo(string p)
