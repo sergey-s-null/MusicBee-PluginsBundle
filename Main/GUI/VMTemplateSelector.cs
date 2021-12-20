@@ -9,13 +9,13 @@ namespace MusicBeePlugin.GUI
     {
         private static readonly Regex InterfaceNameRegex = new (@"^I.+VM$");
         
-        public ResourceDictionary ResourceDictionary { get; set; }
+        public ResourceDictionary? ResourceDictionary { get; set; }
         
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate? SelectTemplate(object item, DependencyObject container)
         {
-            if (item is null || ResourceDictionary is null)
+            if (ResourceDictionary is null)
             {
-                return base.SelectTemplate(null, container);
+                return base.SelectTemplate(item, container);
             }
             
             var interfaceType = item

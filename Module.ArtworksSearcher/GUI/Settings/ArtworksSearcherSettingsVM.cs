@@ -17,7 +17,7 @@ namespace Module.ArtworksSearcher.GUI.Settings
         public string OsuSongsDir { get; set; } = "";
         public long MinOsuImageByteSize { get; set; }
 
-        private ICommand _changeOsuSongsDirCmd;
+        private ICommand? _changeOsuSongsDirCmd;
         public ICommand ChangeOsuSongsDirCmd =>
             _changeOsuSongsDirCmd ??= new RelayCommand(_ => ChangeOsuSongsDir());
         

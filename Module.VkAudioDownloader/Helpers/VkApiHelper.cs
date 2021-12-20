@@ -8,8 +8,8 @@ namespace Module.VkAudioDownloader.Helpers
 {
     public static class VkApiHelper
     {
-        public delegate bool AuthDelegate(out string login, out string password);
-        public delegate bool CodeInputDelegate(out string code);
+        public delegate bool AuthDelegate(out string? login, out string? password);
+        public delegate bool CodeInputDelegate(out string? code);
 
         public static bool TryAuth(this IVkApi vkApi, string accessToken)
         {
@@ -53,7 +53,8 @@ namespace Module.VkAudioDownloader.Helpers
                 return false;
             }
         }
-        
+
+        /// <param name="vkApi"></param>
         /// <param name="authDelegate">delegate to receive login with password</param>
         /// <param name="codeInputDelegate">delegate to receive two factor auth code</param>
         /// <returns>result of auth</returns>
@@ -91,6 +92,7 @@ namespace Module.VkAudioDownloader.Helpers
         // static without this
         private static Regex _regex = new Regex(@"/[0-9a-f]+(/audios)?/([0-9a-f]+)/index.m3u8");
 
+        // ReSharper disable once InconsistentNaming
         public static bool ConvertToMp3(string m3u8Url, out string mp3Url)
         {
             mp3Url = _regex.Replace(m3u8Url, @"$1/$2.mp3");

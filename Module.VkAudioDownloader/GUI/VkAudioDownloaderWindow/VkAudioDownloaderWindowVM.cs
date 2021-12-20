@@ -32,7 +32,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         public RelayCommand ApplyCheckStateToSelectedCmd
             => _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
             {
-                var argsArr = (object[]) arg;
+                var argsArr = (object[]) arg!;
                 var triggered = (VkAudioVM) argsArr[0];
                 var selectedObjects = (IReadOnlyCollection<object>) argsArr[1];
                 var selected = selectedObjects

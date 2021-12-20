@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -32,10 +31,10 @@ namespace Module.VkAudioDownloader.GUI.Settings
         
         // TODO проверить работает ли авто свойство
         public string AvailableTags { get; }
-        public string DownloadDirCheck { get; private set; } = "";
-        public string FileNameCheck { get; private set; } = "";
+        public string DownloadDirCheck { get; private set; }
+        public string FileNameCheck { get; private set; }
         
-        private ICommand _changeDownloadDirCmd;
+        private ICommand? _changeDownloadDirCmd;
         public ICommand ChangeDownloadDirCmd
             => _changeDownloadDirCmd ??= new RelayCommand(arg =>
             {

@@ -27,23 +27,21 @@ namespace Module.VkAudioDownloader.GUI.AuthDialog
             DataContext = _viewModel;
         }
 
-        public bool ShowDialog(out string login, out string password)
+        public bool ShowDialog(out string? login, out string? password)
         {
             Login = "";
             Password = "";
-            bool? res = ShowDialog();
+            var res = ShowDialog();
             if (res == true)
             {
                 login = Login;
                 password = Password;
                 return true;
             }
-            else
-            {
-                login = null;
-                password = null;
-                return false;
-            }
+            
+            login = null;
+            password = null;
+            return false;
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)

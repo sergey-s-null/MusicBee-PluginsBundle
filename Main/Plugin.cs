@@ -85,7 +85,7 @@ namespace MusicBeePlugin
         
         private static PluginInfo GetPluginInfo()
         {
-            return new()
+            return new PluginInfo
             {
                 PluginInfoVersion = PluginInfoVersion,
                 Name = "Laiser399: VK audios downloader",

@@ -4,7 +4,7 @@ namespace Module.ArtworksSearcher.Helpers
 {
     public static class WebClientHelper
     {
-        public static bool TryDownloadData(this WebClient webClient, string address, out byte[] data)
+        public static bool TryDownloadData(this WebClient webClient, string address, out byte[]? data)
         {
             try
             {

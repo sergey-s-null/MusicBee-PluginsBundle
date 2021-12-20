@@ -298,10 +298,10 @@ namespace Root
     {
         public short PluginInfoVersion;
         public PluginType Type;
-        public string Name;
-        public string Description;
-        public string Author;
-        public string TargetApplication;
+        public string Name = "";
+        public string Description = "";
+        public string Author = "";
+        public string TargetApplication = "";
         public short VersionMajor;
         public short VersionMinor;
         public short Revision;

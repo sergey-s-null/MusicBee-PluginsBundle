@@ -27,25 +27,23 @@ namespace Module.VkAudioDownloader.GUI.InputDialog
             DataContext = _viewModel;
         }
 
-        public bool ShowDialog(string titleText, out string inputText)
+        public bool ShowDialog(string titleText, out string? inputText)
         {
             TitleText = titleText;
             return ShowDialog(out inputText);
         }
 
-        public bool ShowDialog(out string inputText)
+        private bool ShowDialog(out string? inputText)
         {
-            bool? res = ShowDialog();
+            var res = ShowDialog();
             if (res == true)
             {
                 inputText = InputText;
                 return true;
             }
-            else
-            {
-                inputText = null;
-                return false;
-            }
+            
+            inputText = null;
+            return false;
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)

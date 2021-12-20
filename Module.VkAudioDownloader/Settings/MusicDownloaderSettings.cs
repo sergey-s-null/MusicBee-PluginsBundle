@@ -16,14 +16,14 @@ namespace Module.VkAudioDownloader.Settings
         
         protected override void PropertiesFromJObject(JToken rootObj)
         {
-            DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate));
-            FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate));
-            AccessToken = rootObj.Value<string>(nameof(AccessToken));
+            DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate)) ?? "";
+            FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate)) ?? "";
+            AccessToken = rootObj.Value<string>(nameof(AccessToken)) ?? "";
         }
 
         protected override JObject PropertiesToJObject()
         {
-            return new()
+            return new JObject
             {
                 [nameof(DownloadDirTemplate)] = DownloadDirTemplate,
                 [nameof(FileNameTemplate)] = FileNameTemplate,

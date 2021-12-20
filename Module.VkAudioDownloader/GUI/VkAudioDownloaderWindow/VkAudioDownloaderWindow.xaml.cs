@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.Helpers;
 using VkNet.Abstractions;
@@ -54,7 +55,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         }
         
         // TODO move out
-        private bool TryInputAuthData(out string login, out string password)
+        private bool TryInputAuthData(out string? login, out string? password)
         {
             var dialog = new AuthDialog.AuthDialog();
             
@@ -62,7 +63,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         }
         
         // TODO move out
-        private bool TryInputCode(out string code)
+        private bool TryInputCode(out string? code)
         {
             var dialog = new InputDialog.InputDialog();
 
@@ -71,6 +72,8 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         
         protected override void OnContentRendered(EventArgs e)
         {
+            ICommand cmd = ViewModel.RefreshCmd;
+            cmd.Execute(null);
             ViewModel.RefreshCmd.Execute(null);
             
             base.OnContentRendered(e);

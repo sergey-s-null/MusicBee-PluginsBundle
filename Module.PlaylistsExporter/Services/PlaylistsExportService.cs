@@ -45,7 +45,7 @@ namespace Module.PlaylistsExporter.Services
                 throw new Exception("Error on receiving playlists from MB Library");
             }
 
-            return playlistPaths;
+            return playlistPaths!;
         }
         
         private Playlist CollectPlaylistInfo(string p)

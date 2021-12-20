@@ -13,7 +13,7 @@ namespace Root.Helpers
         
         public static bool Playlist_QueryPlaylistsEx(
             this MusicBeeApiInterface mbApi, 
-            out IReadOnlyCollection<string> playlists)
+            out IReadOnlyCollection<string>? playlists)
         {
             if (!mbApi.Playlist_QueryPlaylists())
             {

@@ -18,7 +18,7 @@ namespace MusicBeePlugin.GUI.SettingsDialog
 
         public ModuleSettingsVM SelectedSettingsModule { get; set; }
         
-        private RelayCommand _resetCmd;
+        private RelayCommand? _resetCmd;
         public RelayCommand ResetCmd
             => _resetCmd ??= new RelayCommand(_ => Reset());
         
@@ -34,19 +34,11 @@ namespace MusicBeePlugin.GUI.SettingsDialog
             Settings.Add(new ModuleSettingsVM("Playlists exporter", 
                 playlistsExporterSettingsVM));
 
-            SelectFirstSettingsModule();
+            SelectedSettingsModule = Settings.First();
             
             Load();
         }
 
-        private void SelectFirstSettingsModule()
-        {
-            if (Settings.Count > 0)
-            {
-                SelectedSettingsModule = Settings.First();
-            }
-        }
-        
         public void Load()
         {
             foreach (var setting in Settings)
