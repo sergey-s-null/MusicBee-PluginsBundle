@@ -11,9 +11,9 @@ namespace MusicBeePlugin.GUI
         
         public ResourceDictionary? ResourceDictionary { get; set; }
         
-        public override DataTemplate? SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate? SelectTemplate(object? item, DependencyObject container)
         {
-            if (ResourceDictionary is null)
+            if (item is null || ResourceDictionary is null)
             {
                 return base.SelectTemplate(item, container);
             }
