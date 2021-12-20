@@ -3,21 +3,20 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Module.VkAudioDownloader.GUI.Converters
+namespace Root.GUI.Converters
 {
-    class TrueToHiddenConverter : IValueConverter
+    public class TrueToHiddenConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool bValue)
+            if (value is bool boolValue)
             {
-                if (bValue)
-                    return Visibility.Hidden;
-                else
-                    return Visibility.Visible;
+                return boolValue 
+                    ? Visibility.Hidden 
+                    : Visibility.Visible;
             }
-            else
-                throw new NotSupportedException();
+            
+            throw new NotSupportedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

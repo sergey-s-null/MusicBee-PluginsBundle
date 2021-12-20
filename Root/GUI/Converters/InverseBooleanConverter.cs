@@ -2,17 +2,16 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Module.VkAudioDownloader.GUI.Converters
+namespace Root.GUI.Converters
 {
-    class EqualsTypesConverter : IValueConverter
+    public class InverseBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null)
-                return false;
-            if (parameter is not Type)
-                return false;
-            return value.GetType().Equals(parameter);
+            if (value is bool boolValue)
+                return !boolValue;
+            
+            throw new InvalidOperationException("value must be boolean");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

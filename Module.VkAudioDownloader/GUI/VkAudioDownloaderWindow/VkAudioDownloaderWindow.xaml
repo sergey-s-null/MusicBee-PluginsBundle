@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:globalConverters="clr-namespace:Root.GUI.Converters;assembly=Root"
         xmlns:converters="clr-namespace:Module.VkAudioDownloader.GUI.Converters"
         xmlns:local="clr-namespace:Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow"
         xmlns:mainWindow="clr-namespace:Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow"
@@ -14,9 +15,9 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <converters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter" />
-            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-            <converters:EqualsTypesConverter x:Key="EqualsTypesConverter" />
+            <globalConverters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter" />
+            <globalConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <globalConverters:EqualsTypesConverter x:Key="EqualsTypesConverter" />
             <converters:IsCorruptedUrlConverter x:Key="IsCorruptedUrlConverter" />
         </ResourceDictionary>
     </Window.Resources>

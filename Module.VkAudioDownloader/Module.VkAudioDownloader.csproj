@@ -90,13 +90,9 @@
       <DependentUpon>AuthDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\AuthDialog\AuthDialogVM.cs" />
-    <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
     <Compile Include="GUI\Converters\IsCorruptedUrlConverter.cs" />
-    <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
     <Compile Include="GUI\VkAudioDownloaderWindow\MBAudioVM.cs" />
     <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioVM.cs" />
-    <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
-    <Compile Include="GUI\Converters\InverseBooleanConverter.cs" />
     <Compile Include="GUI\InputDialog\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>

@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Module.VkAudioDownloader.GUI.Settings"
-                    xmlns:converters="clr-namespace:Module.VkAudioDownloader.GUI.Converters">
+                    xmlns:globalConverters="clr-namespace:Root.GUI.Converters;assembly=Root">
 
     <DataTemplate DataType="{x:Type local:IMusicDownloaderSettingsVM}">
         <DataTemplate.Resources>
-            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <globalConverters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         </DataTemplate.Resources>
         
         <StackPanel Margin="6">

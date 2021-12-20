@@ -11,13 +11,10 @@ namespace Module.VkAudioDownloader.GUI.Converters
         {
             if (value is BaseAudioVM baseAudioVM)
             {
-                if (baseAudioVM is VkAudioVM vkAudioVM)
-                    return vkAudioVM.IsCorraptedUrl;
-                else
-                    return false;
+                return baseAudioVM is VkAudioVM { IsCorraptedUrl: true };
             }
-            else
-                throw new NotSupportedException();
+            
+            throw new NotSupportedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
