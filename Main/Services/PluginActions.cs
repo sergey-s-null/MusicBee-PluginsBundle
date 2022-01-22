@@ -5,6 +5,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.Factories;
 using Module.DataExporter.Exceptions;
 using Module.DataExporter.Services;
+using Module.InboxAdder.Factories;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.Factories;
@@ -19,23 +20,29 @@ namespace MusicBeePlugin.Services
         private readonly IDataExportService _dataExportService;
         private readonly IPlaylistsExportService _playlistsExportService;
         private readonly IInboxAddService _inboxAddService;
+        private readonly ITagsCopyService _tagsCopyService;
         private readonly ISearchWindowFactory _searchWindowFactory;
         private readonly IVkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
+        private readonly IFileByIndexSelectDialogFactory _fileByIndexSelectDialogFactory;
 
         public PluginActions(
             MusicBeeApiInterface mbApi, 
             IDataExportService dataExportService, 
             IPlaylistsExportService playlistsExportService, 
             IInboxAddService inboxAddService, 
+            ITagsCopyService tagsCopyService,
             ISearchWindowFactory searchWindowFactory, 
-            IVkAudioDownloaderWindowFactory vkAudioDownloaderWindowFactory)
+            IVkAudioDownloaderWindowFactory vkAudioDownloaderWindowFactory,
+            IFileByIndexSelectDialogFactory fileByIndexSelectDialogFactory)
         {
             _mbApi = mbApi;
             _dataExportService = dataExportService;
             _playlistsExportService = playlistsExportService;
             _inboxAddService = inboxAddService;
+            _tagsCopyService = tagsCopyService;
             _searchWindowFactory = searchWindowFactory;
             _vkAudioDownloaderWindowFactory = vkAudioDownloaderWindowFactory;
+            _fileByIndexSelectDialogFactory = fileByIndexSelectDialogFactory;
         }
 
         public void SearchArtworks()
@@ -77,6 +84,50 @@ namespace MusicBeePlugin.Services
             _inboxAddService.AddToLibrary(selectedFilePath);
 
             _mbApi.MB_RefreshPanels();
+        }
+
+        public void ReplaceSelectedFileByIndex()
+        {
+            if (!TryGetSingleSelectedFile(out var inboxFile))
+            {
+                MessageBox.Show("You must select single item.");
+                return;
+            }
+            
+            var dialog = _fileByIndexSelectDialogFactory.Create();
+            if (!dialog.ShowDialog(out var fileToDelete))
+            {
+                return;
+            }
+
+            var continueResponse = MessageBox.Show("Replace state:\n" +
+                            $"File will be deleted: {fileToDelete};\n" +
+                            $"File will be added: {inboxFile}.\n" +
+                            $"Continue?",
+                "Continue?",
+                MessageBoxButton.YesNo);
+            if (continueResponse != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            // if (!_tagsCopyService.CopyTags(fileToDelete, inboxFile))
+            // {
+            //     MessageBox.Show("Error on copy tags.", "Error");
+            //     return;
+            // }
+
+            var startRes = _mbApi.Sync_FileDeleteStart(fileToDelete);
+            MessageBox.Show($"Start res: {startRes}");
+
+            _mbApi.Sync_FileDeleteEnd(fileToDelete, true, "Error message");
+            
+            MessageBox.Show("Delete done?");
+            return;
+            
+            
+            _mbApi.Sync_FileDeleteStart(inboxFile);
+            // _mbApi.Sync_FileDeleteEnd()
         }
 
         public void RetrieveSelectedFileToInbox()

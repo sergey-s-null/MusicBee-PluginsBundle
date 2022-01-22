@@ -6,11 +6,12 @@ namespace Root.Helpers
     {
         private const int AudiosPerBlock = 20;
         
-        private const MetaDataType VkIdField = MetaDataType.Custom3;
-        private const MetaDataType IndexField = MetaDataType.Custom4;
-        private const MetaDataType Index1Field = MetaDataType.Custom1;
-        private const MetaDataType Index2Field = MetaDataType.Custom2;
-        
+        public const MetaDataType VkIdField = MetaDataType.Custom3;
+        public const MetaDataType IndexField = MetaDataType.Custom4;
+        public const MetaDataType Index1Field = MetaDataType.Custom1;
+        public const MetaDataType Index2Field = MetaDataType.Custom2;
+        public const MetaDataType PoolsField = MetaDataType.Custom5;
+
         public static bool Playlist_QueryPlaylistsEx(
             this MusicBeeApiInterface mbApi, 
             out IReadOnlyCollection<string>? playlists)

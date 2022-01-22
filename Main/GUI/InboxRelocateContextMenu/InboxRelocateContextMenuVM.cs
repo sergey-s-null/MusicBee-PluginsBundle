@@ -10,7 +10,11 @@ namespace MusicBeePlugin.GUI.InboxRelocateContextMenu
         private RelayCommand? _addToLibraryCommand;
         public RelayCommand AddToLibraryCommand => 
             _addToLibraryCommand ??= new RelayCommand(_ => AddToLibrary());
-
+        
+        private RelayCommand? _replaceByIndexCommand;
+        public RelayCommand ReplaceByIndexCommand => 
+            _replaceByIndexCommand ??= new RelayCommand(_ => ReplaceByIndex());
+        
         private RelayCommand? _retrieveToInboxCommand;
         public RelayCommand RetrieveToInboxCommand => 
             _retrieveToInboxCommand ??= new RelayCommand(_ => RetrieveToInbox());
@@ -25,6 +29,11 @@ namespace MusicBeePlugin.GUI.InboxRelocateContextMenu
         private void AddToLibrary()
         {
             _pluginActions.AddSelectedFileToLibrary();
+        }
+
+        private void ReplaceByIndex()
+        {
+            _pluginActions.ReplaceSelectedFileByIndex();
         }
 
         private void RetrieveToInbox()

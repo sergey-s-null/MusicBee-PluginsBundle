@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Windows;
 using HackModule.AssemblyBindingRedirect;
+using Module.InboxAdder.GUI.FileByIndexSelectDialog;
 using Module.VkAudioDownloader.Exceptions;
 using Module.VkAudioDownloader.Helpers;
 using MusicBeePlugin.Factories;
@@ -16,7 +18,7 @@ namespace MusicBeePlugin
     public class Plugin
     {
         private const short PluginInfoVersion = 1;
-        private const short MinInterfaceVersion = 40;// 41
+        private const short MinInterfaceVersion = 40;// 41 40
         private const short MinApiRevision = 53;
 
         private ISettingsDialogFactory? _settingsDialogFactory;
@@ -80,6 +82,16 @@ namespace MusicBeePlugin
                 {
                     var inboxRelocateContextMenu = resolutionRoot.LoadInboxRelocateContextMenu();
                     inboxRelocateContextMenu.IsOpen = true;
+                });
+
+            mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: test",
+                "Laiser399: test",
+                (a, b) =>
+                {
+                    var dialog = resolutionRoot.Get<FileByIndexSelectDialog>();
+                    var res = dialog.ShowDialog(out var filePath);
+                    MessageBox.Show($"Res: {res}\nFilePath: {filePath}");
                 });
         }
         

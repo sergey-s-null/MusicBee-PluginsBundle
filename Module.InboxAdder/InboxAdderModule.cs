@@ -1,4 +1,6 @@
-﻿using Module.InboxAdder.Services;
+﻿using Module.InboxAdder.Factories;
+using Module.InboxAdder.Services;
+using Ninject.Extensions.Factory;
 using Ninject.Modules;
 
 namespace Module.InboxAdder
@@ -10,6 +12,13 @@ namespace Module.InboxAdder
             Bind<IInboxAddService>()
                 .To<InboxAddService>()
                 .InSingletonScope();
+
+            Bind<ITagsCopyService>()
+                .To<TagsCopyService>()
+                .InSingletonScope();
+
+            Bind<IFileByIndexSelectDialogFactory>()
+                .ToFactory();
         }
     }
 }

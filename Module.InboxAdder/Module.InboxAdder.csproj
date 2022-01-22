@@ -49,6 +49,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\IFileByIndexSelectDialogFactory.cs" />
     <Compile Include="GUI\FileByIndexSelectDialog\FileByIndexSelectDialog.xaml.cs">
       <DependentUpon>FileByIndexSelectDialog.xaml</DependentUpon>
     </Compile>
@@ -91,6 +92,20 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="System.Configuration">
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Castle.Core">
+          <HintPath>..\packages\netframework\Castle.Core\lib\net45\Castle.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
         <Reference Include="System.Data.DataSetExtensions">
           <Paket>True</Paket>
         </Reference>
@@ -107,6 +122,17 @@
       <ItemGroup>
         <Reference Include="Ninject">
           <HintPath>..\packages\netframework\Ninject\lib\net45\Ninject.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Ninject.Extensions.Factory">
+          <HintPath>..\packages\netframework\Ninject.Extensions.Factory\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

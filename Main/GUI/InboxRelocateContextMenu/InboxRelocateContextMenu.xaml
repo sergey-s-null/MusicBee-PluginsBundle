@@ -11,6 +11,10 @@
             Command="{Binding AddToLibraryCommand}"/>
         
         <MenuItem
+            Header="To Library: replace by index"
+            Command="{Binding ReplaceByIndexCommand}"/>
+        
+        <MenuItem
             Header="To Inbox"
             Command="{Binding RetrieveToInboxCommand}"/>
     </ContextMenu>

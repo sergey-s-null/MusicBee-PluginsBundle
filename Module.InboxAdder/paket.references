@@ -1,4 +1,5 @@
 group NetFramework
     Ninject
+    Ninject.Extensions.Factory
     morelinq
     PropertyChanged.Fody
