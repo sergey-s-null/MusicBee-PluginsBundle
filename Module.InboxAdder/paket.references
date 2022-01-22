@@ -1,2 +1,4 @@
 group NetFramework
     Ninject
+    morelinq
+    PropertyChanged.Fody

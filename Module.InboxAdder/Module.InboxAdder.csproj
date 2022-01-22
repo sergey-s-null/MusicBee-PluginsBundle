@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\netframework\PropertyChanged.Fody\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\netframework\PropertyChanged.Fody\build\PropertyChanged.Fody.props')" Label="Paket" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -48,6 +49,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\FileByIndexSelectDialog\FileByIndexSelectDialog.xaml.cs">
+      <DependentUpon>FileByIndexSelectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FileByIndexSelectDialog\FileByIndexSelectDialogVM.cs" />
     <Compile Include="InboxAdderModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -59,6 +64,8 @@
     </Compile>
     <Compile Include="Services\IInboxAddService.cs" />
     <Compile Include="Services\InboxAddService.cs" />
+    <Compile Include="Services\ITagsCopyService.cs" />
+    <Compile Include="Services\TagsCopyService.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -74,9 +81,27 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
     <Content Include="paket.references" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="GUI\FileByIndexSelectDialog\FileByIndexSelectDialog.xaml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Data.DataSetExtensions">
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MoreLinq">
+          <HintPath>..\packages\netframework\morelinq\lib\net451\MoreLinq.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
@@ -88,4 +113,30 @@
       </ItemGroup>
     </When>
   </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="PropertyChanged">
+          <HintPath>..\packages\netframework\PropertyChanged.Fody\lib\net40\PropertyChanged.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="mscorlib">
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.ValueTuple">
+          <HintPath>..\packages\netframework\System.ValueTuple\lib\net47\System.ValueTuple.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="..\packages\netframework\Fody\build\Fody.targets" Condition="Exists('..\packages\netframework\Fody\build\Fody.targets')" Label="Paket" />
 </Project>
