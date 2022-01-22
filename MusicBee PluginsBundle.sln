@@ -38,6 +38,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{D520
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackModule.AssemblyBindingRedirect", "HackModule.AssemblyBindingRedirect\HackModule.AssemblyBindingRedirect.csproj", "{5951FDE8-EBAD-4580-9825-8ADBE222B1FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{F081457C-2FEB-4D1E-A771-7D1812F5C205}"
+ProjectSection(SolutionItems) = preProject
+	paket.dependencies = paket.dependencies
+	paket.lock = paket.lock
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
