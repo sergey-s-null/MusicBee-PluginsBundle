@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Builders\CsProjProtobufBuilder.cs" />
     <Compile Include="Builders\ProtoFilesBuilder.cs" />
+    <Compile Include="Helpers\MBApiMethodDefinitionHelper.cs" />
     <Compile Include="Models\MBApiMethodDefinition.cs" />
     <Compile Include="Models\MBApiParameterDefinition.cs" />
     <Compile Include="Program.cs" />

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using MBApiProtoGenerator.Helpers;
 using MBApiProtoGenerator.Models;
 
 namespace MBApiProtoGenerator.Builders
@@ -11,14 +13,25 @@ namespace MBApiProtoGenerator.Builders
         private static readonly IReadOnlyCollection<string> HeaderLines = new[]
         {
             "syntax = \"proto3\";",
-            ""
+            "",
         };
+
+        private static readonly IReadOnlyCollection<string> ServiceSubHeaderLines = new[]
+        {
+            "import \"google/protobuf/empty.proto\";",
+            "",
+        };
+
+        private const string EmptyMessageType = "google.protobuf.Empty";
         
         private static readonly IReadOnlyDictionary<Type, string> TypeBindings = new Dictionary<Type, string>()
         {
             [typeof(bool)] = "bool",
             [typeof(string)] = "string",
             [typeof(int)] = "int32",
+            [typeof(float)] = "float",
+            [typeof(double)] = "double",
+            [typeof(byte)] = "int32",
         };
 
         private readonly List<MBApiMethodDefinition> _methods = new();
@@ -54,6 +67,20 @@ namespace MBApiProtoGenerator.Builders
             return this;
         }
 
+        public ProtoFilesBuilder DeleteCurrentProtoFiles()
+        {
+            var filesToDelete = new DirectoryInfo(_exportPath)
+                .GetFiles()
+                .Where(x => x.Extension.ToLower() == "proto");
+            
+            foreach (var fileInfo in filesToDelete)
+            {
+                fileInfo.Delete();
+            }
+
+            return this;
+        }
+        
         public ProtoFilesBuilder CreateMessagesProtoFiles()
         {
             foreach (var methodDefinition in _methods)
@@ -66,22 +93,30 @@ namespace MBApiProtoGenerator.Builders
 
         private void CreateMessagesProtoFile(MBApiMethodDefinition methodDefinition)
         {
+            if (!methodDefinition.HasAnyParameters())
+            {
+                return;
+            }
+            
             var filePath = GetFilePath($"{methodDefinition.Name}.proto");
 
             var lines = HeaderLines
-                .Concat(ToRequestLines(methodDefinition.Name, methodDefinition.InputParameters))
-                .Concat(ToResponseLines(methodDefinition.Name, methodDefinition.OutputParameters,
-                    methodDefinition.ReturnType));
+                .Concat(ToRequestLines(methodDefinition))
+                .Concat(ToResponseLines(methodDefinition));
 
             File.WriteAllLines(filePath, lines);
         }
         
-        private IEnumerable<string> ToRequestLines(string methodName,
-            IEnumerable<MBApiParameterDefinition> inputParameters)
+        private IEnumerable<string> ToRequestLines(MBApiMethodDefinition methodDefinition)
         {
-            yield return $"message {methodName}{_requestPostfix} {{";
+            if (!methodDefinition.HasInputParameters())
+            {
+                yield break;
+            }
+            
+            yield return $"message {methodDefinition.Name}{_requestPostfix} {{";
 
-            var parameterLines = inputParameters
+            var parameterLines = methodDefinition.InputParameters
                 .Select((x, i) => $"  {GetProtoType(x.Type)} {x.Name} = {i + 1};");
             foreach (var parameterLine in parameterLines)
             {
@@ -92,15 +127,24 @@ namespace MBApiProtoGenerator.Builders
             yield return string.Empty;
         }
         
-        private IEnumerable<string> ToResponseLines(string methodName,
-            IEnumerable<MBApiParameterDefinition> outputParameters, Type returnType)
+        private IEnumerable<string> ToResponseLines(MBApiMethodDefinition methodDefinition)
         {
-            yield return $"message {methodName}{_responsePostfix} {{";
-
-            yield return $"  {GetProtoType(returnType)} {_returnParameterName} = 1;";
+            if (!methodDefinition.HasOutputParameters())
+            {
+                yield break;
+            }
             
-            var parameterLines = outputParameters
-                .Select((x, i) => $"  {GetProtoType(x.Type)} {x.Name} = {i + 2};");
+            yield return $"message {methodDefinition.Name}{_responsePostfix} {{";
+
+            var parametersIndexShift = 1;
+            if (methodDefinition.HasReturnType())
+            {
+                parametersIndexShift++;
+                yield return $"  {GetProtoType(methodDefinition.ReturnType)} {_returnParameterName} = 1;";
+            }
+            
+            var parameterLines = methodDefinition.OutputParameters
+                .Select((x, i) => $"  {GetProtoType(x.Type)} {x.Name} = {i + parametersIndexShift};");
             foreach (var parameterLine in parameterLines)
             {
                 yield return parameterLine;
@@ -115,6 +159,7 @@ namespace MBApiProtoGenerator.Builders
             var filePath = GetFilePath($"{serviceName}.proto");
 
             var lines = HeaderLines
+                .Concat(ServiceSubHeaderLines)
                 .Concat(GetServiceImportLines())
                 .Append(string.Empty)
                 .Concat(GetServiceLines(serviceName));
@@ -127,6 +172,7 @@ namespace MBApiProtoGenerator.Builders
         private IEnumerable<string> GetServiceImportLines()
         {
             return _methods
+                .Where(x => x.HasAnyParameters())
                 .Select(methodDefinition => $"import \"{_exportPathInsideProject}/{methodDefinition.Name}.proto\";");
         }
         
@@ -134,16 +180,30 @@ namespace MBApiProtoGenerator.Builders
         {
             yield return $"service {serviceName} {{";
             
-            foreach (var methodDefinition in _methods)
+            foreach (var method in _methods)
             {
-                var methodName = methodDefinition.Name;
-                var requestMessageName = $"{methodName}{_requestPostfix}";
-                var responseMessageName = $"{methodName}{_responsePostfix}";
-                yield return $"  rpc {methodName}({requestMessageName})";
-                yield return $"      returns({responseMessageName});";
+                var methodName = method.Name;
+                var requestMessageType = GetRequestMessageType(method);
+                var responseMessageType = GetResponseMessageType(method);
+                yield return $"  rpc {methodName}({requestMessageType})";
+                yield return $"      returns({responseMessageType});";
             }
 
             yield return "}";
+        }
+
+        private string GetRequestMessageType(MBApiMethodDefinition method)
+        {
+            return method.HasInputParameters()
+                ? $"{method.Name}{_requestPostfix}"
+                : EmptyMessageType;
+        }
+
+        private string GetResponseMessageType(MBApiMethodDefinition method)
+        {
+            return method.HasOutputParameters()
+                ? $"{method.Name}{_responsePostfix}"
+                : EmptyMessageType;
         }
 
         private string GetFilePath(string fileName)
@@ -155,11 +215,16 @@ namespace MBApiProtoGenerator.Builders
         
         private static string GetProtoType(Type parameterType, bool withEnumerable = true)
         {
-            if (withEnumerable
-                && IsEnumerable(parameterType, out var argumentType))
+            if (parameterType.IsByRef && parameterType.HasElementType)
             {
-                var argumentProtoType = GetProtoType(argumentType!, false);
-                return $"repeated {argumentProtoType}";
+                return GetProtoType(parameterType.GetElementType()!);
+            }
+            
+            if (withEnumerable
+                && IsEnumerable(parameterType, out var elementType))
+            {
+                var elementProtoType = GetProtoType(elementType!, false);
+                return $"repeated {elementProtoType}";
             }
 
             if (parameterType.IsEnum
@@ -168,7 +233,7 @@ namespace MBApiProtoGenerator.Builders
                 return intProtoType;
             }
 
-            if (TypeBindings.TryGetValue(typeof(int), out var protoType))
+            if (TypeBindings.TryGetValue(parameterType, out var protoType))
             {
                 return protoType;
             }
@@ -176,16 +241,22 @@ namespace MBApiProtoGenerator.Builders
             throw new Exception($"Для типа {parameterType.FullName} не найдено соответствие proto типа.");
         }
         
-        private static bool IsEnumerable(Type type, out Type? argumentType)
+        private static bool IsEnumerable(Type type, out Type? elementType)
         {
             if (type.IsGenericType
-                && type.GetGenericTypeDefinition().IsAssignableFrom(typeof(IEnumerable<>)))
+                && typeof(IEnumerable).IsAssignableFrom(type.GetGenericTypeDefinition()))
             {
-                argumentType = type.GenericTypeArguments.First();
+                elementType = type.GenericTypeArguments.First();
                 return true;
             }
 
-            argumentType = null;
+            if (type.IsArray && type.HasElementType)
+            {
+                elementType = type.GetElementType();
+                return true;
+            }
+
+            elementType = null;
             return false;
         }
     }
