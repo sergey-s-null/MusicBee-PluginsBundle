@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Sync_FileDeleteStart_Request {
+  string filename = 1;
+}
+
+message Sync_FileDeleteStart_Response {
+  string result = 1;
+}
+

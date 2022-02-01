@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Playlist_PlayNow_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_PlayNow_Response {
+  bool result = 1;
+}
+

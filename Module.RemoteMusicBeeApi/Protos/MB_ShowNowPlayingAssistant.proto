@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message MB_ShowNowPlayingAssistant_Response {
+  bool result = 1;
+}
+

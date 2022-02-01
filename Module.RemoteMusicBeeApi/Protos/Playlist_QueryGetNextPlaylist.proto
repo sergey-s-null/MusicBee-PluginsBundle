@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Playlist_QueryGetNextPlaylist_Response {
+  string result = 1;
+}
+

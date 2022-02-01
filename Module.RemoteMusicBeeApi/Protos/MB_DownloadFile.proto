@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message MB_DownloadFile_Request {
+  string url = 1;
+  int32 target = 2;
+  string targetFolder = 3;
+  bool cancelDownload = 4;
+}
+
+message MB_DownloadFile_Response {
+  bool result = 1;
+}
+

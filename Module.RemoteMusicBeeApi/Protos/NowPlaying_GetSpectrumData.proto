@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlaying_GetSpectrumData_Request {
+  repeated float fftData = 1;
+}
+
+message NowPlaying_GetSpectrumData_Response {
+  int32 result = 1;
+}
+

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlayingList_QueueFilesNext_Request {
+  repeated string sourceFileUrl = 1;
+}
+
+message NowPlayingList_QueueFilesNext_Response {
+  bool result = 1;
+}
+

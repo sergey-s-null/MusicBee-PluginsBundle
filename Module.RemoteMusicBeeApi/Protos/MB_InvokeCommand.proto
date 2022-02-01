@@ -1,0 +1,4 @@
+syntax = "proto3";
+
+message MB_InvokeCommand_Request {
+  int32 command = 1;

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Player_SetReplayGainMode_Request {
+  int32 mode = 1;
+}
+
+message Player_SetReplayGainMode_Response {
+  bool result = 1;
+}
+

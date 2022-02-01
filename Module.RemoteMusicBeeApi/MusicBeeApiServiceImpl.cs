@@ -13,28 +13,9 @@ namespace Module.RemoteMusicBeeApi
             _mbApi = mbApi;
         }
 
-        public override Task<Library_QueryFilesEx_Response> Library_QueryFilesEx(Library_QueryFilesEx_Request request,
-            ServerCallContext context)
+        public override Task<NowPlaying_GetArtistPicture_Response> NowPlaying_GetArtistPicture(NowPlaying_GetArtistPicture_Request request, ServerCallContext context)
         {
-            var result = _mbApi.Library_QueryFilesEx(request.Query, out var files);
-        
-            var response = new Library_QueryFilesEx_Response()
-            {
-                Result = result
-            };
-            response.Files.AddRange(files);
-        
-            return Task.FromResult(response);
-        }
-
-        public override Task<Library_GetFileTag_Response> Library_GetFileTag(Library_GetFileTag_Request request,
-            ServerCallContext context)
-        {
-            var tagValue = _mbApi.Library_GetFileTag(request.SourceFileUrl, (MetaDataType)request.Field);
-            return Task.FromResult(new Library_GetFileTag_Response()
-            {
-                TagValue = tagValue
-            });
+            return base.NowPlaying_GetArtistPicture(request, context);
         }
     }
 }

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Library_QueryGetLookupTableValue_Request {
+  string key = 1;
+}
+
+message Library_QueryGetLookupTableValue_Response {
+  string result = 1;
+}
+

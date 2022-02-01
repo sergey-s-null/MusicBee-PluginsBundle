@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Player_EndAutoDj_Response {
+  bool result = 1;
+}
+

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlayingList_GetNextIndex_Request {
+  int32 offset = 1;
+}
+
+message NowPlayingList_GetNextIndex_Response {
+  int32 result = 1;
+}
+

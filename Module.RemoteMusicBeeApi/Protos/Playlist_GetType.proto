@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Playlist_GetType_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_GetType_Response {
+  int32 result = 1;
+}
+

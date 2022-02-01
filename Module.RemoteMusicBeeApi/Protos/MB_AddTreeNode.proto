@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message MB_AddTreeNode_Request {
+  int32 treePath = 1;
+  int32 name = 2;
+  int32 icon = 3;
+  int32 openHandler = 4;
+  int32 closeHandler = 5;
+}
+
+message MB_AddTreeNode_Response {
+  int32 result = 1;
+}
+

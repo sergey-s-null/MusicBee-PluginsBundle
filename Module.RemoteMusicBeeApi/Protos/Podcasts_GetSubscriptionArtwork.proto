@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Podcasts_GetSubscriptionArtwork_Request {
+  string id = 1;
+  int32 index = 2;
+}
+
+message Podcasts_GetSubscriptionArtwork_Response {
+  bool result = 1;
+  repeated int32 imageData = 2;
+}
+

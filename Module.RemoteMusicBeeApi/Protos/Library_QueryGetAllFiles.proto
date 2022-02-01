@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Library_QueryGetAllFiles_Response {
+  string result = 1;
+}
+

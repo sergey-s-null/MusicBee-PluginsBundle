@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Player_GetButtonEnabled_Request {
+  int32 button = 1;
+}
+
+message Player_GetButtonEnabled_Response {
+  bool result = 1;
+}
+

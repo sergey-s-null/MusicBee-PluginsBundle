@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Podcasts_QuerySubscriptions_Request {
+  string query = 1;
+}
+
+message Podcasts_QuerySubscriptions_Response {
+  bool result = 1;
+  repeated string ids = 2;
+}
+

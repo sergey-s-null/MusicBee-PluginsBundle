@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message NowPlaying_GetArtistPictureThumb_Response {
+  string result = 1;
+}
+

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Library_CommitTagsToFile_Request {
+  string sourceFileUrl = 1;
+}
+
+message Library_CommitTagsToFile_Response {
+  bool result = 1;
+}
+

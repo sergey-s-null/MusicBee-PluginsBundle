@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message MB_Trace_Request {
+  string p1 = 1;
+}
+

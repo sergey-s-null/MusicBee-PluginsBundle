@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message NowPlaying_GetFileTags_Request {
+  repeated int32 fields = 1;
+}
+
+message NowPlaying_GetFileTags_Response {
+  bool result = 1;
+  repeated string results = 2;
+}
+

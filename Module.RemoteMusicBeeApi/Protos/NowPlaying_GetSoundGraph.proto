@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlaying_GetSoundGraph_Request {
+  repeated float graphData = 1;
+}
+
+message NowPlaying_GetSoundGraph_Response {
+  bool result = 1;
+}
+

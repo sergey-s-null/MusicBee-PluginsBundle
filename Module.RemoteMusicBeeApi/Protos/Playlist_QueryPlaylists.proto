@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Playlist_QueryPlaylists_Response {
+  bool result = 1;
+}
+

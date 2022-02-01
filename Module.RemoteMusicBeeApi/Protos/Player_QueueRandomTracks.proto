@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Player_QueueRandomTracks_Request {
+  int32 count = 1;
+}
+
+message Player_QueueRandomTracks_Response {
+  int32 result = 1;
+}
+

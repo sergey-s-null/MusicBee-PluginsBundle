@@ -1,26 +1,474 @@
-﻿syntax = "proto3";
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+import "Protos/MB_ReleaseString.proto";
+import "Protos/MB_Trace.proto";
+import "Protos/Setting_GetPersistentStoragePath.proto";
+import "Protos/Setting_GetSkin.proto";
+import "Protos/Setting_GetSkinElementColour.proto";
+import "Protos/Setting_IsWindowBordersSkinned.proto";
+import "Protos/Library_GetFileProperty.proto";
+import "Protos/Library_GetFileTag.proto";
+import "Protos/Library_SetFileTag.proto";
+import "Protos/Library_CommitTagsToFile.proto";
+import "Protos/Library_GetLyrics.proto";
+import "Protos/Library_QueryFiles.proto";
+import "Protos/Library_QueryGetNextFile.proto";
+import "Protos/Player_GetPosition.proto";
+import "Protos/Player_SetPosition.proto";
+import "Protos/Player_GetPlayState.proto";
+import "Protos/Player_PlayPause.proto";
+import "Protos/Player_Stop.proto";
+import "Protos/Player_StopAfterCurrent.proto";
+import "Protos/Player_PlayPreviousTrack.proto";
+import "Protos/Player_PlayNextTrack.proto";
+import "Protos/Player_StartAutoDj.proto";
+import "Protos/Player_EndAutoDj.proto";
+import "Protos/Player_GetVolume.proto";
+import "Protos/Player_SetVolume.proto";
+import "Protos/Player_GetMute.proto";
+import "Protos/Player_SetMute.proto";
+import "Protos/Player_GetShuffle.proto";
+import "Protos/Player_SetShuffle.proto";
+import "Protos/Player_GetRepeat.proto";
+import "Protos/Player_SetRepeat.proto";
+import "Protos/Player_GetEqualiserEnabled.proto";
+import "Protos/Player_SetEqualiserEnabled.proto";
+import "Protos/Player_GetDspEnabled.proto";
+import "Protos/Player_SetDspEnabled.proto";
+import "Protos/Player_GetScrobbleEnabled.proto";
+import "Protos/Player_SetScrobbleEnabled.proto";
+import "Protos/NowPlaying_GetFileUrl.proto";
+import "Protos/NowPlaying_GetDuration.proto";
+import "Protos/NowPlaying_GetFileProperty.proto";
+import "Protos/NowPlaying_GetFileTag.proto";
+import "Protos/NowPlaying_GetLyrics.proto";
+import "Protos/NowPlaying_GetArtwork.proto";
+import "Protos/NowPlayingList_Clear.proto";
+import "Protos/NowPlayingList_QueryFiles.proto";
+import "Protos/NowPlayingList_QueryGetNextFile.proto";
+import "Protos/NowPlayingList_PlayNow.proto";
+import "Protos/NowPlayingList_QueueNext.proto";
+import "Protos/NowPlayingList_QueueLast.proto";
+import "Protos/NowPlayingList_PlayLibraryShuffled.proto";
+import "Protos/Playlist_QueryPlaylists.proto";
+import "Protos/Playlist_QueryGetNextPlaylist.proto";
+import "Protos/Playlist_GetType.proto";
+import "Protos/Playlist_QueryFiles.proto";
+import "Protos/Playlist_QueryGetNextFile.proto";
+import "Protos/MB_SendNotification.proto";
+import "Protos/Setting_GetFieldName.proto";
+import "Protos/Library_QueryGetAllFiles.proto";
+import "Protos/NowPlayingList_QueryGetAllFiles.proto";
+import "Protos/Playlist_QueryGetAllFiles.proto";
+import "Protos/MB_SetBackgroundTaskMessage.proto";
+import "Protos/Player_GetShowTimeRemaining.proto";
+import "Protos/NowPlayingList_GetCurrentIndex.proto";
+import "Protos/NowPlayingList_GetListFileUrl.proto";
+import "Protos/NowPlayingList_GetFileProperty.proto";
+import "Protos/NowPlayingList_GetFileTag.proto";
+import "Protos/NowPlaying_GetSpectrumData.proto";
+import "Protos/NowPlaying_GetSoundGraph.proto";
+import "Protos/MB_GetLocalisation.proto";
+import "Protos/NowPlayingList_IsAnyPriorTracks.proto";
+import "Protos/Player_ShowEqualiser.proto";
+import "Protos/Player_GetAutoDjEnabled.proto";
+import "Protos/Player_GetStopAfterCurrentEnabled.proto";
+import "Protos/Player_GetCrossfade.proto";
+import "Protos/Player_SetCrossfade.proto";
+import "Protos/Player_GetReplayGainMode.proto";
+import "Protos/Player_SetReplayGainMode.proto";
+import "Protos/Player_QueueRandomTracks.proto";
+import "Protos/Setting_GetDataType.proto";
+import "Protos/NowPlayingList_GetNextIndex.proto";
+import "Protos/NowPlaying_GetArtistPicture.proto";
+import "Protos/NowPlaying_GetDownloadedArtwork.proto";
+import "Protos/MB_ShowNowPlayingAssistant.proto";
+import "Protos/NowPlaying_GetDownloadedLyrics.proto";
+import "Protos/Player_GetShowRatingTrack.proto";
+import "Protos/Player_GetShowRatingLove.proto";
+import "Protos/Setting_GetLastFmUserId.proto";
+import "Protos/Playlist_GetName.proto";
+import "Protos/Playlist_CreatePlaylist.proto";
+import "Protos/Playlist_SetFiles.proto";
+import "Protos/Library_QuerySimilarArtists.proto";
+import "Protos/Library_QueryLookupTable.proto";
+import "Protos/Library_QueryGetLookupTableValue.proto";
+import "Protos/NowPlayingList_QueueFilesNext.proto";
+import "Protos/NowPlayingList_QueueFilesLast.proto";
+import "Protos/Setting_GetWebProxy.proto";
+import "Protos/NowPlayingList_RemoveAt.proto";
+import "Protos/Playlist_RemoveAt.proto";
+import "Protos/MB_OpenFilterInTab.proto";
+import "Protos/MB_SetWindowSize.proto";
+import "Protos/Library_GetArtistPicture.proto";
+import "Protos/Pending_GetFileUrl.proto";
+import "Protos/Pending_GetFileProperty.proto";
+import "Protos/Pending_GetFileTag.proto";
+import "Protos/Player_GetButtonEnabled.proto";
+import "Protos/NowPlayingList_MoveFiles.proto";
+import "Protos/Library_GetArtworkUrl.proto";
+import "Protos/Library_GetArtistPictureThumb.proto";
+import "Protos/NowPlaying_GetArtworkUrl.proto";
+import "Protos/NowPlaying_GetDownloadedArtworkUrl.proto";
+import "Protos/NowPlaying_GetArtistPictureThumb.proto";
+import "Protos/Playlist_IsInList.proto";
+import "Protos/Library_GetArtistPictureUrls.proto";
+import "Protos/NowPlaying_GetArtistPictureUrls.proto";
+import "Protos/Playlist_AppendFiles.proto";
+import "Protos/Sync_FileStart.proto";
+import "Protos/Sync_FileEnd.proto";
+import "Protos/Library_QueryFilesEx.proto";
+import "Protos/NowPlayingList_QueryFilesEx.proto";
+import "Protos/Playlist_QueryFilesEx.proto";
+import "Protos/Playlist_MoveFiles.proto";
+import "Protos/Playlist_PlayNow.proto";
+import "Protos/NowPlaying_IsSoundtrack.proto";
+import "Protos/NowPlaying_GetSoundtrackPictureUrls.proto";
+import "Protos/Library_GetDevicePersistentId.proto";
+import "Protos/Library_SetDevicePersistentId.proto";
+import "Protos/Library_FindDevicePersistentId.proto";
+import "Protos/Library_AddFileToLibrary.proto";
+import "Protos/Playlist_DeletePlaylist.proto";
+import "Protos/Library_GetFileTags.proto";
+import "Protos/NowPlaying_GetFileTags.proto";
+import "Protos/NowPlayingList_GetFileTags.proto";
+import "Protos/MB_DownloadFile.proto";
+import "Protos/Setting_GetFileConvertCommandLine.proto";
+import "Protos/Player_OpenStreamHandle.proto";
+import "Protos/Player_UpdatePlayStatistics.proto";
+import "Protos/Library_GetArtworkEx.proto";
+import "Protos/Library_SetArtworkEx.proto";
+import "Protos/MB_GetVisualiserInformation.proto";
+import "Protos/MB_ShowVisualiser.proto";
+import "Protos/MB_GetPluginViewInformation.proto";
+import "Protos/MB_ShowPluginView.proto";
+import "Protos/Player_GetOutputDevices.proto";
+import "Protos/Player_SetOutputDevice.proto";
+import "Protos/MB_UninstallPlugin.proto";
+import "Protos/Player_PlayPreviousAlbum.proto";
+import "Protos/Player_PlayNextAlbum.proto";
+import "Protos/Podcasts_QuerySubscriptions.proto";
+import "Protos/Podcasts_GetSubscription.proto";
+import "Protos/Podcasts_GetSubscriptionArtwork.proto";
+import "Protos/Podcasts_GetSubscriptionEpisodes.proto";
+import "Protos/Podcasts_GetSubscriptionEpisode.proto";
+import "Protos/NowPlaying_GetSoundGraphEx.proto";
+import "Protos/Sync_FileDeleteStart.proto";
+import "Protos/Sync_FileDeleteEnd.proto";
 
 service MusicBeeApiService {
-  rpc Library_QueryFilesEx(Library_QueryFilesEx_Request) returns (Library_QueryFilesEx_Response);
-  rpc Library_GetFileTag(Library_GetFileTag_Request) returns (Library_GetFileTag_Response);
+  rpc MB_ReleaseString(MB_ReleaseString_Request)
+      returns(google.protobuf.Empty);
+  rpc MB_Trace(MB_Trace_Request)
+      returns(google.protobuf.Empty);
+  rpc Setting_GetPersistentStoragePath(google.protobuf.Empty)
+      returns(Setting_GetPersistentStoragePath_Response);
+  rpc Setting_GetSkin(google.protobuf.Empty)
+      returns(Setting_GetSkin_Response);
+  rpc Setting_GetSkinElementColour(Setting_GetSkinElementColour_Request)
+      returns(Setting_GetSkinElementColour_Response);
+  rpc Setting_IsWindowBordersSkinned(google.protobuf.Empty)
+      returns(Setting_IsWindowBordersSkinned_Response);
+  rpc Library_GetFileProperty(Library_GetFileProperty_Request)
+      returns(Library_GetFileProperty_Response);
+  rpc Library_GetFileTag(Library_GetFileTag_Request)
+      returns(Library_GetFileTag_Response);
+  rpc Library_SetFileTag(Library_SetFileTag_Request)
+      returns(Library_SetFileTag_Response);
+  rpc Library_CommitTagsToFile(Library_CommitTagsToFile_Request)
+      returns(Library_CommitTagsToFile_Response);
+  rpc Library_GetLyrics(Library_GetLyrics_Request)
+      returns(Library_GetLyrics_Response);
+  rpc Library_QueryFiles(Library_QueryFiles_Request)
+      returns(Library_QueryFiles_Response);
+  rpc Library_QueryGetNextFile(google.protobuf.Empty)
+      returns(Library_QueryGetNextFile_Response);
+  rpc Player_GetPosition(google.protobuf.Empty)
+      returns(Player_GetPosition_Response);
+  rpc Player_SetPosition(Player_SetPosition_Request)
+      returns(Player_SetPosition_Response);
+  rpc Player_GetPlayState(google.protobuf.Empty)
+      returns(Player_GetPlayState_Response);
+  rpc Player_PlayPause(google.protobuf.Empty)
+      returns(Player_PlayPause_Response);
+  rpc Player_Stop(google.protobuf.Empty)
+      returns(Player_Stop_Response);
+  rpc Player_StopAfterCurrent(google.protobuf.Empty)
+      returns(Player_StopAfterCurrent_Response);
+  rpc Player_PlayPreviousTrack(google.protobuf.Empty)
+      returns(Player_PlayPreviousTrack_Response);
+  rpc Player_PlayNextTrack(google.protobuf.Empty)
+      returns(Player_PlayNextTrack_Response);
+  rpc Player_StartAutoDj(google.protobuf.Empty)
+      returns(Player_StartAutoDj_Response);
+  rpc Player_EndAutoDj(google.protobuf.Empty)
+      returns(Player_EndAutoDj_Response);
+  rpc Player_GetVolume(google.protobuf.Empty)
+      returns(Player_GetVolume_Response);
+  rpc Player_SetVolume(Player_SetVolume_Request)
+      returns(Player_SetVolume_Response);
+  rpc Player_GetMute(google.protobuf.Empty)
+      returns(Player_GetMute_Response);
+  rpc Player_SetMute(Player_SetMute_Request)
+      returns(Player_SetMute_Response);
+  rpc Player_GetShuffle(google.protobuf.Empty)
+      returns(Player_GetShuffle_Response);
+  rpc Player_SetShuffle(Player_SetShuffle_Request)
+      returns(Player_SetShuffle_Response);
+  rpc Player_GetRepeat(google.protobuf.Empty)
+      returns(Player_GetRepeat_Response);
+  rpc Player_SetRepeat(Player_SetRepeat_Request)
+      returns(Player_SetRepeat_Response);
+  rpc Player_GetEqualiserEnabled(google.protobuf.Empty)
+      returns(Player_GetEqualiserEnabled_Response);
+  rpc Player_SetEqualiserEnabled(Player_SetEqualiserEnabled_Request)
+      returns(Player_SetEqualiserEnabled_Response);
+  rpc Player_GetDspEnabled(google.protobuf.Empty)
+      returns(Player_GetDspEnabled_Response);
+  rpc Player_SetDspEnabled(Player_SetDspEnabled_Request)
+      returns(Player_SetDspEnabled_Response);
+  rpc Player_GetScrobbleEnabled(google.protobuf.Empty)
+      returns(Player_GetScrobbleEnabled_Response);
+  rpc Player_SetScrobbleEnabled(Player_SetScrobbleEnabled_Request)
+      returns(Player_SetScrobbleEnabled_Response);
+  rpc NowPlaying_GetFileUrl(google.protobuf.Empty)
+      returns(NowPlaying_GetFileUrl_Response);
+  rpc NowPlaying_GetDuration(google.protobuf.Empty)
+      returns(NowPlaying_GetDuration_Response);
+  rpc NowPlaying_GetFileProperty(NowPlaying_GetFileProperty_Request)
+      returns(NowPlaying_GetFileProperty_Response);
+  rpc NowPlaying_GetFileTag(NowPlaying_GetFileTag_Request)
+      returns(NowPlaying_GetFileTag_Response);
+  rpc NowPlaying_GetLyrics(google.protobuf.Empty)
+      returns(NowPlaying_GetLyrics_Response);
+  rpc NowPlaying_GetArtwork(google.protobuf.Empty)
+      returns(NowPlaying_GetArtwork_Response);
+  rpc NowPlayingList_Clear(google.protobuf.Empty)
+      returns(NowPlayingList_Clear_Response);
+  rpc NowPlayingList_QueryFiles(NowPlayingList_QueryFiles_Request)
+      returns(NowPlayingList_QueryFiles_Response);
+  rpc NowPlayingList_QueryGetNextFile(google.protobuf.Empty)
+      returns(NowPlayingList_QueryGetNextFile_Response);
+  rpc NowPlayingList_PlayNow(NowPlayingList_PlayNow_Request)
+      returns(NowPlayingList_PlayNow_Response);
+  rpc NowPlayingList_QueueNext(NowPlayingList_QueueNext_Request)
+      returns(NowPlayingList_QueueNext_Response);
+  rpc NowPlayingList_QueueLast(NowPlayingList_QueueLast_Request)
+      returns(NowPlayingList_QueueLast_Response);
+  rpc NowPlayingList_PlayLibraryShuffled(google.protobuf.Empty)
+      returns(NowPlayingList_PlayLibraryShuffled_Response);
+  rpc Playlist_QueryPlaylists(google.protobuf.Empty)
+      returns(Playlist_QueryPlaylists_Response);
+  rpc Playlist_QueryGetNextPlaylist(google.protobuf.Empty)
+      returns(Playlist_QueryGetNextPlaylist_Response);
+  rpc Playlist_GetType(Playlist_GetType_Request)
+      returns(Playlist_GetType_Response);
+  rpc Playlist_QueryFiles(Playlist_QueryFiles_Request)
+      returns(Playlist_QueryFiles_Response);
+  rpc Playlist_QueryGetNextFile(google.protobuf.Empty)
+      returns(Playlist_QueryGetNextFile_Response);
+  rpc MB_RefreshPanels(google.protobuf.Empty)
+      returns(google.protobuf.Empty);
+  rpc MB_SendNotification(MB_SendNotification_Request)
+      returns(google.protobuf.Empty);
+  rpc Setting_GetFieldName(Setting_GetFieldName_Request)
+      returns(Setting_GetFieldName_Response);
+  rpc Library_QueryGetAllFiles(google.protobuf.Empty)
+      returns(Library_QueryGetAllFiles_Response);
+  rpc NowPlayingList_QueryGetAllFiles(google.protobuf.Empty)
+      returns(NowPlayingList_QueryGetAllFiles_Response);
+  rpc Playlist_QueryGetAllFiles(google.protobuf.Empty)
+      returns(Playlist_QueryGetAllFiles_Response);
+  rpc MB_SetBackgroundTaskMessage(MB_SetBackgroundTaskMessage_Request)
+      returns(google.protobuf.Empty);
+  rpc Player_GetShowTimeRemaining(google.protobuf.Empty)
+      returns(Player_GetShowTimeRemaining_Response);
+  rpc NowPlayingList_GetCurrentIndex(google.protobuf.Empty)
+      returns(NowPlayingList_GetCurrentIndex_Response);
+  rpc NowPlayingList_GetListFileUrl(NowPlayingList_GetListFileUrl_Request)
+      returns(NowPlayingList_GetListFileUrl_Response);
+  rpc NowPlayingList_GetFileProperty(NowPlayingList_GetFileProperty_Request)
+      returns(NowPlayingList_GetFileProperty_Response);
+  rpc NowPlayingList_GetFileTag(NowPlayingList_GetFileTag_Request)
+      returns(NowPlayingList_GetFileTag_Response);
+  rpc NowPlaying_GetSpectrumData(NowPlaying_GetSpectrumData_Request)
+      returns(NowPlaying_GetSpectrumData_Response);
+  rpc NowPlaying_GetSoundGraph(NowPlaying_GetSoundGraph_Request)
+      returns(NowPlaying_GetSoundGraph_Response);
+  rpc MB_GetLocalisation(MB_GetLocalisation_Request)
+      returns(MB_GetLocalisation_Response);
+  rpc NowPlayingList_IsAnyPriorTracks(google.protobuf.Empty)
+      returns(NowPlayingList_IsAnyPriorTracks_Response);
+  rpc Player_ShowEqualiser(google.protobuf.Empty)
+      returns(Player_ShowEqualiser_Response);
+  rpc Player_GetAutoDjEnabled(google.protobuf.Empty)
+      returns(Player_GetAutoDjEnabled_Response);
+  rpc Player_GetStopAfterCurrentEnabled(google.protobuf.Empty)
+      returns(Player_GetStopAfterCurrentEnabled_Response);
+  rpc Player_GetCrossfade(google.protobuf.Empty)
+      returns(Player_GetCrossfade_Response);
+  rpc Player_SetCrossfade(Player_SetCrossfade_Request)
+      returns(Player_SetCrossfade_Response);
+  rpc Player_GetReplayGainMode(google.protobuf.Empty)
+      returns(Player_GetReplayGainMode_Response);
+  rpc Player_SetReplayGainMode(Player_SetReplayGainMode_Request)
+      returns(Player_SetReplayGainMode_Response);
+  rpc Player_QueueRandomTracks(Player_QueueRandomTracks_Request)
+      returns(Player_QueueRandomTracks_Response);
+  rpc Setting_GetDataType(Setting_GetDataType_Request)
+      returns(Setting_GetDataType_Response);
+  rpc NowPlayingList_GetNextIndex(NowPlayingList_GetNextIndex_Request)
+      returns(NowPlayingList_GetNextIndex_Response);
+  rpc NowPlaying_GetArtistPicture(NowPlaying_GetArtistPicture_Request)
+      returns(NowPlaying_GetArtistPicture_Response);
+  rpc NowPlaying_GetDownloadedArtwork(google.protobuf.Empty)
+      returns(NowPlaying_GetDownloadedArtwork_Response);
+  rpc MB_ShowNowPlayingAssistant(google.protobuf.Empty)
+      returns(MB_ShowNowPlayingAssistant_Response);
+  rpc NowPlaying_GetDownloadedLyrics(google.protobuf.Empty)
+      returns(NowPlaying_GetDownloadedLyrics_Response);
+  rpc Player_GetShowRatingTrack(google.protobuf.Empty)
+      returns(Player_GetShowRatingTrack_Response);
+  rpc Player_GetShowRatingLove(google.protobuf.Empty)
+      returns(Player_GetShowRatingLove_Response);
+  rpc Setting_GetLastFmUserId(google.protobuf.Empty)
+      returns(Setting_GetLastFmUserId_Response);
+  rpc Playlist_GetName(Playlist_GetName_Request)
+      returns(Playlist_GetName_Response);
+  rpc Playlist_CreatePlaylist(Playlist_CreatePlaylist_Request)
+      returns(Playlist_CreatePlaylist_Response);
+  rpc Playlist_SetFiles(Playlist_SetFiles_Request)
+      returns(Playlist_SetFiles_Response);
+  rpc Library_QuerySimilarArtists(Library_QuerySimilarArtists_Request)
+      returns(Library_QuerySimilarArtists_Response);
+  rpc Library_QueryLookupTable(Library_QueryLookupTable_Request)
+      returns(Library_QueryLookupTable_Response);
+  rpc Library_QueryGetLookupTableValue(Library_QueryGetLookupTableValue_Request)
+      returns(Library_QueryGetLookupTableValue_Response);
+  rpc NowPlayingList_QueueFilesNext(NowPlayingList_QueueFilesNext_Request)
+      returns(NowPlayingList_QueueFilesNext_Response);
+  rpc NowPlayingList_QueueFilesLast(NowPlayingList_QueueFilesLast_Request)
+      returns(NowPlayingList_QueueFilesLast_Response);
+  rpc Setting_GetWebProxy(google.protobuf.Empty)
+      returns(Setting_GetWebProxy_Response);
+  rpc NowPlayingList_RemoveAt(NowPlayingList_RemoveAt_Request)
+      returns(NowPlayingList_RemoveAt_Response);
+  rpc Playlist_RemoveAt(Playlist_RemoveAt_Request)
+      returns(Playlist_RemoveAt_Response);
+  rpc MB_OpenFilterInTab(MB_OpenFilterInTab_Request)
+      returns(MB_OpenFilterInTab_Response);
+  rpc MB_SetWindowSize(MB_SetWindowSize_Request)
+      returns(MB_SetWindowSize_Response);
+  rpc Library_GetArtistPicture(Library_GetArtistPicture_Request)
+      returns(Library_GetArtistPicture_Response);
+  rpc Pending_GetFileUrl(google.protobuf.Empty)
+      returns(Pending_GetFileUrl_Response);
+  rpc Pending_GetFileProperty(Pending_GetFileProperty_Request)
+      returns(Pending_GetFileProperty_Response);
+  rpc Pending_GetFileTag(Pending_GetFileTag_Request)
+      returns(Pending_GetFileTag_Response);
+  rpc Player_GetButtonEnabled(Player_GetButtonEnabled_Request)
+      returns(Player_GetButtonEnabled_Response);
+  rpc NowPlayingList_MoveFiles(NowPlayingList_MoveFiles_Request)
+      returns(NowPlayingList_MoveFiles_Response);
+  rpc Library_GetArtworkUrl(Library_GetArtworkUrl_Request)
+      returns(Library_GetArtworkUrl_Response);
+  rpc Library_GetArtistPictureThumb(Library_GetArtistPictureThumb_Request)
+      returns(Library_GetArtistPictureThumb_Response);
+  rpc NowPlaying_GetArtworkUrl(google.protobuf.Empty)
+      returns(NowPlaying_GetArtworkUrl_Response);
+  rpc NowPlaying_GetDownloadedArtworkUrl(google.protobuf.Empty)
+      returns(NowPlaying_GetDownloadedArtworkUrl_Response);
+  rpc NowPlaying_GetArtistPictureThumb(google.protobuf.Empty)
+      returns(NowPlaying_GetArtistPictureThumb_Response);
+  rpc Playlist_IsInList(Playlist_IsInList_Request)
+      returns(Playlist_IsInList_Response);
+  rpc Library_GetArtistPictureUrls(Library_GetArtistPictureUrls_Request)
+      returns(Library_GetArtistPictureUrls_Response);
+  rpc NowPlaying_GetArtistPictureUrls(NowPlaying_GetArtistPictureUrls_Request)
+      returns(NowPlaying_GetArtistPictureUrls_Response);
+  rpc Playlist_AppendFiles(Playlist_AppendFiles_Request)
+      returns(Playlist_AppendFiles_Response);
+  rpc Sync_FileStart(Sync_FileStart_Request)
+      returns(Sync_FileStart_Response);
+  rpc Sync_FileEnd(Sync_FileEnd_Request)
+      returns(google.protobuf.Empty);
+  rpc Library_QueryFilesEx(Library_QueryFilesEx_Request)
+      returns(Library_QueryFilesEx_Response);
+  rpc NowPlayingList_QueryFilesEx(NowPlayingList_QueryFilesEx_Request)
+      returns(NowPlayingList_QueryFilesEx_Response);
+  rpc Playlist_QueryFilesEx(Playlist_QueryFilesEx_Request)
+      returns(Playlist_QueryFilesEx_Response);
+  rpc Playlist_MoveFiles(Playlist_MoveFiles_Request)
+      returns(Playlist_MoveFiles_Response);
+  rpc Playlist_PlayNow(Playlist_PlayNow_Request)
+      returns(Playlist_PlayNow_Response);
+  rpc NowPlaying_IsSoundtrack(google.protobuf.Empty)
+      returns(NowPlaying_IsSoundtrack_Response);
+  rpc NowPlaying_GetSoundtrackPictureUrls(NowPlaying_GetSoundtrackPictureUrls_Request)
+      returns(NowPlaying_GetSoundtrackPictureUrls_Response);
+  rpc Library_GetDevicePersistentId(Library_GetDevicePersistentId_Request)
+      returns(Library_GetDevicePersistentId_Response);
+  rpc Library_SetDevicePersistentId(Library_SetDevicePersistentId_Request)
+      returns(Library_SetDevicePersistentId_Response);
+  rpc Library_FindDevicePersistentId(Library_FindDevicePersistentId_Request)
+      returns(Library_FindDevicePersistentId_Response);
+  rpc Library_AddFileToLibrary(Library_AddFileToLibrary_Request)
+      returns(Library_AddFileToLibrary_Response);
+  rpc Playlist_DeletePlaylist(Playlist_DeletePlaylist_Request)
+      returns(Playlist_DeletePlaylist_Response);
+  rpc Library_GetFileTags(Library_GetFileTags_Request)
+      returns(Library_GetFileTags_Response);
+  rpc NowPlaying_GetFileTags(NowPlaying_GetFileTags_Request)
+      returns(NowPlaying_GetFileTags_Response);
+  rpc NowPlayingList_GetFileTags(NowPlayingList_GetFileTags_Request)
+      returns(NowPlayingList_GetFileTags_Response);
+  rpc MB_DownloadFile(MB_DownloadFile_Request)
+      returns(MB_DownloadFile_Response);
+  rpc Setting_GetFileConvertCommandLine(Setting_GetFileConvertCommandLine_Request)
+      returns(Setting_GetFileConvertCommandLine_Response);
+  rpc Player_OpenStreamHandle(Player_OpenStreamHandle_Request)
+      returns(Player_OpenStreamHandle_Response);
+  rpc Player_UpdatePlayStatistics(Player_UpdatePlayStatistics_Request)
+      returns(Player_UpdatePlayStatistics_Response);
+  rpc Library_GetArtworkEx(Library_GetArtworkEx_Request)
+      returns(Library_GetArtworkEx_Response);
+  rpc Library_SetArtworkEx(Library_SetArtworkEx_Request)
+      returns(Library_SetArtworkEx_Response);
+  rpc MB_GetVisualiserInformation(google.protobuf.Empty)
+      returns(MB_GetVisualiserInformation_Response);
+  rpc MB_ShowVisualiser(MB_ShowVisualiser_Request)
+      returns(MB_ShowVisualiser_Response);
+  rpc MB_GetPluginViewInformation(MB_GetPluginViewInformation_Request)
+      returns(MB_GetPluginViewInformation_Response);
+  rpc MB_ShowPluginView(MB_ShowPluginView_Request)
+      returns(MB_ShowPluginView_Response);
+  rpc Player_GetOutputDevices(google.protobuf.Empty)
+      returns(Player_GetOutputDevices_Response);
+  rpc Player_SetOutputDevice(Player_SetOutputDevice_Request)
+      returns(Player_SetOutputDevice_Response);
+  rpc MB_UninstallPlugin(MB_UninstallPlugin_Request)
+      returns(MB_UninstallPlugin_Response);
+  rpc Player_PlayPreviousAlbum(google.protobuf.Empty)
+      returns(Player_PlayPreviousAlbum_Response);
+  rpc Player_PlayNextAlbum(google.protobuf.Empty)
+      returns(Player_PlayNextAlbum_Response);
+  rpc Podcasts_QuerySubscriptions(Podcasts_QuerySubscriptions_Request)
+      returns(Podcasts_QuerySubscriptions_Response);
+  rpc Podcasts_GetSubscription(Podcasts_GetSubscription_Request)
+      returns(Podcasts_GetSubscription_Response);
+  rpc Podcasts_GetSubscriptionArtwork(Podcasts_GetSubscriptionArtwork_Request)
+      returns(Podcasts_GetSubscriptionArtwork_Response);
+  rpc Podcasts_GetSubscriptionEpisodes(Podcasts_GetSubscriptionEpisodes_Request)
+      returns(Podcasts_GetSubscriptionEpisodes_Response);
+  rpc Podcasts_GetSubscriptionEpisode(Podcasts_GetSubscriptionEpisode_Request)
+      returns(Podcasts_GetSubscriptionEpisode_Response);
+  rpc NowPlaying_GetSoundGraphEx(NowPlaying_GetSoundGraphEx_Request)
+      returns(NowPlaying_GetSoundGraphEx_Response);
+  rpc Sync_FileDeleteStart(Sync_FileDeleteStart_Request)
+      returns(Sync_FileDeleteStart_Response);
+  rpc Sync_FileDeleteEnd(Sync_FileDeleteEnd_Request)
+      returns(google.protobuf.Empty);
 }
-
-message Library_QueryFilesEx_Request {
-  string query = 1;
-}
-
-message Library_QueryFilesEx_Response {
-  bool result = 1;
-  repeated string files = 2;
-}
-
-message Library_GetFileTag_Request {
-  string sourceFileUrl = 1;
-  int32 field = 2;
-}
-
-message Library_GetFileTag_Response {
-  string tagValue = 1;
-}
-
-

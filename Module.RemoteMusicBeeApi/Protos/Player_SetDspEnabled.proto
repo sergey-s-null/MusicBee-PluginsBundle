@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Player_SetDspEnabled_Request {
+  bool enabled = 1;
+}
+
+message Player_SetDspEnabled_Response {
+  bool result = 1;
+}
+

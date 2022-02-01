@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlaying_GetFileTag_Request {
+  int32 field = 1;
+}
+
+message NowPlaying_GetFileTag_Response {
+  string result = 1;
+}
+

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Library_GetArtworkUrl_Request {
+  string sourceFileUrl = 1;
+  int32 index = 2;
+}
+
+message Library_GetArtworkUrl_Response {
+  string result = 1;
+}
+

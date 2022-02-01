@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Player_SetVolume_Request {
+  float volume = 1;
+}
+
+message Player_SetVolume_Response {
+  bool result = 1;
+}
+

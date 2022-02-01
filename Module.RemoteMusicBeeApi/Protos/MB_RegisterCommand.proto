@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message MB_RegisterCommand_Request {
+  int32 command = 1;
+  int32 handler = 2;
+}
+
+message MB_RegisterCommand_Response {
+  int32 result = 1;
+}
+

@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message NowPlaying_GetDuration_Response {
+  int32 result = 1;
+}
+

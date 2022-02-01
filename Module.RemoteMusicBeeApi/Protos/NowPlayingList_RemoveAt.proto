@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlayingList_RemoveAt_Request {
+  int32 index = 1;
+}
+
+message NowPlayingList_RemoveAt_Response {
+  bool result = 1;
+}
+

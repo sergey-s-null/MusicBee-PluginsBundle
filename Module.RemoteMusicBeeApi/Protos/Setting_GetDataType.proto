@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Setting_GetDataType_Request {
+  int32 field = 1;
+}
+
+message Setting_GetDataType_Response {
+  int32 result = 1;
+}
+

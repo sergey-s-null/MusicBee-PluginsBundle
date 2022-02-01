@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Library_AddFileToLibrary_Request {
+  string sourceFileUrl = 1;
+  int32 category = 2;
+}
+
+message Library_AddFileToLibrary_Response {
+  string result = 1;
+}
+

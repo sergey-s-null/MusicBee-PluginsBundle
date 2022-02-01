@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Library_SetArtworkEx_Request {
+  string sourceFileUrl = 1;
+  int32 index = 2;
+  repeated int32 imageData = 3;
+}
+
+message Library_SetArtworkEx_Response {
+  bool result = 1;
+}
+

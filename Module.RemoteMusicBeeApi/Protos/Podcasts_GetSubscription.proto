@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Podcasts_GetSubscription_Request {
+  string id = 1;
+}
+
+message Podcasts_GetSubscription_Response {
+  bool result = 1;
+  repeated string subscription = 2;
+}
+

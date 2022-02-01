@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message NowPlayingList_Clear_Response {
+  bool result = 1;
+}
+

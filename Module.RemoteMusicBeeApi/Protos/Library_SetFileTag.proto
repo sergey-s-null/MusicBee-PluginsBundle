@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Library_SetFileTag_Request {
+  string sourceFileUrl = 1;
+  int32 field = 2;
+  string value = 3;
+}
+
+message Library_SetFileTag_Response {
+  bool result = 1;
+}
+

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message NowPlaying_GetSoundGraphEx_Request {
+  repeated float graphData = 1;
+  repeated float peakData = 2;
+}
+
+message NowPlaying_GetSoundGraphEx_Response {
+  bool result = 1;
+}
+

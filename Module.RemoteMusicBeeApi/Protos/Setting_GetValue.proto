@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Setting_GetValue_Request {
+  int32 settingId = 1;
+}
+
+message Setting_GetValue_Response {
+  int32 result = 1;
+  int32 value = 2;
+}
+

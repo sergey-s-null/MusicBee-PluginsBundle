@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message NowPlaying_GetArtistPictureUrls_Request {
+  bool localOnly = 1;
+}
+
+message NowPlaying_GetArtistPictureUrls_Response {
+  bool result = 1;
+  repeated string urls = 2;
+}
+

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Playlist_SetFiles_Request {
+  string playlistUrl = 1;
+  repeated string filenames = 2;
+}
+
+message Playlist_SetFiles_Response {
+  bool result = 1;
+}
+

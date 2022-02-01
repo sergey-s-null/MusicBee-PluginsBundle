@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message MB_SendNotification_Request {
+  int32 type = 1;
+}
+

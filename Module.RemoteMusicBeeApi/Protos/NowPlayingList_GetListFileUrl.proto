@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlayingList_GetListFileUrl_Request {
+  int32 index = 1;
+}
+
+message NowPlayingList_GetListFileUrl_Response {
+  string result = 1;
+}
+

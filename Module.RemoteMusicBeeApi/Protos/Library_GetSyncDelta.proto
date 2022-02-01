@@ -1,0 +1,4 @@
+syntax = "proto3";
+
+message Library_GetSyncDelta_Request {
+  repeated string cachedFiles = 1;

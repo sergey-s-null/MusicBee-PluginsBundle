@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Library_GetFileTags_Request {
+  string sourceFileUrl = 1;
+  repeated int32 fields = 2;
+}
+
+message Library_GetFileTags_Response {
+  bool result = 1;
+  repeated string results = 2;
+}
+

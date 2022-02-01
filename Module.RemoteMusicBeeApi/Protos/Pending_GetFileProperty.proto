@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Pending_GetFileProperty_Request {
+  int32 field = 1;
+}
+
+message Pending_GetFileProperty_Response {
+  string result = 1;
+}
+

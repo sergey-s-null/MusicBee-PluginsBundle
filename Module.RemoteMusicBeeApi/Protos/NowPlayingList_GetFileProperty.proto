@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message NowPlayingList_GetFileProperty_Request {
+  int32 index = 1;
+  int32 type = 2;
+}
+
+message NowPlayingList_GetFileProperty_Response {
+  string result = 1;
+}
+

@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message Player_GetOutputDevices_Response {
+  bool result = 1;
+  repeated string deviceNames = 2;
+  string activeDeviceName = 3;
+}
+

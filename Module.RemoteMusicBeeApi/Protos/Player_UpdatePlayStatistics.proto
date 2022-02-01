@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Player_UpdatePlayStatistics_Request {
+  string url = 1;
+  int32 countType = 2;
+  bool disableScrobble = 3;
+}
+
+message Player_UpdatePlayStatistics_Response {
+  bool result = 1;
+}
+

@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Setting_GetPersistentStoragePath_Response {
+  string result = 1;
+}
+

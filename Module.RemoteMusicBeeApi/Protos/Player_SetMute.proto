@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Player_SetMute_Request {
+  bool mute = 1;
+}
+
+message Player_SetMute_Response {
+  bool result = 1;
+}
+

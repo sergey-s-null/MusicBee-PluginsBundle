@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Library_GetArtistPictureUrls_Request {
+  string artistName = 1;
+  bool localOnly = 2;
+}
+
+message Library_GetArtistPictureUrls_Response {
+  bool result = 1;
+  repeated string urls = 2;
+}
+

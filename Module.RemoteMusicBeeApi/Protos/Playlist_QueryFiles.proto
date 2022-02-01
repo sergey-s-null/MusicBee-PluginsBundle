@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Playlist_QueryFiles_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_QueryFiles_Response {
+  bool result = 1;
+}
+

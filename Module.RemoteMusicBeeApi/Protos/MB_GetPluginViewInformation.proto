@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message MB_GetPluginViewInformation_Request {
+  string pluginFilename = 1;
+}
+
+message MB_GetPluginViewInformation_Response {
+  bool result = 1;
+  repeated string viewNames = 2;
+  string defaultViewName = 3;
+  int32 defaultState = 4;
+  int32 currentState = 5;
+}
+

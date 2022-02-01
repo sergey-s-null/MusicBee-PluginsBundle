@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlayingList_QueryFiles_Request {
+  string query = 1;
+}
+
+message NowPlayingList_QueryFiles_Response {
+  bool result = 1;
+}
+

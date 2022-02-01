@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message NowPlaying_GetFileProperty_Request {
+  int32 type = 1;
+}
+
+message NowPlaying_GetFileProperty_Response {
+  string result = 1;
+}
+

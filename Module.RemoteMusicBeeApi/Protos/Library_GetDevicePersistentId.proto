@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Library_GetDevicePersistentId_Request {
+  string sourceFileUrl = 1;
+  int32 idType = 2;
+}
+
+message Library_GetDevicePersistentId_Response {
+  string result = 1;
+}
+

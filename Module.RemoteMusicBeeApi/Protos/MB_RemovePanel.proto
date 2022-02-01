@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message MB_RemovePanel_Request {
+  int32 panel = 1;
+}
+
+message MB_RemovePanel_Response {
+  int32 result = 1;
+}
+

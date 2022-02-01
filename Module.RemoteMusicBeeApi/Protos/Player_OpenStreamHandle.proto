@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message Player_OpenStreamHandle_Request {
+  string url = 1;
+  bool useMusicBeeSettings = 2;
+  bool enableDsp = 3;
+  int32 gainType = 4;
+}
+
+message Player_OpenStreamHandle_Response {
+  int32 result = 1;
+}
+

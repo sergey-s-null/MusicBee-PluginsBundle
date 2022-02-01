@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Setting_GetFileConvertCommandLine_Request {
+  int32 codec = 1;
+  int32 encodeQuality = 2;
+}
+
+message Setting_GetFileConvertCommandLine_Response {
+  string result = 1;
+}
+

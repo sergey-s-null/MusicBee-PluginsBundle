@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Setting_GetSkinElementColour_Request {
+  int32 element = 1;
+  int32 state = 2;
+  int32 component = 3;
+}
+
+message Setting_GetSkinElementColour_Response {
+  int32 result = 1;
+}
+

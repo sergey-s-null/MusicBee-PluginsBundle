@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message NowPlayingList_MoveFiles_Request {
+  repeated int32 fromIndices = 1;
+  int32 toIndex = 2;
+}
+
+message NowPlayingList_MoveFiles_Response {
+  bool result = 1;
+}
+

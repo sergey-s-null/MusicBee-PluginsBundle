@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message MB_GetLocalisation_Request {
+  string id = 1;
+  string defaultText = 2;
+}
+
+message MB_GetLocalisation_Response {
+  string result = 1;
+}
+

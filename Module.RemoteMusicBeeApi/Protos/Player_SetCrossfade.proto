@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Player_SetCrossfade_Request {
+  bool crossfade = 1;
+}
+
+message Player_SetCrossfade_Response {
+  bool result = 1;
+}
+

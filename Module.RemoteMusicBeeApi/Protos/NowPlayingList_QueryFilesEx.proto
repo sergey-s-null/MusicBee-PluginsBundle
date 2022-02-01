@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message NowPlayingList_QueryFilesEx_Request {
+  string query = 1;
+}
+
+message NowPlayingList_QueryFilesEx_Response {
+  bool result = 1;
+  repeated string files = 2;
+}
+

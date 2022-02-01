@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Player_SetPosition_Request {
+  int32 position = 1;
+}
+
+message Player_SetPosition_Response {
+  bool result = 1;
+}
+
