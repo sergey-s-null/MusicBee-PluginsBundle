@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using MBApiProtoGenerator.Builders;
 using MBApiProtoGenerator.Enums;
+using MBApiProtoGenerator.Helpers;
 using MBApiProtoGenerator.Models;
 using Microsoft.Build.Evaluation;
 using Root;
@@ -13,12 +15,14 @@ namespace MBApiProtoGenerator
 {
     internal class Program
     {
-        private const string ProjectPath = @"..\..\..\Module.RemoteMusicBeeApi";
-        private const string ExportPathInsideProject = "Protos";
 
         private const string ServiceName = "MusicBeeApiService";
 
-        private const string CsProjFilePath = ProjectPath + @"\Module.RemoteMusicBeeApi.csproj";
+        private const string ModuleProjectPath = @"..\..\..\Module.RemoteMusicBeeApi";
+        private const string ExportPathInsideModuleProject = "Protos";
+        private const string ModuleCsProjFilePath = ModuleProjectPath + @"\Module.RemoteMusicBeeApi.csproj";
+        private const string ConsoleTestsCsProjFilePath = @"..\..\..\ConsoleTests\ConsoleTests.csproj";
+        private const string FromConsoleTestToModulePath = @"..\Module.RemoteMusicBeeApi";
 
         private static readonly IReadOnlyCollection<string> FieldsToExport = new[]
         {
@@ -222,29 +226,48 @@ namespace MBApiProtoGenerator
 
             new ProtoFilesBuilder()
                 .SetPostfixes("_Request", "_Response")
-                .SetExportPath(ProjectPath, ExportPathInsideProject)
+                .SetExportPath(ModuleProjectPath, ExportPathInsideModuleProject)
                 .SetReturnParameterName("result")
                 .AddMethods(methods)
                 .DeleteCurrentProtoFiles()
                 .CreateMessagesProtoFiles()
                 .CreateServiceProtoFile(ServiceName);
 
-            AddProtobufToCsProj(methods);
+            AddProtobufToModuleCsProj(methods);
+            AddProtobufToConsoleTestsCsProj(methods);
         }
 
-        private static void AddProtobufToCsProj(IEnumerable<MBApiMethodDefinition> methods)
+        private static void AddProtobufToModuleCsProj(IEnumerable<MBApiMethodDefinition> methods)
         {
             var projectCollection = new ProjectCollection();
-            var project = projectCollection.LoadProject(CsProjFilePath);
+            var project = projectCollection.LoadProject(ModuleCsProjFilePath);
 
             var filePaths = methods
-                .Select(x => @$"{ExportPathInsideProject}\{x.Name}.proto")
-                .Append(@$"{ExportPathInsideProject}\{ServiceName}.proto");
+                .Select(x => @$"{ExportPathInsideModuleProject}\{x.Name}.proto")
+                .Append(@$"{ExportPathInsideModuleProject}\{ServiceName}.proto");
 
             new CsProjProtobufBuilder(project)
                 .RemoveAllProtobuf()
                 .SetProtobufType(ProtobufType.Server)
                 .AddProtobufItemGroup(filePaths)
+                .SaveProject();
+        }
+
+        private static void AddProtobufToConsoleTestsCsProj(IEnumerable<MBApiMethodDefinition> methods)
+        {
+            var projectCollection = new ProjectCollection();
+            var project = projectCollection.LoadProject(ConsoleTestsCsProjFilePath);
+            
+            var messagesFilePaths = methods
+                .Select(x => Path.Combine(FromConsoleTestToModulePath, ExportPathInsideModuleProject, $"{x.Name}.proto"));
+            var serviceFilePath = Path.Combine(FromConsoleTestToModulePath, ExportPathInsideModuleProject, $"{ServiceName}.proto");
+
+            new CsProjProtobufBuilder(project)
+                .RemoveAllProtobuf()
+                .SetProtobufType(ProtobufType.Client)
+                .AddProtobufItemGroup(messagesFilePaths)
+                .SetProtoRoot(FromConsoleTestToModulePath)
+                .AddProtobufItemGroup(serviceFilePath)
                 .SaveProject();
         }
 
