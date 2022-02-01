@@ -1,4 +1,4 @@
-﻿namespace MBApiProtoGenerator
+﻿namespace MBApiProtoGenerator.Enums
 {
     public enum ProtobufType
     {

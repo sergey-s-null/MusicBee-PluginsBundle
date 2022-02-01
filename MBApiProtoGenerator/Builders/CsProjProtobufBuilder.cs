@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MBApiProtoGenerator.Enums;
 using Microsoft.Build.Evaluation;
 using Root.Helpers;
 
