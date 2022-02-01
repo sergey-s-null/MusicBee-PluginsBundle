@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message MB_SetBackgroundTaskMessage_Request {
-  string message = 1;
-}
-

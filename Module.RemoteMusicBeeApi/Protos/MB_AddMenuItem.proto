@@ -1,5 +1,0 @@
-syntax = "proto3";
-
-message MB_AddMenuItem_Request {
-  string menuPath = 1;
-  string hotkeyDescription = 2;

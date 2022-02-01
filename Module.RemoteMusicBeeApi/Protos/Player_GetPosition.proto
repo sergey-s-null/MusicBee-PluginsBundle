@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message Player_GetPosition_Response {
-  int32 result = 1;
-}
-

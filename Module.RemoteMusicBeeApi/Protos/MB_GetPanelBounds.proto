@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-message MB_GetPanelBounds_Request {
-  int32 dock = 1;
-}
-
-message MB_GetPanelBounds_Response {

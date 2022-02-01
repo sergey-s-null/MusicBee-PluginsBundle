@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message Setting_IsWindowBordersSkinned_Response {
-  bool result = 1;
-}
-

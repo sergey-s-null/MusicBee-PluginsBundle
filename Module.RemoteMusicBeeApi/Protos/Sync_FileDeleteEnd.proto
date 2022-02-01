@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-message Sync_FileDeleteEnd_Request {
-  string filename = 1;
-  bool success = 2;
-  string errorMessage = 3;
-}
-

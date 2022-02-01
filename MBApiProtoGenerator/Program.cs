@@ -15,9 +15,9 @@ namespace MBApiProtoGenerator
 {
     internal class Program
     {
-
         private const string ServiceName = "MusicBeeApiService";
 
+        private const ServiceGenerationMode GenerationMode = ServiceGenerationMode.SingleFile;
         private const string ModuleProjectPath = @"..\..\..\Module.RemoteMusicBeeApi";
         private const string ExportPathInsideModuleProject = "Protos";
         private const string ModuleCsProjFilePath = ModuleProjectPath + @"\Module.RemoteMusicBeeApi.csproj";
@@ -224,17 +224,29 @@ namespace MBApiProtoGenerator
                 .Select(Define)
                 .ToReadOnlyCollection();
 
-            new ProtoFilesBuilder()
+            GenerateProtoFiles(methods);
+
+            AddProtobufToModuleCsProj(methods);
+            AddProtobufToConsoleTestsCsProj(methods);
+        }
+
+        private static void GenerateProtoFiles(IEnumerable<MBApiMethodDefinition> methods)
+        {
+            var builder = new ProtoFilesBuilder()
                 .SetPostfixes("_Request", "_Response")
                 .SetExportPath(ModuleProjectPath, ExportPathInsideModuleProject)
                 .SetReturnParameterName("result")
                 .AddMethods(methods)
-                .DeleteCurrentProtoFiles()
-                .CreateMessagesProtoFiles()
-                .CreateServiceProtoFile(ServiceName);
+                .DeleteCurrentProtoFiles();
 
-            AddProtobufToModuleCsProj(methods);
-            AddProtobufToConsoleTestsCsProj(methods);
+            if (GenerationMode == ServiceGenerationMode.MessagesInSeparateFiles)
+            {
+                builder.CreateMessagesProtoFiles();
+            }
+
+            builder
+                .SetServiceGenerationMode(GenerationMode)
+                .CreateServiceProtoFile(ServiceName);
         }
 
         private static void AddProtobufToModuleCsProj(IEnumerable<MBApiMethodDefinition> methods)
@@ -242,9 +254,15 @@ namespace MBApiProtoGenerator
             var projectCollection = new ProjectCollection();
             var project = projectCollection.LoadProject(ModuleCsProjFilePath);
 
-            var filePaths = methods
-                .Select(x => @$"{ExportPathInsideModuleProject}\{x.Name}.proto")
-                .Append(@$"{ExportPathInsideModuleProject}\{ServiceName}.proto");
+            var serviceFilePath = @$"{ExportPathInsideModuleProject}\{ServiceName}.proto";
+            var filePaths = GenerationMode switch
+            {
+                ServiceGenerationMode.MessagesInSeparateFiles => methods
+                    .Select(x => @$"{ExportPathInsideModuleProject}\{x.Name}.proto")
+                    .Append(serviceFilePath),
+                ServiceGenerationMode.SingleFile => new[] { serviceFilePath },
+                _ => throw new ArgumentOutOfRangeException(nameof(GenerationMode), GenerationMode, null)
+            };
 
             new CsProjProtobufBuilder(project)
                 .RemoveAllProtobuf()
@@ -257,16 +275,24 @@ namespace MBApiProtoGenerator
         {
             var projectCollection = new ProjectCollection();
             var project = projectCollection.LoadProject(ConsoleTestsCsProjFilePath);
-            
-            var messagesFilePaths = methods
-                .Select(x => Path.Combine(FromConsoleTestToModulePath, ExportPathInsideModuleProject, $"{x.Name}.proto"));
-            var serviceFilePath = Path.Combine(FromConsoleTestToModulePath, ExportPathInsideModuleProject, $"{ServiceName}.proto");
 
-            new CsProjProtobufBuilder(project)
+            var builder = new CsProjProtobufBuilder(project)
                 .RemoveAllProtobuf()
-                .SetProtobufType(ProtobufType.Client)
-                .AddProtobufItemGroup(messagesFilePaths)
-                .SetProtoRoot(FromConsoleTestToModulePath)
+                .SetProtobufType(ProtobufType.Client);
+
+            if (GenerationMode == ServiceGenerationMode.MessagesInSeparateFiles)
+            {
+                var messagesFilePaths = methods
+                    .Select(x =>
+                        Path.Combine(FromConsoleTestToModulePath, ExportPathInsideModuleProject, $"{x.Name}.proto"));
+                builder
+                    .AddProtobufItemGroup(messagesFilePaths)
+                    .SetProtoRoot(FromConsoleTestToModulePath);
+            }
+
+            var serviceFilePath = Path.Combine(FromConsoleTestToModulePath, ExportPathInsideModuleProject,
+                $"{ServiceName}.proto");
+            builder
                 .AddProtobufItemGroup(serviceFilePath)
                 .SaveProject();
         }

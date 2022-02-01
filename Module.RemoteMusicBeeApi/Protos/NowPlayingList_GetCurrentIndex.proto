@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message NowPlayingList_GetCurrentIndex_Response {
-  int32 result = 1;
-}
-

@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message NowPlayingList_QueryGetAllFiles_Response {
-  string result = 1;
-}
-

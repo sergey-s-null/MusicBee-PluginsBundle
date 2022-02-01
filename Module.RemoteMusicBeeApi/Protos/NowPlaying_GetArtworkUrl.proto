@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message NowPlaying_GetArtworkUrl_Response {
-  string result = 1;
-}
-

@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-message MB_RefreshPanels_Request {
-}
-
-message MB_RefreshPanels_Response {
-  int32 result = 1;
-}
-

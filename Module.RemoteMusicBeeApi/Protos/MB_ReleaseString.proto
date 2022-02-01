@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message MB_ReleaseString_Request {
-  string p1 = 1;
-}
-

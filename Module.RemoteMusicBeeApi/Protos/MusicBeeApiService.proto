@@ -2,162 +2,6 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-import "Protos/MB_ReleaseString.proto";
-import "Protos/MB_Trace.proto";
-import "Protos/Setting_GetPersistentStoragePath.proto";
-import "Protos/Setting_GetSkin.proto";
-import "Protos/Setting_GetSkinElementColour.proto";
-import "Protos/Setting_IsWindowBordersSkinned.proto";
-import "Protos/Library_GetFileProperty.proto";
-import "Protos/Library_GetFileTag.proto";
-import "Protos/Library_SetFileTag.proto";
-import "Protos/Library_CommitTagsToFile.proto";
-import "Protos/Library_GetLyrics.proto";
-import "Protos/Library_QueryFiles.proto";
-import "Protos/Library_QueryGetNextFile.proto";
-import "Protos/Player_GetPosition.proto";
-import "Protos/Player_SetPosition.proto";
-import "Protos/Player_GetPlayState.proto";
-import "Protos/Player_PlayPause.proto";
-import "Protos/Player_Stop.proto";
-import "Protos/Player_StopAfterCurrent.proto";
-import "Protos/Player_PlayPreviousTrack.proto";
-import "Protos/Player_PlayNextTrack.proto";
-import "Protos/Player_StartAutoDj.proto";
-import "Protos/Player_EndAutoDj.proto";
-import "Protos/Player_GetVolume.proto";
-import "Protos/Player_SetVolume.proto";
-import "Protos/Player_GetMute.proto";
-import "Protos/Player_SetMute.proto";
-import "Protos/Player_GetShuffle.proto";
-import "Protos/Player_SetShuffle.proto";
-import "Protos/Player_GetRepeat.proto";
-import "Protos/Player_SetRepeat.proto";
-import "Protos/Player_GetEqualiserEnabled.proto";
-import "Protos/Player_SetEqualiserEnabled.proto";
-import "Protos/Player_GetDspEnabled.proto";
-import "Protos/Player_SetDspEnabled.proto";
-import "Protos/Player_GetScrobbleEnabled.proto";
-import "Protos/Player_SetScrobbleEnabled.proto";
-import "Protos/NowPlaying_GetFileUrl.proto";
-import "Protos/NowPlaying_GetDuration.proto";
-import "Protos/NowPlaying_GetFileProperty.proto";
-import "Protos/NowPlaying_GetFileTag.proto";
-import "Protos/NowPlaying_GetLyrics.proto";
-import "Protos/NowPlaying_GetArtwork.proto";
-import "Protos/NowPlayingList_Clear.proto";
-import "Protos/NowPlayingList_QueryFiles.proto";
-import "Protos/NowPlayingList_QueryGetNextFile.proto";
-import "Protos/NowPlayingList_PlayNow.proto";
-import "Protos/NowPlayingList_QueueNext.proto";
-import "Protos/NowPlayingList_QueueLast.proto";
-import "Protos/NowPlayingList_PlayLibraryShuffled.proto";
-import "Protos/Playlist_QueryPlaylists.proto";
-import "Protos/Playlist_QueryGetNextPlaylist.proto";
-import "Protos/Playlist_GetType.proto";
-import "Protos/Playlist_QueryFiles.proto";
-import "Protos/Playlist_QueryGetNextFile.proto";
-import "Protos/MB_SendNotification.proto";
-import "Protos/Setting_GetFieldName.proto";
-import "Protos/Library_QueryGetAllFiles.proto";
-import "Protos/NowPlayingList_QueryGetAllFiles.proto";
-import "Protos/Playlist_QueryGetAllFiles.proto";
-import "Protos/MB_SetBackgroundTaskMessage.proto";
-import "Protos/Player_GetShowTimeRemaining.proto";
-import "Protos/NowPlayingList_GetCurrentIndex.proto";
-import "Protos/NowPlayingList_GetListFileUrl.proto";
-import "Protos/NowPlayingList_GetFileProperty.proto";
-import "Protos/NowPlayingList_GetFileTag.proto";
-import "Protos/NowPlaying_GetSpectrumData.proto";
-import "Protos/NowPlaying_GetSoundGraph.proto";
-import "Protos/MB_GetLocalisation.proto";
-import "Protos/NowPlayingList_IsAnyPriorTracks.proto";
-import "Protos/Player_ShowEqualiser.proto";
-import "Protos/Player_GetAutoDjEnabled.proto";
-import "Protos/Player_GetStopAfterCurrentEnabled.proto";
-import "Protos/Player_GetCrossfade.proto";
-import "Protos/Player_SetCrossfade.proto";
-import "Protos/Player_GetReplayGainMode.proto";
-import "Protos/Player_SetReplayGainMode.proto";
-import "Protos/Player_QueueRandomTracks.proto";
-import "Protos/Setting_GetDataType.proto";
-import "Protos/NowPlayingList_GetNextIndex.proto";
-import "Protos/NowPlaying_GetArtistPicture.proto";
-import "Protos/NowPlaying_GetDownloadedArtwork.proto";
-import "Protos/MB_ShowNowPlayingAssistant.proto";
-import "Protos/NowPlaying_GetDownloadedLyrics.proto";
-import "Protos/Player_GetShowRatingTrack.proto";
-import "Protos/Player_GetShowRatingLove.proto";
-import "Protos/Setting_GetLastFmUserId.proto";
-import "Protos/Playlist_GetName.proto";
-import "Protos/Playlist_CreatePlaylist.proto";
-import "Protos/Playlist_SetFiles.proto";
-import "Protos/Library_QuerySimilarArtists.proto";
-import "Protos/Library_QueryLookupTable.proto";
-import "Protos/Library_QueryGetLookupTableValue.proto";
-import "Protos/NowPlayingList_QueueFilesNext.proto";
-import "Protos/NowPlayingList_QueueFilesLast.proto";
-import "Protos/Setting_GetWebProxy.proto";
-import "Protos/NowPlayingList_RemoveAt.proto";
-import "Protos/Playlist_RemoveAt.proto";
-import "Protos/MB_OpenFilterInTab.proto";
-import "Protos/MB_SetWindowSize.proto";
-import "Protos/Library_GetArtistPicture.proto";
-import "Protos/Pending_GetFileUrl.proto";
-import "Protos/Pending_GetFileProperty.proto";
-import "Protos/Pending_GetFileTag.proto";
-import "Protos/Player_GetButtonEnabled.proto";
-import "Protos/NowPlayingList_MoveFiles.proto";
-import "Protos/Library_GetArtworkUrl.proto";
-import "Protos/Library_GetArtistPictureThumb.proto";
-import "Protos/NowPlaying_GetArtworkUrl.proto";
-import "Protos/NowPlaying_GetDownloadedArtworkUrl.proto";
-import "Protos/NowPlaying_GetArtistPictureThumb.proto";
-import "Protos/Playlist_IsInList.proto";
-import "Protos/Library_GetArtistPictureUrls.proto";
-import "Protos/NowPlaying_GetArtistPictureUrls.proto";
-import "Protos/Playlist_AppendFiles.proto";
-import "Protos/Sync_FileStart.proto";
-import "Protos/Sync_FileEnd.proto";
-import "Protos/Library_QueryFilesEx.proto";
-import "Protos/NowPlayingList_QueryFilesEx.proto";
-import "Protos/Playlist_QueryFilesEx.proto";
-import "Protos/Playlist_MoveFiles.proto";
-import "Protos/Playlist_PlayNow.proto";
-import "Protos/NowPlaying_IsSoundtrack.proto";
-import "Protos/NowPlaying_GetSoundtrackPictureUrls.proto";
-import "Protos/Library_GetDevicePersistentId.proto";
-import "Protos/Library_SetDevicePersistentId.proto";
-import "Protos/Library_FindDevicePersistentId.proto";
-import "Protos/Library_AddFileToLibrary.proto";
-import "Protos/Playlist_DeletePlaylist.proto";
-import "Protos/Library_GetFileTags.proto";
-import "Protos/NowPlaying_GetFileTags.proto";
-import "Protos/NowPlayingList_GetFileTags.proto";
-import "Protos/MB_DownloadFile.proto";
-import "Protos/Setting_GetFileConvertCommandLine.proto";
-import "Protos/Player_OpenStreamHandle.proto";
-import "Protos/Player_UpdatePlayStatistics.proto";
-import "Protos/Library_GetArtworkEx.proto";
-import "Protos/Library_SetArtworkEx.proto";
-import "Protos/MB_GetVisualiserInformation.proto";
-import "Protos/MB_ShowVisualiser.proto";
-import "Protos/MB_GetPluginViewInformation.proto";
-import "Protos/MB_ShowPluginView.proto";
-import "Protos/Player_GetOutputDevices.proto";
-import "Protos/Player_SetOutputDevice.proto";
-import "Protos/MB_UninstallPlugin.proto";
-import "Protos/Player_PlayPreviousAlbum.proto";
-import "Protos/Player_PlayNextAlbum.proto";
-import "Protos/Podcasts_QuerySubscriptions.proto";
-import "Protos/Podcasts_GetSubscription.proto";
-import "Protos/Podcasts_GetSubscriptionArtwork.proto";
-import "Protos/Podcasts_GetSubscriptionEpisodes.proto";
-import "Protos/Podcasts_GetSubscriptionEpisode.proto";
-import "Protos/NowPlaying_GetSoundGraphEx.proto";
-import "Protos/Sync_FileDeleteStart.proto";
-import "Protos/Sync_FileDeleteEnd.proto";
-
 service MusicBeeApiService {
   rpc MB_ReleaseString(MB_ReleaseString_Request)
       returns(google.protobuf.Empty);
@@ -472,3 +316,1083 @@ service MusicBeeApiService {
   rpc Sync_FileDeleteEnd(Sync_FileDeleteEnd_Request)
       returns(google.protobuf.Empty);
 }
+
+message MB_ReleaseString_Request {
+  string p1 = 1;
+}
+
+message MB_Trace_Request {
+  string p1 = 1;
+}
+
+message Setting_GetPersistentStoragePath_Response {
+  string result = 1;
+}
+
+message Setting_GetSkin_Response {
+  string result = 1;
+}
+
+message Setting_GetSkinElementColour_Request {
+  int32 element = 1;
+  int32 state = 2;
+  int32 component = 3;
+}
+
+message Setting_GetSkinElementColour_Response {
+  int32 result = 1;
+}
+
+message Setting_IsWindowBordersSkinned_Response {
+  bool result = 1;
+}
+
+message Library_GetFileProperty_Request {
+  string sourceFileUrl = 1;
+  int32 type = 2;
+}
+
+message Library_GetFileProperty_Response {
+  string result = 1;
+}
+
+message Library_GetFileTag_Request {
+  string sourceFileUrl = 1;
+  int32 field = 2;
+}
+
+message Library_GetFileTag_Response {
+  string result = 1;
+}
+
+message Library_SetFileTag_Request {
+  string sourceFileUrl = 1;
+  int32 field = 2;
+  string value = 3;
+}
+
+message Library_SetFileTag_Response {
+  bool result = 1;
+}
+
+message Library_CommitTagsToFile_Request {
+  string sourceFileUrl = 1;
+}
+
+message Library_CommitTagsToFile_Response {
+  bool result = 1;
+}
+
+message Library_GetLyrics_Request {
+  string sourceFileUrl = 1;
+  int32 type = 2;
+}
+
+message Library_GetLyrics_Response {
+  string result = 1;
+}
+
+message Library_QueryFiles_Request {
+  string query = 1;
+}
+
+message Library_QueryFiles_Response {
+  bool result = 1;
+}
+
+message Library_QueryGetNextFile_Response {
+  string result = 1;
+}
+
+message Player_GetPosition_Response {
+  int32 result = 1;
+}
+
+message Player_SetPosition_Request {
+  int32 position = 1;
+}
+
+message Player_SetPosition_Response {
+  bool result = 1;
+}
+
+message Player_GetPlayState_Response {
+  int32 result = 1;
+}
+
+message Player_PlayPause_Response {
+  bool result = 1;
+}
+
+message Player_Stop_Response {
+  bool result = 1;
+}
+
+message Player_StopAfterCurrent_Response {
+  bool result = 1;
+}
+
+message Player_PlayPreviousTrack_Response {
+  bool result = 1;
+}
+
+message Player_PlayNextTrack_Response {
+  bool result = 1;
+}
+
+message Player_StartAutoDj_Response {
+  bool result = 1;
+}
+
+message Player_EndAutoDj_Response {
+  bool result = 1;
+}
+
+message Player_GetVolume_Response {
+  float result = 1;
+}
+
+message Player_SetVolume_Request {
+  float volume = 1;
+}
+
+message Player_SetVolume_Response {
+  bool result = 1;
+}
+
+message Player_GetMute_Response {
+  bool result = 1;
+}
+
+message Player_SetMute_Request {
+  bool mute = 1;
+}
+
+message Player_SetMute_Response {
+  bool result = 1;
+}
+
+message Player_GetShuffle_Response {
+  bool result = 1;
+}
+
+message Player_SetShuffle_Request {
+  bool shuffle = 1;
+}
+
+message Player_SetShuffle_Response {
+  bool result = 1;
+}
+
+message Player_GetRepeat_Response {
+  int32 result = 1;
+}
+
+message Player_SetRepeat_Request {
+  int32 repeat = 1;
+}
+
+message Player_SetRepeat_Response {
+  bool result = 1;
+}
+
+message Player_GetEqualiserEnabled_Response {
+  bool result = 1;
+}
+
+message Player_SetEqualiserEnabled_Request {
+  bool enabled = 1;
+}
+
+message Player_SetEqualiserEnabled_Response {
+  bool result = 1;
+}
+
+message Player_GetDspEnabled_Response {
+  bool result = 1;
+}
+
+message Player_SetDspEnabled_Request {
+  bool enabled = 1;
+}
+
+message Player_SetDspEnabled_Response {
+  bool result = 1;
+}
+
+message Player_GetScrobbleEnabled_Response {
+  bool result = 1;
+}
+
+message Player_SetScrobbleEnabled_Request {
+  bool enabled = 1;
+}
+
+message Player_SetScrobbleEnabled_Response {
+  bool result = 1;
+}
+
+message NowPlaying_GetFileUrl_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetDuration_Response {
+  int32 result = 1;
+}
+
+message NowPlaying_GetFileProperty_Request {
+  int32 type = 1;
+}
+
+message NowPlaying_GetFileProperty_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetFileTag_Request {
+  int32 field = 1;
+}
+
+message NowPlaying_GetFileTag_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetLyrics_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetArtwork_Response {
+  string result = 1;
+}
+
+message NowPlayingList_Clear_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_QueryFiles_Request {
+  string query = 1;
+}
+
+message NowPlayingList_QueryFiles_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_QueryGetNextFile_Response {
+  string result = 1;
+}
+
+message NowPlayingList_PlayNow_Request {
+  string sourceFileUrl = 1;
+}
+
+message NowPlayingList_PlayNow_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_QueueNext_Request {
+  string sourceFileUrl = 1;
+}
+
+message NowPlayingList_QueueNext_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_QueueLast_Request {
+  string sourceFileUrl = 1;
+}
+
+message NowPlayingList_QueueLast_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_PlayLibraryShuffled_Response {
+  bool result = 1;
+}
+
+message Playlist_QueryPlaylists_Response {
+  bool result = 1;
+}
+
+message Playlist_QueryGetNextPlaylist_Response {
+  string result = 1;
+}
+
+message Playlist_GetType_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_GetType_Response {
+  int32 result = 1;
+}
+
+message Playlist_QueryFiles_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_QueryFiles_Response {
+  bool result = 1;
+}
+
+message Playlist_QueryGetNextFile_Response {
+  string result = 1;
+}
+
+message MB_SendNotification_Request {
+  int32 type = 1;
+}
+
+message Setting_GetFieldName_Request {
+  int32 field = 1;
+}
+
+message Setting_GetFieldName_Response {
+  string result = 1;
+}
+
+message Library_QueryGetAllFiles_Response {
+  string result = 1;
+}
+
+message NowPlayingList_QueryGetAllFiles_Response {
+  string result = 1;
+}
+
+message Playlist_QueryGetAllFiles_Response {
+  string result = 1;
+}
+
+message MB_SetBackgroundTaskMessage_Request {
+  string message = 1;
+}
+
+message Player_GetShowTimeRemaining_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_GetCurrentIndex_Response {
+  int32 result = 1;
+}
+
+message NowPlayingList_GetListFileUrl_Request {
+  int32 index = 1;
+}
+
+message NowPlayingList_GetListFileUrl_Response {
+  string result = 1;
+}
+
+message NowPlayingList_GetFileProperty_Request {
+  int32 index = 1;
+  int32 type = 2;
+}
+
+message NowPlayingList_GetFileProperty_Response {
+  string result = 1;
+}
+
+message NowPlayingList_GetFileTag_Request {
+  int32 index = 1;
+  int32 field = 2;
+}
+
+message NowPlayingList_GetFileTag_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetSpectrumData_Request {
+  repeated float fftData = 1;
+}
+
+message NowPlaying_GetSpectrumData_Response {
+  int32 result = 1;
+}
+
+message NowPlaying_GetSoundGraph_Request {
+  repeated float graphData = 1;
+}
+
+message NowPlaying_GetSoundGraph_Response {
+  bool result = 1;
+}
+
+message MB_GetLocalisation_Request {
+  string id = 1;
+  string defaultText = 2;
+}
+
+message MB_GetLocalisation_Response {
+  string result = 1;
+}
+
+message NowPlayingList_IsAnyPriorTracks_Response {
+  bool result = 1;
+}
+
+message Player_ShowEqualiser_Response {
+  bool result = 1;
+}
+
+message Player_GetAutoDjEnabled_Response {
+  bool result = 1;
+}
+
+message Player_GetStopAfterCurrentEnabled_Response {
+  bool result = 1;
+}
+
+message Player_GetCrossfade_Response {
+  bool result = 1;
+}
+
+message Player_SetCrossfade_Request {
+  bool crossfade = 1;
+}
+
+message Player_SetCrossfade_Response {
+  bool result = 1;
+}
+
+message Player_GetReplayGainMode_Response {
+  int32 result = 1;
+}
+
+message Player_SetReplayGainMode_Request {
+  int32 mode = 1;
+}
+
+message Player_SetReplayGainMode_Response {
+  bool result = 1;
+}
+
+message Player_QueueRandomTracks_Request {
+  int32 count = 1;
+}
+
+message Player_QueueRandomTracks_Response {
+  int32 result = 1;
+}
+
+message Setting_GetDataType_Request {
+  int32 field = 1;
+}
+
+message Setting_GetDataType_Response {
+  int32 result = 1;
+}
+
+message NowPlayingList_GetNextIndex_Request {
+  int32 offset = 1;
+}
+
+message NowPlayingList_GetNextIndex_Response {
+  int32 result = 1;
+}
+
+message NowPlaying_GetArtistPicture_Request {
+  int32 fadingPercent = 1;
+}
+
+message NowPlaying_GetArtistPicture_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetDownloadedArtwork_Response {
+  string result = 1;
+}
+
+message MB_ShowNowPlayingAssistant_Response {
+  bool result = 1;
+}
+
+message NowPlaying_GetDownloadedLyrics_Response {
+  string result = 1;
+}
+
+message Player_GetShowRatingTrack_Response {
+  bool result = 1;
+}
+
+message Player_GetShowRatingLove_Response {
+  bool result = 1;
+}
+
+message Setting_GetLastFmUserId_Response {
+  string result = 1;
+}
+
+message Playlist_GetName_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_GetName_Response {
+  string result = 1;
+}
+
+message Playlist_CreatePlaylist_Request {
+  string folderName = 1;
+  string playlistName = 2;
+  repeated string filenames = 3;
+}
+
+message Playlist_CreatePlaylist_Response {
+  string result = 1;
+}
+
+message Playlist_SetFiles_Request {
+  string playlistUrl = 1;
+  repeated string filenames = 2;
+}
+
+message Playlist_SetFiles_Response {
+  bool result = 1;
+}
+
+message Library_QuerySimilarArtists_Request {
+  string artistName = 1;
+  double minimumArtistSimilarityRating = 2;
+}
+
+message Library_QuerySimilarArtists_Response {
+  string result = 1;
+}
+
+message Library_QueryLookupTable_Request {
+  string keyTags = 1;
+  string valueTags = 2;
+  string query = 3;
+}
+
+message Library_QueryLookupTable_Response {
+  bool result = 1;
+}
+
+message Library_QueryGetLookupTableValue_Request {
+  string key = 1;
+}
+
+message Library_QueryGetLookupTableValue_Response {
+  string result = 1;
+}
+
+message NowPlayingList_QueueFilesNext_Request {
+  repeated string sourceFileUrl = 1;
+}
+
+message NowPlayingList_QueueFilesNext_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_QueueFilesLast_Request {
+  repeated string sourceFileUrl = 1;
+}
+
+message NowPlayingList_QueueFilesLast_Response {
+  bool result = 1;
+}
+
+message Setting_GetWebProxy_Response {
+  string result = 1;
+}
+
+message NowPlayingList_RemoveAt_Request {
+  int32 index = 1;
+}
+
+message NowPlayingList_RemoveAt_Response {
+  bool result = 1;
+}
+
+message Playlist_RemoveAt_Request {
+  string playlistUrl = 1;
+  int32 index = 2;
+}
+
+message Playlist_RemoveAt_Response {
+  bool result = 1;
+}
+
+message MB_OpenFilterInTab_Request {
+  int32 field1 = 1;
+  int32 comparison1 = 2;
+  string value1 = 3;
+  int32 field2 = 4;
+  int32 comparison2 = 5;
+  string value2 = 6;
+}
+
+message MB_OpenFilterInTab_Response {
+  bool result = 1;
+}
+
+message MB_SetWindowSize_Request {
+  int32 width = 1;
+  int32 height = 2;
+}
+
+message MB_SetWindowSize_Response {
+  bool result = 1;
+}
+
+message Library_GetArtistPicture_Request {
+  string artistName = 1;
+  int32 fadingPercent = 2;
+  int32 fadingColor = 3;
+}
+
+message Library_GetArtistPicture_Response {
+  string result = 1;
+}
+
+message Pending_GetFileUrl_Response {
+  string result = 1;
+}
+
+message Pending_GetFileProperty_Request {
+  int32 field = 1;
+}
+
+message Pending_GetFileProperty_Response {
+  string result = 1;
+}
+
+message Pending_GetFileTag_Request {
+  int32 field = 1;
+}
+
+message Pending_GetFileTag_Response {
+  string result = 1;
+}
+
+message Player_GetButtonEnabled_Request {
+  int32 button = 1;
+}
+
+message Player_GetButtonEnabled_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_MoveFiles_Request {
+  repeated int32 fromIndices = 1;
+  int32 toIndex = 2;
+}
+
+message NowPlayingList_MoveFiles_Response {
+  bool result = 1;
+}
+
+message Library_GetArtworkUrl_Request {
+  string sourceFileUrl = 1;
+  int32 index = 2;
+}
+
+message Library_GetArtworkUrl_Response {
+  string result = 1;
+}
+
+message Library_GetArtistPictureThumb_Request {
+  string artistName = 1;
+}
+
+message Library_GetArtistPictureThumb_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetArtworkUrl_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetDownloadedArtworkUrl_Response {
+  string result = 1;
+}
+
+message NowPlaying_GetArtistPictureThumb_Response {
+  string result = 1;
+}
+
+message Playlist_IsInList_Request {
+  string playlistUrl = 1;
+  string filename = 2;
+}
+
+message Playlist_IsInList_Response {
+  bool result = 1;
+}
+
+message Library_GetArtistPictureUrls_Request {
+  string artistName = 1;
+  bool localOnly = 2;
+}
+
+message Library_GetArtistPictureUrls_Response {
+  bool result = 1;
+  repeated string urls = 2;
+}
+
+message NowPlaying_GetArtistPictureUrls_Request {
+  bool localOnly = 1;
+}
+
+message NowPlaying_GetArtistPictureUrls_Response {
+  bool result = 1;
+  repeated string urls = 2;
+}
+
+message Playlist_AppendFiles_Request {
+  string playlistUrl = 1;
+  repeated string filenames = 2;
+}
+
+message Playlist_AppendFiles_Response {
+  bool result = 1;
+}
+
+message Sync_FileStart_Request {
+  string filename = 1;
+}
+
+message Sync_FileStart_Response {
+  string result = 1;
+}
+
+message Sync_FileEnd_Request {
+  string filename = 1;
+  bool success = 2;
+  string errorMessage = 3;
+}
+
+message Library_QueryFilesEx_Request {
+  string query = 1;
+}
+
+message Library_QueryFilesEx_Response {
+  bool result = 1;
+  repeated string files = 2;
+}
+
+message NowPlayingList_QueryFilesEx_Request {
+  string query = 1;
+}
+
+message NowPlayingList_QueryFilesEx_Response {
+  bool result = 1;
+  repeated string files = 2;
+}
+
+message Playlist_QueryFilesEx_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_QueryFilesEx_Response {
+  bool result = 1;
+  repeated string filenames = 2;
+}
+
+message Playlist_MoveFiles_Request {
+  string playlistUrl = 1;
+  repeated int32 fromIndices = 2;
+  int32 toIndex = 3;
+}
+
+message Playlist_MoveFiles_Response {
+  bool result = 1;
+}
+
+message Playlist_PlayNow_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_PlayNow_Response {
+  bool result = 1;
+}
+
+message NowPlaying_IsSoundtrack_Response {
+  bool result = 1;
+}
+
+message NowPlaying_GetSoundtrackPictureUrls_Request {
+  bool localOnly = 1;
+}
+
+message NowPlaying_GetSoundtrackPictureUrls_Response {
+  bool result = 1;
+  repeated string urls = 2;
+}
+
+message Library_GetDevicePersistentId_Request {
+  string sourceFileUrl = 1;
+  int32 idType = 2;
+}
+
+message Library_GetDevicePersistentId_Response {
+  string result = 1;
+}
+
+message Library_SetDevicePersistentId_Request {
+  string sourceFileUrl = 1;
+  int32 idType = 2;
+  string value = 3;
+}
+
+message Library_SetDevicePersistentId_Response {
+  bool result = 1;
+}
+
+message Library_FindDevicePersistentId_Request {
+  int32 idType = 1;
+  repeated string ids = 2;
+}
+
+message Library_FindDevicePersistentId_Response {
+  bool result = 1;
+  repeated string values = 2;
+}
+
+message Library_AddFileToLibrary_Request {
+  string sourceFileUrl = 1;
+  int32 category = 2;
+}
+
+message Library_AddFileToLibrary_Response {
+  string result = 1;
+}
+
+message Playlist_DeletePlaylist_Request {
+  string playlistUrl = 1;
+}
+
+message Playlist_DeletePlaylist_Response {
+  bool result = 1;
+}
+
+message Library_GetFileTags_Request {
+  string sourceFileUrl = 1;
+  repeated int32 fields = 2;
+}
+
+message Library_GetFileTags_Response {
+  bool result = 1;
+  repeated string results = 2;
+}
+
+message NowPlaying_GetFileTags_Request {
+  repeated int32 fields = 1;
+}
+
+message NowPlaying_GetFileTags_Response {
+  bool result = 1;
+  repeated string results = 2;
+}
+
+message NowPlayingList_GetFileTags_Request {
+  int32 index = 1;
+  repeated int32 fields = 2;
+}
+
+message NowPlayingList_GetFileTags_Response {
+  bool result = 1;
+  repeated string results = 2;
+}
+
+message MB_DownloadFile_Request {
+  string url = 1;
+  int32 target = 2;
+  string targetFolder = 3;
+  bool cancelDownload = 4;
+}
+
+message MB_DownloadFile_Response {
+  bool result = 1;
+}
+
+message Setting_GetFileConvertCommandLine_Request {
+  int32 codec = 1;
+  int32 encodeQuality = 2;
+}
+
+message Setting_GetFileConvertCommandLine_Response {
+  string result = 1;
+}
+
+message Player_OpenStreamHandle_Request {
+  string url = 1;
+  bool useMusicBeeSettings = 2;
+  bool enableDsp = 3;
+  int32 gainType = 4;
+}
+
+message Player_OpenStreamHandle_Response {
+  int32 result = 1;
+}
+
+message Player_UpdatePlayStatistics_Request {
+  string url = 1;
+  int32 countType = 2;
+  bool disableScrobble = 3;
+}
+
+message Player_UpdatePlayStatistics_Response {
+  bool result = 1;
+}
+
+message Library_GetArtworkEx_Request {
+  string sourceFileUrl = 1;
+  int32 index = 2;
+  bool retrievePictureData = 3;
+}
+
+message Library_GetArtworkEx_Response {
+  bool result = 1;
+  int32 pictureLocations = 2;
+  string pictureUrl = 3;
+  repeated int32 imageData = 4;
+}
+
+message Library_SetArtworkEx_Request {
+  string sourceFileUrl = 1;
+  int32 index = 2;
+  repeated int32 imageData = 3;
+}
+
+message Library_SetArtworkEx_Response {
+  bool result = 1;
+}
+
+message MB_GetVisualiserInformation_Response {
+  bool result = 1;
+  repeated string visualiserNames = 2;
+  string defaultVisualiserName = 3;
+  int32 defaultState = 4;
+  int32 currentState = 5;
+}
+
+message MB_ShowVisualiser_Request {
+  string visualiserName = 1;
+  int32 state = 2;
+}
+
+message MB_ShowVisualiser_Response {
+  bool result = 1;
+}
+
+message MB_GetPluginViewInformation_Request {
+  string pluginFilename = 1;
+}
+
+message MB_GetPluginViewInformation_Response {
+  bool result = 1;
+  repeated string viewNames = 2;
+  string defaultViewName = 3;
+  int32 defaultState = 4;
+  int32 currentState = 5;
+}
+
+message MB_ShowPluginView_Request {
+  string pluginFilename = 1;
+  string viewName = 2;
+  int32 state = 3;
+}
+
+message MB_ShowPluginView_Response {
+  bool result = 1;
+}
+
+message Player_GetOutputDevices_Response {
+  bool result = 1;
+  repeated string deviceNames = 2;
+  string activeDeviceName = 3;
+}
+
+message Player_SetOutputDevice_Request {
+  string deviceName = 1;
+}
+
+message Player_SetOutputDevice_Response {
+  bool result = 1;
+}
+
+message MB_UninstallPlugin_Request {
+  string pluginFilename = 1;
+  string password = 2;
+}
+
+message MB_UninstallPlugin_Response {
+  bool result = 1;
+}
+
+message Player_PlayPreviousAlbum_Response {
+  bool result = 1;
+}
+
+message Player_PlayNextAlbum_Response {
+  bool result = 1;
+}
+
+message Podcasts_QuerySubscriptions_Request {
+  string query = 1;
+}
+
+message Podcasts_QuerySubscriptions_Response {
+  bool result = 1;
+  repeated string ids = 2;
+}
+
+message Podcasts_GetSubscription_Request {
+  string id = 1;
+}
+
+message Podcasts_GetSubscription_Response {
+  bool result = 1;
+  repeated string subscription = 2;
+}
+
+message Podcasts_GetSubscriptionArtwork_Request {
+  string id = 1;
+  int32 index = 2;
+}
+
+message Podcasts_GetSubscriptionArtwork_Response {
+  bool result = 1;
+  repeated int32 imageData = 2;
+}
+
+message Podcasts_GetSubscriptionEpisodes_Request {
+  string id = 1;
+}
+
+message Podcasts_GetSubscriptionEpisodes_Response {
+  bool result = 1;
+  repeated string urls = 2;
+}
+
+message Podcasts_GetSubscriptionEpisode_Request {
+  string id = 1;
+  int32 index = 2;
+}
+
+message Podcasts_GetSubscriptionEpisode_Response {
+  bool result = 1;
+  repeated string episode = 2;
+}
+
+message NowPlaying_GetSoundGraphEx_Request {
+  repeated float graphData = 1;
+  repeated float peakData = 2;
+}
+
+message NowPlaying_GetSoundGraphEx_Response {
+  bool result = 1;
+}
+
+message Sync_FileDeleteStart_Request {
+  string filename = 1;
+}
+
+message Sync_FileDeleteStart_Response {
+  string result = 1;
+}
+
+message Sync_FileDeleteEnd_Request {
+  string filename = 1;
+  bool success = 2;
+  string errorMessage = 3;
+}
+

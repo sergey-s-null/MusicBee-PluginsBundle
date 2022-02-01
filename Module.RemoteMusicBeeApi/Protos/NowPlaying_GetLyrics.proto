@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message NowPlaying_GetLyrics_Response {
-  string result = 1;
-}
-

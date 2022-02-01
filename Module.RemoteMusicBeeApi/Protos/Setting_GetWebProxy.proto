@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message Setting_GetWebProxy_Response {
-  string result = 1;
-}
-

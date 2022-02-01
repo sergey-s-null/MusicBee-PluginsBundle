@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message Pending_GetFileUrl_Response {
-  string result = 1;
-}
-
