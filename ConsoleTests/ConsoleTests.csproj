@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\netframework\Grpc.Tools\build\Grpc.Tools.props" Condition="Exists('..\packages\netframework\Grpc.Tools\build\Grpc.Tools.props')" Label="Paket" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -63,7 +64,523 @@
   <ItemGroup>
     <Content Include="paket.references" />
   </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_AddFileToLibrary.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_CommitTagsToFile.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_FindDevicePersistentId.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetArtistPicture.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetArtistPictureThumb.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetArtistPictureUrls.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetArtworkEx.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetArtworkUrl.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetDevicePersistentId.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetFileProperty.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetFileTag.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetFileTags.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_GetLyrics.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_QueryFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_QueryFilesEx.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_QueryGetAllFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_QueryGetLookupTableValue.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_QueryGetNextFile.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_QueryLookupTable.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_QuerySimilarArtists.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_SetArtworkEx.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_SetDevicePersistentId.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Library_SetFileTag.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_DownloadFile.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_GetLocalisation.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_GetPluginViewInformation.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_GetVisualiserInformation.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_OpenFilterInTab.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_RefreshPanels.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_ReleaseString.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_SendNotification.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_SetBackgroundTaskMessage.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_SetWindowSize.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_ShowNowPlayingAssistant.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_ShowPluginView.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_ShowVisualiser.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_Trace.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MB_UninstallPlugin.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_Clear.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_GetCurrentIndex.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_GetFileProperty.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_GetFileTag.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_GetFileTags.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_GetListFileUrl.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_GetNextIndex.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_IsAnyPriorTracks.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_MoveFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_PlayLibraryShuffled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_PlayNow.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_QueryFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_QueryFilesEx.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_QueryGetAllFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_QueryGetNextFile.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_QueueFilesLast.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_QueueFilesNext.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_QueueLast.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_QueueNext.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlayingList_RemoveAt.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetArtistPicture.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetArtistPictureThumb.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetArtistPictureUrls.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetArtwork.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetArtworkUrl.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetDownloadedArtwork.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetDownloadedArtworkUrl.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetDownloadedLyrics.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetDuration.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetFileProperty.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetFileTag.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetFileTags.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetFileUrl.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetLyrics.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetSoundGraph.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetSoundGraphEx.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetSoundtrackPictureUrls.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_GetSpectrumData.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\NowPlaying_IsSoundtrack.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Pending_GetFileProperty.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Pending_GetFileTag.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Pending_GetFileUrl.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_EndAutoDj.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetAutoDjEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetButtonEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetCrossfade.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetDspEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetEqualiserEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetMute.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetOutputDevices.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetPlayState.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetPosition.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetRepeat.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetReplayGainMode.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetScrobbleEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetShowRatingLove.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetShowRatingTrack.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetShowTimeRemaining.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetShuffle.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetStopAfterCurrentEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_GetVolume.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_OpenStreamHandle.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_PlayNextAlbum.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_PlayNextTrack.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_PlayPause.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_PlayPreviousAlbum.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_PlayPreviousTrack.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_QueueRandomTracks.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetCrossfade.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetDspEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetEqualiserEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetMute.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetOutputDevice.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetPosition.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetRepeat.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetReplayGainMode.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetScrobbleEnabled.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetShuffle.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_SetVolume.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_ShowEqualiser.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_StartAutoDj.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_Stop.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_StopAfterCurrent.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Player_UpdatePlayStatistics.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_AppendFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_CreatePlaylist.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_DeletePlaylist.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_GetName.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_GetType.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_IsInList.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_MoveFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_PlayNow.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_QueryFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_QueryFilesEx.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_QueryGetAllFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_QueryGetNextFile.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_QueryGetNextPlaylist.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_QueryPlaylists.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_RemoveAt.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Playlist_SetFiles.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Podcasts_GetSubscription.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Podcasts_GetSubscriptionArtwork.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Podcasts_GetSubscriptionEpisode.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Podcasts_GetSubscriptionEpisodes.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Podcasts_QuerySubscriptions.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_GetDataType.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_GetFieldName.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_GetFileConvertCommandLine.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_GetLastFmUserId.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_GetPersistentStoragePath.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_GetSkin.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_GetSkinElementColour.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_GetWebProxy.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Setting_IsWindowBordersSkinned.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Sync_FileDeleteEnd.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Sync_FileDeleteStart.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Sync_FileEnd.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\Sync_FileStart.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MusicBeeApiService.proto">
+      <GrpcServices>Client</GrpcServices>
+      <ProtoRoot>..\Module.RemoteMusicBeeApi</ProtoRoot>
+    </Protobuf>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <PropertyGroup>
+        <__paket__Grpc_Core_targets>net45\Grpc.Core</__paket__Grpc_Core_targets>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Google.Protobuf">
+          <HintPath>..\packages\netframework\Google.Protobuf\lib\net45\Google.Protobuf.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Grpc.Core">
+          <HintPath>..\packages\netframework\Grpc.Core\lib\net45\Grpc.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Grpc.Core.Api">
+          <HintPath>..\packages\netframework\Grpc.Core.Api\lib\net45\Grpc.Core.Api.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
@@ -78,9 +595,6 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="mscorlib">
-          <Paket>True</Paket>
-        </Reference>
         <Reference Include="Microsoft.Bcl.AsyncInterfaces">
           <HintPath>..\packages\netframework\Microsoft.Bcl.AsyncInterfaces\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
           <Private>True</Private>
@@ -92,6 +606,9 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="mscorlib">
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Microsoft.Extensions.DependencyInjection">
           <HintPath>..\packages\netframework\Microsoft.Extensions.DependencyInjection\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
           <Private>True</Private>
@@ -137,18 +654,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="protobuf-net">
-          <HintPath>..\packages\netframework\protobuf-net\lib\net461\protobuf-net.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="protobuf-net.Core">
-          <HintPath>..\packages\netframework\protobuf-net.Core\lib\net461\protobuf-net.Core.dll</HintPath>
+          <HintPath>..\packages\netframework\protobuf-net\lib\net40\protobuf-net.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -159,18 +665,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Buffers">
-          <HintPath>..\packages\netframework\System.Buffers\lib\net461\System.Buffers.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="System.Collections.Immutable">
-          <HintPath>..\packages\netframework\System.Collections.Immutable\lib\net461\System.Collections.Immutable.dll</HintPath>
+          <HintPath>..\packages\netframework\System.Buffers\lib\netstandard2.0\System.Buffers.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -181,7 +676,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Memory">
-          <HintPath>..\packages\netframework\System.Memory\lib\net461\System.Memory.dll</HintPath>
+          <HintPath>..\packages\netframework\System.Memory\lib\netstandard2.0\System.Memory.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -206,7 +701,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Runtime.CompilerServices.Unsafe">
-          <HintPath>..\packages\netframework\System.Runtime.CompilerServices.Unsafe\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+          <HintPath>..\packages\netframework\System.Runtime.CompilerServices.Unsafe\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -250,11 +745,13 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VkNet.AudioBypassService">
-          <HintPath>..\packages\netframework\VkNet.AudioBypassService\lib\netstandard2.0\VkNet.AudioBypassService.dll</HintPath>
+          <HintPath>..\packages\netframework\VkNet.AudioBypassService\lib\net461\VkNet.AudioBypassService.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
     </When>
   </Choose>
+  <Import Project="..\packages\netframework\Grpc.Core\build\$(__paket__Grpc_Core_targets).targets" Condition="Exists('..\packages\netframework\Grpc.Core\build\$(__paket__Grpc_Core_targets).targets')" Label="Paket" />
+  <Import Project="..\packages\netframework\Grpc.Tools\build\Grpc.Tools.targets" Condition="Exists('..\packages\netframework\Grpc.Tools\build\Grpc.Tools.targets')" Label="Paket" />
 </Project>
