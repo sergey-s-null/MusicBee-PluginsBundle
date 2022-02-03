@@ -119,12 +119,6 @@ service MusicBeeApiService {
       returns(google.protobuf.Empty);
   rpc Setting_GetFieldName(Setting_GetFieldName_Request)
       returns(Setting_GetFieldName_Response);
-  rpc Library_QueryGetAllFiles(google.protobuf.Empty)
-      returns(Library_QueryGetAllFiles_Response);
-  rpc NowPlayingList_QueryGetAllFiles(google.protobuf.Empty)
-      returns(NowPlayingList_QueryGetAllFiles_Response);
-  rpc Playlist_QueryGetAllFiles(google.protobuf.Empty)
-      returns(Playlist_QueryGetAllFiles_Response);
   rpc MB_SetBackgroundTaskMessage(MB_SetBackgroundTaskMessage_Request)
       returns(google.protobuf.Empty);
   rpc Player_GetShowTimeRemaining(google.protobuf.Empty)
@@ -645,18 +639,6 @@ message Setting_GetFieldName_Request {
 }
 
 message Setting_GetFieldName_Response {
-  string result = 1;
-}
-
-message Library_QueryGetAllFiles_Response {
-  string result = 1;
-}
-
-message NowPlayingList_QueryGetAllFiles_Response {
-  string result = 1;
-}
-
-message Playlist_QueryGetAllFiles_Response {
   string result = 1;
 }
 

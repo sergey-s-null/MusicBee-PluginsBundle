@@ -89,9 +89,12 @@ namespace MBApiProtoGenerator
             // EventHandler
             // "MB_AddMenuItem",
             "Setting_GetFieldName",
-            "Library_QueryGetAllFiles",
-            "NowPlayingList_QueryGetAllFiles",
-            "Playlist_QueryGetAllFiles",
+            // obsolete
+            // "Library_QueryGetAllFiles",
+            // obsolete
+            // "NowPlayingList_QueryGetAllFiles",
+            // obsolete
+            // "Playlist_QueryGetAllFiles",
             // ThreadStart
             // "MB_CreateBackgroundTask",
             "MB_SetBackgroundTaskMessage",
@@ -228,6 +231,8 @@ namespace MBApiProtoGenerator
 
             AddProtobufToModuleCsProj(methods);
             AddProtobufToConsoleTestsCsProj(methods);
+            
+            GenerateServerServiceImpl(methods);
         }
 
         private static void GenerateProtoFiles(IEnumerable<MBApiMethodDefinition> methods)
@@ -297,6 +302,16 @@ namespace MBApiProtoGenerator
                 .SaveProject();
         }
 
+        private static void GenerateServerServiceImpl(IReadOnlyCollection<MBApiMethodDefinition> methods)
+        {
+            const string filePath = @"..\..\..\Module.RemoteMusicBeeApi\MusicBeeApiServiceImpl.cs";
+
+            var lines = new CsServiceImplBuilder(methods)
+                .GenerateLines();
+            
+            File.WriteAllLines(filePath, lines);
+        }
+        
         private static MBApiMethodDefinition Define(FieldInfo delegateFieldInfo)
         {
             var name = delegateFieldInfo.Name;
@@ -330,7 +345,9 @@ namespace MBApiProtoGenerator
 
         private static MBApiParameterDefinition Define(ParameterInfo parameterInfo)
         {
-            return new MBApiParameterDefinition(parameterInfo.ParameterType, parameterInfo.Name);
+            return new MBApiParameterDefinition(
+                parameterInfo.ParameterType.RemoveRefWrapper(), 
+                parameterInfo.Name);
         }
     }
 }

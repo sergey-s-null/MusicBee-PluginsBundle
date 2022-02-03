@@ -251,7 +251,7 @@ namespace MBApiProtoGenerator.Builders
             }
 
             if (withEnumerable
-                && IsEnumerable(parameterType, out var elementType))
+                && parameterType.IsEnumerable(out var elementType))
             {
                 var elementProtoType = GetProtoType(elementType!, false);
                 return $"repeated {elementProtoType}";
@@ -269,25 +269,6 @@ namespace MBApiProtoGenerator.Builders
             }
 
             throw new Exception($"Для типа {parameterType.FullName} не найдено соответствие proto типа.");
-        }
-
-        private static bool IsEnumerable(Type type, out Type? elementType)
-        {
-            if (type.IsGenericType
-                && typeof(IEnumerable).IsAssignableFrom(type.GetGenericTypeDefinition()))
-            {
-                elementType = type.GenericTypeArguments.First();
-                return true;
-            }
-
-            if (type.IsArray && type.HasElementType)
-            {
-                elementType = type.GetElementType();
-                return true;
-            }
-
-            elementType = null;
-            return false;
         }
     }
 }

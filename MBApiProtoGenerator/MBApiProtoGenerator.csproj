@@ -43,10 +43,12 @@
   <ItemGroup>
     <Compile Include="Builders\CsProjProtobufBuilder.cs" />
     <Compile Include="Builders\ProtoFilesBuilder.cs" />
+    <Compile Include="Builders\CsServiceImplBuilder.cs" />
     <Compile Include="Enums\ProtobufType.cs" />
     <Compile Include="Enums\ServiceGenerationMode.cs" />
     <Compile Include="Helpers\CsProjProtobufBuilderHelper.cs" />
     <Compile Include="Helpers\MBApiMethodDefinitionHelper.cs" />
+    <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="Models\MBApiMethodDefinition.cs" />
     <Compile Include="Models\MBApiParameterDefinition.cs" />
     <Compile Include="Program.cs" />

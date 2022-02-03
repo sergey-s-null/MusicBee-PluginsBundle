@@ -58,6 +58,7 @@
     <Compile Include="Helpers\EnumerableHelper.cs" />
     <Compile Include="Helpers\MBApiHelper.cs" />
     <Compile Include="Helpers\PathHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UriHelper.cs" />
     <Compile Include="MusicBeeApiInterface.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
