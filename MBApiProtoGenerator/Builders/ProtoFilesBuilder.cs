@@ -171,7 +171,7 @@ namespace MBApiProtoGenerator.Builders
 
         private string GetResponseMessageType(MBApiMethodDefinition method)
         {
-            return method.HasOutputParameters()
+            return method.HasAnyOutputParameters()
                 ? $"{method.Name}{_responsePostfix}"
                 : EmptyMessageType;
         }
@@ -211,7 +211,7 @@ namespace MBApiProtoGenerator.Builders
 
         private IEnumerable<string> ToResponseLines(MBApiMethodDefinition methodDefinition)
         {
-            if (!methodDefinition.HasOutputParameters())
+            if (!methodDefinition.HasAnyOutputParameters())
             {
                 yield break;
             }

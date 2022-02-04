@@ -18,7 +18,6 @@ namespace MBApiProtoGenerator.Builders
             "using Root;",
         };
 
-        private const string Indent = "    ";
         private const string RequestPostfix = "_Request";
         private const string ResponsePostfix = "_Response";
         private const string EmptyMessageType = "Empty";
@@ -45,7 +44,7 @@ namespace MBApiProtoGenerator.Builders
             var classLines = GetClassLines();
             foreach (var classLine in classLines)
             {
-                yield return MakeIndent(classLine);
+                yield return classLine.Indented();
             }
             yield return "}";
         }
@@ -57,7 +56,7 @@ namespace MBApiProtoGenerator.Builders
             var classDefinitionLines = GetClassDefinitionLines();
             foreach (var classDefinitionLine in classDefinitionLines)
             {
-                yield return MakeIndent(classDefinitionLine);
+                yield return classDefinitionLine.Indented();
             }
             yield return "}";
         }
@@ -68,7 +67,7 @@ namespace MBApiProtoGenerator.Builders
             yield return string.Empty;
             yield return "public MusicBeeApiServiceImpl(MusicBeeApiInterface mbApi)";
             yield return "{";
-            yield return $"{Indent}_mbApi = mbApi;";
+            yield return "_mbApi = mbApi;".Indented();
             yield return "}";
             yield return string.Empty;
             var methodsLines = _methods
@@ -80,21 +79,21 @@ namespace MBApiProtoGenerator.Builders
             }
         }
 
-        private IEnumerable<string> GetMethodLines(MBApiMethodDefinition method)
+        private static IEnumerable<string> GetMethodLines(MBApiMethodDefinition method)
         {
             yield return $"public override Task<{GetResponseMessageType(method)}> " +
                          $"{method.Name}({GetRequestMessageType(method)} request, ServerCallContext context)";
             yield return "{";
-            yield return $"{Indent}return Task.Run(() =>";
-            yield return $"{Indent}{{";
+            yield return "return Task.Run(() =>".Indented();
+            yield return "{{".Indented();
             var methodCoreLines = Enumerable.Empty<string>()
                 .Append(GetCallLine(method))
                 .Concat(GetReturnLines(method));
             foreach (var methodCoreLine in methodCoreLines)
             {
-                yield return MakeIndent(methodCoreLine, 2);
+                yield return methodCoreLine.Indented(2);
             }
-            yield return $"{Indent}}});";
+            yield return "}});".Indented();
             yield return "}";
         }
 
@@ -147,7 +146,7 @@ namespace MBApiProtoGenerator.Builders
 
         private static IEnumerable<string> GetReturnLines(MBApiMethodDefinition method)
         {
-            if (!method.HasOutputParameters())
+            if (!method.HasAnyOutputParameters())
             {
                 yield return "return new Empty();";
                 yield break;
@@ -157,11 +156,11 @@ namespace MBApiProtoGenerator.Builders
             yield return "{";
             if (method.HasReturnType())
             {
-                yield return MakeIndent(GetReturnResponseLine(method.ReturnType, ReturnParameterName));
+                yield return GetReturnResponseLine(method.ReturnType, ReturnParameterName).Indented();
             }
             foreach (var outputParameter in method.OutputParameters)
             {
-                yield return MakeIndent(GetReturnResponseLine(outputParameter));
+                yield return GetReturnResponseLine(outputParameter).Indented();
             }
             yield return "};";
         }
@@ -202,17 +201,9 @@ namespace MBApiProtoGenerator.Builders
 
         private static string GetResponseMessageType(MBApiMethodDefinition method)
         {
-            return method.HasOutputParameters()
+            return method.HasAnyOutputParameters()
                 ? $"{method.Name}{ResponsePostfix}"
                 : EmptyMessageType;
-        }
-
-        private static string MakeIndent(string line, int indentLevel = 1)
-        {
-            var elements = Enumerable
-                .Repeat(Indent, indentLevel)
-                .Append(line);
-            return string.Join(string.Empty, elements);
         }
     }
 }

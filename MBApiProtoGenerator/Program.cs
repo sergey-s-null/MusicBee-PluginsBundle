@@ -233,6 +233,8 @@ namespace MBApiProtoGenerator
             AddProtobufToConsoleTestsCsProj(methods);
             
             GenerateServerServiceImpl(methods);
+
+            GenerateMBApiInterfaceWithClientWrapper(methods);
         }
 
         private static void GenerateProtoFiles(IEnumerable<MBApiMethodDefinition> methods)
@@ -310,6 +312,17 @@ namespace MBApiProtoGenerator
                 .GenerateLines();
             
             File.WriteAllLines(filePath, lines);
+        }
+
+        private static void GenerateMBApiInterfaceWithClientWrapper(IReadOnlyCollection<MBApiMethodDefinition> methods)
+        {
+            const string interfaceFilePath = @"..\..\..\ConsoleTests\Services\IMusicBeeApi.cs";
+            const string wrapperFilePath = @"..\..\..\ConsoleTests\Services\MusicBeeApiClientWrapper.cs";
+            var builder = new CsClientServiceBuilder(methods);
+            var interfaceLines = builder.GenerateInterfaceLines();
+            var wrapperLines = builder.GenerateClientWrapperLines();
+            File.WriteAllLines(interfaceFilePath, interfaceLines);
+            File.WriteAllLines(wrapperFilePath, wrapperLines);
         }
         
         private static MBApiMethodDefinition Define(FieldInfo delegateFieldInfo)

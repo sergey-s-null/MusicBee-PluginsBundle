@@ -7,7 +7,7 @@ namespace MBApiProtoGenerator.Helpers
         public static bool HasAnyParameters(this MBApiMethodDefinition methodDefinition)
         {
             return methodDefinition.HasInputParameters() 
-                   || methodDefinition.HasOutputParameters();
+                   || methodDefinition.HasAnyOutputParameters();
         }
         
         public static bool HasInputParameters(this MBApiMethodDefinition methodDefinition)
@@ -15,7 +15,7 @@ namespace MBApiProtoGenerator.Helpers
             return methodDefinition.InputParameters.Count > 0;
         }
         
-        public static bool HasOutputParameters(this MBApiMethodDefinition methodDefinition)
+        public static bool HasAnyOutputParameters(this MBApiMethodDefinition methodDefinition)
         {
             return methodDefinition.ReturnType != typeof(void) 
                    || methodDefinition.OutputParameters.Count > 0;
