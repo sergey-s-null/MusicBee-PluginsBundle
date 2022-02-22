@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Media.Imaging;
-using Module.ArtworksSearcher.Helpers;
 using Module.ArtworksSearcher.Settings;
 using Root.Helpers;
+using StringHelper = Module.ArtworksSearcher.Helpers.StringHelper;
 
 namespace Module.ArtworksSearcher.ImagesProviders
 {
