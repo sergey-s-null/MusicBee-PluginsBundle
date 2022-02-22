@@ -42,6 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 ProjectSection(SolutionItems) = preProject
 	paket.dependencies = paket.dependencies
 	paket.lock = paket.lock
+	.gitignore = .gitignore
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.RemoteMusicBeeApi", "Module.RemoteMusicBeeApi\Module.RemoteMusicBeeApi.csproj", "{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606}"
