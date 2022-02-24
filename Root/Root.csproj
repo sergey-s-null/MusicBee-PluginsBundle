@@ -60,7 +60,13 @@
     <Compile Include="Helpers\PathHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UriHelper.cs" />
-    <Compile Include="MusicBeeApiInterface.cs" />
+    <Compile Include="MusicBeeApi\Abstract\IBaseMusicBeeApi.cs" />
+    <Compile Include="MusicBeeApi\Abstract\IMusicBeeApi.cs" />
+    <Compile Include="MusicBeeApi\Delegates.cs" />
+    <Compile Include="MusicBeeApi\Enums.cs" />
+    <Compile Include="MusicBeeApi\MusicBeeApiInterface.cs" />
+    <Compile Include="MusicBeeApi\PluginInfo.cs" />
+    <Compile Include="MusicBeeApi\SystemEnums.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
