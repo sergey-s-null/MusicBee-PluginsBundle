@@ -7,9 +7,9 @@ namespace MBApiProtoGenerator.Builders
 {
     public class MessageTypesBuilder : IMessageTypesBuilder
     {
-        private readonly IParameters _parameters;
+        private readonly IServiceBuilderParameters _parameters;
 
-        public MessageTypesBuilder(IParameters parameters)
+        public MessageTypesBuilder(IServiceBuilderParameters parameters)
         {
             _parameters = parameters;
         }

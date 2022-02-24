@@ -26,11 +26,11 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
         private const string ClassName = "MusicBeeApiServiceImpl";
         private const string ServiceName = "MusicBeeApiService";
 
-        private readonly IParameters _parameters;
+        private readonly IServiceBuilderParameters _parameters;
         private readonly IMethodBuilder _methodBuilder;
 
         public ServiceBuilder(
-            IParameters parameters,
+            IServiceBuilderParameters parameters,
             IMethodBuilder methodBuilder)
         {
             _parameters = parameters;

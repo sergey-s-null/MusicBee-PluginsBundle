@@ -19,8 +19,8 @@ namespace MBApiProtoGenerator
                 .To<ServiceBuilder>()
                 .InSingletonScope();
             kernel
-                .Bind<IParameters>()
-                .To<HardcodedParameters>()
+                .Bind<IServiceBuilderParameters>()
+                .To<HardcodedServiceBuilderParameters>()
                 .InSingletonScope();
             kernel
                 .Bind<IMessageTypesBuilder>()

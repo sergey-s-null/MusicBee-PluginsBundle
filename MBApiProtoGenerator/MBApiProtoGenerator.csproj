@@ -54,11 +54,11 @@
     <Compile Include="Builders\ProtoFilesBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\ICommonLinesBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilder.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\Abstract\IParameters.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IMethodBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\CommonLinesBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\ServiceBuilder.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\HardcodedParameters.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\HardcodedServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\TaskRunWrappedMethodBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\TaskFromResultMethodBuilder.cs" />
     <Compile Include="Enums\MethodRestriction.cs" />

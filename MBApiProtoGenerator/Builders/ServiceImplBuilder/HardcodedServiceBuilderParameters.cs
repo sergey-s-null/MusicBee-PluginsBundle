@@ -2,7 +2,7 @@
 
 namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
 {
-    public class HardcodedParameters : IParameters
+    public class HardcodedServiceBuilderParameters : IServiceBuilderParameters
     {
         public string RequestPostfix => "_Request";
         public string ResponsePostfix => "_Response";

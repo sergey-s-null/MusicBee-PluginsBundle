@@ -8,12 +8,12 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
 {
     public class TaskFromResultMethodBuilder : IMethodBuilder
     {
-        private readonly IParameters _parameters;
+        private readonly IServiceBuilderParameters _parameters;
         private readonly IMessageTypesBuilder _messageTypesBuilder;
         private readonly ICommonLinesBuilder _commonLinesBuilder;
 
         public TaskFromResultMethodBuilder(
-            IParameters parameters, 
+            IServiceBuilderParameters parameters, 
             IMessageTypesBuilder messageTypesBuilder,
             ICommonLinesBuilder commonLinesBuilder)
         {
