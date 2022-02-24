@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.RemoteApi", "Plugin.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{8CE8BF37-B11C-49F1-A975-37B113B66D2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBApiProtoGenerator", "MBApiProtoGenerator\MBApiProtoGenerator.csproj", "{43BF0103-6B61-4D0A-A685-FB860D45CA20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator", "CodeGenerator\CodeGenerator.csproj", "{43BF0103-6B61-4D0A-A685-FB860D45CA20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
