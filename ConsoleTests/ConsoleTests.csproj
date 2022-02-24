@@ -52,7 +52,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MusicBeeApiClientWrapper.cs" />
-    <Compile Include="Services\IMusicBeeApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

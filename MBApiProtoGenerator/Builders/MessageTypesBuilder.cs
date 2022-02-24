@@ -1,8 +1,9 @@
-﻿using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
+﻿using MBApiProtoGenerator.Builders.Abstract;
+using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
 using MBApiProtoGenerator.Helpers;
 using MBApiProtoGenerator.Models;
 
-namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
+namespace MBApiProtoGenerator.Builders
 {
     public class MessageTypesBuilder : IMessageTypesBuilder
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using MBApiProtoGenerator.Builders.Abstract;
 using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
 using MBApiProtoGenerator.Helpers;
 using MBApiProtoGenerator.Models;

@@ -1,6 +1,6 @@
 ﻿using MBApiProtoGenerator.Models;
 
-namespace MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract
+namespace MBApiProtoGenerator.Builders.Abstract
 {
     public interface IMessageTypesBuilder
     {

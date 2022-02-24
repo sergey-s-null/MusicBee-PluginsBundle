@@ -4,15 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using MBApiProtoGenerator.Builders;
-using MBApiProtoGenerator.Builders.ServiceImplBuilder;
+using MBApiProtoGenerator.Builders.Abstract;
 using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
 using MBApiProtoGenerator.Enums;
 using MBApiProtoGenerator.Helpers;
 using MBApiProtoGenerator.Models;
 using Microsoft.Build.Evaluation;
 using Ninject;
-using Root;
+using Ninject.Syntax;
 using Root.Helpers;
+using Root.MusicBeeApi;
 
 namespace MBApiProtoGenerator
 {
@@ -28,217 +29,234 @@ namespace MBApiProtoGenerator
         private const string ConsoleTestsCsProjFilePath = @"..\..\..\ConsoleTests\ConsoleTests.csproj";
         private const string FromConsoleTestToModulePath = @"..\Module.RemoteMusicBeeApi";
 
-        private static readonly IReadOnlyCollection<string> FieldsToExport = new[]
-        {
-            "MB_ReleaseString",
-            "MB_Trace",
-            "Setting_GetPersistentStoragePath",
-            "Setting_GetSkin",
-            "Setting_GetSkinElementColour",
-            "Setting_IsWindowBordersSkinned",
-            "Library_GetFileProperty",
-            "Library_GetFileTag",
-            "Library_SetFileTag",
-            "Library_CommitTagsToFile",
-            "Library_GetLyrics",
-            "Library_GetArtwork - obsolete",
-            "Library_QueryFiles",
-            "Library_QueryGetNextFile",
-            "Player_GetPosition",
-            "Player_SetPosition",
-            "Player_GetPlayState",
-            "Player_PlayPause",
-            "Player_Stop",
-            "Player_StopAfterCurrent",
-            "Player_PlayPreviousTrack",
-            "Player_PlayNextTrack",
-            "Player_StartAutoDj",
-            "Player_EndAutoDj",
-            "Player_GetVolume",
-            "Player_SetVolume",
-            "Player_GetMute",
-            "Player_SetMute",
-            "Player_GetShuffle",
-            "Player_SetShuffle",
-            "Player_GetRepeat",
-            "Player_SetRepeat",
-            "Player_GetEqualiserEnabled",
-            "Player_SetEqualiserEnabled",
-            "Player_GetDspEnabled",
-            "Player_SetDspEnabled",
-            "Player_GetScrobbleEnabled",
-            "Player_SetScrobbleEnabled",
-            "NowPlaying_GetFileUrl",
-            "NowPlaying_GetDuration",
-            "NowPlaying_GetFileProperty",
-            "NowPlaying_GetFileTag",
-            "NowPlaying_GetLyrics",
-            "NowPlaying_GetArtwork",
-            "NowPlayingList_Clear",
-            "NowPlayingList_QueryFiles",
-            "NowPlayingList_QueryGetNextFile",
-            "NowPlayingList_PlayNow",
-            "NowPlayingList_QueueNext",
-            "NowPlayingList_QueueLast",
-            "NowPlayingList_PlayLibraryShuffled",
-            "Playlist_QueryPlaylists",
-            "Playlist_QueryGetNextPlaylist",
-            "Playlist_GetType",
-            "Playlist_QueryFiles",
-            "Playlist_QueryGetNextFile",
-            // IntPtr
-            // "MB_GetWindowHandle",
-            "MB_RefreshPanels",
-            "MB_SendNotification",
-            // EventHandler
-            // "MB_AddMenuItem",
-            "Setting_GetFieldName",
-            // obsolete
-            // "Library_QueryGetAllFiles",
-            // obsolete
-            // "NowPlayingList_QueryGetAllFiles",
-            // obsolete
-            // "Playlist_QueryGetAllFiles",
-            // ThreadStart
-            // "MB_CreateBackgroundTask",
-            "MB_SetBackgroundTaskMessage",
-            // EventHandler
-            // "MB_RegisterCommand",
-            // Font
-            // "Setting_GetDefaultFont",
-            "Player_GetShowTimeRemaining",
-            "NowPlayingList_GetCurrentIndex",
-            "NowPlayingList_GetListFileUrl",
-            "NowPlayingList_GetFileProperty",
-            "NowPlayingList_GetFileTag",
-            "NowPlaying_GetSpectrumData",
-            "NowPlaying_GetSoundGraph",
-            // Rectangle
-            // "MB_GetPanelBounds",
-            // Control
-            // "MB_AddPanel",
-            // Control
-            // "MB_RemovePanel",
-            "MB_GetLocalisation",
-            "NowPlayingList_IsAnyPriorTracks",
-            "NowPlayingList_IsAnyFollowingTrac",
-            "Player_ShowEqualiser",
-            "Player_GetAutoDjEnabled",
-            "Player_GetStopAfterCurrentEnabled",
-            "Player_GetCrossfade",
-            "Player_SetCrossfade",
-            "Player_GetReplayGainMode",
-            "Player_SetReplayGainMode",
-            "Player_QueueRandomTracks",
-            "Setting_GetDataType",
-            "NowPlayingList_GetNextIndex",
-            "NowPlaying_GetArtistPicture",
-            "NowPlaying_GetDownloadedArtwork",
-            "MB_ShowNowPlayingAssistant",
-            "NowPlaying_GetDownloadedLyrics",
-            "Player_GetShowRatingTrack",
-            "Player_GetShowRatingLove",
-            // ParameterizedThreadStart
-            // "MB_CreateParameterisedBackgroundTask",
-            "Setting_GetLastFmUserId",
-            "Playlist_GetName",
-            "Playlist_CreatePlaylist",
-            "Playlist_SetFiles",
-            "Library_QuerySimilarArtists",
-            "Library_QueryLookupTable",
-            "Library_QueryGetLookupTableValue",
-            "NowPlayingList_QueueFilesNext",
-            "NowPlayingList_QueueFilesLast",
-            "Setting_GetWebProxy",
-            "NowPlayingList_RemoveAt",
-            "Playlist_RemoveAt",
-            // Control
-            // "MB_SetPanelScrollableArea",
-            // object
-            // "MB_InvokeCommand",
-            "MB_OpenFilterInTab",
-            "MB_SetWindowSize",
-            "Library_GetArtistPicture",
-            "Pending_GetFileUrl",
-            "Pending_GetFileProperty",
-            "Pending_GetFileTag",
-            "Player_GetButtonEnabled",
-            "NowPlayingList_MoveFiles",
-            "Library_GetArtworkUrl",
-            "Library_GetArtistPictureThumb",
-            "NowPlaying_GetArtworkUrl",
-            "NowPlaying_GetDownloadedArtworkUrl",
-            "NowPlaying_GetArtistPictureThumb",
-            "Playlist_IsInList",
-            "Library_GetArtistPictureUrls",
-            "NowPlaying_GetArtistPictureUrls",
-            "Playlist_AppendFiles",
-            "Sync_FileStart",
-            "Sync_FileEnd",
-            "Library_QueryFilesEx",
-            "NowPlayingList_QueryFilesEx",
-            "Playlist_QueryFilesEx",
-            "Playlist_MoveFiles",
-            "Playlist_PlayNow",
-            "NowPlaying_IsSoundtrack",
-            "NowPlaying_GetSoundtrackPictureUrls",
-            "Library_GetDevicePersistentId",
-            "Library_SetDevicePersistentId",
-            "Library_FindDevicePersistentId",
-            // object
-            // "Setting_GetValue",
-            "Library_AddFileToLibrary",
-            "Playlist_DeletePlaylist",
-            // DateTime - ради одного метода не хочеться что-то пилить
-            // "Library_GetSyncDelta",
-            "Library_GetFileTags",
-            "NowPlaying_GetFileTags",
-            "NowPlayingList_GetFileTags",
-            // EventHandler
-            // "MB_AddTreeNode",
-            "MB_DownloadFile",
-            "Setting_GetFileConvertCommandLine",
-            "Player_OpenStreamHandle",
-            "Player_UpdatePlayStatistics",
-            "Library_GetArtworkEx",
-            "Library_SetArtworkEx",
-            "MB_GetVisualiserInformation",
-            "MB_ShowVisualiser",
-            "MB_GetPluginViewInformation",
-            "MB_ShowPluginView",
-            "Player_GetOutputDevices",
-            "Player_SetOutputDevice",
-            "MB_UninstallPlugin",
-            "Player_PlayPreviousAlbum",
-            "Player_PlayNextAlbum",
-            "Podcasts_QuerySubscriptions",
-            "Podcasts_GetSubscription",
-            "Podcasts_GetSubscriptionArtwork",
-            "Podcasts_GetSubscriptionEpisodes",
-            "Podcasts_GetSubscriptionEpisode",
-            "NowPlaying_GetSoundGraphEx",
-            "Sync_FileDeleteStart",
-            "Sync_FileDeleteEnd",
-        };
+        private static readonly IReadOnlyCollection<MethodNameWithRestriction> MethodNames =
+            new MethodNameWithRestriction[]
+            {
+                new("MB_ReleaseString"),
+                new("MB_Trace"),
+                new("Setting_GetPersistentStoragePath"),
+                new("Setting_GetSkin"),
+                new("Setting_GetSkinElementColour"),
+                new("Setting_IsWindowBordersSkinned"),
+                new("Library_GetFileProperty"),
+                new("Library_GetFileTag"),
+                new("Library_SetFileTag"),
+                new("Library_CommitTagsToFile"),
+                new("Library_GetLyrics"),
+                // obsolete
+                new("Library_GetArtwork", MethodRestriction.Ignore),
+                new("Library_QueryFiles"),
+                new("Library_QueryGetNextFile"),
+                new("Player_GetPosition"),
+                new("Player_SetPosition"),
+                new("Player_GetPlayState"),
+                new("Player_PlayPause"),
+                new("Player_Stop"),
+                new("Player_StopAfterCurrent"),
+                new("Player_PlayPreviousTrack"),
+                new("Player_PlayNextTrack"),
+                new("Player_StartAutoDj"),
+                new("Player_EndAutoDj"),
+                new("Player_GetVolume"),
+                new("Player_SetVolume"),
+                new("Player_GetMute"),
+                new("Player_SetMute"),
+                new("Player_GetShuffle"),
+                new("Player_SetShuffle"),
+                new("Player_GetRepeat"),
+                new("Player_SetRepeat"),
+                new("Player_GetEqualiserEnabled"),
+                new("Player_SetEqualiserEnabled"),
+                new("Player_GetDspEnabled"),
+                new("Player_SetDspEnabled"),
+                new("Player_GetScrobbleEnabled"),
+                new("Player_SetScrobbleEnabled"),
+                new("NowPlaying_GetFileUrl"),
+                new("NowPlaying_GetDuration"),
+                new("NowPlaying_GetFileProperty"),
+                new("NowPlaying_GetFileTag"),
+                new("NowPlaying_GetLyrics"),
+                new("NowPlaying_GetArtwork"),
+                new("NowPlayingList_Clear"),
+                new("NowPlayingList_QueryFiles"),
+                new("NowPlayingList_QueryGetNextFile"),
+                new("NowPlayingList_PlayNow"),
+                new("NowPlayingList_QueueNext"),
+                new("NowPlayingList_QueueLast"),
+                new("NowPlayingList_PlayLibraryShuffled"),
+                new("Playlist_QueryPlaylists"),
+                new("Playlist_QueryGetNextPlaylist"),
+                new("Playlist_GetType"),
+                new("Playlist_QueryFiles"),
+                new("Playlist_QueryGetNextFile"),
+                // IntPtr
+                new("MB_GetWindowHandle", MethodRestriction.Extended),
+                new("MB_RefreshPanels"),
+                new("MB_SendNotification"),
+                // EventHandler
+                new("MB_AddMenuItem", MethodRestriction.Extended),
+                new("Setting_GetFieldName"),
+                // obsolete
+                new("Library_QueryGetAllFiles", MethodRestriction.Ignore),
+                // obsolete
+                new("NowPlayingList_QueryGetAllFiles", MethodRestriction.Ignore),
+                // obsolete
+                new("Playlist_QueryGetAllFiles", MethodRestriction.Ignore),
+                // ThreadStart
+                new("MB_CreateBackgroundTask", MethodRestriction.Extended),
+                new("MB_SetBackgroundTaskMessage"),
+                // EventHandler
+                new("MB_RegisterCommand", MethodRestriction.Extended),
+                // Font
+                new("Setting_GetDefaultFont", MethodRestriction.Extended),
+                new("Player_GetShowTimeRemaining"),
+                new("NowPlayingList_GetCurrentIndex"),
+                new("NowPlayingList_GetListFileUrl"),
+                new("NowPlayingList_GetFileProperty"),
+                new("NowPlayingList_GetFileTag"),
+                new("NowPlaying_GetSpectrumData"),
+                new("NowPlaying_GetSoundGraph"),
+                // Rectangle
+                new("MB_GetPanelBounds", MethodRestriction.Extended),
+                // Control
+                new("MB_AddPanel", MethodRestriction.Extended),
+                // Control
+                new("MB_RemovePanel", MethodRestriction.Extended),
+                new("MB_GetLocalisation"),
+                new("NowPlayingList_IsAnyPriorTracks"),
+                new("NowPlayingList_IsAnyFollowingTrac"),
+                new("Player_ShowEqualiser"),
+                new("Player_GetAutoDjEnabled"),
+                new("Player_GetStopAfterCurrentEnabled"),
+                new("Player_GetCrossfade"),
+                new("Player_SetCrossfade"),
+                new("Player_GetReplayGainMode"),
+                new("Player_SetReplayGainMode"),
+                new("Player_QueueRandomTracks"),
+                new("Setting_GetDataType"),
+                new("NowPlayingList_GetNextIndex"),
+                new("NowPlaying_GetArtistPicture"),
+                new("NowPlaying_GetDownloadedArtwork"),
+                new("MB_ShowNowPlayingAssistant"),
+                new("NowPlaying_GetDownloadedLyrics"),
+                new("Player_GetShowRatingTrack"),
+                new("Player_GetShowRatingLove"),
+                // ParameterizedThreadStart
+                new("MB_CreateParameterisedBackgroundTask", MethodRestriction.Extended),
+                new("Setting_GetLastFmUserId"),
+                new("Playlist_GetName"),
+                new("Playlist_CreatePlaylist"),
+                new("Playlist_SetFiles"),
+                new("Library_QuerySimilarArtists"),
+                new("Library_QueryLookupTable"),
+                new("Library_QueryGetLookupTableValue"),
+                new("NowPlayingList_QueueFilesNext"),
+                new("NowPlayingList_QueueFilesLast"),
+                new("Setting_GetWebProxy"),
+                new("NowPlayingList_RemoveAt"),
+                new("Playlist_RemoveAt"),
+                // Control
+                new("MB_SetPanelScrollableArea", MethodRestriction.Extended),
+                // object
+                new("MB_InvokeCommand", MethodRestriction.Extended),
+                new("MB_OpenFilterInTab"),
+                new("MB_SetWindowSize"),
+                new("Library_GetArtistPicture"),
+                new("Pending_GetFileUrl"),
+                new("Pending_GetFileProperty"),
+                new("Pending_GetFileTag"),
+                new("Player_GetButtonEnabled"),
+                new("NowPlayingList_MoveFiles"),
+                new("Library_GetArtworkUrl"),
+                new("Library_GetArtistPictureThumb"),
+                new("NowPlaying_GetArtworkUrl"),
+                new("NowPlaying_GetDownloadedArtworkUrl"),
+                new("NowPlaying_GetArtistPictureThumb"),
+                new("Playlist_IsInList"),
+                new("Library_GetArtistPictureUrls"),
+                new("NowPlaying_GetArtistPictureUrls"),
+                new("Playlist_AppendFiles"),
+                new("Sync_FileStart"),
+                new("Sync_FileEnd"),
+                new("Library_QueryFilesEx"),
+                new("NowPlayingList_QueryFilesEx"),
+                new("Playlist_QueryFilesEx"),
+                new("Playlist_MoveFiles"),
+                new("Playlist_PlayNow"),
+                new("NowPlaying_IsSoundtrack"),
+                new("NowPlaying_GetSoundtrackPictureUrls"),
+                new("Library_GetDevicePersistentId"),
+                new("Library_SetDevicePersistentId"),
+                new("Library_FindDevicePersistentId"),
+                // object
+                new("Setting_GetValue", MethodRestriction.Extended),
+                new("Library_AddFileToLibrary"),
+                new("Playlist_DeletePlaylist"),
+                // DateTime - ради одного метода не хочеться что-то пилить
+                new("Library_GetSyncDelta", MethodRestriction.Extended),
+                new("Library_GetFileTags"),
+                new("NowPlaying_GetFileTags"),
+                new("NowPlayingList_GetFileTags"),
+                // EventHandler
+                new("MB_AddTreeNode", MethodRestriction.Extended),
+                new("MB_DownloadFile"),
+                new("Setting_GetFileConvertCommandLine"),
+                new("Player_OpenStreamHandle"),
+                new("Player_UpdatePlayStatistics"),
+                new("Library_GetArtworkEx"),
+                new("Library_SetArtworkEx"),
+                new("MB_GetVisualiserInformation"),
+                new("MB_ShowVisualiser"),
+                new("MB_GetPluginViewInformation"),
+                new("MB_ShowPluginView"),
+                new("Player_GetOutputDevices"),
+                new("Player_SetOutputDevice"),
+                new("MB_UninstallPlugin"),
+                new("Player_PlayPreviousAlbum"),
+                new("Player_PlayNextAlbum"),
+                new("Podcasts_QuerySubscriptions"),
+                new("Podcasts_GetSubscription"),
+                new("Podcasts_GetSubscriptionArtwork"),
+                new("Podcasts_GetSubscriptionEpisodes"),
+                new("Podcasts_GetSubscriptionEpisode"),
+                new("NowPlaying_GetSoundGraphEx"),
+                new("Sync_FileDeleteStart"),
+                new("Sync_FileDeleteEnd"),
+            };
+
+        private static readonly IReadOnlyCollection<string> MethodNamesWithoutRestrictions = MethodNames
+            .Where(x => x.Restriction == MethodRestriction.None)
+            .Select(x => x.MethodName)
+            .ToReadOnlyCollection();
+
+        private static readonly IReadOnlyCollection<string> ExtendedMethodNames = MethodNames
+            .Where(x => x.Restriction == MethodRestriction.Extended)
+            .Select(x => x.MethodName)
+            .ToReadOnlyCollection();
+
+        private static readonly IReadOnlyCollection<string> MethodNamesExceptIgnored = MethodNames
+            .Where(x => x.Restriction != MethodRestriction.Ignore)
+            .Select(x => x.MethodName)
+            .ToReadOnlyCollection();
 
         public static void Main(string[] args)
         {
-            var apiType = typeof(MusicBeeApiInterface);
-            var methods = apiType
-                .GetMembers()
-                .Where(x => FieldsToExport.Contains(x.Name))
-                .CastOrSkip<MemberInfo, FieldInfo>()
-                .Select(Define)
-                .ToReadOnlyCollection();
+            var resolutionRoot = Bootstrapper.GetKernel(ServiceImplMode.WrapWithTaskRun);
 
-            GenerateProtoFiles(methods);
+            var baseMethods = GetMethodsDefinition(MethodNamesWithoutRestrictions);
+            var extendedMethods = GetMethodsDefinition(ExtendedMethodNames);
 
-            AddProtobufToModuleCsProj(methods);
-            AddProtobufToConsoleTestsCsProj(methods);
-            
-            GenerateServerServiceImpl(methods);
+            GenerateProtoFiles(baseMethods);
 
-            GenerateMBApiInterfaceWithClientWrapper(methods);
+            AddProtobufToModuleCsProj(baseMethods);
+            AddProtobufToConsoleTestsCsProj(baseMethods);
+
+            GenerateServiceImpl(resolutionRoot, baseMethods);
+
+            GenerateBaseInterface(resolutionRoot, baseMethods);
+            GenerateExtendedInterface(resolutionRoot, extendedMethods);
+
+            GenerateClientWrapper(resolutionRoot, baseMethods);
         }
 
         private static void GenerateProtoFiles(IEnumerable<MBApiMethodDefinition> methods)
@@ -271,7 +289,7 @@ namespace MBApiProtoGenerator
                 ServiceGenerationMode.MessagesInSeparateFiles => methods
                     .Select(x => @$"{ExportPathInsideModuleProject}\{x.Name}.proto")
                     .Append(serviceFilePath),
-                ServiceGenerationMode.SingleFile => new[] { serviceFilePath },
+                ServiceGenerationMode.SingleFile => new[] {serviceFilePath},
                 _ => throw new ArgumentOutOfRangeException(nameof(GenerationMode), GenerationMode, null)
             };
 
@@ -308,66 +326,82 @@ namespace MBApiProtoGenerator
                 .SaveProject();
         }
 
-        private static void GenerateServerServiceImpl(IReadOnlyCollection<MBApiMethodDefinition> methods)
+        private static void GenerateServiceImpl(
+            IResolutionRoot resolutionRoot,
+            IReadOnlyCollection<MBApiMethodDefinition> methods)
         {
             const string filePath = @"..\..\..\Module.RemoteMusicBeeApi\MusicBeeApiServiceImpl.cs";
 
-            var lines = GetServiceBuilder(true)
+            var lines = resolutionRoot
+                .Get<IServiceBuilder>()
                 .GenerateServiceLines(methods);
-            
+
             File.WriteAllLines(filePath, lines);
         }
 
-        private static IServiceBuilder GetServiceBuilder(bool wrapWithTaskRun)
+        private static void GenerateBaseInterface(
+            IResolutionRoot resolutionRoot,
+            IReadOnlyCollection<MBApiMethodDefinition> baseMethods)
         {
-            var kernel = new StandardKernel();
-            kernel
-                .Bind<IServiceBuilder>()
-                .To<ServiceBuilder>()
-                .InSingletonScope();
-            kernel
-                .Bind<IParameters>()
-                .To<HardcodedParameters>()
-                .InSingletonScope();
+            const string baseFilePath = @"..\..\..\Root\MusicBeeApi\Abstract\IBaseMusicBeeApi.cs";
 
-            if (wrapWithTaskRun)
-            {
-                kernel
-                    .Bind<IMethodBuilder>()
-                    .To<TaskRunWrappedMethodBuilder>()
-                    .InSingletonScope();
-            }
-            else
-            {
-                kernel
-                    .Bind<IMethodBuilder>()
-                    .To<TaskFromResultMethodBuilder>()
-                    .InSingletonScope();
-            }
-            
-            kernel
-                .Bind<IMessageTypesBuilder>()
-                .To<MessageTypesBuilder>()
-                .InSingletonScope();
-            kernel
-                .Bind<ICommonLinesBuilder>()
-                .To<CommonLinesBuilder>()
-                .InSingletonScope();
-
-            return kernel.Get<IServiceBuilder>();
+            var builder = resolutionRoot.Get<IInterfaceBuilder>();
+            builder.Namespace = "Root.MusicBeeApi.Abstract";
+            builder.Name = "IBaseMusicBeeApi";
+            var baseLines = builder
+                .GenerateInterfaceLines(baseMethods);
+            File.WriteAllLines(baseFilePath, baseLines);
         }
 
-        private static void GenerateMBApiInterfaceWithClientWrapper(IReadOnlyCollection<MBApiMethodDefinition> methods)
+        private static void GenerateExtendedInterface(
+            IResolutionRoot resolutionRoot,
+            IReadOnlyCollection<MBApiMethodDefinition> extendedMethods)
         {
-            const string interfaceFilePath = @"..\..\..\ConsoleTests\Services\IMusicBeeApi.cs";
+            const string extendedFilePath = @"..\..\..\Root\MusicBeeApi\Abstract\IMusicBeeApi.cs";
+
+            var builder = resolutionRoot.Get<IInterfaceBuilder>();
+            builder.ImportNamespaces = new[]
+            {
+                "System",
+                "System.Drawing",
+                "System.Threading",
+                "System.Windows.Forms",
+            };
+            builder.Namespace = "Root.MusicBeeApi.Abstract";
+            builder.Name = "IMusicBeeApi";
+            builder.BaseInterface = "IBaseMusicBeeApi";
+
+            var extendedLines = builder
+                .GenerateInterfaceLines(extendedMethods);
+            File.WriteAllLines(extendedFilePath, extendedLines);
+        }
+
+        private static void GenerateClientWrapper(
+            IResolutionRoot resolutionRoot,
+            IReadOnlyCollection<MBApiMethodDefinition> methods)
+        {
             const string wrapperFilePath = @"..\..\..\ConsoleTests\Services\MusicBeeApiClientWrapper.cs";
-            var builder = new CsClientServiceBuilder(methods);
-            var interfaceLines = builder.GenerateInterfaceLines();
-            var wrapperLines = builder.GenerateClientWrapperLines();
-            File.WriteAllLines(interfaceFilePath, interfaceLines);
-            File.WriteAllLines(wrapperFilePath, wrapperLines);
+
+            var builder = resolutionRoot
+                .Get<IClientWrapperBuilder>();
+            builder.ReturnVariableName = ReturnParameterName;
+
+            var lines = builder
+                .GenerateClientWrapperLines(methods);
+            File.WriteAllLines(wrapperFilePath, lines);
         }
-        
+
+        private static IReadOnlyCollection<MBApiMethodDefinition> GetMethodsDefinition(
+            IReadOnlyCollection<string> fields)
+        {
+            return typeof(MusicBeeApiInterface)
+                .GetMembers()
+                .Where(x => fields.Contains(x.Name))
+                .CastOrSkip<MemberInfo, FieldInfo>()
+                .Select(Define)
+                .ToReadOnlyCollection();
+        }
+
         private static MBApiMethodDefinition Define(FieldInfo delegateFieldInfo)
         {
             var name = delegateFieldInfo.Name;
@@ -402,7 +436,7 @@ namespace MBApiProtoGenerator
         private static MBApiParameterDefinition Define(ParameterInfo parameterInfo)
         {
             return new MBApiParameterDefinition(
-                parameterInfo.ParameterType.RemoveRefWrapper(), 
+                parameterInfo.ParameterType.RemoveRefWrapper(),
                 parameterInfo.Name);
         }
     }

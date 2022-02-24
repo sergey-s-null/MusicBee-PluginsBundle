@@ -14,7 +14,7 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
             "using System.Threading.Tasks;",
             "using Google.Protobuf.WellKnownTypes;",
             "using Grpc.Core;",
-            "using Root;",
+            "using Root.MusicBeeApi;",
         };
 
         private static readonly IReadOnlyCollection<string> ResharperBlock = new[]
