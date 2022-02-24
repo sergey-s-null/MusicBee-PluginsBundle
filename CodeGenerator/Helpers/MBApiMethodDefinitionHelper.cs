@@ -1,6 +1,6 @@
-﻿using MBApiProtoGenerator.Models;
+﻿using CodeGenerator.Models;
 
-namespace MBApiProtoGenerator.Helpers
+namespace CodeGenerator.Helpers
 {
     public static class MBApiMethodDefinitionHelper
     {

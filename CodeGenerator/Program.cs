@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using MBApiProtoGenerator.Builders;
-using MBApiProtoGenerator.Builders.Abstract;
-using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
-using MBApiProtoGenerator.Enums;
-using MBApiProtoGenerator.Helpers;
-using MBApiProtoGenerator.Models;
+using CodeGenerator.Builders;
+using CodeGenerator.Builders.Abstract;
+using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
+using CodeGenerator.Enums;
+using CodeGenerator.Helpers;
+using CodeGenerator.Models;
 using Microsoft.Build.Evaluation;
 using Ninject;
 using Ninject.Syntax;
 using Root.Helpers;
 using Root.MusicBeeApi;
 
-namespace MBApiProtoGenerator
+namespace CodeGenerator
 {
     internal class Program
     {

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Linq;
 
-namespace MBApiProtoGenerator.Helpers
+namespace CodeGenerator.Helpers
 {
     public static class TypeHelper
     {

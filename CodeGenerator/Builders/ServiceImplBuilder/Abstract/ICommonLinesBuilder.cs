@@ -1,7 +1,7 @@
 ﻿using System;
-using MBApiProtoGenerator.Models;
+using CodeGenerator.Models;
 
-namespace MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract
+namespace CodeGenerator.Builders.ServiceImplBuilder.Abstract
 {
     public interface ICommonLinesBuilder
     {

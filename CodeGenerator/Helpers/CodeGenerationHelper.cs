@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MBApiProtoGenerator.Helpers
+namespace CodeGenerator.Helpers
 {
     public static class CodeGenerationHelper
     {

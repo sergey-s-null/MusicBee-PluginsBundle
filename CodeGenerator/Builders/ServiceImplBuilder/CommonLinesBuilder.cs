@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using MBApiProtoGenerator.Builders.Abstract;
-using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
-using MBApiProtoGenerator.Helpers;
-using MBApiProtoGenerator.Models;
+using CodeGenerator.Builders.Abstract;
+using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
+using CodeGenerator.Helpers;
+using CodeGenerator.Models;
 using Root.Helpers;
 
-namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
+namespace CodeGenerator.Builders.ServiceImplBuilder
 {
     public class CommonLinesBuilder : ICommonLinesBuilder
     {

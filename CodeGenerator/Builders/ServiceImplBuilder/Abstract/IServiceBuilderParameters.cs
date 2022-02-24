@@ -1,4 +1,4 @@
-﻿namespace MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract
+﻿namespace CodeGenerator.Builders.ServiceImplBuilder.Abstract
 {
     public interface IServiceBuilderParameters
     {

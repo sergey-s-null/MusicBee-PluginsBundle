@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MBApiProtoGenerator.Enums;
-using MBApiProtoGenerator.Helpers;
-using MBApiProtoGenerator.Models;
+using CodeGenerator.Enums;
+using CodeGenerator.Helpers;
+using CodeGenerator.Models;
 
-namespace MBApiProtoGenerator.Builders
+namespace CodeGenerator.Builders
 {
     public class ProtoFilesBuilder
     {

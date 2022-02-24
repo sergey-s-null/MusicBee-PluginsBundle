@@ -1,6 +1,6 @@
-﻿using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
+﻿using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
 
-namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
+namespace CodeGenerator.Builders.ServiceImplBuilder
 {
     public class HardcodedServiceBuilderParameters : IServiceBuilderParameters
     {

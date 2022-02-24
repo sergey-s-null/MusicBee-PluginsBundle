@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using MBApiProtoGenerator.Models;
+using CodeGenerator.Models;
 
-namespace MBApiProtoGenerator.Builders.Abstract
+namespace CodeGenerator.Builders.Abstract
 {
     public interface IMemoryContainerWrapperBuilder
     {

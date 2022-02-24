@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
-using MBApiProtoGenerator.Helpers;
-using MBApiProtoGenerator.Models;
+using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
+using CodeGenerator.Helpers;
+using CodeGenerator.Models;
 
-namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
+namespace CodeGenerator.Builders.ServiceImplBuilder
 {
     public class ServiceBuilder : IServiceBuilder
     {

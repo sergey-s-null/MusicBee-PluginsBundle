@@ -1,13 +1,13 @@
 ﻿using System;
-using MBApiProtoGenerator.Builders;
-using MBApiProtoGenerator.Builders.Abstract;
-using MBApiProtoGenerator.Builders.ServiceImplBuilder;
-using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
-using MBApiProtoGenerator.Enums;
+using CodeGenerator.Builders;
+using CodeGenerator.Builders.Abstract;
+using CodeGenerator.Builders.ServiceImplBuilder;
+using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
+using CodeGenerator.Enums;
 using Ninject;
 using Ninject.Syntax;
 
-namespace MBApiProtoGenerator
+namespace CodeGenerator
 {
     public static class Bootstrapper
     {

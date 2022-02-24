@@ -1,6 +1,6 @@
-﻿using MBApiProtoGenerator.Enums;
+﻿using CodeGenerator.Enums;
 
-namespace MBApiProtoGenerator.Models
+namespace CodeGenerator.Models
 {
     public class MethodNameWithRestriction
     {

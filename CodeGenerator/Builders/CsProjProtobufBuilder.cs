@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MBApiProtoGenerator.Enums;
+using CodeGenerator.Enums;
 using Microsoft.Build.Evaluation;
 using Root.Helpers;
 
-namespace MBApiProtoGenerator.Builders
+namespace CodeGenerator.Builders
 {
     public class CsProjProtobufBuilder
     {

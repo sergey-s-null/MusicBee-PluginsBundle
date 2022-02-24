@@ -1,6 +1,6 @@
-﻿using MBApiProtoGenerator.Builders;
+﻿using CodeGenerator.Builders;
 
-namespace MBApiProtoGenerator.Helpers
+namespace CodeGenerator.Helpers
 {
     public static class CsProjProtobufBuilderHelper
     {

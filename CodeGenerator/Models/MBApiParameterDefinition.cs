@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MBApiProtoGenerator.Models
+namespace CodeGenerator.Models
 {
     public class MBApiParameterDefinition
     {

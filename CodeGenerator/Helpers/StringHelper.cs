@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace MBApiProtoGenerator.Helpers
+namespace CodeGenerator.Helpers
 {
     public static class StringHelper
     {

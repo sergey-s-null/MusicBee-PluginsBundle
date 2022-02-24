@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MBApiProtoGenerator.Builders.Abstract;
-using MBApiProtoGenerator.Models;
+using CodeGenerator.Builders.Abstract;
+using CodeGenerator.Models;
 
-namespace MBApiProtoGenerator.Builders
+namespace CodeGenerator.Builders
 {
     public class MethodDefinitionBuilder : IMethodDefinitionBuilder
     {

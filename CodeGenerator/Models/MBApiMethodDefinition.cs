@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MBApiProtoGenerator.Models
+namespace CodeGenerator.Models
 {
     public class MBApiMethodDefinition
     {

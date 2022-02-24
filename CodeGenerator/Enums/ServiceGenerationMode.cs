@@ -1,4 +1,4 @@
-﻿namespace MBApiProtoGenerator.Enums
+﻿namespace CodeGenerator.Enums
 {
     public enum ServiceGenerationMode
     {
