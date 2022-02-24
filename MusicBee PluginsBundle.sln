@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTests", "ConsoleTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test Desktop", "Test Desktop\Test Desktop.csproj", "{3C3A9434-B249-479E-8F41-1FAC76972DBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{23CBC01F-BD6D-48E0-9685-71E8EBA58F04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Main", "Plugin.Main\Plugin.Main.csproj", "{23CBC01F-BD6D-48E0-9685-71E8EBA58F04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.DataExporter", "Module.DataExporter\Module.DataExporter.csproj", "{D384E0FD-D73C-4E6E-87C9-C7C38AA95E62}"
 EndProject

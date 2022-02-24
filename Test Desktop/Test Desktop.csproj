@@ -105,9 +105,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Main\Main.csproj">
+    <ProjectReference Include="..\Plugin.Main\Plugin.Main.csproj">
       <Project>{23cbc01f-bd6d-48e0-9685-71e8eba58f04}</Project>
-      <Name>Main</Name>
+      <Name>Plugin.Main</Name>
     </ProjectReference>
     <ProjectReference Include="..\Module.PlaylistsExporter\Module.PlaylistsExporter.csproj">
       <Project>{e74edc2a-19f4-4f7a-a976-24b7f778c038}</Project>

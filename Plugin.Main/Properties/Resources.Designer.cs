@@ -45,7 +45,7 @@ namespace MusicBeePlugin.Properties
                 if ((resourceMan == null))
                 {
                     global::System.Resources.ResourceManager temp =
-                        new global::System.Resources.ResourceManager("Main.Properties.Resources",
+                        new global::System.Resources.ResourceManager("Plugin.Main.Properties.Resources",
                             typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
