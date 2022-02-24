@@ -4,10 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using MBApiProtoGenerator.Builders;
+using MBApiProtoGenerator.Builders.ServiceImplBuilder;
+using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
 using MBApiProtoGenerator.Enums;
 using MBApiProtoGenerator.Helpers;
 using MBApiProtoGenerator.Models;
 using Microsoft.Build.Evaluation;
+using Ninject;
 using Root;
 using Root.Helpers;
 
@@ -16,6 +19,7 @@ namespace MBApiProtoGenerator
     internal class Program
     {
         private const string ServiceName = "MusicBeeApiService";
+        private const string ReturnParameterName = "result";
 
         private const ServiceGenerationMode GenerationMode = ServiceGenerationMode.SingleFile;
         private const string ModuleProjectPath = @"..\..\..\Module.RemoteMusicBeeApi";
@@ -242,7 +246,7 @@ namespace MBApiProtoGenerator
             var builder = new ProtoFilesBuilder()
                 .SetPostfixes("_Request", "_Response")
                 .SetExportPath(ModuleProjectPath, ExportPathInsideModuleProject)
-                .SetReturnParameterName("result")
+                .SetReturnParameterName(ReturnParameterName)
                 .AddMethods(methods)
                 .DeleteCurrentProtoFiles();
 
@@ -308,10 +312,49 @@ namespace MBApiProtoGenerator
         {
             const string filePath = @"..\..\..\Module.RemoteMusicBeeApi\MusicBeeApiServiceImpl.cs";
 
-            var lines = new CsServiceImplBuilder(methods)
-                .GenerateLines();
+            var lines = GetServiceBuilder(true)
+                .GenerateServiceLines(methods);
             
             File.WriteAllLines(filePath, lines);
+        }
+
+        private static IServiceBuilder GetServiceBuilder(bool wrapWithTaskRun)
+        {
+            var kernel = new StandardKernel();
+            kernel
+                .Bind<IServiceBuilder>()
+                .To<ServiceBuilder>()
+                .InSingletonScope();
+            kernel
+                .Bind<IParameters>()
+                .To<HardcodedParameters>()
+                .InSingletonScope();
+
+            if (wrapWithTaskRun)
+            {
+                kernel
+                    .Bind<IMethodBuilder>()
+                    .To<TaskRunWrappedMethodBuilder>()
+                    .InSingletonScope();
+            }
+            else
+            {
+                kernel
+                    .Bind<IMethodBuilder>()
+                    .To<TaskFromResultMethodBuilder>()
+                    .InSingletonScope();
+            }
+            
+            kernel
+                .Bind<IMessageTypesBuilder>()
+                .To<MessageTypesBuilder>()
+                .InSingletonScope();
+            kernel
+                .Bind<ICommonLinesBuilder>()
+                .To<CommonLinesBuilder>()
+                .InSingletonScope();
+
+            return kernel.Get<IServiceBuilder>();
         }
 
         private static void GenerateMBApiInterfaceWithClientWrapper(IReadOnlyCollection<MBApiMethodDefinition> methods)

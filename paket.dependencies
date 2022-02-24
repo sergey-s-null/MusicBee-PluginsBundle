@@ -29,3 +29,4 @@ source https://api.nuget.org/v3/index.json
 framework: net472
     nuget Microsoft.Build
     nuget Microsoft.Build.Utilities.Core
+    nuget Ninject

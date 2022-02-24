@@ -44,7 +44,17 @@
     <Compile Include="Builders\CsClientServiceBuilder.cs" />
     <Compile Include="Builders\CsProjProtobufBuilder.cs" />
     <Compile Include="Builders\ProtoFilesBuilder.cs" />
-    <Compile Include="Builders\CsServiceImplBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\Abstract\ICommonLinesBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\Abstract\IMessageTypesBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\Abstract\IParameters.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\Abstract\IMethodBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\CommonLinesBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\ServiceBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\HardcodedParameters.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\MessageTypesBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\TaskRunWrappedMethodBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\TaskFromResultMethodBuilder.cs" />
     <Compile Include="Enums\ProtobufType.cs" />
     <Compile Include="Enums\ServiceGenerationMode.cs" />
     <Compile Include="Helpers\CsProjProtobufBuilderHelper.cs" />
@@ -139,6 +149,17 @@
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Setup.Configuration.Interop">
           <HintPath>..\packages\mbapiprotogenerator\Microsoft.VisualStudio.Setup.Configuration.Interop\lib\net35\Microsoft.VisualStudio.Setup.Configuration.Interop.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Ninject">
+          <HintPath>..\packages\mbapiprotogenerator\Ninject\lib\net45\Ninject.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
