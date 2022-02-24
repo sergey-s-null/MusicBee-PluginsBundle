@@ -245,6 +245,7 @@ namespace MBApiProtoGenerator
 
             var baseMethods = GetMethodsDefinition(MethodNamesWithoutRestrictions);
             var extendedMethods = GetMethodsDefinition(ExtendedMethodNames);
+            var methodsExceptIgnored = GetMethodsDefinition(MethodNamesExceptIgnored);
 
             GenerateProtoFiles(baseMethods);
 
@@ -257,6 +258,7 @@ namespace MBApiProtoGenerator
             GenerateExtendedInterface(resolutionRoot, extendedMethods);
 
             GenerateClientWrapper(resolutionRoot, baseMethods);
+            GenerateMemoryContainerWrapper(resolutionRoot, methodsExceptIgnored);
         }
 
         private static void GenerateProtoFiles(IEnumerable<MBApiMethodDefinition> methods)
@@ -389,6 +391,19 @@ namespace MBApiProtoGenerator
             var lines = builder
                 .GenerateClientWrapperLines(methods);
             File.WriteAllLines(wrapperFilePath, lines);
+        }
+
+        private static void GenerateMemoryContainerWrapper(
+            IResolutionRoot resolutionRoot,
+            IReadOnlyCollection<MBApiMethodDefinition> methods)
+        {
+            const string filePath = @"..\..\..\Root\MusicBeeApi\MusicBeeApiMemoryContainerWrapper.cs";
+
+            var builder = resolutionRoot.Get<IMemoryContainerWrapperBuilder>();
+            builder.Namespace = "Root.MusicBeeApi";
+
+            var lines = builder.GenerateMemoryContainerWrapperLines(methods);
+            File.WriteAllLines(filePath, lines);
         }
 
         private static IReadOnlyCollection<MBApiMethodDefinition> GetMethodsDefinition(

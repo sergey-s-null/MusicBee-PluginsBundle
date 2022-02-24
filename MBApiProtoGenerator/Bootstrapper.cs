@@ -60,6 +60,9 @@ namespace MBApiProtoGenerator
                 .Bind<IClientWrapperBuilder>()
                 .To<ClientWrapperBuilder>()
                 .InSingletonScope();
+            kernel
+                .Bind<IMemoryContainerWrapperBuilder>()
+                .To<MemoryContainerWrapperBuilder>();
 
             return kernel;
         }

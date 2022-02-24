@@ -43,5 +43,20 @@ namespace MBApiProtoGenerator.Builders
                 ? stringType
                 : type.Name;
         }
+
+        public string GetClearMethodCall(MBApiMethodDefinition method, bool withVars)
+        {
+            var inputParameters = method.InputParameters
+                .Select(x => x.Name);
+            var varPart = withVars
+                ? "var "
+                : string.Empty;
+            var outputParameters = method.OutputParameters
+                .Select(x => $"out {varPart}{x.Name}");
+
+            var parameters = string.Join(", ", inputParameters.Concat(outputParameters));
+
+            return $"{method.Name}({parameters})";
+        }
     }
 }

@@ -11,5 +11,14 @@ namespace MBApiProtoGenerator.Builders.Abstract
         /// <param name="method"></param>
         /// <returns></returns>
         string GetClearMethodDefinition(MBApiMethodDefinition method);
+
+        /// <summary>
+        /// Возвращает строку вызова метода, как если бы его вызывали _mbApi....
+        /// Clear означает, что у метода не указан объект в начале и нет ";" в конце
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="withVars"></param>
+        /// <returns></returns>
+        string GetClearMethodCall(MBApiMethodDefinition method, bool withVars);
     }
 }
