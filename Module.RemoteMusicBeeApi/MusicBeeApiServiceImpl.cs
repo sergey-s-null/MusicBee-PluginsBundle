@@ -2,7 +2,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Root;
+using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 // ReSharper disable ConstantNullCoalescingCondition
 
@@ -10,9 +11,9 @@ namespace Module.RemoteMusicBeeApi
 {
     public class MusicBeeApiServiceImpl : MusicBeeApiService.MusicBeeApiServiceBase
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         
-        public MusicBeeApiServiceImpl(MusicBeeApiInterface mbApi)
+        public MusicBeeApiServiceImpl(IMusicBeeApi mbApi)
         {
             _mbApi = mbApi;
         }

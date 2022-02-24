@@ -1,8 +1,6 @@
-using Root;
-
-namespace ConsoleTests.Services
+namespace Root.MusicBeeApi.Abstract
 {
-    public interface IMusicBeeApi
+    public interface IBaseMusicBeeApi
     {
         void MB_ReleaseString(string p1);
         void MB_Trace(string p1);

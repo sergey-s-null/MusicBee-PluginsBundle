@@ -1,11 +1,11 @@
 ﻿using System.IO;
-using Root;
+using Root.MusicBeeApi.Abstract;
 
 namespace Module.ArtworksSearcher.Helpers
 {
     public class ConfigurationHelper
     {
-        public static string GetSettingsFilePath(MusicBeeApiInterface mbApi)
+        public static string GetSettingsFilePath(IMusicBeeApi mbApi)
         {
             var dataPath = mbApi.Setting_GetPersistentStoragePath();
             

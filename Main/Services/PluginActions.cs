@@ -8,14 +8,15 @@ using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.Factories;
-using Root;
 using Root.Helpers;
+using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace MusicBeePlugin.Services
 {
     public class PluginActions : IPluginActions
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         private readonly IDataExportService _dataExportService;
         private readonly IPlaylistsExportService _playlistsExportService;
         private readonly IInboxAddService _inboxAddService;
@@ -23,7 +24,7 @@ namespace MusicBeePlugin.Services
         private readonly IVkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
 
         public PluginActions(
-            MusicBeeApiInterface mbApi, 
+            IMusicBeeApi mbApi, 
             IDataExportService dataExportService, 
             IPlaylistsExportService playlistsExportService, 
             IInboxAddService inboxAddService, 
@@ -46,13 +47,13 @@ namespace MusicBeePlugin.Services
                 return;
             }
 
-            var artist = _mbApi.Library_GetFileTag.Invoke(selectedFilePath, MetaDataType.Artist);
-            var title = _mbApi.Library_GetFileTag.Invoke(selectedFilePath, MetaDataType.TrackTitle);
+            var artist = _mbApi.Library_GetFileTag(selectedFilePath, MetaDataType.Artist);
+            var title = _mbApi.Library_GetFileTag(selectedFilePath, MetaDataType.TrackTitle);
 
             var searchWindow = _searchWindowFactory.Create();
             if (searchWindow.ShowDialog(artist, title, out var imageData))
             {
-                if (!_mbApi.Library_SetArtworkEx.Invoke(selectedFilePath, 0, imageData))
+                if (!_mbApi.Library_SetArtworkEx(selectedFilePath, 0, imageData))
                 {
                     MessageBox.Show("Обложка не была сохранена.", "Ошибка");
                 }
@@ -164,7 +165,7 @@ namespace MusicBeePlugin.Services
 
         private bool TryGetSingleSelectedFile(out string filePath)
         {
-            var queryRes = _mbApi.Library_QueryFilesEx.Invoke("domain=SelectedFiles", out var files);
+            var queryRes = _mbApi.Library_QueryFilesEx("domain=SelectedFiles", out var files);
 
             if (!queryRes || files.Length != 1)
             {

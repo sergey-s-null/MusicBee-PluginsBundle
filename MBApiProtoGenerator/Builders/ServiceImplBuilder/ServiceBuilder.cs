@@ -14,7 +14,8 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
             "using System.Threading.Tasks;",
             "using Google.Protobuf.WellKnownTypes;",
             "using Grpc.Core;",
-            "using Root;",
+            "using Root.MusicBeeApi;",
+            "using Root.MusicBeeApi.Abstract;",
         };
 
         private static readonly IReadOnlyCollection<string> ResharperBlock = new[]
@@ -26,11 +27,11 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
         private const string ClassName = "MusicBeeApiServiceImpl";
         private const string ServiceName = "MusicBeeApiService";
 
-        private readonly IParameters _parameters;
+        private readonly IServiceBuilderParameters _parameters;
         private readonly IMethodBuilder _methodBuilder;
 
         public ServiceBuilder(
-            IParameters parameters,
+            IServiceBuilderParameters parameters,
             IMethodBuilder methodBuilder)
         {
             _parameters = parameters;
@@ -87,7 +88,7 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
 
         private static IEnumerable<string> GetClassFieldsLines()
         {
-            yield return "private readonly MusicBeeApiInterface _mbApi;";
+            yield return "private readonly IMusicBeeApi _mbApi;";
         }
 
         private IEnumerable<string> GetConstructorLines()
@@ -95,7 +96,7 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
             var dispatcherPart = _parameters.WithDispatcher
                 ? ", Dispatcher dispatcher"
                 : string.Empty;
-            yield return $"public {ClassName}(MusicBeeApiInterface mbApi{dispatcherPart})";
+            yield return $"public {ClassName}(IMusicBeeApi mbApi{dispatcherPart})";
             yield return "{";
             yield return "_mbApi = mbApi;".Indented();
             if (_parameters.WithDispatcher)

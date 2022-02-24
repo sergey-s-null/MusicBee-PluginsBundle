@@ -1,10 +1,11 @@
 using System.Linq;
 using Google.Protobuf.WellKnownTypes;
-using Root;
+using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace ConsoleTests.Services
 {
-    public class MusicBeeApiClientWrapper : IMusicBeeApi
+    public class MusicBeeApiClientWrapper : IBaseMusicBeeApi
     {
         private readonly MusicBeeApiService.MusicBeeApiServiceClient _client;
         

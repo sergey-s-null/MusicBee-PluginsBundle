@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MBApiProtoGenerator.Builders.Abstract;
 using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
 using MBApiProtoGenerator.Helpers;
 using MBApiProtoGenerator.Models;
@@ -7,12 +8,12 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
 {
     public class TaskRunWrappedMethodBuilder : IMethodBuilder
     {
-        private readonly IParameters _parameters;
+        private readonly IServiceBuilderParameters _parameters;
         private readonly IMessageTypesBuilder _messageTypesBuilder;
         private readonly ICommonLinesBuilder _commonLinesBuilder;
 
         public TaskRunWrappedMethodBuilder(
-            IParameters parameters,
+            IServiceBuilderParameters parameters,
             IMessageTypesBuilder messageTypesBuilder,
             ICommonLinesBuilder commonLinesBuilder)
         {

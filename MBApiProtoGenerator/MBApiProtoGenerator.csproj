@@ -41,28 +41,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\CsClientServiceBuilder.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Builders\Abstract\IClientWrapperBuilder.cs" />
+    <Compile Include="Builders\Abstract\IInterfaceBuilder.cs" />
+    <Compile Include="Builders\Abstract\IMemoryContainerWrapperBuilder.cs" />
+    <Compile Include="Builders\Abstract\IMessageTypesBuilder.cs" />
+    <Compile Include="Builders\Abstract\IMethodDefinitionBuilder.cs" />
+    <Compile Include="Builders\ClientWrapperBuilder.cs" />
     <Compile Include="Builders\CsProjProtobufBuilder.cs" />
+    <Compile Include="Builders\InterfaceBuilder.cs" />
+    <Compile Include="Builders\MemoryContainerWrapperBuilder.cs" />
+    <Compile Include="Builders\MessageTypesBuilder.cs" />
+    <Compile Include="Builders\MethodDefinitionBuilder.cs" />
     <Compile Include="Builders\ProtoFilesBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\ICommonLinesBuilder.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\Abstract\IMessageTypesBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilder.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\Abstract\IParameters.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IMethodBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\CommonLinesBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\ServiceBuilder.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\HardcodedParameters.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\MessageTypesBuilder.cs" />
+    <Compile Include="Builders\ServiceImplBuilder\HardcodedServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\TaskRunWrappedMethodBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\TaskFromResultMethodBuilder.cs" />
+    <Compile Include="Enums\MethodRestriction.cs" />
     <Compile Include="Enums\ProtobufType.cs" />
     <Compile Include="Enums\ServiceGenerationMode.cs" />
+    <Compile Include="Enums\ServiceImplMode.cs" />
+    <Compile Include="Helpers\CodeGenerationHelper.cs" />
     <Compile Include="Helpers\CsProjProtobufBuilderHelper.cs" />
     <Compile Include="Helpers\MBApiMethodDefinitionHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="Models\MBApiMethodDefinition.cs" />
     <Compile Include="Models\MBApiParameterDefinition.cs" />
+    <Compile Include="Models\MethodNameWithRestriction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿namespace MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract
 {
-    public interface IParameters
+    public interface IServiceBuilderParameters
     {
         string RequestPostfix { get; }
         string ResponsePostfix { get; }

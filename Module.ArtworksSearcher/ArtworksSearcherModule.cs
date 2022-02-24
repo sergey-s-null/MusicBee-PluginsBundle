@@ -6,15 +6,15 @@ using Module.ArtworksSearcher.ImagesProviders;
 using Module.ArtworksSearcher.Settings;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
-using Root;
+using Root.MusicBeeApi.Abstract;
 
 namespace Module.ArtworksSearcher
 {
     public class ArtworksSearcherModule : NinjectModule
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         
-        public ArtworksSearcherModule(MusicBeeApiInterface mbApi)
+        public ArtworksSearcherModule(IMusicBeeApi mbApi)
         {
             _mbApi = mbApi;
         }

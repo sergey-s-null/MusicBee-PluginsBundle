@@ -11,8 +11,9 @@ using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
-using Root;
 using Root.Helpers;
+using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 using Root.MVVM;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
@@ -55,7 +56,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
 
         private readonly MBTagReplacer _tagReplacer = new();
 
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         private readonly IVkApi _vkApi;
         private readonly IMusicDownloaderSettings _settings;
 
@@ -63,7 +64,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         private readonly Semaphore _applySemaphore = new(1, 1);
 
         public VkAudioDownloaderWindowVM(
-            MusicBeeApiInterface mbApi,
+            IMusicBeeApi mbApi,
             IVkApi vkApi,
             IMusicDownloaderSettings settings)
         {

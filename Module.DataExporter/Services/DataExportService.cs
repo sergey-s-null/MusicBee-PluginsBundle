@@ -5,13 +5,14 @@ using System.Linq;
 using Module.DataExporter.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Root;
+using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace Module.DataExporter.Services
 {
     public class DataExportService : IDataExportService
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         
         private readonly IReadOnlyCollection<FilePropertyType> _defaultFilePropertyTypes = new[]
         {
@@ -47,7 +48,7 @@ namespace Module.DataExporter.Services
         };
         
         
-        public DataExportService(MusicBeeApiInterface mbApi)
+        public DataExportService(IMusicBeeApi mbApi)
         {
             _mbApi = mbApi;
         }

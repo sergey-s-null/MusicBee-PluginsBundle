@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using MBApiProtoGenerator.Builders.Abstract;
 using MBApiProtoGenerator.Builders.ServiceImplBuilder.Abstract;
 using MBApiProtoGenerator.Helpers;
 using MBApiProtoGenerator.Models;
@@ -9,11 +10,11 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
 {
     public class CommonLinesBuilder : ICommonLinesBuilder
     {
-        private readonly IParameters _parameters;
+        private readonly IServiceBuilderParameters _parameters;
         private readonly IMessageTypesBuilder _messageTypesBuilder;
 
         public CommonLinesBuilder(
-            IParameters parameters,
+            IServiceBuilderParameters parameters,
             IMessageTypesBuilder messageTypesBuilder)
         {
             _parameters = parameters;
