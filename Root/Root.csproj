@@ -58,6 +58,7 @@
     <Compile Include="Helpers\EnumerableHelper.cs" />
     <Compile Include="Helpers\MBApiHelper.cs" />
     <Compile Include="Helpers\PathHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UriHelper.cs" />
     <Compile Include="MusicBeeApiInterface.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
@@ -111,7 +112,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Runtime.CompilerServices.Unsafe">
-          <HintPath>..\packages\netframework\System.Runtime.CompilerServices.Unsafe\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+          <HintPath>..\packages\netframework\System.Runtime.CompilerServices.Unsafe\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

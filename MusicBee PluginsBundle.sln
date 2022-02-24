@@ -42,7 +42,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 ProjectSection(SolutionItems) = preProject
 	paket.dependencies = paket.dependencies
 	paket.lock = paket.lock
+	.gitignore = .gitignore
 EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.RemoteMusicBeeApi", "Module.RemoteMusicBeeApi\Module.RemoteMusicBeeApi.csproj", "{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.RemoteApi", "Plugin.RemoteApi\Plugin.RemoteApi.csproj", "{CC4BD8C8-3F5B-4BEA-8AEB-586C55EFF265}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{8CE8BF37-B11C-49F1-A975-37B113B66D2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBApiProtoGenerator", "MBApiProtoGenerator\MBApiProtoGenerator.csproj", "{43BF0103-6B61-4D0A-A685-FB860D45CA20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +99,18 @@ Global
 		{5951FDE8-EBAD-4580-9825-8ADBE222B1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5951FDE8-EBAD-4580-9825-8ADBE222B1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5951FDE8-EBAD-4580-9825-8ADBE222B1FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC4BD8C8-3F5B-4BEA-8AEB-586C55EFF265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC4BD8C8-3F5B-4BEA-8AEB-586C55EFF265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC4BD8C8-3F5B-4BEA-8AEB-586C55EFF265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC4BD8C8-3F5B-4BEA-8AEB-586C55EFF265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43BF0103-6B61-4D0A-A685-FB860D45CA20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43BF0103-6B61-4D0A-A685-FB860D45CA20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43BF0103-6B61-4D0A-A685-FB860D45CA20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43BF0103-6B61-4D0A-A685-FB860D45CA20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FD3865DC-0F4C-4076-8B21-44AC23601DE7} = {A35F5D17-7524-40C4-903A-AC8B3BE7B09D}
@@ -100,5 +121,7 @@ Global
 		{E74EDC2A-19F4-4F7A-A976-24B7F778C038} = {D520C80B-E3AA-44A5-9B1F-BAB55C4B9B8A}
 		{622756AD-5BB9-41D7-B5DF-87614DF8102E} = {D520C80B-E3AA-44A5-9B1F-BAB55C4B9B8A}
 		{5951FDE8-EBAD-4580-9825-8ADBE222B1FB} = {D520C80B-E3AA-44A5-9B1F-BAB55C4B9B8A}
+		{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606} = {D520C80B-E3AA-44A5-9B1F-BAB55C4B9B8A}
+		{43BF0103-6B61-4D0A-A685-FB860D45CA20} = {8CE8BF37-B11C-49F1-A975-37B113B66D2E}
 	EndGlobalSection
 EndGlobal

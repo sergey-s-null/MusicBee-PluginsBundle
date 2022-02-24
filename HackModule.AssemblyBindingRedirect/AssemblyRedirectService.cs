@@ -10,12 +10,13 @@ namespace HackModule.AssemblyBindingRedirect
     {
         private static readonly IReadOnlyCollection<string> AssembliesToRedirect = new[]
         {
-            "Microsoft.Extensions.DependencyInjection.Abstractions",
-            "Microsoft.Extensions.DependencyInjection",
-            "Microsoft.Extensions.Logging.Abstractions",
-            "System.Runtime.CompilerServices.Unsafe",
             "Microsoft.Bcl.AsyncInterfaces",
+            "Microsoft.Extensions.DependencyInjection",
+            "Microsoft.Extensions.DependencyInjection.Abstractions",
+            "Microsoft.Extensions.Logging.Abstractions",
             "Ninject",
+            "System.Runtime.CompilerServices.Unsafe",
+            "System.Threading.Tasks.Extensions",
         };
         
         public static void ApplyRedirects(AppDomain appDomain)

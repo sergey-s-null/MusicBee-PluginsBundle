@@ -88,8 +88,8 @@ namespace MusicBeePlugin
             return new PluginInfo
             {
                 PluginInfoVersion = PluginInfoVersion,
-                Name = "Laiser399: VK audios downloader",
-                Description = "Download audios from vk and set custom1, custom2 tags",
+                Name = "Laiser399: Plugins Bundle",
+                Description = "Contains list of plugins",
                 Author = "Laiser399",
                 TargetApplication = "", //  the name of a Plugin Storage device or panel header for a dockable panel
                 Type = PluginType.General,

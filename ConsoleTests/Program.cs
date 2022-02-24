@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
+using Grpc.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Module.VkAudioDownloader.Helpers;
 using VkNet;
@@ -32,7 +30,17 @@ namespace ConsoleTests
             var a = new Uri(@"D:\_BIG_FILES_\Music Library\Cdc");
             var b = new Uri(@"D:\_BIG_FILES_\Music Library\Abs");
 
-            
+            var channel = new Channel("localhost", 4999, ChannelCredentials.Insecure);
+            var client = new MusicBeeApiService.MusicBeeApiServiceClient(channel);
+
+            var filePath =
+                @"D:\_BIG_FILES_\Music Library\Incoming\[2017.03.29] NieR Automata Original Soundtrack [SQEX-10589~91]\NieR Automata Disc 2\06. Forest Kingdom.mp3";
+            var response = client.Library_GetFileTag(new Library_GetFileTag_Request()
+            {
+                SourceFileUrl = filePath,
+                Field = 65
+            });
+            Console.WriteLine(response.Result);
 
 
             // Console.WriteLine();

@@ -1,15 +1,32 @@
 group NetFramework
-
 source https://api.nuget.org/v3/index.json
 framework: net472
+    nuget Fody
+    nuget Newtonsoft.Json
+    nuget Ninject
+    nuget Ninject.Extensions.Factory
+    nuget PropertyChanged.Fody
+    nuget System.Linq.Async
+    nuget VkNet
+    nuget VkNet.AudioBypassService
+    nuget WindowsAPICodePack
+    nuget morelinq
+    nuget Grpc
+    nuget Grpc.Tools
+    nuget Google.Protobuf
+    // без этой версии сервер gRPC работать не будет (данная проблема только на Framework 4.6)
+    nuget System.Buffers 4.4.0
+    // эти две указаны явно, т.к. paket сам зависимости разрешить не может (или может, но очень долго)
+    nuget System.Memory 4.5.3
+    nuget protobuf-net 2.4.6
+    // еще один костыль понадобился из-за того, что ServiceCollection определен в двух зависящих сборках и в одном пространстве имен
+    nuget Microsoft.Extensions.DependencyInjection.Abstractions 5.0
 
-nuget Fody
-nuget Newtonsoft.Json
-nuget Ninject
-nuget Ninject.Extensions.Factory
-nuget PropertyChanged.Fody
-nuget System.Linq.Async
-nuget VkNet
-nuget VkNet.AudioBypassService
-nuget WindowsAPICodePack
-nuget morelinq
+
+
+group MBApiProtoGenerator
+source https://api.nuget.org/v3/index.json
+framework: net472
+    nuget Microsoft.Build
+    nuget Microsoft.Build.Utilities.Core
+    nuget Ninject
