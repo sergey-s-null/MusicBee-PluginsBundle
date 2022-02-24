@@ -94,6 +94,11 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
             {
                 rightPart = $"(int){parameterName}";
             }
+            else if (parameterType == typeof(string))
+            {
+                // если появится больше типов, создать словарь
+                rightPart = $"{parameterName} ?? string.Empty";
+            }
             else
             {
                 rightPart = parameterName;

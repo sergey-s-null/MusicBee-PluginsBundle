@@ -4,6 +4,8 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Root;
 
+// ReSharper disable ConstantNullCoalescingCondition
+
 namespace Module.RemoteMusicBeeApi
 {
     public class MusicBeeApiServiceImpl : MusicBeeApiService.MusicBeeApiServiceBase
@@ -40,7 +42,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Setting_GetPersistentStoragePath();
                 return new Setting_GetPersistentStoragePath_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -52,7 +54,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Setting_GetSkin();
                 return new Setting_GetSkin_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -88,7 +90,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_GetFileProperty(request.SourceFileUrl, (FilePropertyType)request.Type);
                 return new Library_GetFileProperty_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -100,7 +102,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_GetFileTag(request.SourceFileUrl, (MetaDataType)request.Field);
                 return new Library_GetFileTag_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -136,7 +138,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_GetLyrics(request.SourceFileUrl, (LyricsType)request.Type);
                 return new Library_GetLyrics_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -160,7 +162,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_QueryGetNextFile();
                 return new Library_QueryGetNextFile_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -460,7 +462,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetFileUrl();
                 return new NowPlaying_GetFileUrl_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -484,7 +486,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetFileProperty((FilePropertyType)request.Type);
                 return new NowPlaying_GetFileProperty_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -496,7 +498,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetFileTag((MetaDataType)request.Field);
                 return new NowPlaying_GetFileTag_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -508,7 +510,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetLyrics();
                 return new NowPlaying_GetLyrics_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -520,7 +522,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetArtwork();
                 return new NowPlaying_GetArtwork_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -556,7 +558,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlayingList_QueryGetNextFile();
                 return new NowPlayingList_QueryGetNextFile_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -628,7 +630,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Playlist_QueryGetNextPlaylist();
                 return new Playlist_QueryGetNextPlaylist_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -664,7 +666,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Playlist_QueryGetNextFile();
                 return new Playlist_QueryGetNextFile_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -694,7 +696,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Setting_GetFieldName((MetaDataType)request.Field);
                 return new Setting_GetFieldName_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -739,7 +741,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlayingList_GetListFileUrl(request.Index);
                 return new NowPlayingList_GetListFileUrl_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -751,7 +753,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlayingList_GetFileProperty(request.Index, (FilePropertyType)request.Type);
                 return new NowPlayingList_GetFileProperty_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -763,7 +765,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlayingList_GetFileTag(request.Index, (MetaDataType)request.Field);
                 return new NowPlayingList_GetFileTag_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -799,7 +801,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.MB_GetLocalisation(request.Id, request.DefaultText);
                 return new MB_GetLocalisation_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -943,7 +945,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetArtistPicture(request.FadingPercent);
                 return new NowPlaying_GetArtistPicture_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -955,7 +957,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetDownloadedArtwork();
                 return new NowPlaying_GetDownloadedArtwork_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -979,7 +981,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetDownloadedLyrics();
                 return new NowPlaying_GetDownloadedLyrics_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1015,7 +1017,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Setting_GetLastFmUserId();
                 return new Setting_GetLastFmUserId_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1027,7 +1029,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Playlist_GetName(request.PlaylistUrl);
                 return new Playlist_GetName_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1039,7 +1041,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Playlist_CreatePlaylist(request.FolderName, request.PlaylistName, request.Filenames.ToArray());
                 return new Playlist_CreatePlaylist_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1063,7 +1065,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_QuerySimilarArtists(request.ArtistName, request.MinimumArtistSimilarityRating);
                 return new Library_QuerySimilarArtists_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1087,7 +1089,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_QueryGetLookupTableValue(request.Key);
                 return new Library_QueryGetLookupTableValue_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1123,7 +1125,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Setting_GetWebProxy();
                 return new Setting_GetWebProxy_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1183,7 +1185,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_GetArtistPicture(request.ArtistName, request.FadingPercent, request.FadingColor);
                 return new Library_GetArtistPicture_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1195,7 +1197,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Pending_GetFileUrl();
                 return new Pending_GetFileUrl_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1207,7 +1209,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Pending_GetFileProperty((FilePropertyType)request.Field);
                 return new Pending_GetFileProperty_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1219,7 +1221,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Pending_GetFileTag((MetaDataType)request.Field);
                 return new Pending_GetFileTag_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1255,7 +1257,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_GetArtworkUrl(request.SourceFileUrl, request.Index);
                 return new Library_GetArtworkUrl_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1267,7 +1269,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_GetArtistPictureThumb(request.ArtistName);
                 return new Library_GetArtistPictureThumb_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1279,7 +1281,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetArtworkUrl();
                 return new NowPlaying_GetArtworkUrl_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1291,7 +1293,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetDownloadedArtworkUrl();
                 return new NowPlaying_GetDownloadedArtworkUrl_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1303,7 +1305,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.NowPlaying_GetArtistPictureThumb();
                 return new NowPlaying_GetArtistPictureThumb_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1365,7 +1367,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Sync_FileStart(request.Filename);
                 return new Sync_FileStart_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1474,7 +1476,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_GetDevicePersistentId(request.SourceFileUrl, (DeviceIdType)request.IdType);
                 return new Library_GetDevicePersistentId_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1511,7 +1513,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Library_AddFileToLibrary(request.SourceFileUrl, (LibraryCategory)request.Category);
                 return new Library_AddFileToLibrary_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1586,7 +1588,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Setting_GetFileConvertCommandLine((FileCodec)request.Codec, (EncodeQuality)request.EncodeQuality);
                 return new Setting_GetFileConvertCommandLine_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }
@@ -1624,7 +1626,7 @@ namespace Module.RemoteMusicBeeApi
                 {
                     Result = result,
                     PictureLocations = (int)pictureLocations,
-                    PictureUrl = pictureUrl,
+                    PictureUrl = pictureUrl ?? string.Empty,
                     ImageData = { imageData.Select(x => (int)x) },
                 };
             });
@@ -1651,7 +1653,7 @@ namespace Module.RemoteMusicBeeApi
                 {
                     Result = result,
                     VisualiserNames = { visualiserNames },
-                    DefaultVisualiserName = defaultVisualiserName,
+                    DefaultVisualiserName = defaultVisualiserName ?? string.Empty,
                     DefaultState = (int)defaultState,
                     CurrentState = (int)currentState,
                 };
@@ -1679,7 +1681,7 @@ namespace Module.RemoteMusicBeeApi
                 {
                     Result = result,
                     ViewNames = { viewNames },
-                    DefaultViewName = defaultViewName,
+                    DefaultViewName = defaultViewName ?? string.Empty,
                     DefaultState = (int)defaultState,
                     CurrentState = (int)currentState,
                 };
@@ -1707,7 +1709,7 @@ namespace Module.RemoteMusicBeeApi
                 {
                     Result = result,
                     DeviceNames = { deviceNames },
-                    ActiveDeviceName = activeDeviceName,
+                    ActiveDeviceName = activeDeviceName ?? string.Empty,
                 };
             });
         }
@@ -1844,7 +1846,7 @@ namespace Module.RemoteMusicBeeApi
                 var result = _mbApi.Sync_FileDeleteStart(request.Filename);
                 return new Sync_FileDeleteStart_Response()
                 {
-                    Result = result,
+                    Result = result ?? string.Empty,
                 };
             });
         }

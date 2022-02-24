@@ -17,6 +17,11 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
             "using Root;",
         };
 
+        private static readonly IReadOnlyCollection<string> ResharperBlock = new[]
+        {
+            "// ReSharper disable ConstantNullCoalescingCondition"
+        };
+
         private const string Namespace = "Module.RemoteMusicBeeApi";
         private const string ClassName = "MusicBeeApiServiceImpl";
         private const string ServiceName = "MusicBeeApiService";
@@ -41,6 +46,8 @@ namespace MBApiProtoGenerator.Builders.ServiceImplBuilder
             );
 
             return UsingBlock
+                .Append(string.Empty)
+                .Concat(ResharperBlock)
                 .Append(string.Empty)
                 .Concat(coreLines);
         }
