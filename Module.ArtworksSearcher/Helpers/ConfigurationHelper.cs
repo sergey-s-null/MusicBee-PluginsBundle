@@ -5,7 +5,7 @@ namespace Module.ArtworksSearcher.Helpers
 {
     public class ConfigurationHelper
     {
-        public static string GetSettingsFilePath(MusicBeeApiInterface mbApi)
+        public static string GetSettingsFilePath(MusicBeeApiMemoryContainer mbApi)
         {
             var dataPath = mbApi.Setting_GetPersistentStoragePath();
             

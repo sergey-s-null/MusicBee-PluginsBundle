@@ -64,7 +64,7 @@
     <Compile Include="MusicBeeApi\Abstract\IMusicBeeApi.cs" />
     <Compile Include="MusicBeeApi\Delegates.cs" />
     <Compile Include="MusicBeeApi\Enums.cs" />
-    <Compile Include="MusicBeeApi\MusicBeeApiInterface.cs" />
+    <Compile Include="MusicBeeApi\MusicBeeApiMemoryContainer.cs" />
     <Compile Include="MusicBeeApi\PluginInfo.cs" />
     <Compile Include="MusicBeeApi\SystemEnums.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />

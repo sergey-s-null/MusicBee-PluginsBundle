@@ -8,9 +8,9 @@ namespace Module.InboxAdder.Services
 {
     public class InboxAddService : IInboxAddService
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         
-        public InboxAddService(MusicBeeApiInterface mbApi)
+        public InboxAddService(MusicBeeApiMemoryContainer mbApi)
         {
             _mbApi = mbApi;
         }

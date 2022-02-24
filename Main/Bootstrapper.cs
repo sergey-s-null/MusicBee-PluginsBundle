@@ -14,11 +14,11 @@ namespace MusicBeePlugin
 {
     public static class Bootstrapper
     {
-        public static IKernel GetKernel(MusicBeeApiInterface mbApi)
+        public static IKernel GetKernel(MusicBeeApiMemoryContainer mbApi)
         {
             var kernel = new StandardKernel();
 
-            kernel.Bind<MusicBeeApiInterface>()
+            kernel.Bind<MusicBeeApiMemoryContainer>()
                 .ToConstant(mbApi);
             
             kernel.Load(new MusicDownloaderModule(mbApi));

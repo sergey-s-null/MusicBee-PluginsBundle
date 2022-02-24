@@ -14,9 +14,9 @@ namespace Module.VkAudioDownloader
 {
     public class MusicDownloaderModule : NinjectModule
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         
-        public MusicDownloaderModule(MusicBeeApiInterface mbApi)
+        public MusicDownloaderModule(MusicBeeApiMemoryContainer mbApi)
         {
             _mbApi = mbApi;
         }

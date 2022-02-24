@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace Root.MusicBeeApi
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct MusicBeeApiInterface
+    public struct MusicBeeApiMemoryContainer
     {
         public void Initialise(IntPtr apiInterfacePtr)
         {
@@ -33,7 +33,7 @@ namespace Root.MusicBeeApi
         
         [System.Security.SuppressUnmanagedCodeSecurity()]
         [DllImport("kernel32.dll")]
-        private static extern void CopyMemory(ref MusicBeeApiInterface mbApi, IntPtr src, int length);
+        private static extern void CopyMemory(ref MusicBeeApiMemoryContainer mbApi, IntPtr src, int length);
         
         public MusicBeeVersion MusicBeeVersion
         {

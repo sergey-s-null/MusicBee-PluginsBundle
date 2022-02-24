@@ -9,9 +9,9 @@ namespace Module.PlaylistsExporter
 {
     public class PlaylistsExporterModule : NinjectModule
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         
-        public PlaylistsExporterModule(MusicBeeApiInterface mbApi)
+        public PlaylistsExporterModule(MusicBeeApiMemoryContainer mbApi)
         {
             _mbApi = mbApi;
         }

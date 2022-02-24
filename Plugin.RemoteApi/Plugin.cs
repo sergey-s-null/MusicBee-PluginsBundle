@@ -15,14 +15,14 @@ namespace MusicBeePlugin
         private const string ServerHost = "localhost";
         private const int ServerPort = 4999;
 
-        private MusicBeeApiInterface _mbApi;
+        private MusicBeeApiMemoryContainer _mbApi;
         private Server? _server;
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
             AssemblyRedirectService.ApplyRedirects(AppDomain.CurrentDomain);
 
-            _mbApi = new MusicBeeApiInterface();
+            _mbApi = new MusicBeeApiMemoryContainer();
             _mbApi.Initialise(apiInterfacePtr);
 
             return GetPluginInfo();

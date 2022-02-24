@@ -28,7 +28,7 @@ namespace MusicBeePlugin
             
             ServicePointManager.DefaultConnectionLimit = 20;
             
-            var mbApi = new MusicBeeApiInterface();
+            var mbApi = new MusicBeeApiMemoryContainer();
             mbApi.Initialise(apiInterfacePtr);
 
             CreateSettingsDirectory(mbApi);
@@ -45,7 +45,7 @@ namespace MusicBeePlugin
 
         private static void CreateMenuItems(IResolutionRoot resolutionRoot)
         {
-            var mbApi = resolutionRoot.Get<MusicBeeApiInterface>();
+            var mbApi = resolutionRoot.Get<MusicBeeApiMemoryContainer>();
             var pluginActions = resolutionRoot.Get<IPluginActions>();
             
             mbApi.MB_AddMenuItem!(
@@ -104,7 +104,7 @@ namespace MusicBeePlugin
         }
 
         // TODO избавиться или объединить с другими настройками
-        private static void CreateSettingsDirectory(MusicBeeApiInterface mbApi)
+        private static void CreateSettingsDirectory(MusicBeeApiMemoryContainer mbApi)
         {
             var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
 

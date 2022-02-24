@@ -10,9 +10,9 @@ namespace Module.RemoteMusicBeeApi
 {
     public class MusicBeeApiServiceImpl : MusicBeeApiService.MusicBeeApiServiceBase
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         
-        public MusicBeeApiServiceImpl(MusicBeeApiInterface mbApi)
+        public MusicBeeApiServiceImpl(MusicBeeApiMemoryContainer mbApi)
         {
             _mbApi = mbApi;
         }

@@ -394,7 +394,7 @@ namespace MBApiProtoGenerator
         private static IReadOnlyCollection<MBApiMethodDefinition> GetMethodsDefinition(
             IReadOnlyCollection<string> fields)
         {
-            return typeof(MusicBeeApiInterface)
+            return typeof(MusicBeeApiMemoryContainer)
                 .GetMembers()
                 .Where(x => fields.Contains(x.Name))
                 .CastOrSkip<MemberInfo, FieldInfo>()

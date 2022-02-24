@@ -15,7 +15,7 @@ namespace MusicBeePlugin.Services
 {
     public class PluginActions : IPluginActions
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         private readonly IDataExportService _dataExportService;
         private readonly IPlaylistsExportService _playlistsExportService;
         private readonly IInboxAddService _inboxAddService;
@@ -23,7 +23,7 @@ namespace MusicBeePlugin.Services
         private readonly IVkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
 
         public PluginActions(
-            MusicBeeApiInterface mbApi, 
+            MusicBeeApiMemoryContainer mbApi, 
             IDataExportService dataExportService, 
             IPlaylistsExportService playlistsExportService, 
             IInboxAddService inboxAddService, 

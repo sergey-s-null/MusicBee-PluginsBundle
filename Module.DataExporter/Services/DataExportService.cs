@@ -11,7 +11,7 @@ namespace Module.DataExporter.Services
 {
     public class DataExportService : IDataExportService
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         
         private readonly IReadOnlyCollection<FilePropertyType> _defaultFilePropertyTypes = new[]
         {
@@ -47,7 +47,7 @@ namespace Module.DataExporter.Services
         };
         
         
-        public DataExportService(MusicBeeApiInterface mbApi)
+        public DataExportService(MusicBeeApiMemoryContainer mbApi)
         {
             _mbApi = mbApi;
         }

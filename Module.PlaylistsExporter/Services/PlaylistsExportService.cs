@@ -14,12 +14,12 @@ namespace Module.PlaylistsExporter.Services
     {
         private readonly IPlaylistsExporterSettings _settings;
         private readonly IPlaylistToLibraryConverter _converter;
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         
         public PlaylistsExportService(
             IPlaylistsExporterSettings settings,
             IPlaylistToLibraryConverter converter,
-            MusicBeeApiInterface mbApi)
+            MusicBeeApiMemoryContainer mbApi)
         {
             _settings = settings;
             _converter = converter;

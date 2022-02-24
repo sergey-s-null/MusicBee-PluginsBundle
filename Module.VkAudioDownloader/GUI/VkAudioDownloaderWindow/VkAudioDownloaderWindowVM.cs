@@ -55,7 +55,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
 
         private readonly MBTagReplacer _tagReplacer = new();
 
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         private readonly IVkApi _vkApi;
         private readonly IMusicDownloaderSettings _settings;
 
@@ -63,7 +63,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         private readonly Semaphore _applySemaphore = new(1, 1);
 
         public VkAudioDownloaderWindowVM(
-            MusicBeeApiInterface mbApi,
+            MusicBeeApiMemoryContainer mbApi,
             IVkApi vkApi,
             IMusicDownloaderSettings settings)
         {

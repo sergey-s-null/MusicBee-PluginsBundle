@@ -37,11 +37,11 @@ namespace Module.PlaylistsExporter.GUI.Settings
 
         public bool IsLoaded => _settings.IsLoaded;
 
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         private readonly IPlaylistsExporterSettings _settings;
         
         public PlaylistsExporterSettingsVM(
-            MusicBeeApiInterface mbApi, 
+            MusicBeeApiMemoryContainer mbApi, 
             IPlaylistsExporterSettings settings)
         {
             _mbApi = mbApi;

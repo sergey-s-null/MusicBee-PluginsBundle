@@ -5,14 +5,14 @@ namespace Module.VkAudioDownloader.Helpers
 {
     public static class ConfigurationHelper
     {
-        public static string GetSettingsFilePath(MusicBeeApiInterface mbApi)
+        public static string GetSettingsFilePath(MusicBeeApiMemoryContainer mbApi)
         {
             var dataPath = mbApi.Setting_GetPersistentStoragePath();
             
             return Path.Combine(dataPath, SettingsDirName, SettingsFileName);
         }
         
-        public static string GetSettingsDirPath(MusicBeeApiInterface mbApi)
+        public static string GetSettingsDirPath(MusicBeeApiMemoryContainer mbApi)
         {
             var dataPath = mbApi.Setting_GetPersistentStoragePath();
             

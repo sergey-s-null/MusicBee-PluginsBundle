@@ -12,9 +12,9 @@ namespace Module.ArtworksSearcher
 {
     public class ArtworksSearcherModule : NinjectModule
     {
-        private readonly MusicBeeApiInterface _mbApi;
+        private readonly MusicBeeApiMemoryContainer _mbApi;
         
-        public ArtworksSearcherModule(MusicBeeApiInterface mbApi)
+        public ArtworksSearcherModule(MusicBeeApiMemoryContainer mbApi)
         {
             _mbApi = mbApi;
         }
