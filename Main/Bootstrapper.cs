@@ -9,18 +9,21 @@ using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Extensions.Factory;
 using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace MusicBeePlugin
 {
     public static class Bootstrapper
     {
-        public static IKernel GetKernel(MusicBeeApiMemoryContainer mbApi)
+        public static IKernel GetKernel(MusicBeeApiMemoryContainer mbApiMemoryContainer)
         {
             var kernel = new StandardKernel();
 
-            kernel.Bind<MusicBeeApiMemoryContainer>()
+            var mbApi = new MusicBeeApiMemoryContainerWrapper(mbApiMemoryContainer);
+            kernel
+                .Bind<IMusicBeeApi>()
                 .ToConstant(mbApi);
-            
+
             kernel.Load(new MusicDownloaderModule(mbApi));
             kernel.Load(new ArtworksSearcherModule(mbApi));
             kernel.Load(new PlaylistsExporterModule(mbApi));

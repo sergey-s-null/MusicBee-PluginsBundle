@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Root.Helpers;
 using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace Module.InboxAdder.Services
 {
     public class InboxAddService : IInboxAddService
     {
-        private readonly MusicBeeApiMemoryContainer _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         
-        public InboxAddService(MusicBeeApiMemoryContainer mbApi)
+        public InboxAddService(IMusicBeeApi mbApi)
         {
             _mbApi = mbApi;
         }

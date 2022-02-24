@@ -1,11 +1,11 @@
 ﻿using System.IO;
-using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace Module.PlaylistsExporter.Helpers
 {
     internal static class ConfigurationHelper
     {
-        public static string GetSettingsFilePath(MusicBeeApiMemoryContainer mbApi)
+        public static string GetSettingsFilePath(IMusicBeeApi mbApi)
         {
             var dataPath = mbApi.Setting_GetPersistentStoragePath();
             

@@ -6,7 +6,7 @@ using Module.PlaylistsExporter.Entities;
 using Module.PlaylistsExporter.Settings;
 using MoreLinq.Extensions;
 using Root.Helpers;
-using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace Module.PlaylistsExporter.Services
 {
@@ -14,12 +14,12 @@ namespace Module.PlaylistsExporter.Services
     {
         private readonly IPlaylistsExporterSettings _settings;
         private readonly IPlaylistToLibraryConverter _converter;
-        private readonly MusicBeeApiMemoryContainer _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         
         public PlaylistsExportService(
             IPlaylistsExporterSettings settings,
             IPlaylistToLibraryConverter converter,
-            MusicBeeApiMemoryContainer mbApi)
+            IMusicBeeApi mbApi)
         {
             _settings = settings;
             _converter = converter;

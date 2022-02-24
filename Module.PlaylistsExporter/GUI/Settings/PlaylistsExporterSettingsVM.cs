@@ -6,7 +6,7 @@ using Module.PlaylistsExporter.Settings;
 using MoreLinq;
 using PropertyChanged;
 using Root.Helpers;
-using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 using Root.MVVM;
 
 namespace Module.PlaylistsExporter.GUI.Settings
@@ -37,11 +37,11 @@ namespace Module.PlaylistsExporter.GUI.Settings
 
         public bool IsLoaded => _settings.IsLoaded;
 
-        private readonly MusicBeeApiMemoryContainer _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         private readonly IPlaylistsExporterSettings _settings;
         
         public PlaylistsExporterSettingsVM(
-            MusicBeeApiMemoryContainer mbApi, 
+            IMusicBeeApi mbApi, 
             IPlaylistsExporterSettings settings)
         {
             _mbApi = mbApi;

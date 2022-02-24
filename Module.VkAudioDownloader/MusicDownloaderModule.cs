@@ -5,7 +5,7 @@ using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
-using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 using VkNet;
 using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
@@ -14,9 +14,9 @@ namespace Module.VkAudioDownloader
 {
     public class MusicDownloaderModule : NinjectModule
     {
-        private readonly MusicBeeApiMemoryContainer _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         
-        public MusicDownloaderModule(MusicBeeApiMemoryContainer mbApi)
+        public MusicDownloaderModule(IMusicBeeApi mbApi)
         {
             _mbApi = mbApi;
         }

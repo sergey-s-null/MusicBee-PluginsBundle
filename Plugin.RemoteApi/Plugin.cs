@@ -3,6 +3,7 @@ using Grpc.Core;
 using HackModule.AssemblyBindingRedirect;
 using Module.RemoteMusicBeeApi;
 using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace MusicBeePlugin
 {
@@ -15,15 +16,16 @@ namespace MusicBeePlugin
         private const string ServerHost = "localhost";
         private const int ServerPort = 4999;
 
-        private MusicBeeApiMemoryContainer _mbApi;
+        private IMusicBeeApi? _mbApi;
         private Server? _server;
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
             AssemblyRedirectService.ApplyRedirects(AppDomain.CurrentDomain);
 
-            _mbApi = new MusicBeeApiMemoryContainer();
-            _mbApi.Initialise(apiInterfacePtr);
+            var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
+            mbApiMemoryContainer.Initialise(apiInterfacePtr);
+            _mbApi = new MusicBeeApiMemoryContainerWrapper(mbApiMemoryContainer);
 
             return GetPluginInfo();
         }
@@ -73,6 +75,10 @@ namespace MusicBeePlugin
 
         private void StartServer()
         {
+            if (_mbApi is null)
+            {
+                throw new NullReferenceException($"{nameof(_mbApi)} is null.");
+            }
             if (_server is not null)
             {
                 return;

@@ -3,15 +3,15 @@ using Module.PlaylistsExporter.Helpers;
 using Module.PlaylistsExporter.Services;
 using Module.PlaylistsExporter.Settings;
 using Ninject.Modules;
-using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace Module.PlaylistsExporter
 {
     public class PlaylistsExporterModule : NinjectModule
     {
-        private readonly MusicBeeApiMemoryContainer _mbApi;
+        private readonly IMusicBeeApi _mbApi;
         
-        public PlaylistsExporterModule(MusicBeeApiMemoryContainer mbApi)
+        public PlaylistsExporterModule(IMusicBeeApi mbApi)
         {
             _mbApi = mbApi;
         }

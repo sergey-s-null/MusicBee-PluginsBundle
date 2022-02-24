@@ -10,6 +10,7 @@ using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Syntax;
 using Root.MusicBeeApi;
+using Root.MusicBeeApi.Abstract;
 
 namespace MusicBeePlugin
 {
@@ -28,13 +29,14 @@ namespace MusicBeePlugin
             
             ServicePointManager.DefaultConnectionLimit = 20;
             
-            var mbApi = new MusicBeeApiMemoryContainer();
-            mbApi.Initialise(apiInterfacePtr);
+            var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
+            mbApiMemoryContainer.Initialise(apiInterfacePtr);
+            
+            var kernel = Bootstrapper.GetKernel(mbApiMemoryContainer);
 
+            var mbApi = kernel.Get<IMusicBeeApi>();
             CreateSettingsDirectory(mbApi);
             
-            var kernel = Bootstrapper.GetKernel(mbApi);
-
             _settingsDialogFactory = kernel.Get<ISettingsDialogFactory>();
             _settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
             
@@ -45,10 +47,10 @@ namespace MusicBeePlugin
 
         private static void CreateMenuItems(IResolutionRoot resolutionRoot)
         {
-            var mbApi = resolutionRoot.Get<MusicBeeApiMemoryContainer>();
+            var mbApi = resolutionRoot.Get<IMusicBeeApi>();
             var pluginActions = resolutionRoot.Get<IPluginActions>();
             
-            mbApi.MB_AddMenuItem!(
+            mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Search Artworks",
                 "Laiser399: Search Artworks", 
                 (_, _) => pluginActions.SearchArtworks());
@@ -104,7 +106,7 @@ namespace MusicBeePlugin
         }
 
         // TODO избавиться или объединить с другими настройками
-        private static void CreateSettingsDirectory(MusicBeeApiMemoryContainer mbApi)
+        private static void CreateSettingsDirectory(IMusicBeeApi mbApi)
         {
             var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
 
