@@ -5,7 +5,7 @@ using System.Linq;
 using Module.DataExporter.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Root;
+using Root.MusicBeeApi;
 
 namespace Module.DataExporter.Services
 {

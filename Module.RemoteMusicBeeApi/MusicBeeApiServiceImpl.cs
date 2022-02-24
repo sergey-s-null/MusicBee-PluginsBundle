@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Root;
+using Root.MusicBeeApi;
 
 // ReSharper disable ConstantNullCoalescingCondition
 

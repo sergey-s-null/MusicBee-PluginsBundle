@@ -8,7 +8,7 @@ using MusicBeePlugin.GUI.SettingsDialog;
 using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Extensions.Factory;
-using Root;
+using Root.MusicBeeApi;
 
 namespace MusicBeePlugin
 {

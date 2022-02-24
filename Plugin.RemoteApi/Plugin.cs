@@ -2,7 +2,7 @@
 using Grpc.Core;
 using HackModule.AssemblyBindingRedirect;
 using Module.RemoteMusicBeeApi;
-using Root;
+using Root.MusicBeeApi;
 
 namespace MusicBeePlugin
 {

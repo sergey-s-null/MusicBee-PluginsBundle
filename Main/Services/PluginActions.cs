@@ -8,8 +8,8 @@ using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.Factories;
-using Root;
 using Root.Helpers;
+using Root.MusicBeeApi;
 
 namespace MusicBeePlugin.Services
 {

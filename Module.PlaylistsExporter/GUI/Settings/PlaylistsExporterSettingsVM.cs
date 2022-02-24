@@ -5,8 +5,8 @@ using System.Linq;
 using Module.PlaylistsExporter.Settings;
 using MoreLinq;
 using PropertyChanged;
-using Root;
 using Root.Helpers;
+using Root.MusicBeeApi;
 using Root.MVVM;
 
 namespace Module.PlaylistsExporter.GUI.Settings

@@ -5,7 +5,7 @@ using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
-using Root;
+using Root.MusicBeeApi;
 using VkNet;
 using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;

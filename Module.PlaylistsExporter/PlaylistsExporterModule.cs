@@ -3,7 +3,7 @@ using Module.PlaylistsExporter.Helpers;
 using Module.PlaylistsExporter.Services;
 using Module.PlaylistsExporter.Settings;
 using Ninject.Modules;
-using Root;
+using Root.MusicBeeApi;
 
 namespace Module.PlaylistsExporter
 {
