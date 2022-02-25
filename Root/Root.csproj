@@ -56,7 +56,7 @@
     <Compile Include="Helpers\AsyncEnumerableHelper.cs" />
     <Compile Include="Helpers\DirectoryHelper.cs" />
     <Compile Include="Helpers\EnumerableHelper.cs" />
-    <Compile Include="Helpers\MBApiHelper.cs" />
+    <Compile Include="Helpers\BaseMusicBeeApiHelper.cs" />
     <Compile Include="Helpers\PathHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UriHelper.cs" />

@@ -4,7 +4,7 @@ using Root.MusicBeeApi.Abstract;
 
 namespace Root.Helpers
 {
-    public static class MBApiHelper
+    public static class BaseMusicBeeApiHelper
     {
         private const int AudiosPerBlock = 20;
         
@@ -14,7 +14,7 @@ namespace Root.Helpers
         private const MetaDataType Index2Field = MetaDataType.Custom2;
         
         public static bool Playlist_QueryPlaylistsEx(
-            this IMusicBeeApi mbApi, 
+            this IBaseMusicBeeApi mbApi, 
             out IReadOnlyCollection<string>? playlists)
         {
             if (!mbApi.Playlist_QueryPlaylists())
@@ -38,7 +38,7 @@ namespace Root.Helpers
             return true;
         }
 
-        public static IEnumerable<long> EnumerateVkIds(this IMusicBeeApi api)
+        public static IEnumerable<long> EnumerateVkIds(this IBaseMusicBeeApi api)
         {
             const string query = 
                 "<Source Type=\"1\">" + // 1 - библиотека (без входящих)
@@ -61,7 +61,7 @@ namespace Root.Helpers
             }
         }
 
-        public static long GetVkIdOrDefault(this IMusicBeeApi api, 
+        public static long GetVkIdOrDefault(this IBaseMusicBeeApi api, 
             string filePath, long defaultId)
         {
             return api.TryGetVkId(filePath, out var id)
@@ -69,14 +69,14 @@ namespace Root.Helpers
                 : defaultId;
         } 
         
-        public static bool TryGetVkId(this IMusicBeeApi api, 
+        public static bool TryGetVkId(this IBaseMusicBeeApi api, 
             string filePath, out long id)
         {
             var idStr = api.Library_GetFileTag(filePath, VkIdField);
             return long.TryParse(idStr, out id);
         }
 
-        public static bool SetVkId(this IMusicBeeApi api, 
+        public static bool SetVkId(this IBaseMusicBeeApi api, 
             string filePath, long id, bool commit = true)
         {
             var res = api.Library_SetFileTag(filePath, VkIdField, id.ToString());
@@ -89,7 +89,7 @@ namespace Root.Helpers
             return true;
         }
 
-        public static int GetIndexOrDefault(this IMusicBeeApi api, 
+        public static int GetIndexOrDefault(this IBaseMusicBeeApi api, 
             string filePath, int defaultIndex)
         {
             return api.TryGetIndex(filePath, out var index) 
@@ -97,7 +97,7 @@ namespace Root.Helpers
                 : defaultIndex;
         } 
         
-        public static bool TryGetIndex(this IMusicBeeApi api, 
+        public static bool TryGetIndex(this IBaseMusicBeeApi api, 
             string filePath, out int index)
         {
             var indexStr = api.Library_GetFileTag(filePath, IndexField);
@@ -108,7 +108,7 @@ namespace Root.Helpers
             return false;
         }
 
-        public static bool SetIndex(this IMusicBeeApi api, 
+        public static bool SetIndex(this IBaseMusicBeeApi api, 
             string filePath, int index, bool commit = true)
         {
             var res = api.Library_SetFileTag(filePath, IndexField, index.ToString());
@@ -121,7 +121,7 @@ namespace Root.Helpers
             return true;
         }
 
-        public static bool ClearIndex(this IMusicBeeApi mbApi, string filePath, bool commit = true)
+        public static bool ClearIndex(this IBaseMusicBeeApi mbApi, string filePath, bool commit = true)
         {
             if (!mbApi.Library_SetFileTag(filePath, IndexField, ""))
             {
@@ -136,14 +136,14 @@ namespace Root.Helpers
             return true;
         }
         
-        public static bool TryGetIndex1(this IMusicBeeApi api, 
+        public static bool TryGetIndex1(this IBaseMusicBeeApi api, 
             string filePath, out int index1)
         {
             var index1Str = api.Library_GetFileTag(filePath, Index1Field);
             return int.TryParse(index1Str, out index1);
         }
 
-        public static bool SetIndex1(this IMusicBeeApi api, 
+        public static bool SetIndex1(this IBaseMusicBeeApi api, 
             string filePath, int index1, bool commit = true)
         {
             var i1Str = index1.ToString().PadLeft(2, '0');
@@ -157,7 +157,7 @@ namespace Root.Helpers
             return true;
         }
 
-        public static bool ClearIndex1(this IMusicBeeApi mbApi, string filePath, bool commit = true)
+        public static bool ClearIndex1(this IBaseMusicBeeApi mbApi, string filePath, bool commit = true)
         {
             if (!mbApi.Library_SetFileTag(filePath, Index1Field, ""))
             {
@@ -172,14 +172,14 @@ namespace Root.Helpers
             return true;
         }
         
-        public static bool TryGetIndex2(this IMusicBeeApi api, 
+        public static bool TryGetIndex2(this IBaseMusicBeeApi api, 
             string filePath, out int index2)
         {
             var index2Str = api.Library_GetFileTag(filePath, Index2Field);
             return int.TryParse(index2Str, out index2);
         }
 
-        public static bool SetIndex2(this IMusicBeeApi api, 
+        public static bool SetIndex2(this IBaseMusicBeeApi api, 
             string filePath, int index2, bool commit = true)
         {
             var i2Str = index2.ToString().PadLeft(2, '0');
@@ -193,7 +193,7 @@ namespace Root.Helpers
             return true;
         }
         
-        public static bool ClearIndex2(this IMusicBeeApi mbApi, string filePath, bool commit = true)
+        public static bool ClearIndex2(this IBaseMusicBeeApi mbApi, string filePath, bool commit = true)
         {
             if (!mbApi.Library_SetFileTag(filePath, Index2Field, ""))
             {

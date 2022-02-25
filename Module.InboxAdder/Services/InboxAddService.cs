@@ -25,7 +25,7 @@ namespace Module.InboxAdder.Services
 
             var currentIndex = GetLastIndex() + 1;
             
-            MBApiHelper.CalcIndices(currentIndex, out var i1, out var i2);
+            BaseMusicBeeApiHelper.CalcIndices(currentIndex, out var i1, out var i2);
             
             _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Music);
             _mbApi.SetIndex(filePath, currentIndex, false);
