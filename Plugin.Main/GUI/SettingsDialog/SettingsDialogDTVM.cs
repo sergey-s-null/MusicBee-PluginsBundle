@@ -15,19 +15,27 @@ namespace MusicBeePlugin.GUI.SettingsDialog
     {
         public bool IsLoaded => true;
 
-        public IList<IModuleSettingsVM> Settings { get; }
+        public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
+        public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
+        public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
+        
+        public IList<IModuleSettingsVM> SettingsModules { get; }
         public IModuleSettingsVM SelectedSettingsModule { get; set; }
         public ICommand ResetCmd { get; }
 
         public SettingsDialogDTVM()
         {
-            Settings = new List<IModuleSettingsVM>
+            MusicDownloaderSettingsVM = new MusicDownloaderSettingsDTVM();
+            ArtworksSearcherSettingsVM = new ArtworksSearcherSettingsDTVM();
+            PlaylistsExporterSettingsVM = new PlaylistsExporterSettingsDTVM();
+            
+            SettingsModules = new List<IModuleSettingsVM>
             {
-                new ModuleSettingsVM("Music downloader", new MusicDownloaderSettingsDTVM()),
-                new ModuleSettingsVM("Artworks searcher", new ArtworksSearcherSettingsDTVM()),
-                new ModuleSettingsVM("Playlists exporter", new PlaylistsExporterSettingsDTVM()),
+                new ModuleSettingsVM("Music downloader", MusicDownloaderSettingsVM),
+                new ModuleSettingsVM("Artworks searcher", ArtworksSearcherSettingsVM),
+                new ModuleSettingsVM("Playlists exporter", PlaylistsExporterSettingsVM),
             };
-            SelectedSettingsModule = Settings.First();
+            SelectedSettingsModule = SettingsModules.First();
             ResetCmd = new RelayCommand(_ => throw new NotSupportedException());
         }
 

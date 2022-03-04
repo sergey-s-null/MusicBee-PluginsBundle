@@ -7,6 +7,7 @@ using Module.ArtworksSearcher.Settings;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using Root.MusicBeeApi.Abstract;
+using ArtworksSearcherSettings = Module.ArtworksSearcher.Settings.ArtworksSearcherSettings;
 
 namespace Module.ArtworksSearcher
 {

@@ -1,127 +1,131 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Module.PlaylistsExporter.GUI.Settings"
-                    xmlns:globalConverters="clr-namespace:Root.GUI.Converters;assembly=Root">
-    
-    <globalConverters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter" />
-    
-    <DataTemplate DataType="{x:Type local:IPlaylistsExporterSettingsVM}">
-        <Grid x:Name="RootElement">
+﻿<UserControl x:Class="Module.PlaylistsExporter.GUI.Settings.PlaylistsExporterSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Module.PlaylistsExporter.GUI.Settings"
+             xmlns:globalConverters="clr-namespace:Root.GUI.Converters;assembly=Root"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="600"
+             d:DataContext="{d:DesignInstance local:PlaylistsExporterSettingsDTVM}">
+    <UserControl.Resources>
+        <globalConverters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter" />
+    </UserControl.Resources>
+    <Grid x:Name="RootElement">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="Grid"
+                   x:Key="CommonMargin">
+                <Setter Property="Margin" Value="4 3" />
+            </Style>
+        </Grid.Resources>
+
+        <Grid Grid.Row="0"
+              Style="{StaticResource CommonMargin}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            
-            <Grid.Resources>
-                <Style TargetType="Grid"
-                       x:Key="CommonMargin">
-                    <Setter Property="Margin" Value="4 3"/>
-                </Style>
-            </Grid.Resources>
-            
-            <Grid Grid.Row="0"
-                Style="{StaticResource CommonMargin}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Row="0"
-                           Text="Playlists directory path:"/>
-                
-                <TextBox Grid.Row="1" 
-                         Text="{Binding PlaylistsDirectoryPath}"/>
-            </Grid>
-            
-            <Grid Grid.Row="1"
-                  Style="{StaticResource CommonMargin}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Row="0"
-                           Text="File library path:"/>
-                
-                <TextBox Grid.Row="1" 
-                         Text="{Binding FilesLibraryPath}"/>
-            </Grid>
-            
-            <Grid Grid.Row="2"
-                  Style="{StaticResource CommonMargin}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Row="0"
-                           Text="Name of new directory for playlists:"/>
-                
-                <TextBox Grid.Row="1" 
-                         Text="{Binding PlaylistsNewDirectoryName}"/>
-            </Grid>
-            
-            <Grid Grid.Row="3"
-                  Style="{StaticResource CommonMargin}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Row="0"
-                           Text="Common base directory for playlists:"/>
-                
-                <TextBox Grid.Row="1" 
-                         IsReadOnly="True"
-                         Foreground="Gray"
-                         Text="{Binding PlaylistsBasePath, Mode=OneWay}"/>
-            </Grid>
-            
-            <ListView Grid.Row="4" 
-                      ItemsSource="{Binding Playlists}">
-                <ListView.View>
-                    <GridView>
-                        <GridView.Columns>
-                            <GridViewColumn Header="v"
-                                            Width="{Binding ElementName=FieldColumn0, Path=ActualWidth}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate DataType="{x:Type local:PlaylistVM}">
-                                        <CheckBox IsChecked="{Binding Selected}" 
-                                                  Command="{
+
+            <TextBlock Grid.Row="0"
+                       Text="Playlists directory path:" />
+
+            <TextBox Grid.Row="1"
+                     Text="{Binding PlaylistsDirectoryPath}" />
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Style="{StaticResource CommonMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Text="File library path:" />
+
+            <TextBox Grid.Row="1"
+                     Text="{Binding FilesLibraryPath}" />
+        </Grid>
+
+        <Grid Grid.Row="2"
+              Style="{StaticResource CommonMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Text="Name of new directory for playlists:" />
+
+            <TextBox Grid.Row="1"
+                     Text="{Binding PlaylistsNewDirectoryName}" />
+        </Grid>
+
+        <Grid Grid.Row="3"
+              Style="{StaticResource CommonMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Text="Common base directory for playlists:" />
+
+            <TextBox Grid.Row="1"
+                     IsReadOnly="True"
+                     Foreground="Gray"
+                     Text="{Binding PlaylistsBasePath, Mode=OneWay}" />
+        </Grid>
+
+        <ListView Grid.Row="4"
+                  ItemsSource="{Binding Playlists}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="v"
+                                        Width="{Binding ElementName=FieldColumn0, Path=ActualWidth}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type local:PlaylistVM}">
+                                    <CheckBox IsChecked="{Binding Selected}"
+                                              Command="{
                                                         Binding ElementName=RootElement,
                                                         Path=DataContext.ApplyCheckStateToSelectedCmd
                                                   }">
-                                            <CheckBox.CommandParameter>
-                                                <MultiBinding Converter="{StaticResource DefaultMultiValueConverter}">
-                                                    <Binding />
-                                                    <Binding
-                                                        RelativeSource="{RelativeSource AncestorType=ListView}"
-                                                        Path="SelectedItems" />
-                                                </MultiBinding>
-                                            </CheckBox.CommandParameter>
-                                        </CheckBox>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Playlist"
-                                            Width="{Binding ElementName=FieldColumn1, Path=ActualWidth}"
-                                            DisplayMemberBinding="{Binding RelativePath}" />
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            
-            <Grid Grid.Row="4" Margin="0 0 30 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="28px"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" x:Name="FieldColumn0"/>
-                <Grid Grid.Column="1" x:Name="FieldColumn1"/>
-            </Grid>
+                                        <CheckBox.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource DefaultMultiValueConverter}">
+                                                <Binding />
+                                                <Binding
+                                                    RelativeSource="{RelativeSource AncestorType=ListView}"
+                                                    Path="SelectedItems" />
+                                            </MultiBinding>
+                                        </CheckBox.CommandParameter>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Playlist"
+                                        Width="{Binding ElementName=FieldColumn1, Path=ActualWidth}"
+                                        DisplayMemberBinding="{Binding RelativePath}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Grid Grid.Row="4" Margin="0 0 30 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="28px" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" x:Name="FieldColumn0" />
+            <Grid Grid.Column="1" x:Name="FieldColumn1" />
         </Grid>
-    </DataTemplate>
-</ResourceDictionary>
+    </Grid>
+</UserControl>

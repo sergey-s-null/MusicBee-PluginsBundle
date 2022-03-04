@@ -17,7 +17,7 @@
         <ResourceDictionary>
             <globalConverters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter" />
             <globalConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-            <globalConverters:EqualsTypesConverter x:Key="EqualsTypesConverter" />
+            <globalConverters:EqualTypesConverter x:Key="EqualsTypesConverter" />
             <converters:IsCorruptedUrlConverter x:Key="IsCorruptedUrlConverter" />
         </ResourceDictionary>
     </Window.Resources>

@@ -4,78 +4,100 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MusicBeePlugin.GUI.SettingsDialog"
-        xmlns:gui="clr-namespace:MusicBeePlugin.GUI"
+        xmlns:globalConverters="clr-namespace:Root.GUI.Converters;assembly=Root"
+        xmlns:vmds="clr-namespace:Module.VkAudioDownloader.GUI.Settings;assembly=Module.VKMusicDownloader"
+        xmlns:ass="clr-namespace:Module.ArtworksSearcher.GUI.Settings;assembly=Module.ArtworksSearcher"
+        xmlns:pes="clr-namespace:Module.PlaylistsExporter.GUI.Settings;assembly=Module.PlaylistsExporter"
         mc:Ignorable="d"
-        Title="SettingsDialog" Height="450" Width="800" 
+        Title="SettingsDialog" Height="450" Width="800"
         d:DataContext="{d:DesignInstance local:SettingsDialogDTVM, d:IsDesignTimeCreatable=True}">
     <Window.Resources>
-        <gui:VMTemplateSelector x:Key="VMTemplateSelector">
-            <gui:VMTemplateSelector.ResourceDictionary>
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <!-- pack://application:,,,      -->
-                        <ResourceDictionary Source="/Module.VKMusicDownloader;component/GUI/Settings/MusicDownloaderSettings.xaml"></ResourceDictionary>
-                        <ResourceDictionary Source="/Module.ArtworksSearcher;component/GUI/Settings/ArtworksSearcherSettings.xaml"></ResourceDictionary>
-                        <ResourceDictionary Source="/Module.PlaylistsExporter;component/GUI/Settings/PlaylistsExporterSettings.xaml"></ResourceDictionary>
-                    </ResourceDictionary.MergedDictionaries>
-                </ResourceDictionary>
-            </gui:VMTemplateSelector.ResourceDictionary>
-        </gui:VMTemplateSelector>
+        <globalConverters:GroupConverter
+            x:Key="SettingsVisibilityConverter">
+            <globalConverters:IsInstanceOfConverter />
+            <globalConverters:BoolToVisibilityConverter
+                VisibilityOnFalse="Collapsed"
+                VisibilityOnTrue="Visible" />
+        </globalConverters:GroupConverter>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="180px"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <ListView Grid.Column="0"
-                  ItemsSource="{Binding Settings}"
+                  ItemsSource="{Binding SettingsModules}"
                   SelectionMode="Single"
                   SelectedItem="{Binding SelectedSettingsModule}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding ModuleName, Mode=OneWay}"/>
+                    <TextBlock Text="{Binding ModuleName, Mode=OneWay}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+
         <GridSplitter Grid.Column="1"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Center"
-                      Width="6"/>
-        
+                      Width="6" />
+
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            
-            <ContentControl
-                            Content="{Binding SelectedSettingsModule.ModuleSettings, Mode=OneWay}"
-                            ContentTemplateSelector="{StaticResource VMTemplateSelector}"/>
-            
+
+            <Grid
+                Row="0"
+                Visibility="{Binding
+                    SelectedSettingsModule.ModuleSettings, 
+                    Converter={StaticResource SettingsVisibilityConverter}, 
+                    ConverterParameter={x:Type vmds:IMusicDownloaderSettingsVM}}">
+                <vmds:MusicDownloaderSettings
+                    DataContext="{Binding MusicDownloaderSettingsVM, Mode=OneWay}" />
+            </Grid>
+            <Grid
+                Row="0"
+                Visibility="{Binding
+                    SelectedSettingsModule.ModuleSettings, 
+                    Converter={StaticResource SettingsVisibilityConverter}, 
+                    ConverterParameter={x:Type ass:IArtworksSearcherSettingsVM}}">
+                <ass:ArtworksSearcherSettings
+                    DataContext="{Binding ArtworksSearcherSettingsVM, Mode=OneWay}" />
+            </Grid>
+            <Grid
+                Row="0"
+                Visibility="{Binding
+                    SelectedSettingsModule.ModuleSettings, 
+                    Converter={StaticResource SettingsVisibilityConverter}, 
+                    ConverterParameter={x:Type pes:IPlaylistsExporterSettingsVM}}">
+                <pes:PlaylistsExporterSettings
+                    DataContext="{Binding PlaylistsExporterSettingsVM, Mode=OneWay}" />
+            </Grid>
+
             <Grid Grid.Row="1">
                 <Grid.Resources>
                     <Style TargetType="Button">
-                        <Setter Property="Margin" Value="10 6"/>
-                        <Setter Property="Padding" Value="8 2"/>
-                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                        <Setter Property="Margin" Value="10 6" />
+                        <Setter Property="Padding" Value="8 2" />
+                        <Setter Property="VerticalAlignment" Value="Bottom" />
                     </Style>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                
-                <Button Grid.Column="0" Content="Reset" Command="{Binding ResetCmd}"/>
-                <Button Grid.Column="2" Content="Ok" Click="Ok_Click"/>
-                <Button Grid.Column="3" Content="Cancel" IsCancel="True" IsDefault="True"/>
+
+                <Button Grid.Column="0" Content="Reset" Command="{Binding ResetCmd}" />
+                <Button Grid.Column="2" Content="Ok" Click="Ok_Click" />
+                <Button Grid.Column="3" Content="Cancel" IsCancel="True" IsDefault="True" />
             </Grid>
         </Grid>
-        
+
     </Grid>
 </Window>

@@ -13,9 +13,13 @@ namespace MusicBeePlugin.GUI.SettingsDialog
     [AddINotifyPropertyChangedInterface]
     public class SettingsDialogVM : ISettingsDialogVM
     {
-        public bool IsLoaded => Settings.All(s => s.ModuleSettings.IsLoaded);
-        
-        public IList<IModuleSettingsVM> Settings { get; } = new ObservableCollection<IModuleSettingsVM>();
+        public bool IsLoaded => SettingsModules.All(s => s.ModuleSettings.IsLoaded);
+
+        public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
+        public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
+        public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
+
+        public IList<IModuleSettingsVM> SettingsModules { get; } = new ObservableCollection<IModuleSettingsVM>();
 
         public IModuleSettingsVM SelectedSettingsModule { get; set; }
         
@@ -28,21 +32,25 @@ namespace MusicBeePlugin.GUI.SettingsDialog
             IArtworksSearcherSettingsVM artworksSearcherSettingsVM,
             IPlaylistsExporterSettingsVM playlistsExporterSettingsVM)
         {
-            Settings.Add(new ModuleSettingsVM("Music downloader", 
+            MusicDownloaderSettingsVM = musicDownloaderSettingsVM;
+            ArtworksSearcherSettingsVM = artworksSearcherSettingsVM;
+            PlaylistsExporterSettingsVM = playlistsExporterSettingsVM;
+            
+            SettingsModules.Add(new ModuleSettingsVM("Music downloader",
                 musicDownloaderSettingsVM));
-            Settings.Add(new ModuleSettingsVM("Artworks searcher", 
+            SettingsModules.Add(new ModuleSettingsVM("Artworks searcher", 
                 artworksSearcherSettingsVM));
-            Settings.Add(new ModuleSettingsVM("Playlists exporter", 
+            SettingsModules.Add(new ModuleSettingsVM("Playlists exporter", 
                 playlistsExporterSettingsVM));
 
-            SelectedSettingsModule = Settings.First();
+            SelectedSettingsModule = SettingsModules.First();
             
             Load();
         }
 
         public void Load()
         {
-            foreach (var setting in Settings)
+            foreach (var setting in SettingsModules)
             {
                 setting.ModuleSettings.Load();
             }
@@ -50,7 +58,7 @@ namespace MusicBeePlugin.GUI.SettingsDialog
 
         public bool Save()
         {
-            foreach (var setting in Settings)
+            foreach (var setting in SettingsModules)
             {
                 if (!setting.ModuleSettings.Save())
                 {
@@ -63,7 +71,7 @@ namespace MusicBeePlugin.GUI.SettingsDialog
 
         public void Reset()
         {
-            foreach (var setting in Settings)
+            foreach (var setting in SettingsModules)
             {
                 setting.ModuleSettings.Reset();
             }

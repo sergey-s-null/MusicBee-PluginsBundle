@@ -1,80 +1,84 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Module.ArtworksSearcher.GUI.Settings">
-    <DataTemplate DataType="{x:Type local:IArtworksSearcherSettingsVM}">
-        <StackPanel Margin="6">
-            <GroupBox Header="Google">
-                <StackPanel>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Row="0" Grid.Column="0"
-                               HorizontalAlignment="Right" VerticalAlignment="Center"
-                               Text="Google CX:"/>
-                        <TextBox Grid.Row="0" Grid.Column="1"
-                             Text="{Binding GoogleCX}"/>
-
-                        <TextBlock Grid.Row="1" Grid.Column="0"
-                               HorizontalAlignment="Right" VerticalAlignment="Center"
-                               Text="Google Key:"/>
-                        <TextBox Grid.Row="1" Grid.Column="1"
-                             Text="{Binding GoogleKey}"/>
-                    </Grid>
-                    
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Grid.Column="0"
-                               HorizontalAlignment="Right" VerticalAlignment="Center"
-                               Text="Count of parallel downloads:"/>
-                        <TextBox Grid.Column="1"
-                                 HorizontalAlignment="Left"
-                                 MinWidth="60px"
-                                 Text="{Binding ParallelDownloadsCount}"/>
-                    </Grid>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="Osu!dir">
+﻿<UserControl x:Class="Module.ArtworksSearcher.GUI.Settings.ArtworksSearcherSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Module.ArtworksSearcher.GUI.Settings"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="600"
+             d:DataContext="{d:DesignInstance local:ArtworksSearcherSettingsDTVM}">
+    <StackPanel Margin="6">
+        <GroupBox Header="Google">
+            <StackPanel>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0"
                                HorizontalAlignment="Right" VerticalAlignment="Center"
-                               Text=" Osu songs directory:"/>
+                               Text="Google CX:" />
                     <TextBox Grid.Row="0" Grid.Column="1"
-                             Text="{Binding OsuSongsDir}"/>
-                    <Button Grid.Row="0" Grid.Column="2"
-                            Padding="6 0"
-                            Content="..."
-                            Command="{Binding ChangeOsuSongsDirCmd}"/>
+                             Text="{Binding GoogleCX}" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0"
                                HorizontalAlignment="Right" VerticalAlignment="Center"
-                               Text="Min image size (in bytes):"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
-                             HorizontalAlignment="Left"
-                             MinWidth="120px"
-                             Text="{Binding MinOsuImageByteSize}"/>
+                               Text="Google Key:" />
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                             Text="{Binding GoogleKey}" />
                 </Grid>
-            </GroupBox>
-        </StackPanel>
-    </DataTemplate>
-</ResourceDictionary>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               HorizontalAlignment="Right" VerticalAlignment="Center"
+                               Text="Count of parallel downloads:" />
+                    <TextBox Grid.Column="1"
+                             HorizontalAlignment="Left"
+                             MinWidth="60px"
+                             Text="{Binding ParallelDownloadsCount}" />
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Osu!dir">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Text=" Osu songs directory:" />
+                <TextBox Grid.Row="0" Grid.Column="1"
+                         Text="{Binding OsuSongsDir}" />
+                <Button Grid.Row="0" Grid.Column="2"
+                        Padding="6 0"
+                        Content="..."
+                        Command="{Binding ChangeOsuSongsDirCmd}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Text="Min image size (in bytes):" />
+                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                         HorizontalAlignment="Left"
+                         MinWidth="120px"
+                         Text="{Binding MinOsuImageByteSize}" />
+            </Grid>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

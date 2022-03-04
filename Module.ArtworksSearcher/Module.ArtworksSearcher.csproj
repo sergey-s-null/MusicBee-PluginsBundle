@@ -58,6 +58,9 @@
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsDTVM.cs" />
     <Compile Include="GUI\Settings\IArtworksSearcherSettingsVM.cs" />
+    <Compile Include="GUI\Settings\ArtworksSearcherSettings.xaml.cs">
+      <DependentUpon>ArtworksSearcherSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />

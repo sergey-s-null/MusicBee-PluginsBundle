@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace Root.GUI.Converters
 {
-    public class EqualsTypesConverter : IValueConverter
+    public class EqualTypesConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

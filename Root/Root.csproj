@@ -49,9 +49,12 @@
   <ItemGroup>
     <Compile Include="Abstractions\BaseSettings.cs" />
     <Compile Include="Abstractions\ISettings.cs" />
+    <Compile Include="GUI\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
-    <Compile Include="GUI\Converters\EqualsTypesConverter.cs" />
+    <Compile Include="GUI\Converters\EqualTypesConverter.cs" />
+    <Compile Include="GUI\Converters\GroupConverter.cs" />
     <Compile Include="GUI\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="GUI\Converters\IsInstanceOfConverter.cs" />
     <Compile Include="GUI\Converters\TrueToHiddenConverter.cs" />
     <Compile Include="Helpers\AsyncEnumerableHelper.cs" />
     <Compile Include="Helpers\DirectoryHelper.cs" />

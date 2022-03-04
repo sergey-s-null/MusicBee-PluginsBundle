@@ -9,6 +9,7 @@ using Root.MusicBeeApi.Abstract;
 using VkNet;
 using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
+using MusicDownloaderSettings = Module.VkAudioDownloader.Settings.MusicDownloaderSettings;
 
 namespace Module.VkAudioDownloader
 {

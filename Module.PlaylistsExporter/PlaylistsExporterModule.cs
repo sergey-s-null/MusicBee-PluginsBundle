@@ -4,6 +4,7 @@ using Module.PlaylistsExporter.Services;
 using Module.PlaylistsExporter.Settings;
 using Ninject.Modules;
 using Root.MusicBeeApi.Abstract;
+using PlaylistsExporterSettings = Module.PlaylistsExporter.Settings.PlaylistsExporterSettings;
 
 namespace Module.PlaylistsExporter
 {
