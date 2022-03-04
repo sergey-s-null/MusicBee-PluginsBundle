@@ -8,7 +8,7 @@ namespace Module.ArtworksSearcher.GUI.Settings
     {
         public bool IsLoaded => true;
 
-        public string GoogleCX { get; set; } = "{private google cx";
+        public string GoogleCX { get; set; } = "{private google cx}";
         public string GoogleKey { get; set; } = "{private google key}";
         public int MaxParallelDownloadsCount => 999;
         public int ParallelDownloadsCount { get; set; } = 6;
