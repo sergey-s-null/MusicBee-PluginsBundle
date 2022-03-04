@@ -6,6 +6,11 @@ namespace Module.PlaylistsExporter.GUI.Settings
     public class PlaylistVM
     {
         public bool Selected { get; set; }
-        public string RelativePath { get; set; } = "";
+        public string RelativePath { get; }
+
+        public PlaylistVM(string relativePath)
+        {
+            RelativePath = relativePath;
+        }
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="Exceptions\UninstallException.cs" />
     <Compile Include="Factories\IVkAudioDownloaderWindowFactory.cs" />
     <Compile Include="GUI\Settings\IMusicDownloaderSettingsVM.cs" />
+    <Compile Include="GUI\Settings\MusicDownloaderSettingsDTVM.cs" />
     <Compile Include="Helpers\AudioCategoryHelper.cs" />
     <Compile Include="Helpers\AudioDownloadHelper.cs" />
     <Compile Include="Helpers\CollectionEx.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using Module.PlaylistsExporter.Settings;
 using MoreLinq;
 using PropertyChanged;
@@ -19,10 +20,10 @@ namespace Module.PlaylistsExporter.GUI.Settings
         public string PlaylistsNewDirectoryName { get; set; } = "";
 
         public string PlaylistsBasePath { get; set; } = "";
-        public ObservableCollection<PlaylistVM> Playlists { get; } = new();
+        public IList<PlaylistVM> Playlists { get; } = new ObservableCollection<PlaylistVM>();
 
         private RelayCommand? _applyCheckStateToSelectedCmd;
-        public RelayCommand ApplyCheckStateToSelectedCmd =>
+        public ICommand ApplyCheckStateToSelectedCmd =>
             _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
             {
                 var argsArr = (object[]) arg!;
@@ -61,10 +62,9 @@ namespace Module.PlaylistsExporter.GUI.Settings
             PlaylistsBasePath = common.LocalPath;
             particulars
                 .Select(x => x.ToLocalOrBackSlashPath())
-                .ForEach(x => Playlists.Add(new PlaylistVM
+                .ForEach(x => Playlists.Add(new PlaylistVM(x)
                 {
-                    Selected = IsPlaylistSelectedInSettings(x),
-                    RelativePath = x
+                    Selected = IsPlaylistSelectedInSettings(x)
                 }));
         }
         

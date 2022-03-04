@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
 using Root.Abstractions;
-using Root.MVVM;
 
 namespace Module.PlaylistsExporter.GUI.Settings
 {
@@ -9,9 +9,9 @@ namespace Module.PlaylistsExporter.GUI.Settings
         string PlaylistsDirectoryPath { get; set; }
         string FilesLibraryPath { get; set; }
         string PlaylistsNewDirectoryName { get; set; }
-    
+
         string PlaylistsBasePath { get; }
-        ObservableCollection<PlaylistVM> Playlists { get; }
-        RelayCommand ApplyCheckStateToSelectedCmd { get; }
+        IList<PlaylistVM> Playlists { get; }
+        ICommand ApplyCheckStateToSelectedCmd { get; }
     }
 }

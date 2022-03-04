@@ -2,7 +2,7 @@
 
 namespace MusicBeePlugin.GUI.SettingsDialog
 {
-    public class ModuleSettingsVM
+    public class ModuleSettingsVM : IModuleSettingsVM
     {
         public string ModuleName { get; }
         public ISettings ModuleSettings { get; }

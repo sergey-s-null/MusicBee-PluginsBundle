@@ -7,7 +7,7 @@
         xmlns:gui="clr-namespace:MusicBeePlugin.GUI"
         mc:Ignorable="d"
         Title="SettingsDialog" Height="450" Width="800" 
-        d:DataContext="{d:DesignInstance local:SettingsDialogVM}">
+        d:DataContext="{d:DesignInstance local:SettingsDialogDTVM, d:IsDesignTimeCreatable=True}">
     <Window.Resources>
         <gui:VMTemplateSelector x:Key="VMTemplateSelector">
             <gui:VMTemplateSelector.ResourceDictionary>

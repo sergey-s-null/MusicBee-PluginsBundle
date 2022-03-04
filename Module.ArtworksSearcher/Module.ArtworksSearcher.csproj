@@ -56,6 +56,7 @@
     <Compile Include="Factories\IGoogleImagesEnumeratorFactory.cs" />
     <Compile Include="Factories\ISearchWindowFactory.cs" />
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
+    <Compile Include="GUI\Settings\ArtworksSearcherSettingsDTVM.cs" />
     <Compile Include="GUI\Settings\IArtworksSearcherSettingsVM.cs" />
     <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />

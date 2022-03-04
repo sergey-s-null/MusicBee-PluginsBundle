@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Entities\Playlist.cs" />
     <Compile Include="GUI\Settings\IPlaylistsExporterSettingsVM.cs" />
+    <Compile Include="GUI\Settings\PlaylistsExporterSettingsDTVM.cs" />
     <Compile Include="GUI\Settings\PlaylistsExporterSettingsVM.cs" />
     <Compile Include="GUI\Settings\PlaylistVM.cs" />
     <Compile Include="Helpers\ConfigurationHelper.cs" />
