@@ -3,7 +3,7 @@
 namespace Module.VkAudioDownloader.GUI.InputDialog
 {
     [AddINotifyPropertyChangedInterface]
-    class InputDialogVM
+    internal class InputDialogVM : IInputDialogVM
     {
         public string TitleText { get; set; } = "";
         public string InputText { get; set; } = "";
