@@ -9,9 +9,9 @@ namespace Module.VkAudioDownloader.GUI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is BaseAudioVM baseAudioVM)
+            if (value is IAudioVM baseAudioVM)
             {
-                return baseAudioVM is VkAudioVM { IsCorraptedUrl: true };
+                return baseAudioVM is VkAudioVM { IsCorruptedUrl: true };
             }
             
             throw new NotSupportedException();

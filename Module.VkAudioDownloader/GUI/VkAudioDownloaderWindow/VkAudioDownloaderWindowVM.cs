@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Module.VkAudioDownloader.Entities;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
@@ -21,16 +22,18 @@ using VkNet.Model.Attachments;
 namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
 {
     [AddINotifyPropertyChangedInterface]
-    public class VkAudioDownloaderWindowVM
+    public class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     {
         #region Bindings
 
         private RelayCommand? _refreshCmd;
-        public RelayCommand RefreshCmd
+
+        public ICommand RefreshCmd
             => _refreshCmd ??= new RelayCommand(_ => Refresh());
 
         private RelayCommand? _applyCheckStateToSelectedCmd;
-        public RelayCommand ApplyCheckStateToSelectedCmd
+
+        public ICommand ApplyCheckStateToSelectedCmd
             => _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
             {
                 var argsArr = (object[]) arg!;
@@ -43,14 +46,14 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
                 ApplyCheckStateToSelected(triggered, selected);
             });
 
-        public bool IsDownloading { get; set; }
-        
+        public bool IsDownloading { get; private set; }
+
         private RelayCommand? _downloadCommand;
-        public RelayCommand DownloadCommand
+        public ICommand DownloadCmd
             => _downloadCommand ??= new RelayCommand(
                 async _ => await Download());
-        
-        public ObservableCollection<BaseAudioVM> Audios { get; } = new();
+
+        public IList<IAudioVM> Audios { get; } = new ObservableCollection<IAudioVM>();
 
         #endregion
 
@@ -142,14 +145,14 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
 
             Refresh();
         }
-        
+
         private static void ApplyCheckStateToSelected(VkAudioVM triggered, IReadOnlyCollection<VkAudioVM> selected)
         {
             if (!selected.Contains(triggered))
             {
                 return;
             }
-            
+
             foreach (var vkAudioVM in selected.Where(x => x != triggered))
             {
                 vkAudioVM.IsSelected = triggered.IsSelected;
@@ -174,19 +177,18 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
 
         private MBAudioVM FilePathToMBAudioVM(string filePath)
         {
-            return new()
-            {
-                Artist = _mbApi.Library_GetFileTag(filePath, MetaDataType.Artist),
-                Title = _mbApi.Library_GetFileTag(filePath, MetaDataType.TrackTitle),
-                Index = _mbApi.GetIndexOrDefault(filePath, -1),
-                VkId = _mbApi.GetVkIdOrDefault(filePath, -1)
-            };
+            return new MBAudioVM(
+                _mbApi.GetVkIdOrDefault(filePath, -1),
+                _mbApi.Library_GetFileTag(filePath, MetaDataType.Artist),
+                _mbApi.Library_GetFileTag(filePath, MetaDataType.TrackTitle),
+                _mbApi.GetIndexOrDefault(filePath, -1)
+            );
         }
 
         private async Task<IReadOnlyCollection<VkAudioVM>> GetVkAudios(int maxDepth = 50)
         {
             var vkIdsFromLibrary = _mbApi.EnumerateVkIds().ToHashSet();
-            
+
             return await _vkApi.Audio.AsAsyncEnumerable()
                 .TakeWhile(audio => audio.Id is not null
                                     && !vkIdsFromLibrary.Contains(audio.Id.Value))
@@ -199,19 +201,20 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         private static VkAudioVM AudioToVkAudioVM(Audio audio, int index)
         {
             var convertRes = VkApiHelper.ConvertToMp3(audio.Url.AbsoluteUri, out var mp3Url);
-            return new VkAudioVM
+
+            return new VkAudioVM(
+                audio.Id ?? throw new Exception("This message is not being to be shown (If all is alright)."),
+                audio.Artist,
+                audio.Title,
+                index,
+                mp3Url,
+                !convertRes
+            )
             {
-                IsSelected = true,
-                Artist = audio.Artist,
-                Title = audio.Title,
-                InsideIndex = index,
-                Url = mp3Url,
-                IsCorraptedUrl = !convertRes,
-                VkId = audio.Id
-                       ?? throw new Exception("This message is not being to be shown (If all is alright).")
+                IsSelected = true
             };
         }
-        
+
         private IReadOnlyCollection<VkAudioVMWithFileSavePath> GetItemsForDownload()
         {
             return Audios
@@ -226,10 +229,10 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         {
             _tagReplacer.SetReplaceValue(MBTagReplacer.Tag.Artist, vkAudioVM.Artist);
             _tagReplacer.SetReplaceValue(MBTagReplacer.Tag.Title, vkAudioVM.Title);
-            
+
             var downloadDir = _tagReplacer.Prepare(_settings.DownloadDirTemplate);
             var fileName = _tagReplacer.Prepare(_settings.FileNameTemplate) + ".mp3";
-            
+
             downloadDir = PathEx.RemoveInvalidDirChars(downloadDir);
             fileName = PathEx.RemoveInvalidFileNameChars(fileName);
 

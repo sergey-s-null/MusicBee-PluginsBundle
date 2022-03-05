@@ -80,6 +80,11 @@
     <Compile Include="GUI\Settings\MusicDownloaderSettings.xaml.cs">
       <DependentUpon>MusicDownloaderSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\VkAudioDownloaderWindow\AudioVMComparer.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\IMBAudioVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\IVkAudioDownloaderWindowVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\IVkAudioVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioDownloaderWindowDTVM.cs" />
     <Compile Include="Helpers\AudioCategoryHelper.cs" />
     <Compile Include="Helpers\AudioDownloadHelper.cs" />
     <Compile Include="Helpers\CollectionEx.cs" />
@@ -100,7 +105,7 @@
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\InputDialog\InputDialogVM.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\BaseAudioVM.cs" />
+    <Compile Include="GUI\VkAudioDownloaderWindow\IAudioVM.cs" />
     <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioDownloaderWindowVM.cs" />
     <Compile Include="GUI\Settings\MusicDownloaderSettingsVM.cs" />
     <Compile Include="IsExternalInit.cs" />

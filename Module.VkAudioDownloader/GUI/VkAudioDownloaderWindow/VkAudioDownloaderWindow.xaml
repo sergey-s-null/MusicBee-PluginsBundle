@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:globalConverters="clr-namespace:Root.GUI.Converters;assembly=Root"
         xmlns:converters="clr-namespace:Module.VkAudioDownloader.GUI.Converters"
         xmlns:local="clr-namespace:Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow"
@@ -11,7 +10,8 @@
         mc:Ignorable="d"
         Title="Download audios from VK" Height="450" Width="700"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance local:VkAudioDownloaderWindowVM}">
+        d:DataContext="{d:DesignInstance local:VkAudioDownloaderWindowDTVM}"
+        Loaded="VkAudioDownloaderWindow_OnLoaded">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -19,18 +19,13 @@
             <globalConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <globalConverters:EqualTypesConverter x:Key="EqualsTypesConverter" />
             <converters:IsCorruptedUrlConverter x:Key="IsCorruptedUrlConverter" />
+            <CollectionViewSource x:Key="SortedAudios"
+                                  Source="{Binding Audios}">
+            </CollectionViewSource>
         </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
-        <Grid.Resources>
-            <CollectionViewSource x:Key="SortedAudios" Source="{Binding Audios}">
-                <CollectionViewSource.SortDescriptions>
-                    <scm:SortDescription PropertyName="" Direction="Descending" />
-                </CollectionViewSource.SortDescriptions>
-            </CollectionViewSource>
-        </Grid.Resources>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -51,8 +46,8 @@
             
             <Button Grid.Column="2" 
                     Content="Download >>"
-                    Margin="4" Command="{Binding DownloadCommand}"
-                    IsEnabled="{Binding IsDownloading, Converter={StaticResource InverseBooleanConverter}}" />
+                    Margin="4" Command="{Binding DownloadCmd}"
+                    IsEnabled="{Binding IsDownloading, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}" />
             
         </Grid>
         

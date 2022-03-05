@@ -1,29 +1,33 @@
-﻿using System;
+﻿using PropertyChanged;
 
 namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
 {
-    public class VkAudioVM : BaseAudioVM
+    [AddINotifyPropertyChangedInterface]
+    public class VkAudioVM : IVkAudioVM
     {
-        /// <summary>
-        /// Последняя добавленная аудиозапись имеет 0 индекс.
-        /// </summary>
-        public int InsideIndex { get; set; } = -1;
-        public bool IsSelected { get; set; } = false;
-        public string Url { get; set; } = "";
-        public bool IsCorruptedUrl { get; set; } = false;// TODO rename (with xaml)
-        
-        public override int CompareTo(object obj)
+        public long VkId { get; }
+        public string Artist { get; }
+        public string Title { get; }
+
+        public bool IsSelected { get; set; }
+        public int InsideIndex { get; }
+        public string Url { get; }
+        public bool IsCorruptedUrl { get; }
+
+        public VkAudioVM(
+            long vkId, 
+            string artist, 
+            string title,
+            int insideIndex, 
+            string url, 
+            bool isCorruptedUrl)
         {
-            if (this == obj)
-                return 0;
-            
-            return obj switch
-            {
-                VkAudioVM other => other.InsideIndex.CompareTo(InsideIndex),
-                MBAudioVM => 1,
-                BaseAudioVM unknown => throw new NotImplementedException($"Compare of type {unknown.GetType().Name} not implemented."),
-                _ => throw new NotSupportedException()
-            };
+            VkId = vkId;
+            Artist = artist;
+            Title = title;
+            InsideIndex = insideIndex;
+            Url = url;
+            IsCorruptedUrl = isCorruptedUrl;
         }
     }
 }
