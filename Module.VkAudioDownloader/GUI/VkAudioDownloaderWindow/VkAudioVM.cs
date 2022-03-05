@@ -10,7 +10,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         public int InsideIndex { get; set; } = -1;
         public bool IsSelected { get; set; } = false;
         public string Url { get; set; } = "";
-        public bool IsCorraptedUrl { get; set; } = false;// TODO rename (with xaml)
+        public bool IsCorruptedUrl { get; set; } = false;// TODO rename (with xaml)
         
         public override int CompareTo(object obj)
         {
