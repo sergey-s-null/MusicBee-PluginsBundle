@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MoreLinq;
 using Newtonsoft.Json.Linq;
+using Root;
 using Root.Abstractions;
 using Root.Helpers;
 
@@ -14,7 +15,8 @@ namespace Module.PlaylistsExporter.Settings
         public string PlaylistsNewDirectoryName { get; set; } = "";
         public IReadOnlyCollection<string> PlaylistsForExport { get; set; } = Array.Empty<string>();
 
-        public PlaylistsExporterSettings(string filePath) : base(filePath, true)
+        public PlaylistsExporterSettings(IResourceManager resourceManager) 
+            : base(ResourcePaths.PlaylistExporterSettingsPath, true, resourceManager)
         {
         }
 

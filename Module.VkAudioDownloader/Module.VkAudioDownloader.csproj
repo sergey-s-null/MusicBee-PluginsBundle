@@ -92,7 +92,6 @@
     <Compile Include="Helpers\AudioCategoryHelper.cs" />
     <Compile Include="Helpers\AudioDownloadHelper.cs" />
     <Compile Include="Helpers\CollectionEx.cs" />
-    <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\CookieContainerEx.cs" />
     <Compile Include="Helpers\FileEx.cs" />
     <Compile Include="Helpers\VkApiHelper.cs" />

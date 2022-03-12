@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Root;
 using Root.Abstractions;
 
 namespace Module.ArtworksSearcher.Settings
@@ -34,7 +35,8 @@ namespace Module.ArtworksSearcher.Settings
         public string OsuSongsDir { get; set; } = "";
         public long MinOsuImageByteSize { get; set; }
         
-        public ArtworksSearcherSettings(string filePath) : base(filePath, true)
+        public ArtworksSearcherSettings(IResourceManager resourceManager) 
+            : base(ResourcePaths.ArtworksSearcherSettingsPath, true, resourceManager)
         {
         }
         
@@ -49,7 +51,7 @@ namespace Module.ArtworksSearcher.Settings
         
         protected override JObject PropertiesToJObject()
         {
-            return new()
+            return new JObject
             {
                 [nameof(GoogleCX)] = GoogleCX,
                 [nameof(GoogleKey)] = GoogleKey,

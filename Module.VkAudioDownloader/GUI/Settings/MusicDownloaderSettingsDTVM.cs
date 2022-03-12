@@ -17,7 +17,7 @@ namespace Module.VkAudioDownloader.GUI.Settings
         public ICommand ChangeDownloadDirCmd =>
             new RelayCommand(_ => throw new NotSupportedException());
 
-        public void Load()
+        public bool Load()
         {
             throw new NotSupportedException();
         }

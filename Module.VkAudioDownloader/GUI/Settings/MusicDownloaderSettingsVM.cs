@@ -67,11 +67,15 @@ namespace Module.VkAudioDownloader.GUI.Settings
             DownloadDirCheck = _replacer.Prepare(DownloadDirTemplate);
         }
         
-        public void Load()
+        public bool Load()
         {
-            _settings.Load();
-            
+            if (!_settings.Load())
+            {
+                return false;
+            }
+
             Reset();
+            return true;
         }
 
         public bool Save()

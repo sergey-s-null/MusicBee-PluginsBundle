@@ -30,11 +30,15 @@ namespace Module.ArtworksSearcher.GUI.Settings
             _settings = settings;
         }
         
-        public void Load()
+        public bool Load()
         {
-            _settings.Load();
+            if (!_settings.Load())
+            {
+                return false;
+            }
             
             Reset();
+            return true;
         }
 
         public bool Save()

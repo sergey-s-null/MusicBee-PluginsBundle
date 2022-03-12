@@ -9,11 +9,18 @@ namespace Root.Abstractions
     {
         public bool IsLoaded { get; private set; }
         
-        private readonly string _filePath;
+        private readonly IResourceManager _resourceManager;
         
-        protected BaseSettings(string filePath, bool load)
+        private readonly string _path;
+        
+        protected BaseSettings(
+            string path, 
+            bool load,
+            IResourceManager resourceManager)
         {
-            _filePath = filePath;
+            _resourceManager = resourceManager;
+            
+            _path = path;
 
             if (load)
             {
@@ -21,28 +28,49 @@ namespace Root.Abstractions
             }
         }
         
-        public void Load()
+        public bool Load()
         {
+            var rawJson = ReadRawJson();
+            if (rawJson is null)
+            {
+                IsLoaded = false;
+                return false;
+            }
+            
             try
             {
-                var rawJson = File.ReadAllText(_filePath);
                 var rootObj = JsonConvert.DeserializeObject<JToken>(rawJson);
 
                 if (rootObj is null)
                 {
                     IsLoaded = false;
-                    return;
+                    return false;
                 }
                 
                 PropertiesFromJObject(rootObj);
                 
                 IsLoaded = true;
+                return true;
             }
-            catch (Exception e)
+            catch (JsonException e)
             {
                 IsLoaded = false;
                 Console.WriteLine($"Error on load settings: {e.Message}");
+                return false;
             }
+        }
+
+        private string? ReadRawJson()
+        {
+            using var stream = _resourceManager.OpenRead(_path);
+            if (stream is null)
+            {
+                return null;
+            }
+            
+            using var reader = new StreamReader(stream);
+
+            return reader.ReadToEnd();
         }
 
         protected abstract void PropertiesFromJObject(JToken rootObj);
@@ -51,8 +79,9 @@ namespace Root.Abstractions
         {
             try
             {
-                File.WriteAllText(_filePath, PropertiesToJObject()
-                    .ToString(Formatting.Indented));
+                using var stream = _resourceManager.OpenWrite(_path);
+                using var writer = new StreamWriter(stream);
+                writer.Write(PropertiesToJObject().ToString(Formatting.Indented));
                 return true;
             }
             catch

@@ -39,7 +39,7 @@ namespace MusicBeePlugin.GUI.SettingsDialog
             ResetCmd = new RelayCommand(_ => throw new NotSupportedException());
         }
 
-        public void Load()
+        public bool Load()
         {
             throw new NotSupportedException();
         }

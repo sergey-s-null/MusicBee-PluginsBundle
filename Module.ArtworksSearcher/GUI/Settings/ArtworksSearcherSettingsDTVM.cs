@@ -18,7 +18,7 @@ namespace Module.ArtworksSearcher.GUI.Settings
         public ICommand ChangeOsuSongsDirCmd { get; } =
             new RelayCommand(_ => throw new NotSupportedException());
 
-        public void Load()
+        public bool Load()
         {
             throw new NotSupportedException();
         }

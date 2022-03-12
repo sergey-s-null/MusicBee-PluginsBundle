@@ -59,7 +59,6 @@
       <DependentUpon>PlaylistsExporterSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Settings\PlaylistVM.cs" />
-    <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="IsExternalInit.cs" />
     <Compile Include="PlaylistsExporterModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

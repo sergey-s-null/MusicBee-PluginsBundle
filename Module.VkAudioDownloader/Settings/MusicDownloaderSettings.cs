@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Root;
 using Root.Abstractions;
 
 namespace Module.VkAudioDownloader.Settings
@@ -9,7 +10,8 @@ namespace Module.VkAudioDownloader.Settings
         public string FileNameTemplate { get; set; } = "";
         public string AccessToken { get; set; } = "";
         
-        public MusicDownloaderSettings(string filePath) : base(filePath, true)
+        public MusicDownloaderSettings(IResourceManager resourceManager) 
+            : base(ResourcePaths.AudioDownloaderSettingsPath, true, resourceManager)
         {
             
         }

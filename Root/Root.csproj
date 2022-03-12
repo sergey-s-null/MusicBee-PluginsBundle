@@ -50,6 +50,7 @@
     <Compile Include="Abstractions\BaseSettings.cs" />
     <Compile Include="Abstractions\ISettings.cs" />
     <Compile Include="Collections\ReverseComparer.cs" />
+    <Compile Include="ResourcePaths.cs" />
     <Compile Include="GUI\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
     <Compile Include="GUI\Converters\EqualTypesConverter.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Helpers\PathHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UriHelper.cs" />
+    <Compile Include="IResourceManager.cs" />
     <Compile Include="MusicBeeApi\Abstract\IBaseMusicBeeApi.cs" />
     <Compile Include="MusicBeeApi\Abstract\IMusicBeeApi.cs" />
     <Compile Include="MusicBeeApi\Delegates.cs" />
@@ -74,6 +76,8 @@
     <Compile Include="MusicBeeApi\MusicBeeApiMemoryContainerWrapper.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceManager.cs" />
+    <Compile Include="RootModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="paket.references" />
@@ -102,6 +106,17 @@
       <ItemGroup>
         <Reference Include="Newtonsoft.Json">
           <HintPath>..\packages\netframework\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Ninject">
+          <HintPath>..\packages\netframework\Ninject\lib\net45\Ninject.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

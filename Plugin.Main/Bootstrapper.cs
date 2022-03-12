@@ -8,6 +8,7 @@ using MusicBeePlugin.GUI.SettingsDialog;
 using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Extensions.Factory;
+using Root;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
 
@@ -19,16 +20,20 @@ namespace MusicBeePlugin
         {
             var kernel = new StandardKernel();
 
-            var mbApi = new MusicBeeApiMemoryContainerWrapper(mbApiMemoryContainer);
+            kernel
+                .Bind<MusicBeeApiMemoryContainer>()
+                .ToConstant(mbApiMemoryContainer);
             kernel
                 .Bind<IMusicBeeApi>()
-                .ToConstant(mbApi);
+                .To<MusicBeeApiMemoryContainerWrapper>()
+                .InSingletonScope();
 
-            kernel.Load(new MusicDownloaderModule(mbApi));
-            kernel.Load(new ArtworksSearcherModule(mbApi));
-            kernel.Load(new PlaylistsExporterModule(mbApi));
-            kernel.Load(new InboxAdderModule());
-            kernel.Load(new DataExporterModule());
+            kernel.Load<RootModule>();
+            kernel.Load<MusicDownloaderModule>();
+            kernel.Load<ArtworksSearcherModule>();
+            kernel.Load<PlaylistsExporterModule>();
+            kernel.Load<InboxAdderModule>();
+            kernel.Load<DataExporterModule>();
 
             kernel
                 .Bind<IPluginActions>()

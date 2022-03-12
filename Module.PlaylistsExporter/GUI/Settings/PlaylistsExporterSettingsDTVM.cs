@@ -67,7 +67,7 @@ namespace Module.PlaylistsExporter.GUI.Settings
             };
         }
 
-        public void Load()
+        public bool Load()
         {
             throw new NotSupportedException();
         }

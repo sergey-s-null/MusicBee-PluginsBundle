@@ -48,12 +48,10 @@ namespace MusicBeePlugin.GUI.SettingsDialog
             Load();
         }
 
-        public void Load()
+        public bool Load()
         {
-            foreach (var setting in SettingsModules)
-            {
-                setting.ModuleSettings.Load();
-            }
+            return SettingsModules
+                .All(setting => setting.ModuleSettings.Load());
         }
 
         public bool Save()

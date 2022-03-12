@@ -1,14 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Net;
+using System.Windows;
 using HackModule.AssemblyBindingRedirect;
-using Module.VkAudioDownloader.Exceptions;
-using Module.VkAudioDownloader.Helpers;
 using MusicBeePlugin.Factories;
 using MusicBeePlugin.GUI.InboxRelocateContextMenu;
 using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Syntax;
+using Root;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
 
@@ -21,7 +20,7 @@ namespace MusicBeePlugin
         private const short MinApiRevision = 53;
 
         private ISettingsDialogFactory? _settingsDialogFactory;
-        private string? _settingsDirPath;
+        private IResourceManager? _resourceManager;
         
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
@@ -34,12 +33,10 @@ namespace MusicBeePlugin
             
             var kernel = Bootstrapper.GetKernel(mbApiMemoryContainer);
 
-            var mbApi = kernel.Get<IMusicBeeApi>();
-            CreateSettingsDirectory(mbApi);
-            
             _settingsDialogFactory = kernel.Get<ISettingsDialogFactory>();
-            _settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
+            _resourceManager = kernel.Get<IResourceManager>();
             
+            InitSettings();
             CreateMenuItems(kernel);
 
             return GetPluginInfo();
@@ -105,22 +102,9 @@ namespace MusicBeePlugin
             };
         }
 
-        // TODO избавиться или объединить с другими настройками
-        private static void CreateSettingsDirectory(IMusicBeeApi mbApi)
+        private void InitSettings()
         {
-            var settingsDirPath = ConfigurationHelper.GetSettingsDirPath(mbApi);
-
-            try
-            {
-                if (!Directory.Exists(settingsDirPath))
-                {
-                    Directory.CreateDirectory(settingsDirPath);
-                }
-            }
-            catch (Exception e)
-            {
-                throw new InitializeException($"Error creating settings dir: {settingsDirPath}", e);
-            }
+            _resourceManager!.CreateRootIfNeeded();
         }
         
         public bool Configure(IntPtr _)
@@ -134,16 +118,14 @@ namespace MusicBeePlugin
 
         public void Uninstall()
         {
-            try
+            var result = MessageBox.Show(
+                "Delete settings?", 
+                "o(╥﹏╥)o", 
+                MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
             {
-                if (Directory.Exists(_settingsDirPath))
-                {
-                    Directory.Delete(_settingsDirPath!, true);
-                }
-            }
-            catch (Exception e)
-            {
-                throw new UninstallException($"Error delete directory: {_settingsDirPath}", e);
+                _resourceManager!.DeleteRoot();
             }
         }
 

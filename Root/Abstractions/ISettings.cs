@@ -3,7 +3,7 @@
     public interface ISettings
     {
         bool IsLoaded { get; }
-        void Load();
+        bool Load();
         bool Save();
         void Reset();
     }
