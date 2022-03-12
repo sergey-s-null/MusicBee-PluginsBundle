@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
-using Root;
 using Root.Abstractions;
+using Root.Helpers;
+using Root.Services.Abstract;
 
 namespace Module.VkAudioDownloader.Settings
 {
@@ -11,7 +12,7 @@ namespace Module.VkAudioDownloader.Settings
         public string AccessToken { get; set; } = "";
         
         public MusicDownloaderSettings(IResourceManager resourceManager) 
-            : base(ResourcePaths.AudioDownloaderSettingsPath, true, resourceManager)
+            : base(ResourcesHelper.AudioDownloaderSettingsPath, true, resourceManager)
         {
             
         }

@@ -1,4 +1,6 @@
 ﻿using Ninject.Modules;
+using Root.Services;
+using Root.Services.Abstract;
 
 namespace Root
 {

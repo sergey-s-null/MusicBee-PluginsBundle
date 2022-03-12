@@ -1,7 +1,9 @@
 ﻿using System.IO;
+using Root.Helpers;
 using Root.MusicBeeApi.Abstract;
+using Root.Services.Abstract;
 
-namespace Root
+namespace Root.Services
 {
     public class ResourceManager : IResourceManager
     {
@@ -20,7 +22,7 @@ namespace Root
         {
             var dataPath = _musicBeeApi.Setting_GetPersistentStoragePath();
             
-            return Path.Combine(dataPath, ResourcePaths.RootDirectoryPath);
+            return Path.Combine(dataPath, ResourcesHelper.RootDirectoryPath);
         }
 
         public void CreateRootIfNeeded()

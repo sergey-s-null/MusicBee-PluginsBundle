@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
-using Root;
 using Root.Abstractions;
+using Root.Helpers;
+using Root.Services.Abstract;
 
 namespace Module.ArtworksSearcher.Settings
 {
@@ -36,7 +37,7 @@ namespace Module.ArtworksSearcher.Settings
         public long MinOsuImageByteSize { get; set; }
         
         public ArtworksSearcherSettings(IResourceManager resourceManager) 
-            : base(ResourcePaths.ArtworksSearcherSettingsPath, true, resourceManager)
+            : base(ResourcesHelper.ArtworksSearcherSettingsPath, true, resourceManager)
         {
         }
         

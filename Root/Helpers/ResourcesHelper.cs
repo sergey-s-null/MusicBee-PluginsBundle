@@ -1,6 +1,6 @@
-﻿namespace Root
+﻿namespace Root.Helpers
 {
-    public static class ResourcePaths
+    public static class ResourcesHelper
     {
         public const string RootDirectoryPath = "PluginsBundleSettings";
         

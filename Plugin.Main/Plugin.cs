@@ -7,9 +7,9 @@ using MusicBeePlugin.GUI.InboxRelocateContextMenu;
 using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Syntax;
-using Root;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
+using Root.Services.Abstract;
 
 namespace MusicBeePlugin
 {

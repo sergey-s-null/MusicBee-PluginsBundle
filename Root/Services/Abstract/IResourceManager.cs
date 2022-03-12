@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Root
+namespace Root.Services.Abstract
 {
     public interface IResourceManager
     {

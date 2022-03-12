@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using MoreLinq;
 using Newtonsoft.Json.Linq;
-using Root;
 using Root.Abstractions;
 using Root.Helpers;
+using Root.Services.Abstract;
 
 namespace Module.PlaylistsExporter.Settings
 {
@@ -16,7 +16,7 @@ namespace Module.PlaylistsExporter.Settings
         public IReadOnlyCollection<string> PlaylistsForExport { get; set; } = Array.Empty<string>();
 
         public PlaylistsExporterSettings(IResourceManager resourceManager) 
-            : base(ResourcePaths.PlaylistExporterSettingsPath, true, resourceManager)
+            : base(ResourcesHelper.PlaylistExporterSettingsPath, true, resourceManager)
         {
         }
 
