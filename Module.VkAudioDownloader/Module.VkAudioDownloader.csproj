@@ -75,6 +75,8 @@
     <Compile Include="Exceptions\InitializeException.cs" />
     <Compile Include="Exceptions\UninstallException.cs" />
     <Compile Include="Factories\IVkAudioDownloaderWindowFactory.cs" />
+    <Compile Include="GUI\AuthDialog\AuthDialogDTVM.cs" />
+    <Compile Include="GUI\AuthDialog\IAuthDialogVM.cs" />
     <Compile Include="GUI\InputDialog\IInputDialogVM.cs" />
     <Compile Include="GUI\InputDialog\InputDialogDTVM.cs" />
     <Compile Include="GUI\Settings\IMusicDownloaderSettingsVM.cs" />

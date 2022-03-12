@@ -8,7 +8,7 @@
         Title="Authorization"
         Width="400px" ResizeMode="NoResize" SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance local:AuthDialogVM}">
+        d:DataContext="{d:DesignInstance local:AuthDialogDTVM, IsDesignTimeCreatable=True}">
     <Grid Margin="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -22,9 +22,9 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Login:" HorizontalAlignment="Right" Margin="0 0 0 6"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Password:" HorizontalAlignment="Right" Margin="0 0 0 6"/>
         <TextBox Grid.Row="0" Grid.Column="1" Margin="0 0 0 6"
-                 Text="{Binding Login, Mode=OneWayToSource}"/>
+                 Text="{Binding Login}"/>
         <TextBox Grid.Row="1" Grid.Column="1" Margin="0 0 0 6"
-                 Text="{Binding Password, Mode=OneWayToSource}"/>
+                 Text="{Binding Password}"/>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
