@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -24,11 +25,11 @@ namespace MusicBeePlugin.Services
         private readonly IVkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
 
         public PluginActions(
-            IMusicBeeApi mbApi, 
-            IDataExportService dataExportService, 
-            IPlaylistsExportService playlistsExportService, 
-            IInboxAddService inboxAddService, 
-            ISearchWindowFactory searchWindowFactory, 
+            IMusicBeeApi mbApi,
+            IDataExportService dataExportService,
+            IPlaylistsExportService playlistsExportService,
+            IInboxAddService inboxAddService,
+            ISearchWindowFactory searchWindowFactory,
             IVkAudioDownloaderWindowFactory vkAudioDownloaderWindowFactory)
         {
             _mbApi = mbApi;
@@ -87,40 +88,23 @@ namespace MusicBeePlugin.Services
                 MessageBox.Show("You must select single item.");
                 return;
             }
-            
+
             _inboxAddService.RetrieveToInbox(selectedFilePath);
 
             _mbApi.MB_RefreshPanels();
         }
-        
+
         public void ExportPlaylists()
         {
-            const int showCount = 10;
             try
             {
                 var deletingPlaylistsPaths = _playlistsExportService.GetExistingExportedPlaylists();
-                var deletingPlaylists = deletingPlaylistsPaths
-                    .Take(showCount)
-                    .Select(x => new Uri(x))
-                    .ToReadOnlyList();
 
-                var (common, particulars) = UriHelper.SplitOnCommonAndParticulars(deletingPlaylists);
-                
-                var joined = string.Join(Environment.NewLine, particulars.Select(x => $"\t{x.ToLocalOrBackSlashPath()}"));
-                var dialogResult = MessageBox.Show("These files will be deleted before export:\n" +
-                                                   $"{common.ToLocalOrBackSlashPath()}\n" +
-                                                   $"{joined}\n" +
-                                                   (deletingPlaylistsPaths.Count > showCount 
-                                                       ? $"\t{deletingPlaylistsPaths.Count - showCount} more...\n" 
-                                                       : string.Empty) +
-                                                   "Continue?",
-                    "('ʘᗩʘ)",
-                    MessageBoxButton.OKCancel);
-                if (dialogResult != MessageBoxResult.OK)
+                if (!AskForPlaylistsDeletionIfNeeded(deletingPlaylistsPaths))
                 {
                     return;
                 }
-                
+
                 _playlistsExportService.CleanAndExport();
 
                 MessageBox.Show("Export done successfully.", "(ง ͠° ͟ل͜ ͡°)ง");
@@ -175,6 +159,41 @@ namespace MusicBeePlugin.Services
 
             filePath = files[0];
             return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deletingPlaylistsPaths"></param>
+        /// <returns>true means that you can delete existing playlists and continue export</returns>
+        private static bool AskForPlaylistsDeletionIfNeeded(IReadOnlyCollection<string> deletingPlaylistsPaths)
+        {
+            if (deletingPlaylistsPaths.Count == 0)
+            {
+                return true;
+            }
+
+            const int showCount = 10;
+
+            var deletingPlaylists = deletingPlaylistsPaths
+                .Take(showCount)
+                .Select(x => new Uri(x))
+                .ToReadOnlyList();
+
+            var (common, particulars) = UriHelper.SplitOnCommonAndParticulars(deletingPlaylists);
+
+            var joined = string.Join(Environment.NewLine, particulars.Select(x => $"\t{x.ToLocalOrBackSlashPath()}"));
+            var dialogResult = MessageBox.Show("These files will be deleted before export:\n" +
+                                               $"{common.ToLocalOrBackSlashPath()}\n" +
+                                               $"{joined}\n" +
+                                               (deletingPlaylistsPaths.Count > showCount
+                                                   ? $"\t{deletingPlaylistsPaths.Count - showCount} more...\n"
+                                                   : string.Empty) +
+                                               "Continue?",
+                "('ʘᗩʘ)",
+                MessageBoxButton.OKCancel);
+
+            return dialogResult == MessageBoxResult.OK;
         }
     }
 }
