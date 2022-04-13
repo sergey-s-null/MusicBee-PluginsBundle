@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using Module.VkAudioDownloader.GUI.ViewModels;
 
-namespace Module.VkAudioDownloader.GUI.InputDialog
+namespace Module.VkAudioDownloader.GUI.Views
 {
     /// <summary>
     /// Логика взаимодействия для InputDialog.xaml

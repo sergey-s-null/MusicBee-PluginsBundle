@@ -1,6 +1,7 @@
-﻿using PropertyChanged;
+﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using PropertyChanged;
 
-namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
+namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class VkAudioVM : IVkAudioVM

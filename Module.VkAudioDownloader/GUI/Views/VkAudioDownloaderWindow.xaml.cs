@@ -3,12 +3,14 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Module.VkAudioDownloader.GUI.Comparers;
+using Module.VkAudioDownloader.GUI.ViewModels;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Root.Collections;
 using VkNet.Abstractions;
 
-namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
+namespace Module.VkAudioDownloader.GUI.Views
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -66,7 +68,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         // TODO move out
         private bool TryInputAuthData(out string? login, out string? password)
         {
-            var dialog = new AuthDialog.AuthDialog();
+            var dialog = new AuthDialog();
 
             return dialog.ShowDialog(out login, out password);
         }
@@ -74,7 +76,7 @@ namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
         // TODO move out
         private bool TryInputCode(out string? code)
         {
-            var dialog = new InputDialog.InputDialog();
+            var dialog = new InputDialog();
 
             return dialog.ShowDialog("Enter code:", out code);
         }

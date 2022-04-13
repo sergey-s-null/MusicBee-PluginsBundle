@@ -1,4 +1,4 @@
-﻿namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
+﻿namespace Module.VkAudioDownloader.GUI.AbstractViewModels
 {
     public interface IMBAudioVM : IAudioVM
     {

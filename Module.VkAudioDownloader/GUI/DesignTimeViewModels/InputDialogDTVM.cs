@@ -1,4 +1,6 @@
-﻿namespace Module.VkAudioDownloader.GUI.InputDialog
+﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
+
+namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
 {
     public class InputDialogDTVM : IInputDialogVM
     {

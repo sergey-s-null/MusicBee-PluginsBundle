@@ -1,4 +1,4 @@
-﻿using Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow;
+﻿using Module.VkAudioDownloader.GUI.Views;
 
 namespace Module.VkAudioDownloader.Factories
 {

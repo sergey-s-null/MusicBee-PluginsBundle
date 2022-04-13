@@ -1,4 +1,6 @@
-﻿namespace Module.VkAudioDownloader.GUI.AuthDialog
+﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
+
+namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
 {
     public class AuthDialogDTVM : IAuthDialogVM
     {

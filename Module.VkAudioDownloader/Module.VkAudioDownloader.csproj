@@ -68,6 +68,19 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GUI\Views\AuthDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Views\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Views\MusicDownloaderSettings.xaml" />
+    <Page Include="GUI\Views\VkAudioDownloaderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Resource Include="Windows Logo.png">
       <Paket>True</Paket>
     </Resource>
@@ -75,20 +88,37 @@
     <Compile Include="Exceptions\InitializeException.cs" />
     <Compile Include="Exceptions\UninstallException.cs" />
     <Compile Include="Factories\IVkAudioDownloaderWindowFactory.cs" />
-    <Compile Include="GUI\AuthDialog\AuthDialogDTVM.cs" />
-    <Compile Include="GUI\AuthDialog\IAuthDialogVM.cs" />
-    <Compile Include="GUI\InputDialog\IInputDialogVM.cs" />
-    <Compile Include="GUI\InputDialog\InputDialogDTVM.cs" />
-    <Compile Include="GUI\Settings\IMusicDownloaderSettingsVM.cs" />
-    <Compile Include="GUI\Settings\MusicDownloaderSettingsDTVM.cs" />
-    <Compile Include="GUI\Settings\MusicDownloaderSettings.xaml.cs">
+    <Compile Include="GUI\AbstractViewModels\IAudioVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\IAuthDialogVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\IInputDialogVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\IMBAudioVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\IMusicDownloaderSettingsVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\IVkAudioDownloaderWindowVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\IVkAudioVM.cs" />
+    <Compile Include="GUI\Comparers\AudioVMComparer.cs" />
+    <Compile Include="GUI\DesignTimeViewModels\AuthDialogDTVM.cs" />
+    <Compile Include="GUI\DesignTimeViewModels\InputDialogDTVM.cs" />
+    <Compile Include="GUI\DesignTimeViewModels\MusicDownloaderSettingsDTVM.cs" />
+    <Compile Include="GUI\DesignTimeViewModels\VkAudioDownloaderWindowDTVM.cs" />
+    <Compile Include="GUI\ViewModels\AuthDialogVM.cs" />
+    <Compile Include="GUI\ViewModels\InputDialogVM.cs" />
+    <Compile Include="GUI\ViewModels\MBAudioVM.cs" />
+    <Compile Include="GUI\ViewModels\MusicDownloaderSettingsVM.cs" />
+    <Compile Include="GUI\ViewModels\VkAudioDownloaderWindowVM.cs" />
+    <Compile Include="GUI\ViewModels\VkAudioVM.cs" />
+    <Compile Include="GUI\Views\AuthDialog.xaml.cs">
+      <DependentUpon>AuthDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Views\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Views\MusicDownloaderSettings.xaml.cs">
       <DependentUpon>MusicDownloaderSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\VkAudioDownloaderWindow\AudioVMComparer.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\IMBAudioVM.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\IVkAudioDownloaderWindowVM.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\IVkAudioVM.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioDownloaderWindowDTVM.cs" />
+    <Compile Include="GUI\Views\VkAudioDownloaderWindow.xaml.cs">
+      <DependentUpon>VkAudioDownloaderWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Helpers\AudioCategoryHelper.cs" />
     <Compile Include="Helpers\AudioDownloadHelper.cs" />
     <Compile Include="Helpers\CollectionEx.cs" />
@@ -97,20 +127,7 @@
     <Compile Include="Helpers\VkApiHelper.cs" />
     <Compile Include="Helpers\WebClientEx.cs" />
     <Compile Include="Helpers\WebResponseEx.cs" />
-    <Compile Include="GUI\AuthDialog\AuthDialog.xaml.cs">
-      <DependentUpon>AuthDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\AuthDialog\AuthDialogVM.cs" />
     <Compile Include="GUI\Converters\IsCorruptedUrlConverter.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\MBAudioVM.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioVM.cs" />
-    <Compile Include="GUI\InputDialog\InputDialog.xaml.cs">
-      <DependentUpon>InputDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\InputDialog\InputDialogVM.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\IAudioVM.cs" />
-    <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioDownloaderWindowVM.cs" />
-    <Compile Include="GUI\Settings\MusicDownloaderSettingsVM.cs" />
     <Compile Include="IsExternalInit.cs" />
     <Compile Include="MusicDownloaderModule.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -120,23 +137,6 @@
     <Compile Include="Helpers\PathEx.cs" />
     <Compile Include="Helpers\StringEx.cs" />
     <Compile Include="TagReplacer\TagReplacer.cs" />
-    <Page Include="GUI\AuthDialog\AuthDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\InputDialog\InputDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Settings\MusicDownloaderSettings.xaml" />
-    <Page Include="GUI\VkAudioDownloaderWindow\VkAudioDownloaderWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="GUI\VkAudioDownloaderWindow\VkAudioDownloaderWindow.xaml.cs">
-      <DependentUpon>VkAudioDownloaderWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

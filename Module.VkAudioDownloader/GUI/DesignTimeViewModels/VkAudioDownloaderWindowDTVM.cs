@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using Module.VkAudioDownloader.GUI.ViewModels;
 using Root.MVVM;
 
-namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
+namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
 {
     public class VkAudioDownloaderWindowDTVM : IVkAudioDownloaderWindowVM
     {

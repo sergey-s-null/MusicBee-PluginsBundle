@@ -4,21 +4,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MusicBeePlugin.GUI.SettingsDialog"
-        xmlns:globalConverters="clr-namespace:Root.GUI.Converters;assembly=Root"
-        xmlns:vmds="clr-namespace:Module.VkAudioDownloader.GUI.Settings;assembly=Module.VKMusicDownloader"
+        xmlns:gconv="clr-namespace:Root.GUI.Converters;assembly=Root"
         xmlns:ass="clr-namespace:Module.ArtworksSearcher.GUI.Settings;assembly=Module.ArtworksSearcher"
         xmlns:pes="clr-namespace:Module.PlaylistsExporter.GUI.Settings;assembly=Module.PlaylistsExporter"
+        xmlns:avm="clr-namespace:Module.VkAudioDownloader.GUI.AbstractViewModels;assembly=Module.VKMusicDownloader"
+        xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views;assembly=Module.VKMusicDownloader"
         mc:Ignorable="d"
         Title="SettingsDialog" Height="450" Width="800"
         d:DataContext="{d:DesignInstance local:SettingsDialogDTVM, d:IsDesignTimeCreatable=True}">
     <Window.Resources>
-        <globalConverters:GroupConverter
+        <gconv:GroupConverter
             x:Key="SettingsVisibilityConverter">
-            <globalConverters:IsInstanceOfConverter />
-            <globalConverters:BoolToVisibilityConverter
+            <gconv:IsInstanceOfConverter />
+            <gconv:BoolToVisibilityConverter
                 VisibilityOnFalse="Collapsed"
                 VisibilityOnTrue="Visible" />
-        </globalConverters:GroupConverter>
+        </gconv:GroupConverter>
     </Window.Resources>
 
     <Grid>
@@ -55,8 +56,8 @@
                 Visibility="{Binding
                     SelectedSettingsModule.ModuleSettings, 
                     Converter={StaticResource SettingsVisibilityConverter}, 
-                    ConverterParameter={x:Type vmds:IMusicDownloaderSettingsVM}}">
-                <vmds:MusicDownloaderSettings
+                    ConverterParameter={x:Type avm:IMusicDownloaderSettingsVM}}">
+                <views:MusicDownloaderSettings
                     DataContext="{Binding MusicDownloaderSettingsVM, Mode=OneWay}" />
             </Grid>
             <Grid

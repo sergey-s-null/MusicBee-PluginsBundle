@@ -1,4 +1,4 @@
-﻿namespace Module.VkAudioDownloader.GUI.InputDialog
+﻿namespace Module.VkAudioDownloader.GUI.AbstractViewModels
 {
     public interface IInputDialogVM
     {

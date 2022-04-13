@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Module.VkAudioDownloader.Factories;
-using Module.VkAudioDownloader.GUI.Settings;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using Module.VkAudioDownloader.GUI.ViewModels;
 using Module.VkAudioDownloader.Settings;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;

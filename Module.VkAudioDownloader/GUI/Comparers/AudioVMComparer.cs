@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
 
-namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
+namespace Module.VkAudioDownloader.GUI.Comparers
 {
     public class AudioVMComparer : IComparer<IAudioVM>, IComparer
     {

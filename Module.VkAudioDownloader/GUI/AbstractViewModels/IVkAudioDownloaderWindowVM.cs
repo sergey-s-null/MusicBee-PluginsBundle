@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
+namespace Module.VkAudioDownloader.GUI.AbstractViewModels
 {
     public interface IVkAudioDownloaderWindowVM
     {

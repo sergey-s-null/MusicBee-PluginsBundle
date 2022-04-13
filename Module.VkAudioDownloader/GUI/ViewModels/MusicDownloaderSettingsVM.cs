@@ -2,12 +2,13 @@
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
 using Root.MVVM;
 
-namespace Module.VkAudioDownloader.GUI.Settings
+namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     // TODO turn on Fody
     [AddINotifyPropertyChangedInterface]

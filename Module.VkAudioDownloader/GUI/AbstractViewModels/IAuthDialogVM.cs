@@ -1,4 +1,4 @@
-﻿namespace Module.VkAudioDownloader.GUI.AuthDialog
+﻿namespace Module.VkAudioDownloader.GUI.AbstractViewModels
 {
     public interface IAuthDialogVM
     {

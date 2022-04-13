@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using Module.VkAudioDownloader.GUI.ViewModels;
 
 namespace Module.VkAudioDownloader.GUI.Converters
 {

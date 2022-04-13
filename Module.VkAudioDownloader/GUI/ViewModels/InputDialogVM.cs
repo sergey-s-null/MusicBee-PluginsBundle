@@ -1,6 +1,7 @@
-﻿using PropertyChanged;
+﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using PropertyChanged;
 
-namespace Module.VkAudioDownloader.GUI.InputDialog
+namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     internal class InputDialogVM : IInputDialogVM

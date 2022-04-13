@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Module.VkAudioDownloader.Entities;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
@@ -19,7 +20,7 @@ using Root.MVVM;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 
-namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
+namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM

@@ -1,4 +1,6 @@
-﻿namespace Module.VkAudioDownloader.GUI.VkAudioDownloaderWindow
+﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
+
+namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     public class MBAudioVM : IMBAudioVM
     {

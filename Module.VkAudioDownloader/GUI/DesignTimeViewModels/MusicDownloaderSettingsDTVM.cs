@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Root.MVVM;
 
-namespace Module.VkAudioDownloader.GUI.Settings
+namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
 {
     public class MusicDownloaderSettingsDTVM : IMusicDownloaderSettingsVM
     {
