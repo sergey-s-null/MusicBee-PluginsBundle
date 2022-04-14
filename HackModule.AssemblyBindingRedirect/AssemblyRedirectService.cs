@@ -14,16 +14,18 @@ namespace HackModule.AssemblyBindingRedirect
             "Microsoft.Extensions.DependencyInjection",
             "Microsoft.Extensions.DependencyInjection.Abstractions",
             "Microsoft.Extensions.Logging.Abstractions",
+            "Newtonsoft.Json",
             "Ninject",
+            "System.Collections.Immutable",
             "System.Runtime.CompilerServices.Unsafe",
             "System.Threading.Tasks.Extensions",
         };
-        
+
         public static void ApplyRedirects(AppDomain appDomain)
         {
             appDomain.AssemblyResolve += ResolveHandler;
         }
-        
+
         private static Assembly? ResolveHandler(object sender, ResolveEventArgs eventArgs)
         {
             var shortName = new AssemblyName(eventArgs.Name).Name;

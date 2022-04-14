@@ -2,91 +2,67 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using VkNet.Abstractions;
+using VkNet.Exception;
 using VkNet.Model;
 
 namespace Module.VkAudioDownloader.Helpers
 {
     public static class VkApiHelper
     {
-        public delegate bool AuthDelegate(out string? login, out string? password);
-        public delegate bool CodeInputDelegate(out string? code);
-
-        public static bool TryAuth(this IVkApi vkApi, string accessToken)
+        public static async Task<bool> TryAuthorizeWithValidationAsync(this IVkApi vkApi,
+            string login, string password, Func<string> twoFACallback)
         {
-            try
-            {
-                vkApi.Authorize(new ApiAuthParams()
-                {
-                    AccessToken = accessToken
-                });
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            
-        }
-
-        public static bool TryAuth(this IVkApi vkApi, 
-            AuthDelegate authDelegate, CodeInputDelegate codeInputDelegate)
-        {
-            if (!authDelegate(out var login, out var password))
-                return false;
-            
-            try
-            {
-                vkApi.Authorize(new ApiAuthParams()
-                {
-                    Login = login,
-                    Password = password,
-                    TwoFactorAuthorization = () 
-                        => codeInputDelegate(out var code) 
-                            ? code 
-                            : ""
-                });
-                
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /// <param name="vkApi"></param>
-        /// <param name="authDelegate">delegate to receive login with password</param>
-        /// <param name="codeInputDelegate">delegate to receive two factor auth code</param>
-        /// <returns>result of auth</returns>
-        public static async Task<bool> TryAuthAsync(this IVkApi vkApi, 
-            AuthDelegate authDelegate, CodeInputDelegate codeInputDelegate)
-        {
-            if (!authDelegate(out var login, out var password))
-                return false;
-            
-            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             try
             {
                 await vkApi.AuthorizeAsync(new ApiAuthParams()
                 {
                     Login = login,
                     Password = password,
-                    TwoFactorAuthorization = () =>
-                    {
-                        var taskFactory = new TaskFactory(scheduler);
-                        var task = taskFactory.StartNew(() 
-                            => codeInputDelegate(out var code) 
-                                ? code 
-                                : "");
-                        return task.Result;
-                    }
+                    TwoFactorAuthorization = twoFACallback
                 });
-                return true;
+
+                return vkApi.IsAuthorizedWithCheck();
             }
-            catch
+            catch (VkApiException)
             {
                 return false;
             }
+            catch (VkAuthorizationException)
+            {
+                return false;
+            }
+        }
+
+        public static bool TryAuthorizeWithValidation(this IVkApi vkApi, string accessToken)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(accessToken))
+                {
+                    return false;
+                }
+                
+                vkApi.Authorize(new ApiAuthParams
+                {
+                    AccessToken = accessToken
+                });
+
+                return vkApi.IsAuthorizedWithCheck();
+            }
+            catch (VkApiException)
+            {
+                return false;
+            }
+            catch (VkAuthorizationException)
+            {
+                return false;
+            }
+        }
+
+        public static bool IsAuthorizedWithCheck(this IVkApi vkApi)
+        {
+            return vkApi.IsAuthorized
+                   && vkApi.UserId is not null;
         }
 
         // static without this

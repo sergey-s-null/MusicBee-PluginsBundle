@@ -1,6 +1,6 @@
 ﻿using Module.VkAudioDownloader.GUI.Views;
 
-namespace Module.VkAudioDownloader.Factories
+namespace Module.VkAudioDownloader.GUI.Factories
 {
     public interface IVkAudioDownloaderWindowFactory
     {

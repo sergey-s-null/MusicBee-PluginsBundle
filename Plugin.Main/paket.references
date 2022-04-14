@@ -4,3 +4,5 @@ group NetFramework
     Ninject.Extensions.Factory
     PropertyChanged.Fody
     WindowsAPICodePack
+    VkNet
+    System.Collections.Immutable

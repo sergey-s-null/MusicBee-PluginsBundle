@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Module.VkAudioDownloader.Factories;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using Module.VkAudioDownloader.GUI.Factories;
 using Module.VkAudioDownloader.GUI.ViewModels;
 using Module.VkAudioDownloader.Settings;
 using Ninject.Extensions.Factory;
@@ -8,7 +8,6 @@ using Ninject.Modules;
 using VkNet;
 using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
-using MusicDownloaderSettings = Module.VkAudioDownloader.Settings.MusicDownloaderSettings;
 
 namespace Module.VkAudioDownloader
 {
@@ -20,12 +19,22 @@ namespace Module.VkAudioDownloader
             Bind<IMusicDownloaderSettings>()
                 .To<MusicDownloaderSettings>()
                 .InSingletonScope();
+
+            // ViewModels
+            Bind<IVkAudioDownloaderWindowVM>()
+                .To<VkAudioDownloaderWindowVM>();
             Bind<IMusicDownloaderSettingsVM>()
                 .To<MusicDownloaderSettingsVM>();
+            Bind<IAuthorizationWindowVM>()
+                .To<AuthorizationWindowVM>();
+
+            // Factories
             Bind<IVkAudioDownloaderWindowFactory>()
                 .ToFactory();
+            Bind<IAuthorizationWindowFactory>()
+                .ToFactory();
         }
-        
+
         private static IVkApi GetVkApi()
         {
             var serviceCollection = new ServiceCollection();

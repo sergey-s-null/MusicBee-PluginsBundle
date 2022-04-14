@@ -68,7 +68,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="GUI\Views\AuthDialog.xaml">
+    <Page Include="GUI\Views\AuthorizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,27 +87,28 @@
     <Compile Include="Entities\VkAudioVMWithFileSavePath.cs" />
     <Compile Include="Exceptions\InitializeException.cs" />
     <Compile Include="Exceptions\UninstallException.cs" />
-    <Compile Include="Factories\IVkAudioDownloaderWindowFactory.cs" />
     <Compile Include="GUI\AbstractViewModels\IAudioVM.cs" />
-    <Compile Include="GUI\AbstractViewModels\IAuthDialogVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\IAuthorizationWindowVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IInputDialogVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IMBAudioVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IMusicDownloaderSettingsVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IVkAudioDownloaderWindowVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IVkAudioVM.cs" />
     <Compile Include="GUI\Comparers\AudioVMComparer.cs" />
-    <Compile Include="GUI\DesignTimeViewModels\AuthDialogDTVM.cs" />
+    <Compile Include="GUI\DesignTimeViewModels\AuthorizationWindowDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\InputDialogDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\MusicDownloaderSettingsDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\VkAudioDownloaderWindowDTVM.cs" />
-    <Compile Include="GUI\ViewModels\AuthDialogVM.cs" />
+    <Compile Include="GUI\Factories\IAuthorizationWindowFactory.cs" />
+    <Compile Include="GUI\Factories\IVkAudioDownloaderWindowFactory.cs" />
+    <Compile Include="GUI\ViewModels\AuthorizationWindowVM.cs" />
     <Compile Include="GUI\ViewModels\InputDialogVM.cs" />
     <Compile Include="GUI\ViewModels\MBAudioVM.cs" />
     <Compile Include="GUI\ViewModels\MusicDownloaderSettingsVM.cs" />
     <Compile Include="GUI\ViewModels\VkAudioDownloaderWindowVM.cs" />
     <Compile Include="GUI\ViewModels\VkAudioVM.cs" />
-    <Compile Include="GUI\Views\AuthDialog.xaml.cs">
-      <DependentUpon>AuthDialog.xaml</DependentUpon>
+    <Compile Include="GUI\Views\AuthorizationWindow.xaml.cs">
+      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Views\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
@@ -303,7 +304,40 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="protobuf-net">
-          <HintPath>..\packages\netframework\protobuf-net\lib\net40\protobuf-net.dll</HintPath>
+          <HintPath>..\packages\netframework\protobuf-net\lib\net461\protobuf-net.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="protobuf-net.Core">
+          <HintPath>..\packages\netframework\protobuf-net.Core\lib\net461\protobuf-net.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Buffers">
+          <HintPath>..\packages\netframework\System.Buffers\lib\net461\System.Buffers.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Collections.Immutable">
+          <HintPath>..\packages\netframework\System.Collections.Immutable\lib\net461\System.Collections.Immutable.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -314,7 +348,32 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Linq.Async">
-          <HintPath>..\packages\netframework\System.Linq.Async\lib\net461\System.Linq.Async.dll</HintPath>
+          <HintPath>..\packages\netframework\System.Linq.Async\lib\netstandard2.0\System.Linq.Async.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Memory">
+          <HintPath>..\packages\netframework\System.Memory\lib\net461\System.Memory.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Numerics">
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Numerics.Vectors">
+          <HintPath>..\packages\netframework\System.Numerics.Vectors\lib\net46\System.Numerics.Vectors.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -380,7 +439,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VkNet.AudioBypassService">
-          <HintPath>..\packages\netframework\VkNet.AudioBypassService\lib\net461\VkNet.AudioBypassService.dll</HintPath>
+          <HintPath>..\packages\netframework\VkNet.AudioBypassService\lib\netstandard2.0\VkNet.AudioBypassService.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

@@ -148,6 +148,17 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="Microsoft.IO.Redist">
+          <HintPath>..\packages\mbapiprotogenerator\Microsoft.IO.Redist\lib\net472\Microsoft.IO.Redist.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
         <Reference Include="Microsoft.NET.StringTools">
           <HintPath>..\packages\mbapiprotogenerator\Microsoft.NET.StringTools\lib\net472\Microsoft.NET.StringTools.dll</HintPath>
           <Private>True</Private>
