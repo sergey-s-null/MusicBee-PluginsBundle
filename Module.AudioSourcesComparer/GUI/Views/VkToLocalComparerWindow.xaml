@@ -1,0 +1,68 @@
+﻿<Window x:Class="Module.AudioSourcesComparer.GUI.Views.VkToLocalComparerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:v="clr-namespace:Module.AudioSourcesComparer.GUI.Views"
+        xmlns:dtvm="clr-namespace:Module.AudioSourcesComparer.GUI.DesignTimeViewModels"
+        mc:Ignorable="d"
+        Title="AudioSourcesComparerWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance dtvm:VkToLocalComparerWindowDTVM}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Left hide" />
+            <Button Grid.Column="1" Content="refresh" HorizontalAlignment="Center" />
+            <Button Grid.Column="2" Content="right hide" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ScrollViewer Grid.Row="0">
+                    <ItemsControl ItemsSource="{Binding VkOnlyAudios}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <v:VkAudio />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <Button Grid.Row="1" Content="Delete all" HorizontalAlignment="Left" />
+            </Grid>
+
+            <GridSplitter Grid.Column="1" Width="3" Margin="3 0" />
+
+            <ScrollViewer Grid.Column="2">
+                <ItemsControl ItemsSource="{Binding LocalOnlyAudios}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <v:MBAudio />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

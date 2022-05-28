@@ -48,6 +48,21 @@
         <Reference Include="PresentationFramework" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="GUI\AbstractViewModels\IMBAudioVM.cs" />
+        <Compile Include="GUI\AbstractViewModels\IVkAudioVM.cs" />
+        <Compile Include="GUI\AbstractViewModels\IVkToLocalComparerWindowVM.cs" />
+        <Compile Include="GUI\DesignTimeViewModels\MBAudioDTVM.cs" />
+        <Compile Include="GUI\DesignTimeViewModels\VkAudioDTVM.cs" />
+        <Compile Include="GUI\DesignTimeViewModels\VkToLocalComparerWindowDTVM.cs" />
+        <Compile Include="GUI\Views\MBAudio.xaml.cs">
+          <DependentUpon>MBAudio.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="GUI\Views\VkAudio.xaml.cs">
+          <DependentUpon>VkAudio.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="GUI\Views\VkToLocalComparerWindow.xaml.cs">
+          <DependentUpon>VkToLocalComparerWindow.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Properties\AssemblyInfo.cs">
             <SubType>Code</SubType>
         </Compile>
@@ -63,6 +78,20 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Page Include="GUI\Views\MBAudio.xaml" />
+      <Page Include="GUI\Views\VkAudio.xaml" />
+      <Page Include="GUI\Views\VkToLocalComparerWindow.xaml" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="GUI\ViewModels" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Root\Root.csproj">
+        <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
+        <Name>Root</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
