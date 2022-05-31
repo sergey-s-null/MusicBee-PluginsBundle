@@ -14,7 +14,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 
         public VkAudioDTVM()
         {
-            Id = 772;
+            Id = 7729;
             Artist = "Some Artist";
             Title = "Some Song";
         }

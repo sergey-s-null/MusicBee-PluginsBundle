@@ -11,7 +11,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 
         public MBAudioDTVM()
         {
-            VkId = 42;
+            VkId = 456240678;
             Index = 1002;
             Artist = "Default Artist";
             Title = "Default Title";
