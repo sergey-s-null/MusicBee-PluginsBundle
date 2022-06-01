@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.Factories;
+using Module.AudioSourcesComparer.GUI.Factories;
 using Module.DataExporter.Exceptions;
 using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
@@ -24,6 +25,7 @@ namespace MusicBeePlugin.Services
         private readonly IInboxAddService _inboxAddService;
         private readonly ISearchWindowFactory _searchWindowFactory;
         private readonly IVkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
+        private readonly IVkToLocalComparerWindowFactory _vkToLocalComparerWindowFactory;
         private readonly IVkApiAuthorizationsService _vkApiAuthorizationsService;
 
         public PluginActions(
@@ -33,6 +35,7 @@ namespace MusicBeePlugin.Services
             IInboxAddService inboxAddService,
             ISearchWindowFactory searchWindowFactory,
             IVkAudioDownloaderWindowFactory vkAudioDownloaderWindowFactory,
+            IVkToLocalComparerWindowFactory vkToLocalComparerWindowFactory,
             IVkApiAuthorizationsService vkApiAuthorizationsService)
         {
             _mbApi = mbApi;
@@ -41,6 +44,7 @@ namespace MusicBeePlugin.Services
             _inboxAddService = inboxAddService;
             _searchWindowFactory = searchWindowFactory;
             _vkAudioDownloaderWindowFactory = vkAudioDownloaderWindowFactory;
+            _vkToLocalComparerWindowFactory = vkToLocalComparerWindowFactory;
             _vkApiAuthorizationsService = vkApiAuthorizationsService;
         }
 
@@ -74,6 +78,19 @@ namespace MusicBeePlugin.Services
             }
 
             _vkAudioDownloaderWindowFactory
+                .Create()
+                .ShowDialog();
+        }
+
+        public void CompareVkAndLocalAudios()
+        {
+            var authorized = _vkApiAuthorizationsService.AuthorizeVkApiIfNeeded();
+            if (!authorized)
+            {
+                return;
+            }
+
+            _vkToLocalComparerWindowFactory
                 .Create()
                 .ShowDialog();
         }

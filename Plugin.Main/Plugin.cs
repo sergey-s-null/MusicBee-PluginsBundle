@@ -58,6 +58,11 @@ namespace MusicBeePlugin
                 (_, _) => pluginActions.DownloadVkAudios());
 
             mbApi.MB_AddMenuItem(
+                "mnuTools/Laiser399: Compare Vk And Local Audios",
+                "Laiser399: Compare Vk And Local Audios",
+                (_, _) => pluginActions.CompareVkAndLocalAudios());
+
+            mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Add to Library",
                 "Laiser399: Add to Library", 
                 (_, _) => pluginActions.AddSelectedFileToLibrary());
