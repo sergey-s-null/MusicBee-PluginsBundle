@@ -9,47 +9,39 @@ using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.GUI.Factories;
-using Module.VkAudioDownloader.Helpers;
-using Module.VkAudioDownloader.Settings;
 using Root.Helpers;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
-using VkNet.Abstractions;
+using Root.Services.Abstract;
 
 namespace MusicBeePlugin.Services
 {
     public class PluginActions : IPluginActions
     {
         private readonly IMusicBeeApi _mbApi;
-        private readonly IVkApi _vkApi;
         private readonly IDataExportService _dataExportService;
         private readonly IPlaylistsExportService _playlistsExportService;
         private readonly IInboxAddService _inboxAddService;
         private readonly ISearchWindowFactory _searchWindowFactory;
         private readonly IVkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
-        private readonly IAuthorizationWindowFactory _authorizationWindowFactory;
-        private readonly IMusicDownloaderSettings _musicDownloaderSettings;
+        private readonly IVkApiAuthorizationsService _vkApiAuthorizationsService;
 
         public PluginActions(
             IMusicBeeApi mbApi,
-            IVkApi vkApi,
             IDataExportService dataExportService,
             IPlaylistsExportService playlistsExportService,
             IInboxAddService inboxAddService,
             ISearchWindowFactory searchWindowFactory,
             IVkAudioDownloaderWindowFactory vkAudioDownloaderWindowFactory,
-            IAuthorizationWindowFactory authorizationWindowFactory,
-            IMusicDownloaderSettings musicDownloaderSettings)
+            IVkApiAuthorizationsService vkApiAuthorizationsService)
         {
             _mbApi = mbApi;
-            _vkApi = vkApi;
             _dataExportService = dataExportService;
             _playlistsExportService = playlistsExportService;
             _inboxAddService = inboxAddService;
             _searchWindowFactory = searchWindowFactory;
             _vkAudioDownloaderWindowFactory = vkAudioDownloaderWindowFactory;
-            _authorizationWindowFactory = authorizationWindowFactory;
-            _musicDownloaderSettings = musicDownloaderSettings;
+            _vkApiAuthorizationsService = vkApiAuthorizationsService;
         }
 
         public void SearchArtworks()
@@ -75,7 +67,7 @@ namespace MusicBeePlugin.Services
 
         public void DownloadVkAudios()
         {
-            var authorized = AuthorizeVkApiIfNeeded();
+            var authorized = _vkApiAuthorizationsService.AuthorizeVkApiIfNeeded();
             if (!authorized)
             {
                 return;
@@ -177,23 +169,6 @@ namespace MusicBeePlugin.Services
 
             filePath = files[0];
             return true;
-        }
-
-        private bool AuthorizeVkApiIfNeeded()
-        {
-            if (_vkApi.IsAuthorized)
-            {
-                return true;
-            }
-
-            if (_vkApi.TryAuthorizeWithValidation(_musicDownloaderSettings.AccessToken))
-            {
-                return true;
-            }
-
-            var authorizationWindow = _authorizationWindowFactory.Create();
-            var authorized = authorizationWindow.ShowDialog();
-            return authorized;
         }
 
         /// <summary>

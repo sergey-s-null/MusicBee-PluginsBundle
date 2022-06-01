@@ -7,9 +7,9 @@ namespace Module.AudioSourcesComparer.GUI.AbstractViewModels
     {
         ICommand RefreshCmd { get; }
         
-        IReadOnlyCollection<IVkAudioVM> VkOnlyAudios { get; }
-        ICommand DeleteAllVkOnlyAudios { get; }
+        IList<IVkAudioVM> VkOnlyAudios { get; }
+        ICommand DeleteAllVkOnlyAudiosCmd { get; }
         
-        IReadOnlyCollection<IMBAudioVM> LocalOnlyAudios { get; }
+        IList<IMBAudioVM> LocalOnlyAudios { get; }
     }
 }

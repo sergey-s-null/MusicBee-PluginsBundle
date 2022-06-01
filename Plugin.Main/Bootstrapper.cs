@@ -1,4 +1,5 @@
 ﻿using Module.ArtworksSearcher;
+using Module.AudioSourcesComparer;
 using Module.DataExporter;
 using Module.InboxAdder;
 using Module.PlaylistsExporter;
@@ -11,6 +12,7 @@ using Ninject.Extensions.Factory;
 using Root;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
+using Root.Services.Abstract;
 
 namespace MusicBeePlugin
 {
@@ -34,23 +36,29 @@ namespace MusicBeePlugin
             kernel.Load<PlaylistsExporterModule>();
             kernel.Load<InboxAdderModule>();
             kernel.Load<DataExporterModule>();
+            kernel.Load<AudioSourcesComparerModule>();
 
             kernel
                 .Bind<IPluginActions>()
                 .To<PluginActions>()
                 .InSingletonScope();
-            
+
+            kernel
+                .Bind<IVkApiAuthorizationsService>()
+                .To<VkApiAuthorizationsService>()
+                .InSingletonScope();
+
             kernel
                 .Bind<ISettingsDialogFactory>()
                 .ToFactory();
-            
+
             kernel.Bind<SettingsDialogVM>().ToSelf();
 
             if (!kernel.HasModule("Ninject.Extensions.Factory.FuncModule"))
             {
                 kernel.Load(new FuncModule());
             }
-            
+
             return kernel;
         }
     }

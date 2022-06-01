@@ -2,7 +2,7 @@
 {
     public interface IMBAudioVM
     {
-        int VkId { get; }
+        long VkId { get; }
         int Index { get; }
         string Artist { get; }
         string Title { get; }

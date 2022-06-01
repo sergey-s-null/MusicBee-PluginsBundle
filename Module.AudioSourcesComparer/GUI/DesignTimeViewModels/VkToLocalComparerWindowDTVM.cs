@@ -9,7 +9,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
     {
         public ICommand RefreshCmd => new RelayCommand(_ => { });
 
-        public IReadOnlyCollection<IVkAudioVM> VkOnlyAudios { get; } = new[]
+        public IList<IVkAudioVM> VkOnlyAudios { get; } = new[]
         {
             new VkAudioDTVM(1, "Artist1", "Halo"),
             new VkAudioDTVM(2, "veryveryveryverylongcArtist1", "Halo"),
@@ -57,9 +57,9 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
             new VkAudioDTVM(9999, "Repeat", "And"),
             new VkAudioDTVM(9999, "Repeat", "And"),
         };
-        public ICommand DeleteAllVkOnlyAudios => new RelayCommand(_ => { });
+        public ICommand DeleteAllVkOnlyAudiosCmd => new RelayCommand(_ => { });
 
-        public IReadOnlyCollection<IMBAudioVM> LocalOnlyAudios { get; } = new IMBAudioVM[]
+        public IList<IMBAudioVM> LocalOnlyAudios { get; } = new IMBAudioVM[]
         {
             new MBAudioDTVM(667, 1, "No", "One"),
             new MBAudioDTVM(668, 2, "Ahahah", "Title"),

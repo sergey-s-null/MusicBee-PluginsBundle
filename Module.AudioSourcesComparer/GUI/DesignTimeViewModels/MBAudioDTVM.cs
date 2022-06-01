@@ -4,7 +4,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
     public class MBAudioDTVM : IMBAudioVM
     {
-        public int VkId { get; }
+        public long VkId { get; }
         public int Index { get; }
         public string Artist { get; }
         public string Title { get; }
@@ -17,7 +17,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
             Title = "Default Title";
         }
 
-        public MBAudioDTVM(int vkId, int index, string artist, string title)
+        public MBAudioDTVM(long vkId, int index, string artist, string title)
         {
             VkId = vkId;
             Index = index;

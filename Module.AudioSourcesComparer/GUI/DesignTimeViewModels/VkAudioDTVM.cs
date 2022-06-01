@@ -6,7 +6,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
     public class VkAudioDTVM : IVkAudioVM
     {
-        public int Id { get; }
+        public long Id { get; }
         public string Artist { get; }
         public string Title { get; }
 
@@ -19,7 +19,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
             Title = "Some Song";
         }
 
-        public VkAudioDTVM(int id, string artist, string title)
+        public VkAudioDTVM(long id, string artist, string title)
         {
             Id = id;
             Artist = artist;
