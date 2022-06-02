@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.AudioSourcesComparer.GUI.DesignTimeViewModels"
+             xmlns:comp="clr-namespace:Module.AudioSourcesComparer.GUI.Views.Components"
              mc:Ignorable="d"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance dtvm:MBAudioDTVM}">
@@ -12,13 +13,16 @@
             <Setter Property="BorderThickness" Value="0 0 0 0.5" />
             <Setter Property="BorderBrush" Value="Gray" />
         </Style>
+
         <Style TargetType="Grid">
             <Setter Property="Margin" Value="0 4" />
         </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="6 0" />
+
+        <Style TargetType="comp:CopyToClipboardButton">
+            <Setter Property="Margin" Value="2 0" />
         </Style>
-        <Style TargetType="Button">
+
+        <Style TargetType="comp:ContextMenuButton">
             <Setter Property="Margin" Value="6 0" />
             <Setter Property="Padding" Value="6 0" />
         </Style>
@@ -34,11 +38,17 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="{Binding VkId}" />
-            <TextBlock Grid.Column="1" Text="{Binding Index}" />
-            <TextBlock Grid.Column="2" Text="{Binding Artist}" />
-            <TextBlock Grid.Column="3" Text="{Binding Title}" />
-            <Button Grid.Column="4" Content="..." />
+            <comp:CopyToClipboardButton Grid.Column="0" Content="{Binding VkId}" />
+            <comp:CopyToClipboardButton Grid.Column="1" Content="{Binding Index}" />
+            <comp:CopyToClipboardButton Grid.Column="2" Content="{Binding Artist}" />
+            <comp:CopyToClipboardButton Grid.Column="3" Content="{Binding Title}" />
+            <comp:ContextMenuButton Grid.Column="4" Content="...">
+                <comp:ContextMenuButton.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Copy Artist - Title"></MenuItem>
+                    </ContextMenu>
+                </comp:ContextMenuButton.ContextMenu>
+            </comp:ContextMenuButton>
         </Grid>
     </Border>
 
