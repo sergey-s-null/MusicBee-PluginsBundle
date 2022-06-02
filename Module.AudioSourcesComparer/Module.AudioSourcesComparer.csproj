@@ -56,6 +56,7 @@
     <Compile Include="GUI\AbstractViewModels\IMBAudioVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IVkAudioVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IVkToLocalComparerWindowVM.cs" />
+    <Compile Include="GUI\Commands\CopyToClipboardCommand.cs" />
     <Compile Include="GUI\DesignTimeViewModels\MBAudioDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\VkAudioDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\VkToLocalComparerWindowDTVM.cs" />
@@ -63,6 +64,12 @@
     <Compile Include="GUI\ViewModels\MBAudioVM.cs" />
     <Compile Include="GUI\ViewModels\VkAudioVM.cs" />
     <Compile Include="GUI\ViewModels\VkToLocalComparerWindowVM.cs" />
+    <Compile Include="GUI\Views\Components\ContextMenuButton.xaml.cs">
+      <DependentUpon>ContextMenuButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Views\Components\CopyToClipboardButton.xaml.cs">
+      <DependentUpon>CopyToClipboardButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Views\MBAudio.xaml.cs">
       <DependentUpon>MBAudio.xaml</DependentUpon>
     </Compile>
@@ -92,6 +99,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GUI\Views\Components\ContextMenuButton.xaml" />
+    <Page Include="GUI\Views\Components\CopyToClipboardButton.xaml" />
     <Page Include="GUI\Views\MBAudio.xaml" />
     <Page Include="GUI\Views\VkAudio.xaml" />
     <Page Include="GUI\Views\VkToLocalComparerWindow.xaml" />
