@@ -45,7 +45,16 @@
             <comp:ContextMenuButton Grid.Column="4" Content="...">
                 <comp:ContextMenuButton.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Copy Artist - Title"></MenuItem>
+                        <MenuItem
+                            Header="Copy File Path"
+                            Command="{Binding SetFilePathToClipboardCmd}" />
+                        <MenuItem
+                            Header="Copy File Name"
+                            Command="{Binding SetFileNameToClipboardCmd}" />
+                        <Separator />
+                        <MenuItem
+                            Header="Copy Artist - Title"
+                            Command="{Binding SetArtistAndTitleToClipboardCmd}" />
                     </ContextMenu>
                 </comp:ContextMenuButton.ContextMenu>
             </comp:ContextMenuButton>

@@ -1,4 +1,6 @@
-﻿namespace Module.AudioSourcesComparer.GUI.AbstractViewModels
+﻿using System.Windows.Input;
+
+namespace Module.AudioSourcesComparer.GUI.AbstractViewModels
 {
     public interface IMBAudioVM
     {
@@ -6,7 +8,9 @@
         int Index { get; }
         string Artist { get; }
         string Title { get; }
-        
-        // todo copy commands
+
+        ICommand SetFilePathToClipboardCmd { get; }
+        ICommand SetFileNameToClipboardCmd { get; }
+        ICommand SetArtistAndTitleToClipboardCmd { get; }
     }
 }

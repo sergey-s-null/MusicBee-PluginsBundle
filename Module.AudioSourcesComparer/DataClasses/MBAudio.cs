@@ -1,4 +1,4 @@
 ﻿namespace Module.AudioSourcesComparer.DataClasses
 {
-    public record MBAudio(long VkId, int Index, string Artist, string Title);
+    public record MBAudio(string FilePath, long VkId, int Index, string Artist, string Title);
 }

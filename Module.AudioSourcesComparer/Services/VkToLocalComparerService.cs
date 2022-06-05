@@ -118,6 +118,7 @@ namespace Module.AudioSourcesComparer.Services
 
         private MBAudio MapToMBAudio(string file, long vkId)
         {
+            // todo rename
             var r1 = _musicBeeApi.TryGetIndex(file, out var index);
             if (!r1)
             {
@@ -125,6 +126,7 @@ namespace Module.AudioSourcesComparer.Services
             }
 
             return new MBAudio(
+                file,
                 vkId,
                 index,
                 _musicBeeApi.Library_GetFileTag(file, MetaDataType.Artist),

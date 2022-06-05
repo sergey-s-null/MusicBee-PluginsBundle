@@ -55,7 +55,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
 
         private IMBAudioVM MapMBAudio(MBAudio mbAudio)
         {
-            return new MBAudioVM(mbAudio.VkId, mbAudio.Index, mbAudio.Artist, mbAudio.Title);
+            return new MBAudioVM(mbAudio.FilePath, mbAudio.VkId, mbAudio.Index, mbAudio.Artist, mbAudio.Title);
         }
 
         private void DeleteAllVkOnlyAudios()

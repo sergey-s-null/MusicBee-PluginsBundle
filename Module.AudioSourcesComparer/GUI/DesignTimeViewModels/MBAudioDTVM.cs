@@ -1,4 +1,6 @@
-﻿using Module.AudioSourcesComparer.GUI.AbstractViewModels;
+﻿using System.Windows.Input;
+using Module.AudioSourcesComparer.GUI.AbstractViewModels;
+using Root.MVVM;
 
 namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
@@ -8,6 +10,10 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
         public int Index { get; }
         public string Artist { get; }
         public string Title { get; }
+
+        public ICommand SetFilePathToClipboardCmd { get; } = new RelayCommand(_ => { });
+        public ICommand SetFileNameToClipboardCmd { get; } = new RelayCommand(_ => { });
+        public ICommand SetArtistAndTitleToClipboardCmd { get; } = new RelayCommand(_ => { });
 
         public MBAudioDTVM()
         {
