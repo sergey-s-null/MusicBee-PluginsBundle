@@ -11,8 +11,10 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
         public string Artist { get; }
         public string Title { get; }
 
-        public ICommand CopyArtistAndTitleCmd => _copyArtistAndTitleCmd ??= new RelayCommand(_ => CopyArtistAndTitle());
-        private ICommand? _copyArtistAndTitleCmd;
+        public ICommand SetArtistAndTitleToClipboardCmd =>
+            _setArtistAndTitleToClipboardCmd ??= new RelayCommand(_ => CopyArtistAndTitle());
+
+        private ICommand? _setArtistAndTitleToClipboardCmd;
 
         public ICommand DeleteCmd => _deleteCmd ??= new RelayCommand(_ => Delete());
         private ICommand? _deleteCmd;

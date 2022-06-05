@@ -8,7 +8,7 @@ namespace Module.AudioSourcesComparer.GUI.AbstractViewModels
         string Artist { get; }
         string Title { get; }
 
-        ICommand CopyArtistAndTitleCmd { get; }
+        ICommand SetArtistAndTitleToClipboardCmd { get; }
         ICommand DeleteCmd { get; }
     }
 }

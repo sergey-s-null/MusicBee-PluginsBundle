@@ -58,7 +58,7 @@
                     <ContextMenu>
                         <MenuItem
                             Header="Copy Artist - Title"
-                            Command="{Binding CopyArtistAndTitleCmd}" />
+                            Command="{Binding SetArtistAndTitleToClipboardCmd}" />
                     </ContextMenu>
                 </comp:ContextMenuButton.ContextMenu>
             </comp:ContextMenuButton>
