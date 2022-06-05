@@ -4,11 +4,11 @@ namespace Module.AudioSourcesComparer.GUI.AbstractViewModels
 {
     public interface IVkAudioVM
     {
-        long Id { get; } // todo mb long
+        long Id { get; }
         string Artist { get; }
         string Title { get; }
 
+        ICommand CopyArtistAndTitleCmd { get; }
         ICommand DeleteCmd { get; }
-        //todo copy... commands
     }
 }

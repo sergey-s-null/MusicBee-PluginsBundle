@@ -10,6 +10,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
         public string Artist { get; }
         public string Title { get; }
 
+        public ICommand CopyArtistAndTitleCmd => new RelayCommand(_ => { });
         public ICommand DeleteCmd => new RelayCommand(_ => { });
 
         public VkAudioDTVM()
