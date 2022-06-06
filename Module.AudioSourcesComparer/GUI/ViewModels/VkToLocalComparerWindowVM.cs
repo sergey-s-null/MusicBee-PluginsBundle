@@ -70,6 +70,16 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
                 difference = null;
                 return false;
             }
+            catch (VkApiInvalidValueException e)
+            {
+                MessageBox.Show(
+                    "Got invalid value from vk api.\n\n" + e,
+                    "Error!",
+                    MessageBoxButton.OK
+                );
+                difference = null;
+                return false;
+            }
             catch (MBApiException e)
             {
                 MessageBox.Show(

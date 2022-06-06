@@ -90,8 +90,17 @@ namespace Module.AudioSourcesComparer.Services
 
         private VkAudio MapToVkAudio(Audio audio)
         {
+            if (audio.Id is null)
+            {
+                throw new VkApiInvalidValueException(
+                    "Got vk audio with empty id.\n" +
+                    $"Artist: \"{audio.Artist}\". Title: \"{audio.Title}\".\n" +
+                    $"Audio: {audio}"
+                );
+            }
+
             return new VkAudio(
-                (long) audio.Id!, // todo check for null
+                audio.Id!.Value,
                 audio.Artist,
                 audio.Title
             );

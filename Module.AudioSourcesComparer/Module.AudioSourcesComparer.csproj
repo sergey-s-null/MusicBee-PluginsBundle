@@ -55,6 +55,7 @@
     <Compile Include="DataClasses\VkAudio.cs" />
     <Compile Include="Exceptions\MBApiException.cs" />
     <Compile Include="Exceptions\MBLibraryInvalidStateException.cs" />
+    <Compile Include="Exceptions\VkApiInvalidValueException.cs" />
     <Compile Include="Exceptions\VkApiUnauthorizedException.cs" />
     <Compile Include="GUI\AbstractViewModels\IMBAudioVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IVkAudioVM.cs" />
