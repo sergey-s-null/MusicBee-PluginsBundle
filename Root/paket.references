@@ -2,3 +2,4 @@ group NetFramework
     System.Linq.Async
     Newtonsoft.Json
     Ninject
+    VkNet

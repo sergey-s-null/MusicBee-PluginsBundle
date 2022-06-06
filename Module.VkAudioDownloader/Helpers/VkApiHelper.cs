@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Module.VkAudioDownloader.Exceptions;
+using Root.Helpers;
 using VkNet.Abstractions;
 using VkNet.Exception;
 using VkNet.Model;
@@ -69,12 +70,6 @@ namespace Module.VkAudioDownloader.Helpers
             {
                 throw new VkApiAuthorizationException("Got internal exception on vk api authorization.", e);
             }
-        }
-
-        public static bool IsAuthorizedWithCheck(this IVkApi vkApi)
-        {
-            return vkApi.IsAuthorized
-                   && vkApi.UserId is not null;
         }
 
         // static without this

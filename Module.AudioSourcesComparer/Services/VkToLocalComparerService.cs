@@ -29,8 +29,7 @@ namespace Module.AudioSourcesComparer.Services
 
         public AudiosDifference FindDifferences()
         {
-            // todo use IsAuthorizedWithCheck
-            if (!_vkApi.IsAuthorized)
+            if (!_vkApi.IsAuthorizedWithCheck())
             {
                 throw new VkApiUnauthorizedException("Vk api is not authorized.");
             }
