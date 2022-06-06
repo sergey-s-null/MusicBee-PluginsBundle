@@ -53,6 +53,9 @@
     <Compile Include="DataClasses\AudiosDifference.cs" />
     <Compile Include="DataClasses\MBAudio.cs" />
     <Compile Include="DataClasses\VkAudio.cs" />
+    <Compile Include="Exceptions\MBApiException.cs" />
+    <Compile Include="Exceptions\MBLibraryInvalidStateException.cs" />
+    <Compile Include="Exceptions\VkApiUnauthorizedException.cs" />
     <Compile Include="GUI\AbstractViewModels\IMBAudioVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IVkAudioVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IVkToLocalComparerWindowVM.cs" />

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Module.AudioSourcesComparer.DataClasses;
+using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.AudioSourcesComparer.Services.Abstract;
 using PropertyChanged;
@@ -33,18 +35,60 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
 
         private void Refresh()
         {
-            var difference = _vkToLocalComparerService.FindDifferences();
-            
+            if (!TryFindDifferencesAndShowMessageOnError(out var difference))
+            {
+                return;
+            }
+
             VkOnlyAudios.Clear();
-            foreach (var vkAudio in difference.VkOnly)
+            foreach (var vkAudio in difference!.VkOnly)
             {
                 VkOnlyAudios.Add(MapVkAudio(vkAudio));
             }
-            
+
             LocalOnlyAudios.Clear();
             foreach (var mbAudio in difference.MBOnly)
             {
                 LocalOnlyAudios.Add(MapMBAudio(mbAudio));
+            }
+        }
+
+        private bool TryFindDifferencesAndShowMessageOnError(out AudiosDifference? difference)
+        {
+            try
+            {
+                difference = _vkToLocalComparerService.FindDifferences();
+                return true;
+            }
+            catch (VkApiUnauthorizedException e)
+            {
+                MessageBox.Show(
+                    "Vk api seems to be unauthorized.\n\n" + e,
+                    "Error!",
+                    MessageBoxButton.OK
+                );
+                difference = null;
+                return false;
+            }
+            catch (MBApiException e)
+            {
+                MessageBox.Show(
+                    "Music bee api error.\n\n" + e,
+                    "Error!",
+                    MessageBoxButton.OK
+                );
+                difference = null;
+                return false;
+            }
+            catch (MBLibraryInvalidStateException e)
+            {
+                MessageBox.Show(
+                    "Music bee library invalid state.\n\n" + e,
+                    "Error!",
+                    MessageBoxButton.OK
+                );
+                difference = null;
+                return false;
             }
         }
 

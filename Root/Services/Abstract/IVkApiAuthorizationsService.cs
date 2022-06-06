@@ -3,9 +3,9 @@
     public interface IVkApiAuthorizationsService
     {
         /// <summary>
-        /// Производит авторизация IVkApi.
+        /// Perform IVkApi authorization.
         /// </summary>
-        /// <returns>Результат авторизации</returns>
+        /// <returns>Auth result.</returns>
         bool AuthorizeVkApiIfNeeded();
     }
 }

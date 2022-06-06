@@ -1,4 +1,7 @@
-﻿using Module.VkAudioDownloader.GUI.Factories;
+﻿using System;
+using System.Windows;
+using Module.VkAudioDownloader.Exceptions;
+using Module.VkAudioDownloader.GUI.Factories;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Root.Services.Abstract;
@@ -24,19 +27,46 @@ namespace MusicBeePlugin.Services
 
         public bool AuthorizeVkApiIfNeeded()
         {
-            if (_vkApi.IsAuthorized)
+            if (_vkApi.IsAuthorizedWithCheck())
             {
                 return true;
             }
 
-            if (_vkApi.TryAuthorizeWithValidation(_musicDownloaderSettings.AccessToken))
+            try
             {
-                return true;
+                _vkApi.AuthorizeWithValidation(_musicDownloaderSettings.AccessToken);
             }
-
+            catch (ArgumentException e)
+            {
+                if (!ContinueWithAuthorizationDialog(e))
+                {
+                    return false;
+                }
+            }
+            catch (VkApiAuthorizationException e)
+            {
+                if (!ContinueWithAuthorizationDialog(e))
+                {
+                    return false;
+                }
+            }
+            
             var authorizationWindow = _authorizationWindowFactory.Create();
             var authorized = authorizationWindow.ShowDialog();
             return authorized;
+        }
+
+        private static bool ContinueWithAuthorizationDialog(Exception e)
+        {
+            var dialogResult = MessageBox.Show(
+                "Got error on authorization with access token from settings.\n" +
+                $"Error message: \"{e.Message}\".\n\n" +
+                "Continue with dialog authorization?",
+                "?",
+                MessageBoxButton.YesNo
+            );
+
+            return dialogResult == MessageBoxResult.Yes;
         }
     }
 }

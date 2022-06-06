@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Module.AudioSourcesComparer.DataClasses;
+using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.Services.Abstract;
 using Root.Helpers;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
-using Root.Services.Abstract;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 using VkNet.Model.RequestParams;
@@ -19,43 +18,26 @@ namespace Module.AudioSourcesComparer.Services
 
         private readonly IMusicBeeApi _musicBeeApi;
         private readonly IVkApi _vkApi;
-        private readonly IVkApiAuthorizationsService _vkApiAuthorizationsService;
 
         public VkToLocalComparerService(
             IMusicBeeApi musicBeeApi,
-            IVkApi vkApi,
-            IVkApiAuthorizationsService vkApiAuthorizationsService)
+            IVkApi vkApi)
         {
             _musicBeeApi = musicBeeApi;
             _vkApi = vkApi;
-            _vkApiAuthorizationsService = vkApiAuthorizationsService;
-        }
-
-        public bool TryFindDifferences(out AudiosDifference? difference)
-        {
-            try
-            {
-                difference = FindDifferences();
-                return true;
-            }
-            catch (Exception) // todo make specific exc
-            {
-                difference = null;
-                return false;
-            }
         }
 
         public AudiosDifference FindDifferences()
         {
-            if (!_vkApiAuthorizationsService.AuthorizeVkApiIfNeeded())
+            // todo use IsAuthorizedWithCheck
+            if (!_vkApi.IsAuthorized)
             {
-                throw new Exception("Could not auth vk api");
+                throw new VkApiUnauthorizedException("Vk api is not authorized.");
             }
 
-            var res = _musicBeeApi.Library_QueryFilesEx("", out var files);
-            if (!res)
+            if (!_musicBeeApi.Library_QueryFilesEx("", out var files))
             {
-                throw new Exception("Err on Library_QueryFilesEx"); // todo
+                throw new MBApiException("Could not get audios list from music bee.");
             }
 
             var mbAudiosByVkIds = GetMBFilesByVkIds(files);
@@ -118,11 +100,9 @@ namespace Module.AudioSourcesComparer.Services
 
         private MBAudio MapToMBAudio(string file, long vkId)
         {
-            // todo rename
-            var r1 = _musicBeeApi.TryGetIndex(file, out var index);
-            if (!r1)
+            if (!_musicBeeApi.TryGetIndex(file, out var index))
             {
-                throw new Exception("chtoto ne tak"); // todo
+                throw new MBLibraryInvalidStateException($"Could not get index of file with path \"{file}\".");
             }
 
             return new MBAudio(

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Module.VkAudioDownloader.Exceptions;
 using VkNet.Abstractions;
 using VkNet.Exception;
 using VkNet.Model;
@@ -33,29 +34,40 @@ namespace Module.VkAudioDownloader.Helpers
             }
         }
 
-        public static bool TryAuthorizeWithValidation(this IVkApi vkApi, string accessToken)
+        /// <param name="vkApi">IVkApi service.</param>
+        /// <param name="accessToken">Token for authorization.</param>
+        /// <exception cref="ArgumentException">Invalid value of accessToken.</exception>
+        /// <exception cref="VkApiAuthorizationException">Error on validation.</exception>
+        public static void AuthorizeWithValidation(this IVkApi vkApi, string accessToken)
         {
             try
             {
                 if (string.IsNullOrEmpty(accessToken))
                 {
-                    return false;
+                    throw new ArgumentException(
+                        $@"Invalid value of access token: ""{accessToken}"".",
+                        nameof(accessToken)
+                    );
                 }
-                
+
                 vkApi.Authorize(new ApiAuthParams
                 {
                     AccessToken = accessToken
                 });
 
-                return vkApi.IsAuthorizedWithCheck();
+                if (!vkApi.IsAuthorizedWithCheck())
+                {
+                    throw new VkApiAuthorizationException(
+                        "Vk api authorization passed, but validation is not succeeded.");
+                }
             }
-            catch (VkApiException)
+            catch (VkApiException e)
             {
-                return false;
+                throw new VkApiAuthorizationException("Got internal exception on vk api authorization.", e);
             }
-            catch (VkAuthorizationException)
+            catch (VkAuthorizationException e)
             {
-                return false;
+                throw new VkApiAuthorizationException("Got internal exception on vk api authorization.", e);
             }
         }
 
