@@ -27,9 +27,7 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         {
             FileNameCheck = _replacer.Prepare(FileNameTemplate);
         }
-        
-        public string AccessToken { get; set; } = "";
-        
+
         // TODO проверить работает ли авто свойство
         public string AvailableTags { get; }
         public string DownloadDirCheck { get; private set; }
@@ -83,7 +81,6 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         {
             _settings.DownloadDirTemplate = DownloadDirTemplate;
             _settings.FileNameTemplate = FileNameTemplate;
-            _settings.AccessToken = AccessToken;
             
             if (_settings.Save()) return true;
             
@@ -97,7 +94,6 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         {
             DownloadDirTemplate = _settings.DownloadDirTemplate;
             FileNameTemplate = _settings.FileNameTemplate;
-            AccessToken = _settings.AccessToken;
         }
 
         private void ChangeDownloadDirectory(Window ownerWindow)

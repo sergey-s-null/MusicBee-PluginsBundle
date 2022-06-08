@@ -3,14 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:gconv="clr-namespace:Root.GUI.Converters;assembly=Root"
              xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance dtvm:MusicDownloaderSettingsDTVM}">
-    <UserControl.Resources>
-        <gconv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-    </UserControl.Resources>
     <StackPanel Margin="6">
         <GroupBox Header="Templates"
                   Padding="0 0 0 -3" Margin="0 0 0 6">
@@ -66,23 +62,5 @@
                          Text="{Binding FileNameCheck, Mode=OneWay}" />
             </Grid>
         </GroupBox>
-
-        <Grid Margin="0 0 0 6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" Text="Access token:" />
-            <TextBox Grid.Column="1"
-                     Text="{Binding AccessToken}"
-                     IsReadOnly="{Binding IsChecked, 
-                            ElementName=IsEditAccessTokenToggleButton,
-                            Converter={StaticResource InverseBooleanConverter}}" />
-            <ToggleButton Grid.Column="2" Content="Edit"
-                          x:Name="IsEditAccessTokenToggleButton" />
-            <!-- TODO проверить работает ли этот биндинг -->
-        </Grid>
     </StackPanel>
 </UserControl>

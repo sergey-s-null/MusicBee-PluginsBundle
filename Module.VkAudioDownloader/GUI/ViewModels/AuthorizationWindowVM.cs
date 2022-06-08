@@ -3,8 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Module.Vk.Helpers;
+using Module.Vk.Settings;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
-using Module.VkAudioDownloader.Settings;
 using PropertyChanged;
 using Root.MVVM;
 using VkNet.Abstractions;
@@ -31,17 +31,17 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         private ICommand? _pass2FACodeCmd;
 
         private readonly IVkApi _vkApi;
-        private readonly IMusicDownloaderSettings _musicDownloaderSettings;
+        private readonly IVkSettings _vkSettings;
 
         private readonly SemaphoreSlim _authorizationSemaphore = new(1, 1);
         private readonly SemaphoreSlim _pipelineSemaphore = new(1, 1);
 
         public AuthorizationWindowVM(
             IVkApi vkApi,
-            IMusicDownloaderSettings musicDownloaderSettings)
+            IVkSettings vkSettings)
         {
             _vkApi = vkApi;
-            _musicDownloaderSettings = musicDownloaderSettings;
+            _vkSettings = vkSettings;
         }
 
         private async void AuthorizeWrappedAsync()
@@ -72,8 +72,8 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
                 return false;
             }
 
-            _musicDownloaderSettings.AccessToken = _vkApi.Token;
-            _musicDownloaderSettings.Save();
+            _vkSettings.AccessToken = _vkApi.Token;
+            _vkSettings.Save();
             return true;
         }
 

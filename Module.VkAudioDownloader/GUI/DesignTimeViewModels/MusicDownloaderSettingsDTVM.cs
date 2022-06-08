@@ -10,7 +10,6 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
         public bool IsLoaded => true;
         public string DownloadDirTemplate { get; set; } = @"D:\Path\To\Directory\<i1>\<i2>";
         public string FileNameTemplate { get; set; } = "<artist> - <title>";
-        public string AccessToken { get; set; } = "{private access token}";
         public string AvailableTags => "<i1>; <i2>; <artist>; <title>";
         public string DownloadDirCheck => @"D:\Path\To\Directory\Index1\Index2";
         public string FileNameCheck => "Artist - Title";

@@ -6,6 +6,5 @@ namespace Module.VkAudioDownloader.Settings
     {
         string DownloadDirTemplate { get; set; }
         string FileNameTemplate { get; set; }
-        string AccessToken { get; set; }
     }
 }
