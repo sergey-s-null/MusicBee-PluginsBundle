@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Module.Vk.GUI.AbstractViewModels;
+using Module.Vk.GUI.ViewModels;
 using Module.Vk.Settings;
 using Ninject.Modules;
 using VkNet;
@@ -26,6 +28,10 @@ namespace Module.Vk
             Bind<IVkApi>()
                 .ToMethod(_ => CreateVkApi())
                 .InSingletonScope();
+
+            // ViewModels
+            Bind<IVkSettingsVM>()
+                .To<VkSettingsVM>();
         }
 
         private IVkApi CreateVkApi()
