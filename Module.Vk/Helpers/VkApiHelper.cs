@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using CoreModule.Vk.Exceptions;
+using Module.Vk.Exceptions;
 using VkNet.Abstractions;
 using VkNet.Exception;
 using VkNet.Model;
 
-namespace CoreModule.Vk.Helpers
+namespace Module.Vk.Helpers
 {
     public static class VkApiHelper
     {

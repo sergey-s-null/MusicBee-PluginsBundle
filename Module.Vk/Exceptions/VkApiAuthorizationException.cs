@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoreModule.Vk.Exceptions
+namespace Module.Vk.Exceptions
 {
     public class VkApiAuthorizationException : Exception
     {

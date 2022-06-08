@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CoreModule.Vk.Helpers;
 using Module.AudioSourcesComparer.DataClasses;
 using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.Services.Abstract;
+using Module.Vk.Helpers;
 using Root.Helpers;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;

@@ -119,6 +119,10 @@
       <Project>{d384e0fd-d73c-4e6e-87c9-c7c38aa95e62}</Project>
       <Name>Module.DataExporter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Module.Vk\Module.Vk.csproj">
+      <Project>{ae3df3fe-ccca-4879-ab08-e1aeb9807e69}</Project>
+      <Name>Module.Vk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Root\Root.csproj">
       <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
       <Name>Root</Name>

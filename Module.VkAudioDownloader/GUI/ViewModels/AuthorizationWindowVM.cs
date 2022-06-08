@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CoreModule.Vk.Helpers;
+using Module.Vk.Helpers;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.Settings;
 using PropertyChanged;

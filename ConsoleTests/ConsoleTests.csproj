@@ -65,6 +65,10 @@
       <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>
       <Name>Module.VkAudioDownloader</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Module.Vk\Module.Vk.csproj">
+      <Project>{ae3df3fe-ccca-4879-ab08-e1aeb9807e69}</Project>
+      <Name>Module.Vk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Root\Root.csproj">
       <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
       <Name>Root</Name>

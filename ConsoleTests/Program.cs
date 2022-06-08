@@ -2,9 +2,9 @@
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
-using CoreModule.Vk.Helpers;
 using Grpc.Core;
 using Microsoft.Extensions.DependencyInjection;
+using Module.Vk.Helpers;
 using Module.VkAudioDownloader.Helpers;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;
