@@ -87,7 +87,6 @@
     <Compile Include="Entities\VkAudioVMWithFileSavePath.cs" />
     <Compile Include="Exceptions\InitializeException.cs" />
     <Compile Include="Exceptions\UninstallException.cs" />
-    <Compile Include="Exceptions\VkApiAuthorizationException.cs" />
     <Compile Include="GUI\AbstractViewModels\IAudioVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IAuthorizationWindowVM.cs" />
     <Compile Include="GUI\AbstractViewModels\IInputDialogVM.cs" />
@@ -126,7 +125,6 @@
     <Compile Include="Helpers\CollectionEx.cs" />
     <Compile Include="Helpers\CookieContainerEx.cs" />
     <Compile Include="Helpers\FileEx.cs" />
-    <Compile Include="Helpers\VkApiHelper.cs" />
     <Compile Include="Helpers\WebClientEx.cs" />
     <Compile Include="Helpers\WebResponseEx.cs" />
     <Compile Include="GUI\Converters\IsCorruptedUrlConverter.cs" />
@@ -167,6 +165,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CoreModule.Vk\CoreModule.Vk.csproj">
+      <Project>{8cd9a6c7-2b40-4d7d-b4cc-eead0af30958}</Project>
+      <Name>CoreModule.Vk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Root\Root.csproj">
       <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
       <Name>Root</Name>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Module.VkAudioDownloader.Exceptions
+namespace CoreModule.Vk.Exceptions
 {
     public class VkApiAuthorizationException : Exception
     {

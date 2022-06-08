@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Module.VkAudioDownloader.Exceptions;
-using Root.Helpers;
+using CoreModule.Vk.Exceptions;
 using VkNet.Abstractions;
 using VkNet.Exception;
 using VkNet.Model;
 
-namespace Module.VkAudioDownloader.Helpers
+namespace CoreModule.Vk.Helpers
 {
     public static class VkApiHelper
     {
@@ -16,7 +15,7 @@ namespace Module.VkAudioDownloader.Helpers
         {
             try
             {
-                await vkApi.AuthorizeAsync(new ApiAuthParams()
+                await vkApi.AuthorizeAsync(new ApiAuthParams
                 {
                     Login = login,
                     Password = password,
@@ -72,13 +71,19 @@ namespace Module.VkAudioDownloader.Helpers
             }
         }
 
+        public static bool IsAuthorizedWithCheck(this IVkApi vkApi)
+        {
+            return vkApi.IsAuthorized
+                   && vkApi.UserId is not null;
+        }
+
         // static without this
-        private static Regex _regex = new Regex(@"/[0-9a-f]+(/audios)?/([0-9a-f]+)/index.m3u8");
+        private static readonly Regex ConvertToMp3Regex = new Regex(@"/[0-9a-f]+(/audios)?/([0-9a-f]+)/index.m3u8");
 
         // ReSharper disable once InconsistentNaming
         public static bool ConvertToMp3(string m3u8Url, out string mp3Url)
         {
-            mp3Url = _regex.Replace(m3u8Url, @"$1/$2.mp3");
+            mp3Url = ConvertToMp3Regex.Replace(m3u8Url, @"$1/$2.mp3");
             return mp3Url.IndexOf("m3u8", StringComparison.OrdinalIgnoreCase) == -1;
         }
     }

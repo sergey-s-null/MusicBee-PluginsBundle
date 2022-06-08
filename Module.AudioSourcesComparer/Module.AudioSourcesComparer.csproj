@@ -110,6 +110,10 @@
     <Page Include="GUI\Views\VkToLocalComparerWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CoreModule.Vk\CoreModule.Vk.csproj">
+      <Project>{8cd9a6c7-2b40-4d7d-b4cc-eead0af30958}</Project>
+      <Name>CoreModule.Vk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Root\Root.csproj">
       <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
       <Name>Root</Name>

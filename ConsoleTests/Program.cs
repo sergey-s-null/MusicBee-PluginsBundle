@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using CoreModule.Vk.Helpers;
 using Grpc.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Module.VkAudioDownloader.Helpers;

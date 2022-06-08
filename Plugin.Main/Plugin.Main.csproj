@@ -87,6 +87,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CoreModule.Vk\CoreModule.Vk.csproj">
+      <Project>{8cd9a6c7-2b40-4d7d-b4cc-eead0af30958}</Project>
+      <Name>CoreModule.Vk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HackModule.AssemblyBindingRedirect\HackModule.AssemblyBindingRedirect.csproj">
       <Project>{5951fde8-ebad-4580-9825-8adbe222b1fb}</Project>
       <Name>HackModule.AssemblyBindingRedirect</Name>

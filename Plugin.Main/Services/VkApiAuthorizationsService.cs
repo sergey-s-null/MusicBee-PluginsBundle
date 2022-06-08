@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
-using Module.VkAudioDownloader.Exceptions;
+using CoreModule.Vk.Exceptions;
+using CoreModule.Vk.Helpers;
 using Module.VkAudioDownloader.GUI.Factories;
-using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Root.Services.Abstract;
 using VkNet.Abstractions;
