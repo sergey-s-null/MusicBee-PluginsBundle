@@ -1,2 +1,4 @@
 ﻿group NetFramework
     VkNet
+    VkNet.AudioBypassService
+    Ninject
