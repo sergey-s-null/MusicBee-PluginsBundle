@@ -57,10 +57,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CoreModule.Vk\CoreModule.Vk.csproj">
-      <Project>{8cd9a6c7-2b40-4d7d-b4cc-eead0af30958}</Project>
-      <Name>CoreModule.Vk</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj">
       <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>
       <Name>Module.VkAudioDownloader</Name>
