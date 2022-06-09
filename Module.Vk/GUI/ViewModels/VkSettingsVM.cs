@@ -1,9 +1,11 @@
 ﻿using System.Windows;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.Settings;
+using PropertyChanged;
 
 namespace Module.Vk.GUI.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class VkSettingsVM : IVkSettingsVM
     {
         public bool IsLoaded => _vkSettings.IsLoaded;

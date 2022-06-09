@@ -2,3 +2,4 @@
     VkNet
     VkNet.AudioBypassService
     Ninject
+    PropertyChanged.Fody
