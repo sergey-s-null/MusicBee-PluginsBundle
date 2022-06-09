@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Input;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
+using Module.Vk.GUI.AbstractViewModels;
+using Module.Vk.GUI.DesignTimeViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.DesignTimeViewModels;
 using PropertyChanged;
@@ -16,6 +18,7 @@ namespace MusicBeePlugin.GUI.SettingsDialog
     {
         public bool IsLoaded => true;
 
+        public IVkSettingsVM VkSettingsVM { get; }
         public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
         public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
         public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
@@ -26,6 +29,7 @@ namespace MusicBeePlugin.GUI.SettingsDialog
 
         public SettingsDialogDTVM()
         {
+            VkSettingsVM = new VkSettingsDTVM();
             MusicDownloaderSettingsVM = new MusicDownloaderSettingsDTVM();
             ArtworksSearcherSettingsVM = new ArtworksSearcherSettingsDTVM();
             PlaylistsExporterSettingsVM = new PlaylistsExporterSettingsDTVM();

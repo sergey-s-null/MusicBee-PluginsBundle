@@ -5,6 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MusicBeePlugin.GUI.SettingsDialog"
         xmlns:gconv="clr-namespace:Root.GUI.Converters;assembly=Root"
+        xmlns:vkviews="clr-namespace:Module.Vk.GUI.Views;assembly=Module.Vk"
+        xmlns:vkavm="clr-namespace:Module.Vk.GUI.AbstractViewModels;assembly=Module.Vk"
         xmlns:ass="clr-namespace:Module.ArtworksSearcher.GUI.Settings;assembly=Module.ArtworksSearcher"
         xmlns:pes="clr-namespace:Module.PlaylistsExporter.GUI.Settings;assembly=Module.PlaylistsExporter"
         xmlns:avm="clr-namespace:Module.VkAudioDownloader.GUI.AbstractViewModels;assembly=Module.VKMusicDownloader"
@@ -51,6 +53,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <Grid
+                Row="0"
+                Visibility="{Binding SelectedSettingsModule.ModuleSettings,
+                    Converter={StaticResource SettingsVisibilityConverter},
+                    ConverterParameter={x:Type vkavm:IVkSettingsVM}}">
+                <vkviews:VkSettings
+                    DataContext="{Binding VkSettingsVM}" />
+            </Grid>
             <Grid
                 Row="0"
                 Visibility="{Binding

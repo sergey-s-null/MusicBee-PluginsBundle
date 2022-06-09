@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
+using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using PropertyChanged;
 using Root.MVVM;
@@ -15,6 +16,7 @@ namespace MusicBeePlugin.GUI.SettingsDialog
     {
         public bool IsLoaded => SettingsModules.All(s => s.ModuleSettings.IsLoaded);
 
+        public IVkSettingsVM VkSettingsVM { get; }
         public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
         public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
         public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
@@ -28,14 +30,18 @@ namespace MusicBeePlugin.GUI.SettingsDialog
             => _resetCmd ??= new RelayCommand(_ => Reset());
         
         public SettingsDialogVM(
+            IVkSettingsVM vkSettingsVM,
             IMusicDownloaderSettingsVM musicDownloaderSettingsVM,
             IArtworksSearcherSettingsVM artworksSearcherSettingsVM,
             IPlaylistsExporterSettingsVM playlistsExporterSettingsVM)
         {
+            VkSettingsVM = vkSettingsVM;
             MusicDownloaderSettingsVM = musicDownloaderSettingsVM;
             ArtworksSearcherSettingsVM = artworksSearcherSettingsVM;
             PlaylistsExporterSettingsVM = playlistsExporterSettingsVM;
             
+            SettingsModules.Add(new ModuleSettingsVM("Vk",
+                vkSettingsVM));
             SettingsModules.Add(new ModuleSettingsVM("Music downloader",
                 musicDownloaderSettingsVM));
             SettingsModules.Add(new ModuleSettingsVM("Artworks searcher", 

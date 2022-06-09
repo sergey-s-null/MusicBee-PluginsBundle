@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.Settings;
-using Root.Abstractions;
 
 namespace Module.Vk.GUI.ViewModels
 {
-    public class VkSettingsVM : IVkSettingsVM, ISettings
+    public class VkSettingsVM : IVkSettingsVM
     {
         public bool IsLoaded => _vkSettings.IsLoaded;
 

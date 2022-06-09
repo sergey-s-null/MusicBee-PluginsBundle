@@ -3,6 +3,7 @@ using Module.AudioSourcesComparer;
 using Module.DataExporter;
 using Module.InboxAdder;
 using Module.PlaylistsExporter;
+using Module.Vk;
 using Module.VkAudioDownloader;
 using MusicBeePlugin.Factories;
 using MusicBeePlugin.GUI.SettingsDialog;
@@ -31,6 +32,7 @@ namespace MusicBeePlugin
                 .InSingletonScope();
 
             kernel.Load<RootModule>();
+            kernel.Load(new VkModule(true));
             kernel.Load<MusicDownloaderModule>();
             kernel.Load<ArtworksSearcherModule>();
             kernel.Load<PlaylistsExporterModule>();
