@@ -4,11 +4,13 @@ using System.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using MusicBeePlugin.GUI.ViewModels;
 using Ninject;
 using Ninject.Syntax;
 
-namespace MusicBeePlugin.GUI.InboxRelocateContextMenu
+namespace MusicBeePlugin.GUI.Views
 {
+    // todo сделать как другие компоненты, через наследование от context menu
     public static class InboxRelocateContextMenu
     {
         public static ContextMenu LoadInboxRelocateContextMenu(this IResolutionRoot kernel)
@@ -25,7 +27,7 @@ namespace MusicBeePlugin.GUI.InboxRelocateContextMenu
         private static ResourceDictionary LoadDictionary()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = $"{nameof(MusicBeePlugin)}.{nameof(GUI)}.{nameof(GUI.InboxRelocateContextMenu)}.{nameof(InboxRelocateContextMenu)}.xaml";
+            var resourceName = $"{nameof(MusicBeePlugin)}.{nameof(GUI)}.{nameof(Views)}.{nameof(InboxRelocateContextMenu)}.xaml";
             
             using var stream = assembly.GetManifestResourceStream(resourceName);
             

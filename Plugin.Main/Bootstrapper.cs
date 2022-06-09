@@ -6,7 +6,7 @@ using Module.PlaylistsExporter;
 using Module.Vk;
 using Module.VkAudioDownloader;
 using MusicBeePlugin.Factories;
-using MusicBeePlugin.GUI.SettingsDialog;
+using MusicBeePlugin.GUI.ViewModels;
 using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Extensions.Factory;

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using MusicBeePlugin.GUI.SettingsDialog;
 using Test_Desktop.GUI.TestDialog;
 
 namespace Test_Desktop

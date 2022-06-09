@@ -53,11 +53,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\ISettingsDialogFactory.cs" />
-    <Compile Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenu.cs" />
-    <Compile Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenuVM.cs" />
-    <Compile Include="GUI\SettingsDialog\IModuleSettingsVM.cs" />
-    <Compile Include="GUI\SettingsDialog\ISettingsDialogVM.cs" />
-    <Compile Include="GUI\SettingsDialog\SettingsDialogDTVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\IModuleSettingsVM.cs" />
+    <Compile Include="GUI\AbstractViewModels\ISettingsDialogVM.cs" />
+    <Compile Include="GUI\DesignTimeViewModels\SettingsDialogDTVM.cs" />
+    <Compile Include="GUI\ViewModels\InboxRelocateContextMenuVM.cs" />
+    <Compile Include="GUI\ViewModels\ModuleSettingsVM.cs" />
+    <Compile Include="GUI\ViewModels\SettingsDialogVM.cs" />
+    <Compile Include="GUI\Views\InboxRelocateContextMenu.cs">
+      <DependentUpon>InboxRelocateContextMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Views\SettingsDialog.xaml.cs">
+      <DependentUpon>SettingsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\IPluginActions.cs" />
     <Compile Include="Services\PluginActions.cs" />
     <Compile Include="Services\VkApiAuthorizationsService.cs" />
@@ -65,11 +72,6 @@
       <Paket>True</Paket>
     </Resource>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="GUI\SettingsDialog\ModuleSettingsVM.cs" />
-    <Compile Include="GUI\SettingsDialog\SettingsDialog.xaml.cs">
-      <DependentUpon>SettingsDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\SettingsDialog\SettingsDialogVM.cs" />
     <Compile Include="GUI\VMTemplateSelector.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -81,6 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GUI\Views\InboxRelocateContextMenu.xaml" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -125,17 +128,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GUI\InboxRelocateContextMenu\InboxRelocateContextMenu.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="GUI\SettingsDialog\SettingsDialog.xaml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="license.txt">
       <Paket>True</Paket>
     </Content>
     <Content Include="FodyWeavers.xml" />
     <Content Include="paket.references" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="GUI\Views\SettingsDialog.xaml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Choose>

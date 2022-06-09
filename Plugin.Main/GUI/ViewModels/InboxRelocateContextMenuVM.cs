@@ -2,7 +2,7 @@
 using PropertyChanged;
 using Root.MVVM;
 
-namespace MusicBeePlugin.GUI.InboxRelocateContextMenu
+namespace MusicBeePlugin.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class InboxRelocateContextMenuVM

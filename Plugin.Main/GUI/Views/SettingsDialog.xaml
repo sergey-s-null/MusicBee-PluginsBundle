@@ -1,9 +1,8 @@
-﻿<Window x:Class="MusicBeePlugin.GUI.SettingsDialog.SettingsDialog"
+﻿<Window x:Class="MusicBeePlugin.GUI.Views.SettingsDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:MusicBeePlugin.GUI.SettingsDialog"
         xmlns:gconv="clr-namespace:Root.GUI.Converters;assembly=Root"
         xmlns:vkviews="clr-namespace:Module.Vk.GUI.Views;assembly=Module.Vk"
         xmlns:vkavm="clr-namespace:Module.Vk.GUI.AbstractViewModels;assembly=Module.Vk"
@@ -11,9 +10,10 @@
         xmlns:pes="clr-namespace:Module.PlaylistsExporter.GUI.Settings;assembly=Module.PlaylistsExporter"
         xmlns:avm="clr-namespace:Module.VkAudioDownloader.GUI.AbstractViewModels;assembly=Module.VKMusicDownloader"
         xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views;assembly=Module.VKMusicDownloader"
+        xmlns:dtvm="clr-namespace:MusicBeePlugin.GUI.DesignTimeViewModels"
         mc:Ignorable="d"
         Title="SettingsDialog" Height="450" Width="800"
-        d:DataContext="{d:DesignInstance local:SettingsDialogDTVM, d:IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance dtvm:SettingsDialogDTVM, d:IsDesignTimeCreatable=True}">
     <Window.Resources>
         <gconv:GroupConverter
             x:Key="SettingsVisibilityConverter">

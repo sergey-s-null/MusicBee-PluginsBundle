@@ -6,7 +6,7 @@ using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Root.Abstractions;
 
-namespace MusicBeePlugin.GUI.SettingsDialog
+namespace MusicBeePlugin.GUI.AbstractViewModels
 {
     public interface ISettingsDialogVM : ISettings
     {

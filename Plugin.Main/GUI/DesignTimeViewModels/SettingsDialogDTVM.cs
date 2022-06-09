@@ -8,10 +8,12 @@ using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.GUI.DesignTimeViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.DesignTimeViewModels;
+using MusicBeePlugin.GUI.AbstractViewModels;
+using MusicBeePlugin.GUI.ViewModels;
 using PropertyChanged;
 using Root.MVVM;
 
-namespace MusicBeePlugin.GUI.SettingsDialog
+namespace MusicBeePlugin.GUI.DesignTimeViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class SettingsDialogDTVM : ISettingsDialogVM

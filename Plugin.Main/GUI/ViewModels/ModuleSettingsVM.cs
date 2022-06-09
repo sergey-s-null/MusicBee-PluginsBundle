@@ -1,6 +1,7 @@
-﻿using Root.Abstractions;
+﻿using MusicBeePlugin.GUI.AbstractViewModels;
+using Root.Abstractions;
 
-namespace MusicBeePlugin.GUI.SettingsDialog
+namespace MusicBeePlugin.GUI.ViewModels
 {
     public class ModuleSettingsVM : IModuleSettingsVM
     {

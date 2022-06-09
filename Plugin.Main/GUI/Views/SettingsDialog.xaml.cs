@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using MusicBeePlugin.GUI.ViewModels;
 
-namespace MusicBeePlugin.GUI.SettingsDialog
+namespace MusicBeePlugin.GUI.Views
 {
     public partial class SettingsDialog : Window
     {

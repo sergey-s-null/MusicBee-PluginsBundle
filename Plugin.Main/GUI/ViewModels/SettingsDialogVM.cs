@@ -6,10 +6,11 @@ using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using MusicBeePlugin.GUI.AbstractViewModels;
 using PropertyChanged;
 using Root.MVVM;
 
-namespace MusicBeePlugin.GUI.SettingsDialog
+namespace MusicBeePlugin.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class SettingsDialogVM : ISettingsDialogVM

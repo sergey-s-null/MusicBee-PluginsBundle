@@ -3,7 +3,7 @@ using System.Net;
 using System.Windows;
 using HackModule.AssemblyBindingRedirect;
 using MusicBeePlugin.Factories;
-using MusicBeePlugin.GUI.InboxRelocateContextMenu;
+using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
 using Ninject;
 using Ninject.Syntax;

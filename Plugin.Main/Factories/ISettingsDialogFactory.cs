@@ -1,4 +1,4 @@
-﻿using MusicBeePlugin.GUI.SettingsDialog;
+﻿using MusicBeePlugin.GUI.Views;
 
 namespace MusicBeePlugin.Factories
 {
