@@ -1,28 +1,44 @@
 ﻿using Newtonsoft.Json.Linq;
-using Root.Abstractions;
-using Root.Helpers;
 using Root.Services.Abstract;
 
 namespace Module.VkAudioDownloader.Settings
 {
-    public class MusicDownloaderSettings : BaseSettings, IMusicDownloaderSettings
+    public class MusicDownloaderSettings : IMusicDownloaderSettings
     {
+        // todo from config
+        private const string AudioDownloaderSettingsPath = "AudioDownloader/settings.json";
+
         public string DownloadDirTemplate { get; set; } = "";
         public string FileNameTemplate { get; set; } = "";
-        
-        public MusicDownloaderSettings(IResourceManager resourceManager) 
-            : base(ResourcesHelper.AudioDownloaderSettingsPath, true, resourceManager)
+
+        private readonly ISettingsJsonLoader _settingsJsonLoader;
+
+        public MusicDownloaderSettings(ISettingsJsonLoader settingsJsonLoader)
         {
-            
+            _settingsJsonLoader = settingsJsonLoader;
         }
-        
-        protected override void PropertiesFromJObject(JToken rootObj)
+
+        public void Load()
+        {
+            // todo handle exceptions
+            var jSettings = _settingsJsonLoader.Load(AudioDownloaderSettingsPath);
+            SetSettingsFromJObject(jSettings);
+        }
+
+        public void Save()
+        {
+            // todo handle exceptions
+            var jSettings = GetSettingsAsJObject();
+            _settingsJsonLoader.Save(AudioDownloaderSettingsPath, jSettings);
+        }
+
+        private void SetSettingsFromJObject(JToken rootObj)
         {
             DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate)) ?? "";
             FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate)) ?? "";
         }
 
-        protected override JObject PropertiesToJObject()
+        private JObject GetSettingsAsJObject()
         {
             return new JObject
             {

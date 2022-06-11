@@ -16,12 +16,12 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
         public ICommand ChangeDownloadDirCmd =>
             new RelayCommand(_ => throw new NotSupportedException());
 
-        public bool Load()
+        public void Load()
         {
             throw new NotSupportedException();
         }
 
-        public bool Save()
+        public void Save()
         {
             throw new NotSupportedException();
         }

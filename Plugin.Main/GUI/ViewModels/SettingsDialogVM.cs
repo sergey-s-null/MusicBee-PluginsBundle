@@ -21,7 +21,7 @@ namespace MusicBeePlugin.GUI.ViewModels
         public IList<IModuleSettingsVM> SettingsModules { get; } = new ObservableCollection<IModuleSettingsVM>();
 
         public IModuleSettingsVM SelectedSettingsModule { get; set; }
-        
+
         public SettingsDialogVM(
             IVkSettingsVM vkSettingsVM,
             IMusicDownloaderSettingsVM musicDownloaderSettingsVM,
@@ -32,36 +32,35 @@ namespace MusicBeePlugin.GUI.ViewModels
             MusicDownloaderSettingsVM = musicDownloaderSettingsVM;
             ArtworksSearcherSettingsVM = artworksSearcherSettingsVM;
             PlaylistsExporterSettingsVM = playlistsExporterSettingsVM;
-            
+
             SettingsModules.Add(new ModuleSettingsVM("Vk",
                 vkSettingsVM));
             SettingsModules.Add(new ModuleSettingsVM("Music downloader",
                 musicDownloaderSettingsVM));
-            SettingsModules.Add(new ModuleSettingsVM("Artworks searcher", 
+            SettingsModules.Add(new ModuleSettingsVM("Artworks searcher",
                 artworksSearcherSettingsVM));
-            SettingsModules.Add(new ModuleSettingsVM("Playlists exporter", 
+            SettingsModules.Add(new ModuleSettingsVM("Playlists exporter",
                 playlistsExporterSettingsVM));
 
             SelectedSettingsModule = SettingsModules.First();
-            
+
             Load();
         }
 
         // todo remake
-        private bool Load()
+        private void Load()
         {
-            return SettingsModules
-                .All(setting => setting.ModuleSettings.Load());
+            foreach (var moduleSettingsVM in SettingsModules)
+            {
+                moduleSettingsVM.ModuleSettings.Load();
+            }
         }
 
         public bool Save()
         {
             foreach (var setting in SettingsModules)
             {
-                if (!setting.ModuleSettings.Save())
-                {
-                    return false;
-                }
+                setting.ModuleSettings.Save();
             }
 
             return true;

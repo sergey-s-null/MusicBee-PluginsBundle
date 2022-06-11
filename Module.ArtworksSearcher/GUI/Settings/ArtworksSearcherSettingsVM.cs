@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Module.ArtworksSearcher.Settings;
 using PropertyChanged;
 using Root.MVVM;
@@ -27,18 +26,18 @@ namespace Module.ArtworksSearcher.GUI.Settings
             _artworksSearcherSettings = artworksSearcherSettings;
         }
 
-        public bool Load()
+        public void Load()
         {
-            if (!_artworksSearcherSettings.Load())
-            {
-                return false;
-            }
+            _artworksSearcherSettings.Load();
 
-            Reset();
-            return true;
+            GoogleCX = _artworksSearcherSettings.GoogleCX;
+            GoogleKey = _artworksSearcherSettings.GoogleKey;
+            ParallelDownloadsCount = _artworksSearcherSettings.ParallelDownloadsCount;
+            OsuSongsDir = _artworksSearcherSettings.OsuSongsDir;
+            MinOsuImageByteSize = _artworksSearcherSettings.MinOsuImageByteSize;
         }
 
-        public bool Save()
+        public void Save()
         {
             _artworksSearcherSettings.GoogleCX = GoogleCX;
             _artworksSearcherSettings.GoogleKey = GoogleKey;
@@ -46,21 +45,7 @@ namespace Module.ArtworksSearcher.GUI.Settings
             _artworksSearcherSettings.OsuSongsDir = OsuSongsDir;
             _artworksSearcherSettings.MinOsuImageByteSize = MinOsuImageByteSize;
 
-            if (_artworksSearcherSettings.Save()) return true;
-
-            // TODO вероятно здесь не нужен диалог
-            MessageBox.Show("Error save settings.");
-
-            return false;
-        }
-
-        public void Reset()
-        {
-            GoogleCX = _artworksSearcherSettings.GoogleCX;
-            GoogleKey = _artworksSearcherSettings.GoogleKey;
-            ParallelDownloadsCount = _artworksSearcherSettings.ParallelDownloadsCount;
-            OsuSongsDir = _artworksSearcherSettings.OsuSongsDir;
-            MinOsuImageByteSize = _artworksSearcherSettings.MinOsuImageByteSize;
+            _artworksSearcherSettings.Save();
         }
 
         private void ChangeOsuSongsDir()

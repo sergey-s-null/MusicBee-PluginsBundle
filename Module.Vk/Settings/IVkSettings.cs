@@ -5,7 +5,7 @@
         string AccessToken { get; set; }
 
         // todo with Result
-        bool Load();
-        bool Save();
+        void Load();
+        void Save();
     }
 }

@@ -7,12 +7,12 @@ namespace Module.Vk.GUI.DesignTimeViewModels
     {
         public string AccessToken { get; set; } = "{private access token}";
 
-        public bool Load()
+        public void Load()
         {
             throw new NotSupportedException();
         }
 
-        public bool Save()
+        public void Save()
         {
             throw new NotSupportedException();
         }

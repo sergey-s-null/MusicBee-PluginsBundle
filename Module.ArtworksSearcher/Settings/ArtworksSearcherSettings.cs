@@ -1,18 +1,20 @@
 ﻿using Newtonsoft.Json.Linq;
-using Root.Abstractions;
-using Root.Helpers;
 using Root.Services.Abstract;
 
 namespace Module.ArtworksSearcher.Settings
 {
-    public class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSettings
+    public class ArtworksSearcherSettings : IArtworksSearcherSettings
     {
+        // todo from config
+        private const string ArtworksSearcherSettingsPath = "ArtworksSearcher/settings.json";
+
         public string GoogleCX { get; set; } = "";
         public string GoogleKey { get; set; } = "";
-        
-        public int MaxParallelDownloadsCount => 10;// TODO from config
+
+        public int MaxParallelDownloadsCount => 10; // TODO from config
 
         private int _parallelDownloadsCount;
+
         public int ParallelDownloadsCount
         {
             get => _parallelDownloadsCount;
@@ -35,13 +37,29 @@ namespace Module.ArtworksSearcher.Settings
 
         public string OsuSongsDir { get; set; } = "";
         public long MinOsuImageByteSize { get; set; }
-        
-        public ArtworksSearcherSettings(IResourceManager resourceManager) 
-            : base(ResourcesHelper.ArtworksSearcherSettingsPath, true, resourceManager)
+
+        private readonly ISettingsJsonLoader _settingsJsonLoader;
+
+        public ArtworksSearcherSettings(ISettingsJsonLoader settingsJsonLoader)
         {
+            _settingsJsonLoader = settingsJsonLoader;
         }
-        
-        protected override void PropertiesFromJObject(JToken rootObj)
+
+        public void Load()
+        {
+            // todo handle exceptions
+            var jSettings = _settingsJsonLoader.Load(ArtworksSearcherSettingsPath);
+            SetSettingsFromJObject(jSettings);
+        }
+
+        public void Save()
+        {
+            // todo handle exceptions
+            var jSettings = GetSettingsAsJObject();
+            _settingsJsonLoader.Save(ArtworksSearcherSettingsPath, jSettings);
+        }
+
+        private void SetSettingsFromJObject(JToken rootObj)
         {
             GoogleCX = rootObj.Value<string>(nameof(GoogleCX)) ?? "";
             GoogleKey = rootObj.Value<string>(nameof(GoogleKey)) ?? "";
@@ -49,8 +67,8 @@ namespace Module.ArtworksSearcher.Settings
             OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir)) ?? "";
             MinOsuImageByteSize = rootObj.Value<long>(nameof(MinOsuImageByteSize));
         }
-        
-        protected override JObject PropertiesToJObject()
+
+        private JObject GetSettingsAsJObject()
         {
             return new JObject
             {

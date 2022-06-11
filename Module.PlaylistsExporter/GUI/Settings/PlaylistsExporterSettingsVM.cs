@@ -80,21 +80,17 @@ namespace Module.PlaylistsExporter.GUI.Settings
             }
         }
 
-        public bool Load()
+        public void Load()
         {
-            if (!_playlistsExporterSettings.Load())
-            {
-                return false;
-            }
+            _playlistsExporterSettings.Load();
 
             PlaylistsDirectoryPath = _playlistsExporterSettings.PlaylistsDirectoryPath;
             FilesLibraryPath = _playlistsExporterSettings.FilesLibraryPath;
             PlaylistsNewDirectoryName = _playlistsExporterSettings.PlaylistsNewDirectoryName;
             Playlists.ForEach(x => x.Selected = IsPlaylistSelectedInSettings(x.RelativePath));
-            return true;
         }
 
-        public bool Save()
+        public void Save()
         {
             _playlistsExporterSettings.PlaylistsDirectoryPath = PlaylistsDirectoryPath;
             _playlistsExporterSettings.FilesLibraryPath = FilesLibraryPath;
@@ -104,7 +100,7 @@ namespace Module.PlaylistsExporter.GUI.Settings
                 .Select(x => PlaylistsBasePath + x.RelativePath)
                 .ToReadOnlyCollection();
 
-            return _playlistsExporterSettings.Save();
+            _playlistsExporterSettings.Save();
         }
 
         private bool IsPlaylistSelectedInSettings(string playlistRelativePath)

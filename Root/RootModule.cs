@@ -8,8 +8,12 @@ namespace Root
     {
         public override void Load()
         {
+            // Services
             Bind<IResourceManager>()
                 .To<ResourceManager>()
+                .InSingletonScope();
+            Bind<ISettingsJsonLoader>()
+                .To<SettingsJsonLoader>()
                 .InSingletonScope();
         }
     }

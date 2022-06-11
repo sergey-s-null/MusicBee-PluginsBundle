@@ -3,7 +3,7 @@
     public interface IBaseSettingsVM
     {
         // todo with exceptions?
-        bool Load();
-        bool Save();
+        void Load();
+        void Save();
     }
 }

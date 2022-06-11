@@ -9,7 +9,7 @@
         string OsuSongsDir { get; set; }
         long MinOsuImageByteSize { get; set; }
 
-        bool Load();
-        bool Save();
+        void Load();
+        void Save();
     }
 }

@@ -10,7 +10,7 @@ namespace Module.PlaylistsExporter.Settings
         IReadOnlyCollection<string> PlaylistsForExport { get; set; }
 
         // todo
-        bool Load();
-        bool Save();
+        void Load();
+        void Save();
     }
 }

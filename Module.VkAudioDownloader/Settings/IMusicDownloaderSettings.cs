@@ -5,7 +5,7 @@
         string DownloadDirTemplate { get; set; }
         string FileNameTemplate { get; set; }
 
-        bool Load();
-        bool Save();
+        void Load();
+        void Save();
     }
 }

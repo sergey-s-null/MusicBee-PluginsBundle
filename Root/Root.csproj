@@ -47,8 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstractions\BaseSettings.cs" />
     <Compile Include="Collections\ReverseComparer.cs" />
+    <Compile Include="Exceptions\SettingsIOException.cs" />
     <Compile Include="GUI\AbstractViewModels\IBaseSettingsVM.cs" />
     <Compile Include="GUI\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
@@ -78,8 +78,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootModule.cs" />
     <Compile Include="Services\Abstract\IResourceManager.cs" />
+    <Compile Include="Services\Abstract\ISettingsJsonLoader.cs" />
     <Compile Include="Services\Abstract\IVkApiAuthorizationsService.cs" />
     <Compile Include="Services\ResourceManager.cs" />
+    <Compile Include="Services\SettingsJsonLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="paket.references" />

@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Module.Vk.GUI.AbstractViewModels;
+﻿using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.Settings;
 using PropertyChanged;
 
@@ -17,32 +16,28 @@ namespace Module.Vk.GUI.ViewModels
             _vkSettings = vkSettings;
         }
 
-        public bool Load()
+        public void Load()
         {
-            if (!_vkSettings.Load())
-            {
-                return false;
-            }
+            _vkSettings.Load();
 
             AccessToken = _vkSettings.AccessToken;
-            return true;
         }
 
-        public bool Save()
+        public void Save()
         {
             _vkSettings.AccessToken = AccessToken;
 
-            if (!_vkSettings.Save())
-            {
-                MessageBox.Show(
-                    "Vk settings was not saved.",
-                    @"¯\_(ツ)_/¯",
-                    MessageBoxButton.OK
-                );
-                return false;
-            }
-
-            return true;
+            _vkSettings.Save();
+            // todo remove later
+            // if (!_vkSettings.Save())
+            // {
+            //     MessageBox.Show(
+            //         "Vk settings was not saved.",
+            //         @"¯\_(ツ)_/¯",
+            //         MessageBoxButton.OK
+            //     );
+            //     return false;
+            // }
         }
     }
 }

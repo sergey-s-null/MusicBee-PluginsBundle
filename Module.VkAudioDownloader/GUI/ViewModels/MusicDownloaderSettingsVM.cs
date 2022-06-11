@@ -15,13 +15,15 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
     {
         [OnChangedMethod(nameof(OnDownloadDirTemplateChanged))]
         public string DownloadDirTemplate { get; set; } = "";
+
         public void OnDownloadDirTemplateChanged()
         {
             DownloadDirCheck = _replacer.Prepare(DownloadDirTemplate);
         }
-        
+
         [OnChangedMethod(nameof(OnFileNameTemplateChanged))]
         public string FileNameTemplate { get; set; } = "";
+
         public void OnFileNameTemplateChanged()
         {
             FileNameCheck = _replacer.Prepare(FileNameTemplate);
@@ -31,14 +33,15 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         public string AvailableTags { get; }
         public string DownloadDirCheck { get; private set; }
         public string FileNameCheck { get; private set; }
-        
-        private ICommand? _changeDownloadDirCmd;
+
         public ICommand ChangeDownloadDirCmd
             => _changeDownloadDirCmd ??= new RelayCommand(arg =>
             {
                 if (arg is Window ownerWindow)
                     ChangeDownloadDirectory(ownerWindow);
             });
+
+        private ICommand? _changeDownloadDirCmd;
 
         private readonly IMusicDownloaderSettings _musicDownloaderSettings;
 
@@ -47,7 +50,7 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         public MusicDownloaderSettingsVM(IMusicDownloaderSettings musicDownloaderSettings)
         {
             _musicDownloaderSettings = musicDownloaderSettings;
-            
+
             var openBracket = MBTagReplacer.OpenBracket;
             var closeBracket = MBTagReplacer.CloseBracket;
             AvailableTags = MBTagReplacer.AvailableTags
@@ -62,35 +65,21 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
             FileNameCheck = _replacer.Prepare(FileNameTemplate);
             DownloadDirCheck = _replacer.Prepare(DownloadDirTemplate);
         }
-        
-        public bool Load()
-        {
-            if (!_musicDownloaderSettings.Load())
-            {
-                return false;
-            }
 
-            Reset();
-            return true;
+        public void Load()
+        {
+            _musicDownloaderSettings.Load();
+
+            DownloadDirTemplate = _musicDownloaderSettings.DownloadDirTemplate;
+            FileNameTemplate = _musicDownloaderSettings.FileNameTemplate;
         }
 
-        public bool Save()
+        public void Save()
         {
             _musicDownloaderSettings.DownloadDirTemplate = DownloadDirTemplate;
             _musicDownloaderSettings.FileNameTemplate = FileNameTemplate;
-            
-            if (_musicDownloaderSettings.Save()) return true;
-            
-            // TODO вероятно здесь не нужен диалог
-            MessageBox.Show("Error save settings.");
-            
-            return false;
-        }
 
-        public void Reset()
-        {
-            DownloadDirTemplate = _musicDownloaderSettings.DownloadDirTemplate;
-            FileNameTemplate = _musicDownloaderSettings.FileNameTemplate;
+            _musicDownloaderSettings.Save();
         }
 
         private void ChangeDownloadDirectory(Window ownerWindow)
@@ -100,7 +89,7 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
                 IsFolderPicker = true,
                 DefaultDirectory = DownloadDirTemplate
             };
-            
+
             if (dialog.ShowDialog(ownerWindow) == CommonFileDialogResult.Ok)
                 DownloadDirTemplate = dialog.FileName;
         }
