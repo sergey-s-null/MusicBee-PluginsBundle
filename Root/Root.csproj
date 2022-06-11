@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="Collections\ReverseComparer.cs" />
     <Compile Include="Exceptions\SettingsIOException.cs" />
+    <Compile Include="Exceptions\SettingsLoadException.cs" />
+    <Compile Include="Exceptions\SettingsSaveException.cs" />
     <Compile Include="GUI\AbstractViewModels\IBaseSettingsVM.cs" />
     <Compile Include="GUI\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
@@ -82,6 +84,8 @@
     <Compile Include="Services\Abstract\IVkApiAuthorizationsService.cs" />
     <Compile Include="Services\ResourceManager.cs" />
     <Compile Include="Services\SettingsJsonLoader.cs" />
+    <Compile Include="Settings\BaseSettings.cs" />
+    <Compile Include="Settings\ISettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="paket.references" />

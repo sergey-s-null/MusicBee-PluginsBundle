@@ -1,11 +1,10 @@
-﻿namespace Module.VkAudioDownloader.Settings
+﻿using Root.Settings;
+
+namespace Module.VkAudioDownloader.Settings
 {
-    public interface IMusicDownloaderSettings
+    public interface IMusicDownloaderSettings : ISettings
     {
         string DownloadDirTemplate { get; set; }
         string FileNameTemplate { get; set; }
-
-        void Load();
-        void Save();
     }
 }

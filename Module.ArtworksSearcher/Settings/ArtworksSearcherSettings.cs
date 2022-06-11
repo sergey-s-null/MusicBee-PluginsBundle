@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Root.Exceptions;
 using Root.Services.Abstract;
+using Root.Settings;
 
 namespace Module.ArtworksSearcher.Settings
 {
-    public class ArtworksSearcherSettings : IArtworksSearcherSettings
+    public class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSettings
     {
         // todo from config
         private const string ArtworksSearcherSettingsPath = "ArtworksSearcher/settings.json";
@@ -38,37 +41,28 @@ namespace Module.ArtworksSearcher.Settings
         public string OsuSongsDir { get; set; } = "";
         public long MinOsuImageByteSize { get; set; }
 
-        private readonly ISettingsJsonLoader _settingsJsonLoader;
-
         public ArtworksSearcherSettings(ISettingsJsonLoader settingsJsonLoader)
+            : base(ArtworksSearcherSettingsPath, settingsJsonLoader)
         {
-            _settingsJsonLoader = settingsJsonLoader;
         }
 
-        public void Load()
+        protected override void SetSettingsFromJObject(JObject rootObj)
         {
-            // todo handle exceptions
-            var jSettings = _settingsJsonLoader.Load(ArtworksSearcherSettingsPath);
-            SetSettingsFromJObject(jSettings);
+            try
+            {
+                GoogleCX = rootObj.Value<string>(nameof(GoogleCX)) ?? "";
+                GoogleKey = rootObj.Value<string>(nameof(GoogleKey)) ?? "";
+                ParallelDownloadsCount = rootObj.Value<int>(nameof(ParallelDownloadsCount));
+                OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir)) ?? "";
+                MinOsuImageByteSize = rootObj.Value<long>(nameof(MinOsuImageByteSize));
+            }
+            catch (JsonException e)
+            {
+                throw new SettingsLoadException("Error on set settings from json object.", e);
+            }
         }
 
-        public void Save()
-        {
-            // todo handle exceptions
-            var jSettings = GetSettingsAsJObject();
-            _settingsJsonLoader.Save(ArtworksSearcherSettingsPath, jSettings);
-        }
-
-        private void SetSettingsFromJObject(JToken rootObj)
-        {
-            GoogleCX = rootObj.Value<string>(nameof(GoogleCX)) ?? "";
-            GoogleKey = rootObj.Value<string>(nameof(GoogleKey)) ?? "";
-            ParallelDownloadsCount = rootObj.Value<int>(nameof(ParallelDownloadsCount));
-            OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir)) ?? "";
-            MinOsuImageByteSize = rootObj.Value<long>(nameof(MinOsuImageByteSize));
-        }
-
-        private JObject GetSettingsAsJObject()
+        protected override JObject GetSettingsAsJObject()
         {
             return new JObject
             {

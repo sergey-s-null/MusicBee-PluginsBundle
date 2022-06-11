@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using MoreLinq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Root.Exceptions;
 using Root.Helpers;
 using Root.Services.Abstract;
+using Root.Settings;
 
 namespace Module.PlaylistsExporter.Settings
 {
-    public class PlaylistsExporterSettings : IPlaylistsExporterSettings
+    public class PlaylistsExporterSettings : BaseSettings, IPlaylistsExporterSettings
     {
         // todo from config
         private const string PlaylistExporterSettingsPath = "PlaylistsExporter/settings.json";
@@ -17,40 +20,31 @@ namespace Module.PlaylistsExporter.Settings
         public string PlaylistsNewDirectoryName { get; set; } = "";
         public IReadOnlyCollection<string> PlaylistsForExport { get; set; } = Array.Empty<string>();
 
-        private readonly ISettingsJsonLoader _settingsJsonLoader;
-
         public PlaylistsExporterSettings(ISettingsJsonLoader settingsJsonLoader)
+            : base(PlaylistExporterSettingsPath, settingsJsonLoader)
         {
-            _settingsJsonLoader = settingsJsonLoader;
         }
 
-        public void Load()
+        protected override void SetSettingsFromJObject(JObject rootObj)
         {
-            // todo handle exceptions
-            var jSettings = _settingsJsonLoader.Load(PlaylistExporterSettingsPath);
-            SetSettingsFromJObject(jSettings);
+            try
+            {
+                PlaylistsDirectoryPath = rootObj.Value<string>(nameof(PlaylistsDirectoryPath)) ?? "";
+                FilesLibraryPath = rootObj.Value<string>(nameof(FilesLibraryPath)) ?? "";
+                PlaylistsNewDirectoryName = rootObj.Value<string>(nameof(PlaylistsNewDirectoryName)) ?? "";
+                PlaylistsForExport = rootObj.Value<JArray>(nameof(PlaylistsForExport))?
+                                         .Values<string>()
+                                         .WhereNotNull()
+                                         .ToReadOnlyCollection()
+                                     ?? Array.Empty<string>();
+            }
+            catch (JsonException e)
+            {
+                throw new SettingsLoadException("Error on set settings from json object.", e);
+            }
         }
 
-        public void Save()
-        {
-            // todo handle exceptions
-            var jSettings = GetSettingsAsJObject();
-            _settingsJsonLoader.Save(PlaylistExporterSettingsPath, jSettings);
-        }
-
-        private void SetSettingsFromJObject(JToken rootObj)
-        {
-            PlaylistsDirectoryPath = rootObj.Value<string>(nameof(PlaylistsDirectoryPath)) ?? "";
-            FilesLibraryPath = rootObj.Value<string>(nameof(FilesLibraryPath)) ?? "";
-            PlaylistsNewDirectoryName = rootObj.Value<string>(nameof(PlaylistsNewDirectoryName)) ?? "";
-            PlaylistsForExport = rootObj.Value<JArray>(nameof(PlaylistsForExport))?
-                                     .Values<string>()
-                                     .WhereNotNull()
-                                     .ToReadOnlyCollection()
-                                 ?? Array.Empty<string>();
-        }
-
-        private JObject GetSettingsAsJObject()
+        protected override JObject GetSettingsAsJObject()
         {
             var playlistsForExportJArray = new JArray();
             PlaylistsForExport.ForEach(x => playlistsForExportJArray.Add(x));

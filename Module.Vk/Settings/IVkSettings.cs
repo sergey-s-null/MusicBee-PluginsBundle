@@ -1,11 +1,9 @@
-﻿namespace Module.Vk.Settings
+﻿using Root.Settings;
+
+namespace Module.Vk.Settings
 {
-    public interface IVkSettings
+    public interface IVkSettings : ISettings
     {
         string AccessToken { get; set; }
-
-        // todo with Result
-        void Load();
-        void Save();
     }
 }

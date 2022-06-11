@@ -1,42 +1,36 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Root.Exceptions;
 using Root.Services.Abstract;
+using Root.Settings;
 
 namespace Module.Vk.Settings
 {
-    public class VkSettings : IVkSettings
+    public class VkSettings : BaseSettings, IVkSettings
     {
         // todo move to configuration (like App.config)
         private const string VkSettingsPath = "Vk/settings.json";
 
         public string AccessToken { get; set; } = "";
 
-        private readonly ISettingsJsonLoader _settingsJsonLoader;
-
         public VkSettings(ISettingsJsonLoader settingsJsonLoader)
+            : base(VkSettingsPath, settingsJsonLoader)
         {
-            _settingsJsonLoader = settingsJsonLoader;
         }
 
-        public void Load()
+        protected override void SetSettingsFromJObject(JObject jSettings)
         {
-            // todo handle exceptions
-            var jSettings = _settingsJsonLoader.Load(VkSettingsPath);
-            SetSettingsFromJObject(jSettings);
+            try
+            {
+                AccessToken = jSettings.Value<string>(nameof(AccessToken)) ?? "";
+            }
+            catch (JsonException e)
+            {
+                throw new SettingsLoadException("Error on set settings from json object.", e);
+            }
         }
 
-        public void Save()
-        {
-            // todo handle exceptions
-            var jSettings = GetSettingsAsJObject();
-            _settingsJsonLoader.Save(VkSettingsPath, jSettings);
-        }
-
-        private void SetSettingsFromJObject(JToken rootObj)
-        {
-            AccessToken = rootObj.Value<string>(nameof(AccessToken)) ?? "";
-        }
-
-        private JObject GetSettingsAsJObject()
+        protected override JObject GetSettingsAsJObject()
         {
             return new JObject
             {
