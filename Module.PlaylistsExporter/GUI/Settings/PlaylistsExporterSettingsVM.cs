@@ -23,6 +23,7 @@ namespace Module.PlaylistsExporter.GUI.Settings
         public IList<PlaylistVM> Playlists { get; } = new ObservableCollection<PlaylistVM>();
 
         private RelayCommand? _applyCheckStateToSelectedCmd;
+
         public ICommand ApplyCheckStateToSelectedCmd =>
             _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
             {
@@ -36,17 +37,15 @@ namespace Module.PlaylistsExporter.GUI.Settings
                 ApplyCheckStateToSelected(triggered, selected);
             });
 
-        public bool IsLoaded => _settings.IsLoaded;
-
         private readonly IMusicBeeApi _mbApi;
-        private readonly IPlaylistsExporterSettings _settings;
-        
+        private readonly IPlaylistsExporterSettings _playlistsExporterSettings;
+
         public PlaylistsExporterSettingsVM(
-            IMusicBeeApi mbApi, 
-            IPlaylistsExporterSettings settings)
+            IMusicBeeApi mbApi,
+            IPlaylistsExporterSettings playlistsExporterSettings)
         {
             _mbApi = mbApi;
-            _settings = settings;
+            _playlistsExporterSettings = playlistsExporterSettings;
 
             SetPlaylistsInfo();
         }
@@ -55,10 +54,10 @@ namespace Module.PlaylistsExporter.GUI.Settings
         {
             var uris = _mbApi.Playlist_QueryPlaylistsEx(out var playlistPaths)
                 ? playlistPaths!.Select(x => new Uri(x)).ToReadOnlyList()
-                : _settings.PlaylistsForExport.Select(x => new Uri(x)).ToReadOnlyList();
-            
+                : _playlistsExporterSettings.PlaylistsForExport.Select(x => new Uri(x)).ToReadOnlyList();
+
             var (common, particulars) = UriHelper.SplitOnCommonAndParticulars(uris);
-            
+
             PlaylistsBasePath = common.LocalPath;
             particulars
                 .Select(x => x.ToLocalOrBackSlashPath())
@@ -67,55 +66,50 @@ namespace Module.PlaylistsExporter.GUI.Settings
                     Selected = IsPlaylistSelectedInSettings(x)
                 }));
         }
-        
+
         private static void ApplyCheckStateToSelected(PlaylistVM triggered, IReadOnlyCollection<PlaylistVM> selected)
         {
             if (!selected.Contains(triggered))
             {
                 return;
             }
-            
+
             foreach (var vkAudioVM in selected.Where(x => x != triggered))
             {
                 vkAudioVM.Selected = triggered.Selected;
             }
         }
-        
+
         public bool Load()
         {
-            if (!_settings.Load())
+            if (!_playlistsExporterSettings.Load())
             {
                 return false;
             }
-            
-            Reset();
+
+            PlaylistsDirectoryPath = _playlistsExporterSettings.PlaylistsDirectoryPath;
+            FilesLibraryPath = _playlistsExporterSettings.FilesLibraryPath;
+            PlaylistsNewDirectoryName = _playlistsExporterSettings.PlaylistsNewDirectoryName;
+            Playlists.ForEach(x => x.Selected = IsPlaylistSelectedInSettings(x.RelativePath));
             return true;
         }
 
         public bool Save()
         {
-            _settings.PlaylistsDirectoryPath = PlaylistsDirectoryPath;
-            _settings.FilesLibraryPath = FilesLibraryPath;
-            _settings.PlaylistsNewDirectoryName = PlaylistsNewDirectoryName;
-            _settings.PlaylistsForExport = Playlists
+            _playlistsExporterSettings.PlaylistsDirectoryPath = PlaylistsDirectoryPath;
+            _playlistsExporterSettings.FilesLibraryPath = FilesLibraryPath;
+            _playlistsExporterSettings.PlaylistsNewDirectoryName = PlaylistsNewDirectoryName;
+            _playlistsExporterSettings.PlaylistsForExport = Playlists
                 .Where(x => x.Selected)
                 .Select(x => PlaylistsBasePath + x.RelativePath)
                 .ToReadOnlyCollection();
 
-            return _settings.Save();
-        }
-
-        public void Reset()
-        {
-            PlaylistsDirectoryPath = _settings.PlaylistsDirectoryPath;
-            FilesLibraryPath = _settings.FilesLibraryPath;
-            PlaylistsNewDirectoryName = _settings.PlaylistsNewDirectoryName;
-            Playlists.ForEach(x => x.Selected = IsPlaylistSelectedInSettings(x.RelativePath));
+            return _playlistsExporterSettings.Save();
         }
 
         private bool IsPlaylistSelectedInSettings(string playlistRelativePath)
         {
-            return _settings.PlaylistsForExport.Contains(PlaylistsBasePath + playlistRelativePath);
+            return _playlistsExporterSettings.PlaylistsForExport.Contains(PlaylistsBasePath + playlistRelativePath);
         }
     }
 }

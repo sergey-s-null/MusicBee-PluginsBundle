@@ -1,22 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using MusicBeePlugin.GUI.AbstractViewModels;
 using PropertyChanged;
-using Root.MVVM;
 
 namespace MusicBeePlugin.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class SettingsDialogVM : ISettingsDialogVM
     {
-        public bool IsLoaded => SettingsModules.All(s => s.ModuleSettings.IsLoaded);
-
         public IVkSettingsVM VkSettingsVM { get; }
         public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
         public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
@@ -25,10 +21,6 @@ namespace MusicBeePlugin.GUI.ViewModels
         public IList<IModuleSettingsVM> SettingsModules { get; } = new ObservableCollection<IModuleSettingsVM>();
 
         public IModuleSettingsVM SelectedSettingsModule { get; set; }
-        
-        private RelayCommand? _resetCmd;
-        public ICommand ResetCmd
-            => _resetCmd ??= new RelayCommand(_ => Reset());
         
         public SettingsDialogVM(
             IVkSettingsVM vkSettingsVM,
@@ -55,7 +47,8 @@ namespace MusicBeePlugin.GUI.ViewModels
             Load();
         }
 
-        public bool Load()
+        // todo remake
+        private bool Load()
         {
             return SettingsModules
                 .All(setting => setting.ModuleSettings.Load());
@@ -72,14 +65,6 @@ namespace MusicBeePlugin.GUI.ViewModels
             }
 
             return true;
-        }
-
-        public void Reset()
-        {
-            foreach (var setting in SettingsModules)
-            {
-                setting.ModuleSettings.Reset();
-            }
         }
     }
 }

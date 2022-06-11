@@ -18,8 +18,6 @@ namespace MusicBeePlugin.GUI.DesignTimeViewModels
     [AddINotifyPropertyChangedInterface]
     public class SettingsDialogDTVM : ISettingsDialogVM
     {
-        public bool IsLoaded => true;
-
         public IVkSettingsVM VkSettingsVM { get; }
         public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
         public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }

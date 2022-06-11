@@ -1,10 +1,10 @@
-﻿using Root.Abstractions;
+﻿using Root.GUI.AbstractViewModels;
 
 namespace MusicBeePlugin.GUI.AbstractViewModels
 {
     public interface IModuleSettingsVM
     {
         public string ModuleName { get; }
-        public ISettings ModuleSettings { get; }
+        public IBaseSettingsVM ModuleSettings { get; }
     }
 }

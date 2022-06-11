@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using Root.Abstractions;
+using Root.GUI.AbstractViewModels;
 
 namespace Module.PlaylistsExporter.GUI.Settings
 {
-    public interface IPlaylistsExporterSettingsVM : ISettings
+    public interface IPlaylistsExporterSettingsVM : IBaseSettingsVM
     {
         string PlaylistsDirectoryPath { get; set; }
         string FilesLibraryPath { get; set; }

@@ -8,8 +8,6 @@ namespace Module.Vk.GUI.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VkSettingsVM : IVkSettingsVM
     {
-        public bool IsLoaded => _vkSettings.IsLoaded;
-
         public string AccessToken { get; set; } = "";
 
         private readonly IVkSettings _vkSettings;
@@ -26,7 +24,7 @@ namespace Module.Vk.GUI.ViewModels
                 return false;
             }
 
-            Reset();
+            AccessToken = _vkSettings.AccessToken;
             return true;
         }
 
@@ -45,11 +43,6 @@ namespace Module.Vk.GUI.ViewModels
             }
 
             return true;
-        }
-
-        public void Reset()
-        {
-            AccessToken = _vkSettings.AccessToken;
         }
     }
 }

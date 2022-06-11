@@ -6,66 +6,63 @@ using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.Settings
 {
-    // TODO проверку ввода с помощью интерфейса
     [AddINotifyPropertyChangedInterface]
     public class ArtworksSearcherSettingsVM : IArtworksSearcherSettingsVM
     {
         public string GoogleCX { get; set; } = "";
         public string GoogleKey { get; set; } = "";
-        public int MaxParallelDownloadsCount => _settings.MaxParallelDownloadsCount;
         public int ParallelDownloadsCount { get; set; } = 1;
         public string OsuSongsDir { get; set; } = "";
         public long MinOsuImageByteSize { get; set; }
 
         private ICommand? _changeOsuSongsDirCmd;
+
         public ICommand ChangeOsuSongsDirCmd =>
             _changeOsuSongsDirCmd ??= new RelayCommand(_ => ChangeOsuSongsDir());
-        
-        public bool IsLoaded => _settings.IsLoaded;
 
-        private readonly IArtworksSearcherSettings _settings;
+        private readonly IArtworksSearcherSettings _artworksSearcherSettings;
 
-        public ArtworksSearcherSettingsVM(IArtworksSearcherSettings settings)
+        public ArtworksSearcherSettingsVM(IArtworksSearcherSettings artworksSearcherSettings)
         {
-            _settings = settings;
+            _artworksSearcherSettings = artworksSearcherSettings;
         }
-        
+
         public bool Load()
         {
-            if (!_settings.Load())
+            if (!_artworksSearcherSettings.Load())
             {
                 return false;
             }
-            
+
             Reset();
             return true;
         }
 
         public bool Save()
         {
-            _settings.GoogleCX = GoogleCX;
-            _settings.GoogleKey = GoogleKey;
-            _settings.ParallelDownloadsCount = ParallelDownloadsCount;
-            _settings.OsuSongsDir = OsuSongsDir;
-            _settings.MinOsuImageByteSize = MinOsuImageByteSize;
-            
-            if (_settings.Save()) return true;
-            
+            _artworksSearcherSettings.GoogleCX = GoogleCX;
+            _artworksSearcherSettings.GoogleKey = GoogleKey;
+            _artworksSearcherSettings.ParallelDownloadsCount = ParallelDownloadsCount;
+            _artworksSearcherSettings.OsuSongsDir = OsuSongsDir;
+            _artworksSearcherSettings.MinOsuImageByteSize = MinOsuImageByteSize;
+
+            if (_artworksSearcherSettings.Save()) return true;
+
             // TODO вероятно здесь не нужен диалог
             MessageBox.Show("Error save settings.");
-            
+
             return false;
         }
 
         public void Reset()
         {
-            GoogleCX = _settings.GoogleCX;
-            GoogleKey = _settings.GoogleKey;
-            ParallelDownloadsCount = _settings.ParallelDownloadsCount;
-            OsuSongsDir = _settings.OsuSongsDir;
-            MinOsuImageByteSize = _settings.MinOsuImageByteSize;
+            GoogleCX = _artworksSearcherSettings.GoogleCX;
+            GoogleKey = _artworksSearcherSettings.GoogleKey;
+            ParallelDownloadsCount = _artworksSearcherSettings.ParallelDownloadsCount;
+            OsuSongsDir = _artworksSearcherSettings.OsuSongsDir;
+            MinOsuImageByteSize = _artworksSearcherSettings.MinOsuImageByteSize;
         }
-        
+
         private void ChangeOsuSongsDir()
         {
             // TODO 

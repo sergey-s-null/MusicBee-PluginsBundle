@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Input;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
-using Root.Abstractions;
 
 namespace MusicBeePlugin.GUI.AbstractViewModels
 {
-    public interface ISettingsDialogVM : ISettings
+    public interface ISettingsDialogVM
     {
         IVkSettingsVM VkSettingsVM { get; }
         IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
@@ -17,6 +15,5 @@ namespace MusicBeePlugin.GUI.AbstractViewModels
 
         IList<IModuleSettingsVM> SettingsModules { get; }
         IModuleSettingsVM SelectedSettingsModule { get; set; }
-        ICommand ResetCmd { get; }
     }
 }

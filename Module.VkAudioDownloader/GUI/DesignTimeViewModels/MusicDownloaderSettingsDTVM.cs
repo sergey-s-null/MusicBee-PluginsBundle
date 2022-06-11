@@ -7,7 +7,6 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
 {
     public class MusicDownloaderSettingsDTVM : IMusicDownloaderSettingsVM
     {
-        public bool IsLoaded => true;
         public string DownloadDirTemplate { get; set; } = @"D:\Path\To\Directory\<i1>\<i2>";
         public string FileNameTemplate { get; set; } = "<artist> - <title>";
         public string AvailableTags => "<i1>; <i2>; <artist>; <title>";
@@ -23,11 +22,6 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
         }
 
         public bool Save()
-        {
-            throw new NotSupportedException();
-        }
-
-        public void Reset()
         {
             throw new NotSupportedException();
         }

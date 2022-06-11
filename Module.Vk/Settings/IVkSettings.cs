@@ -1,9 +1,11 @@
-﻿using Root.Abstractions;
-
-namespace Module.Vk.Settings
+﻿namespace Module.Vk.Settings
 {
-    public interface IVkSettings : ISettings
+    public interface IVkSettings
     {
         string AccessToken { get; set; }
+
+        // todo with Result
+        bool Load();
+        bool Save();
     }
 }

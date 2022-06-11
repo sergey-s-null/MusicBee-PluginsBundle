@@ -6,8 +6,10 @@ using Root.Services.Abstract;
 
 namespace Root.Abstractions
 {
-    public abstract class BaseSettings : ISettings
+    // todo переработать через сервис
+    public abstract class BaseSettings
     {
+        // todo переделать или удалить
         public bool IsLoaded { get; private set; }
         
         private readonly IResourceManager _resourceManager;
@@ -92,11 +94,5 @@ namespace Root.Abstractions
         }
         
         protected abstract JObject PropertiesToJObject();
-
-        public void Reset()
-        {
-            // TODO возможно, стоит не читать файл, а восстанавливать с предыдущего чтения
-            Load();
-        }
     }
 }

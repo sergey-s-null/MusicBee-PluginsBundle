@@ -10,7 +10,6 @@ using Root.MVVM;
 
 namespace Module.VkAudioDownloader.GUI.ViewModels
 {
-    // TODO turn on Fody
     [AddINotifyPropertyChangedInterface]
     public class MusicDownloaderSettingsVM : IMusicDownloaderSettingsVM
     {
@@ -40,16 +39,14 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
                 if (arg is Window ownerWindow)
                     ChangeDownloadDirectory(ownerWindow);
             });
-        
-        public bool IsLoaded => _settings.IsLoaded;
 
-        private readonly IMusicDownloaderSettings _settings;
+        private readonly IMusicDownloaderSettings _musicDownloaderSettings;
 
         private readonly MBTagReplacer _replacer = new();
 
-        public MusicDownloaderSettingsVM(IMusicDownloaderSettings settings)
+        public MusicDownloaderSettingsVM(IMusicDownloaderSettings musicDownloaderSettings)
         {
-            _settings = settings;
+            _musicDownloaderSettings = musicDownloaderSettings;
             
             var openBracket = MBTagReplacer.OpenBracket;
             var closeBracket = MBTagReplacer.CloseBracket;
@@ -68,7 +65,7 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         
         public bool Load()
         {
-            if (!_settings.Load())
+            if (!_musicDownloaderSettings.Load())
             {
                 return false;
             }
@@ -79,10 +76,10 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
 
         public bool Save()
         {
-            _settings.DownloadDirTemplate = DownloadDirTemplate;
-            _settings.FileNameTemplate = FileNameTemplate;
+            _musicDownloaderSettings.DownloadDirTemplate = DownloadDirTemplate;
+            _musicDownloaderSettings.FileNameTemplate = FileNameTemplate;
             
-            if (_settings.Save()) return true;
+            if (_musicDownloaderSettings.Save()) return true;
             
             // TODO вероятно здесь не нужен диалог
             MessageBox.Show("Error save settings.");
@@ -92,8 +89,8 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
 
         public void Reset()
         {
-            DownloadDirTemplate = _settings.DownloadDirTemplate;
-            FileNameTemplate = _settings.FileNameTemplate;
+            DownloadDirTemplate = _musicDownloaderSettings.DownloadDirTemplate;
+            FileNameTemplate = _musicDownloaderSettings.FileNameTemplate;
         }
 
         private void ChangeDownloadDirectory(Window ownerWindow)
