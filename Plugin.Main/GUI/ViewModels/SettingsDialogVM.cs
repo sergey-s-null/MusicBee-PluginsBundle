@@ -47,7 +47,6 @@ namespace MusicBeePlugin.GUI.ViewModels
             Load();
         }
 
-        // todo remake
         private void Load()
         {
             foreach (var moduleSettingsVM in SettingsModules)
@@ -60,6 +59,7 @@ namespace MusicBeePlugin.GUI.ViewModels
         {
             foreach (var setting in SettingsModules)
             {
+                // todo handle exception
                 setting.ModuleSettings.Save();
             }
 
