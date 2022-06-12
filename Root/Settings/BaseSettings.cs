@@ -16,6 +16,8 @@ namespace Root.Settings
         {
             _settingsPath = settingsPath;
             _settingsJsonLoader = settingsJsonLoader;
+
+            Load();
         }
 
         public void Load()
