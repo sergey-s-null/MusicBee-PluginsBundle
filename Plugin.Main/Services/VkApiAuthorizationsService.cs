@@ -59,8 +59,8 @@ namespace MusicBeePlugin.Services
         private static bool ContinueWithAuthorizationDialog(Exception e)
         {
             var dialogResult = MessageBox.Show(
-                "Got error on authorization with access token from settings.\n" +
-                $"Error message: \"{e.Message}\".\n\n" +
+                "Got error on authorization with access token from settings.\n\n" +
+                $"{e}\n\n" +
                 "Continue with dialog authorization?",
                 "?",
                 MessageBoxButton.YesNo
