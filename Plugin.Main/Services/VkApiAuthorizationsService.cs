@@ -35,6 +35,7 @@ namespace MusicBeePlugin.Services
             try
             {
                 _vkApi.AuthorizeWithValidation(_vkSettings.AccessToken);
+                return true;
             }
             catch (ArgumentException e)
             {
