@@ -21,7 +21,7 @@ namespace Root.Services
         private string GetRootPath()
         {
             var dataPath = _musicBeeApi.Setting_GetPersistentStoragePath();
-            
+
             return Path.Combine(dataPath, ResourcesHelper.RootDirectoryPath);
         }
 
@@ -40,13 +40,13 @@ namespace Root.Services
                 Directory.Delete(_rootPath, true);
             }
         }
-        
+
         public Stream? OpenRead(string resourceRelativePath)
         {
             var resourceFullPath = GetResourceFullPath(resourceRelativePath);
-            
-            return File.Exists(resourceFullPath) 
-                ? File.OpenRead(resourceFullPath) 
+
+            return File.Exists(resourceFullPath)
+                ? File.OpenRead(resourceFullPath)
                 : null;
         }
 
@@ -58,8 +58,8 @@ namespace Root.Services
             {
                 fileInfo.Directory.Create();
             }
-            
-            return File.OpenWrite(fileInfo.FullName);
+
+            return File.Create(fileInfo.FullName);
         }
 
         private string GetResourceFullPath(string resourceRelativePath)
