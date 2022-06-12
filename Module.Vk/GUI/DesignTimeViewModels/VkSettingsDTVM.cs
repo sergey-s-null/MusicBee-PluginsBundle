@@ -8,6 +8,7 @@ namespace Module.Vk.GUI.DesignTimeViewModels
     public class VkSettingsDTVM : IVkSettingsVM
     {
         public bool Loaded => false;
+        public string LoadingErrorMessage => "Some unknown error(((";
 
         public ICommand ReloadCmd { get; } = RelayCommand.Empty;
 

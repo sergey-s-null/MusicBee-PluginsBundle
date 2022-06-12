@@ -14,6 +14,7 @@ namespace Root.GUI.ViewModels
         private ICommand? _reloadCmd;
 
         public bool Loaded { get; private set; }
+        public string LoadingErrorMessage { get; private set; } = string.Empty;
 
         private readonly ISettings _settings;
 
@@ -27,11 +28,12 @@ namespace Root.GUI.ViewModels
             try
             {
                 _settings.Load();
+                LoadingErrorMessage = string.Empty;
                 Loaded = true;
             }
-            catch (SettingsLoadException)
+            catch (SettingsLoadException e)
             {
-                // todo display error
+                LoadingErrorMessage = e.ToString();
                 Loaded = false;
             }
 

@@ -7,6 +7,7 @@ namespace Module.ArtworksSearcher.GUI.Settings
     public class ArtworksSearcherSettingsDTVM : IArtworksSearcherSettingsVM
     {
         public bool Loaded => true;
+        public string LoadingErrorMessage => "(ok)";
 
         public string GoogleCX { get; set; } = "{private google cx}";
         public string GoogleKey { get; set; } = "{private google key}";

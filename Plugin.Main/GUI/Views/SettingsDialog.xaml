@@ -27,6 +27,8 @@
                 VisibilityOnFalse="Collapsed"
                 VisibilityOnTrue="Visible" />
         </gconv:GroupConverter>
+
+        <gconv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
 
     <Grid>
@@ -96,67 +98,78 @@
                       HorizontalAlignment="Center"
                       Width="6" />
 
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <TabControl Grid.Column="2">
+            <TabItem Header="Settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <Grid
-                Row="0"
-                Visibility="{Binding SelectedSettingsModule.ModuleSettings,
-                    Converter={StaticResource SettingsVisibilityConverter},
-                    ConverterParameter={x:Type vkavm:IVkSettingsVM}}">
-                <vkviews:VkSettings
-                    DataContext="{Binding VkSettingsVM}"
-                    Margin="6" />
-            </Grid>
-            <Grid
-                Row="0"
-                Visibility="{Binding
-                    SelectedSettingsModule.ModuleSettings, 
-                    Converter={StaticResource SettingsVisibilityConverter}, 
-                    ConverterParameter={x:Type avm:IMusicDownloaderSettingsVM}}">
-                <views:MusicDownloaderSettings
-                    DataContext="{Binding MusicDownloaderSettingsVM, Mode=OneWay}" />
-            </Grid>
-            <Grid
-                Row="0"
-                Visibility="{Binding
-                    SelectedSettingsModule.ModuleSettings, 
-                    Converter={StaticResource SettingsVisibilityConverter}, 
-                    ConverterParameter={x:Type ass:IArtworksSearcherSettingsVM}}">
-                <ass:ArtworksSearcherSettings
-                    DataContext="{Binding ArtworksSearcherSettingsVM, Mode=OneWay}" />
-            </Grid>
-            <Grid
-                Row="0"
-                Visibility="{Binding
-                    SelectedSettingsModule.ModuleSettings, 
-                    Converter={StaticResource SettingsVisibilityConverter}, 
-                    ConverterParameter={x:Type pes:IPlaylistsExporterSettingsVM}}">
-                <pes:PlaylistsExporterSettings
-                    DataContext="{Binding PlaylistsExporterSettingsVM, Mode=OneWay}" />
-            </Grid>
+                    <Grid
+                        Row="0"
+                        Visibility="{Binding SelectedSettingsModule.ModuleSettings,
+                            Converter={StaticResource SettingsVisibilityConverter},
+                            ConverterParameter={x:Type vkavm:IVkSettingsVM}}">
+                        <vkviews:VkSettings
+                            DataContext="{Binding VkSettingsVM}"
+                            Margin="6" />
+                    </Grid>
+                    <Grid
+                        Row="0"
+                        Visibility="{Binding SelectedSettingsModule.ModuleSettings, 
+                            Converter={StaticResource SettingsVisibilityConverter}, 
+                            ConverterParameter={x:Type avm:IMusicDownloaderSettingsVM}}">
+                        <views:MusicDownloaderSettings
+                            DataContext="{Binding MusicDownloaderSettingsVM, Mode=OneWay}" />
+                    </Grid>
+                    <Grid
+                        Row="0"
+                        Visibility="{Binding SelectedSettingsModule.ModuleSettings, 
+                            Converter={StaticResource SettingsVisibilityConverter}, 
+                            ConverterParameter={x:Type ass:IArtworksSearcherSettingsVM}}">
+                        <ass:ArtworksSearcherSettings
+                            DataContext="{Binding ArtworksSearcherSettingsVM, Mode=OneWay}" />
+                    </Grid>
+                    <Grid
+                        Row="0"
+                        Visibility="{Binding SelectedSettingsModule.ModuleSettings, 
+                            Converter={StaticResource SettingsVisibilityConverter}, 
+                            ConverterParameter={x:Type pes:IPlaylistsExporterSettingsVM}}">
+                        <pes:PlaylistsExporterSettings
+                            DataContext="{Binding PlaylistsExporterSettingsVM, Mode=OneWay}" />
+                    </Grid>
 
-            <Grid Grid.Row="1">
-                <Grid.Resources>
-                    <Style TargetType="Button">
-                        <Setter Property="Margin" Value="10 6" />
-                        <Setter Property="Padding" Value="8 2" />
-                        <Setter Property="VerticalAlignment" Value="Bottom" />
-                    </Style>
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Margin" Value="10 6" />
+                                <Setter Property="Padding" Value="8 2" />
+                                <Setter Property="VerticalAlignment" Value="Bottom" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="1" Content="Ok" Click="Ok_Click" />
-                <Button Grid.Column="2" Content="Cancel" IsCancel="True" IsDefault="True" />
-            </Grid>
-        </Grid>
+                        <Button Grid.Column="1" Content="Ok" Click="Ok_Click" />
+                        <Button Grid.Column="2" Content="Cancel" IsCancel="True" IsDefault="True" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Loading error"
+                     IsEnabled="{Binding SelectedSettingsModule.ModuleSettings.Loaded, 
+                        Converter={StaticResource InverseBooleanConverter}}">
+                <TextBox
+                    AcceptsReturn="True"
+                    IsReadOnly="True"
+                    Text="{Binding SelectedSettingsModule.ModuleSettings.LoadingErrorMessage, Mode=OneWay}" />
+            </TabItem>
+        </TabControl>
+
 
     </Grid>
 </Window>

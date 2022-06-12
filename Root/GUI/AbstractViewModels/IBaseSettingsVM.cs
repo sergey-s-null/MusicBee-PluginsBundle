@@ -8,6 +8,7 @@ namespace Root.GUI.AbstractViewModels
         ICommand ReloadCmd { get; }
 
         bool Loaded { get; }
+        string LoadingErrorMessage { get; }
 
         void Load();
 

@@ -8,6 +8,7 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
     public class MusicDownloaderSettingsDTVM : IMusicDownloaderSettingsVM
     {
         public bool Loaded => true;
+        public string LoadingErrorMessage => "(no error)";
 
         public string DownloadDirTemplate { get; set; } = @"D:\Path\To\Directory\<i1>\<i2>";
         public string FileNameTemplate { get; set; } = "<artist> - <title>";
