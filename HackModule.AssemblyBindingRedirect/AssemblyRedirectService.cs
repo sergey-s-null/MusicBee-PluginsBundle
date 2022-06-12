@@ -28,16 +28,29 @@ namespace HackModule.AssemblyBindingRedirect
 
         private static Assembly? ResolveHandler(object sender, ResolveEventArgs eventArgs)
         {
-            var shortName = new AssemblyName(eventArgs.Name).Name;
+            var assemblyName = new AssemblyName(eventArgs.Name);
 
-            if (!AssembliesToRedirect.Contains(shortName))
+            if (!IsRedirect(assemblyName))
             {
                 return null;
             }
 
-            var dllPath = Path.Combine(Environment.CurrentDirectory, "Plugins", $"{shortName}.dll");
+            var dllPath = Path.Combine(Environment.CurrentDirectory, "Plugins", $"{assemblyName.Name}.dll");
 
             return Assembly.LoadFile(dllPath);
+        }
+
+        private static bool IsRedirect(AssemblyName assemblyName)
+        {
+            var shortName = assemblyName.Name;
+
+            if (shortName is null)
+            {
+                return false;
+            }
+
+            return !shortName.EndsWith("resources")
+                   && (AssembliesToRedirect.Contains(shortName) || shortName.StartsWith("MahApps.Metro.IconPacks."));
         }
     }
 }

@@ -166,6 +166,177 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="MahApps.Metro.IconPacks">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.BootstrapIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.BootstrapIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.BoxIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.BoxIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Codicons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Codicons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Coolicons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Coolicons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Core">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Entypo">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Entypo.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.EvaIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.EvaIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.FeatherIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.FeatherIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.FileIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.FileIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.FontAwesome">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.FontAwesome.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Fontaudio">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Fontaudio.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Fontisto">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Fontisto.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.ForkAwesome">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.ForkAwesome.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Ionicons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Ionicons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.JamIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.JamIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Material">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Material.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.MaterialDesign">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.MaterialDesign.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.MaterialLight">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.MaterialLight.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Microns">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Microns.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Modern">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Modern.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Octicons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Octicons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.PicolIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.PicolIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.PixelartIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.PixelartIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.RPGAwesome">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.RPGAwesome.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.RadixIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.RadixIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.RemixIcon">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.RemixIcon.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.SimpleIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.SimpleIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Typicons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Typicons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Unicons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Unicons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.VaadinIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.VaadinIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.WeatherIcons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.WeatherIcons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Zondicons">
+          <HintPath>..\packages\netframework\MahApps.Metro.IconPacks\lib\net47\MahApps.Metro.IconPacks.Zondicons.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
         <Reference Include="Microsoft.Bcl.AsyncInterfaces">
           <HintPath>..\packages\netframework\Microsoft.Bcl.AsyncInterfaces\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
           <Private>True</Private>

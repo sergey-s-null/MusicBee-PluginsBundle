@@ -16,7 +16,7 @@ framework: net472
     nuget Google.Protobuf
     // костыль понадобился из-за того, что ServiceCollection определен в двух зависящих сборках и в одном пространстве имен
     nuget Microsoft.Extensions.DependencyInjection.Abstractions 5.0
-
+    nuget MahApps.Metro.IconPacks
 
 
 group MBApiProtoGenerator

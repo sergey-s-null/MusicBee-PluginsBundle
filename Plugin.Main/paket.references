@@ -6,3 +6,4 @@ group NetFramework
     WindowsAPICodePack
     VkNet
     System.Collections.Immutable
+    MahApps.Metro.IconPacks
