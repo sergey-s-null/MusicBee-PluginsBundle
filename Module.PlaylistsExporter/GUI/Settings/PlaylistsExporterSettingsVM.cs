@@ -6,7 +6,7 @@ using System.Windows.Input;
 using Module.PlaylistsExporter.Settings;
 using MoreLinq;
 using PropertyChanged;
-using Root.Exceptions;
+using Root.GUI.ViewModels;
 using Root.Helpers;
 using Root.MusicBeeApi.Abstract;
 using Root.MVVM;
@@ -14,10 +14,8 @@ using Root.MVVM;
 namespace Module.PlaylistsExporter.GUI.Settings
 {
     [AddINotifyPropertyChangedInterface]
-    public class PlaylistsExporterSettingsVM : IPlaylistsExporterSettingsVM
+    public class PlaylistsExporterSettingsVM : BaseSettingsVM, IPlaylistsExporterSettingsVM
     {
-        public bool Loaded { get; private set; }
-
         public string PlaylistsDirectoryPath { get; set; } = "";
         public string FilesLibraryPath { get; set; } = "";
         public string PlaylistsNewDirectoryName { get; set; } = "";
@@ -46,11 +44,31 @@ namespace Module.PlaylistsExporter.GUI.Settings
         public PlaylistsExporterSettingsVM(
             IMusicBeeApi mbApi,
             IPlaylistsExporterSettings playlistsExporterSettings)
+            : base(playlistsExporterSettings)
         {
             _mbApi = mbApi;
             _playlistsExporterSettings = playlistsExporterSettings;
 
             SetPlaylistsInfo();
+        }
+
+        protected override void SetSettingsFromInnerServiceToViewModel()
+        {
+            PlaylistsDirectoryPath = _playlistsExporterSettings.PlaylistsDirectoryPath;
+            FilesLibraryPath = _playlistsExporterSettings.FilesLibraryPath;
+            PlaylistsNewDirectoryName = _playlistsExporterSettings.PlaylistsNewDirectoryName;
+            Playlists.ForEach(x => x.Selected = IsPlaylistSelectedInSettings(x.RelativePath));
+        }
+
+        protected override void SetSettingsFromViewModelToInnerService()
+        {
+            _playlistsExporterSettings.PlaylistsDirectoryPath = PlaylistsDirectoryPath;
+            _playlistsExporterSettings.FilesLibraryPath = FilesLibraryPath;
+            _playlistsExporterSettings.PlaylistsNewDirectoryName = PlaylistsNewDirectoryName;
+            _playlistsExporterSettings.PlaylistsForExport = Playlists
+                .Where(x => x.Selected)
+                .Select(x => PlaylistsBasePath + x.RelativePath)
+                .ToReadOnlyCollection();
         }
 
         private void SetPlaylistsInfo()
@@ -81,38 +99,6 @@ namespace Module.PlaylistsExporter.GUI.Settings
             {
                 vkAudioVM.Selected = triggered.Selected;
             }
-        }
-
-        public void Load()
-        {
-            try
-            {
-                _playlistsExporterSettings.Load();
-                Loaded = true;
-            }
-            catch (SettingsLoadException)
-            {
-                // todo display error
-                Loaded = false;
-            }
-
-            PlaylistsDirectoryPath = _playlistsExporterSettings.PlaylistsDirectoryPath;
-            FilesLibraryPath = _playlistsExporterSettings.FilesLibraryPath;
-            PlaylistsNewDirectoryName = _playlistsExporterSettings.PlaylistsNewDirectoryName;
-            Playlists.ForEach(x => x.Selected = IsPlaylistSelectedInSettings(x.RelativePath));
-        }
-
-        public void Save()
-        {
-            _playlistsExporterSettings.PlaylistsDirectoryPath = PlaylistsDirectoryPath;
-            _playlistsExporterSettings.FilesLibraryPath = FilesLibraryPath;
-            _playlistsExporterSettings.PlaylistsNewDirectoryName = PlaylistsNewDirectoryName;
-            _playlistsExporterSettings.PlaylistsForExport = Playlists
-                .Where(x => x.Selected)
-                .Select(x => PlaylistsBasePath + x.RelativePath)
-                .ToReadOnlyCollection();
-
-            _playlistsExporterSettings.Save();
         }
 
         private bool IsPlaylistSelectedInSettings(string playlistRelativePath)

@@ -6,16 +6,14 @@ using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
-using Root.Exceptions;
+using Root.GUI.ViewModels;
 using Root.MVVM;
 
 namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class MusicDownloaderSettingsVM : IMusicDownloaderSettingsVM
+    public class MusicDownloaderSettingsVM : BaseSettingsVM, IMusicDownloaderSettingsVM
     {
-        public bool Loaded { get; private set; }
-
         [OnChangedMethod(nameof(OnDownloadDirTemplateChanged))]
         public string DownloadDirTemplate { get; set; } = "";
 
@@ -51,6 +49,7 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         private readonly MBTagReplacer _replacer = new();
 
         public MusicDownloaderSettingsVM(IMusicDownloaderSettings musicDownloaderSettings)
+            : base(musicDownloaderSettings)
         {
             _musicDownloaderSettings = musicDownloaderSettings;
 
@@ -69,29 +68,16 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
             DownloadDirCheck = _replacer.Prepare(DownloadDirTemplate);
         }
 
-        public void Load()
+        protected override void SetSettingsFromInnerServiceToViewModel()
         {
-            try
-            {
-                _musicDownloaderSettings.Load();
-                Loaded = true;
-            }
-            catch (SettingsLoadException)
-            {
-                // todo display error
-                Loaded = false;
-            }
-
             DownloadDirTemplate = _musicDownloaderSettings.DownloadDirTemplate;
             FileNameTemplate = _musicDownloaderSettings.FileNameTemplate;
         }
 
-        public void Save()
+        protected override void SetSettingsFromViewModelToInnerService()
         {
             _musicDownloaderSettings.DownloadDirTemplate = DownloadDirTemplate;
             _musicDownloaderSettings.FileNameTemplate = FileNameTemplate;
-
-            _musicDownloaderSettings.Save();
         }
 
         private void ChangeDownloadDirectory(Window ownerWindow)

@@ -1,9 +1,12 @@
-﻿using Root.Exceptions;
+﻿using System.Windows.Input;
+using Root.Exceptions;
 
 namespace Root.GUI.AbstractViewModels
 {
     public interface IBaseSettingsVM
     {
+        ICommand ReloadCmd { get; }
+
         bool Loaded { get; }
 
         void Load();

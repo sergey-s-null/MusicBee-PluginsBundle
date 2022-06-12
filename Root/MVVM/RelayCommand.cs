@@ -30,5 +30,8 @@ namespace Root.MVVM
         {
             _execute(parameter);
         }
+        
+        // Static methods
+        public static RelayCommand Empty => new RelayCommand(_ => { });
     }
 }

@@ -1,45 +1,31 @@
 ﻿using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.Settings;
 using PropertyChanged;
-using Root.Exceptions;
+using Root.GUI.ViewModels;
 
 namespace Module.Vk.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class VkSettingsVM : IVkSettingsVM
+    public class VkSettingsVM : BaseSettingsVM, IVkSettingsVM
     {
-        public bool Loaded { get; private set; }
-
         public string AccessToken { get; set; } = "";
 
         private readonly IVkSettings _vkSettings;
 
         public VkSettingsVM(IVkSettings vkSettings)
+            : base(vkSettings)
         {
             _vkSettings = vkSettings;
         }
 
-        public void Load()
+        protected override void SetSettingsFromInnerServiceToViewModel()
         {
-            try
-            {
-                _vkSettings.Load();
-                Loaded = true;
-            }
-            catch (SettingsLoadException)
-            {
-                // todo display error
-                Loaded = false;
-            }
-
             AccessToken = _vkSettings.AccessToken;
         }
 
-        public void Save()
+        protected override void SetSettingsFromViewModelToInnerService()
         {
             _vkSettings.AccessToken = AccessToken;
-
-            _vkSettings.Save();
         }
     }
 }

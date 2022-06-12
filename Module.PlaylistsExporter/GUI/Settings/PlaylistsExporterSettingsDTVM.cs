@@ -18,6 +18,8 @@ namespace Module.PlaylistsExporter.GUI.Settings
         public ICommand ApplyCheckStateToSelectedCmd { get; } =
             new RelayCommand(_ => throw new NotSupportedException());
 
+        public ICommand ReloadCmd { get; } = RelayCommand.Empty;
+
         public PlaylistsExporterSettingsDTVM()
         {
             Playlists = new[]

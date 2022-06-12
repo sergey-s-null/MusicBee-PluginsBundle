@@ -1,16 +1,14 @@
 ﻿using System.Windows.Input;
 using Module.ArtworksSearcher.Settings;
 using PropertyChanged;
-using Root.Exceptions;
+using Root.GUI.ViewModels;
 using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.Settings
 {
     [AddINotifyPropertyChangedInterface]
-    public class ArtworksSearcherSettingsVM : IArtworksSearcherSettingsVM
+    public class ArtworksSearcherSettingsVM : BaseSettingsVM, IArtworksSearcherSettingsVM
     {
-        public bool Loaded { get; private set; }
-
         public string GoogleCX { get; set; } = "";
         public string GoogleKey { get; set; } = "";
         public int ParallelDownloadsCount { get; set; } = 1;
@@ -25,23 +23,13 @@ namespace Module.ArtworksSearcher.GUI.Settings
         private readonly IArtworksSearcherSettings _artworksSearcherSettings;
 
         public ArtworksSearcherSettingsVM(IArtworksSearcherSettings artworksSearcherSettings)
+            : base(artworksSearcherSettings)
         {
             _artworksSearcherSettings = artworksSearcherSettings;
         }
 
-        public void Load()
+        protected override void SetSettingsFromInnerServiceToViewModel()
         {
-            try
-            {
-                _artworksSearcherSettings.Load();
-                Loaded = true;
-            }
-            catch (SettingsLoadException)
-            {
-                // todo display error
-                Loaded = false;
-            }
-
             GoogleCX = _artworksSearcherSettings.GoogleCX;
             GoogleKey = _artworksSearcherSettings.GoogleKey;
             ParallelDownloadsCount = _artworksSearcherSettings.ParallelDownloadsCount;
@@ -49,15 +37,13 @@ namespace Module.ArtworksSearcher.GUI.Settings
             MinOsuImageByteSize = _artworksSearcherSettings.MinOsuImageByteSize;
         }
 
-        public void Save()
+        protected override void SetSettingsFromViewModelToInnerService()
         {
             _artworksSearcherSettings.GoogleCX = GoogleCX;
             _artworksSearcherSettings.GoogleKey = GoogleKey;
             _artworksSearcherSettings.ParallelDownloadsCount = ParallelDownloadsCount;
             _artworksSearcherSettings.OsuSongsDir = OsuSongsDir;
             _artworksSearcherSettings.MinOsuImageByteSize = MinOsuImageByteSize;
-
-            _artworksSearcherSettings.Save();
         }
 
         private void ChangeOsuSongsDir()
