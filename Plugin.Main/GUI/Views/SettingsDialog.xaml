@@ -78,7 +78,10 @@
                             </iconPacks:PackIconBootstrapIcons.Style>
                         </iconPacks:PackIconBootstrapIcons>
 
-                        <Button Grid.Column="2" ToolTip="Reload">
+                        <Button
+                            Grid.Column="2"
+                            ToolTip="Reload"
+                            Command="{Binding ModuleSettings.ReloadCmd}">
                             <Button.Content>
                                 <iconPacks:PackIconBootstrapIcons Kind="ArrowRepeat" />
                             </Button.Content>
