@@ -7,6 +7,8 @@ namespace Module.PlaylistsExporter.GUI.Settings
 {
     public class PlaylistsExporterSettingsDTVM : IPlaylistsExporterSettingsVM
     {
+        public bool Loaded => false;
+
         public string PlaylistsDirectoryPath { get; set; } = @"E:\Path\To\Playlists Directory";
         public string FilesLibraryPath { get; set; } = @"E:\Library\Path";
         public string PlaylistsNewDirectoryName { get; set; } = @"DirectoryName";

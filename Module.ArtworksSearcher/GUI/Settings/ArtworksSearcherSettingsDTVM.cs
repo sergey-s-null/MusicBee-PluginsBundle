@@ -6,6 +6,8 @@ namespace Module.ArtworksSearcher.GUI.Settings
 {
     public class ArtworksSearcherSettingsDTVM : IArtworksSearcherSettingsVM
     {
+        public bool Loaded => true;
+
         public string GoogleCX { get; set; } = "{private google cx}";
         public string GoogleKey { get; set; } = "{private google key}";
         public int ParallelDownloadsCount { get; set; } = 6;

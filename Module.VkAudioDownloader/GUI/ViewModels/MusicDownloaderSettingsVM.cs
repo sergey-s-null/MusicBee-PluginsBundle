@@ -6,6 +6,7 @@ using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
+using Root.Exceptions;
 using Root.MVVM;
 
 namespace Module.VkAudioDownloader.GUI.ViewModels
@@ -13,6 +14,8 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class MusicDownloaderSettingsVM : IMusicDownloaderSettingsVM
     {
+        public bool Loaded { get; private set; }
+
         [OnChangedMethod(nameof(OnDownloadDirTemplateChanged))]
         public string DownloadDirTemplate { get; set; } = "";
 
@@ -68,7 +71,16 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
 
         public void Load()
         {
-            _musicDownloaderSettings.Load();
+            try
+            {
+                _musicDownloaderSettings.Load();
+                Loaded = true;
+            }
+            catch (SettingsLoadException)
+            {
+                // todo display error
+                Loaded = false;
+            }
 
             DownloadDirTemplate = _musicDownloaderSettings.DownloadDirTemplate;
             FileNameTemplate = _musicDownloaderSettings.FileNameTemplate;

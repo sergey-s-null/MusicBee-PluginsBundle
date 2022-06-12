@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Module.Vk.Helpers;
 using Module.Vk.Settings;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using PropertyChanged;
+using Root.Exceptions;
 using Root.MVVM;
 using VkNet.Abstractions;
 
@@ -73,7 +75,20 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
             }
 
             _vkSettings.AccessToken = _vkApi.Token;
-            _vkSettings.Save();
+
+            try
+            {
+                _vkSettings.Save();
+            }
+            catch (SettingsSaveException e)
+            {
+                MessageBox.Show(
+                    "Authorization passed, but error occurred on saving AccessToken.\n\n" + e,
+                    "Error!",
+                    MessageBoxButton.OK
+                );
+            }
+
             return true;
         }
 

@@ -1,12 +1,15 @@
 ﻿using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.Settings;
 using PropertyChanged;
+using Root.Exceptions;
 
 namespace Module.Vk.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class VkSettingsVM : IVkSettingsVM
     {
+        public bool Loaded { get; private set; }
+
         public string AccessToken { get; set; } = "";
 
         private readonly IVkSettings _vkSettings;
@@ -18,7 +21,16 @@ namespace Module.Vk.GUI.ViewModels
 
         public void Load()
         {
-            _vkSettings.Load();
+            try
+            {
+                _vkSettings.Load();
+                Loaded = true;
+            }
+            catch (SettingsLoadException)
+            {
+                // todo display error
+                Loaded = false;
+            }
 
             AccessToken = _vkSettings.AccessToken;
         }
@@ -28,16 +40,6 @@ namespace Module.Vk.GUI.ViewModels
             _vkSettings.AccessToken = AccessToken;
 
             _vkSettings.Save();
-            // todo remove later
-            // if (!_vkSettings.Save())
-            // {
-            //     MessageBox.Show(
-            //         "Vk settings was not saved.",
-            //         @"¯\_(ツ)_/¯",
-            //         MessageBoxButton.OK
-            //     );
-            //     return false;
-            // }
         }
     }
 }

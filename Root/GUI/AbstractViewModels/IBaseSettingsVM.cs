@@ -1,9 +1,14 @@
-﻿namespace Root.GUI.AbstractViewModels
+﻿using Root.Exceptions;
+
+namespace Root.GUI.AbstractViewModels
 {
     public interface IBaseSettingsVM
     {
-        // todo with exceptions?
+        bool Loaded { get; }
+
         void Load();
+
+        /// <exception cref="SettingsSaveException">Invalid value of accessToken.</exception>
         void Save();
     }
 }

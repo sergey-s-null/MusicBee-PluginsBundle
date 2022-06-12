@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Module.PlaylistsExporter.Settings;
 using MoreLinq;
 using PropertyChanged;
+using Root.Exceptions;
 using Root.Helpers;
 using Root.MusicBeeApi.Abstract;
 using Root.MVVM;
@@ -15,6 +16,8 @@ namespace Module.PlaylistsExporter.GUI.Settings
     [AddINotifyPropertyChangedInterface]
     public class PlaylistsExporterSettingsVM : IPlaylistsExporterSettingsVM
     {
+        public bool Loaded { get; private set; }
+
         public string PlaylistsDirectoryPath { get; set; } = "";
         public string FilesLibraryPath { get; set; } = "";
         public string PlaylistsNewDirectoryName { get; set; } = "";
@@ -82,7 +85,16 @@ namespace Module.PlaylistsExporter.GUI.Settings
 
         public void Load()
         {
-            _playlistsExporterSettings.Load();
+            try
+            {
+                _playlistsExporterSettings.Load();
+                Loaded = true;
+            }
+            catch (SettingsLoadException)
+            {
+                // todo display error
+                Loaded = false;
+            }
 
             PlaylistsDirectoryPath = _playlistsExporterSettings.PlaylistsDirectoryPath;
             FilesLibraryPath = _playlistsExporterSettings.FilesLibraryPath;

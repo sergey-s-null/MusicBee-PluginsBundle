@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Module.ArtworksSearcher.Settings;
 using PropertyChanged;
+using Root.Exceptions;
 using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.Settings
@@ -8,6 +9,8 @@ namespace Module.ArtworksSearcher.GUI.Settings
     [AddINotifyPropertyChangedInterface]
     public class ArtworksSearcherSettingsVM : IArtworksSearcherSettingsVM
     {
+        public bool Loaded { get; private set; }
+
         public string GoogleCX { get; set; } = "";
         public string GoogleKey { get; set; } = "";
         public int ParallelDownloadsCount { get; set; } = 1;
@@ -28,7 +31,16 @@ namespace Module.ArtworksSearcher.GUI.Settings
 
         public void Load()
         {
-            _artworksSearcherSettings.Load();
+            try
+            {
+                _artworksSearcherSettings.Load();
+                Loaded = true;
+            }
+            catch (SettingsLoadException)
+            {
+                // todo display error
+                Loaded = false;
+            }
 
             GoogleCX = _artworksSearcherSettings.GoogleCX;
             GoogleKey = _artworksSearcherSettings.GoogleKey;
