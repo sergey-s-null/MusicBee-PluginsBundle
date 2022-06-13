@@ -25,7 +25,7 @@ namespace Module.ArtworksSearcher.GUI.Settings
             throw new NotSupportedException();
         }
 
-        public void Save()
+        public bool Save()
         {
             throw new NotSupportedException();
         }

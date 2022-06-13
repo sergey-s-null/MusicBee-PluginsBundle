@@ -19,9 +19,13 @@
         <Style TargetType="ToggleButton">
             <Setter Property="Padding" Value="4 0" />
         </Style>
+
+        <Style x:Key="SettingsBlock" TargetType="Grid">
+            <Setter Property="Margin" Value="0 4" />
+        </Style>
     </StackPanel.Resources>
 
-    <Grid>
+    <Grid Style="{StaticResource SettingsBlock}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition />
@@ -43,5 +47,16 @@
             x:Name="IsEditAccessTokenToggleButton"
             Grid.Column="2"
             Content="Edit" />
+    </Grid>
+
+    <Grid Style="{StaticResource SettingsBlock}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="User id:" />
+
+        <TextBox Grid.Column="1" Text="{Binding UserId}" />
     </Grid>
 </StackPanel>

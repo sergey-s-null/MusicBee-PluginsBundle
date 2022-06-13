@@ -75,7 +75,7 @@ namespace Module.PlaylistsExporter.GUI.Settings
             throw new NotSupportedException();
         }
 
-        public void Save()
+        public bool Save()
         {
             throw new NotSupportedException();
         }

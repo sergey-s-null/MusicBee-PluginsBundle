@@ -11,7 +11,8 @@ namespace Module.Vk.Settings
         // todo move to configuration (like App.config)
         private const string VkSettingsPath = "Vk/settings.json";
 
-        public string AccessToken { get; set; } = "";
+        public string AccessToken { get; set; } = string.Empty;
+        public long UserId { get; set; }
 
         public VkSettings(ISettingsJsonLoader settingsJsonLoader)
             : base(VkSettingsPath, settingsJsonLoader)
@@ -22,7 +23,8 @@ namespace Module.Vk.Settings
         {
             try
             {
-                AccessToken = jSettings.Value<string>(nameof(AccessToken)) ?? "";
+                AccessToken = jSettings.Value<string>(nameof(AccessToken)) ?? string.Empty;
+                UserId = jSettings.Value<long>(nameof(UserId));
             }
             catch (JsonException e)
             {
@@ -34,7 +36,8 @@ namespace Module.Vk.Settings
         {
             return new JObject
             {
-                [nameof(AccessToken)] = AccessToken
+                [nameof(AccessToken)] = AccessToken,
+                [nameof(UserId)] = UserId
             };
         }
     }

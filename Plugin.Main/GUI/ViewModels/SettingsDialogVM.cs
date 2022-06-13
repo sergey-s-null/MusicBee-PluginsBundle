@@ -57,13 +57,17 @@ namespace MusicBeePlugin.GUI.ViewModels
             }
         }
 
+        /// <returns>true - settings window can be closed. false - continue edit settings.</returns>
         public bool Save()
         {
             foreach (var setting in SettingsModules)
             {
                 try
                 {
-                    setting.ModuleSettings.Save();
+                    if (!setting.ModuleSettings.Save())
+                    {
+                        return false;
+                    }
                 }
                 catch (SettingsSaveException e)
                 {

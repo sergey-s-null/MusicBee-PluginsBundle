@@ -26,7 +26,7 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
             throw new NotSupportedException();
         }
 
-        public void Save()
+        public bool Save()
         {
             throw new NotSupportedException();
         }

@@ -13,13 +13,14 @@ namespace Module.Vk.GUI.DesignTimeViewModels
         public ICommand ReloadCmd { get; } = RelayCommand.Empty;
 
         public string AccessToken { get; set; } = "{private access token}";
+        public string UserId { get; set; } = "1238769901";
 
         public void Load()
         {
             throw new NotSupportedException();
         }
 
-        public void Save()
+        public bool Save()
         {
             throw new NotSupportedException();
         }

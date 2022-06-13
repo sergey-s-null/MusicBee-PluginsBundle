@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using PropertyChanged;
 using Root.Exceptions;
 using Root.GUI.AbstractViewModels;
@@ -40,15 +41,24 @@ namespace Root.GUI.ViewModels
             SetSettingsFromInnerServiceToViewModel();
         }
 
-        public void Save()
+        public bool Save()
         {
-            SetSettingsFromViewModelToInnerService();
+            try
+            {
+                SetSettingsFromViewModelToInnerService();
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
 
             _settings.Save();
+            return true;
         }
 
         protected abstract void SetSettingsFromInnerServiceToViewModel();
 
+        /// <exception cref="ArgumentException">Error on set values to inner settings service.</exception>
         protected abstract void SetSettingsFromViewModelToInnerService();
     }
 }

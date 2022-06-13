@@ -8,11 +8,13 @@ namespace Root.GUI.AbstractViewModels
         ICommand ReloadCmd { get; }
 
         bool Loaded { get; }
+
         string LoadingErrorMessage { get; }
 
         void Load();
 
+        /// <returns>true - settings saved successfully. false - user-side error occurred, saving cancelled.</returns>
         /// <exception cref="SettingsSaveException">Invalid value of accessToken.</exception>
-        void Save();
+        bool Save();
     }
 }
