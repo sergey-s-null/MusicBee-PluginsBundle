@@ -30,7 +30,6 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
             FileNameCheck = _replacer.Prepare(FileNameTemplate);
         }
 
-        // TODO проверить работает ли авто свойство
         public string AvailableTags { get; }
         public string DownloadDirCheck { get; private set; }
         public string FileNameCheck { get; private set; }
