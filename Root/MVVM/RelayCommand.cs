@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Root.MVVM
@@ -11,6 +12,12 @@ namespace Root.MVVM
         public RelayCommand(Action<object?> execute, Predicate<object?>? canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public RelayCommand(Func<object?, Task> execute, Predicate<object?>? canExecute = null)
+        {
+            _execute = x => execute(x);
             _canExecute = canExecute;
         }
 
@@ -30,8 +37,8 @@ namespace Root.MVVM
         {
             _execute(parameter);
         }
-        
+
         // Static methods
-        public static RelayCommand Empty => new RelayCommand(_ => { });
+        public static RelayCommand Empty => new(_ => { });
     }
 }
