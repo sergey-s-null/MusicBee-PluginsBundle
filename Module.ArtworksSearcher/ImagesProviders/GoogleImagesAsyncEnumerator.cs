@@ -15,7 +15,6 @@ using Root.Helpers;
 
 namespace Module.ArtworksSearcher.ImagesProviders
 {
-    // TODO подумоть над интёрнализацией
     public class GoogleImagesAsyncEnumerator : IAsyncEnumerator<BitmapImage>
     {
         private const string GoogleApiUrl = "https://www.googleapis.com/customsearch/v1";
@@ -143,7 +142,7 @@ namespace Module.ArtworksSearcher.ImagesProviders
 
         public ValueTask DisposeAsync()
         {
-            return new();
+            return new ValueTask();
         }
     }
 
