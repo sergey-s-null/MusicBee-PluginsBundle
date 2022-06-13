@@ -7,8 +7,12 @@ using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.AudioSourcesComparer.GUI.Factories;
 using Module.AudioSourcesComparer.Services.Abstract;
+using Module.Vk.Settings;
 using PropertyChanged;
+using Root.Helpers;
 using Root.MVVM;
+using VkNet.Abstractions;
+using VkNet.Exception;
 
 namespace Module.AudioSourcesComparer.GUI.ViewModels
 {
@@ -29,13 +33,19 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
 
         private readonly IVkToLocalComparerService _vkToLocalComparerService;
         private readonly IVkAudioVMFactory _vkAudioVMFactory;
+        private readonly IVkApi _vkApi;
+        private readonly IVkSettings _vkSettings;
 
         public VkToLocalComparerWindowVM(
             IVkToLocalComparerService vkToLocalComparerService,
-            IVkAudioVMFactory vkAudioVMFactory)
+            IVkAudioVMFactory vkAudioVMFactory,
+            IVkApi vkApi,
+            IVkSettings vkSettings)
         {
             _vkToLocalComparerService = vkToLocalComparerService;
             _vkAudioVMFactory = vkAudioVMFactory;
+            _vkApi = vkApi;
+            _vkSettings = vkSettings;
         }
 
         private void Refresh()
@@ -121,7 +131,28 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
 
         private void DeleteAllVkOnlyAudios()
         {
-            // todo
+            var vkOnlyAudiosCopy = VkOnlyAudios.ToReadOnlyCollection();
+
+            foreach (var vkAudioVM in vkOnlyAudiosCopy)
+            {
+                if (TryDeleteVkAudioFromVk(vkAudioVM))
+                {
+                    VkOnlyAudios.Remove(vkAudioVM);
+                }
+            }
+        }
+
+        private bool TryDeleteVkAudioFromVk(IVkAudioVM vkAudioVM)
+        {
+            try
+            {
+                var deleted = _vkApi.Audio.Delete(vkAudioVM.Id, _vkSettings.UserId);
+                return deleted;
+            }
+            catch (VkApiException)
+            {
+                return false;
+            }
         }
     }
 }
