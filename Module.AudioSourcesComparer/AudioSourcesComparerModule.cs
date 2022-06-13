@@ -20,9 +20,14 @@ namespace Module.AudioSourcesComparer
             // ViewModels
             Bind<IVkToLocalComparerWindowVM>()
                 .To<VkToLocalComparerWindowVM>();
+            Bind<IVkAudioVM>()
+                .To<VkAudioVM>();
 
             // Factories
             Bind<IVkToLocalComparerWindowFactory>()
+                .ToFactory()
+                .InSingletonScope();
+            Bind<IVkAudioVMFactory>()
                 .ToFactory()
                 .InSingletonScope();
         }

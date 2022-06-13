@@ -64,6 +64,7 @@
     <Compile Include="GUI\DesignTimeViewModels\MBAudioDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\VkAudioDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\VkToLocalComparerWindowDTVM.cs" />
+    <Compile Include="GUI\Factories\IVkAudioVMFactory.cs" />
     <Compile Include="GUI\Factories\IVkToLocalComparerWindowFactory.cs" />
     <Compile Include="GUI\ViewModels\MBAudioVM.cs" />
     <Compile Include="GUI\ViewModels\VkAudioVM.cs" />

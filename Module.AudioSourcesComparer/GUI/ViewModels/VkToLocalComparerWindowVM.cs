@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Module.AudioSourcesComparer.DataClasses;
 using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
+using Module.AudioSourcesComparer.GUI.Factories;
 using Module.AudioSourcesComparer.Services.Abstract;
 using PropertyChanged;
 using Root.MVVM;
@@ -27,10 +28,14 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
         public IList<IMBAudioVM> LocalOnlyAudios { get; } = new ObservableCollection<IMBAudioVM>();
 
         private readonly IVkToLocalComparerService _vkToLocalComparerService;
+        private readonly IVkAudioVMFactory _vkAudioVMFactory;
 
-        public VkToLocalComparerWindowVM(IVkToLocalComparerService vkToLocalComparerService)
+        public VkToLocalComparerWindowVM(
+            IVkToLocalComparerService vkToLocalComparerService,
+            IVkAudioVMFactory vkAudioVMFactory)
         {
             _vkToLocalComparerService = vkToLocalComparerService;
+            _vkAudioVMFactory = vkAudioVMFactory;
         }
 
         private void Refresh()
@@ -43,7 +48,9 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
             VkOnlyAudios.Clear();
             foreach (var vkAudio in difference!.VkOnly)
             {
-                VkOnlyAudios.Add(MapVkAudio(vkAudio));
+                var vkAudioVM = MapVkAudio(vkAudio);
+                vkAudioVM.DeleteRequested += (_, _) => VkOnlyAudios.Remove(vkAudioVM);
+                VkOnlyAudios.Add(vkAudioVM);
             }
 
             LocalOnlyAudios.Clear();
@@ -104,10 +111,10 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
 
         private IVkAudioVM MapVkAudio(VkAudio vkAudio)
         {
-            return new VkAudioVM(vkAudio.Id, vkAudio.Artist, vkAudio.Title);
+            return _vkAudioVMFactory.Create(vkAudio.Id, vkAudio.Artist, vkAudio.Title);
         }
 
-        private IMBAudioVM MapMBAudio(MBAudio mbAudio)
+        private static IMBAudioVM MapMBAudio(MBAudio mbAudio)
         {
             return new MBAudioVM(mbAudio.FilePath, mbAudio.VkId, mbAudio.Index, mbAudio.Artist, mbAudio.Title);
         }

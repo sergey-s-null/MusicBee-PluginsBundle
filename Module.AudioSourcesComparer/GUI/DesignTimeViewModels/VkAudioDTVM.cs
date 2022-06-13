@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Root.MVVM;
 
@@ -6,6 +7,8 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
     public class VkAudioDTVM : IVkAudioVM
     {
+        public event EventHandler<EventArgs>? DeleteRequested;
+
         public long Id { get; }
         public string Artist { get; }
         public string Title { get; }
