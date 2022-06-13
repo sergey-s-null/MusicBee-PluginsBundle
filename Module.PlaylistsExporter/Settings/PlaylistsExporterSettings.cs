@@ -12,16 +12,13 @@ namespace Module.PlaylistsExporter.Settings
 {
     public class PlaylistsExporterSettings : BaseSettings, IPlaylistsExporterSettings
     {
-        // todo from config
-        private const string PlaylistExporterSettingsPath = "PlaylistsExporter/settings.json";
-
         public string PlaylistsDirectoryPath { get; set; } = "";
         public string FilesLibraryPath { get; set; } = "";
         public string PlaylistsNewDirectoryName { get; set; } = "";
         public IReadOnlyCollection<string> PlaylistsForExport { get; set; } = Array.Empty<string>();
 
         public PlaylistsExporterSettings(ISettingsJsonLoader settingsJsonLoader)
-            : base(PlaylistExporterSettingsPath, settingsJsonLoader)
+            : base(ResourcesHelper.PlaylistExporterSettingsPath, settingsJsonLoader)
         {
         }
 

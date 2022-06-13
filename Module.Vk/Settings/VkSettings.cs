@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Root.Exceptions;
+using Root.Helpers;
 using Root.Services.Abstract;
 using Root.Settings;
 
@@ -8,14 +9,11 @@ namespace Module.Vk.Settings
 {
     public class VkSettings : BaseSettings, IVkSettings
     {
-        // todo move to configuration (like App.config)
-        private const string VkSettingsPath = "Vk/settings.json";
-
         public string AccessToken { get; set; } = string.Empty;
         public long UserId { get; set; }
 
         public VkSettings(ISettingsJsonLoader settingsJsonLoader)
-            : base(VkSettingsPath, settingsJsonLoader)
+            : base(ResourcesHelper.VkSettingsPath, settingsJsonLoader)
         {
         }
 

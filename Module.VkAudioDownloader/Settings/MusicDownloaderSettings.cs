@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Root.Exceptions;
+using Root.Helpers;
 using Root.Services.Abstract;
 using Root.Settings;
 
@@ -8,14 +9,11 @@ namespace Module.VkAudioDownloader.Settings
 {
     public class MusicDownloaderSettings : BaseSettings, IMusicDownloaderSettings
     {
-        // todo from config
-        private const string AudioDownloaderSettingsPath = "AudioDownloader/settings.json";
-
         public string DownloadDirTemplate { get; set; } = "";
         public string FileNameTemplate { get; set; } = "";
 
         public MusicDownloaderSettings(ISettingsJsonLoader settingsJsonLoader)
-            : base(AudioDownloaderSettingsPath, settingsJsonLoader)
+            : base(ResourcesHelper.AudioDownloaderSettingsPath, settingsJsonLoader)
         {
         }
 

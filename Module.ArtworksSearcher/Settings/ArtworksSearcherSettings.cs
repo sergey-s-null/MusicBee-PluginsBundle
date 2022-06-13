@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Root.Exceptions;
+using Root.Helpers;
 using Root.Services.Abstract;
 using Root.Settings;
 
@@ -8,9 +9,6 @@ namespace Module.ArtworksSearcher.Settings
 {
     public class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSettings
     {
-        // todo from config
-        private const string ArtworksSearcherSettingsPath = "ArtworksSearcher/settings.json";
-
         public string GoogleCX { get; set; } = "";
         public string GoogleKey { get; set; } = "";
 
@@ -42,7 +40,7 @@ namespace Module.ArtworksSearcher.Settings
         public long MinOsuImageByteSize { get; set; }
 
         public ArtworksSearcherSettings(ISettingsJsonLoader settingsJsonLoader)
-            : base(ArtworksSearcherSettingsPath, settingsJsonLoader)
+            : base(ResourcesHelper.ArtworksSearcherSettingsPath, settingsJsonLoader)
         {
         }
 
