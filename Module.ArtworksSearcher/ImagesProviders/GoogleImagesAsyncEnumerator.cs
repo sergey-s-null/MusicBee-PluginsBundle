@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Module.ArtworksSearcher.Exceptions;
 using Module.ArtworksSearcher.Services.Abstract;
 using Module.ArtworksSearcher.Settings;
 using MoreLinq;
@@ -79,8 +80,17 @@ namespace Module.ArtworksSearcher.ImagesProviders
 
         private async Task FillImageUrlsQueueAsync()
         {
-            // todo handle exc
-            var imageUrls = await _googleImageSearchService.SearchAsync(_query, _requestOffset, _cancellationToken);
+            IReadOnlyCollection<string> imageUrls;
+            try
+            {
+                imageUrls = await _googleImageSearchService.SearchAsync(_query, _requestOffset, _cancellationToken);
+            }
+            catch (GoogleSearchImageException e)
+            {
+                // todo make error displaying (sometime)
+                Console.WriteLine(e);
+                return;
+            }
 
             imageUrls.ForEach(x => _urlsQueue.Enqueue(x!));
             _requestOffset += imageUrls.Count;
