@@ -41,20 +41,16 @@ namespace Module.AudioSourcesComparer.Services
             }
 
             var mbAudiosByVkIds = GetMBFilesByVkIds(files);
-
             var vkIdsInMBLibrary = mbAudiosByVkIds.Keys.ToHashSet();
 
-            var vkIdsInVk = GetVkIdsInVk();
+            var vkAudiosByVkIds = GetVkAudiosByVkIds();
+            var vkIdsInVk = vkAudiosByVkIds.Keys.ToHashSet();
 
             var vkOnlyVkIds = vkIdsInVk.ExceptCopy(vkIdsInMBLibrary);
             var mbOnlyVkIds = vkIdsInMBLibrary.ExceptCopy(vkIdsInVk);
 
-            var vkOnly = _vkApi.Audio
-                .Get(new AudioGetParams
-                {
-                    AudioIds = vkOnlyVkIds
-                })
-                .Select(MapToVkAudio)
+            var vkOnly = vkOnlyVkIds
+                .Select(x => MapToVkAudio(vkAudiosByVkIds[x]))
                 .ToReadOnlyCollection();
 
             var mbOnly = mbOnlyVkIds
@@ -76,17 +72,15 @@ namespace Module.AudioSourcesComparer.Services
                 .ToDictionary(x => (long) x.VkId!, x => x.FilePath);
         }
 
-        private ISet<long> GetVkIdsInVk()
+        private IReadOnlyDictionary<long, Audio> GetVkAudiosByVkIds()
         {
             return _vkApi.Audio
                 .Get(new AudioGetParams
                 {
                     Count = AudiosPerRequest,
                 })
-                .Select(x => x.Id)
-                .Where(x => x is not null)
-                .Select(x => (long) x!)
-                .ToHashSet();
+                .Where(x => x.Id is not null)
+                .ToDictionary(x => x.Id!.Value);
         }
 
         private VkAudio MapToVkAudio(Audio audio)
