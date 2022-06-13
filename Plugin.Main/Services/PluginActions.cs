@@ -92,7 +92,7 @@ namespace MusicBeePlugin.Services
 
             _vkToLocalComparerWindowFactory
                 .Create()
-                .ShowDialog();
+                .Show();
         }
 
         public void AddSelectedFileToLibrary()
