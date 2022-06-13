@@ -21,10 +21,6 @@ namespace MusicBeePlugin.GUI.Views
             {
                 DialogResult = true;
             }
-            else
-            {
-                MessageBox.Show("Error save settings.", "Error");
-            }
         }
     }
 }

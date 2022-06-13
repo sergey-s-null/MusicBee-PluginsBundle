@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using MusicBeePlugin.GUI.AbstractViewModels;
 using PropertyChanged;
+using Root.Exceptions;
 
 namespace MusicBeePlugin.GUI.ViewModels
 {
@@ -59,8 +61,24 @@ namespace MusicBeePlugin.GUI.ViewModels
         {
             foreach (var setting in SettingsModules)
             {
-                // todo handle exception
-                setting.ModuleSettings.Save();
+                try
+                {
+                    setting.ModuleSettings.Save();
+                }
+                catch (SettingsSaveException e)
+                {
+                    var dialogResult = MessageBox.Show(
+                        $"Error on save settings module \"{setting.ModuleName}\".\n\n" +
+                        $"{e}\n\n" +
+                        "Continue save other settings modules?",
+                        "Error!",
+                        MessageBoxButton.YesNo
+                    );
+                    if (dialogResult != MessageBoxResult.Yes)
+                    {
+                        return false;
+                    }
+                }
             }
 
             return true;
