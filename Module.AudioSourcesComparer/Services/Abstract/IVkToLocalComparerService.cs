@@ -1,4 +1,5 @@
-﻿using Module.AudioSourcesComparer.DataClasses;
+﻿using System.Threading.Tasks;
+using Module.AudioSourcesComparer.DataClasses;
 using Module.AudioSourcesComparer.Exceptions;
 
 namespace Module.AudioSourcesComparer.Services.Abstract
@@ -9,6 +10,6 @@ namespace Module.AudioSourcesComparer.Services.Abstract
         /// <exception cref="VkApiInvalidValueException">Error on get invalid value from vk api.</exception>
         /// <exception cref="MBApiException">Error related with music bee api.</exception>
         /// <exception cref="MBLibraryInvalidStateException">Error related with music bee library state.</exception>
-        AudiosDifference FindDifferences();
+        Task<AudiosDifference> FindDifferencesAsync();
     }
 }

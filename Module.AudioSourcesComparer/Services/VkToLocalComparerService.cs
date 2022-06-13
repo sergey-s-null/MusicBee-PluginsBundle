@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Module.AudioSourcesComparer.DataClasses;
 using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.Services.Abstract;
@@ -28,7 +29,7 @@ namespace Module.AudioSourcesComparer.Services
             _vkApi = vkApi;
         }
 
-        public AudiosDifference FindDifferences()
+        public async Task<AudiosDifference> FindDifferencesAsync()
         {
             if (!_vkApi.IsAuthorizedWithCheck())
             {
@@ -43,7 +44,7 @@ namespace Module.AudioSourcesComparer.Services
             var mbAudiosByVkIds = GetMBFilesByVkIds(files);
             var vkIdsInMBLibrary = mbAudiosByVkIds.Keys.ToHashSet();
 
-            var vkAudiosByVkIds = GetVkAudiosByVkIds();
+            var vkAudiosByVkIds = await GetVkAudiosByVkIdsAsync();
             var vkIdsInVk = vkAudiosByVkIds.Keys.ToHashSet();
 
             var vkOnlyVkIds = vkIdsInVk.ExceptCopy(vkIdsInMBLibrary);
@@ -72,13 +73,15 @@ namespace Module.AudioSourcesComparer.Services
                 .ToDictionary(x => (long) x.VkId!, x => x.FilePath);
         }
 
-        private IReadOnlyDictionary<long, Audio> GetVkAudiosByVkIds()
+        private async Task<IReadOnlyDictionary<long, Audio>> GetVkAudiosByVkIdsAsync()
         {
-            return _vkApi.Audio
-                .Get(new AudioGetParams
+            var response = await _vkApi.Audio
+                .GetAsync(new AudioGetParams
                 {
                     Count = AudiosPerRequest,
-                })
+                });
+
+            return response
                 .Where(x => x.Id is not null)
                 .ToDictionary(x => x.Id!.Value);
         }

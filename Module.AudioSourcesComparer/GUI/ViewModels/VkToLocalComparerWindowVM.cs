@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Module.AudioSourcesComparer.DataClasses;
@@ -19,7 +20,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VkToLocalComparerWindowVM : IVkToLocalComparerWindowVM
     {
-        public ICommand RefreshCmd => _refreshCmd ??= new RelayCommand(_ => Refresh());
+        public ICommand RefreshCmd => _refreshCmd ??= new RelayCommand(async _ => await RefreshAsync());
         private ICommand? _refreshCmd;
 
         public IList<IVkAudioVM> VkOnlyAudios { get; } = new ObservableCollection<IVkAudioVM>();
@@ -48,14 +49,17 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
             _vkSettings = vkSettings;
         }
 
-        private void Refresh()
+        private async Task RefreshAsync()
         {
-            if (!TryFindDifferencesAndShowMessageOnError(out var difference))
+            VkOnlyAudios.Clear();
+            LocalOnlyAudios.Clear();
+
+            var difference = await FindDifferencesAndShowMessageOnErrorAsync();
+            if (difference is null)
             {
                 return;
             }
 
-            VkOnlyAudios.Clear();
             foreach (var vkAudio in difference!.VkOnly)
             {
                 var vkAudioVM = MapVkAudio(vkAudio);
@@ -63,19 +67,17 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
                 VkOnlyAudios.Add(vkAudioVM);
             }
 
-            LocalOnlyAudios.Clear();
             foreach (var mbAudio in difference.MBOnly)
             {
                 LocalOnlyAudios.Add(MapMBAudio(mbAudio));
             }
         }
 
-        private bool TryFindDifferencesAndShowMessageOnError(out AudiosDifference? difference)
+        private async Task<AudiosDifference?> FindDifferencesAndShowMessageOnErrorAsync()
         {
             try
             {
-                difference = _vkToLocalComparerService.FindDifferences();
-                return true;
+                return await _vkToLocalComparerService.FindDifferencesAsync();
             }
             catch (VkApiUnauthorizedException e)
             {
@@ -84,8 +86,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
                     "Error!",
                     MessageBoxButton.OK
                 );
-                difference = null;
-                return false;
+                return null;
             }
             catch (VkApiInvalidValueException e)
             {
@@ -94,8 +95,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
                     "Error!",
                     MessageBoxButton.OK
                 );
-                difference = null;
-                return false;
+                return null;
             }
             catch (MBApiException e)
             {
@@ -104,8 +104,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
                     "Error!",
                     MessageBoxButton.OK
                 );
-                difference = null;
-                return false;
+                return null;
             }
             catch (MBLibraryInvalidStateException e)
             {
@@ -114,8 +113,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
                     "Error!",
                     MessageBoxButton.OK
                 );
-                difference = null;
-                return false;
+                return null;
             }
         }
 
