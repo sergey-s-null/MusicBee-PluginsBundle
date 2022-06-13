@@ -2,6 +2,8 @@
 using Module.ArtworksSearcher.GUI.SearchWindow;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.ArtworksSearcher.ImagesProviders;
+using Module.ArtworksSearcher.Services;
+using Module.ArtworksSearcher.Services.Abstract;
 using Module.ArtworksSearcher.Settings;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
@@ -16,7 +18,7 @@ namespace Module.ArtworksSearcher
             Bind<IArtworksSearcherSettings>()
                 .To<ArtworksSearcherSettings>()
                 .InSingletonScope();
-            
+
             Bind<IArtworksSearcherSettingsVM>()
                 .To<ArtworksSearcherSettingsVM>();
 
@@ -34,6 +36,10 @@ namespace Module.ArtworksSearcher
             Bind<GoogleImagesProvider>().ToSelf();
             Bind<SearchWindowVM>().ToSelf();
             Bind<SearchWindow>().ToSelf();
+
+            Bind<IGoogleImageSearchService>()
+                .To<GoogleImageSearchService>()
+                .InSingletonScope();
         }
     }
 }

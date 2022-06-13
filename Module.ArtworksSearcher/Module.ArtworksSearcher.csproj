@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ArtworksSearcherModule.cs" />
     <Compile Include="Delegates\GetImagesAsyncEnumeratorDelegate.cs" />
+    <Compile Include="Exceptions\GoogleSearchImageException.cs" />
     <Compile Include="Factories\IGoogleImagesEnumeratorFactory.cs" />
     <Compile Include="Factories\ISearchWindowFactory.cs" />
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
@@ -88,6 +89,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\Abstract\IGoogleImageSearchService.cs" />
+    <Compile Include="Services\GoogleImageSearchService.cs" />
     <Compile Include="Settings\ArtworksSearcherSettings.cs" />
     <Compile Include="Settings\IArtworksSearcherSettings.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
