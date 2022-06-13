@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:v="clr-namespace:Module.AudioSourcesComparer.GUI.Views"
         xmlns:dtvm="clr-namespace:Module.AudioSourcesComparer.GUI.DesignTimeViewModels"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="AudioSourcesComparerWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance dtvm:VkToLocalComparerWindowDTVM}">
@@ -17,10 +18,12 @@
         </Style>
         <Style x:Key="RefreshButton" TargetType="Button">
             <Setter Property="Margin" Value="6" />
+            <Setter Property="Padding" Value="3 0" />
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
         <Style x:Key="DeleteAllButton" TargetType="Button">
             <Setter Property="Margin" Value="6" />
+            <Setter Property="Padding" Value="3 0" />
             <Setter Property="HorizontalAlignment" Value="Left" />
         </Style>
     </Window.Resources>
@@ -33,9 +36,13 @@
 
         <Button
             Grid.Row="0"
-            Content="Refresh"
+            ToolTip="Refresh"
             Command="{Binding RefreshCmd}"
-            Style="{StaticResource RefreshButton}" />
+            Style="{StaticResource RefreshButton}">
+            <Button.Content>
+                <iconPacks:PackIconBootstrapIcons Kind="ArrowRepeat" />
+            </Button.Content>
+        </Button>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -60,9 +67,17 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Button Grid.Row="1" Content="Delete all"
-                        Command="{Binding DeleteAllVkOnlyAudiosCmd}"
-                        Style="{StaticResource DeleteAllButton}" />
+                <Button
+                    Grid.Row="1"
+                    ToolTip="Delete all vk audios (from this list)"
+                    Command="{Binding DeleteAllVkOnlyAudiosCmd}"
+                    Style="{StaticResource DeleteAllButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconFontAwesome Kind="DumpsterSolid" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
 
             <GridSplitter Grid.Column="1" />
