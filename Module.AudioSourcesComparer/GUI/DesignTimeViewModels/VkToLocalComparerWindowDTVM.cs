@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
+using PropertyChanged;
 using Root.MVVM;
 
 namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class VkToLocalComparerWindowDTVM : IVkToLocalComparerWindowVM
     {
-        public ICommand RefreshCmd => new RelayCommand(_ => { });
+        public ICommand RefreshCmd => new RelayCommand(_ => Refreshing = !Refreshing);
+        public bool Refreshing { get; private set; }
 
         public IList<IVkAudioVM> VkOnlyAudios { get; } = new[]
         {

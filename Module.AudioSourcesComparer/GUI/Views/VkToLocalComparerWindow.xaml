@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:v="clr-namespace:Module.AudioSourcesComparer.GUI.Views"
         xmlns:dtvm="clr-namespace:Module.AudioSourcesComparer.GUI.DesignTimeViewModels"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -10,17 +11,41 @@
         Title="AudioSourcesComparerWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance dtvm:VkToLocalComparerWindowDTVM}">
     <Window.Resources>
+        <sys:Boolean x:Key="True">True</sys:Boolean>
+
         <Style TargetType="GridSplitter">
             <Setter Property="Width" Value="5" />
             <Setter Property="Margin" Value="3 0" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
+
         <Style x:Key="RefreshButton" TargetType="Button">
             <Setter Property="Margin" Value="6" />
             <Setter Property="Padding" Value="3 0" />
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
+
+        <Style x:Key="RefreshIcon" TargetType="iconPacks:PackIconBootstrapIcons">
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding Refreshing}"
+                    Value="{StaticResource True}">
+
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Name="RefreshAnimation">
+                            <Storyboard TargetProperty="RotationAngle">
+                                <DoubleAnimation From="0" To="360" Duration="0:0:2" RepeatBehavior="Forever"></DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <StopStoryboard BeginStoryboardName="RefreshAnimation" />
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <Style x:Key="DeleteAllButton" TargetType="Button">
             <Setter Property="Margin" Value="6" />
             <Setter Property="Padding" Value="3 0" />
@@ -40,7 +65,9 @@
             Command="{Binding RefreshCmd}"
             Style="{StaticResource RefreshButton}">
             <Button.Content>
-                <iconPacks:PackIconBootstrapIcons Kind="ArrowRepeat" />
+                <iconPacks:PackIconBootstrapIcons
+                    Kind="ArrowRepeat"
+                    Style="{StaticResource RefreshIcon}" />
             </Button.Content>
         </Button>
 

@@ -1,3 +1,4 @@
 ﻿group NetFramework
     Ninject
     VkNet
+    MahApps.Metro.IconPacks

@@ -22,6 +22,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
     {
         public ICommand RefreshCmd => _refreshCmd ??= new RelayCommand(async _ => await RefreshAsync());
         private ICommand? _refreshCmd;
+        public bool Refreshing => false;// todo
 
         public IList<IVkAudioVM> VkOnlyAudios { get; } = new ObservableCollection<IVkAudioVM>();
 
