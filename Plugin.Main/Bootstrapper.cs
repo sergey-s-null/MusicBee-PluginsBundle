@@ -1,4 +1,5 @@
-﻿using Module.ArtworksSearcher;
+﻿using HackModule.AssemblyBindingRedirect;
+using Module.ArtworksSearcher;
 using Module.AudioSourcesComparer;
 using Module.DataExporter;
 using Module.InboxAdder;
@@ -32,6 +33,7 @@ namespace MusicBeePlugin
                 .InSingletonScope();
 
             kernel.Load<RootModule>();
+            kernel.Load<AssemblyBindingRedirectModule>();
             kernel.Load(new VkModule(true));
             kernel.Load<MusicDownloaderModule>();
             kernel.Load<ArtworksSearcherModule>();

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.IO;
 using Grpc.Core;
-using HackModule.AssemblyBindingRedirect;
+using HackModule.AssemblyBindingRedirect.Factories;
+using HackModule.AssemblyBindingRedirect.Services.Abstract;
 using Module.RemoteMusicBeeApi;
+using Ninject;
+using Ninject.Syntax;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
 
@@ -17,17 +21,29 @@ namespace MusicBeePlugin
         private const int ServerPort = 4999;
 
         private IMusicBeeApi? _mbApi;
+        private IAssemblyResolver? _assemblyResolver;
         private Server? _server;
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
-            AssemblyRedirectService.ApplyRedirects(AppDomain.CurrentDomain);
-
             var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
             mbApiMemoryContainer.Initialise(apiInterfacePtr);
-            _mbApi = new MusicBeeApiMemoryContainerWrapper(mbApiMemoryContainer);
+
+            var kernel = Bootstrapper.GetKernel(mbApiMemoryContainer);
+
+            ApplyAssembliesResolution(kernel);
+
+            _mbApi = kernel.Get<IMusicBeeApi>();
 
             return GetPluginInfo();
+        }
+
+        private void ApplyAssembliesResolution(IResolutionRoot kernel)
+        {
+            var assemblyResolverFactory = kernel.Get<IAssemblyResolverFactory>();
+            var assembliesDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
+            _assemblyResolver = assemblyResolverFactory.Create(assembliesDirectory);
+            AppDomain.CurrentDomain.AssemblyResolve += _assemblyResolver.ResolveHandler;
         }
 
         private static PluginInfo GetPluginInfo()
@@ -59,7 +75,7 @@ namespace MusicBeePlugin
         {
             StopServer();
         }
-        
+
         public void Uninstall()
         {
             StopServer();
@@ -79,15 +95,16 @@ namespace MusicBeePlugin
             {
                 throw new NullReferenceException($"{nameof(_mbApi)} is null.");
             }
+
             if (_server is not null)
             {
                 return;
             }
-            
+
             _server = new Server()
             {
-                Ports = { {ServerHost, ServerPort, ServerCredentials.Insecure} },
-                Services = { MusicBeeApiService.BindService(new MusicBeeApiServiceImpl(_mbApi)) },
+                Ports = {{ServerHost, ServerPort, ServerCredentials.Insecure}},
+                Services = {MusicBeeApiService.BindService(new MusicBeeApiServiceImpl(_mbApi))},
             };
             _server.Start();
         }
@@ -98,7 +115,7 @@ namespace MusicBeePlugin
             {
                 return;
             }
-            
+
             _server.ShutdownAsync().Wait();
             _server = null;
         }

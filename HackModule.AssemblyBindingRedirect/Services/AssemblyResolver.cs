@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using HackModule.AssemblyBindingRedirect.Services.Abstract;
 
-namespace HackModule.AssemblyBindingRedirect
+namespace HackModule.AssemblyBindingRedirect.Services
 {
-    public static class AssemblyRedirectService
+    public class AssemblyResolver : IAssemblyResolver
     {
         private static readonly IReadOnlyCollection<string> AssembliesToRedirect = new[]
         {
@@ -21,12 +22,14 @@ namespace HackModule.AssemblyBindingRedirect
             "System.Threading.Tasks.Extensions",
         };
 
-        public static void ApplyRedirects(AppDomain appDomain)
+        private readonly string _assembliesDirectory;
+
+        public AssemblyResolver(string assembliesDirectory)
         {
-            appDomain.AssemblyResolve += ResolveHandler;
+            _assembliesDirectory = assembliesDirectory;
         }
 
-        private static Assembly? ResolveHandler(object sender, ResolveEventArgs eventArgs)
+        public Assembly? ResolveHandler(object sender, ResolveEventArgs eventArgs)
         {
             var assemblyName = new AssemblyName(eventArgs.Name);
 
@@ -35,7 +38,7 @@ namespace HackModule.AssemblyBindingRedirect
                 return null;
             }
 
-            var dllPath = Path.Combine(Environment.CurrentDirectory, "Plugins", $"{assemblyName.Name}.dll");
+            var dllPath = Path.Combine(_assembliesDirectory, $"{assemblyName.Name}.dll");
 
             return Assembly.LoadFile(dllPath);
         }

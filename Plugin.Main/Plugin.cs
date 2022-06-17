@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Windows;
-using HackModule.AssemblyBindingRedirect;
+using HackModule.AssemblyBindingRedirect.Factories;
+using HackModule.AssemblyBindingRedirect.Services.Abstract;
 using MusicBeePlugin.Factories;
 using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
@@ -16,45 +18,54 @@ namespace MusicBeePlugin
     public class Plugin
     {
         private const short PluginInfoVersion = 1;
-        private const short MinInterfaceVersion = 40;// 41
+        private const short MinInterfaceVersion = 40; // 41
         private const short MinApiRevision = 53;
 
+        private IAssemblyResolver? _assemblyResolver;
         private ISettingsDialogFactory? _settingsDialogFactory;
         private IResourceManager? _resourceManager;
-        
+
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
-            AssemblyRedirectService.ApplyRedirects(AppDomain.CurrentDomain);
-            
             ServicePointManager.DefaultConnectionLimit = 20;
-            
+
             var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
             mbApiMemoryContainer.Initialise(apiInterfacePtr);
-            
+
             var kernel = Bootstrapper.GetKernel(mbApiMemoryContainer);
+
+            ApplyAssembliesResolution(kernel);
 
             _settingsDialogFactory = kernel.Get<ISettingsDialogFactory>();
             _resourceManager = kernel.Get<IResourceManager>();
-            
+
             InitSettings();
             CreateMenuItems(kernel);
 
             return GetPluginInfo();
         }
 
+        private void ApplyAssembliesResolution(IResolutionRoot kernel)
+        {
+            var assemblyResolverFactory = kernel.Get<IAssemblyResolverFactory>();
+            var assembliesDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
+            _assemblyResolver = assemblyResolverFactory.Create(assembliesDirectory);
+            AppDomain.CurrentDomain.AssemblyResolve += _assemblyResolver.ResolveHandler;
+        }
+
         private static void CreateMenuItems(IResolutionRoot resolutionRoot)
         {
             var mbApi = resolutionRoot.Get<IMusicBeeApi>();
             var pluginActions = resolutionRoot.Get<IPluginActions>();
-            
+
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Search Artworks",
-                "Laiser399: Search Artworks", 
+                "Laiser399: Search Artworks",
                 (_, _) => pluginActions.SearchArtworks());
-            
+
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Download Vk Audio",
-                "Laiser399: Download Vk Audio", 
+                "Laiser399: Download Vk Audio",
                 (_, _) => pluginActions.DownloadVkAudios());
 
             mbApi.MB_AddMenuItem(
@@ -64,17 +75,17 @@ namespace MusicBeePlugin
 
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Add to Library",
-                "Laiser399: Add to Library", 
+                "Laiser399: Add to Library",
                 (_, _) => pluginActions.AddSelectedFileToLibrary());
-            
+
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Export Playlists",
-                "Laiser399: Export Playlists", 
+                "Laiser399: Export Playlists",
                 (_, _) => pluginActions.ExportPlaylists());
-            
+
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Export Library Data",
-                "Laiser399: Export Library Data", 
+                "Laiser399: Export Library Data",
                 (_, _) => pluginActions.ExportLibraryData());
 
             mbApi.MB_AddMenuItem(
@@ -86,7 +97,7 @@ namespace MusicBeePlugin
                     inboxRelocateContextMenu.IsOpen = true;
                 });
         }
-        
+
         private static PluginInfo GetPluginInfo()
         {
             return new PluginInfo
@@ -111,21 +122,21 @@ namespace MusicBeePlugin
         {
             _resourceManager!.CreateRootIfNeeded();
         }
-        
+
         public bool Configure(IntPtr _)
         {
             _settingsDialogFactory?
                 .Create()
                 .ShowDialog();
-            
+
             return true;
         }
 
         public void Uninstall()
         {
             var result = MessageBox.Show(
-                "Delete settings?", 
-                "o(╥﹏╥)o", 
+                "Delete settings?",
+                "o(╥﹏╥)o",
                 MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
