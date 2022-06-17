@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyBindingRedirectModule.cs" />
-    <Compile Include="Factories\IAssemblyResolverFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Abstract\IAssemblyResolver.cs" />
     <Compile Include="Services\AssemblyResolver.cs" />

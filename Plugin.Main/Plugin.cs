@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Windows;
-using HackModule.AssemblyBindingRedirect.Factories;
+using HackModule.AssemblyBindingRedirect.Services;
 using HackModule.AssemblyBindingRedirect.Services.Abstract;
 using MusicBeePlugin.Factories;
 using MusicBeePlugin.GUI.Views;
@@ -27,14 +27,14 @@ namespace MusicBeePlugin
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
+            ApplyAssembliesResolution();
+
             ServicePointManager.DefaultConnectionLimit = 20;
 
             var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
             mbApiMemoryContainer.Initialise(apiInterfacePtr);
 
             var kernel = Bootstrapper.GetKernel(mbApiMemoryContainer);
-
-            ApplyAssembliesResolution(kernel);
 
             _settingsDialogFactory = kernel.Get<ISettingsDialogFactory>();
             _resourceManager = kernel.Get<IResourceManager>();
@@ -45,11 +45,10 @@ namespace MusicBeePlugin
             return GetPluginInfo();
         }
 
-        private void ApplyAssembliesResolution(IResolutionRoot kernel)
+        private void ApplyAssembliesResolution()
         {
-            var assemblyResolverFactory = kernel.Get<IAssemblyResolverFactory>();
             var assembliesDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
-            _assemblyResolver = assemblyResolverFactory.Create(assembliesDirectory);
+            _assemblyResolver = new AssemblyResolver(assembliesDirectory);
             AppDomain.CurrentDomain.AssemblyResolve += _assemblyResolver.ResolveHandler;
         }
 

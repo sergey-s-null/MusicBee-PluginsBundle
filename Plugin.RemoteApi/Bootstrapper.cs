@@ -1,5 +1,4 @@
-﻿using HackModule.AssemblyBindingRedirect;
-using Ninject;
+﻿using Ninject;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
 
@@ -10,8 +9,6 @@ namespace MusicBeePlugin
         public static IKernel GetKernel(MusicBeeApiMemoryContainer mbApiMemoryContainer)
         {
             var kernel = new StandardKernel();
-
-            kernel.Load<AssemblyBindingRedirectModule>();
 
             kernel
                 .Bind<MusicBeeApiMemoryContainer>()

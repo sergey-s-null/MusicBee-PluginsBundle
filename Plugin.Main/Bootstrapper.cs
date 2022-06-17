@@ -33,7 +33,6 @@ namespace MusicBeePlugin
                 .InSingletonScope();
 
             kernel.Load<RootModule>();
-            kernel.Load<AssemblyBindingRedirectModule>();
             kernel.Load(new VkModule(true));
             kernel.Load<MusicDownloaderModule>();
             kernel.Load<ArtworksSearcherModule>();
