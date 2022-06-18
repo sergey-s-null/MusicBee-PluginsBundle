@@ -68,7 +68,7 @@
           <Paket>True</Paket>
         </Reference>
         <Reference Include="Castle.Core">
-          <HintPath>..\packages\netframework\Castle.Core\lib\net45\Castle.Core.dll</HintPath>
+          <HintPath>..\packages\netframework\Castle.Core\lib\net462\Castle.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

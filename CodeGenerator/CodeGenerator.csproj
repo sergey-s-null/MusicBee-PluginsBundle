@@ -170,17 +170,6 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.Setup.Configuration.Interop">
-          <HintPath>..\packages\mbapiprotogenerator\Microsoft.VisualStudio.Setup.Configuration.Interop\lib\net35\Microsoft.VisualStudio.Setup.Configuration.Interop.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
         <Reference Include="Ninject">
           <HintPath>..\packages\mbapiprotogenerator\Ninject\lib\net45\Ninject.dll</HintPath>
           <Private>True</Private>
@@ -337,7 +326,6 @@
       </ItemGroup>
     </When>
   </Choose>
-  <Import Project="..\packages\mbapiprotogenerator\Microsoft.VisualStudio.Setup.Configuration.Interop\build\Microsoft.VisualStudio.Setup.Configuration.Interop.targets" Condition="Exists('..\packages\mbapiprotogenerator\Microsoft.VisualStudio.Setup.Configuration.Interop\build\Microsoft.VisualStudio.Setup.Configuration.Interop.targets')" Label="Paket" />
   <Import Project="..\packages\mbapiprotogenerator\System.Text.Json\build\System.Text.Json.targets" Condition="Exists('..\packages\mbapiprotogenerator\System.Text.Json\build\System.Text.Json.targets')" Label="Paket" />
   <ItemGroup>
     <Analyzer Include="..\packages\mbapiprotogenerator\System.Text.Json\analyzers\dotnet\roslyn3.11\cs\System.Text.Json.SourceGeneration.dll">

@@ -11,6 +11,7 @@ namespace HackModule.AssemblyBindingRedirect.Services
     {
         private static readonly IReadOnlyCollection<string> AssembliesToRedirect = new[]
         {
+            "Castle.Core",
             "Microsoft.Bcl.AsyncInterfaces",
             "Microsoft.Extensions.DependencyInjection",
             "Microsoft.Extensions.DependencyInjection.Abstractions",
@@ -18,6 +19,7 @@ namespace HackModule.AssemblyBindingRedirect.Services
             "Newtonsoft.Json",
             "Ninject",
             "System.Collections.Immutable",
+            "System.Memory",
             "System.Runtime.CompilerServices.Unsafe",
             "System.Threading.Tasks.Extensions",
         };
