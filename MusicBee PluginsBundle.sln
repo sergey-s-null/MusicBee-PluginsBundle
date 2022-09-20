@@ -43,8 +43,6 @@ ProjectSection(SolutionItems) = preProject
 	paket.dependencies = paket.dependencies
 	paket.lock = paket.lock
 	.gitignore = .gitignore
-	copy_dll_debug.cmd = copy_dll_debug.cmd
-	copy_dll_release.cmd = copy_dll_release.cmd
 	copy_dll_debug.ps1 = copy_dll_debug.ps1
 	copy_dll_release.ps1 = copy_dll_release.ps1
 EndProjectSection
