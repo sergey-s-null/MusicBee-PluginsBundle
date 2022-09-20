@@ -45,6 +45,8 @@ ProjectSection(SolutionItems) = preProject
 	.gitignore = .gitignore
 	copy_dll_debug.cmd = copy_dll_debug.cmd
 	copy_dll_release.cmd = copy_dll_release.cmd
+	copy_dll_debug.ps1 = copy_dll_debug.ps1
+	copy_dll_release.ps1 = copy_dll_release.ps1
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.RemoteMusicBeeApi", "Module.RemoteMusicBeeApi\Module.RemoteMusicBeeApi.csproj", "{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606}"
