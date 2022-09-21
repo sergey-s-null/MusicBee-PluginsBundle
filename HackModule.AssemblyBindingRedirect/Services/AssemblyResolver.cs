@@ -22,6 +22,7 @@ namespace HackModule.AssemblyBindingRedirect.Services
             "System.Memory",
             "System.Runtime.CompilerServices.Unsafe",
             "System.Threading.Tasks.Extensions",
+            "System.Buffers",
         };
 
         private readonly string _assembliesDirectory;
