@@ -645,12 +645,12 @@ namespace Root.MusicBeeApi
             _mbApi.Sync_FileEnd(filename, success, errorMessage);
         }
         
-        public bool Library_QueryFilesEx(string query, out string[] files)
+        public bool Library_QueryFilesEx(string query, out string[]? files)
         {
             return _mbApi.Library_QueryFilesEx(query, out files);
         }
         
-        public bool NowPlayingList_QueryFilesEx(string query, out string[] files)
+        public bool NowPlayingList_QueryFilesEx(string query, out string[]? files)
         {
             return _mbApi.NowPlayingList_QueryFilesEx(query, out files);
         }

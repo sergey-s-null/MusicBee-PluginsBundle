@@ -67,13 +67,16 @@
     <Compile Include="Enums\ProtobufType.cs" />
     <Compile Include="Enums\ServiceGenerationMode.cs" />
     <Compile Include="Enums\ServiceImplMode.cs" />
+    <Compile Include="Extensions\ParameterInfoEx.cs" />
     <Compile Include="Helpers\CodeGenerationHelper.cs" />
     <Compile Include="Helpers\CsProjProtobufBuilderHelper.cs" />
     <Compile Include="Helpers\MBApiMethodDefinitionHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
+    <Compile Include="Models\Abstract\IParameterType.cs" />
     <Compile Include="Models\MBApiMethodDefinition.cs" />
     <Compile Include="Models\MBApiParameterDefinition.cs" />
+    <Compile Include="Models\MBApiReturnParameterDefinition.cs" />
     <Compile Include="Models\MethodNameWithRestriction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,13 +17,13 @@ namespace CodeGenerator.Helpers
         
         public static bool HasAnyOutputParameters(this MBApiMethodDefinition methodDefinition)
         {
-            return methodDefinition.ReturnType != typeof(void) 
+            return methodDefinition.ReturnParameter.Type != typeof(void) 
                    || methodDefinition.OutputParameters.Count > 0;
         }
         
         public static bool HasReturnType(this MBApiMethodDefinition methodDefinition)
         {
-            return methodDefinition.ReturnType != typeof(void);
+            return methodDefinition.ReturnParameter.Type != typeof(void);
         }
     }
 }

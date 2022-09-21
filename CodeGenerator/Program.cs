@@ -7,6 +7,7 @@ using CodeGenerator.Builders;
 using CodeGenerator.Builders.Abstract;
 using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
 using CodeGenerator.Enums;
+using CodeGenerator.Extensions;
 using CodeGenerator.Helpers;
 using CodeGenerator.Models;
 using Microsoft.Build.Evaluation;
@@ -291,7 +292,7 @@ namespace CodeGenerator
                 ServiceGenerationMode.MessagesInSeparateFiles => methods
                     .Select(x => @$"{ExportPathInsideModuleProject}\{x.Name}.proto")
                     .Append(serviceFilePath),
-                ServiceGenerationMode.SingleFile => new[] {serviceFilePath},
+                ServiceGenerationMode.SingleFile => new[] { serviceFilePath },
                 _ => throw new ArgumentOutOfRangeException(nameof(GenerationMode), GenerationMode, null)
             };
 
@@ -433,7 +434,15 @@ namespace CodeGenerator
                 .Select(Define)
                 .ToReadOnlyCollection();
 
-            return new MBApiMethodDefinition(name, inputParameters, outputParameters, returnParameter.ParameterType);
+            return new MBApiMethodDefinition(
+                name,
+                inputParameters,
+                outputParameters,
+                new MBApiReturnParameterDefinition(
+                    returnParameter.ParameterType,
+                    returnParameter.IsNullable()
+                )
+            );
         }
 
         private static (ParameterInfo returnParameter, ParameterInfo[] parameters) GetDelegateFieldParameters(
@@ -452,7 +461,9 @@ namespace CodeGenerator
         {
             return new MBApiParameterDefinition(
                 parameterInfo.ParameterType.RemoveRefWrapper(),
-                parameterInfo.Name);
+                parameterInfo.Name,
+                parameterInfo.IsNullable()
+            );
         }
     }
 }

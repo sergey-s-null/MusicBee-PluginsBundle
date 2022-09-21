@@ -1,5 +1,4 @@
-﻿using System;
-using CodeGenerator.Models;
+﻿using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders.ServiceImplBuilder.Abstract
 {
@@ -8,8 +7,8 @@ namespace CodeGenerator.Builders.ServiceImplBuilder.Abstract
         string GetMethodDefinitionLine(MBApiMethodDefinition method);
         
         string GetMBApiCallLine(MBApiMethodDefinition method);
-        
+
+        string GetResponseAssignmentLine(MBApiReturnParameterDefinition parameter, string fieldName);
         string GetResponseAssignmentLine(MBApiParameterDefinition parameter);
-        string GetResponseAssignmentLine(Type parameterType, string parameterName);
     }
 }

@@ -1225,13 +1225,13 @@ message Library_GetArtworkEx_Response {
   bool result = 1;
   int32 pictureLocations = 2;
   string pictureUrl = 3;
-  repeated int32 imageData = 4;
+  bytes imageData = 4;
 }
 
 message Library_SetArtworkEx_Request {
   string sourceFileUrl = 1;
   int32 index = 2;
-  repeated int32 imageData = 3;
+  bytes imageData = 3;
 }
 
 message Library_SetArtworkEx_Response {
@@ -1333,7 +1333,7 @@ message Podcasts_GetSubscriptionArtwork_Request {
 
 message Podcasts_GetSubscriptionArtwork_Response {
   bool result = 1;
-  repeated int32 imageData = 2;
+  bytes imageData = 2;
 }
 
 message Podcasts_GetSubscriptionEpisodes_Request {

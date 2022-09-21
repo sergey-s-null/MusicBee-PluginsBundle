@@ -53,7 +53,7 @@ namespace Root.Helpers
                 yield break;
             }
 
-            foreach (var filePath in filePaths)
+            foreach (var filePath in filePaths!)
             {
                 if (api.TryGetVkId(filePath, out var vkId))
                 {

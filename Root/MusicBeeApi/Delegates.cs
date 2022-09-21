@@ -64,7 +64,7 @@ namespace Root.MusicBeeApi
     public delegate bool Library_QueryFilesDelegate(string query);
     public delegate string Library_QueryGetNextFileDelegate();
     public delegate string Library_QueryGetAllFilesDelegate();
-    public delegate bool Library_QueryFilesExDelegate(string query, out string[] files);
+    public delegate bool Library_QueryFilesExDelegate(string query, out string[]? files);
     public delegate string Library_QuerySimilarArtistsDelegate(string artistName, double minimumArtistSimilarityRating);
     public delegate bool Library_QueryLookupTableDelegate(string keyTags, string valueTags, string query);
     public delegate string Library_QueryGetLookupTableValueDelegate(string key);

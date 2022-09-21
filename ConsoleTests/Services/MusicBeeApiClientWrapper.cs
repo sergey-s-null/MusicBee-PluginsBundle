@@ -1,4 +1,5 @@
 using System.Linq;
+using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
@@ -927,7 +928,7 @@ namespace ConsoleTests.Services
             });
         }
         
-        public bool Library_QueryFilesEx(string query, out string[] files)
+        public bool Library_QueryFilesEx(string query, out string[]? files)
         {
             var response = _client.Library_QueryFilesEx(new Library_QueryFilesEx_Request
             {
@@ -937,7 +938,7 @@ namespace ConsoleTests.Services
             return response.Result;
         }
         
-        public bool NowPlayingList_QueryFilesEx(string query, out string[] files)
+        public bool NowPlayingList_QueryFilesEx(string query, out string[]? files)
         {
             var response = _client.NowPlayingList_QueryFilesEx(new NowPlayingList_QueryFilesEx_Request
             {
@@ -1131,7 +1132,7 @@ namespace ConsoleTests.Services
             });
             pictureLocations = (PictureLocations)response.PictureLocations;
             pictureUrl = response.PictureUrl;
-            imageData = response.ImageData.Select(x => (byte)x).ToArray();
+            imageData = response.ImageData.ToByteArray();
             return response.Result;
         }
         
@@ -1141,7 +1142,7 @@ namespace ConsoleTests.Services
             {
                 SourceFileUrl = sourceFileUrl,
                 Index = index,
-                ImageData = { imageData.Select(x => (int)x) },
+                ImageData = ByteString.CopyFrom(imageData),
             });
             return response.Result;
         }
@@ -1256,7 +1257,7 @@ namespace ConsoleTests.Services
                 Id = id,
                 Index = index,
             });
-            imageData = response.ImageData.Select(x => (byte)x).ToArray();
+            imageData = response.ImageData.ToByteArray();
             return response.Result;
         }
         

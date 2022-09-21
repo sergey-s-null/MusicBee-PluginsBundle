@@ -117,8 +117,8 @@ namespace Root.MusicBeeApi.Abstract
         bool Playlist_AppendFiles(string playlistUrl, string[] filenames);
         string Sync_FileStart(string filename);
         void Sync_FileEnd(string filename, bool success, string errorMessage);
-        bool Library_QueryFilesEx(string query, out string[] files);
-        bool NowPlayingList_QueryFilesEx(string query, out string[] files);
+        bool Library_QueryFilesEx(string query, out string[]? files);
+        bool NowPlayingList_QueryFilesEx(string query, out string[]? files);
         bool Playlist_QueryFilesEx(string playlistUrl, out string[] filenames);
         bool Playlist_MoveFiles(string playlistUrl, int[] fromIndices, int toIndex);
         bool Playlist_PlayNow(string playlistUrl);

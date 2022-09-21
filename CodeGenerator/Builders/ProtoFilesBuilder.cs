@@ -31,7 +31,6 @@ namespace CodeGenerator.Builders
             [typeof(int)] = "int32",
             [typeof(float)] = "float",
             [typeof(double)] = "double",
-            [typeof(byte)] = "int32",
         };
 
         private readonly List<MBApiMethodDefinition> _methods = new();
@@ -221,7 +220,7 @@ namespace CodeGenerator.Builders
             if (methodDefinition.HasReturnType())
             {
                 parametersIndexShift++;
-                yield return $"  {GetProtoType(methodDefinition.ReturnType)} {_returnParameterName} = 1;";
+                yield return $"  {GetProtoType(methodDefinition.ReturnParameter.Type)} {_returnParameterName} = 1;";
             }
 
             var parameterLines = methodDefinition.OutputParameters
@@ -249,11 +248,18 @@ namespace CodeGenerator.Builders
                 return GetProtoType(parameterType.GetElementType()!);
             }
 
-            if (withEnumerable
-                && parameterType.IsEnumerable(out var elementType))
+            if (parameterType.IsEnumerable(out var elementType))
             {
-                var elementProtoType = GetProtoType(elementType!, false);
-                return $"repeated {elementProtoType}";
+                if (elementType == typeof(byte))
+                {
+                    return "bytes";
+                }
+
+                if (withEnumerable)
+                {
+                    var elementProtoType = GetProtoType(elementType!, false);
+                    return $"repeated {elementProtoType}";
+                }
             }
 
             if (parameterType.IsEnum

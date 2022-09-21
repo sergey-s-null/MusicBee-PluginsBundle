@@ -26,7 +26,7 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
             return $"public override Task<{_messageTypesBuilder.GetResponseMessageType(method)}> " +
                    $"{method.Name}({_messageTypesBuilder.GetRequestMessageType(method)} request, ServerCallContext context)";
         }
-        
+
         public string GetMBApiCallLine(MBApiMethodDefinition method)
         {
             var resultPart = method.HasReturnType()
@@ -50,13 +50,18 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
                 ? $"({parameter.Type.Name})"
                 : string.Empty;
             var castPostfix = GetCastPostfix(parameter);
-            var toArrayPostfix = parameter.Type.IsArray
-                ? ".ToArray()"
-                : string.Empty;
+
+            var toArrayPostfix = string.Empty;
+            if (parameter.Type.IsEnumerable(out var elementType))
+            {
+                toArrayPostfix = elementType == typeof(byte)
+                    ? ".ToByteArray()"
+                    : ".ToArray()";
+            }
 
             return $"{castPrefix}request.{parameter.Name.Capitalize()}{castPostfix}{toArrayPostfix}";
         }
-        
+
         private static string GetCastPostfix(MBApiParameterDefinition parameter)
         {
             if (parameter.Type.IsArray && parameter.Type.HasElementType)
@@ -66,46 +71,59 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
                 {
                     return $".Cast<{elementType.Name}>()";
                 }
-
-                if (elementType == typeof(byte))
-                {
-                    return ".Select(x => (byte)x)";
-                }
             }
 
             return string.Empty;
         }
 
-        public string GetResponseAssignmentLine(MBApiParameterDefinition parameter)
+        public string GetResponseAssignmentLine(MBApiReturnParameterDefinition parameter, string fieldName)
         {
-            return GetResponseAssignmentLine(parameter.Type, parameter.Name);
+            var rightPart = GetResponseAssignmentLineRightPart(
+                parameter.Type,
+                parameter.IsNullable,
+                fieldName
+            );
+            return $"{fieldName.Capitalize()} = {rightPart},";
         }
 
-        public string GetResponseAssignmentLine(Type parameterType, string parameterName)
+        public string GetResponseAssignmentLine(MBApiParameterDefinition parameter)
         {
-            string rightPart;
+            var rightPart = GetResponseAssignmentLineRightPart(
+                parameter.Type,
+                parameter.IsNullable,
+                parameter.Name
+            );
+            return $"{parameter.Name.Capitalize()} = {rightPart},";
+        }
+
+        private static string GetResponseAssignmentLineRightPart(
+            Type parameterType,
+            bool isNullableType,
+            string parameterName)
+        {
             if (parameterType.IsEnumerable() && parameterType.HasElementType)
             {
                 var elementType = parameterType.GetElementType();
-                rightPart = elementType == typeof(byte)
-                    ? $"{{ {parameterName}.Select(x => (int)x) }}"
-                    : $"{{ {parameterName} }}";
-            }
-            else if (parameterType.IsEnum)
-            {
-                rightPart = $"(int){parameterName}";
-            }
-            else if (parameterType == typeof(string))
-            {
-                // если появится больше типов, создать словарь
-                rightPart = $"{parameterName} ?? string.Empty";
-            }
-            else
-            {
-                rightPart = parameterName;
+                if (elementType is null)
+                {
+                    throw new NotSupportedException("Could not generate code for enumerable without element type.");
+                }
+
+                var nullablePart = isNullableType
+                    ? $" ?? Array.Empty<{elementType.GetFixedName()}>()"
+                    : string.Empty;
+
+                return elementType == typeof(byte)
+                    ? $"ByteString.CopyFrom({parameterName}{nullablePart})"
+                    : $"{{ {parameterName}{nullablePart} }}";
             }
 
-            return $"{parameterName.Capitalize()} = {rightPart},";
+            if (parameterType.IsEnum)
+            {
+                return $"(int){parameterName}";
+            }
+
+            return parameterName;
         }
     }
 }

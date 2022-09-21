@@ -10,8 +10,10 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
     {
         private static readonly IReadOnlyCollection<string> UsingBlock = new[]
         {
+            "using System;",
             "using System.Linq;",
             "using System.Threading.Tasks;",
+            "using Google.Protobuf;",
             "using Google.Protobuf.WellKnownTypes;",
             "using Grpc.Core;",
             "using Root.MusicBeeApi;",
@@ -88,7 +90,7 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
 
         private static IEnumerable<string> GetClassFieldsLines()
         {
-            yield return "private readonly IMusicBeeApi _mbApi;";
+            yield return "private readonly IBaseMusicBeeApi _mbApi;";
         }
 
         private IEnumerable<string> GetConstructorLines()
@@ -96,7 +98,7 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
             var dispatcherPart = _parameters.WithDispatcher
                 ? ", Dispatcher dispatcher"
                 : string.Empty;
-            yield return $"public {ClassName}(IMusicBeeApi mbApi{dispatcherPart})";
+            yield return $"public {ClassName}(IBaseMusicBeeApi mbApi{dispatcherPart})";
             yield return "{";
             yield return "_mbApi = mbApi;".Indented();
             if (_parameters.WithDispatcher)

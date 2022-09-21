@@ -57,7 +57,7 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
             if (method.HasReturnType())
             {
                 yield return _commonLinesBuilder
-                    .GetResponseAssignmentLine(method.ReturnType, _parameters.ReturnParameterName)
+                    .GetResponseAssignmentLine(method.ReturnParameter, _parameters.ReturnParameterName)
                     .Indented();
             }
 
