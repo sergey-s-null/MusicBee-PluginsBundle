@@ -22,7 +22,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
     {
         public ICommand RefreshCmd => _refreshCmd ??= new RelayCommand(async _ => await RefreshAsync());
         private ICommand? _refreshCmd;
-        public bool Refreshing => false;// todo
+        public bool Refreshing { get; private set; }
 
         public IList<IVkAudioVM> VkOnlyAudios { get; } = new ObservableCollection<IVkAudioVM>();
 
@@ -52,6 +52,13 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
 
         private async Task RefreshAsync()
         {
+            if (Refreshing)
+            {
+                return;
+            }
+
+            Refreshing = true;
+
             VkOnlyAudios.Clear();
             LocalOnlyAudios.Clear();
 
@@ -72,6 +79,8 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
             {
                 LocalOnlyAudios.Add(MapMBAudio(mbAudio));
             }
+
+            Refreshing = false;
         }
 
         private async Task<AudiosDifference?> FindDifferencesAndShowMessageOnErrorAsync()
