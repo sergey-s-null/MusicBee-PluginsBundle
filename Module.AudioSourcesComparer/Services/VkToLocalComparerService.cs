@@ -41,7 +41,7 @@ namespace Module.AudioSourcesComparer.Services
                 throw new MBApiException("Could not get audios list from music bee.");
             }
 
-            var mbAudiosByVkIds = GetMBFilesByVkIds(files);
+            var mbAudiosByVkIds = GetMBFilesByVkIds(files!);
             var vkIdsInMBLibrary = mbAudiosByVkIds.Keys.ToHashSet();
 
             var vkAudiosByVkIds = await GetVkAudiosByVkIdsAsync();

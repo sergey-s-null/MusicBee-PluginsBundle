@@ -178,7 +178,7 @@ namespace MusicBeePlugin.Services
         {
             var queryRes = _mbApi.Library_QueryFilesEx("domain=SelectedFiles", out var files);
 
-            if (!queryRes || files.Length != 1)
+            if (!queryRes || files!.Length != 1)
             {
                 filePath = string.Empty;
                 return false;

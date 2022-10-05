@@ -73,7 +73,7 @@ namespace Module.InboxAdder.Services
                 throw new Exception("Error on receive files from library");
             }
 
-            return filePaths;
+            return filePaths!;
         }
     }
 }

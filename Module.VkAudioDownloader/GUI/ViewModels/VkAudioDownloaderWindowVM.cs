@@ -173,7 +173,7 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         private IReadOnlyCollection<string> GetFilePathsOrDefault(IReadOnlyCollection<string> defaultFilePaths)
         {
             return _mbApi.Library_QueryFilesEx("", out var filePaths)
-                ? filePaths
+                ? filePaths!
                 : defaultFilePaths;
         }
 
