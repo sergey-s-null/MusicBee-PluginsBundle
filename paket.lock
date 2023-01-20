@@ -68,6 +68,9 @@ GROUP NetFramework
 RESTRICTION: == net472
 NUGET
   remote: https://api.nuget.org/v3/index.json
+    Autofac (6.5)
+      Microsoft.Bcl.AsyncInterfaces (>= 1.1)
+      System.Diagnostics.DiagnosticSource (>= 4.7.1)
     Fody (6.6.3)
     Google.Protobuf (3.21.1)
       System.Memory (>= 4.5.3)
@@ -103,6 +106,9 @@ NUGET
     System.Buffers (4.5.1)
     System.Collections.Immutable (6.0)
       System.Memory (>= 4.5.4)
+      System.Runtime.CompilerServices.Unsafe (>= 6.0)
+    System.Diagnostics.DiagnosticSource (7.0)
+      System.Memory (>= 4.5.5)
       System.Runtime.CompilerServices.Unsafe (>= 6.0)
     System.Linq.Async (6.0.1)
       Microsoft.Bcl.AsyncInterfaces (>= 6.0)
