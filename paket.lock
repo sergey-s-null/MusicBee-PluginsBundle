@@ -29,7 +29,6 @@ NUGET
     Microsoft.NET.StringTools (1.0)
       System.Memory (>= 4.5.4)
       System.Runtime.CompilerServices.Unsafe (>= 5.0)
-    Ninject (3.3.6)
     System.Buffers (4.5.1)
     System.Collections.Immutable (6.0)
       System.Memory (>= 4.5.4)
@@ -69,7 +68,6 @@ GROUP NetFramework
 RESTRICTION: == net472
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    Castle.Core (5.0)
     Fody (6.6.3)
     Google.Protobuf (3.21.1)
       System.Memory (>= 4.5.3)
@@ -94,10 +92,6 @@ NUGET
     morelinq (3.3.2)
       System.ValueTuple (>= 4.5)
     Newtonsoft.Json (13.0.1)
-    Ninject (3.3.6)
-    Ninject.Extensions.Factory (3.3.3)
-      Castle.Core (>= 4.2)
-      Ninject (>= 3.3.3)
     PropertyChanged.Fody (3.4.1)
       Fody (>= 6.6.2)
     protobuf-net (3.1.4)

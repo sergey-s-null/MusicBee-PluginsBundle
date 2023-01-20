@@ -3,8 +3,6 @@ source https://api.nuget.org/v3/index.json
 framework: net472
     nuget Fody
     nuget Newtonsoft.Json
-    nuget Ninject
-    nuget Ninject.Extensions.Factory
     nuget PropertyChanged.Fody
     nuget System.Linq.Async
     nuget VkNet
@@ -24,4 +22,3 @@ source https://api.nuget.org/v3/index.json
 framework: net472
     nuget Microsoft.Build
     nuget Microsoft.Build.Utilities.Core
-    nuget Ninject

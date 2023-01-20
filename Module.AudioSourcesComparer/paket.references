@@ -1,6 +1,4 @@
 ﻿group NetFramework
     PropertyChanged.Fody
     VkNet
-    Ninject
-    Ninject.Extensions.Factory
     MahApps.Metro.IconPacks

@@ -1,6 +1,4 @@
 group NetFramework
-    Ninject
-    Ninject.Extensions.Factory
     Newtonsoft.Json
     VkNet
     VkNet.AudioBypassService

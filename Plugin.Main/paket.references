@@ -1,7 +1,5 @@
 group NetFramework
     Fody
-    Ninject
-    Ninject.Extensions.Factory
     PropertyChanged.Fody
     WindowsAPICodePack
     VkNet
