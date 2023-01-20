@@ -34,13 +34,13 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
         public IList<IMBAudioVM> LocalOnlyAudios { get; } = new ObservableCollection<IMBAudioVM>();
 
         private readonly IVkToLocalComparerService _vkToLocalComparerService;
-        private readonly IVkAudioVMFactory _vkAudioVMFactory;
+        private readonly VkAudioVMFactory _vkAudioVMFactory;
         private readonly IVkApi _vkApi;
         private readonly IVkSettings _vkSettings;
 
         public VkToLocalComparerWindowVM(
             IVkToLocalComparerService vkToLocalComparerService,
-            IVkAudioVMFactory vkAudioVMFactory,
+            VkAudioVMFactory vkAudioVMFactory,
             IVkApi vkApi,
             IVkSettings vkSettings)
         {
@@ -129,7 +129,7 @@ namespace Module.AudioSourcesComparer.GUI.ViewModels
 
         private IVkAudioVM MapVkAudio(VkAudio vkAudio)
         {
-            return _vkAudioVMFactory.Create(vkAudio.Id, vkAudio.Artist, vkAudio.Title);
+            return _vkAudioVMFactory(vkAudio.Id, vkAudio.Artist, vkAudio.Title);
         }
 
         private static IMBAudioVM MapMBAudio(MBAudio mbAudio)

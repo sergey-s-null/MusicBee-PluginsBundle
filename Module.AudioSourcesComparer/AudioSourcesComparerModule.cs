@@ -1,35 +1,26 @@
-﻿using Module.AudioSourcesComparer.GUI.AbstractViewModels;
-using Module.AudioSourcesComparer.GUI.Factories;
+﻿using Autofac;
+using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.AudioSourcesComparer.GUI.ViewModels;
 using Module.AudioSourcesComparer.Services;
 using Module.AudioSourcesComparer.Services.Abstract;
-using Ninject.Extensions.Factory;
-using Ninject.Modules;
 
 namespace Module.AudioSourcesComparer
 {
-    public sealed class AudioSourcesComparerModule : NinjectModule
+    public sealed class AudioSourcesComparerModule : Autofac.Module
     {
-        public override void Load()
+        protected override void Load(ContainerBuilder builder)
         {
-            // Services
-            Bind<IVkToLocalComparerService>()
-                .To<VkToLocalComparerService>()
-                .InSingletonScope();
+            builder
+                .RegisterType<VkToLocalComparerService>()
+                .As<IVkToLocalComparerService>()
+                .SingleInstance();
 
-            // ViewModels
-            Bind<IVkToLocalComparerWindowVM>()
-                .To<VkToLocalComparerWindowVM>();
-            Bind<IVkAudioVM>()
-                .To<VkAudioVM>();
-
-            // Factories
-            Bind<IVkToLocalComparerWindowFactory>()
-                .ToFactory()
-                .InSingletonScope();
-            Bind<IVkAudioVMFactory>()
-                .ToFactory()
-                .InSingletonScope();
+            builder
+                .RegisterType<VkToLocalComparerWindowVM>()
+                .As<IVkToLocalComparerWindowVM>();
+            builder
+                .RegisterType<VkAudioVM>()
+                .As<IVkAudioVM>();
         }
     }
 }

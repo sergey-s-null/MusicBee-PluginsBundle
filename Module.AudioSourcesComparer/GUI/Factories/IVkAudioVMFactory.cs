@@ -2,8 +2,5 @@
 
 namespace Module.AudioSourcesComparer.GUI.Factories
 {
-    public interface IVkAudioVMFactory
-    {
-        IVkAudioVM Create(long id, string artist, string title);
-    }
+    public delegate IVkAudioVM VkAudioVMFactory(long id, string artist, string title);
 }

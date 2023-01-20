@@ -2,8 +2,5 @@
 
 namespace Module.AudioSourcesComparer.GUI.Factories
 {
-    public interface IVkToLocalComparerWindowFactory
-    {
-        VkToLocalComparerWindow Create();
-    }
+    public delegate VkToLocalComparerWindow VkToLocalComparerWindowFactory();
 }
