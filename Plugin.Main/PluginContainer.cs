@@ -44,8 +44,8 @@ namespace MusicBeePlugin
                 .SingleInstance();
 
             builder
-                .RegisterType<IVkApiAuthorizationsService>()
-                .As<VkApiAuthorizationsService>()
+                .RegisterType<VkApiAuthorizationsService>()
+                .As<IVkApiAuthorizationsService>()
                 .SingleInstance();
 
             builder
