@@ -1,14 +1,15 @@
-﻿using Module.DataExporter.Services;
-using Ninject.Modules;
+﻿using Autofac;
+using Module.DataExporter.Services;
 
 namespace Module.DataExporter
 {
-    public sealed class DataExporterModule : NinjectModule
+    public sealed class DataExporterModule : Autofac.Module
     {
-        public override void Load()
+        protected override void Load(ContainerBuilder builder)
         {
-            Bind<IDataExportService>()
-                .To<DataExportService>();
+            builder
+                .RegisterType<DataExportService>()
+                .As<IDataExportService>();
         }
     }
 }
