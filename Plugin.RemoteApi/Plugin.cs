@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
+using Autofac;
 using Grpc.Core;
 using HackModule.AssemblyBindingRedirect.Services;
 using HackModule.AssemblyBindingRedirect.Services.Abstract;
 using Module.RemoteMusicBeeApi;
-using Ninject;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
 
@@ -30,9 +30,9 @@ namespace MusicBeePlugin
             var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
             mbApiMemoryContainer.Initialise(apiInterfacePtr);
 
-            var kernel = Bootstrapper.GetKernel(mbApiMemoryContainer);
+            var container = PluginContainer.GetKernel(mbApiMemoryContainer);
 
-            _mbApi = kernel.Get<IMusicBeeApi>();
+            _mbApi = container.Resolve<IMusicBeeApi>();
 
             return GetPluginInfo();
         }
@@ -101,8 +101,8 @@ namespace MusicBeePlugin
 
             _server = new Server()
             {
-                Ports = {{ServerHost, ServerPort, ServerCredentials.Insecure}},
-                Services = {MusicBeeApiService.BindService(new MusicBeeApiServiceImpl(_mbApi))},
+                Ports = { { ServerHost, ServerPort, ServerCredentials.Insecure } },
+                Services = { MusicBeeApiService.BindService(new MusicBeeApiServiceImpl(_mbApi)) },
             };
             _server.Start();
         }
