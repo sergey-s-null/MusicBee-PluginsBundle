@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Autofac;
 using CodeGenerator.Builders;
 using CodeGenerator.Builders.Abstract;
 using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
@@ -11,8 +12,6 @@ using CodeGenerator.Extensions;
 using CodeGenerator.Helpers;
 using CodeGenerator.Models;
 using Microsoft.Build.Evaluation;
-using Ninject;
-using Ninject.Syntax;
 using Root.Helpers;
 using Root.MusicBeeApi;
 
@@ -242,7 +241,7 @@ namespace CodeGenerator
 
         public static void Main(string[] args)
         {
-            var resolutionRoot = Bootstrapper.GetKernel(ServiceImplMode.WrapWithTaskRun);
+            var container = ApplicationContainer.Create(ServiceImplMode.WrapWithTaskRun);
 
             var baseMethods = GetMethodsDefinition(MethodNamesWithoutRestrictions);
             var extendedMethods = GetMethodsDefinition(ExtendedMethodNames);
@@ -253,13 +252,13 @@ namespace CodeGenerator
             AddProtobufToModuleCsProj(baseMethods);
             AddProtobufToConsoleTestsCsProj(baseMethods);
 
-            GenerateServiceImpl(resolutionRoot, baseMethods);
+            GenerateServiceImpl(container, baseMethods);
 
-            GenerateBaseInterface(resolutionRoot, baseMethods);
-            GenerateExtendedInterface(resolutionRoot, extendedMethods);
+            GenerateBaseInterface(container, baseMethods);
+            GenerateExtendedInterface(container, extendedMethods);
 
-            GenerateClientWrapper(resolutionRoot, baseMethods);
-            GenerateMemoryContainerWrapper(resolutionRoot, methodsExceptIgnored);
+            GenerateClientWrapper(container, baseMethods);
+            GenerateMemoryContainerWrapper(container, methodsExceptIgnored);
         }
 
         private static void GenerateProtoFiles(IEnumerable<MBApiMethodDefinition> methods)
@@ -330,25 +329,25 @@ namespace CodeGenerator
         }
 
         private static void GenerateServiceImpl(
-            IResolutionRoot resolutionRoot,
+            IComponentContext componentContext,
             IReadOnlyCollection<MBApiMethodDefinition> methods)
         {
             const string filePath = @"..\..\..\Module.RemoteMusicBeeApi\MusicBeeApiServiceImpl.cs";
 
-            var lines = resolutionRoot
-                .Get<IServiceBuilder>()
+            var lines = componentContext
+                .Resolve<IServiceBuilder>()
                 .GenerateServiceLines(methods);
 
             File.WriteAllLines(filePath, lines);
         }
 
         private static void GenerateBaseInterface(
-            IResolutionRoot resolutionRoot,
+            IComponentContext componentContext,
             IReadOnlyCollection<MBApiMethodDefinition> baseMethods)
         {
             const string baseFilePath = @"..\..\..\Root\MusicBeeApi\Abstract\IBaseMusicBeeApi.cs";
 
-            var builder = resolutionRoot.Get<IInterfaceBuilder>();
+            var builder = componentContext.Resolve<IInterfaceBuilder>();
             builder.Namespace = "Root.MusicBeeApi.Abstract";
             builder.Name = "IBaseMusicBeeApi";
             var baseLines = builder
@@ -357,12 +356,12 @@ namespace CodeGenerator
         }
 
         private static void GenerateExtendedInterface(
-            IResolutionRoot resolutionRoot,
+            IComponentContext componentContext,
             IReadOnlyCollection<MBApiMethodDefinition> extendedMethods)
         {
             const string extendedFilePath = @"..\..\..\Root\MusicBeeApi\Abstract\IMusicBeeApi.cs";
 
-            var builder = resolutionRoot.Get<IInterfaceBuilder>();
+            var builder = componentContext.Resolve<IInterfaceBuilder>();
             builder.ImportNamespaces = new[]
             {
                 "System",
@@ -380,13 +379,13 @@ namespace CodeGenerator
         }
 
         private static void GenerateClientWrapper(
-            IResolutionRoot resolutionRoot,
+            IComponentContext componentContext,
             IReadOnlyCollection<MBApiMethodDefinition> methods)
         {
             const string wrapperFilePath = @"..\..\..\ConsoleTests\Services\MusicBeeApiClientWrapper.cs";
 
-            var builder = resolutionRoot
-                .Get<IClientWrapperBuilder>();
+            var builder = componentContext
+                .Resolve<IClientWrapperBuilder>();
             builder.ReturnVariableName = ReturnParameterName;
 
             var lines = builder
@@ -395,12 +394,12 @@ namespace CodeGenerator
         }
 
         private static void GenerateMemoryContainerWrapper(
-            IResolutionRoot resolutionRoot,
+            IComponentContext componentContext,
             IReadOnlyCollection<MBApiMethodDefinition> methods)
         {
             const string filePath = @"..\..\..\Root\MusicBeeApi\MusicBeeApiMemoryContainerWrapper.cs";
 
-            var builder = resolutionRoot.Get<IMemoryContainerWrapperBuilder>();
+            var builder = componentContext.Resolve<IMemoryContainerWrapperBuilder>();
             builder.Namespace = "Root.MusicBeeApi";
 
             var lines = builder.GenerateMemoryContainerWrapperLines(methods);

@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ApplicationContainer.cs" />
     <Compile Include="Builders\Abstract\IClientWrapperBuilder.cs" />
     <Compile Include="Builders\Abstract\IInterfaceBuilder.cs" />
     <Compile Include="Builders\Abstract\IMemoryContainerWrapperBuilder.cs" />
@@ -98,6 +98,17 @@
     <Target Name="AfterBuild">
     </Target>
     -->
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Autofac">
+          <HintPath>..\packages\mbapiprotogenerator\Autofac\lib\netstandard2.0\Autofac.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
@@ -203,6 +214,17 @@
         </Reference>
         <Reference Include="System.Configuration.ConfigurationManager">
           <HintPath>..\packages\mbapiprotogenerator\System.Configuration.ConfigurationManager\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Diagnostics.DiagnosticSource">
+          <HintPath>..\packages\mbapiprotogenerator\System.Diagnostics.DiagnosticSource\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
