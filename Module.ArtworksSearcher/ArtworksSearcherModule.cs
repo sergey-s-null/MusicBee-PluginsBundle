@@ -1,45 +1,49 @@
-﻿using Module.ArtworksSearcher.Factories;
+﻿using Autofac;
 using Module.ArtworksSearcher.GUI.SearchWindow;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.ArtworksSearcher.ImagesProviders;
 using Module.ArtworksSearcher.Services;
 using Module.ArtworksSearcher.Services.Abstract;
 using Module.ArtworksSearcher.Settings;
-using Ninject.Extensions.Factory;
-using Ninject.Modules;
 using ArtworksSearcherSettings = Module.ArtworksSearcher.Settings.ArtworksSearcherSettings;
 
 namespace Module.ArtworksSearcher
 {
-    public sealed class ArtworksSearcherModule : NinjectModule
+    public sealed class ArtworksSearcherModule : Autofac.Module
     {
-        public override void Load()
+        protected override void Load(ContainerBuilder builder)
         {
-            Bind<IArtworksSearcherSettings>()
-                .To<ArtworksSearcherSettings>()
-                .InSingletonScope();
+            builder
+                .RegisterType<ArtworksSearcherSettings>()
+                .As<IArtworksSearcherSettings>()
+                .SingleInstance();
 
-            Bind<IArtworksSearcherSettingsVM>()
-                .To<ArtworksSearcherSettingsVM>();
+            builder
+                .RegisterType<ArtworksSearcherSettingsVM>()
+                .As<IArtworksSearcherSettingsVM>();
 
-            Bind<IGoogleImagesEnumeratorFactory>()
-                .ToFactory()
-                .InSingletonScope();
-            Bind<IImagesProvidersFactory>()
-                .To<ImagesProvidersFactory>()
-                .InSingletonScope();
+            builder
+                .RegisterType<ImagesProvidersFactory>()
+                .As<IImagesProvidersFactory>()
+                .SingleInstance();
 
-            Bind<ISearchWindowFactory>()
-                .ToFactory();
+            builder
+                .RegisterType<OsuImagesProvider>()
+                .AsSelf();
+            builder
+                .RegisterType<GoogleImagesProvider>()
+                .AsSelf();
+            builder
+                .RegisterType<SearchWindowVM>()
+                .AsSelf();
+            builder
+                .RegisterType<SearchWindow>()
+                .AsSelf();
 
-            Bind<OsuImagesProvider>().ToSelf();
-            Bind<GoogleImagesProvider>().ToSelf();
-            Bind<SearchWindowVM>().ToSelf();
-            Bind<SearchWindow>().ToSelf();
-
-            Bind<IGoogleImageSearchService>()
-                .To<GoogleImageSearchService>()
-                .InSingletonScope();
+            builder
+                .RegisterType<GoogleImageSearchService>()
+                .As<IGoogleImageSearchService>()
+                .SingleInstance();
         }
     }
 }

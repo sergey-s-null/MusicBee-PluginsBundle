@@ -2,8 +2,5 @@
 
 namespace Module.ArtworksSearcher.Factories
 {
-    public interface ISearchWindowFactory
-    {
-        SearchWindow Create();
-    }
+    public delegate SearchWindow SearchWindowFactory();
 }

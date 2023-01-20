@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Media.Imaging;
 using Module.ArtworksSearcher.Factories;
@@ -10,12 +9,12 @@ namespace Module.ArtworksSearcher.ImagesProviders
     {
         private readonly string _query;
 
-        private readonly IGoogleImagesEnumeratorFactory _googleImagesEnumeratorFactory;
-        
+        private readonly GoogleImagesEnumeratorFactory _googleImagesEnumeratorFactory;
+
         public GoogleImagesProvider(
             string query,
             // DI
-            IGoogleImagesEnumeratorFactory googleImagesEnumeratorFactory)
+            GoogleImagesEnumeratorFactory googleImagesEnumeratorFactory)
         {
             _query = query;
 
@@ -24,7 +23,7 @@ namespace Module.ArtworksSearcher.ImagesProviders
 
         public IAsyncEnumerator<BitmapImage> GetAsyncEnumerator(CancellationToken cancellationToken)
         {
-            return _googleImagesEnumeratorFactory.Create(_query, cancellationToken);
+            return _googleImagesEnumeratorFactory(_query, cancellationToken);
         }
     }
 }

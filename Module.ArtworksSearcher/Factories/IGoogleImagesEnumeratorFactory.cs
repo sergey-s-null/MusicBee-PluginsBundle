@@ -3,8 +3,5 @@ using Module.ArtworksSearcher.ImagesProviders;
 
 namespace Module.ArtworksSearcher.Factories
 {
-    public interface IGoogleImagesEnumeratorFactory
-    {
-        GoogleImagesAsyncEnumerator Create(string query, CancellationToken cancellationToken);
-    }
+    public delegate GoogleImagesAsyncEnumerator GoogleImagesEnumeratorFactory(string query, CancellationToken cancellationToken);
 }
