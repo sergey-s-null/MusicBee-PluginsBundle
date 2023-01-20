@@ -3,3 +3,4 @@ group NetFramework
     morelinq
     PropertyChanged.Fody
     Microsoft.Bcl.AsyncInterfaces
+    Autofac
