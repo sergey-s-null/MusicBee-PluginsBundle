@@ -6,7 +6,7 @@ using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders.ServiceImplBuilder
 {
-    public class TaskFromResultMethodBuilder : IMethodBuilder
+    public sealed class TaskFromResultMethodBuilder : IMethodBuilder
     {
         private readonly IServiceBuilderParameters _parameters;
         private readonly IMessageTypesBuilder _messageTypesBuilder;

@@ -7,7 +7,7 @@ using Root.Settings;
 
 namespace Module.ArtworksSearcher.Settings
 {
-    public class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSettings
+    public sealed class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSettings
     {
         public string GoogleCX { get; set; } = "";
         public string GoogleKey { get; set; } = "";

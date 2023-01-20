@@ -3,7 +3,7 @@ using Root.GUI.AbstractViewModels;
 
 namespace MusicBeePlugin.GUI.ViewModels
 {
-    public class ModuleSettingsVM : IModuleSettingsVM
+    public sealed class ModuleSettingsVM : IModuleSettingsVM
     {
         public string ModuleName { get; }
         public IBaseSettingsVM ModuleSettings { get; }

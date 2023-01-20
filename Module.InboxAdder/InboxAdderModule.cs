@@ -3,7 +3,7 @@ using Ninject.Modules;
 
 namespace Module.InboxAdder
 {
-    public class InboxAdderModule : NinjectModule
+    public sealed class InboxAdderModule : NinjectModule
     {
         public override void Load()
         {

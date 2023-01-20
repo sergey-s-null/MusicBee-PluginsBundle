@@ -12,7 +12,7 @@ namespace Module.VkAudioDownloader.GUI.Views
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class VkAudioDownloaderWindow : Window
+    public sealed partial class VkAudioDownloaderWindow : Window
     {
         public IVkAudioDownloaderWindowVM ViewModel { get; }
 

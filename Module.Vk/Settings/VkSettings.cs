@@ -7,7 +7,7 @@ using Root.Settings;
 
 namespace Module.Vk.Settings
 {
-    public class VkSettings : BaseSettings, IVkSettings
+    public sealed class VkSettings : BaseSettings, IVkSettings
     {
         public string AccessToken { get; set; } = string.Empty;
         public long UserId { get; set; }

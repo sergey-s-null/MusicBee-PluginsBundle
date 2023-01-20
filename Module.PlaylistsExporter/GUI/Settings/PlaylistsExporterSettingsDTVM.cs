@@ -5,7 +5,7 @@ using Root.MVVM;
 
 namespace Module.PlaylistsExporter.GUI.Settings
 {
-    public class PlaylistsExporterSettingsDTVM : IPlaylistsExporterSettingsVM
+    public sealed class PlaylistsExporterSettingsDTVM : IPlaylistsExporterSettingsVM
     {
         public bool Loaded => false;
         public string LoadingErrorMessage => "Another error.";

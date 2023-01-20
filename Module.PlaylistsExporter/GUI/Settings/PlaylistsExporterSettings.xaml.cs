@@ -2,7 +2,7 @@
 
 namespace Module.PlaylistsExporter.GUI.Settings
 {
-    public partial class PlaylistsExporterSettings : UserControl
+    public sealed partial class PlaylistsExporterSettings : UserControl
     {
         public PlaylistsExporterSettings()
         {

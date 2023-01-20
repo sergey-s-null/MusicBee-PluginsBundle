@@ -6,7 +6,7 @@ using PlaylistsExporterSettings = Module.PlaylistsExporter.Settings.PlaylistsExp
 
 namespace Module.PlaylistsExporter
 {
-    public class PlaylistsExporterModule : NinjectModule
+    public sealed class PlaylistsExporterModule : NinjectModule
     {
         public override void Load()
         {

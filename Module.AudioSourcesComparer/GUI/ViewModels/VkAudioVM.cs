@@ -9,7 +9,7 @@ using VkNet.Exception;
 
 namespace Module.AudioSourcesComparer.GUI.ViewModels
 {
-    public class VkAudioVM : IVkAudioVM
+    public sealed class VkAudioVM : IVkAudioVM
     {
         public event EventHandler<EventArgs>? DeleteRequested;
 

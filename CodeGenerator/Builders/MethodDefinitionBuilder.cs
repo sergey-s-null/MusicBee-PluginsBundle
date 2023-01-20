@@ -7,7 +7,7 @@ using CodeGenerator.Models.Abstract;
 
 namespace CodeGenerator.Builders
 {
-    public class MethodDefinitionBuilder : IMethodDefinitionBuilder
+    public sealed class MethodDefinitionBuilder : IMethodDefinitionBuilder
     {
         public string GetClearMethodDefinition(MBApiMethodDefinition method)
         {

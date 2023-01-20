@@ -3,7 +3,7 @@ using Test_Desktop.GUI.SpecContextMenu;
 
 namespace Test_Desktop.GUI.TestDialog
 {
-    public partial class TestDialog : Window
+    public sealed partial class TestDialog : Window
     {
         public TestDialog(TestDialogVM vm)
         {

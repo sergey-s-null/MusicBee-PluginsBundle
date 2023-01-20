@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Module.ArtworksSearcher.GUI.SearchWindow
 {
-    public partial class SearchWindow : Window
+    public sealed partial class SearchWindow : Window
     {
         public SearchWindowVM ViewModel { get; }
 

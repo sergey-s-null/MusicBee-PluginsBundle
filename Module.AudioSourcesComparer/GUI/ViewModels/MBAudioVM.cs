@@ -6,7 +6,7 @@ using Root.MVVM;
 
 namespace Module.AudioSourcesComparer.GUI.ViewModels
 {
-    public class MBAudioVM : IMBAudioVM
+    public sealed class MBAudioVM : IMBAudioVM
     {
         private readonly string _filePath;
         public long VkId { get; }

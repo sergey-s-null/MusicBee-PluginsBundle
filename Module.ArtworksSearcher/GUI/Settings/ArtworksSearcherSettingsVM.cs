@@ -7,7 +7,7 @@ using Root.MVVM;
 namespace Module.ArtworksSearcher.GUI.Settings
 {
     [AddINotifyPropertyChangedInterface]
-    public class ArtworksSearcherSettingsVM : BaseSettingsVM, IArtworksSearcherSettingsVM
+    public sealed class ArtworksSearcherSettingsVM : BaseSettingsVM, IArtworksSearcherSettingsVM
     {
         public string GoogleCX { get; set; } = "";
         public string GoogleKey { get; set; } = "";

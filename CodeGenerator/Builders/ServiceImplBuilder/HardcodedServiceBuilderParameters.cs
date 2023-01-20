@@ -2,7 +2,7 @@
 
 namespace CodeGenerator.Builders.ServiceImplBuilder
 {
-    public class HardcodedServiceBuilderParameters : IServiceBuilderParameters
+    public sealed class HardcodedServiceBuilderParameters : IServiceBuilderParameters
     {
         public string RequestPostfix => "_Request";
         public string ResponsePostfix => "_Response";

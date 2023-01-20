@@ -13,7 +13,7 @@ using Root.Helpers;
 
 namespace Module.ArtworksSearcher.Services
 {
-    public class GoogleImageSearchService : IGoogleImageSearchService
+    public sealed class GoogleImageSearchService : IGoogleImageSearchService
     {
         private const string GoogleApiUrl = "https://www.googleapis.com/customsearch/v1";
 

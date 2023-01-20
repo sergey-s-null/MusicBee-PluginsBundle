@@ -4,7 +4,7 @@ using Root.Services.Abstract;
 
 namespace Root
 {
-    public class RootModule : NinjectModule
+    public sealed class RootModule : NinjectModule
     {
         public override void Load()
         {

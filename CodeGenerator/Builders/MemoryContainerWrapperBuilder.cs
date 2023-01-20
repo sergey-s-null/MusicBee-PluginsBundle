@@ -6,7 +6,7 @@ using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders
 {
-    public class MemoryContainerWrapperBuilder : IMemoryContainerWrapperBuilder
+    public sealed class MemoryContainerWrapperBuilder : IMemoryContainerWrapperBuilder
     {
         private static readonly IReadOnlyCollection<string> UsingLines = new[]
         {

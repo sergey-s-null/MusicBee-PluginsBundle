@@ -10,7 +10,7 @@ using Root.Settings;
 
 namespace Module.PlaylistsExporter.Settings
 {
-    public class PlaylistsExporterSettings : BaseSettings, IPlaylistsExporterSettings
+    public sealed class PlaylistsExporterSettings : BaseSettings, IPlaylistsExporterSettings
     {
         public string PlaylistsDirectoryPath { get; set; } = "";
         public string FilesLibraryPath { get; set; } = "";

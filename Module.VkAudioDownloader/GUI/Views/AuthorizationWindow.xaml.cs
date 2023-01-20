@@ -6,7 +6,7 @@ namespace Module.VkAudioDownloader.GUI.Views
     /// <summary>
     /// Логика взаимодействия для AuthDialog.xaml
     /// </summary>
-    public partial class AuthorizationWindow : Window
+    public sealed partial class AuthorizationWindow : Window
     {
         private readonly IAuthorizationWindowVM _viewModel;
 

@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Module.AudioSourcesComparer.GUI.Commands
 {
-    public class CopyToClipboardCommand : ICommand
+    public sealed class CopyToClipboardCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {

@@ -5,7 +5,7 @@ using Module.ArtworksSearcher.Settings;
 
 namespace Module.ArtworksSearcher.ImagesProviders
 {
-    public class ImagesProvidersFactory : IImagesProvidersFactory
+    public sealed class ImagesProvidersFactory : IImagesProvidersFactory
     {
         private readonly IArtworksSearcherSettings _settings;
         private readonly IGoogleImagesEnumeratorFactory _googleImagesEnumeratorFactory;

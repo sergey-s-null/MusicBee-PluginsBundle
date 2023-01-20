@@ -2,7 +2,7 @@
 
 namespace Module.Vk.GUI.Views
 {
-    public partial class VkSettings : StackPanel
+    public sealed partial class VkSettings : StackPanel
     {
         public VkSettings()
         {

@@ -4,7 +4,7 @@ using Module.VkAudioDownloader.Helpers;
 
 namespace Module.VkAudioDownloader.TagReplacer
 {
-    class TagReplacer
+    sealed class TagReplacer
     {
         public static readonly char OpenBracket = '<';
         public static readonly char CloseBracket = '>';

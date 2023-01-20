@@ -7,7 +7,7 @@ using HackModule.AssemblyBindingRedirect.Services.Abstract;
 
 namespace HackModule.AssemblyBindingRedirect.Services
 {
-    public class AssemblyResolver : IAssemblyResolver
+    public sealed class AssemblyResolver : IAssemblyResolver
     {
         private static readonly IReadOnlyCollection<string> AssembliesToRedirect = new[]
         {

@@ -2,7 +2,7 @@
 
 namespace CodeGenerator.Models
 {
-    public class MethodNameWithRestriction
+    public sealed class MethodNameWithRestriction
     {
         public string MethodName { get; }
         public MethodRestriction Restriction { get; }

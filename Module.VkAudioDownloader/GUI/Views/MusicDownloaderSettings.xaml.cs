@@ -2,7 +2,7 @@
 
 namespace Module.VkAudioDownloader.GUI.Views
 {
-    public partial class MusicDownloaderSettings : UserControl
+    public sealed partial class MusicDownloaderSettings : UserControl
     {
         public MusicDownloaderSettings()
         {

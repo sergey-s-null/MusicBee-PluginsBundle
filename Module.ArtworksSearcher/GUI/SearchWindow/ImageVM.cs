@@ -3,5 +3,5 @@ using PropertyChanged;
 
 namespace Module.ArtworksSearcher.GUI.SearchWindow
 {
-    public record ImageVM(int Number, BitmapImage Image);
+    public sealed record ImageVM(int Number, BitmapImage Image);
 }

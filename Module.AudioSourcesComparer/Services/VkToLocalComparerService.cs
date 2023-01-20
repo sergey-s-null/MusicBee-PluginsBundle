@@ -14,7 +14,7 @@ using VkNet.Model.RequestParams;
 
 namespace Module.AudioSourcesComparer.Services
 {
-    public class VkToLocalComparerService : IVkToLocalComparerService
+    public sealed class VkToLocalComparerService : IVkToLocalComparerService
     {
         private const int AudiosPerRequest = 5000;
 

@@ -2,5 +2,5 @@
 
 namespace Module.AudioSourcesComparer.DataClasses
 {
-    public record AudiosDifference(IReadOnlyCollection<VkAudio> VkOnly, IReadOnlyCollection<MBAudio> MBOnly);
+    public sealed record AudiosDifference(IReadOnlyCollection<VkAudio> VkOnly, IReadOnlyCollection<MBAudio> MBOnly);
 }

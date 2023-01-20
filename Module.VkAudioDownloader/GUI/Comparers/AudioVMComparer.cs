@@ -5,7 +5,7 @@ using Module.VkAudioDownloader.GUI.AbstractViewModels;
 
 namespace Module.VkAudioDownloader.GUI.Comparers
 {
-    public class AudioVMComparer : IComparer<IAudioVM>, IComparer
+    public sealed class AudioVMComparer : IComparer<IAudioVM>, IComparer
     {
         public int Compare(object x, object y)
         {

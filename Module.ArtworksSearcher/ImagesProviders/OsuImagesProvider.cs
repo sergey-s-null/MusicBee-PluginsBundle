@@ -10,7 +10,7 @@ using StringHelper = Module.ArtworksSearcher.Helpers.StringHelper;
 
 namespace Module.ArtworksSearcher.ImagesProviders
 {
-    public class OsuImagesProvider : IAsyncEnumerable<BitmapImage>
+    public sealed class OsuImagesProvider : IAsyncEnumerable<BitmapImage>
     {
         private readonly string[] _imgExtensions = { ".jpg", ".png", ".jpeg" };
         

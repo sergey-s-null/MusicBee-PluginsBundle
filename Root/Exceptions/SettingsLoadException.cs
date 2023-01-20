@@ -2,7 +2,7 @@
 
 namespace Root.Exceptions
 {
-    public class SettingsLoadException : Exception
+    public sealed class SettingsLoadException : Exception
     {
         public SettingsLoadException(string message) : base(message)
         {

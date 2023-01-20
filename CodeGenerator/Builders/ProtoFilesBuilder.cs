@@ -8,7 +8,7 @@ using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders
 {
-    public class ProtoFilesBuilder
+    public sealed class ProtoFilesBuilder
     {
         private static readonly IReadOnlyCollection<string> HeaderLines = new[]
         {

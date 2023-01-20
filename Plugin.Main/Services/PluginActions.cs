@@ -17,7 +17,7 @@ using Root.Services.Abstract;
 
 namespace MusicBeePlugin.Services
 {
-    public class PluginActions : IPluginActions
+    public sealed class PluginActions : IPluginActions
     {
         private readonly IMusicBeeApi _mbApi;
         private readonly IDataExportService _dataExportService;

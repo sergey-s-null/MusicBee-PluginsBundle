@@ -4,7 +4,7 @@ using Root.MVVM;
 
 namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
-    public class MBAudioDTVM : IMBAudioVM
+    public sealed class MBAudioDTVM : IMBAudioVM
     {
         public long VkId { get; }
         public int Index { get; }

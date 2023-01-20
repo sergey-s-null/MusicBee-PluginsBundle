@@ -11,7 +11,7 @@ using ArtworksSearcherSettings = Module.ArtworksSearcher.Settings.ArtworksSearch
 
 namespace Module.ArtworksSearcher
 {
-    public class ArtworksSearcherModule : NinjectModule
+    public sealed class ArtworksSearcherModule : NinjectModule
     {
         public override void Load()
         {

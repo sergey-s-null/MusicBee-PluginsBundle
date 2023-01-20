@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace Root.GUI.Converters
 {
-    public class BoolToVisibilityConverter : IValueConverter
+    public sealed class BoolToVisibilityConverter : IValueConverter
     {
         public Visibility VisibilityOnFalse { get; set; }
         public Visibility VisibilityOnTrue { get; set; }

@@ -14,7 +14,7 @@ using VkNet.Abstractions;
 namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class AuthorizationWindowVM : IAuthorizationWindowVM
+    public sealed class AuthorizationWindowVM : IAuthorizationWindowVM
     {
         public event EventHandler? ClosingRequested;
 

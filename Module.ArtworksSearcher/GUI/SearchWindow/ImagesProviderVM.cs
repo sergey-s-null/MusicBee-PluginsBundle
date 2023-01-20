@@ -6,7 +6,7 @@ using Module.ArtworksSearcher.Delegates;
 
 namespace Module.ArtworksSearcher.GUI.SearchWindow
 {
-    public class ImagesProviderVM
+    public sealed class ImagesProviderVM
     {
         private readonly GetImagesAsyncEnumeratorDelegate _getImagesEnumerator;
         private IAsyncEnumerator<BitmapImage>? _imagesEnumerator;

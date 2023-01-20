@@ -3,7 +3,7 @@ using Ninject.Modules;
 
 namespace Module.DataExporter
 {
-    public class DataExporterModule : NinjectModule
+    public sealed class DataExporterModule : NinjectModule
     {
         public override void Load()
         {

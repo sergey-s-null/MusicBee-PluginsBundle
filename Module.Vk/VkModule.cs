@@ -9,7 +9,7 @@ using VkNet.AudioBypassService.Extensions;
 
 namespace Module.Vk
 {
-    public class VkModule : NinjectModule
+    public sealed class VkModule : NinjectModule
     {
         private readonly bool _withAudioBypass;
 

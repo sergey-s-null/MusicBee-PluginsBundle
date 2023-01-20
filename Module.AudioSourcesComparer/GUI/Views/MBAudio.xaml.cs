@@ -2,7 +2,7 @@
 
 namespace Module.AudioSourcesComparer.GUI.Views
 {
-    public partial class MBAudio : UserControl
+    public sealed partial class MBAudio : UserControl
     {
         public MBAudio()
         {

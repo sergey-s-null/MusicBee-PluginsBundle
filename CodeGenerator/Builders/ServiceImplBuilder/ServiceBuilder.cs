@@ -6,7 +6,7 @@ using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders.ServiceImplBuilder
 {
-    public class ServiceBuilder : IServiceBuilder
+    public sealed class ServiceBuilder : IServiceBuilder
     {
         private static readonly IReadOnlyCollection<string> UsingBlock = new[]
         {

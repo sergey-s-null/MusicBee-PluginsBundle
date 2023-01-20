@@ -8,7 +8,7 @@ using Root.Helpers;
 
 namespace CodeGenerator.Builders.ServiceImplBuilder
 {
-    public class CommonLinesBuilder : ICommonLinesBuilder
+    public sealed class CommonLinesBuilder : ICommonLinesBuilder
     {
         private readonly IServiceBuilderParameters _parameters;
         private readonly IMessageTypesBuilder _messageTypesBuilder;

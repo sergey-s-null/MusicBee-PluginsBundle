@@ -6,7 +6,7 @@ using Root.MusicBeeApi.Abstract;
 
 namespace Root.MusicBeeApi
 {
-    public class MusicBeeApiMemoryContainerWrapper : IMusicBeeApi
+    public sealed class MusicBeeApiMemoryContainerWrapper : IMusicBeeApi
     {
         private readonly MusicBeeApiMemoryContainer _mbApi;
         

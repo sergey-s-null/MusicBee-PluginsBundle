@@ -6,7 +6,7 @@ using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders.ServiceImplBuilder
 {
-    public class TaskRunWrappedMethodBuilder : IMethodBuilder
+    public sealed class TaskRunWrappedMethodBuilder : IMethodBuilder
     {
         private readonly IServiceBuilderParameters _parameters;
         private readonly IMessageTypesBuilder _messageTypesBuilder;

@@ -3,7 +3,7 @@ using CodeGenerator.Models.Abstract;
 
 namespace CodeGenerator.Models
 {
-    public class MBApiParameterDefinition : IParameterType
+    public sealed class MBApiParameterDefinition : IParameterType
     {
         public Type Type { get; }
         public string Name { get; }

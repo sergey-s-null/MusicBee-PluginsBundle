@@ -3,7 +3,7 @@
 namespace Root.MusicBeeApi
 {
     [StructLayout(LayoutKind.Sequential)]
-    public class PluginInfo
+    public sealed class PluginInfo
     {
         public short PluginInfoVersion;
         public PluginType Type;

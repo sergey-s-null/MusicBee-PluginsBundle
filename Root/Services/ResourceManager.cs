@@ -5,7 +5,7 @@ using Root.Services.Abstract;
 
 namespace Root.Services
 {
-    public class ResourceManager : IResourceManager
+    public sealed class ResourceManager : IResourceManager
     {
         private readonly IMusicBeeApi _musicBeeApi;
 

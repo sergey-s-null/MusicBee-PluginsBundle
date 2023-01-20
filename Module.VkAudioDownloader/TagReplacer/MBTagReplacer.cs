@@ -1,6 +1,6 @@
 ﻿namespace Module.VkAudioDownloader.TagReplacer
 {
-    class MBTagReplacer
+    sealed class MBTagReplacer
     {
         public enum Tag
         {

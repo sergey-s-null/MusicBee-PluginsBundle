@@ -1,6 +1,6 @@
 ﻿namespace Test_Desktop
 {
-    public class MainWindowVM
+    public sealed class MainWindowVM
     {
         public ISomeWindowVM SomeWindowVM { get; } = new SomeWindowVM();
     }

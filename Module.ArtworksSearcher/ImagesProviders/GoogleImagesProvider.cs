@@ -6,7 +6,7 @@ using Module.ArtworksSearcher.Factories;
 
 namespace Module.ArtworksSearcher.ImagesProviders
 {
-    public class GoogleImagesProvider : IAsyncEnumerable<BitmapImage>
+    public sealed class GoogleImagesProvider : IAsyncEnumerable<BitmapImage>
     {
         private readonly string _query;
 

@@ -6,7 +6,7 @@ using Root.Services.Abstract;
 
 namespace Root.Services
 {
-    public class SettingsJsonLoader : ISettingsJsonLoader
+    public sealed class SettingsJsonLoader : ISettingsJsonLoader
     {
         private readonly IResourceManager _resourceManager;
 

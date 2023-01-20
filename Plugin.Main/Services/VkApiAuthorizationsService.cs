@@ -9,7 +9,7 @@ using VkNet.Abstractions;
 
 namespace MusicBeePlugin.Services
 {
-    public class VkApiAuthorizationsService : IVkApiAuthorizationsService
+    public sealed class VkApiAuthorizationsService : IVkApiAuthorizationsService
     {
         private readonly IVkApi _vkApi;
         private readonly IVkSettings _vkSettings;

@@ -8,7 +8,7 @@ using Ninject.Modules;
 
 namespace Module.AudioSourcesComparer
 {
-    public class AudioSourcesComparerModule : NinjectModule
+    public sealed class AudioSourcesComparerModule : NinjectModule
     {
         public override void Load()
         {

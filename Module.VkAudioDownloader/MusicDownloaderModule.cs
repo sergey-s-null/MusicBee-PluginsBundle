@@ -7,7 +7,7 @@ using Ninject.Modules;
 
 namespace Module.VkAudioDownloader
 {
-    public class MusicDownloaderModule : NinjectModule
+    public sealed class MusicDownloaderModule : NinjectModule
     {
         public override void Load()
         {

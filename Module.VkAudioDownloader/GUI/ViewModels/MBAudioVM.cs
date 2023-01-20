@@ -2,7 +2,7 @@
 
 namespace Module.VkAudioDownloader.GUI.ViewModels
 {
-    public class MBAudioVM : IMBAudioVM
+    public sealed class MBAudioVM : IMBAudioVM
     {
         public long VkId { get; }
         public string Artist { get; }

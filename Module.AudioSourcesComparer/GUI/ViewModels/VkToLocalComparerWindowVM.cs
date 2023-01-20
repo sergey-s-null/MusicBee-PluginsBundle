@@ -18,7 +18,7 @@ using VkNet.Exception;
 namespace Module.AudioSourcesComparer.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class VkToLocalComparerWindowVM : IVkToLocalComparerWindowVM
+    public sealed class VkToLocalComparerWindowVM : IVkToLocalComparerWindowVM
     {
         public ICommand RefreshCmd => _refreshCmd ??= new RelayCommand(async _ => await RefreshAsync());
         private ICommand? _refreshCmd;

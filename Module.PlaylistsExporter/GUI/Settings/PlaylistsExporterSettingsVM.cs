@@ -14,7 +14,7 @@ using Root.MVVM;
 namespace Module.PlaylistsExporter.GUI.Settings
 {
     [AddINotifyPropertyChangedInterface]
-    public class PlaylistsExporterSettingsVM : BaseSettingsVM, IPlaylistsExporterSettingsVM
+    public sealed class PlaylistsExporterSettingsVM : BaseSettingsVM, IPlaylistsExporterSettingsVM
     {
         public string PlaylistsDirectoryPath { get; set; } = "";
         public string FilesLibraryPath { get; set; } = "";

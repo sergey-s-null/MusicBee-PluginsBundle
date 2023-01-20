@@ -6,7 +6,7 @@ using Root.MVVM;
 namespace Test_Desktop.GUI.TestDialog
 {
     [AddINotifyPropertyChangedInterface]
-    public class TestDialogVM
+    public sealed class TestDialogVM
     {
         private RelayCommand? _someCommand;
         public RelayCommand SomeCommand => _someCommand
