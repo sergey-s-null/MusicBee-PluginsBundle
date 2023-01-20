@@ -99,8 +99,8 @@
     <Compile Include="GUI\DesignTimeViewModels\InputDialogDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\MusicDownloaderSettingsDTVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\VkAudioDownloaderWindowDTVM.cs" />
-    <Compile Include="GUI\Factories\IAuthorizationWindowFactory.cs" />
-    <Compile Include="GUI\Factories\IVkAudioDownloaderWindowFactory.cs" />
+    <Compile Include="GUI\Factories\AuthorizationWindowFactory.cs" />
+    <Compile Include="GUI\Factories\VkAudioDownloaderWindowFactory.cs" />
     <Compile Include="GUI\ViewModels\AuthorizationWindowVM.cs" />
     <Compile Include="GUI\ViewModels\InputDialogVM.cs" />
     <Compile Include="GUI\ViewModels\MBAudioVM.cs" />

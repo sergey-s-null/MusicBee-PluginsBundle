@@ -54,8 +54,8 @@
     <Compile Include="ArtworksSearcherModule.cs" />
     <Compile Include="Delegates\GetImagesAsyncEnumeratorDelegate.cs" />
     <Compile Include="Exceptions\GoogleSearchImageException.cs" />
-    <Compile Include="Factories\IGoogleImagesEnumeratorFactory.cs" />
-    <Compile Include="Factories\ISearchWindowFactory.cs" />
+    <Compile Include="Factories\GoogleImagesEnumeratorFactory.cs" />
+    <Compile Include="Factories\SearchWindowFactory.cs" />
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsDTVM.cs" />
     <Compile Include="GUI\Settings\IArtworksSearcherSettingsVM.cs" />
