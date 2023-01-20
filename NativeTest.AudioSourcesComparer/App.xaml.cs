@@ -1,6 +1,6 @@
 ﻿using System.Windows;
+using Autofac;
 using Module.AudioSourcesComparer.GUI.Factories;
-using Ninject;
 
 namespace NativeTest.AudioSourcesComparer
 {
@@ -11,11 +11,11 @@ namespace NativeTest.AudioSourcesComparer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var kernel = Bootstrapper.GetKernel();
+            var container = ApplicationContainer.Create();
 
-            var window = kernel
-                .Get<IVkToLocalComparerWindowFactory>()
-                .Create();
+            var vkToLocalComparerWindowFactory = container.Resolve<VkToLocalComparerWindowFactory>();
+
+            var window = vkToLocalComparerWindowFactory();
 
             window.ShowDialog();
         }

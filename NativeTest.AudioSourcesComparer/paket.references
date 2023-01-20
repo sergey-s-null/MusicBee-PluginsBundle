@@ -1,3 +1,4 @@
 ﻿group NetFramework
     VkNet
     MahApps.Metro.IconPacks
+    Autofac
