@@ -2,8 +2,5 @@
 
 namespace Module.VkAudioDownloader.GUI.Factories
 {
-    public interface IAuthorizationWindowFactory
-    {
-        AuthorizationWindow Create();
-    }
+    public delegate AuthorizationWindow AuthorizationWindowFactory();
 }

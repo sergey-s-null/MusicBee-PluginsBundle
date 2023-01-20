@@ -2,8 +2,5 @@
 
 namespace Module.VkAudioDownloader.GUI.Factories
 {
-    public interface IVkAudioDownloaderWindowFactory
-    {
-        VkAudioDownloaderWindow Create();
-    }
+    public delegate VkAudioDownloaderWindow VkAudioDownloaderWindowFactory();
 }

@@ -6,3 +6,4 @@ group NetFramework
     WindowsAPICodePack
     morelinq
     System.Linq.Async
+    Autofac
