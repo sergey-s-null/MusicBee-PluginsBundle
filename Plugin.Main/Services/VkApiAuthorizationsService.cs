@@ -13,12 +13,12 @@ namespace MusicBeePlugin.Services
     {
         private readonly IVkApi _vkApi;
         private readonly IVkSettings _vkSettings;
-        private readonly IAuthorizationWindowFactory _authorizationWindowFactory;
+        private readonly AuthorizationWindowFactory _authorizationWindowFactory;
 
         public VkApiAuthorizationsService(
             IVkApi vkApi,
             IVkSettings vkSettings,
-            IAuthorizationWindowFactory authorizationWindowFactory)
+            AuthorizationWindowFactory authorizationWindowFactory)
         {
             _vkApi = vkApi;
             _vkSettings = vkSettings;
@@ -52,7 +52,7 @@ namespace MusicBeePlugin.Services
                 }
             }
 
-            var authorizationWindow = _authorizationWindowFactory.Create();
+            var authorizationWindow = _authorizationWindowFactory();
             var authorized = authorizationWindow.ShowDialog();
             return authorized;
         }

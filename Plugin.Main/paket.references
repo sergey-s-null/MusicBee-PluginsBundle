@@ -5,3 +5,4 @@ group NetFramework
     VkNet
     System.Collections.Immutable
     MahApps.Metro.IconPacks
+    Autofac

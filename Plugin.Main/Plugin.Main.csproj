@@ -52,7 +52,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\ISettingsDialogFactory.cs" />
+    <Compile Include="Factories\SettingsDialogFactory.cs" />
     <Compile Include="GUI\AbstractViewModels\IModuleSettingsVM.cs" />
     <Compile Include="GUI\AbstractViewModels\ISettingsDialogVM.cs" />
     <Compile Include="GUI\DesignTimeViewModels\SettingsDialogDTVM.cs" />
@@ -71,7 +71,7 @@
     <Resource Include="Windows Logo.png">
       <Paket>True</Paket>
     </Resource>
-    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="PluginContainer.cs" />
     <Compile Include="GUI\VMTemplateSelector.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -138,6 +138,17 @@
     <Page Include="GUI\Views\SettingsDialog.xaml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Autofac">
+          <HintPath>..\packages\netframework\Autofac\lib\netstandard2.0\Autofac.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
@@ -402,6 +413,17 @@
       <ItemGroup>
         <Reference Include="System.Collections.Immutable">
           <HintPath>..\packages\netframework\System.Collections.Immutable\lib\net461\System.Collections.Immutable.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Diagnostics.DiagnosticSource">
+          <HintPath>..\packages\netframework\System.Diagnostics.DiagnosticSource\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
