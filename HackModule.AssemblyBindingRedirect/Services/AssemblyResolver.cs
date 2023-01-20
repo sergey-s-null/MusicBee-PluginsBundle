@@ -18,11 +18,12 @@ namespace HackModule.AssemblyBindingRedirect.Services
             "Microsoft.Extensions.Logging.Abstractions",
             "Newtonsoft.Json",
             "Ninject",
+            "System.Buffers",
             "System.Collections.Immutable",
+            "System.Diagnostics.DiagnosticSource",
             "System.Memory",
             "System.Runtime.CompilerServices.Unsafe",
             "System.Threading.Tasks.Extensions",
-            "System.Buffers",
         };
 
         private readonly string _assembliesDirectory;

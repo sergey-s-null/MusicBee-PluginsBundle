@@ -20,14 +20,16 @@ namespace MusicBeePlugin
         private const short MinInterfaceVersion = 40; // 41
         private const short MinApiRevision = 53;
 
-        private IAssemblyResolver? _assemblyResolver;
         private SettingsDialogFactory? _settingsDialogFactory;
         private IResourceManager? _resourceManager;
 
-        public PluginInfo Initialise(IntPtr apiInterfacePtr)
+        static Plugin()
         {
             ApplyAssembliesResolution();
-
+        }
+        
+        public PluginInfo Initialise(IntPtr apiInterfacePtr)
+        {
             ServicePointManager.DefaultConnectionLimit = 20;
 
             var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
@@ -44,11 +46,11 @@ namespace MusicBeePlugin
             return GetPluginInfo();
         }
 
-        private void ApplyAssembliesResolution()
+        private static void ApplyAssembliesResolution()
         {
             var assembliesDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
-            _assemblyResolver = new AssemblyResolver(assembliesDirectory);
-            AppDomain.CurrentDomain.AssemblyResolve += _assemblyResolver.ResolveHandler;
+            var assemblyResolver = new AssemblyResolver(assembliesDirectory);
+            AppDomain.CurrentDomain.AssemblyResolve += assemblyResolver.ResolveHandler;
         }
 
         private static void CreateMenuItems(IContainer container)
