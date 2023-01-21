@@ -2,26 +2,17 @@
 using Module.MusicBee.Extension.LibraryQuerying.Entities;
 using Module.MusicBee.Extension.LibraryQuerying.Entities.Abstract;
 using Module.MusicBee.Extension.LibraryQuerying.Enums;
-using Module.MusicBee.Extension.LibraryQuerying.Factories.Abstract;
 
 namespace Module.MusicBee.Extension.LibraryQuerying.Extensions;
 
 public static class DateFieldExtensions
 {
-    private static readonly ConditionWithSingleValueFactory<DateTime> ConditionWithSingleDateTimeFactory;
-    private static readonly ConditionWithSingleValueFactory<TimeOffset> ConditionWithSingleTimeOffsetFactory;
-
-    static DateFieldExtensions()
-    {
-        throw new NotImplementedException();
-    }
-
     /// <summary>
     /// Равно
     /// </summary>
     public static BaseCondition Is(this IDateField field, DateTime dateTime)
     {
-        return ConditionWithSingleDateTimeFactory(field, Comparison.Is, dateTime);
+        return ConditionsContainer.ConditionWithSingleDateTimeFactory(field, Comparison.Is, dateTime);
     }
 
     /// <summary>
@@ -29,7 +20,7 @@ public static class DateFieldExtensions
     /// </summary>
     public static BaseCondition IsNot(this IDateField field, DateTime dateTime)
     {
-        return ConditionWithSingleDateTimeFactory(field, Comparison.IsNot, dateTime);
+        return ConditionsContainer.ConditionWithSingleDateTimeFactory(field, Comparison.IsNot, dateTime);
     }
 
     /// <summary>
@@ -37,7 +28,7 @@ public static class DateFieldExtensions
     /// </summary>
     public static BaseCondition GreaterThan(this IDateField field, DateTime dateTime)
     {
-        return ConditionWithSingleDateTimeFactory(field, Comparison.GreaterThan, dateTime);
+        return ConditionsContainer.ConditionWithSingleDateTimeFactory(field, Comparison.GreaterThan, dateTime);
     }
 
     /// <summary>
@@ -45,7 +36,7 @@ public static class DateFieldExtensions
     /// </summary>
     public static BaseCondition LessThan(this IDateField field, DateTime dateTime)
     {
-        return ConditionWithSingleDateTimeFactory(field, Comparison.LessThan, dateTime);
+        return ConditionsContainer.ConditionWithSingleDateTimeFactory(field, Comparison.LessThan, dateTime);
     }
 
     /// <summary>
@@ -53,7 +44,11 @@ public static class DateFieldExtensions
     /// </summary>
     public static BaseCondition InTheLast(this IDateField field, int time, TimeUnit timeUnit)
     {
-        return ConditionWithSingleTimeOffsetFactory(field, Comparison.InTheLast, new TimeOffset(time, timeUnit));
+        return ConditionsContainer.ConditionWithSingleTimeOffsetFactory(
+            field,
+            Comparison.InTheLast,
+            new TimeOffset(time, timeUnit)
+        );
     }
 
     /// <summary>
@@ -61,7 +56,11 @@ public static class DateFieldExtensions
     /// </summary>
     public static BaseCondition NotInTheLast(this IDateField field, int time, TimeUnit timeUnit)
     {
-        return ConditionWithSingleTimeOffsetFactory(field, Comparison.NotInTheLast, new TimeOffset(time, timeUnit));
+        return ConditionsContainer.ConditionWithSingleTimeOffsetFactory(
+            field,
+            Comparison.NotInTheLast,
+            new TimeOffset(time, timeUnit)
+        );
     }
 
     /// <summary>

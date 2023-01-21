@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Module.MusicBee.Extension.LibraryQuerying.Entities;
 using Module.MusicBee.Extension.LibraryQuerying.Entities.Abstract;
-using Module.MusicBee.Extension.LibraryQuerying.Factories.Abstract;
 
 namespace Module.MusicBee.Extension.LibraryQuerying.Extensions;
 
 public static class EnumFieldExtensions
 {
-    private static readonly ConditionWithSingleValueFactory<string> ConditionWithSingleStringFactory;
-    private static readonly ConditionWithMultipleValuesFactory<string> ConditionWithMultipleStringsFactory;
-
-    static EnumFieldExtensions()
-    {
-        throw new NotImplementedException();
-    }
-
     /// <summary>
     /// Равно
     /// </summary>
     public static BaseCondition Is(this IEnumField field, string value)
     {
-        return ConditionWithSingleStringFactory(field, Comparison.Is, value);
+        return ConditionsContainer.ConditionWithSingleStringFactory(field, Comparison.Is, value);
     }
 
     /// <summary>
@@ -29,7 +19,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition IsNot(this IEnumField field, string value)
     {
-        return ConditionWithSingleStringFactory(field, Comparison.IsNot, value);
+        return ConditionsContainer.ConditionWithSingleStringFactory(field, Comparison.IsNot, value);
     }
 
     /// <summary>
@@ -45,7 +35,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition IsIn(this IEnumField field, IReadOnlyCollection<string> values)
     {
-        return ConditionWithMultipleStringsFactory(field, Comparison.IsIn, values);
+        return ConditionsContainer.ConditionWithMultipleStringsFactory(field, Comparison.IsIn, values);
     }
 
     /// <summary>
@@ -61,7 +51,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition IsNotIn(this IEnumField field, IReadOnlyCollection<string> values)
     {
-        return ConditionWithMultipleStringsFactory(field, Comparison.IsNotIn, values);
+        return ConditionsContainer.ConditionWithMultipleStringsFactory(field, Comparison.IsNotIn, values);
     }
 
     /// <summary>
@@ -85,7 +75,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition Contains(this IEnumField field, string value)
     {
-        return ConditionWithSingleStringFactory(field, Comparison.Contains, value);
+        return ConditionsContainer.ConditionWithSingleStringFactory(field, Comparison.Contains, value);
     }
 
     /// <summary>
@@ -93,7 +83,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition DoesNotContain(this IEnumField field, string value)
     {
-        return ConditionWithSingleStringFactory(field, Comparison.DoesNotContain, value);
+        return ConditionsContainer.ConditionWithSingleStringFactory(field, Comparison.DoesNotContain, value);
     }
 
     /// <summary>
@@ -101,7 +91,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition InTagHierarchy(this IEnumField field, string value)
     {
-        return ConditionWithSingleStringFactory(field, Comparison.InTagHierarchy, value);
+        return ConditionsContainer.ConditionWithSingleStringFactory(field, Comparison.InTagHierarchy, value);
     }
 
     /// <summary>
@@ -109,7 +99,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition MatchesRegEx(this IEnumField field, string value)
     {
-        return ConditionWithSingleStringFactory(field, Comparison.MatchesRegEx, value);
+        return ConditionsContainer.ConditionWithSingleStringFactory(field, Comparison.MatchesRegEx, value);
     }
 
     /// <summary>
@@ -117,6 +107,6 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition MatchesRegExIgnoreCase(this IEnumField field, string value)
     {
-        return ConditionWithSingleStringFactory(field, Comparison.MatchesRegExIgnoreCase, value);
+        return ConditionsContainer.ConditionWithSingleStringFactory(field, Comparison.MatchesRegExIgnoreCase, value);
     }
 }

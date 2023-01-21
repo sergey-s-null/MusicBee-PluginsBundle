@@ -1,14 +1,54 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Module.MusicBee.Extension.LibraryQuerying.Entities;
+using Module.MusicBee.Extension.LibraryQuerying.Enums;
+using Module.MusicBee.Extension.LibraryQuerying.Factories.Abstract;
 using Module.MusicBee.Extension.LibraryQuerying.Helpers;
 
 namespace Module.MusicBee.Extension.LibraryQuerying;
 
 internal static class ConditionsContainer
 {
-    public static readonly IContainer Instance = Create();
+    public static readonly ConditionWithSingleValueFactory<string> ConditionWithSingleStringFactory;
+    public static readonly ConditionWithMultipleValuesFactory<string> ConditionWithMultipleStringsFactory;
 
-    private static IContainer Create()
+    public static readonly ConditionWithSingleValueFactory<int> ConditionWithSingleNumberFactory;
+    public static readonly ConditionWithTwoValuesFactory<int> ConditionWithTwoNumbersFactory;
+
+    public static readonly ConditionWithSingleValueFactory<DateTime> ConditionWithSingleDateTimeFactory;
+
+    public static readonly ConditionWithSingleValueFactory<TimeOffset> ConditionWithSingleTimeOffsetFactory;
+
+    public static readonly ConditionWithSingleValueFactory<Rating> ConditionWithSingleRatingFactory;
+    public static readonly ConditionWithTwoValuesFactory<Rating> ConditionWithTwoRatingsFactory;
+
+    static ConditionsContainer()
+    {
+        var containerInstance = CreateContainer();
+
+        ConditionWithSingleStringFactory = containerInstance
+            .Resolve<ConditionWithSingleValueFactory<string>>();
+        ConditionWithMultipleStringsFactory = containerInstance
+            .Resolve<ConditionWithMultipleValuesFactory<string>>();
+
+        ConditionWithSingleNumberFactory = containerInstance
+            .Resolve<ConditionWithSingleValueFactory<int>>();
+        ConditionWithTwoNumbersFactory = containerInstance
+            .Resolve<ConditionWithTwoValuesFactory<int>>();
+
+        ConditionWithSingleDateTimeFactory = containerInstance
+            .Resolve<ConditionWithSingleValueFactory<DateTime>>();
+
+        ConditionWithSingleTimeOffsetFactory = containerInstance
+            .Resolve<ConditionWithSingleValueFactory<TimeOffset>>();
+
+        ConditionWithSingleRatingFactory = containerInstance
+            .Resolve<ConditionWithSingleValueFactory<Rating>>();
+        ConditionWithTwoRatingsFactory = containerInstance
+            .Resolve<ConditionWithTwoValuesFactory<Rating>>();
+    }
+
+    private static IContainer CreateContainer()
     {
         var builder = new ContainerBuilder();
 
