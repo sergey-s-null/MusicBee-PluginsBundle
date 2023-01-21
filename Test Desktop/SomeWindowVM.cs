@@ -1,5 +1,4 @@
 ﻿using PropertyChanged;
-using Root.MVVM;
 
 namespace Test_Desktop
 {

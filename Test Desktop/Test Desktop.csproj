@@ -105,6 +105,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj">
+      <Project>{eb57dcef-633c-478c-b339-f3d7e5893309}</Project>
+      <Name>Module.Mvvm.Extension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Plugin.Main\Plugin.Main.csproj">
       <Project>{23cbc01f-bd6d-48e0-9685-71e8eba58f04}</Project>
       <Name>Plugin.Main</Name>

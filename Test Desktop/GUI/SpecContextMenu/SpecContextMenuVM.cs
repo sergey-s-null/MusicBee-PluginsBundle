@@ -1,6 +1,6 @@
 ﻿using System.Windows;
+using Module.Mvvm.Extension;
 using PropertyChanged;
-using Root.MVVM;
 
 namespace Test_Desktop.GUI.SpecContextMenu
 {

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Windows.Controls;
+using Module.Mvvm.Extension;
 using PropertyChanged;
-using Root.MVVM;
 
 namespace Test_Desktop.GUI.TestDialog
 {
@@ -9,13 +8,13 @@ namespace Test_Desktop.GUI.TestDialog
     public sealed class TestDialogVM
     {
         private RelayCommand? _someCommand;
+
         public RelayCommand SomeCommand => _someCommand
             ??= new RelayCommand(_ => SubTest());
-        
+
         private void SubTest()
         {
             Console.WriteLine("asd");
         }
-
     }
 }
