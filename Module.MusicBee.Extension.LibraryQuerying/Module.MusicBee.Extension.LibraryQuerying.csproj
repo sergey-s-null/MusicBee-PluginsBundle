@@ -71,6 +71,7 @@
     <Compile Include="Factories\Abstract\ConditionWithMultipleValuesFactory.cs" />
     <Compile Include="Factories\Abstract\ConditionWithSingleValueFactory.cs" />
     <Compile Include="Factories\Abstract\ConditionWithTwoValuesFactory.cs" />
+    <Compile Include="Helpers\RepresentationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
