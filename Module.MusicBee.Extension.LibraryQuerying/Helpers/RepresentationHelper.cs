@@ -18,16 +18,16 @@ internal static class RepresentationHelper
 
     public static string RepresentDateTime(DateTime dateTime)
     {
-        throw new NotImplementedException();
+        return dateTime.ToString("dd.MM.yyyy");
     }
 
     public static string RepresentTimeOffset(TimeOffset timeOffset)
     {
-        throw new NotImplementedException();
+        return $"{timeOffset.Time}{timeOffset.TimeUnit.Postfix}";
     }
 
     public static string RepresentRating(Rating rating)
     {
-        throw new NotImplementedException();
+        return rating.Value.ToString();
     }
 }
