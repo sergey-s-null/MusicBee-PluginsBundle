@@ -19,7 +19,7 @@ public sealed class Field :
     /// <summary>
     /// BPM
     /// </summary>
-    public static readonly INumberField BeatsPerMin = new Field("BeatsPerMin");
+    public static readonly INumberField BeatsPerMinute = new Field("BeatsPerMin");
 
     /// <summary>
     /// № диска
