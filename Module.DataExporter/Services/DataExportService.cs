@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Module.DataExporter.Exceptions;
+using Module.MusicBee;
+using Module.MusicBee.Abstract;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
 
 namespace Module.DataExporter.Services
 {
     public sealed class DataExportService : IDataExportService
     {
         private readonly IMusicBeeApi _mbApi;
-        
+
         private readonly IReadOnlyCollection<FilePropertyType> _defaultFilePropertyTypes = new[]
         {
             FilePropertyType.DateAdded,
             FilePropertyType.PlayCount,
             FilePropertyType.SkipCount,
         };
+
         private readonly IReadOnlyCollection<MetaDataType> _defaultMetaTypes = new[]
         {
             MetaDataType.Artists,
@@ -38,7 +39,8 @@ namespace Module.DataExporter.Services
             MetaDataType.DiscNo,
             MetaDataType.DiscCount
         };
-        private readonly IReadOnlyCollection<(string, MetaDataType)> _specificMetaTypes = new []
+
+        private readonly IReadOnlyCollection<(string, MetaDataType)> _specificMetaTypes = new[]
         {
             ("Index1", MetaDataType.Custom1),
             ("Index2", MetaDataType.Custom2),
@@ -46,8 +48,8 @@ namespace Module.DataExporter.Services
             ("Index", MetaDataType.Custom4),
             ("Pools", MetaDataType.Custom5)
         };
-        
-        
+
+
         public DataExportService(IMusicBeeApi mbApi)
         {
             _mbApi = mbApi;
@@ -77,7 +79,7 @@ namespace Module.DataExporter.Services
             var jArray = new JArray(items);
 
             var fileName = $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.json";
-            
+
             File.WriteAllText(Path.Combine(dirPath, fileName), jArray.ToString(Formatting.Indented));
         }
 
@@ -106,7 +108,7 @@ namespace Module.DataExporter.Services
             var additionalMetaTypes = _specificMetaTypes
                 .Select(x => x.Item2)
                 .ToArray();
-            
+
             _mbApi.Library_GetFileTags(filePath, additionalMetaTypes, out var values);
 
             return _specificMetaTypes
