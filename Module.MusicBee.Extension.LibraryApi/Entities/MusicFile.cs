@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using Module.MusicBee.Abstract;
+using Module.MusicBee.Enums;
 using Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
 using Module.MusicBee.Extension.LibraryApi.Factories.Abstract;
+using Module.MusicBee.Services.Abstract;
 
 namespace Module.MusicBee.Extension.LibraryApi.Entities;
 

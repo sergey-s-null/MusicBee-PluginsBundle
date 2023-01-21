@@ -2,8 +2,9 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using Module.MusicBee.Enums;
 
-namespace Module.MusicBee.Abstract
+namespace Module.MusicBee.Services.Abstract
 {
     public interface IMusicBeeApi : IBaseMusicBeeApi
     {

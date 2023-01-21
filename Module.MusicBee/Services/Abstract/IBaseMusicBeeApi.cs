@@ -1,4 +1,6 @@
-namespace Module.MusicBee.Abstract
+using Module.MusicBee.Enums;
+
+namespace Module.MusicBee.Services.Abstract
 {
     public interface IBaseMusicBeeApi
     {

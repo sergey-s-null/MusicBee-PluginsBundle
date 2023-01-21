@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using Module.MusicBee.Abstract;
+using Module.MusicBee.Enums;
+using Module.MusicBee.Services.Abstract;
 
 namespace Module.MusicBee.Extension.Helpers;
 

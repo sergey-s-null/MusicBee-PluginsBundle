@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Module.MusicBee.Delegates;
+using Module.MusicBee.Enums;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 
-namespace Module.MusicBee
+namespace Module.MusicBee.Services
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct MusicBeeApiMemoryContainer

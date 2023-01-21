@@ -4,8 +4,9 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using Module.MusicBee.Enums;
 
-namespace Module.MusicBee
+namespace Module.MusicBee.Delegates
 {
     public delegate void MB_ReleaseStringDelegate(string p1);
     public delegate void MB_TraceDelegate(string p1);

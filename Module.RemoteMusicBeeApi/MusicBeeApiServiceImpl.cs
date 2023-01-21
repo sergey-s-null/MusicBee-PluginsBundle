@@ -5,7 +5,8 @@ using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Module.MusicBee;
-using Module.MusicBee.Abstract;
+using Module.MusicBee.Enums;
+using Module.MusicBee.Services.Abstract;
 
 // ReSharper disable ConstantNullCoalescingCondition
 

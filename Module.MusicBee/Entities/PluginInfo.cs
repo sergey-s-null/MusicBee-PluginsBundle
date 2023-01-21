@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+using Module.MusicBee.Enums;
 
-namespace Module.MusicBee
+namespace Module.MusicBee.Entities
 {
     [StructLayout(LayoutKind.Sequential)]
     public sealed class PluginInfo

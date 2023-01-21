@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Module.MusicBee
+namespace Module.MusicBee.Enums
 {
     [Flags()]
     public enum ReceiveNotificationFlags

@@ -1,4 +1,6 @@
-﻿namespace Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
+﻿using Module.MusicBee.Enums;
+
+namespace Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
 
 public interface IMusicFile
 {
