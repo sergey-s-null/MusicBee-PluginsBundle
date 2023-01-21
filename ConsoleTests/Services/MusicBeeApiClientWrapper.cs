@@ -1,8 +1,8 @@
 using System.Linq;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
+using Module.MusicBee.Enums;
+using Module.MusicBee.Services.Abstract;
 
 namespace ConsoleTests.Services
 {
