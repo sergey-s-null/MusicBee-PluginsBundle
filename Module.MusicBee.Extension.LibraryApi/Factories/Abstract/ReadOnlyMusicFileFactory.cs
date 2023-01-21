@@ -2,4 +2,4 @@
 
 namespace Module.MusicBee.Extension.LibraryApi.Factories.Abstract;
 
-public delegate IReadOnlyMusicFile ReadOnlyMusicFileFactory(string filePath);
+public delegate IReadOnlyMusicFile ReadOnlyMusicFileFactory(string path);
