@@ -63,6 +63,7 @@
     <Compile Include="Extensions\DateFieldExtensions.cs" />
     <Compile Include="Extensions\EnumFieldExtensions.cs" />
     <Compile Include="Extensions\ExtendedStringFieldExtensions.cs" />
+    <Compile Include="Extensions\FlagFieldExtensions.cs" />
     <Compile Include="Extensions\NumberFieldExtensions.cs" />
     <Compile Include="Extensions\StringFieldExtensions.cs" />
     <Compile Include="Factories\Abstract\ConditionWithMultipleValuesFactory.cs" />
