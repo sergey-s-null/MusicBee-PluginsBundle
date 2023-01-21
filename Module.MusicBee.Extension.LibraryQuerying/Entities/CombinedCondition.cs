@@ -8,13 +8,14 @@ namespace Module.MusicBee.Extension.LibraryQuerying.Entities;
 internal sealed class CombinedCondition : BaseCondition
 {
     public CombineMethod CombineMethod { get; }
+    public IReadOnlyCollection<BaseCondition> InnerConditions { get; }
 
-    private readonly IReadOnlyCollection<BaseCondition> _innerConditions;
-
-    public CombinedCondition(CombineMethod combineMethod, IReadOnlyCollection<BaseCondition> innerConditions)
+    public CombinedCondition(
+        CombineMethod combineMethod,
+        IReadOnlyCollection<BaseCondition> innerConditions)
     {
         CombineMethod = combineMethod;
-        _innerConditions = innerConditions;
+        InnerConditions = innerConditions;
     }
 
     public override XNode Build()
@@ -24,7 +25,7 @@ internal sealed class CombinedCondition : BaseCondition
             new XAttribute("CombineMethod", CombineMethod.XName)
         );
 
-        foreach (var innerCondition in _innerConditions)
+        foreach (var innerCondition in InnerConditions)
         {
             andXElement.Add(innerCondition.Build());
         }
