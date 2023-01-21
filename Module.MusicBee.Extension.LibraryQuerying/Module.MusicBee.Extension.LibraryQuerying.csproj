@@ -55,6 +55,8 @@
     <Compile Include="Entities\ConditionWithSingleValue.cs" />
     <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\ConditionWithoutValue.cs" />
+    <Compile Include="Enums\TimeUnit.cs" />
+    <Compile Include="Extensions\DateFieldExtensions.cs" />
     <Compile Include="Extensions\EnumFieldExtensions.cs" />
     <Compile Include="Extensions\ExtendedStringFieldExtensions.cs" />
     <Compile Include="Extensions\NumberFieldExtensions.cs" />
