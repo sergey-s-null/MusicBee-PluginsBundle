@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Root.MusicBeeApi
+namespace Module.MusicBee
 {
     public delegate void MB_ReleaseStringDelegate(string p1);
     public delegate void MB_TraceDelegate(string p1);

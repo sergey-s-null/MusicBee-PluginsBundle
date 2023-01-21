@@ -1,4 +1,4 @@
-namespace Root.MusicBeeApi.Abstract
+namespace Module.MusicBee.Abstract
 {
     public interface IBaseMusicBeeApi
     {

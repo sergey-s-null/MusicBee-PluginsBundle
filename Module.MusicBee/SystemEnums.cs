@@ -1,6 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
-namespace Root.MusicBeeApi
+namespace Module.MusicBee
 {
     public enum MusicBeeVersion
     {

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 
-namespace Root.MusicBeeApi
+namespace Module.MusicBee
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct MusicBeeApiMemoryContainer

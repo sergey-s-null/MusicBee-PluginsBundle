@@ -70,14 +70,6 @@
     <Compile Include="Helpers\SetHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UriHelper.cs" />
-    <Compile Include="MusicBeeApi\Abstract\IBaseMusicBeeApi.cs" />
-    <Compile Include="MusicBeeApi\Abstract\IMusicBeeApi.cs" />
-    <Compile Include="MusicBeeApi\Delegates.cs" />
-    <Compile Include="MusicBeeApi\Enums.cs" />
-    <Compile Include="MusicBeeApi\MusicBeeApiMemoryContainer.cs" />
-    <Compile Include="MusicBeeApi\PluginInfo.cs" />
-    <Compile Include="MusicBeeApi\SystemEnums.cs" />
-    <Compile Include="MusicBeeApi\MusicBeeApiMemoryContainerWrapper.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootModule.cs" />

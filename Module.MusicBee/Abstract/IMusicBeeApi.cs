@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Root.MusicBeeApi.Abstract
+namespace Module.MusicBee.Abstract
 {
     public interface IMusicBeeApi : IBaseMusicBeeApi
     {

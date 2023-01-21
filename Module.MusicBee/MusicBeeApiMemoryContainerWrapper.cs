@@ -2,9 +2,9 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using Root.MusicBeeApi.Abstract;
+using Module.MusicBee.Abstract;
 
-namespace Root.MusicBeeApi
+namespace Module.MusicBee
 {
     public sealed class MusicBeeApiMemoryContainerWrapper : IMusicBeeApi
     {

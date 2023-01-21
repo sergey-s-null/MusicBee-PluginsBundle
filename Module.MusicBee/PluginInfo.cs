@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Root.MusicBeeApi
+namespace Module.MusicBee
 {
     [StructLayout(LayoutKind.Sequential)]
     public sealed class PluginInfo
