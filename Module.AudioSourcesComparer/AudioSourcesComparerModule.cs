@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.AudioSourcesComparer.GUI.ViewModels;
+using Module.AudioSourcesComparer.GUI.Views;
 using Module.AudioSourcesComparer.Services;
 using Module.AudioSourcesComparer.Services.Abstract;
 
@@ -21,6 +22,10 @@ namespace Module.AudioSourcesComparer
             builder
                 .RegisterType<VkAudioVM>()
                 .As<IVkAudioVM>();
+
+            builder
+                .RegisterType<VkToLocalComparerWindow>()
+                .AsSelf();
         }
     }
 }

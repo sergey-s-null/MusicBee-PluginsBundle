@@ -44,6 +44,10 @@ namespace Module.ArtworksSearcher
                 .RegisterType<GoogleImageSearchService>()
                 .As<IGoogleImageSearchService>()
                 .SingleInstance();
+
+            builder
+                .RegisterType<GoogleImagesAsyncEnumerator>()
+                .AsSelf();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.ViewModels;
+using Module.VkAudioDownloader.GUI.Views;
 using Module.VkAudioDownloader.Settings;
+using MusicDownloaderSettings = Module.VkAudioDownloader.Settings.MusicDownloaderSettings;
 
 namespace Module.VkAudioDownloader
 {
@@ -23,6 +25,13 @@ namespace Module.VkAudioDownloader
             builder
                 .RegisterType<AuthorizationWindowVM>()
                 .As<IAuthorizationWindowVM>();
+
+            builder
+                .RegisterType<VkAudioDownloaderWindow>()
+                .AsSelf();
+            builder
+                .RegisterType<AuthorizationWindow>()
+                .AsSelf();
         }
     }
 }
