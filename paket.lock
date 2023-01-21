@@ -129,6 +129,7 @@ NUGET
     System.Threading.Tasks.Extensions (4.5.4)
       System.Runtime.CompilerServices.Unsafe (>= 4.5.3)
     System.ValueTuple (4.5)
+    System.Xml.Linq (3.5.21022.801)
     VkNet (1.69)
       HtmlAgilityPack (>= 1.11.42)
       Microsoft.Extensions.DependencyInjection (>= 5.0.2 < 6.0)
