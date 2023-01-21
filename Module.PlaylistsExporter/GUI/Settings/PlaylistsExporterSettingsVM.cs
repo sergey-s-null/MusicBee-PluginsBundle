@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Module.MusicBee.Abstract;
+using Module.MusicBee.Extension.Helpers;
+using Module.Mvvm.Extension;
 using Module.PlaylistsExporter.Settings;
+using Module.Settings.Gui.ViewModels;
 using MoreLinq;
 using PropertyChanged;
-using Root.GUI.ViewModels;
 using Root.Helpers;
-using Root.MusicBeeApi.Abstract;
-using Root.MVVM;
 
 namespace Module.PlaylistsExporter.GUI.Settings
 {
@@ -28,9 +29,9 @@ namespace Module.PlaylistsExporter.GUI.Settings
         public ICommand ApplyCheckStateToSelectedCmd =>
             _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
             {
-                var argsArr = (object[]) arg!;
-                var triggered = (PlaylistVM) argsArr[0];
-                var selectedObjects = (IReadOnlyCollection<object>) argsArr[1];
+                var argsArr = (object[])arg!;
+                var triggered = (PlaylistVM)argsArr[0];
+                var selectedObjects = (IReadOnlyCollection<object>)argsArr[1];
                 var selected = selectedObjects
                     .OfType<PlaylistVM>()
                     .ToReadOnlyCollection();

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Module.MusicBee.Abstract;
+using Module.MusicBee.Extension.Helpers;
 using Module.PlaylistsExporter.Entities;
 using Module.PlaylistsExporter.Settings;
 using MoreLinq.Extensions;
 using Root.Helpers;
-using Root.MusicBeeApi.Abstract;
 
 namespace Module.PlaylistsExporter.Services
 {
@@ -15,7 +16,7 @@ namespace Module.PlaylistsExporter.Services
         private readonly IPlaylistsExporterSettings _settings;
         private readonly IPlaylistToLibraryConverter _converter;
         private readonly IMusicBeeApi _mbApi;
-        
+
         public PlaylistsExportService(
             IPlaylistsExporterSettings settings,
             IPlaylistToLibraryConverter converter,
@@ -25,7 +26,7 @@ namespace Module.PlaylistsExporter.Services
             _converter = converter;
             _mbApi = mbApi;
         }
-        
+
         public void CleanAndExport()
         {
             GetExistingExportedPlaylists()
@@ -33,18 +34,18 @@ namespace Module.PlaylistsExporter.Services
 
             Directory.GetDirectories(GetExportDirectoryPath())
                 .ForEach(Directory.Delete);
-            
+
             GetPlaylistsForExport()
                 .Select(CollectPlaylistInfo)
                 .Select(_converter.Convert)
                 .ToReadOnlyCollection()
                 .ForEach(Save);
         }
-        
+
         public IReadOnlyCollection<string> GetExistingExportedPlaylists()
         {
             var exportDirectoryPath = GetExportDirectoryPath();
-            
+
             return DirectoryHelper.GetFilesRecursively(exportDirectoryPath);
         }
 
@@ -52,7 +53,7 @@ namespace Module.PlaylistsExporter.Services
         {
             return Path.Combine(_settings.FilesLibraryPath, _settings.PlaylistsNewDirectoryName);
         }
-        
+
         private IReadOnlyCollection<string> GetPlaylistsForExport()
         {
             if (!_mbApi.Playlist_QueryPlaylistsEx(out var playlistPaths))
@@ -64,17 +65,17 @@ namespace Module.PlaylistsExporter.Services
                 .Intersect(_settings.PlaylistsForExport)
                 .ToReadOnlyCollection();
         }
-        
+
         private Playlist CollectPlaylistInfo(string p)
         {
             return new Playlist(SetM3UExtension(p), GetFilesForPlaylist(p));
         }
-        
+
         private static string SetM3UExtension(string path)
         {
             return Path.ChangeExtension(path, "m3u");
         }
-        
+
         private IReadOnlyCollection<string> GetFilesForPlaylist(string playlistPath)
         {
             if (!_mbApi.Playlist_QueryFilesEx(playlistPath, out var filePaths))
@@ -84,7 +85,7 @@ namespace Module.PlaylistsExporter.Services
 
             return filePaths;
         }
-        
+
         private static void Save(Playlist playlist)
         {
             var fileInfo = new FileInfo(playlist.Path);
@@ -93,7 +94,7 @@ namespace Module.PlaylistsExporter.Services
             {
                 throw new Exception("DirectoryInfo of playlist path in null");
             }
-            
+
             if (!fileInfo.Directory.Exists)
             {
                 fileInfo.Directory.Create();

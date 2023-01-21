@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Root.Settings;
+using Module.Settings.Entities.Abstract;
 
 namespace Module.PlaylistsExporter.Settings
 {

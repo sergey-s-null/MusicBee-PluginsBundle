@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using Root.GUI.AbstractViewModels;
+using Module.Settings.Gui.AbstractViewModels;
 
 namespace Module.PlaylistsExporter.GUI.Settings
 {
