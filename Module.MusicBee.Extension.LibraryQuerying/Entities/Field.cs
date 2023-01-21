@@ -64,12 +64,12 @@ public sealed class Field :
     /// <summary>
     /// Вид
     /// </summary>
-    public static readonly IEnumField FileKind = new Field("FileKind");
+    public static readonly IEnumField Kind = new Field("FileKind");
 
     /// <summary>
     /// Время
     /// </summary>
-    public static readonly INumberField FileDuration = new Field("FileDuration");
+    public static readonly INumberField Duration = new Field("FileDuration");
 
     /// <summary>
     /// Год
@@ -119,7 +119,7 @@ public sealed class Field :
     /// <summary>
     /// Жанр
     /// </summary>
-    public static readonly IEnumField GenreSplits = new Field("GenreSplits");
+    public static readonly IEnumField Genre = new Field("GenreSplits");
 
     /// <summary>
     /// Издатель
@@ -164,7 +164,7 @@ public sealed class Field :
     /// <summary>
     /// Исполнитель
     /// </summary>
-    public static readonly IExtendedStringField ArtistPeople = new Field("ArtistPeople");
+    public static readonly IExtendedStringField Artist = new Field("ArtistPeople");
 
     /// <summary>
     /// Исполнитель альбома
@@ -224,7 +224,7 @@ public sealed class Field :
     /// <summary>
     /// Композитор
     /// </summary>
-    public static readonly IStringField ComposerPeople = new Field("ComposerPeople");
+    public static readonly IStringField Composer = new Field("ComposerPeople");
 
     /// <summary>
     /// Композитор для сортировки
