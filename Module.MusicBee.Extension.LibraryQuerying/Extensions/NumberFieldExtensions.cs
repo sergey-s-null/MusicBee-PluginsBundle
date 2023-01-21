@@ -8,7 +8,7 @@ public static class NumberFieldExtensions
     /// <summary>
     /// Равно
     /// </summary>
-    public static void Is(this INumberField field, int value)
+    public static BaseCondition Is(this INumberField field, int value)
     {
         throw new NotImplementedException();
     }
@@ -16,7 +16,7 @@ public static class NumberFieldExtensions
     /// <summary>
     /// Не равно
     /// </summary>
-    public static void IsNot(this INumberField field, int value)
+    public static BaseCondition IsNot(this INumberField field, int value)
     {
         throw new NotImplementedException();
     }
@@ -24,7 +24,7 @@ public static class NumberFieldExtensions
     /// <summary>
     /// Больше, чем
     /// </summary>
-    public static void GreaterThan(this INumberField field, int value)
+    public static BaseCondition GreaterThan(this INumberField field, int value)
     {
         throw new NotImplementedException();
     }
@@ -32,7 +32,7 @@ public static class NumberFieldExtensions
     /// <summary>
     /// Меньше, чем
     /// </summary>
-    public static void LessThan(this INumberField field, int value)
+    public static BaseCondition LessThan(this INumberField field, int value)
     {
         throw new NotImplementedException();
     }
@@ -40,7 +40,7 @@ public static class NumberFieldExtensions
     /// <summary>
     /// В диапазоне
     /// </summary>
-    public static void InRange(this INumberField field, int from, int to)
+    public static BaseCondition InRange(this INumberField field, int from, int to)
     {
         throw new NotImplementedException();
     }
@@ -48,7 +48,7 @@ public static class NumberFieldExtensions
     /// <summary>
     /// Не в диапазоне
     /// </summary>
-    public static void NotInRange(this INumberField field, int from, int to)
+    public static BaseCondition NotInRange(this INumberField field, int from, int to)
     {
         throw new NotImplementedException();
     }
@@ -56,7 +56,7 @@ public static class NumberFieldExtensions
     /// <summary>
     /// Не пустое значение
     /// </summary>
-    public static void IsNotNull(this INumberField field)
+    public static BaseCondition IsNotNull(this INumberField field)
     {
         throw new NotImplementedException();
     }
@@ -64,7 +64,7 @@ public static class NumberFieldExtensions
     /// <summary>
     /// Пустое значение
     /// </summary>
-    public static void IsNull(this INumberField field)
+    public static BaseCondition IsNull(this INumberField field)
     {
         throw new NotImplementedException();
     }
