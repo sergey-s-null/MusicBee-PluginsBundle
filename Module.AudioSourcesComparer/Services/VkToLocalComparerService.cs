@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Module.AudioSourcesComparer.DataClasses;
 using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.Services.Abstract;
+using Module.MusicBee;
+using Module.MusicBee.Abstract;
+using Module.MusicBee.Extension.Helpers;
 using Module.Vk.Helpers;
 using Root.Helpers;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 using VkNet.Model.RequestParams;
@@ -70,7 +71,7 @@ namespace Module.AudioSourcesComparer.Services
                     FilePath = x
                 })
                 .Where(x => x.VkId is not null)
-                .ToDictionary(x => (long) x.VkId!, x => x.FilePath);
+                .ToDictionary(x => (long)x.VkId!, x => x.FilePath);
         }
 
         private async Task<IReadOnlyDictionary<long, Audio>> GetVkAudiosByVkIdsAsync()

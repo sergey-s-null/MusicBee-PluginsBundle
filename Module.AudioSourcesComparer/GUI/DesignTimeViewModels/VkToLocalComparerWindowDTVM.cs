@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
+using Module.Mvvm.Extension;
 using PropertyChanged;
-using Root.MVVM;
 
 namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
@@ -60,6 +60,7 @@ namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
             new VkAudioDTVM(999999999, "Repeat", "And"),
             new VkAudioDTVM(999999999, "Repeat", "And"),
         };
+
         public ICommand DeleteAllVkOnlyAudiosCmd => new RelayCommand(_ => { });
 
         public IList<IMBAudioVM> LocalOnlyAudios { get; } = new IMBAudioVM[]

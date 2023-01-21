@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
-using Root.MVVM;
+using Module.Mvvm.Extension;
 
 namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {

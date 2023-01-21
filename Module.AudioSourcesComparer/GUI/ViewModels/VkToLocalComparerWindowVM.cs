@@ -8,10 +8,10 @@ using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.AudioSourcesComparer.GUI.Factories;
 using Module.AudioSourcesComparer.Services.Abstract;
+using Module.Mvvm.Extension;
 using Module.Vk.Settings;
 using PropertyChanged;
 using Root.Helpers;
-using Root.MVVM;
 using VkNet.Abstractions;
 using VkNet.Exception;
 
