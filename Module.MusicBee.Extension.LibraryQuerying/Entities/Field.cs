@@ -414,6 +414,8 @@ public sealed class Field : IExtendedStringField, INumberField, IBoolField, IDat
     /// </summary>
     public static readonly IStringField Language = new Field("Language");
 
+    // todo add custom and virtual fields
+
     public string Name { get; }
 
     private Field(string name)
