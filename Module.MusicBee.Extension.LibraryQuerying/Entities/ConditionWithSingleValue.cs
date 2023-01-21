@@ -9,18 +9,18 @@ internal sealed class ConditionWithSingleValue<TValue> : BaseCondition
     private readonly IField _field;
     private readonly Comparison _comparison;
     private readonly TValue _value;
-    private readonly Func<TValue, string> _formatValue;
+    private readonly Func<TValue, string> _representValue;
 
     public ConditionWithSingleValue(
         IField field,
         Comparison comparison,
         TValue value,
-        Func<TValue, string> formatValue)
+        Func<TValue, string> representValue)
     {
         _field = field;
         _comparison = comparison;
         _value = value;
-        _formatValue = formatValue;
+        _representValue = representValue;
     }
 
     public override XNode Build()
@@ -29,7 +29,7 @@ internal sealed class ConditionWithSingleValue<TValue> : BaseCondition
             "Condition",
             new XAttribute("Field", _field.Name),
             new XAttribute("Comparison", _comparison.Name),
-            new XAttribute("Value", _formatValue(_value))
+            new XAttribute("Value", _representValue(_value))
         );
     }
 }
