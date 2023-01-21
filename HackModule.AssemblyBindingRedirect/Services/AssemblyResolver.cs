@@ -17,7 +17,6 @@ namespace HackModule.AssemblyBindingRedirect.Services
             "Microsoft.Extensions.DependencyInjection.Abstractions",
             "Microsoft.Extensions.Logging.Abstractions",
             "Newtonsoft.Json",
-            "Ninject",
             "System.Buffers",
             "System.Collections.Immutable",
             "System.Diagnostics.DiagnosticSource",
