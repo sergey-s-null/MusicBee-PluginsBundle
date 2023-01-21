@@ -1,6 +1,6 @@
-﻿using MusicBeePlugin.Services;
+﻿using Module.Mvvm.Extension;
+using MusicBeePlugin.Services;
 using PropertyChanged;
-using Root.MVVM;
 
 namespace MusicBeePlugin.GUI.ViewModels
 {
@@ -8,11 +8,13 @@ namespace MusicBeePlugin.GUI.ViewModels
     public class InboxRelocateContextMenuVM
     {
         private RelayCommand? _addToLibraryCommand;
-        public RelayCommand AddToLibraryCommand => 
+
+        public RelayCommand AddToLibraryCommand =>
             _addToLibraryCommand ??= new RelayCommand(_ => AddToLibrary());
 
         private RelayCommand? _retrieveToInboxCommand;
-        public RelayCommand RetrieveToInboxCommand => 
+
+        public RelayCommand RetrieveToInboxCommand =>
             _retrieveToInboxCommand ??= new RelayCommand(_ => RetrieveToInbox());
 
         private readonly IPluginActions _pluginActions;

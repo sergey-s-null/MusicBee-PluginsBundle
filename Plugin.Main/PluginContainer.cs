@@ -3,15 +3,15 @@ using Module.ArtworksSearcher;
 using Module.AudioSourcesComparer;
 using Module.DataExporter;
 using Module.InboxAdder;
+using Module.MusicBee;
+using Module.MusicBee.Extension;
+using Module.MusicBee.Services;
 using Module.PlaylistsExporter;
 using Module.Vk;
 using Module.VkAudioDownloader;
 using MusicBeePlugin.GUI.ViewModels;
 using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
-using Root;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
 using Root.Services.Abstract;
 
 namespace MusicBeePlugin
@@ -25,12 +25,9 @@ namespace MusicBeePlugin
             builder
                 .Register(_ => mbApiMemoryContainer)
                 .AsSelf();
-            builder
-                .RegisterType<MusicBeeApiMemoryContainerWrapper>()
-                .As<IMusicBeeApi>()
-                .SingleInstance();
 
-            builder.RegisterModule<RootModule>();
+            builder.RegisterModule<MusicBeeModule>();
+            builder.RegisterModule<MusicBeeExtensionModule>();
             builder.RegisterModule(new VkModule(true));
             builder.RegisterModule<MusicDownloaderModule>();
             builder.RegisterModule<ArtworksSearcherModule>();

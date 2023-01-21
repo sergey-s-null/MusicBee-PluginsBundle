@@ -4,12 +4,14 @@ using System.Net;
 using System.Windows;
 using Autofac;
 using HackModule.AssemblyBindingRedirect.Services;
+using Module.MusicBee.Entities;
+using Module.MusicBee.Enums;
+using Module.MusicBee.Extension.Services.Abstract;
+using Module.MusicBee.Services;
+using Module.MusicBee.Services.Abstract;
 using MusicBeePlugin.Factories;
 using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
-using Root.Services.Abstract;
 
 namespace MusicBeePlugin
 {

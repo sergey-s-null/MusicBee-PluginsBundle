@@ -8,11 +8,11 @@ using Module.AudioSourcesComparer.GUI.Factories;
 using Module.DataExporter.Exceptions;
 using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
+using Module.MusicBee.Enums;
+using Module.MusicBee.Services.Abstract;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.GUI.Factories;
 using Root.Helpers;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
 using Root.Services.Abstract;
 
 namespace MusicBeePlugin.Services

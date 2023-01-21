@@ -4,11 +4,11 @@ using System.Linq;
 using System.Windows;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
+using Module.Settings.Exceptions;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using MusicBeePlugin.GUI.AbstractViewModels;
 using PropertyChanged;
-using Root.Exceptions;
 
 namespace MusicBeePlugin.GUI.ViewModels
 {
