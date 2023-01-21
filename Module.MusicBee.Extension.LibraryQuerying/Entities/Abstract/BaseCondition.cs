@@ -11,4 +11,9 @@ public abstract class BaseCondition
     {
         throw new NotImplementedException();
     }
+
+    public static BaseCondition operator |(BaseCondition first, BaseCondition second)
+    {
+        throw new NotImplementedException();
+    }
 }
