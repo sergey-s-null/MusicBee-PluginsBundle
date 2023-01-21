@@ -12,8 +12,8 @@ using CodeGenerator.Extensions;
 using CodeGenerator.Helpers;
 using CodeGenerator.Models;
 using Microsoft.Build.Evaluation;
+using Module.MusicBee.Services;
 using Root.Helpers;
-using Root.MusicBeeApi;
 
 namespace CodeGenerator
 {
