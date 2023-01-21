@@ -52,6 +52,7 @@
     <Compile Include="Entities\Abstract\IStringField.cs" />
     <Compile Include="Entities\Abstract\IUnknownTypeField.cs" />
     <Compile Include="Entities\Comparison.cs" />
+    <Compile Include="Entities\ConditionWithSingleValue.cs" />
     <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\ConditionWithoutValue.cs" />
     <Compile Include="Extensions\EnumFieldExtensions.cs" />
