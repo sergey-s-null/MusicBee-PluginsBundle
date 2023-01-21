@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Root.Helpers;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
+using Module.MusicBee;
+using Module.MusicBee.Abstract;
+using Module.MusicBee.Extension.Helpers;
 
 namespace Module.InboxAdder.Services
 {
     public sealed class InboxAddService : IInboxAddService
     {
         private readonly IMusicBeeApi _mbApi;
-        
+
         public InboxAddService(IMusicBeeApi mbApi)
         {
             _mbApi = mbApi;
         }
-        
+
         public void AddToLibrary(string filePath)
         {
             if (IsInLibrary(filePath))
@@ -24,14 +24,14 @@ namespace Module.InboxAdder.Services
             }
 
             var currentIndex = GetLastIndex() + 1;
-            
+
             BaseMusicBeeApiHelper.CalcIndices(currentIndex, out var i1, out var i2);
-            
+
             _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Music);
             _mbApi.SetIndex(filePath, currentIndex, false);
             _mbApi.SetIndex1(filePath, i1, false);
             _mbApi.SetIndex2(filePath, i2, false);
-            
+
             _mbApi.Library_CommitTagsToFile(filePath);
         }
 
@@ -41,9 +41,9 @@ namespace Module.InboxAdder.Services
             {
                 return;
             }
-            
+
             _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Inbox);
-            
+
             _mbApi.ClearIndex(filePath, false);
             _mbApi.ClearIndex1(filePath, false);
             _mbApi.ClearIndex2(filePath, false);
@@ -53,10 +53,10 @@ namespace Module.InboxAdder.Services
 
         private bool IsInLibrary(string filePath)
         {
-            return _mbApi.TryGetIndex(filePath, out var index) 
+            return _mbApi.TryGetIndex(filePath, out var index)
                    && index >= 0;
         }
-        
+
         private int GetLastIndex()
         {
             return GetFilePaths()
