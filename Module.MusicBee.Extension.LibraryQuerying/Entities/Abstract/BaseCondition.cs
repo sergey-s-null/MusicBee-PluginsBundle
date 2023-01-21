@@ -1,5 +1,5 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
+using Module.MusicBee.Extension.LibraryQuerying.Extensions;
 
 namespace Module.MusicBee.Extension.LibraryQuerying.Entities.Abstract;
 
@@ -9,11 +9,11 @@ public abstract class BaseCondition
 
     public static BaseCondition operator &(BaseCondition first, BaseCondition second)
     {
-        throw new NotImplementedException();
+        return first.And(second);
     }
 
     public static BaseCondition operator |(BaseCondition first, BaseCondition second)
     {
-        throw new NotImplementedException();
+        return first.Or(second);
     }
 }

@@ -63,6 +63,7 @@
     <Compile Include="Enums\CombineMethod.cs" />
     <Compile Include="Enums\Rating.cs" />
     <Compile Include="Enums\TimeUnit.cs" />
+    <Compile Include="Extensions\BaseConditionExtensions.cs" />
     <Compile Include="Extensions\BoolFieldExtensions.cs" />
     <Compile Include="Extensions\DateFieldExtensions.cs" />
     <Compile Include="Extensions\EnumFieldExtensions.cs" />
