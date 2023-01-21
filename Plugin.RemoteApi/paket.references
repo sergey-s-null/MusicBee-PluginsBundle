@@ -2,4 +2,4 @@
     Grpc
     Grpc.Tools
     Google.Protobuf
-    Ninject
+    Autofac

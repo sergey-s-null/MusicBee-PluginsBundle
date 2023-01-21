@@ -8,7 +8,7 @@ using Root.GUI.ViewModels;
 namespace Module.Vk.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class VkSettingsVM : BaseSettingsVM, IVkSettingsVM
+    public sealed class VkSettingsVM : BaseSettingsVM, IVkSettingsVM
     {
         public string AccessToken { get; set; } = string.Empty;
         public string UserId { get; set; } = string.Empty;

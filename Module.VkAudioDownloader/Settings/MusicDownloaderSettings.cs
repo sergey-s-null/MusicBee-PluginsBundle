@@ -7,7 +7,7 @@ using Root.Settings;
 
 namespace Module.VkAudioDownloader.Settings
 {
-    public class MusicDownloaderSettings : BaseSettings, IMusicDownloaderSettings
+    public sealed class MusicDownloaderSettings : BaseSettings, IMusicDownloaderSettings
     {
         public string DownloadDirTemplate { get; set; } = "";
         public string FileNameTemplate { get; set; } = "";

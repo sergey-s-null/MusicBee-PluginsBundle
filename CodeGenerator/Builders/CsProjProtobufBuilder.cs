@@ -6,7 +6,7 @@ using Root.Helpers;
 
 namespace CodeGenerator.Builders
 {
-    public class CsProjProtobufBuilder
+    public sealed class CsProjProtobufBuilder
     {
         private readonly Project _project;
         private ProtobufType _protobufType;

@@ -2,7 +2,7 @@
 
 namespace Module.Vk.Exceptions
 {
-    public class VkApiAuthorizationException : Exception
+    public sealed class VkApiAuthorizationException : Exception
     {
         public VkApiAuthorizationException(string message) : base(message)
         {

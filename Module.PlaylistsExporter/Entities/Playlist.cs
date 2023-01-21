@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Module.PlaylistsExporter.Entities
 {
-    public record Playlist(string Path, IReadOnlyCollection<string> FilePaths)
+    public sealed record Playlist(string Path, IReadOnlyCollection<string> FilePaths)
     {
         public override string ToString()
         {

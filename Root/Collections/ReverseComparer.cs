@@ -2,7 +2,7 @@
 
 namespace Root.Collections
 {
-    public class ReverseComparer : IComparer
+    public sealed class ReverseComparer : IComparer
     {
         private readonly IComparer _innerComparer;
 

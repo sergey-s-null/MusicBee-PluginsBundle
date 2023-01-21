@@ -6,7 +6,7 @@ using Module.VkAudioDownloader.GUI.ViewModels;
 
 namespace Module.VkAudioDownloader.GUI.Converters
 {
-    public class IsCorruptedUrlConverter : IValueConverter
+    public sealed class IsCorruptedUrlConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

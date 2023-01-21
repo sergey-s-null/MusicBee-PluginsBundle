@@ -1,28 +1,32 @@
-﻿using Module.PlaylistsExporter.GUI.Settings;
+﻿using Autofac;
+using Module.PlaylistsExporter.GUI.Settings;
 using Module.PlaylistsExporter.Services;
 using Module.PlaylistsExporter.Settings;
-using Ninject.Modules;
 using PlaylistsExporterSettings = Module.PlaylistsExporter.Settings.PlaylistsExporterSettings;
 
 namespace Module.PlaylistsExporter
 {
-    public class PlaylistsExporterModule : NinjectModule
+    public sealed class PlaylistsExporterModule : Autofac.Module
     {
-        public override void Load()
+        protected override void Load(ContainerBuilder builder)
         {
-            Bind<IPlaylistsExporterSettings>()
-                .To<PlaylistsExporterSettings>()
-                .InSingletonScope();
-            
-            Bind<IPlaylistsExporterSettingsVM>()
-                .To<PlaylistsExporterSettingsVM>();
+            builder
+                .RegisterType<PlaylistsExporterSettings>()
+                .As<IPlaylistsExporterSettings>()
+                .SingleInstance();
 
-            Bind<IPlaylistToLibraryConverter>()
-                .To<PlaylistToLibraryConverter>()
-                .InSingletonScope();
-            Bind<IPlaylistsExportService>()
-                .To<PlaylistsExportService>()
-                .InSingletonScope();
+            builder
+                .RegisterType<PlaylistsExporterSettingsVM>()
+                .As<IPlaylistsExporterSettingsVM>();
+
+            builder
+                .RegisterType<PlaylistToLibraryConverter>()
+                .As<IPlaylistToLibraryConverter>()
+                .SingleInstance();
+            builder
+                .RegisterType<PlaylistsExportService>()
+                .As<IPlaylistsExportService>()
+                .SingleInstance();
         }
     }
 }

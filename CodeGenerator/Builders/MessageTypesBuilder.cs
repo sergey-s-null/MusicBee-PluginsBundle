@@ -5,7 +5,7 @@ using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders
 {
-    public class MessageTypesBuilder : IMessageTypesBuilder
+    public sealed class MessageTypesBuilder : IMessageTypesBuilder
     {
         private readonly IServiceBuilderParameters _parameters;
 

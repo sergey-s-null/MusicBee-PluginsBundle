@@ -5,7 +5,7 @@ using Root.MVVM;
 
 namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
 {
-    public class MusicDownloaderSettingsDTVM : IMusicDownloaderSettingsVM
+    public sealed class MusicDownloaderSettingsDTVM : IMusicDownloaderSettingsVM
     {
         public bool Loaded => true;
         public string LoadingErrorMessage => "(no error)";

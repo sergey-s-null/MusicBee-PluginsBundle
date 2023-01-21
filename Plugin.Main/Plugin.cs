@@ -2,13 +2,11 @@
 using System.IO;
 using System.Net;
 using System.Windows;
+using Autofac;
 using HackModule.AssemblyBindingRedirect.Services;
-using HackModule.AssemblyBindingRedirect.Services.Abstract;
 using MusicBeePlugin.Factories;
 using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
-using Ninject;
-using Ninject.Syntax;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
 using Root.Services.Abstract;
@@ -21,41 +19,43 @@ namespace MusicBeePlugin
         private const short MinInterfaceVersion = 40; // 41
         private const short MinApiRevision = 53;
 
-        private IAssemblyResolver? _assemblyResolver;
-        private ISettingsDialogFactory? _settingsDialogFactory;
+        private SettingsDialogFactory? _settingsDialogFactory;
         private IResourceManager? _resourceManager;
+
+        static Plugin()
+        {
+            ApplyAssembliesResolution();
+        }
 
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
-            ApplyAssembliesResolution();
-
             ServicePointManager.DefaultConnectionLimit = 20;
 
             var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
             mbApiMemoryContainer.Initialise(apiInterfacePtr);
 
-            var kernel = Bootstrapper.GetKernel(mbApiMemoryContainer);
+            var container = PluginContainer.Create(mbApiMemoryContainer);
 
-            _settingsDialogFactory = kernel.Get<ISettingsDialogFactory>();
-            _resourceManager = kernel.Get<IResourceManager>();
+            _settingsDialogFactory = container.Resolve<SettingsDialogFactory>();
+            _resourceManager = container.Resolve<IResourceManager>();
 
             InitSettings();
-            CreateMenuItems(kernel);
+            CreateMenuItems(container);
 
             return GetPluginInfo();
         }
 
-        private void ApplyAssembliesResolution()
+        private static void ApplyAssembliesResolution()
         {
             var assembliesDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
-            _assemblyResolver = new AssemblyResolver(assembliesDirectory);
-            AppDomain.CurrentDomain.AssemblyResolve += _assemblyResolver.ResolveHandler;
+            var assemblyResolver = new AssemblyResolver(assembliesDirectory);
+            AppDomain.CurrentDomain.AssemblyResolve += assemblyResolver.ResolveHandler;
         }
 
-        private static void CreateMenuItems(IResolutionRoot resolutionRoot)
+        private static void CreateMenuItems(IContainer container)
         {
-            var mbApi = resolutionRoot.Get<IMusicBeeApi>();
-            var pluginActions = resolutionRoot.Get<IPluginActions>();
+            var mbApi = container.Resolve<IMusicBeeApi>();
+            var pluginActions = container.Resolve<IPluginActions>();
 
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Search Artworks",
@@ -92,7 +92,7 @@ namespace MusicBeePlugin
                 "Laiser399: Inbox relocate context menu",
                 (_, _) =>
                 {
-                    var inboxRelocateContextMenu = resolutionRoot.LoadInboxRelocateContextMenu();
+                    var inboxRelocateContextMenu = container.LoadInboxRelocateContextMenu();
                     inboxRelocateContextMenu.IsOpen = true;
                 });
         }
@@ -125,7 +125,7 @@ namespace MusicBeePlugin
         public bool Configure(IntPtr _)
         {
             _settingsDialogFactory?
-                .Create()
+                .Invoke()
                 .ShowDialog();
 
             return true;

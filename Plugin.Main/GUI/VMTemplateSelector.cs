@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace MusicBeePlugin.GUI
 {
-    public class VMTemplateSelector : DataTemplateSelector
+    public sealed class VMTemplateSelector : DataTemplateSelector
     {
         private static readonly Regex InterfaceNameRegex = new (@"^I.+VM$");
         

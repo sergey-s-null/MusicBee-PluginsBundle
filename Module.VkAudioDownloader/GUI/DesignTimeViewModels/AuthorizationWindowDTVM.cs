@@ -8,7 +8,7 @@ using Root.MVVM;
 
 namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
 {
-    public class AuthorizationWindowDTVM : IAuthorizationWindowVM
+    public sealed class AuthorizationWindowDTVM : IAuthorizationWindowVM
     {
         public event EventHandler? ClosingRequested;
 

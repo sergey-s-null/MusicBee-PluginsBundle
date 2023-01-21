@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace Module.ArtworksSearcher.GUI.Converters
 {
-    public class EqualsToVisibleConverter : IValueConverter, IMultiValueConverter
+    public sealed class EqualsToVisibleConverter : IValueConverter, IMultiValueConverter
     {
         #region IValueConverter
 

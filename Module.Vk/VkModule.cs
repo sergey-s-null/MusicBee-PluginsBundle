@@ -1,15 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Autofac;
+using Microsoft.Extensions.DependencyInjection;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.GUI.ViewModels;
 using Module.Vk.Settings;
-using Ninject.Modules;
 using VkNet;
 using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
 
 namespace Module.Vk
 {
-    public class VkModule : NinjectModule
+    public sealed class VkModule : Autofac.Module
     {
         private readonly bool _withAudioBypass;
 
@@ -18,20 +18,21 @@ namespace Module.Vk
             _withAudioBypass = withAudioBypass;
         }
 
-        public override void Load()
+        protected override void Load(ContainerBuilder builder)
         {
-            Bind<IVkSettings>()
-                .To<VkSettings>()
-                .InSingletonScope();
+            builder
+                .RegisterType<VkSettings>()
+                .As<IVkSettings>()
+                .SingleInstance();
 
-            // Services
-            Bind<IVkApi>()
-                .ToMethod(_ => CreateVkApi())
-                .InSingletonScope();
+            builder
+                .Register(x => CreateVkApi())
+                .As<IVkApi>()
+                .SingleInstance();
 
-            // ViewModels
-            Bind<IVkSettingsVM>()
-                .To<VkSettingsVM>();
+            builder
+                .RegisterType<VkSettingsVM>()
+                .As<IVkSettingsVM>();
         }
 
         private IVkApi CreateVkApi()

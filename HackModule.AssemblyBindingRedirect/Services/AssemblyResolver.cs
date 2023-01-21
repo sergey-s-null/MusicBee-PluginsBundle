@@ -7,7 +7,7 @@ using HackModule.AssemblyBindingRedirect.Services.Abstract;
 
 namespace HackModule.AssemblyBindingRedirect.Services
 {
-    public class AssemblyResolver : IAssemblyResolver
+    public sealed class AssemblyResolver : IAssemblyResolver
     {
         private static readonly IReadOnlyCollection<string> AssembliesToRedirect = new[]
         {
@@ -17,12 +17,12 @@ namespace HackModule.AssemblyBindingRedirect.Services
             "Microsoft.Extensions.DependencyInjection.Abstractions",
             "Microsoft.Extensions.Logging.Abstractions",
             "Newtonsoft.Json",
-            "Ninject",
+            "System.Buffers",
             "System.Collections.Immutable",
+            "System.Diagnostics.DiagnosticSource",
             "System.Memory",
             "System.Runtime.CompilerServices.Unsafe",
             "System.Threading.Tasks.Extensions",
-            "System.Buffers",
         };
 
         private readonly string _assembliesDirectory;

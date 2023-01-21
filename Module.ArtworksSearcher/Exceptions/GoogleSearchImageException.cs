@@ -2,7 +2,7 @@
 
 namespace Module.ArtworksSearcher.Exceptions
 {
-    public class GoogleSearchImageException : Exception
+    public sealed class GoogleSearchImageException : Exception
     {
         public GoogleSearchImageException(string message) : base(message)
         {

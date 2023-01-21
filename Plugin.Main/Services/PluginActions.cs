@@ -17,15 +17,15 @@ using Root.Services.Abstract;
 
 namespace MusicBeePlugin.Services
 {
-    public class PluginActions : IPluginActions
+    public sealed class PluginActions : IPluginActions
     {
         private readonly IMusicBeeApi _mbApi;
         private readonly IDataExportService _dataExportService;
         private readonly IPlaylistsExportService _playlistsExportService;
         private readonly IInboxAddService _inboxAddService;
-        private readonly ISearchWindowFactory _searchWindowFactory;
-        private readonly IVkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
-        private readonly IVkToLocalComparerWindowFactory _vkToLocalComparerWindowFactory;
+        private readonly SearchWindowFactory _searchWindowFactory;
+        private readonly VkAudioDownloaderWindowFactory _vkAudioDownloaderWindowFactory;
+        private readonly VkToLocalComparerWindowFactory _vkToLocalComparerWindowFactory;
         private readonly IVkApiAuthorizationsService _vkApiAuthorizationsService;
 
         public PluginActions(
@@ -33,9 +33,9 @@ namespace MusicBeePlugin.Services
             IDataExportService dataExportService,
             IPlaylistsExportService playlistsExportService,
             IInboxAddService inboxAddService,
-            ISearchWindowFactory searchWindowFactory,
-            IVkAudioDownloaderWindowFactory vkAudioDownloaderWindowFactory,
-            IVkToLocalComparerWindowFactory vkToLocalComparerWindowFactory,
+            SearchWindowFactory searchWindowFactory,
+            VkAudioDownloaderWindowFactory vkAudioDownloaderWindowFactory,
+            VkToLocalComparerWindowFactory vkToLocalComparerWindowFactory,
             IVkApiAuthorizationsService vkApiAuthorizationsService)
         {
             _mbApi = mbApi;
@@ -59,7 +59,7 @@ namespace MusicBeePlugin.Services
             var artist = _mbApi.Library_GetFileTag(selectedFilePath, MetaDataType.Artist);
             var title = _mbApi.Library_GetFileTag(selectedFilePath, MetaDataType.TrackTitle);
 
-            var searchWindow = _searchWindowFactory.Create();
+            var searchWindow = _searchWindowFactory();
             if (searchWindow.ShowDialog(artist, title, out var imageData))
             {
                 if (!_mbApi.Library_SetArtworkEx(selectedFilePath, 0, imageData))
@@ -77,8 +77,7 @@ namespace MusicBeePlugin.Services
                 return;
             }
 
-            _vkAudioDownloaderWindowFactory
-                .Create()
+            _vkAudioDownloaderWindowFactory()
                 .ShowDialog();
         }
 
@@ -90,8 +89,7 @@ namespace MusicBeePlugin.Services
                 return;
             }
 
-            _vkToLocalComparerWindowFactory
-                .Create()
+            _vkToLocalComparerWindowFactory()
                 .Show();
         }
 

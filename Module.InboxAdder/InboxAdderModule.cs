@@ -1,15 +1,16 @@
-﻿using Module.InboxAdder.Services;
-using Ninject.Modules;
+﻿using Autofac;
+using Module.InboxAdder.Services;
 
 namespace Module.InboxAdder
 {
-    public class InboxAdderModule : NinjectModule
+    public sealed class InboxAdderModule : Autofac.Module
     {
-        public override void Load()
+        protected override void Load(ContainerBuilder builder)
         {
-            Bind<IInboxAddService>()
-                .To<InboxAddService>()
-                .InSingletonScope();
+            builder
+                .RegisterType<InboxAddService>()
+                .As<IInboxAddService>()
+                .SingleInstance();
         }
     }
 }

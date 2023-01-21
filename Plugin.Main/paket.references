@@ -1,9 +1,8 @@
 group NetFramework
     Fody
-    Ninject
-    Ninject.Extensions.Factory
     PropertyChanged.Fody
     WindowsAPICodePack
     VkNet
     System.Collections.Immutable
     MahApps.Metro.IconPacks
+    Autofac

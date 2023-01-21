@@ -2,7 +2,7 @@
 
 namespace Module.AudioSourcesComparer.GUI.Views
 {
-    public partial class VkAudio : UserControl
+    public sealed partial class VkAudio : UserControl
     {
         public VkAudio()
         {

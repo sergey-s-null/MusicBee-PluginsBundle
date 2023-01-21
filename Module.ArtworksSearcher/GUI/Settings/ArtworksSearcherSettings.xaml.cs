@@ -2,7 +2,7 @@
 
 namespace Module.ArtworksSearcher.GUI.Settings
 {
-    public partial class ArtworksSearcherSettings : UserControl
+    public sealed partial class ArtworksSearcherSettings : UserControl
     {
         public ArtworksSearcherSettings()
         {

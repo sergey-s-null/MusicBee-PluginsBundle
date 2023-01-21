@@ -7,7 +7,7 @@ using Root.Helpers;
 
 namespace Module.PlaylistsExporter.Services
 {
-    public class PlaylistToLibraryConverter : IPlaylistToLibraryConverter
+    public sealed class PlaylistToLibraryConverter : IPlaylistToLibraryConverter
     {
         private readonly IPlaylistsExporterSettings _settings;
         

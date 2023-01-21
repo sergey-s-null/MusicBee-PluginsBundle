@@ -9,7 +9,7 @@ using Root.Helpers;
 
 namespace CodeGenerator.Builders
 {
-    public class ClientWrapperBuilder : IClientWrapperBuilder
+    public sealed class ClientWrapperBuilder : IClientWrapperBuilder
     {
         private static readonly IReadOnlyCollection<string> ClientWrapperUsingLines = new[]
         {

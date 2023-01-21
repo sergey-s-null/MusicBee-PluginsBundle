@@ -2,7 +2,7 @@
 
 namespace Module.DataExporter.Exceptions
 {
-    public class MusicBeeApiException : Exception
+    public sealed class MusicBeeApiException : Exception
     {
         public MusicBeeApiException()
         {

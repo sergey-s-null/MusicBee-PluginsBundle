@@ -10,7 +10,7 @@ using Root.MusicBeeApi.Abstract;
 
 namespace Module.PlaylistsExporter.Services
 {
-    public class PlaylistsExportService : IPlaylistsExportService
+    public sealed class PlaylistsExportService : IPlaylistsExportService
     {
         private readonly IPlaylistsExporterSettings _settings;
         private readonly IPlaylistToLibraryConverter _converter;

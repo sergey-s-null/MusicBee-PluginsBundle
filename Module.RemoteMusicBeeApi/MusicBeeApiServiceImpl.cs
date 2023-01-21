@@ -11,7 +11,7 @@ using Root.MusicBeeApi.Abstract;
 
 namespace Module.RemoteMusicBeeApi
 {
-    public class MusicBeeApiServiceImpl : MusicBeeApiService.MusicBeeApiServiceBase
+    public sealed class MusicBeeApiServiceImpl : MusicBeeApiService.MusicBeeApiServiceBase
     {
         private readonly IBaseMusicBeeApi _mbApi;
         

@@ -10,7 +10,7 @@ using Root.MusicBeeApi.Abstract;
 
 namespace Module.DataExporter.Services
 {
-    public class DataExportService : IDataExportService
+    public sealed class DataExportService : IDataExportService
     {
         private readonly IMusicBeeApi _mbApi;
         

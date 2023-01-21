@@ -24,7 +24,7 @@ using VkNet.Model.Attachments;
 namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
+    public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     {
         #region Bindings
 

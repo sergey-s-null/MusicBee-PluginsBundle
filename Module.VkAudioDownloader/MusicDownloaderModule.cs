@@ -1,33 +1,37 @@
-﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
-using Module.VkAudioDownloader.GUI.Factories;
+﻿using Autofac;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.ViewModels;
+using Module.VkAudioDownloader.GUI.Views;
 using Module.VkAudioDownloader.Settings;
-using Ninject.Extensions.Factory;
-using Ninject.Modules;
+using MusicDownloaderSettings = Module.VkAudioDownloader.Settings.MusicDownloaderSettings;
 
 namespace Module.VkAudioDownloader
 {
-    public class MusicDownloaderModule : NinjectModule
+    public sealed class MusicDownloaderModule : Autofac.Module
     {
-        public override void Load()
+        protected override void Load(ContainerBuilder builder)
         {
-            Bind<IMusicDownloaderSettings>()
-                .To<MusicDownloaderSettings>()
-                .InSingletonScope();
+            builder
+                .RegisterType<MusicDownloaderSettings>()
+                .As<IMusicDownloaderSettings>()
+                .SingleInstance();
 
-            // ViewModels
-            Bind<IVkAudioDownloaderWindowVM>()
-                .To<VkAudioDownloaderWindowVM>();
-            Bind<IMusicDownloaderSettingsVM>()
-                .To<MusicDownloaderSettingsVM>();
-            Bind<IAuthorizationWindowVM>()
-                .To<AuthorizationWindowVM>();
+            builder
+                .RegisterType<VkAudioDownloaderWindowVM>()
+                .As<IVkAudioDownloaderWindowVM>();
+            builder
+                .RegisterType<MusicDownloaderSettingsVM>()
+                .As<IMusicDownloaderSettingsVM>();
+            builder
+                .RegisterType<AuthorizationWindowVM>()
+                .As<IAuthorizationWindowVM>();
 
-            // Factories
-            Bind<IVkAudioDownloaderWindowFactory>()
-                .ToFactory();
-            Bind<IAuthorizationWindowFactory>()
-                .ToFactory();
+            builder
+                .RegisterType<VkAudioDownloaderWindow>()
+                .AsSelf();
+            builder
+                .RegisterType<AuthorizationWindow>()
+                .AsSelf();
         }
     }
 }

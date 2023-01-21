@@ -5,7 +5,7 @@ using Root.MVVM;
 
 namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
-    public class VkAudioDTVM : IVkAudioVM
+    public sealed class VkAudioDTVM : IVkAudioVM
     {
         public event EventHandler<EventArgs>? DeleteRequested;
 

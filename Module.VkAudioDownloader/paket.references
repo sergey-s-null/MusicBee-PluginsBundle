@@ -1,6 +1,4 @@
 group NetFramework
-    Ninject
-    Ninject.Extensions.Factory
     Newtonsoft.Json
     VkNet
     VkNet.AudioBypassService
@@ -8,3 +6,4 @@ group NetFramework
     WindowsAPICodePack
     morelinq
     System.Linq.Async
+    Autofac

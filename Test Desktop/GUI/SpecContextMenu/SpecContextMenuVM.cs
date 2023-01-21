@@ -5,7 +5,7 @@ using Root.MVVM;
 namespace Test_Desktop.GUI.SpecContextMenu
 {
     [AddINotifyPropertyChangedInterface]
-    public class SpecContextMenuVM
+    public sealed class SpecContextMenuVM
     {
         private RelayCommand? _someCommand;
         public RelayCommand SomeCommand => _someCommand ??= new RelayCommand(_ => Some());

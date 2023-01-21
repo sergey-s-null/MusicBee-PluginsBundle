@@ -6,7 +6,7 @@ using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders
 {
-    public class InterfaceBuilder : IInterfaceBuilder
+    public sealed class InterfaceBuilder : IInterfaceBuilder
     {
         private readonly IMethodDefinitionBuilder _methodDefinitionBuilder;
         

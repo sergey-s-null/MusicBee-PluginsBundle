@@ -2,7 +2,7 @@
 
 namespace Root.Exceptions
 {
-    public class SettingsIOException : Exception
+    public sealed class SettingsIOException : Exception
     {
         public SettingsIOException(string message) : base(message)
         {

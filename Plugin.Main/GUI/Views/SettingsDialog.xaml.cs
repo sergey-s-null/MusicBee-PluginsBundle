@@ -3,7 +3,7 @@ using MusicBeePlugin.GUI.ViewModels;
 
 namespace MusicBeePlugin.GUI.Views
 {
-    public partial class SettingsDialog : Window
+    public sealed partial class SettingsDialog : Window
     {
         private readonly SettingsDialogVM _viewModel;
         

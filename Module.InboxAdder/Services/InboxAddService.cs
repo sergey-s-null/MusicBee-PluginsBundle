@@ -7,7 +7,7 @@ using Root.MusicBeeApi.Abstract;
 
 namespace Module.InboxAdder.Services
 {
-    public class InboxAddService : IInboxAddService
+    public sealed class InboxAddService : IInboxAddService
     {
         private readonly IMusicBeeApi _mbApi;
         

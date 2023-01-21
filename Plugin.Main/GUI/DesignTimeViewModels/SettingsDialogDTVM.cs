@@ -13,7 +13,7 @@ using PropertyChanged;
 namespace MusicBeePlugin.GUI.DesignTimeViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class SettingsDialogDTVM : ISettingsDialogVM
+    public sealed class SettingsDialogDTVM : ISettingsDialogVM
     {
         public IVkSettingsVM VkSettingsVM { get; }
         public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }

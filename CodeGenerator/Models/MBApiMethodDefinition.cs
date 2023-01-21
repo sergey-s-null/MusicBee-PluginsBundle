@@ -2,7 +2,7 @@
 
 namespace CodeGenerator.Models
 {
-    public class MBApiMethodDefinition
+    public sealed class MBApiMethodDefinition
     {
         public string Name { get; }
         public IReadOnlyCollection<MBApiParameterDefinition> InputParameters { get; }

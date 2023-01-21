@@ -54,8 +54,8 @@
     <Compile Include="ArtworksSearcherModule.cs" />
     <Compile Include="Delegates\GetImagesAsyncEnumeratorDelegate.cs" />
     <Compile Include="Exceptions\GoogleSearchImageException.cs" />
-    <Compile Include="Factories\IGoogleImagesEnumeratorFactory.cs" />
-    <Compile Include="Factories\ISearchWindowFactory.cs" />
+    <Compile Include="Factories\GoogleImagesEnumeratorFactory.cs" />
+    <Compile Include="Factories\SearchWindowFactory.cs" />
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsVM.cs" />
     <Compile Include="GUI\Settings\ArtworksSearcherSettingsDTVM.cs" />
     <Compile Include="GUI\Settings\IArtworksSearcherSettingsVM.cs" />
@@ -122,11 +122,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="System.Configuration">
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="Castle.Core">
-          <HintPath>..\packages\netframework\Castle.Core\lib\net462\Castle.Core.dll</HintPath>
+        <Reference Include="Autofac">
+          <HintPath>..\packages\netframework\Autofac\lib\netstandard2.0\Autofac.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -169,28 +166,6 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="Ninject">
-          <HintPath>..\packages\netframework\Ninject\lib\net45\Ninject.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="Ninject.Extensions.Factory">
-          <HintPath>..\packages\netframework\Ninject.Extensions.Factory\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
         <Reference Include="PropertyChanged">
           <HintPath>..\packages\netframework\PropertyChanged.Fody\lib\net40\PropertyChanged.dll</HintPath>
           <Private>True</Private>
@@ -202,8 +177,55 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
+        <Reference Include="System.Buffers">
+          <HintPath>..\packages\netframework\System.Buffers\lib\net461\System.Buffers.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Diagnostics.DiagnosticSource">
+          <HintPath>..\packages\netframework\System.Diagnostics.DiagnosticSource\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
         <Reference Include="System.Linq.Async">
           <HintPath>..\packages\netframework\System.Linq.Async\lib\netstandard2.0\System.Linq.Async.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Memory">
+          <HintPath>..\packages\netframework\System.Memory\lib\net461\System.Memory.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="System.Numerics">
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Numerics.Vectors">
+          <HintPath>..\packages\netframework\System.Numerics.Vectors\lib\net46\System.Numerics.Vectors.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

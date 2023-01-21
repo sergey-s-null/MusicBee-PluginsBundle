@@ -1,20 +1,21 @@
-﻿using Ninject.Modules;
+﻿using Autofac;
 using Root.Services;
 using Root.Services.Abstract;
 
 namespace Root
 {
-    public class RootModule : NinjectModule
+    public sealed class RootModule : Module
     {
-        public override void Load()
+        protected override void Load(ContainerBuilder builder)
         {
-            // Services
-            Bind<IResourceManager>()
-                .To<ResourceManager>()
-                .InSingletonScope();
-            Bind<ISettingsJsonLoader>()
-                .To<SettingsJsonLoader>()
-                .InSingletonScope();
+            builder
+                .RegisterType<ResourceManager>()
+                .As<IResourceManager>()
+                .SingleInstance();
+            builder
+                .RegisterType<SettingsJsonLoader>()
+                .As<ISettingsJsonLoader>()
+                .SingleInstance();
         }
     }
 }

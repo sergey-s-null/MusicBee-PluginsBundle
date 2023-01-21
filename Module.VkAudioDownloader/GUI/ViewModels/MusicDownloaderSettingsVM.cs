@@ -12,7 +12,7 @@ using Root.MVVM;
 namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class MusicDownloaderSettingsVM : BaseSettingsVM, IMusicDownloaderSettingsVM
+    public sealed class MusicDownloaderSettingsVM : BaseSettingsVM, IMusicDownloaderSettingsVM
     {
         [OnChangedMethod(nameof(OnDownloadDirTemplateChanged))]
         public string DownloadDirTemplate { get; set; } = "";

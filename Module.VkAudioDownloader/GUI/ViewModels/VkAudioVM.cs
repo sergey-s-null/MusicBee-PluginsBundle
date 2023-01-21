@@ -4,7 +4,7 @@ using PropertyChanged;
 namespace Module.VkAudioDownloader.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class VkAudioVM : IVkAudioVM
+    public sealed class VkAudioVM : IVkAudioVM
     {
         public long VkId { get; }
         public string Artist { get; }

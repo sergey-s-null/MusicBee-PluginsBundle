@@ -4,7 +4,7 @@ using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.Settings
 {
-    public class ArtworksSearcherSettingsDTVM : IArtworksSearcherSettingsVM
+    public sealed class ArtworksSearcherSettingsDTVM : IArtworksSearcherSettingsVM
     {
         public bool Loaded => true;
         public string LoadingErrorMessage => "(ok)";
