@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Module.MBLibraryApiExtension.Entities.Abstract;
+using Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
 
-namespace Module.MBLibraryApiExtension.Services.Abstract;
+namespace Module.MusicBee.Extension.LibraryApi.Services.Abstract;
 
 public interface IMusicBeeLibrary
 {

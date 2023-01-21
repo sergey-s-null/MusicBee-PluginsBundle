@@ -61,7 +61,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeTest.AudioSourcesComp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Vk", "Module.Vk\Module.Vk.csproj", "{AE3DF3FE-CCCA-4879-AB08-E1AEB9807E69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MBLibraryApiExtension", "Module.MBLibraryApiExtension\Module.MBLibraryApiExtension.csproj", "{19D0007E-3B42-45CB-BD17-CB8802CD5FF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicBee.Extension.LibraryApi", "Module.MusicBee.Extension.LibraryApi\Module.MusicBee.Extension.LibraryApi.csproj", "{19D0007E-3B42-45CB-BD17-CB8802CD5FF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

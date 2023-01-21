@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Module.MBLibraryApiExtension.Entities.Abstract;
+using Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
 
-namespace Module.MBLibraryApiExtension.Entities;
+namespace Module.MusicBee.Extension.LibraryApi.Entities;
 
 public class CachingReadOnlyMusicFile : IReadOnlyMusicFile
 {

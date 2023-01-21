@@ -7,8 +7,8 @@
 		<ProjectGuid>{19D0007E-3B42-45CB-BD17-CB8802CD5FF9}</ProjectGuid>
 		<OutputType>Library</OutputType>
 		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>Module.MBLibraryApiExtension</RootNamespace>
-		<AssemblyName>Module.MBLibraryApiExtension</AssemblyName>
+		<RootNamespace>Module.MusicBee.Extension.LibraryApi</RootNamespace>
+		<AssemblyName>Module.MusicBee.Extension.LibraryApi</AssemblyName>
 		<TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
 		<FileAlignment>512</FileAlignment>
 		<LangVersion>10</LangVersion>

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Module.MBLibraryApiExtension.Entities.Abstract;
-using Module.MBLibraryApiExtension.Factories.Abstract;
+using Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
+using Module.MusicBee.Extension.LibraryApi.Factories.Abstract;
 using Root.MusicBeeApi;
 using Root.MusicBeeApi.Abstract;
 
-namespace Module.MBLibraryApiExtension.Entities;
+namespace Module.MusicBee.Extension.LibraryApi.Entities;
 
 public class MusicFile : IMusicFile
 {

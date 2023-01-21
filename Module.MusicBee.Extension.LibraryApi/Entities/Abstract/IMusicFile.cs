@@ -1,6 +1,6 @@
 ﻿using Root.MusicBeeApi;
 
-namespace Module.MBLibraryApiExtension.Entities.Abstract;
+namespace Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
 
 public interface IMusicFile
 {
