@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
+using Module.Settings.Gui.ViewModels;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.Settings;
 using PropertyChanged;
-using Root.GUI.ViewModels;
 
 namespace Module.Vk.GUI.ViewModels
 {

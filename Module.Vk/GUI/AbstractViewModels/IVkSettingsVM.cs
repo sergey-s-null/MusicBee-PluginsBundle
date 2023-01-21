@@ -1,4 +1,4 @@
-﻿using Root.GUI.AbstractViewModels;
+﻿using Module.Settings.Gui.AbstractViewModels;
 
 namespace Module.Vk.GUI.AbstractViewModels
 {

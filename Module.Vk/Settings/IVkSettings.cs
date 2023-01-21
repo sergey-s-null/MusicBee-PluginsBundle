@@ -1,4 +1,4 @@
-﻿using Root.Settings;
+﻿using Module.Settings.Entities.Abstract;
 
 namespace Module.Vk.Settings
 {
