@@ -3,4 +3,3 @@ group NetFramework
     Newtonsoft.Json
     VkNet
     PropertyChanged.Fody
-    Autofac
