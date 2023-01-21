@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Helpers\BaseMusicBeeApiHelper.cs" />
     <Compile Include="Helpers\ResourcesHelper.cs" />
+    <Compile Include="MusicBeeExtensionModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Abstract\IResourceManager.cs" />
     <Compile Include="Services\ResourceManager.cs" />
@@ -51,6 +52,9 @@
       <Project>{055ec659-45ea-4971-8195-32aac0061c73}</Project>
       <Name>Module.MusicBee</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="paket.references" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

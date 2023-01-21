@@ -9,10 +9,6 @@ namespace Root
         protected override void Load(ContainerBuilder builder)
         {
             builder
-                .RegisterType<ResourceManager>()
-                .As<IResourceManager>()
-                .SingleInstance();
-            builder
                 .RegisterType<SettingsJsonLoader>()
                 .As<ISettingsJsonLoader>()
                 .SingleInstance();
