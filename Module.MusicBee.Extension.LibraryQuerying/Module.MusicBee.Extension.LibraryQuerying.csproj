@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConditionsContainer.cs" />
     <Compile Include="Entities\Abstract\BaseCondition.cs" />
     <Compile Include="Entities\Abstract\IBoolField.cs" />
     <Compile Include="Entities\Abstract\IDateField.cs" />
