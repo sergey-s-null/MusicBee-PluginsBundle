@@ -7,8 +7,8 @@ namespace Module.MusicBee.Extension.LibraryQuerying.Extensions;
 
 public static class NumberFieldExtensions
 {
-    private static readonly ConditionWithSingleValueFactory<int> ConditionWithSingleValueFactory;
-    private static readonly ConditionWithTwoValuesFactory<int> ConditionWithTwoValuesFactory;
+    private static readonly ConditionWithSingleValueFactory<int> ConditionWithSingleNumberFactory;
+    private static readonly ConditionWithTwoValuesFactory<int> ConditionWithTwoNumbersFactory;
 
     static NumberFieldExtensions()
     {
@@ -20,7 +20,7 @@ public static class NumberFieldExtensions
     /// </summary>
     public static BaseCondition Is(this INumberField field, int value)
     {
-        return ConditionWithSingleValueFactory(field, Comparison.Is, value);
+        return ConditionWithSingleNumberFactory(field, Comparison.Is, value);
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ public static class NumberFieldExtensions
     /// </summary>
     public static BaseCondition IsNot(this INumberField field, int value)
     {
-        return ConditionWithSingleValueFactory(field, Comparison.IsNot, value);
+        return ConditionWithSingleNumberFactory(field, Comparison.IsNot, value);
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public static class NumberFieldExtensions
     /// </summary>
     public static BaseCondition GreaterThan(this INumberField field, int value)
     {
-        return ConditionWithSingleValueFactory(field, Comparison.GreaterThan, value);
+        return ConditionWithSingleNumberFactory(field, Comparison.GreaterThan, value);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public static class NumberFieldExtensions
     /// </summary>
     public static BaseCondition LessThan(this INumberField field, int value)
     {
-        return ConditionWithSingleValueFactory(field, Comparison.LessThan, value);
+        return ConditionWithSingleNumberFactory(field, Comparison.LessThan, value);
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public static class NumberFieldExtensions
     /// </summary>
     public static BaseCondition InRange(this INumberField field, int from, int to)
     {
-        return ConditionWithTwoValuesFactory(field, Comparison.InRange, from, to);
+        return ConditionWithTwoNumbersFactory(field, Comparison.InRange, from, to);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public static class NumberFieldExtensions
     /// </summary>
     public static BaseCondition NotInRange(this INumberField field, int from, int to)
     {
-        return ConditionWithTwoValuesFactory(field, Comparison.NotInRange, from, to);
+        return ConditionWithTwoNumbersFactory(field, Comparison.NotInRange, from, to);
     }
 
     /// <summary>
