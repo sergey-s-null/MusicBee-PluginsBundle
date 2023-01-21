@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
+using Module.MusicBee;
+using Module.MusicBee.Abstract;
 
 // ReSharper disable ConstantNullCoalescingCondition
 
