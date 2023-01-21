@@ -26,10 +26,10 @@ internal sealed class Comparison
     public static readonly Comparison InTheLast = new("InTheLast");
     public static readonly Comparison NotInTheLast = new("NotInTheLast");
 
-    public string Name { get; }
+    public string XName { get; }
 
-    private Comparison(string name)
+    private Comparison(string xName)
     {
-        Name = name;
+        XName = xName;
     }
 }

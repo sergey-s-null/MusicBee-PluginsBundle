@@ -29,7 +29,7 @@ internal class ConditionWithMultipleValues<TValue> : BaseCondition
         var xElement = new XElement(
             "Condition",
             new XAttribute("Field", _field.XName),
-            new XAttribute("Comparison", _comparison.Name)
+            new XAttribute("Comparison", _comparison.XName)
         );
 
         var i = 1;
