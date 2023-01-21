@@ -8,6 +8,7 @@ namespace Module.MusicBee.Extension.LibraryQuerying.Extensions;
 public static class NumberFieldExtensions
 {
     private static readonly ConditionWithSingleValueFactory<int> ConditionWithSingleValueFactory;
+    private static readonly ConditionWithTwoValuesFactory<int> ConditionWithTwoValuesFactory;
 
     static NumberFieldExtensions()
     {
@@ -51,7 +52,7 @@ public static class NumberFieldExtensions
     /// </summary>
     public static BaseCondition InRange(this INumberField field, int from, int to)
     {
-        throw new NotImplementedException();
+        return ConditionWithTwoValuesFactory(field, Comparison.InRange, from, to);
     }
 
     /// <summary>
@@ -59,7 +60,7 @@ public static class NumberFieldExtensions
     /// </summary>
     public static BaseCondition NotInRange(this INumberField field, int from, int to)
     {
-        throw new NotImplementedException();
+        return ConditionWithTwoValuesFactory(field, Comparison.NotInRange, from, to);
     }
 
     /// <summary>
