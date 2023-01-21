@@ -59,6 +59,7 @@
     <Compile Include="Entities\ConditionWithTwoValues.cs" />
     <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\ConditionWithoutValue.cs" />
+    <Compile Include="Entities\FieldWrapper.cs" />
     <Compile Include="Entities\TimeOffset.cs" />
     <Compile Include="Enums\CombineMethod.cs" />
     <Compile Include="Enums\Rating.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Extensions\NumberFieldExtensions.cs" />
     <Compile Include="Extensions\RatingFieldExtensions.cs" />
     <Compile Include="Extensions\StringFieldExtensions.cs" />
+    <Compile Include="Extensions\UnknownTypeFieldExtensions.cs" />
     <Compile Include="Factories\Abstract\ConditionWithMultipleValuesFactory.cs" />
     <Compile Include="Factories\Abstract\ConditionWithSingleValueFactory.cs" />
     <Compile Include="Factories\Abstract\ConditionWithTwoValuesFactory.cs" />
