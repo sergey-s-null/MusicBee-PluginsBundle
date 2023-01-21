@@ -5,7 +5,7 @@ namespace Module.MusicBee.Extension.LibraryApi.Services.Abstract;
 
 public interface IMusicBeeLibrary
 {
-	IReadOnlyList<IReadOnlyMusicFile> GetMusicFiles();
+    IReadOnlyList<IReadOnlyMusicFile> GetMusicFiles();
 
-	IReadOnlyList<IMusicFile> GetEditableMusicFiles();
+    IReadOnlyList<IMusicFile> GetEditableMusicFiles();
 }
