@@ -54,6 +54,7 @@
     <Compile Include="Entities\Abstract\IUnknownTypeField.cs" />
     <Compile Include="Entities\CombinedCondition.cs" />
     <Compile Include="Entities\Comparison.cs" />
+    <Compile Include="Entities\Condition.cs" />
     <Compile Include="Entities\ConditionWithMultipleValues.cs" />
     <Compile Include="Entities\ConditionWithSingleValue.cs" />
     <Compile Include="Entities\ConditionWithTwoValues.cs" />
