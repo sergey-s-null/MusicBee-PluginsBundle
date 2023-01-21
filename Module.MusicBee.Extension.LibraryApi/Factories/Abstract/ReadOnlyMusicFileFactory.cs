@@ -2,7 +2,4 @@
 
 namespace Module.MusicBee.Extension.LibraryApi.Factories.Abstract;
 
-public interface IReadOnlyMusicFileFactory
-{
-    IReadOnlyMusicFile Create(string filePath);
-}
+public delegate IReadOnlyMusicFile ReadOnlyMusicFileFactory(string filePath);

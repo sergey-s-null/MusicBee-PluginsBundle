@@ -2,7 +2,4 @@
 
 namespace Module.MusicBee.Extension.LibraryApi.Factories.Abstract;
 
-public interface IMusicFileFactory
-{
-    IMusicFile Create(string filePath);
-}
+public delegate IMusicFile MusicFileFactory(string filePath);

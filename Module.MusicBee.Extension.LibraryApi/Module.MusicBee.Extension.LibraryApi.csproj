@@ -44,8 +44,8 @@
 		<Compile Include="Entities\Abstract\IReadOnlyMusicFile.cs" />
 		<Compile Include="Entities\CachingReadOnlyMusicFile.cs" />
 		<Compile Include="Entities\MusicFile.cs" />
-		<Compile Include="Factories\Abstract\IMusicFileFactory.cs" />
-		<Compile Include="Factories\Abstract\IReadOnlyMusicFileFactory.cs" />
+		<Compile Include="Factories\Abstract\MusicFileFactory.cs" />
+		<Compile Include="Factories\Abstract\ReadOnlyMusicFileFactory.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
 		<Compile Include="Services\Abstract\IMusicBeeLibrary.cs" />
 	</ItemGroup>

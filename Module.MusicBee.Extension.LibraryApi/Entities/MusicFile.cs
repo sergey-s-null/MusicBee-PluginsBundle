@@ -23,7 +23,7 @@ public class MusicFile : IMusicFile
     }
 
     private readonly IMusicBeeApi _musicBeeApi;
-    private readonly IReadOnlyMusicFileFactory _readOnlyMusicFileFactory;
+    private readonly ReadOnlyMusicFileFactory _readOnlyMusicFileFactory;
 
     private readonly IDictionary<MetaDataType, string> _changedTagValues;
     private IReadOnlyMusicFile _musicFileSnapshot;
@@ -31,7 +31,7 @@ public class MusicFile : IMusicFile
     public MusicFile(
         string filePath,
         IMusicBeeApi musicBeeApi,
-        IReadOnlyMusicFileFactory readOnlyMusicFileFactory)
+        ReadOnlyMusicFileFactory readOnlyMusicFileFactory)
     {
         _musicBeeApi = musicBeeApi;
         _readOnlyMusicFileFactory = readOnlyMusicFileFactory;
@@ -39,7 +39,7 @@ public class MusicFile : IMusicFile
         Path = filePath;
 
         _changedTagValues = new Dictionary<MetaDataType, string>();
-        _musicFileSnapshot = _readOnlyMusicFileFactory.Create(Path);
+        _musicFileSnapshot = _readOnlyMusicFileFactory(Path);
     }
 
     public string GetTagValue(MetaDataType metaDataType)
@@ -77,6 +77,6 @@ public class MusicFile : IMusicFile
 
         _musicBeeApi.Library_CommitTagsToFile(Path);
 
-        _musicFileSnapshot = _readOnlyMusicFileFactory.Create(Path);
+        _musicFileSnapshot = _readOnlyMusicFileFactory(Path);
     }
 }
