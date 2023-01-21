@@ -416,10 +416,10 @@ public sealed class Field : IExtendedStringField, INumberField, IBoolField, IDat
 
     // todo add custom and virtual fields
 
-    public string Name { get; }
+    public string XName { get; }
 
     private Field(string name)
     {
-        Name = name;
+        XName = name;
     }
 }

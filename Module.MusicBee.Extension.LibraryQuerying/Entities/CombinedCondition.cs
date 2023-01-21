@@ -31,7 +31,7 @@ internal sealed class CombinedCondition : BaseCondition
 
         return new XElement(
             "Condition",
-            new XAttribute("Field", Field.None.Name),
+            new XAttribute("Field", Field.None.XName),
             new XAttribute("Comparison", Comparison.StartsWith.Name),
             new XAttribute("Value", string.Empty),
             andXElement

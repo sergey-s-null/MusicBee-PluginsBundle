@@ -27,7 +27,7 @@ internal sealed class ConditionWithSingleValue<TValue> : BaseCondition
     {
         return new XElement(
             "Condition",
-            new XAttribute("Field", _field.Name),
+            new XAttribute("Field", _field.XName),
             new XAttribute("Comparison", _comparison.Name),
             new XAttribute("Value", _representValue(_value))
         );

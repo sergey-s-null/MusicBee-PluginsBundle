@@ -18,7 +18,7 @@ internal sealed class ConditionWithoutValue : BaseCondition
     {
         return new XElement(
             "Condition",
-            new XAttribute("Field", _field.Name),
+            new XAttribute("Field", _field.XName),
             new XAttribute("Comparison", _comparison.Name)
         );
     }

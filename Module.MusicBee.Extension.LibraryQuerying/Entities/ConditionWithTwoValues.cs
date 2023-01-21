@@ -30,7 +30,7 @@ internal class ConditionWithTwoValues<TValue> : BaseCondition
     {
         return new XElement(
             "Condition",
-            new XAttribute("Field", _field.Name),
+            new XAttribute("Field", _field.XName),
             new XAttribute("Comparison", _comparison.Name),
             new XAttribute("Value1", _representValue(_firstValue)),
             new XAttribute("Value2", _representValue(_secondValue))
