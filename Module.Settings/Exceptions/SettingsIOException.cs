@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Root.Exceptions
+namespace Module.Settings.Exceptions
 {
     public sealed class SettingsIOException : Exception
     {
