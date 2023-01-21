@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
+using Module.Mvvm.Extension;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
-using Root.MVVM;
 
 namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
 {

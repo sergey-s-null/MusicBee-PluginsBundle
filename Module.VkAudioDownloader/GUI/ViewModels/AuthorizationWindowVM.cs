@@ -3,12 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Module.Mvvm.Extension;
+using Module.Settings.Exceptions;
 using Module.Vk.Helpers;
 using Module.Vk.Settings;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using PropertyChanged;
-using Root.Exceptions;
-using Root.MVVM;
 using VkNet.Abstractions;
 
 namespace Module.VkAudioDownloader.GUI.ViewModels

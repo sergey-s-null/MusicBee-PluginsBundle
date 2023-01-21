@@ -7,6 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Module.MusicBee;
+using Module.MusicBee.Abstract;
+using Module.MusicBee.Extension.Helpers;
+using Module.Mvvm.Extension;
 using Module.Vk.Helpers;
 using Module.VkAudioDownloader.Entities;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
@@ -15,9 +19,6 @@ using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
 using Root.Helpers;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
-using Root.MVVM;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 
@@ -38,9 +39,9 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         public ICommand ApplyCheckStateToSelectedCmd
             => _applyCheckStateToSelectedCmd ??= new RelayCommand(arg =>
             {
-                var argsArr = (object[]) arg!;
-                var triggered = (VkAudioVM) argsArr[0];
-                var selectedObjects = (IReadOnlyCollection<object>) argsArr[1];
+                var argsArr = (object[])arg!;
+                var triggered = (VkAudioVM)argsArr[0];
+                var selectedObjects = (IReadOnlyCollection<object>)argsArr[1];
                 var selected = selectedObjects
                     .OfType<VkAudioVM>()
                     .ToReadOnlyCollection();
@@ -51,6 +52,7 @@ namespace Module.VkAudioDownloader.GUI.ViewModels
         public bool IsDownloading { get; private set; }
 
         private RelayCommand? _downloadCommand;
+
         public ICommand DownloadCmd
             => _downloadCommand ??= new RelayCommand(
                 async _ => await Download());

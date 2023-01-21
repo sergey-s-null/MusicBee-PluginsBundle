@@ -2,12 +2,12 @@
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Module.Mvvm.Extension;
+using Module.Settings.Gui.ViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
-using Root.GUI.ViewModels;
-using Root.MVVM;
 
 namespace Module.VkAudioDownloader.GUI.ViewModels
 {
