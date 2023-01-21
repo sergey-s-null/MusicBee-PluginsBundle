@@ -44,10 +44,12 @@
 		<Compile Include="Entities\Abstract\IReadOnlyMusicFile.cs" />
 		<Compile Include="Entities\CachingReadOnlyMusicFile.cs" />
 		<Compile Include="Entities\MusicFile.cs" />
+		<Compile Include="Exceptions\FilesRetrievingException.cs" />
 		<Compile Include="Factories\Abstract\MusicFileFactory.cs" />
 		<Compile Include="Factories\Abstract\ReadOnlyMusicFileFactory.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
 		<Compile Include="Services\Abstract\IMusicBeeLibrary.cs" />
+		<Compile Include="Services\MusicBeeLibrary.cs" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Module.MusicBee\Module.MusicBee.csproj">
