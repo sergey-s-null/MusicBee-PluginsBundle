@@ -7,6 +7,7 @@ using Module.PlaylistsExporter;
 using Module.Vk;
 using Module.VkAudioDownloader;
 using MusicBeePlugin.GUI.ViewModels;
+using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
 using Root;
 using Root.MusicBeeApi;
@@ -50,6 +51,10 @@ namespace MusicBeePlugin
 
             builder
                 .RegisterType<SettingsDialogVM>()
+                .AsSelf();
+
+            builder
+                .RegisterType<SettingsDialog>()
                 .AsSelf();
 
             return builder.Build();

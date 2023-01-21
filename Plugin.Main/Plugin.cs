@@ -4,7 +4,6 @@ using System.Net;
 using System.Windows;
 using Autofac;
 using HackModule.AssemblyBindingRedirect.Services;
-using HackModule.AssemblyBindingRedirect.Services.Abstract;
 using MusicBeePlugin.Factories;
 using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
@@ -27,7 +26,7 @@ namespace MusicBeePlugin
         {
             ApplyAssembliesResolution();
         }
-        
+
         public PluginInfo Initialise(IntPtr apiInterfacePtr)
         {
             ServicePointManager.DefaultConnectionLimit = 20;
