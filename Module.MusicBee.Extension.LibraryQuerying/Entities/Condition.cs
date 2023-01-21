@@ -5,7 +5,7 @@ namespace Module.MusicBee.Extension.LibraryQuerying.Entities;
 
 public static class Condition
 {
-    public static readonly BaseCondition Empty = Field.None.StartsWith(string.Empty);
+    public static readonly BaseCondition Empty = Field.Any.StartsWith(string.Empty);
 
     public static readonly BaseCondition HasLyrics = Field.HasLyrics.IsTrue();
     public static readonly BaseCondition HasNotLyrics = Field.HasLyrics.IsFalse();

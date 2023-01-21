@@ -14,7 +14,7 @@ public sealed class Field :
     /// <summary>
     /// Любое поле
     /// </summary>
-    public static readonly IStringField None = new Field("None");
+    public static readonly IStringField Any = new Field("None");
 
     /// <summary>
     /// BPM
