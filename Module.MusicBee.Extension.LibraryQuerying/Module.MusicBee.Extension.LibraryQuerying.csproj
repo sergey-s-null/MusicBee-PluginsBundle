@@ -58,6 +58,7 @@
     <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\ConditionWithoutValue.cs" />
     <Compile Include="Entities\TimeOffset.cs" />
+    <Compile Include="Enums\Rating.cs" />
     <Compile Include="Enums\TimeUnit.cs" />
     <Compile Include="Extensions\BoolFieldExtensions.cs" />
     <Compile Include="Extensions\DateFieldExtensions.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Extensions\ExtendedStringFieldExtensions.cs" />
     <Compile Include="Extensions\FlagFieldExtensions.cs" />
     <Compile Include="Extensions\NumberFieldExtensions.cs" />
+    <Compile Include="Extensions\RatingFieldExtensions.cs" />
     <Compile Include="Extensions\StringFieldExtensions.cs" />
     <Compile Include="Factories\Abstract\ConditionWithMultipleValuesFactory.cs" />
     <Compile Include="Factories\Abstract\ConditionWithSingleValueFactory.cs" />
