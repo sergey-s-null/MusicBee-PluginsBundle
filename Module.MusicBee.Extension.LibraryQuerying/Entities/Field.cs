@@ -2,7 +2,14 @@
 
 namespace Module.MusicBee.Extension.LibraryQuerying.Entities;
 
-public sealed class Field : IExtendedStringField, INumberField, IBoolField, IDateField, IFlagField, IRatingField
+public sealed class Field :
+    IExtendedStringField,
+    INumberField,
+    IBoolField,
+    IDateField,
+    IFlagField,
+    IRatingField,
+    IUnknownTypeField
 {
     /// <summary>
     /// Любое поле
@@ -414,7 +421,55 @@ public sealed class Field : IExtendedStringField, INumberField, IBoolField, IDat
     /// </summary>
     public static readonly IStringField Language = new Field("Language");
 
-    // todo add custom and virtual fields
+    public static readonly IUnknownTypeField Custom1 = new Field("Custom1");
+    public static readonly IUnknownTypeField Custom2 = new Field("Custom2");
+    public static readonly IUnknownTypeField Custom3 = new Field("Custom3");
+    public static readonly IUnknownTypeField Custom4 = new Field("Custom4");
+    public static readonly IUnknownTypeField Custom5 = new Field("Custom5");
+    public static readonly IUnknownTypeField Custom6 = new Field("Custom6");
+    public static readonly IUnknownTypeField Custom7 = new Field("Custom7");
+    public static readonly IUnknownTypeField Custom8 = new Field("Custom8");
+    public static readonly IUnknownTypeField Custom9 = new Field("Custom9");
+    public static readonly IUnknownTypeField Custom10 = new Field("Custom10");
+    public static readonly IUnknownTypeField Custom11 = new Field("Custom11");
+    public static readonly IUnknownTypeField Custom12 = new Field("Custom12");
+    public static readonly IUnknownTypeField Custom13 = new Field("Custom13");
+    public static readonly IUnknownTypeField Custom14 = new Field("Custom14");
+    public static readonly IUnknownTypeField Custom15 = new Field("Custom15");
+    public static readonly IUnknownTypeField Custom16 = new Field("Custom16");
+
+    public static readonly IUnknownTypeField Virtual1 = new Field("Virtual1");
+    public static readonly IUnknownTypeField Virtual2 = new Field("Virtual2");
+    public static readonly IUnknownTypeField Virtual3 = new Field("Virtual3");
+    public static readonly IUnknownTypeField Virtual4 = new Field("Virtual4");
+    public static readonly IUnknownTypeField Virtual5 = new Field("Virtual5");
+    public static readonly IUnknownTypeField Virtual6 = new Field("Virtual6");
+    public static readonly IUnknownTypeField Virtual7 = new Field("Virtual7");
+    public static readonly IUnknownTypeField Virtual8 = new Field("Virtual8");
+    public static readonly IUnknownTypeField Virtual9 = new Field("Virtual9");
+    public static readonly IUnknownTypeField Virtual10 = new Field("Virtual10");
+    public static readonly IUnknownTypeField Virtual11 = new Field("Virtual11");
+    public static readonly IUnknownTypeField Virtual12 = new Field("Virtual12");
+    public static readonly IUnknownTypeField Virtual13 = new Field("Virtual13");
+    public static readonly IUnknownTypeField Virtual14 = new Field("Virtual14");
+    public static readonly IUnknownTypeField Virtual15 = new Field("Virtual15");
+    public static readonly IUnknownTypeField Virtual16 = new Field("Virtual16");
+    public static readonly IUnknownTypeField Virtual17 = new Field("Virtual17");
+    public static readonly IUnknownTypeField Virtual18 = new Field("Virtual18");
+    public static readonly IUnknownTypeField Virtual19 = new Field("Virtual19");
+    public static readonly IUnknownTypeField Virtual20 = new Field("Virtual20");
+    public static readonly IUnknownTypeField Virtual21 = new Field("Virtual21");
+    public static readonly IUnknownTypeField Virtual22 = new Field("Virtual22");
+    public static readonly IUnknownTypeField Virtual23 = new Field("Virtual23");
+    public static readonly IUnknownTypeField Virtual24 = new Field("Virtual24");
+    public static readonly IUnknownTypeField Virtual25 = new Field("Virtual25");
+    public static readonly IUnknownTypeField Virtual26 = new Field("Virtual26");
+    public static readonly IUnknownTypeField Virtual27 = new Field("Virtual27");
+    public static readonly IUnknownTypeField Virtual28 = new Field("Virtual28");
+    public static readonly IUnknownTypeField Virtual29 = new Field("Virtual29");
+    public static readonly IUnknownTypeField Virtual30 = new Field("Virtual30");
+    public static readonly IUnknownTypeField Virtual31 = new Field("Virtual31");
+    public static readonly IUnknownTypeField Virtual32 = new Field("Virtual32");
 
     public string XName { get; }
 
