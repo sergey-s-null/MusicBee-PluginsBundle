@@ -1,2 +1,3 @@
 ﻿group NetFramework
     Newtonsoft.Json
+    Autofac

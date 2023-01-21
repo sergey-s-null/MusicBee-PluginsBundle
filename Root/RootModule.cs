@@ -8,10 +8,6 @@ namespace Root
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder
-                .RegisterType<SettingsJsonLoader>()
-                .As<ISettingsJsonLoader>()
-                .SingleInstance();
         }
     }
 }
