@@ -52,6 +52,7 @@
     <Compile Include="Entities\Abstract\IStringField.cs" />
     <Compile Include="Entities\Abstract\IUnknownTypeField.cs" />
     <Compile Include="Entities\Comparison.cs" />
+    <Compile Include="Entities\ConditionWithMultipleValues.cs" />
     <Compile Include="Entities\ConditionWithSingleValue.cs" />
     <Compile Include="Entities\ConditionWithTwoValues.cs" />
     <Compile Include="Entities\Field.cs" />
