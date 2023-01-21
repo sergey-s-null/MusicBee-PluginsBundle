@@ -9,6 +9,7 @@ namespace Module.MusicBee.Extension.LibraryQuerying.Extensions;
 public static class EnumFieldExtensions
 {
     private static readonly ConditionWithSingleValueFactory<string> ConditionWithSingleStringFactory;
+    private static readonly ConditionWithMultipleValuesFactory<string> ConditionWithMultipleStringsFactory;
 
     static EnumFieldExtensions()
     {
@@ -36,15 +37,15 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition IsIn(this IEnumField field, params string[] values)
     {
-        throw new NotImplementedException();
+        return field.IsIn(values as IReadOnlyCollection<string>);
     }
 
     /// <summary>
     /// Любое из
     /// </summary>
-    public static BaseCondition IsIn(this IEnumField field, IEnumerable<string> values)
+    public static BaseCondition IsIn(this IEnumField field, IReadOnlyCollection<string> values)
     {
-        throw new NotImplementedException();
+        return ConditionWithMultipleStringsFactory(field, Comparison.IsIn, values);
     }
 
     /// <summary>
@@ -52,15 +53,15 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition IsNotIn(this IEnumField field, params string[] values)
     {
-        throw new NotImplementedException();
+        return field.IsNotIn(values as IReadOnlyCollection<string>);
     }
 
     /// <summary>
     /// Ни одно из
     /// </summary>
-    public static BaseCondition IsNotIn(this IEnumField field, IEnumerable<string> values)
+    public static BaseCondition IsNotIn(this IEnumField field, IReadOnlyCollection<string> values)
     {
-        throw new NotImplementedException();
+        return ConditionWithMultipleStringsFactory(field, Comparison.IsNotIn, values);
     }
 
     /// <summary>
