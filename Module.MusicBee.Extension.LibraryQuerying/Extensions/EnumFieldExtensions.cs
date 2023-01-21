@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using Module.MusicBee.Extension.LibraryQuerying.Entities;
 using Module.MusicBee.Extension.LibraryQuerying.Entities.Abstract;
+using Module.MusicBee.Extension.LibraryQuerying.Factories.Abstract;
 
 namespace Module.MusicBee.Extension.LibraryQuerying.Extensions;
 
 public static class EnumFieldExtensions
 {
+    private static readonly ConditionWithSingleValueFactory<string> ConditionWithSingleStringFactory;
+
+    static EnumFieldExtensions()
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Равно
     /// </summary>
     public static BaseCondition Is(this IEnumField field, string value)
     {
-        throw new NotImplementedException();
+        return ConditionWithSingleStringFactory(field, Comparison.Is, value);
     }
 
     /// <summary>
@@ -20,7 +28,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition IsNot(this IEnumField field, string value)
     {
-        throw new NotImplementedException();
+        return ConditionWithSingleStringFactory(field, Comparison.IsNot, value);
     }
 
     /// <summary>
@@ -76,7 +84,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition Contains(this IEnumField field, string value)
     {
-        throw new NotImplementedException();
+        return ConditionWithSingleStringFactory(field, Comparison.Contains, value);
     }
 
     /// <summary>
@@ -84,7 +92,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition DoesNotContain(this IEnumField field, string value)
     {
-        throw new NotImplementedException();
+        return ConditionWithSingleStringFactory(field, Comparison.DoesNotContain, value);
     }
 
     /// <summary>
@@ -92,7 +100,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition InTagHierarchy(this IEnumField field, string value)
     {
-        throw new NotImplementedException();
+        return ConditionWithSingleStringFactory(field, Comparison.InTagHierarchy, value);
     }
 
     /// <summary>
@@ -100,7 +108,7 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition MatchesRegEx(this IEnumField field, string value)
     {
-        throw new NotImplementedException();
+        return ConditionWithSingleStringFactory(field, Comparison.MatchesRegEx, value);
     }
 
     /// <summary>
@@ -108,6 +116,6 @@ public static class EnumFieldExtensions
     /// </summary>
     public static BaseCondition MatchesRegExIgnoreCase(this IEnumField field, string value)
     {
-        throw new NotImplementedException();
+        return ConditionWithSingleStringFactory(field, Comparison.MatchesRegExIgnoreCase, value);
     }
 }
