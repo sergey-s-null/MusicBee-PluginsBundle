@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using Root.MVVM;
+using Module.Mvvm.Extension;
 
 namespace Module.ArtworksSearcher.GUI.Settings
 {

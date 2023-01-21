@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Module.ArtworksSearcher.ImagesProviders;
+using Module.Mvvm.Extension;
 using PropertyChanged;
-using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.SearchWindow
 {
@@ -20,10 +20,12 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
         public string SearchText { get; set; } = "";
 
         private RelayCommand? _resetSearchTextCmd;
+
         public RelayCommand ResetSearchTextCmd
             => _resetSearchTextCmd ??= new RelayCommand(_ => ResetSearchText());
 
         private RelayCommand? _selectImageCmd;
+
         public RelayCommand SelectImageCmd
             => _selectImageCmd ??= new RelayCommand(arg =>
             {
@@ -40,10 +42,12 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
         public ImagesProviderVM SelectedProvider { get; set; }
 
         private RelayCommand? _searchCmd;
+
         public RelayCommand SearchCmd
             => _searchCmd ??= new RelayCommand(async _ => await Search());
 
         private RelayCommand? _nextImageCmd;
+
         public RelayCommand NextImageCmd
             => _nextImageCmd ??= new RelayCommand(async _ => await NextImage());
 
@@ -60,14 +64,14 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
         {
             ImagesProviders = new ImagesProviderVM[]
             {
-                new("Google", 
+                new("Google",
                     query => imagesProvidersFactory
                         .SearchInGoogle(query)
-                        .GetAsyncEnumerator(default)),// TODO token
-                new("Osu!dir", 
+                        .GetAsyncEnumerator(default)), // TODO token
+                new("Osu!dir",
                     query => imagesProvidersFactory
                         .SearchInOsuDirectory(query)
-                        .GetAsyncEnumerator(default))// TODO token
+                        .GetAsyncEnumerator(default)) // TODO token
             };
 
             SelectedProvider = ImagesProviders[0];
@@ -137,6 +141,5 @@ namespace Module.ArtworksSearcher.GUI.SearchWindow
             imageData = memoryStream.ToArray();
             return true;
         }
-
     }
 }

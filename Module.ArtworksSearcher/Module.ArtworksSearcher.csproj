@@ -109,6 +109,18 @@
     <Page Include="GUI\Settings\ArtworksSearcherSettings.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj">
+      <Project>{eb57dcef-633c-478c-b339-f3d7e5893309}</Project>
+      <Name>Module.Mvvm.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module.Settings.Gui\Module.Settings.Gui.csproj">
+      <Project>{b809f066-1ebc-4660-a9ec-df2fc5f558d7}</Project>
+      <Name>Module.Settings.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module.Settings\Module.Settings.csproj">
+      <Project>{06fbda15-050a-4b18-8ce2-6a306b84d45d}</Project>
+      <Name>Module.Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Root\Root.csproj">
       <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
       <Name>Root</Name>

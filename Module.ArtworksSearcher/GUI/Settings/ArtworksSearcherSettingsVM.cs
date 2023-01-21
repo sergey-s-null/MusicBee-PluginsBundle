@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
 using Module.ArtworksSearcher.Settings;
+using Module.Mvvm.Extension;
+using Module.Settings.Gui.ViewModels;
 using PropertyChanged;
-using Root.GUI.ViewModels;
-using Root.MVVM;
 
 namespace Module.ArtworksSearcher.GUI.Settings
 {
