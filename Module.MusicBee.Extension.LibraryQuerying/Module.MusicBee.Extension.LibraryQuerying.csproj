@@ -52,6 +52,7 @@
     <Compile Include="Entities\Abstract\IRatingField.cs" />
     <Compile Include="Entities\Abstract\IStringField.cs" />
     <Compile Include="Entities\Abstract\IUnknownTypeField.cs" />
+    <Compile Include="Entities\CombinedCondition.cs" />
     <Compile Include="Entities\Comparison.cs" />
     <Compile Include="Entities\ConditionWithMultipleValues.cs" />
     <Compile Include="Entities\ConditionWithSingleValue.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\ConditionWithoutValue.cs" />
     <Compile Include="Entities\TimeOffset.cs" />
+    <Compile Include="Enums\CombineMethod.cs" />
     <Compile Include="Enums\Rating.cs" />
     <Compile Include="Enums\TimeUnit.cs" />
     <Compile Include="Extensions\BoolFieldExtensions.cs" />
