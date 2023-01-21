@@ -41,15 +41,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Abstract\BaseCondition.cs" />
+    <Compile Include="Entities\Abstract\IBoolField.cs" />
+    <Compile Include="Entities\Abstract\IDateField.cs" />
+    <Compile Include="Entities\Abstract\IEnumField.cs" />
+    <Compile Include="Entities\Abstract\IExtendedStringField.cs" />
     <Compile Include="Entities\Abstract\IField.cs" />
+    <Compile Include="Entities\Abstract\IFlagField.cs" />
+    <Compile Include="Entities\Abstract\INumberField.cs" />
+    <Compile Include="Entities\Abstract\IRatingField.cs" />
     <Compile Include="Entities\Abstract\IStringField.cs" />
     <Compile Include="Entities\Abstract\IUnknownTypeField.cs" />
-    <Compile Include="Entities\AndCondition.cs" />
     <Compile Include="Entities\Comparison.cs" />
-    <Compile Include="Entities\Condition.cs" />
     <Compile Include="Entities\Field.cs" />
-    <Compile Include="Entities\StringField.cs" />
     <Compile Include="Entities\ConditionWithoutValue.cs" />
+    <Compile Include="Extensions\EnumFieldExtensions.cs" />
+    <Compile Include="Extensions\ExtendedStringFieldExtensions.cs" />
+    <Compile Include="Extensions\NumberFieldExtensions.cs" />
     <Compile Include="Extensions\StringFieldExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
