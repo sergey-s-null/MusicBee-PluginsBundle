@@ -61,6 +61,7 @@
     <Compile Include="Extensions\ExtendedStringFieldExtensions.cs" />
     <Compile Include="Extensions\NumberFieldExtensions.cs" />
     <Compile Include="Extensions\StringFieldExtensions.cs" />
+    <Compile Include="Factories\Abstract\ConditionWithSingleValueFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
