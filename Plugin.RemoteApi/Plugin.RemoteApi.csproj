@@ -72,6 +72,10 @@
       <Project>{5951fde8-ebad-4580-9825-8adbe222b1fb}</Project>
       <Name>HackModule.AssemblyBindingRedirect</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Module.MusicBee\Module.MusicBee.csproj">
+      <Project>{055ec659-45ea-4971-8195-32aac0061c73}</Project>
+      <Name>Module.MusicBee</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Module.RemoteMusicBeeApi\Module.RemoteMusicBeeApi.csproj">
       <Project>{f9f45eb1-deff-4f35-8965-ed4f6cea7606}</Project>
       <Name>Module.RemoteMusicBeeApi</Name>

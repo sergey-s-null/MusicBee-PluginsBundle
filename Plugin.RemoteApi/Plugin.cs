@@ -4,9 +4,11 @@ using Autofac;
 using Grpc.Core;
 using HackModule.AssemblyBindingRedirect.Services;
 using HackModule.AssemblyBindingRedirect.Services.Abstract;
+using Module.MusicBee.Entities;
+using Module.MusicBee.Enums;
+using Module.MusicBee.Services;
+using Module.MusicBee.Services.Abstract;
 using Module.RemoteMusicBeeApi;
-using Root.MusicBeeApi;
-using Root.MusicBeeApi.Abstract;
 
 namespace MusicBeePlugin
 {
@@ -30,7 +32,7 @@ namespace MusicBeePlugin
             var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
             mbApiMemoryContainer.Initialise(apiInterfacePtr);
 
-            var container = PluginContainer.GetKernel(mbApiMemoryContainer);
+            var container = PluginContainer.Create(mbApiMemoryContainer);
 
             _mbApi = container.Resolve<IMusicBeeApi>();
 
