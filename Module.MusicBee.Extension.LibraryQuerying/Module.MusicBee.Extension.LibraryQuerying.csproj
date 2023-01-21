@@ -57,6 +57,7 @@
     <Compile Include="Entities\ConditionWithTwoValues.cs" />
     <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\ConditionWithoutValue.cs" />
+    <Compile Include="Entities\TimeOffset.cs" />
     <Compile Include="Enums\TimeUnit.cs" />
     <Compile Include="Extensions\DateFieldExtensions.cs" />
     <Compile Include="Extensions\EnumFieldExtensions.cs" />
