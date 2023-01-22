@@ -55,9 +55,9 @@ namespace Module.MusicBee.Autogen.Services
     private static string GetArgumentsPart(MethodDefinition method)
     {
         var inParams = method.InputParameters
-            .Select(x => $"{GetCsTypeName(x)} {x.Name}");
+            .Select(x => $"{x.GetCSharpTypeName()} {x.Name}");
         var outParams = method.OutputParameters
-            .Select(x => $"out {GetCsTypeName(x)} {x.Name}");
+            .Select(x => $"out {x.GetCSharpTypeName()} {x.Name}");
         return string.Join(", ", inParams.Concat(outParams));
     }
 
@@ -68,26 +68,5 @@ namespace Module.MusicBee.Autogen.Services
         var outParams = method.OutputParameters
             .Select(x => $"out {x.Name}");
         return string.Join(", ", inParams.Concat(outParams));
-    }
-
-    private static string GetCsTypeName(ParameterDefinition parameter)
-    {
-        var csTypeName = GetCsTypeName(parameter.Type);
-        if (parameter.IsNullable)
-        {
-            csTypeName += "?";
-        }
-
-        return csTypeName;
-    }
-
-    private static string GetCsTypeName(Type type)
-    {
-        if (type.IsArray && type.HasElementType)
-        {
-            return $"{GetCsTypeName(type.GetElementType()!)}[]";
-        }
-
-        return type.GetFixedName();
     }
 #>
