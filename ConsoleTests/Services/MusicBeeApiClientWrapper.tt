@@ -3,7 +3,6 @@
 <#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo.Proto\bin\Debug\Module.MusicBee.MetaInfo.Proto.dll" #>
 <#@ assembly name="$(SolutionDir)\Root\bin\Debug\Root.dll" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="Module.MusicBee.MetaInfo.Entities" #>
 <#@ import namespace="Module.MusicBee.MetaInfo.Extensions" #>
@@ -36,7 +35,7 @@ namespace ConsoleTests.Services
     foreach (var method in _methods)
     {
         var returnType = method.ReturnParameter.Type.GetFixedName();
-        var argumentsPart = GetArgumentsPart(method);
+        var arguments = method.GetClassMethodArguments();
         var responseAssignment = method.HasAnyOutputParameters()
             ? "var response = "
             : string.Empty;
@@ -46,7 +45,7 @@ namespace ConsoleTests.Services
             : "());";
 #>
 
-        public <#= returnType #> <#= method.Name #>(<#= argumentsPart #>)
+        public <#= returnType #> <#= method.Name #>(<#= arguments #>)
         {
             <#= responseAssignment #>_client.<#= method.Name #>(new <#= requestType #><#= closing #>
 <#
@@ -77,8 +76,11 @@ namespace ConsoleTests.Services
 
         if (method.HasReturnType())
         {
+            var enumCast = method.ReturnParameter.Type.IsEnum
+                ? $"({method.ReturnParameter.Type.Name})"
+                : string.Empty;
 #>
-            <#= GetReturnLine(method) #>
+            return <#= enumCast #>response.Result;
 <#
         }
 #>
@@ -96,36 +98,6 @@ namespace ConsoleTests.Services
         "Empty",
         "_Request",
         "_Response");
-
-    private static string GetArgumentsPart(MethodDefinition method)
-    {
-        var inParams = method.InputParameters
-            .Select(x => $"{GetCsTypeName(x)} {x.Name}");
-        var outParams = method.OutputParameters
-            .Select(x => $"out {GetCsTypeName(x)} {x.Name}");
-        return string.Join(", ", inParams.Concat(outParams));
-    }
-
-    private static string GetCsTypeName(ParameterDefinition parameter)
-    {
-        var csTypeName = GetCsTypeName(parameter.Type);
-        if (parameter.IsNullable)
-        {
-            csTypeName += "?";
-        }
-
-        return csTypeName;
-    }
-
-    private static string GetCsTypeName(Type type)
-    {
-        if (type.IsArray && type.HasElementType)
-        {
-            return $"{GetCsTypeName(type.GetElementType()!)}[]";
-        }
-
-        return type.GetFixedName();
-    }
 
     private static string GetRequestPropertyAssignmentLine(ParameterDefinition parameter)
     {
@@ -193,13 +165,5 @@ namespace ConsoleTests.Services
         builder.Append(";");
 
         return builder.ToString();
-    }
-
-    private string GetReturnLine(MethodDefinition method)
-    {
-        var enumCastPrefix = method.ReturnParameter.Type.IsEnum
-            ? $"({method.ReturnParameter.Type.Name})"
-            : string.Empty;
-        return $"return {enumCastPrefix}response.Result;";
     }
 #>
