@@ -67,15 +67,5 @@ namespace CodeGenerator.Helpers
 
             return false;
         }
-
-        public static Type RemoveRefWrapper(this Type type)
-        {
-            if (type.IsByRef && type.HasElementType)
-            {
-                return type.GetElementType()!;
-            }
-
-            return type;
-        }
     }
 }

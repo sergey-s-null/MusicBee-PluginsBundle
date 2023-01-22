@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Module.MusicBee.MetaInfo.Entities;
 using Module.MusicBee.MetaInfo.Enums;
+using Module.MusicBee.MetaInfo.Extensions;
 using Module.MusicBee.Services;
 using Root.Helpers;
 
