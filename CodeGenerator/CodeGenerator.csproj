@@ -69,7 +69,6 @@
     <Compile Include="Helpers\CsProjProtobufBuilderHelper.cs" />
     <Compile Include="Helpers\MBApiMethodDefinitionHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="Models\Abstract\IParameterType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
