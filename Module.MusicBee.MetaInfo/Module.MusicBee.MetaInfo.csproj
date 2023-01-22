@@ -45,6 +45,7 @@
 		<Compile Include="Entities\ParameterDefinition.cs" />
 		<Compile Include="Enums\MethodRestriction.cs" />
 		<Compile Include="Extensions\MethodDefinitionExtensions.cs" />
+		<Compile Include="Extensions\ParameterDefinitionExtensions.cs" />
 		<Compile Include="Extensions\ParameterInfoExtensions.cs" />
 		<Compile Include="Extensions\TypeExtensions.cs" />
 		<Compile Include="Helpers\MetaInfoProvider.cs" />
