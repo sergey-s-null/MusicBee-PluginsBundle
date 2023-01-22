@@ -42,10 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContainer.cs" />
-    <Compile Include="Builders\Abstract\IMessageTypesBuilder.cs" />
     <Compile Include="Builders\Abstract\IMethodDefinitionBuilder.cs" />
     <Compile Include="Builders\CsProjProtobufBuilder.cs" />
-    <Compile Include="Builders\MessageTypesBuilder.cs" />
     <Compile Include="Builders\MethodDefinitionBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\HardcodedServiceBuilderParameters.cs" />

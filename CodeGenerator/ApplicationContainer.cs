@@ -16,10 +16,6 @@ namespace CodeGenerator
                 .RegisterType<HardcodedServiceBuilderParameters>()
                 .As<IServiceBuilderParameters>()
                 .SingleInstance();
-            builder
-                .RegisterType<MessageTypesBuilder>()
-                .As<IMessageTypesBuilder>()
-                .SingleInstance();
 
             builder
                 .RegisterType<MethodDefinitionBuilder>()
