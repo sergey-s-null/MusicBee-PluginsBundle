@@ -160,20 +160,6 @@ namespace CodeGenerator.Builders
             yield return "}";
         }
 
-        private string GetRequestMessageType(MBApiMethodDefinition method)
-        {
-            return method.HasInputParameters()
-                ? $"{method.Name}{_requestPostfix}"
-                : EmptyMessageType;
-        }
-
-        private string GetResponseMessageType(MBApiMethodDefinition method)
-        {
-            return method.HasAnyOutputParameters()
-                ? $"{method.Name}{_responsePostfix}"
-                : EmptyMessageType;
-        }
-
         private IEnumerable<string> GetAllMessagesLines()
         {
             var lines = Enumerable.Empty<string>();

@@ -41,6 +41,13 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="Properties\AssemblyInfo.cs" />
+		<Compile Include="Services\ProtoNamingService.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Module.MusicBee.MetaInfo\Module.MusicBee.MetaInfo.csproj">
+	    <Project>{eb77e965-7a03-4dd0-a78b-c3a78cfa2f10}</Project>
+	    <Name>Module.MusicBee.MetaInfo</Name>
+	  </ProjectReference>
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
