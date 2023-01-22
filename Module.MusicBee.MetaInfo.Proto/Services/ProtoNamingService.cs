@@ -5,7 +5,7 @@ namespace Module.MusicBee.MetaInfo.Proto.Services;
 
 public sealed class ProtoNamingService
 {
-    private const string EmptyMessageType = "Empty";
+    private const string EmptyMessageType = "google.protobuf.Empty";
 
     private readonly string _requestPostfix;
     private readonly string _responsePostfix;
