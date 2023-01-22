@@ -26,10 +26,6 @@ namespace CodeGenerator
                 .RegisterType<MessageTypesBuilder>()
                 .As<IMessageTypesBuilder>()
                 .SingleInstance();
-            builder
-                .RegisterType<CommonLinesBuilder>()
-                .As<ICommonLinesBuilder>()
-                .SingleInstance();
 
             switch (serviceImplMode)
             {

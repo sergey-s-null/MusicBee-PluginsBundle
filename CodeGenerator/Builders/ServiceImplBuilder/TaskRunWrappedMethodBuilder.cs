@@ -10,16 +10,13 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
     {
         private readonly IServiceBuilderParameters _parameters;
         private readonly IMessageTypesBuilder _messageTypesBuilder;
-        private readonly ICommonLinesBuilder _commonLinesBuilder;
 
         public TaskRunWrappedMethodBuilder(
             IServiceBuilderParameters parameters,
-            IMessageTypesBuilder messageTypesBuilder,
-            ICommonLinesBuilder commonLinesBuilder)
+            IMessageTypesBuilder messageTypesBuilder)
         {
             _parameters = parameters;
             _messageTypesBuilder = messageTypesBuilder;
-            _commonLinesBuilder = commonLinesBuilder;
         }
 
         public IEnumerable<string> GenerateMethodLines(MBApiMethodDefinition method)

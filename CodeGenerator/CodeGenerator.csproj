@@ -53,7 +53,6 @@
     <Compile Include="Builders\MemoryContainerWrapperBuilder.cs" />
     <Compile Include="Builders\MessageTypesBuilder.cs" />
     <Compile Include="Builders\MethodDefinitionBuilder.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\Abstract\ICommonLinesBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IMethodBuilder.cs" />
