@@ -66,7 +66,6 @@
     <Compile Include="Enums\ProtobufType.cs" />
     <Compile Include="Enums\ServiceGenerationMode.cs" />
     <Compile Include="Enums\ServiceImplMode.cs" />
-    <Compile Include="Extensions\ParameterInfoEx.cs" />
     <Compile Include="Helpers\CodeGenerationHelper.cs" />
     <Compile Include="Helpers\CsProjProtobufBuilderHelper.cs" />
     <Compile Include="Helpers\MBApiMethodDefinitionHelper.cs" />
