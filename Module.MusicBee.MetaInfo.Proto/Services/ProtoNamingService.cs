@@ -5,13 +5,16 @@ namespace Module.MusicBee.MetaInfo.Proto.Services;
 
 public sealed class ProtoNamingService
 {
-    private const string EmptyMessageType = "google.protobuf.Empty";
-
+    private readonly string _emptyMessageType;
     private readonly string _requestPostfix;
     private readonly string _responsePostfix;
 
-    public ProtoNamingService(string requestPostfix, string responsePostfix)
+    public ProtoNamingService(
+        string emptyMessageType,
+        string requestPostfix,
+        string responsePostfix)
     {
+        _emptyMessageType = emptyMessageType;
         _requestPostfix = requestPostfix;
         _responsePostfix = responsePostfix;
     }
@@ -20,13 +23,13 @@ public sealed class ProtoNamingService
     {
         return method.HasInputParameters()
             ? $"{method.Name}{_requestPostfix}"
-            : EmptyMessageType;
+            : _emptyMessageType;
     }
 
     public string GetResponseMessageType(MethodDefinition method)
     {
         return method.HasAnyOutputParameters()
             ? $"{method.Name}{_responsePostfix}"
-            : EmptyMessageType;
+            : _emptyMessageType;
     }
 }

@@ -8,7 +8,10 @@
 <#@ import namespace="Module.MusicBee.MetaInfo.Proto.Helpers" #>
 <#@ import namespace="Module.MusicBee.MetaInfo.Proto.Services" #>
 <#
-    var protoNamingService = new ProtoNamingService("_Request", "_Response");
+    var protoNamingService = new ProtoNamingService(
+        "google.protobuf.Empty",
+        "_Request",
+        "_Response");
     var methods = MetaInfoProvider
         .GetMethodsWithoutRestrictions()
         .Select(x => new
