@@ -10,17 +10,6 @@ namespace CodeGenerator.Helpers
                    || methodDefinition.HasAnyOutputParameters();
         }
         
-        public static bool HasInputParameters(this MBApiMethodDefinition methodDefinition)
-        {
-            return methodDefinition.InputParameters.Count > 0;
-        }
-        
-        public static bool HasAnyOutputParameters(this MBApiMethodDefinition methodDefinition)
-        {
-            return methodDefinition.ReturnParameter.Type != typeof(void) 
-                   || methodDefinition.OutputParameters.Count > 0;
-        }
-        
         public static bool HasReturnType(this MBApiMethodDefinition methodDefinition)
         {
             return methodDefinition.ReturnParameter.Type != typeof(void);
