@@ -35,7 +35,6 @@ namespace CodeGenerator
             AddProtobufToModuleCsProj(baseMethods);
             AddProtobufToConsoleTestsCsProj(baseMethods);
 
-            GenerateClientWrapper(container, baseMethods);
             GenerateMemoryContainerWrapper(container, methodsExceptIgnored);
         }
 
@@ -85,21 +84,6 @@ namespace CodeGenerator
             builder
                 .AddProtobufItemGroup(serviceFilePath)
                 .SaveProject();
-        }
-
-        private static void GenerateClientWrapper(
-            IComponentContext componentContext,
-            IReadOnlyCollection<MBApiMethodDefinition> methods)
-        {
-            const string wrapperFilePath = @"..\..\..\ConsoleTests\Services\MusicBeeApiClientWrapper.cs";
-
-            var builder = componentContext
-                .Resolve<IClientWrapperBuilder>();
-            builder.ReturnVariableName = ReturnParameterName;
-
-            var lines = builder
-                .GenerateClientWrapperLines(methods);
-            File.WriteAllLines(wrapperFilePath, lines);
         }
 
         private static void GenerateMemoryContainerWrapper(
