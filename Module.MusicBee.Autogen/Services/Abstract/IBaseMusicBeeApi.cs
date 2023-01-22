@@ -4,7 +4,7 @@
 
 using Module.MusicBee.Enums;
 
-namespace Module.MusicBee.Services.Abstract
+namespace Module.MusicBee.Autogen.Services.Abstract
 {
     public interface IBaseMusicBeeApi
     {
