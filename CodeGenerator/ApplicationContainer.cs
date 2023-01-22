@@ -13,10 +13,6 @@ namespace CodeGenerator
             var builder = new ContainerBuilder();
 
             builder
-                .RegisterType<ServiceBuilder>()
-                .As<IServiceBuilder>()
-                .SingleInstance();
-            builder
                 .RegisterType<HardcodedServiceBuilderParameters>()
                 .As<IServiceBuilderParameters>()
                 .SingleInstance();

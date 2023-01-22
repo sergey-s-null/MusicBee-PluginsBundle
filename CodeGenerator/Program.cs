@@ -35,8 +35,6 @@ namespace CodeGenerator
             AddProtobufToModuleCsProj(baseMethods);
             AddProtobufToConsoleTestsCsProj(baseMethods);
 
-            GenerateServiceImpl(container, baseMethods);
-
             GenerateBaseInterface(container, baseMethods);
             GenerateExtendedInterface(container, extendedMethods);
 
@@ -90,19 +88,6 @@ namespace CodeGenerator
             builder
                 .AddProtobufItemGroup(serviceFilePath)
                 .SaveProject();
-        }
-
-        private static void GenerateServiceImpl(
-            IComponentContext componentContext,
-            IReadOnlyCollection<MBApiMethodDefinition> methods)
-        {
-            const string filePath = @"..\..\..\Module.RemoteMusicBeeApi\MusicBeeApiServiceImpl.cs";
-
-            var lines = componentContext
-                .Resolve<IServiceBuilder>()
-                .GenerateServiceLines(methods);
-
-            File.WriteAllLines(filePath, lines);
         }
 
         private static void GenerateBaseInterface(
