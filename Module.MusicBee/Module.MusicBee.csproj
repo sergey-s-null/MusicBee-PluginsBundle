@@ -49,7 +49,6 @@
     <Compile Include="MusicBeeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MusicBeeApiMemoryContainer.cs" />
-    <Compile Include="Services\MusicBeeApiMemoryContainerWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="paket.references" />

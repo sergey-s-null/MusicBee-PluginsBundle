@@ -53,6 +53,11 @@
 		  <DesignTime>True</DesignTime>
 		  <DependentUpon>IMusicBeeApi.tt</DependentUpon>
 		</Compile>
+		<Compile Include="Services\MusicBeeApiMemoryContainerWrapper.cs">
+		  <AutoGen>True</AutoGen>
+		  <DesignTime>True</DesignTime>
+		  <DependentUpon>MusicBeeApiMemoryContainerWrapper.tt</DependentUpon>
+		</Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Include="Services\Abstract\IBaseMusicBeeApi.tt">
@@ -62,6 +67,10 @@
 	  <Content Include="Services\Abstract\IMusicBeeApi.tt">
 	    <Generator>TextTemplatingFileGenerator</Generator>
 	    <LastGenOutput>IMusicBeeApi.cs</LastGenOutput>
+	  </Content>
+	  <Content Include="Services\MusicBeeApiMemoryContainerWrapper.tt">
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	    <LastGenOutput>MusicBeeApiMemoryContainerWrapper.cs</LastGenOutput>
 	  </Content>
 	</ItemGroup>
 	<ItemGroup>

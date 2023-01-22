@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -850,6 +850,5 @@ namespace Module.MusicBee.Services
         {
             _mbApi.Sync_FileDeleteEnd(filename, success, errorMessage);
         }
-        
     }
 }
