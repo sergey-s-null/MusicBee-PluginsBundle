@@ -57,7 +57,6 @@
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IMethodBuilder.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\CommonLinesBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\ServiceBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\HardcodedServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\TaskRunWrappedMethodBuilder.cs" />
