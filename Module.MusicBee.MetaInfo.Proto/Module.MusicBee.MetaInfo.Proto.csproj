@@ -40,6 +40,8 @@
 		<Reference Include="System.Xml" />
 	</ItemGroup>
 	<ItemGroup>
+		<Compile Include="Extensions\TypeExtensions.cs" />
+		<Compile Include="Helpers\ProtoTypesHelper.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
 		<Compile Include="Services\ProtoNamingService.cs" />
 	</ItemGroup>

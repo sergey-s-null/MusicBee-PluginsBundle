@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CodeGenerator.Enums;
-using CodeGenerator.Helpers;
-using CodeGenerator.Models;
 
 namespace CodeGenerator.Builders
 {
@@ -23,15 +21,6 @@ namespace CodeGenerator.Builders
         };
 
         private const string EmptyMessageType = "google.protobuf.Empty";
-
-        private static readonly IReadOnlyDictionary<Type, string> TypeBindings = new Dictionary<Type, string>()
-        {
-            [typeof(bool)] = "bool",
-            [typeof(string)] = "string",
-            [typeof(int)] = "int32",
-            [typeof(float)] = "float",
-            [typeof(double)] = "double",
-        };
 
         private readonly List<MBApiMethodDefinition> _methods = new();
         private string _exportPath = string.Empty;
@@ -219,47 +208,12 @@ namespace CodeGenerator.Builders
             yield return "}";
             yield return string.Empty;
         }
-        
+
         private string GetFilePath(string fileName)
         {
             return !string.IsNullOrEmpty(_exportPath)
                 ? Path.Combine(_exportPath, fileName)
                 : fileName;
-        }
-
-        private static string GetProtoType(Type parameterType, bool withEnumerable = true)
-        {
-            if (parameterType.IsByRef && parameterType.HasElementType)
-            {
-                return GetProtoType(parameterType.GetElementType()!);
-            }
-
-            if (parameterType.IsEnumerable(out var elementType))
-            {
-                if (elementType == typeof(byte))
-                {
-                    return "bytes";
-                }
-
-                if (withEnumerable)
-                {
-                    var elementProtoType = GetProtoType(elementType!, false);
-                    return $"repeated {elementProtoType}";
-                }
-            }
-
-            if (parameterType.IsEnum
-                && TypeBindings.TryGetValue(typeof(int), out var intProtoType))
-            {
-                return intProtoType;
-            }
-
-            if (TypeBindings.TryGetValue(parameterType, out var protoType))
-            {
-                return protoType;
-            }
-
-            throw new Exception($"Для типа {parameterType.FullName} не найдено соответствие proto типа.");
         }
     }
 }
