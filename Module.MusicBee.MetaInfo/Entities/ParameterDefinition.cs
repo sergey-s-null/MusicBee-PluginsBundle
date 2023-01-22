@@ -2,7 +2,7 @@
 
 namespace Module.MusicBee.MetaInfo.Entities;
 
-public record ParameterDefinition(
+public sealed record ParameterDefinition(
     Type Type,
     string Name,
     bool IsNullable

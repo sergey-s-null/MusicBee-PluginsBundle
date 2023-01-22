@@ -2,7 +2,7 @@
 
 namespace Module.MusicBee.MetaInfo.Entities;
 
-public record MethodDefinition(
+public sealed record MethodDefinition(
     string Name,
     IReadOnlyCollection<ParameterDefinition> InputParameters,
     IReadOnlyCollection<ParameterDefinition> OutputParameters,
