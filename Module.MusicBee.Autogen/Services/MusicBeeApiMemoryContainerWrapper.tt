@@ -35,16 +35,16 @@ namespace Module.MusicBee.Autogen.Services
     foreach (var method in methods)
     {
         var returnType = method.ReturnParameter.Type.GetFixedName();
-        var argumentsPart = GetArgumentsPart(method);
+        var classMethodArguments = GetClassMethodArguments(method);
         var returnPart = method.HasReturnType()
             ? "return "
             : string.Empty;
-        var arguments = GetArguments(method);
+        var apiCallingArguments = GetApiCallingArguments(method);
 #>
 
-        public <#= returnType #> <#= method.Name #>(<#= argumentsPart #>)
+        public <#= returnType #> <#= method.Name #>(<#= classMethodArguments #>)
         {
-            <#= returnPart #>_mbApi.<#= method.Name #>(<#= arguments #>);
+            <#= returnPart #>_mbApi.<#= method.Name #>(<#= apiCallingArguments #>);
         }
 <#
     }
@@ -52,7 +52,7 @@ namespace Module.MusicBee.Autogen.Services
     }
 }
 <#+
-    private static string GetArgumentsPart(MethodDefinition method)
+    private static string GetClassMethodArguments(MethodDefinition method)
     {
         var inParams = method.InputParameters
             .Select(x => $"{x.GetCSharpTypeName()} {x.Name}");
@@ -61,7 +61,7 @@ namespace Module.MusicBee.Autogen.Services
         return string.Join(", ", inParams.Concat(outParams));
     }
 
-    private static string GetArguments(MethodDefinition method)
+    private static string GetApiCallingArguments(MethodDefinition method)
     {
         var inParams = method.InputParameters
             .Select(x => x.Name);
