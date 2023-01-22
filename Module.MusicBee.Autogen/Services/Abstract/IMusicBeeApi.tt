@@ -18,7 +18,6 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using Module.MusicBee.Enums;
-using Module.MusicBee.Services.Abstract;
 
 namespace Module.MusicBee.Autogen.Services.Abstract
 {
