@@ -41,7 +41,7 @@ namespace Module.MusicBee.Autogen.Services
             : string.Empty;
         var arguments = GetArguments(method);
 #>
-        
+
         public <#= returnType #> <#= method.Name #>(<#= argumentsPart #>)
         {
             <#= returnPart #>_mbApi.<#= method.Name #>(<#= arguments #>);
