@@ -34,8 +34,6 @@ namespace CodeGenerator
 
             AddProtobufToModuleCsProj(baseMethods);
             AddProtobufToConsoleTestsCsProj(baseMethods);
-
-            GenerateMemoryContainerWrapper(container, methodsExceptIgnored);
         }
 
         private static void AddProtobufToModuleCsProj(IEnumerable<MethodDefinition> methods)
@@ -84,19 +82,6 @@ namespace CodeGenerator
             builder
                 .AddProtobufItemGroup(serviceFilePath)
                 .SaveProject();
-        }
-
-        private static void GenerateMemoryContainerWrapper(
-            IComponentContext componentContext,
-            IReadOnlyCollection<MBApiMethodDefinition> methods)
-        {
-            const string filePath = @"..\..\..\Root\MusicBeeApi\MusicBeeApiMemoryContainerWrapper.cs";
-
-            var builder = componentContext.Resolve<IMemoryContainerWrapperBuilder>();
-            builder.Namespace = "Root.MusicBeeApi";
-
-            var lines = builder.GenerateMemoryContainerWrapperLines(methods);
-            File.WriteAllLines(filePath, lines);
         }
     }
 }

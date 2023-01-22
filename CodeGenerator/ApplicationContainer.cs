@@ -25,9 +25,6 @@ namespace CodeGenerator
                 .RegisterType<MethodDefinitionBuilder>()
                 .As<IMethodDefinitionBuilder>()
                 .SingleInstance();
-            builder
-                .RegisterType<MemoryContainerWrapperBuilder>()
-                .As<IMemoryContainerWrapperBuilder>();
 
             return builder.Build();
         }
