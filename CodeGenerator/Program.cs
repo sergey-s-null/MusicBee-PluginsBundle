@@ -2,18 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Autofac;
 using CodeGenerator.Builders;
 using CodeGenerator.Builders.Abstract;
 using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
 using CodeGenerator.Enums;
-using CodeGenerator.Extensions;
 using CodeGenerator.Helpers;
-using CodeGenerator.Models;
 using Microsoft.Build.Evaluation;
-using Module.MusicBee.Services;
-using Root.Helpers;
 
 namespace CodeGenerator
 {
@@ -29,8 +24,6 @@ namespace CodeGenerator
         private const string ConsoleTestsCsProjFilePath = @"..\..\..\ConsoleTests\ConsoleTests.csproj";
         private const string FromConsoleTestToModulePath = @"..\Module.RemoteMusicBeeApi";
 
-        
-
         public static void Main(string[] args)
         {
             var container = ApplicationContainer.Create(ServiceImplMode.WrapWithTaskRun);
@@ -38,8 +31,6 @@ namespace CodeGenerator
             var baseMethods = GetMethodsDefinition(MethodNamesWithoutRestrictions);
             var extendedMethods = GetMethodsDefinition(ExtendedMethodNames);
             var methodsExceptIgnored = GetMethodsDefinition(MethodNamesExceptIgnored);
-
-            GenerateProtoFiles(baseMethods);
 
             AddProtobufToModuleCsProj(baseMethods);
             AddProtobufToConsoleTestsCsProj(baseMethods);
@@ -53,26 +44,7 @@ namespace CodeGenerator
             GenerateMemoryContainerWrapper(container, methodsExceptIgnored);
         }
 
-        private static void GenerateProtoFiles(IEnumerable<MBApiMethodDefinition> methods)
-        {
-            var builder = new ProtoFilesBuilder()
-                .SetPostfixes("_Request", "_Response")
-                .SetExportPath(ModuleProjectPath, ExportPathInsideModuleProject)
-                .SetReturnParameterName(ReturnParameterName)
-                .AddMethods(methods)
-                .DeleteCurrentProtoFiles();
-
-            if (GenerationMode == ServiceGenerationMode.MessagesInSeparateFiles)
-            {
-                builder.CreateMessagesProtoFiles();
-            }
-
-            builder
-                .SetServiceGenerationMode(GenerationMode)
-                .CreateServiceProtoFile(ServiceName);
-        }
-
-        private static void AddProtobufToModuleCsProj(IEnumerable<MBApiMethodDefinition> methods)
+        private static void AddProtobufToModuleCsProj(IEnumerable<MethodDefinition> methods)
         {
             var projectCollection = new ProjectCollection();
             var project = projectCollection.LoadProject(ModuleCsProjFilePath);
