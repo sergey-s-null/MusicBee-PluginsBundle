@@ -2,9 +2,9 @@
 using Module.MusicBee.Services;
 using Module.MusicBee.Services.Abstract;
 
-namespace Module.MusicBee;
+namespace Module.MusicBee.Autogen;
 
-public class MusicBeeModule : Autofac.Module
+public sealed class MusicBeeAutogenModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {
