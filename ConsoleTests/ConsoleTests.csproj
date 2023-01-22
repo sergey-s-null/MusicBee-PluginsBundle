@@ -51,7 +51,9 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\MusicBeeApiClientWrapper.cs" />
+    <Compile Include="Services\MusicBeeApiClientWrapper.cs">
+      <DependentUpon>MusicBeeApiClientWrapper.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -76,6 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="paket.references" />
+    <Content Include="Services\MusicBeeApiClientWrapper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MusicBeeApiClientWrapper.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MusicBeeApiService.proto">
