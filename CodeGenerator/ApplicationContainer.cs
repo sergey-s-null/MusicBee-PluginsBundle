@@ -1,16 +1,14 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using CodeGenerator.Builders;
 using CodeGenerator.Builders.Abstract;
 using CodeGenerator.Builders.ServiceImplBuilder;
 using CodeGenerator.Builders.ServiceImplBuilder.Abstract;
-using CodeGenerator.Enums;
 
 namespace CodeGenerator
 {
     public static class ApplicationContainer
     {
-        public static IContainer Create(ServiceImplMode serviceImplMode)
+        public static IContainer Create()
         {
             var builder = new ContainerBuilder();
 
@@ -26,24 +24,6 @@ namespace CodeGenerator
                 .RegisterType<MessageTypesBuilder>()
                 .As<IMessageTypesBuilder>()
                 .SingleInstance();
-
-            switch (serviceImplMode)
-            {
-                case ServiceImplMode.TaskFromResult:
-                    builder
-                        .RegisterType<TaskFromResultMethodBuilder>()
-                        .As<IMethodBuilder>()
-                        .SingleInstance();
-                    break;
-                case ServiceImplMode.WrapWithTaskRun:
-                    builder
-                        .RegisterType<TaskRunWrappedMethodBuilder>()
-                        .As<IMethodBuilder>()
-                        .SingleInstance();
-                    break;
-                default:
-                    throw new ArgumentException("Argument is out of range.", nameof(serviceImplMode));
-            }
 
             builder
                 .RegisterType<InterfaceBuilder>()

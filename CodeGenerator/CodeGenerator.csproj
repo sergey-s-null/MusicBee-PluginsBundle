@@ -55,11 +55,8 @@
     <Compile Include="Builders\MethodDefinitionBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\Abstract\IServiceBuilderParameters.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\Abstract\IMethodBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\ServiceBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\HardcodedServiceBuilderParameters.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\TaskRunWrappedMethodBuilder.cs" />
-    <Compile Include="Builders\ServiceImplBuilder\TaskFromResultMethodBuilder.cs" />
     <Compile Include="Enums\ProtobufType.cs" />
     <Compile Include="Enums\ServiceGenerationMode.cs" />
     <Compile Include="Enums\ServiceImplMode.cs" />

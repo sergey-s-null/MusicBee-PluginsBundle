@@ -30,14 +30,10 @@ namespace CodeGenerator.Builders.ServiceImplBuilder
         private const string ServiceName = "MusicBeeApiService";
 
         private readonly IServiceBuilderParameters _parameters;
-        private readonly IMethodBuilder _methodBuilder;
 
-        public ServiceBuilder(
-            IServiceBuilderParameters parameters,
-            IMethodBuilder methodBuilder)
+        public ServiceBuilder(IServiceBuilderParameters parameters)
         {
             _parameters = parameters;
-            _methodBuilder = methodBuilder;
         }
 
         public IEnumerable<string> GenerateServiceLines(IReadOnlyCollection<MBApiMethodDefinition> methods)
