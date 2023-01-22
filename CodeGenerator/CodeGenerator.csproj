@@ -63,7 +63,6 @@
     <Compile Include="Builders\ServiceImplBuilder\HardcodedServiceBuilderParameters.cs" />
     <Compile Include="Builders\ServiceImplBuilder\TaskRunWrappedMethodBuilder.cs" />
     <Compile Include="Builders\ServiceImplBuilder\TaskFromResultMethodBuilder.cs" />
-    <Compile Include="Enums\MethodRestriction.cs" />
     <Compile Include="Enums\ProtobufType.cs" />
     <Compile Include="Enums\ServiceGenerationMode.cs" />
     <Compile Include="Enums\ServiceImplMode.cs" />
