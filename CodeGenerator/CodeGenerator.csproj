@@ -74,9 +74,6 @@
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="Models\Abstract\IParameterType.cs" />
-    <Compile Include="Models\MBApiMethodDefinition.cs" />
-    <Compile Include="Models\MBApiParameterDefinition.cs" />
-    <Compile Include="Models\MBApiReturnParameterDefinition.cs" />
     <Compile Include="Models\MethodNameWithRestriction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
