@@ -97,7 +97,6 @@
     <Protobuf Include="Protos\MusicBeeApiService.proto">
       <GrpcServices>Server</GrpcServices>
       <DependentUpon>MusicBeeApiService.tt</DependentUpon>
-      <Generator>MSBuild:Compile</Generator>
     </Protobuf>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
