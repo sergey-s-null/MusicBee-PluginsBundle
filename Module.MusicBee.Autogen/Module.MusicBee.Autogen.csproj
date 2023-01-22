@@ -37,6 +37,8 @@
 		<Reference Include="System" />
 		<Reference Include="System.Core" />
 		<Reference Include="System.Data" />
+		<Reference Include="System.Drawing" />
+		<Reference Include="System.Windows.Forms" />
 		<Reference Include="System.Xml" />
 	</ItemGroup>
 	<ItemGroup>
@@ -46,11 +48,20 @@
 		  <DesignTime>True</DesignTime>
 		  <DependentUpon>IBaseMusicBeeApi.tt</DependentUpon>
 		</Compile>
+		<Compile Include="Services\Abstract\IMusicBeeApi.cs">
+		  <AutoGen>True</AutoGen>
+		  <DesignTime>True</DesignTime>
+		  <DependentUpon>IMusicBeeApi.tt</DependentUpon>
+		</Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Include="Services\Abstract\IBaseMusicBeeApi.tt">
 	    <Generator>TextTemplatingFileGenerator</Generator>
 	    <LastGenOutput>IBaseMusicBeeApi.cs</LastGenOutput>
+	  </Content>
+	  <Content Include="Services\Abstract\IMusicBeeApi.tt">
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	    <LastGenOutput>IMusicBeeApi.cs</LastGenOutput>
 	  </Content>
 	</ItemGroup>
 	<ItemGroup>
