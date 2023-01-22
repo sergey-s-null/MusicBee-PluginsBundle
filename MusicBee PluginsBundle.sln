@@ -75,6 +75,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Settings.Gui", "Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicBee.Extension.LibraryQuerying", "Module.MusicBee.Extension.LibraryQuerying\Module.MusicBee.Extension.LibraryQuerying.csproj", "{B353F93B-EAD5-49FE-92F2-E3DA115A314A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicBee.MetaInfo", "Module.MusicBee.MetaInfo\Module.MusicBee.MetaInfo.csproj", "{EB77E965-7A03-4DD0-A78B-C3A78CFA2F10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,10 @@ Global
 		{B353F93B-EAD5-49FE-92F2-E3DA115A314A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B353F93B-EAD5-49FE-92F2-E3DA115A314A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B353F93B-EAD5-49FE-92F2-E3DA115A314A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB77E965-7A03-4DD0-A78B-C3A78CFA2F10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB77E965-7A03-4DD0-A78B-C3A78CFA2F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB77E965-7A03-4DD0-A78B-C3A78CFA2F10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB77E965-7A03-4DD0-A78B-C3A78CFA2F10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FD3865DC-0F4C-4076-8B21-44AC23601DE7} = {A35F5D17-7524-40C4-903A-AC8B3BE7B09D}
@@ -195,5 +201,6 @@ Global
 		{EB57DCEF-633C-478C-B339-F3D7E5893309} = {D520C80B-E3AA-44A5-9B1F-BAB55C4B9B8A}
 		{B809F066-1EBC-4660-A9EC-DF2FC5F558D7} = {D520C80B-E3AA-44A5-9B1F-BAB55C4B9B8A}
 		{B353F93B-EAD5-49FE-92F2-E3DA115A314A} = {D520C80B-E3AA-44A5-9B1F-BAB55C4B9B8A}
+		{EB77E965-7A03-4DD0-A78B-C3A78CFA2F10} = {D520C80B-E3AA-44A5-9B1F-BAB55C4B9B8A}
 	EndGlobalSection
 EndGlobal
