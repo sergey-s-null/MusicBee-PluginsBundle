@@ -3,7 +3,6 @@
 <#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo.Proto\bin\Debug\Module.MusicBee.MetaInfo.Proto.dll" #>
 <#@ assembly name="$(SolutionDir)\Root\bin\Debug\Root.dll" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.Text" #>
 <#@ import namespace="Module.MusicBee.MetaInfo.Entities" #>
 <#@ import namespace="Module.MusicBee.MetaInfo.Extensions" #>
 <#@ import namespace="Module.MusicBee.MetaInfo.Helpers" #>
@@ -56,9 +55,10 @@ namespace ConsoleTests.Services
 <#
             foreach (var inputParameter in method.InputParameters)
             {
-                var line = GetRequestPropertyAssignmentLine(inputParameter);
+                var property = inputParameter.Name.Capitalize();
+                var value = GetRequestPropertyValue(inputParameter);
 #>
-                <#= line #>
+                <#= property #> = <#= value #>,
 <#
             }
 #>
@@ -68,9 +68,13 @@ namespace ConsoleTests.Services
 
         foreach (var outputParameter in method.OutputParameters)
         {
-            var line = GetOutParameterAssignmentLine(outputParameter);
+            var enumCast = outputParameter.Type.IsEnum
+                ? $"({outputParameter.Type.Name})"
+                : string.Empty;
+            var propertyName = outputParameter.Name.Capitalize();
+            var arrayCast = GetOutputParameterArrayCast(outputParameter);
 #>
-            <#= line #>
+            <#= outputParameter.Name #> = <#= enumCast #>response.<#= propertyName #><#= arrayCast #>;
 <#
         }
 
@@ -99,71 +103,44 @@ namespace ConsoleTests.Services
         "_Request",
         "_Response");
 
-    private static string GetRequestPropertyAssignmentLine(ParameterDefinition parameter)
+    private static string GetRequestPropertyValue(ParameterDefinition parameter)
     {
-        return GetRequestPropertyAssignmentLine(parameter.Type, parameter.Name);
+        return GetRequestPropertyValue(parameter.Type, parameter.Name);
     }
 
-    private static string GetRequestPropertyAssignmentLine(Type parameterType, string parameterName)
+    private static string GetRequestPropertyValue(Type parameterType, string parameterName)
     {
-        string rightPart;
         if (parameterType.IsEnumerable() && parameterType.HasElementType)
         {
             var elementType = parameterType.GetElementType()!;
             if (elementType == typeof(byte))
             {
-                rightPart = $"ByteString.CopyFrom({parameterName})";
+                return $"ByteString.CopyFrom({parameterName})";
             }
-            else if (elementType.IsEnum)
-            {
-                rightPart = $"{{ {parameterName}.Cast<int>() }}";
-            }
-            else
-            {
-                rightPart = $"{{ {parameterName} }}";
-            }
-        }
-        else if (parameterType.IsEnum)
-        {
-            rightPart = $"(int){parameterName}";
-        }
-        else
-        {
-            rightPart = parameterName;
+
+            return elementType.IsEnum
+                ? $"{{ {parameterName}.Cast<int>() }}"
+                : $"{{ {parameterName} }}";
         }
 
-        return $"{parameterName.Capitalize()} = {rightPart},";
+        return parameterType.IsEnum
+            ? $"(int){parameterName}"
+            : parameterName;
     }
 
-    private static string GetOutParameterAssignmentLine(ParameterDefinition parameter)
+    private static string GetOutputParameterArrayCast(ParameterDefinition parameter)
     {
-        var builder = new StringBuilder();
-
-        builder.Append(parameter.Name);
-        builder.Append(" = ");
-
-        if (parameter.Type.IsEnum)
+        if (!parameter.Type.IsArray)
         {
-            builder.Append($"({parameter.Type.Name})");
+            return string.Empty;
         }
 
-        builder.Append($"response.{parameter.Name.Capitalize()}");
-
-        if (parameter.Type.IsArray)
+        if (parameter.Type.HasElementType
+            && parameter.Type.GetElementType()! == typeof(byte))
         {
-            if (parameter.Type.HasElementType
-                && parameter.Type.GetElementType()! == typeof(byte))
-            {
-                builder.Append(".ToByteArray()");
-            }
-            else
-            {
-                builder.Append(".ToArray()");
-            }
+            return ".ToByteArray()";
         }
 
-        builder.Append(";");
-
-        return builder.ToString();
+        return ".ToArray()";
     }
 #>
