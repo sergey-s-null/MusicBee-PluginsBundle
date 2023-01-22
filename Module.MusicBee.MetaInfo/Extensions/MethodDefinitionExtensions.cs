@@ -14,4 +14,9 @@ public static class MethodDefinitionExtensions
     {
         return methodDefinition.InputParameters.Count > 0;
     }
+
+    public static bool HasReturnType(this MethodDefinition methodDefinition)
+    {
+        return methodDefinition.ReturnParameter.Type != typeof(void);
+    }
 }
