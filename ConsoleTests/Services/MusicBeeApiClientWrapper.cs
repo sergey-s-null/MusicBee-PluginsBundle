@@ -13,7 +13,7 @@ namespace ConsoleTests.Services
     public class MusicBeeApiClientWrapper : IBaseMusicBeeApi
     {
         private readonly MusicBeeApiService.MusicBeeApiServiceClient _client;
-        
+
         public MusicBeeApiClientWrapper(MusicBeeApiService.MusicBeeApiServiceClient client)
         {
             _client = client;
