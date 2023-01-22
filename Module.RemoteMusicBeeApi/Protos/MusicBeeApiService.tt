@@ -1,0 +1,93 @@
+<#@ template language="C#" #>
+<#@ output extension=".proto" encoding="utf-8" #>
+<#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo\bin\Debug\Module.MusicBee.MetaInfo.dll" #>
+<#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo.Proto\bin\Debug\Module.MusicBee.MetaInfo.Proto.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Module.MusicBee.MetaInfo.Extensions" #>
+<#@ import namespace="Module.MusicBee.MetaInfo.Helpers" #>
+<#@ import namespace="Module.MusicBee.MetaInfo.Proto.Helpers" #>
+<#@ import namespace="Module.MusicBee.MetaInfo.Proto.Services" #>
+<#
+    var protoNamingService = new ProtoNamingService("_Request", "_Response");
+    var methods = MetaInfoProvider
+        .GetMethodsWithoutRestrictions()
+        .Select(x => new
+        {
+            Definition = x,
+            ProtoRequestType = protoNamingService.GetRequestMessageType(x),
+            ProtoResponseType = protoNamingService.GetResponseMessageType(x)
+        })
+        .ToList();
+    const string returnParameterName = "result";
+#>
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+service MusicBeeApiService {
+<#
+    foreach (var method in methods)
+    {
+        var requestType = method.ProtoRequestType;
+        var responseType = method.ProtoResponseType;
+#>
+  rpc <#= method.Definition.Name #>(<#= requestType #>)
+      returns(<#= responseType #>);
+<#
+    }
+#>
+}
+<#
+    foreach (var method in methods)
+    {
+        if (method.Definition.HasInputParameters())
+        {
+#>
+
+message <#= method.ProtoRequestType #> {
+<#
+            var i = 1;
+            foreach (var parameter in method.Definition.InputParameters)
+            {
+                var parameterProtoType = ProtoTypesHelper.GetProtoType(parameter.Type);
+#>
+  <#= parameterProtoType #> <#= parameter.Name #> = <#= i #>;
+<#
+                i++;
+            }
+#>
+}
+<#
+        }
+
+        if (method.Definition.HasAnyOutputParameters())
+        {
+            var i = 1;
+#>
+
+message <#= method.ProtoResponseType #> {
+<#
+            if (method.Definition.HasReturnType())
+            {
+                var returnProtoType = ProtoTypesHelper.GetProtoType(method.Definition.ReturnParameter.Type);
+#>
+  <#= returnProtoType #> <#= returnParameterName #> = <#= i #>;
+<#
+                i++;
+            }
+
+            foreach (var parameter in method.Definition.OutputParameters)
+            {
+                var parameterProtoType = ProtoTypesHelper.GetProtoType(parameter.Type);
+#>
+  <#= parameterProtoType #> <#= parameter.Name #> = <#= i #>;
+<#
+                i++;
+            }
+#>
+}
+<#
+        }
+    }
+#>
+
