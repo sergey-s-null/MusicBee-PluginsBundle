@@ -35,11 +35,11 @@ namespace Module.MusicBee.Autogen.Services
     foreach (var method in methods)
     {
         var returnType = method.ReturnParameter.Type.GetFixedName();
-        var classMethodArguments = GetClassMethodArguments(method);
+        var classMethodArguments = method.GetClassMethodArguments();
         var returnPart = method.HasReturnType()
             ? "return "
             : string.Empty;
-        var apiCallingArguments = GetApiCallingArguments(method);
+        var apiCallingArguments = method.GetMethodCallingArguments();
 #>
 
         public <#= returnType #> <#= method.Name #>(<#= classMethodArguments #>)
@@ -51,22 +51,3 @@ namespace Module.MusicBee.Autogen.Services
 #>
     }
 }
-<#+
-    private static string GetClassMethodArguments(MethodDefinition method)
-    {
-        var inParams = method.InputParameters
-            .Select(x => $"{x.GetCSharpTypeName()} {x.Name}");
-        var outParams = method.OutputParameters
-            .Select(x => $"out {x.GetCSharpTypeName()} {x.Name}");
-        return string.Join(", ", inParams.Concat(outParams));
-    }
-
-    private static string GetApiCallingArguments(MethodDefinition method)
-    {
-        var inParams = method.InputParameters
-            .Select(x => x.Name);
-        var outParams = method.OutputParameters
-            .Select(x => $"out {x.Name}");
-        return string.Join(", ", inParams.Concat(outParams));
-    }
-#>
