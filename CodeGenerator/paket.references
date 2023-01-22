@@ -1,4 +1,0 @@
-﻿group MBApiProtoGenerator
-    Microsoft.Build
-    Microsoft.Build.Utilities.Core
-    Autofac
