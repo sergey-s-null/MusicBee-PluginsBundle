@@ -1,4 +1,4 @@
-using Module.MusicBee.Enums;
+﻿using Module.MusicBee.Enums;
 
 namespace Module.MusicBee.Services.Abstract
 {

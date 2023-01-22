@@ -1,0 +1,58 @@
+<#@ template language="C#" #>
+<#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo\bin\Debug\Module.MusicBee.MetaInfo.dll"#>
+<#@ assembly name="$(SolutionDir)\Root\bin\Debug\Root.dll"#>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Module.MusicBee.MetaInfo.Entities" #>
+<#@ import namespace="Module.MusicBee.MetaInfo.Helpers" #>
+<#@ import namespace="Root.Extensions" #>
+<#
+    var methods = MetaInfoProvider.GetMethodsWithoutRestrictions();
+#>
+using Module.MusicBee.Enums;
+
+namespace Module.MusicBee.Services.Abstract
+{
+    public interface IBaseMusicBeeApi
+    {
+<#
+    foreach (var method in methods)
+    {
+        var argumentsPart = GetArgumentsPart(method);
+#>
+        <#= method.ReturnParameter.Type.GetFixedName() #> <#= method.Name #>(<#= argumentsPart #>);
+<#
+    }
+#>
+    }
+}
+<#+
+    private static string GetArgumentsPart(MethodDefinition method)
+    {
+        var inParams = method.InputParameters
+            .Select(x => $"{GetCsTypeName(x)} {x.Name}");
+        var outParams = method.OutputParameters
+            .Select(x => $"out {GetCsTypeName(x)} {x.Name}");
+        return string.Join(", ", inParams.Concat(outParams));
+    }
+
+    private static string GetCsTypeName(ParameterDefinition parameter)
+    {
+        var csTypeName = GetCsTypeName(parameter.Type);
+        if (parameter.IsNullable)
+        {
+            csTypeName += "?";
+        }
+
+        return csTypeName;
+    }
+
+    private static string GetCsTypeName(Type type)
+    {
+        if (type.IsArray && type.HasElementType)
+        {
+            return $"{GetCsTypeName(type.GetElementType()!)}[]";
+        }
+
+        return type.GetFixedName();
+    }
+#>
