@@ -41,9 +41,22 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="Entities\MethodDefinition.cs" />
+		<Compile Include="Entities\MethodNameWithRestriction.cs" />
 		<Compile Include="Entities\ParameterDefinition.cs" />
+		<Compile Include="Enums\MethodRestriction.cs" />
+		<Compile Include="Helpers\MetaInfoProvider.cs" />
 		<Compile Include="IsExternalInit.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Module.MusicBee\Module.MusicBee.csproj">
+	    <Project>{055ec659-45ea-4971-8195-32aac0061c73}</Project>
+	    <Name>Module.MusicBee</Name>
+	  </ProjectReference>
+	  <ProjectReference Include="..\Root\Root.csproj">
+	    <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
+	    <Name>Root</Name>
+	  </ProjectReference>
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

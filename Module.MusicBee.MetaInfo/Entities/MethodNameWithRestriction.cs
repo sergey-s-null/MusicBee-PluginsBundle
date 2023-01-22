@@ -4,5 +4,5 @@ namespace Module.MusicBee.MetaInfo.Entities;
 
 public sealed record MethodNameWithRestriction(
     string MethodName,
-    MethodRestriction Restriction
+    MethodRestriction Restriction = MethodRestriction.None
 );
