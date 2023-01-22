@@ -207,22 +207,37 @@ public static class MetaInfoProvider
             new("Sync_FileDeleteEnd"),
         };
 
-    public static readonly IReadOnlyCollection<string> MethodNamesWithoutRestrictions = MethodNames
+    private static readonly IReadOnlyCollection<string> MethodNamesWithoutRestrictions = MethodNames
         .Where(x => x.Restriction == MethodRestriction.None)
         .Select(x => x.MethodName)
         .ToReadOnlyCollection();
 
-    public static readonly IReadOnlyCollection<string> ExtendedMethodNames = MethodNames
+    private static readonly IReadOnlyCollection<string> ExtendedMethodNames = MethodNames
         .Where(x => x.Restriction == MethodRestriction.Extended)
         .Select(x => x.MethodName)
         .ToReadOnlyCollection();
 
-    public static readonly IReadOnlyCollection<string> MethodNamesExceptIgnored = MethodNames
+    private static readonly IReadOnlyCollection<string> MethodNamesExceptIgnored = MethodNames
         .Where(x => x.Restriction != MethodRestriction.Ignore)
         .Select(x => x.MethodName)
         .ToReadOnlyCollection();
 
-    public static IReadOnlyCollection<MethodDefinition> GetMethodsDefinitions(
+    public static IReadOnlyCollection<MethodDefinition> GetMethodsWithoutRestrictions()
+    {
+        return GetMethods(MethodNamesWithoutRestrictions);
+    }
+
+    public static IReadOnlyCollection<MethodDefinition> GetExtendedMethods()
+    {
+        return GetMethods(ExtendedMethodNames);
+    }
+
+    public static IReadOnlyCollection<MethodDefinition> GetMethodsExceptIgnored()
+    {
+        return GetMethods(MethodNamesExceptIgnored);
+    }
+
+    private static IReadOnlyCollection<MethodDefinition> GetMethods(
         IReadOnlyCollection<string> methods)
     {
         return typeof(MusicBeeApiMemoryContainer)
