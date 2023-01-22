@@ -35,9 +35,6 @@ namespace CodeGenerator
             AddProtobufToModuleCsProj(baseMethods);
             AddProtobufToConsoleTestsCsProj(baseMethods);
 
-            GenerateBaseInterface(container, baseMethods);
-            GenerateExtendedInterface(container, extendedMethods);
-
             GenerateClientWrapper(container, baseMethods);
             GenerateMemoryContainerWrapper(container, methodsExceptIgnored);
         }
@@ -88,43 +85,6 @@ namespace CodeGenerator
             builder
                 .AddProtobufItemGroup(serviceFilePath)
                 .SaveProject();
-        }
-
-        private static void GenerateBaseInterface(
-            IComponentContext componentContext,
-            IReadOnlyCollection<MBApiMethodDefinition> baseMethods)
-        {
-            const string baseFilePath = @"..\..\..\Root\MusicBeeApi\Abstract\IBaseMusicBeeApi.cs";
-
-            var builder = componentContext.Resolve<IInterfaceBuilder>();
-            builder.Namespace = "Root.MusicBeeApi.Abstract";
-            builder.Name = "IBaseMusicBeeApi";
-            var baseLines = builder
-                .GenerateInterfaceLines(baseMethods);
-            File.WriteAllLines(baseFilePath, baseLines);
-        }
-
-        private static void GenerateExtendedInterface(
-            IComponentContext componentContext,
-            IReadOnlyCollection<MBApiMethodDefinition> extendedMethods)
-        {
-            const string extendedFilePath = @"..\..\..\Root\MusicBeeApi\Abstract\IMusicBeeApi.cs";
-
-            var builder = componentContext.Resolve<IInterfaceBuilder>();
-            builder.ImportNamespaces = new[]
-            {
-                "System",
-                "System.Drawing",
-                "System.Threading",
-                "System.Windows.Forms",
-            };
-            builder.Namespace = "Root.MusicBeeApi.Abstract";
-            builder.Name = "IMusicBeeApi";
-            builder.BaseInterface = "IBaseMusicBeeApi";
-
-            var extendedLines = builder
-                .GenerateInterfaceLines(extendedMethods);
-            File.WriteAllLines(extendedFilePath, extendedLines);
         }
 
         private static void GenerateClientWrapper(

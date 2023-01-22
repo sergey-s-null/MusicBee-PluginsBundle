@@ -22,9 +22,6 @@ namespace CodeGenerator
                 .SingleInstance();
 
             builder
-                .RegisterType<InterfaceBuilder>()
-                .As<IInterfaceBuilder>();
-            builder
                 .RegisterType<MethodDefinitionBuilder>()
                 .As<IMethodDefinitionBuilder>()
                 .SingleInstance();

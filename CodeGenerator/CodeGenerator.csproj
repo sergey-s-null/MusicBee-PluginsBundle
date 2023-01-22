@@ -43,13 +43,11 @@
   <ItemGroup>
     <Compile Include="ApplicationContainer.cs" />
     <Compile Include="Builders\Abstract\IClientWrapperBuilder.cs" />
-    <Compile Include="Builders\Abstract\IInterfaceBuilder.cs" />
     <Compile Include="Builders\Abstract\IMemoryContainerWrapperBuilder.cs" />
     <Compile Include="Builders\Abstract\IMessageTypesBuilder.cs" />
     <Compile Include="Builders\Abstract\IMethodDefinitionBuilder.cs" />
     <Compile Include="Builders\ClientWrapperBuilder.cs" />
     <Compile Include="Builders\CsProjProtobufBuilder.cs" />
-    <Compile Include="Builders\InterfaceBuilder.cs" />
     <Compile Include="Builders\MemoryContainerWrapperBuilder.cs" />
     <Compile Include="Builders\MessageTypesBuilder.cs" />
     <Compile Include="Builders\MethodDefinitionBuilder.cs" />
