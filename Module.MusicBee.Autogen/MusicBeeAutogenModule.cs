@@ -1,6 +1,6 @@
 ﻿using Autofac;
+using Module.MusicBee.Autogen.Services;
 using Module.MusicBee.Autogen.Services.Abstract;
-using Module.MusicBee.Services;
 
 namespace Module.MusicBee.Autogen;
 
