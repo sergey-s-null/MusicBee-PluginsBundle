@@ -4,6 +4,7 @@ using Module.AudioSourcesComparer;
 using Module.DataExporter;
 using Module.InboxAdder;
 using Module.MusicBee;
+using Module.MusicBee.Autogen;
 using Module.MusicBee.Extension;
 using Module.MusicBee.Services;
 using Module.PlaylistsExporter;
@@ -12,6 +13,7 @@ using Module.VkAudioDownloader;
 using MusicBeePlugin.GUI.ViewModels;
 using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
+using Newtonsoft.Json.Linq;
 using Root.Services.Abstract;
 
 namespace MusicBeePlugin
@@ -26,7 +28,7 @@ namespace MusicBeePlugin
                 .Register(_ => mbApiMemoryContainer)
                 .AsSelf();
 
-            builder.RegisterModule<MusicBeeModule>();
+            builder.RegisterModule<MusicBeeAutogenModule>();
             builder.RegisterModule<MusicBeeExtensionModule>();
             builder.RegisterModule(new VkModule(true));
             builder.RegisterModule<MusicDownloaderModule>();
