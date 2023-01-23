@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Module.MusicBee.Autogen.Services.Abstract;
 using Module.MusicBee.Enums;
 using Module.MusicBee.Extension.Helpers;
-using Module.MusicBee.Services.Abstract;
 
 namespace Module.InboxAdder.Services
 {

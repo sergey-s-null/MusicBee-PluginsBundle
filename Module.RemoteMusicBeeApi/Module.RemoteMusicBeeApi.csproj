@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <LangVersion>9</LangVersion>
+    <LangVersion>11</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -49,7 +49,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MusicBeeApiServiceImpl.cs" />
+    <Compile Include="MusicBeeApiServiceImpl.cs">
+      <DependentUpon>MusicBeeApiServiceImpl.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -67,9 +69,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MusicBeeApiServiceImpl.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MusicBeeApiServiceImpl.cs</LastGenOutput>
+    </Content>
     <Content Include="paket.references" />
+    <Content Include="Protos\MusicBeeApiService.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MusicBeeApiService.proto</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj">
+      <Project>{fcab066f-2f59-4e30-92d4-f251865b6ea1}</Project>
+      <Name>Module.MusicBee.Autogen</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module.MusicBee.MetaInfo\Module.MusicBee.MetaInfo.csproj">
+      <Project>{eb77e965-7a03-4dd0-a78b-c3a78cfa2f10}</Project>
+      <Name>Module.MusicBee.MetaInfo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Module.MusicBee\Module.MusicBee.csproj">
       <Project>{055ec659-45ea-4971-8195-32aac0061c73}</Project>
       <Name>Module.MusicBee</Name>
@@ -82,6 +100,7 @@
   <ItemGroup>
     <Protobuf Include="Protos\MusicBeeApiService.proto">
       <GrpcServices>Server</GrpcServices>
+      <DependentUpon>MusicBeeApiService.tt</DependentUpon>
     </Protobuf>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

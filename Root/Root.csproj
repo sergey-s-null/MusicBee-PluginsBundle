@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\ReverseComparer.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="GUI\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="GUI\Converters\DefaultMultiValueConverter.cs" />
     <Compile Include="GUI\Converters\EqualTypesConverter.cs" />

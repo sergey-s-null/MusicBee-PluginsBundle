@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Module.MusicBee;
+using Module.MusicBee.Autogen;
 using Module.MusicBee.Services;
 
 namespace MusicBeePlugin
@@ -14,7 +14,7 @@ namespace MusicBeePlugin
                 .Register(_ => mbApiMemoryContainer)
                 .AsSelf();
 
-            builder.RegisterModule<MusicBeeModule>();
+            builder.RegisterModule<MusicBeeAutogenModule>();
 
             return builder.Build();
         }

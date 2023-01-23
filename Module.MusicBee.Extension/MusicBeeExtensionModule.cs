@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Module.MusicBee.Autogen;
 using Module.MusicBee.Extension.Services;
 using Module.MusicBee.Extension.Services.Abstract;
 
@@ -8,7 +9,7 @@ public class MusicBeeExtensionModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterModule<MusicBeeModule>();
+        builder.RegisterModule<MusicBeeAutogenModule>();
 
         builder
             .RegisterType<ResourceManager>()
