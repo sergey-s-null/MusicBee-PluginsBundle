@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Module.MusicBee.Autogen.Services.Abstract;
 using Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
 using Module.MusicBee.Extension.LibraryApi.Exceptions;
 using Module.MusicBee.Extension.LibraryApi.Factories.Abstract;
 using Module.MusicBee.Extension.LibraryApi.Services.Abstract;
-using Module.MusicBee.Services.Abstract;
 
 namespace Module.MusicBee.Extension.LibraryApi.Services;
 

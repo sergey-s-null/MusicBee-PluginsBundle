@@ -84,6 +84,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj">
+      <Project>{fcab066f-2f59-4e30-92d4-f251865b6ea1}</Project>
+      <Name>Module.MusicBee.Autogen</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Module.MusicBee.Extension\Module.MusicBee.Extension.csproj">
       <Project>{54c4f9fe-93e4-4895-a34b-9002a1a1fe6c}</Project>
       <Name>Module.MusicBee.Extension</Name>

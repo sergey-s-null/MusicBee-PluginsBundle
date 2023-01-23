@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Module.DataExporter.Exceptions;
+using Module.MusicBee.Autogen.Services.Abstract;
 using Module.MusicBee.Enums;
-using Module.MusicBee.Services.Abstract;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
