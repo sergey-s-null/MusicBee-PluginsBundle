@@ -30,11 +30,11 @@ namespace Module.RemoteMusicBeeApi
 {
     public sealed class MusicBeeApiServiceImpl : MusicBeeApiService.MusicBeeApiServiceBase
     {
-        private readonly IBaseMusicBeeApi _mbApi;
+        private readonly IMusicBeeApi _musicBeeApi;
 
-        public MusicBeeApiServiceImpl(IBaseMusicBeeApi mbApi)
+        public MusicBeeApiServiceImpl(IMusicBeeApi musicBeeApi)
         {
-            _mbApi = mbApi;
+            _musicBeeApi = musicBeeApi;
         }
 <#
     foreach (var method in _methods)
@@ -52,13 +52,13 @@ namespace Module.RemoteMusicBeeApi
         if (method.HasReturnType())
         {
 #>
-                var result = _mbApi.<#= method.Name #>(<#= arguments #>);
+                var result = _musicBeeApi.<#= method.Name #>(<#= arguments #>);
 <#
         }
         else
         {
 #>
-                _mbApi.<#= method.Name #>(<#= arguments #>);
+                _musicBeeApi.<#= method.Name #>(<#= arguments #>);
 <#
         }
 
