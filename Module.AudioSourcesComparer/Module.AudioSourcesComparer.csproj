@@ -127,6 +127,10 @@
       <Project>{eb57dcef-633c-478c-b339-f3d7e5893309}</Project>
       <Name>Module.Mvvm.Extension</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Module.Settings\Module.Settings.csproj">
+      <Project>{06fbda15-050a-4b18-8ce2-6a306b84d45d}</Project>
+      <Name>Module.Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Module.Vk\Module.Vk.csproj">
       <Project>{ae3df3fe-ccca-4879-ab08-e1aeb9807e69}</Project>
       <Name>Module.Vk</Name>
