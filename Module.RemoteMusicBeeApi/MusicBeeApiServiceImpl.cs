@@ -47,7 +47,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_GetPersistentStoragePath();
-                return new Setting_GetPersistentStoragePath_Response()
+                return new Setting_GetPersistentStoragePath_Response
                 {
                     Result = result,
                 };
@@ -59,7 +59,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_GetSkin();
-                return new Setting_GetSkin_Response()
+                return new Setting_GetSkin_Response
                 {
                     Result = result,
                 };
@@ -71,7 +71,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_GetSkinElementColour((SkinElement)request.Element, (ElementState)request.State, (ElementComponent)request.Component);
-                return new Setting_GetSkinElementColour_Response()
+                return new Setting_GetSkinElementColour_Response
                 {
                     Result = result,
                 };
@@ -83,7 +83,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_IsWindowBordersSkinned();
-                return new Setting_IsWindowBordersSkinned_Response()
+                return new Setting_IsWindowBordersSkinned_Response
                 {
                     Result = result,
                 };
@@ -95,7 +95,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetFileProperty(request.SourceFileUrl, (FilePropertyType)request.Type);
-                return new Library_GetFileProperty_Response()
+                return new Library_GetFileProperty_Response
                 {
                     Result = result,
                 };
@@ -107,7 +107,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetFileTag(request.SourceFileUrl, (MetaDataType)request.Field);
-                return new Library_GetFileTag_Response()
+                return new Library_GetFileTag_Response
                 {
                     Result = result,
                 };
@@ -119,7 +119,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_SetFileTag(request.SourceFileUrl, (MetaDataType)request.Field, request.Value);
-                return new Library_SetFileTag_Response()
+                return new Library_SetFileTag_Response
                 {
                     Result = result,
                 };
@@ -131,7 +131,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_CommitTagsToFile(request.SourceFileUrl);
-                return new Library_CommitTagsToFile_Response()
+                return new Library_CommitTagsToFile_Response
                 {
                     Result = result,
                 };
@@ -143,7 +143,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetLyrics(request.SourceFileUrl, (LyricsType)request.Type);
-                return new Library_GetLyrics_Response()
+                return new Library_GetLyrics_Response
                 {
                     Result = result,
                 };
@@ -155,7 +155,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_QueryFiles(request.Query);
-                return new Library_QueryFiles_Response()
+                return new Library_QueryFiles_Response
                 {
                     Result = result,
                 };
@@ -167,7 +167,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_QueryGetNextFile();
-                return new Library_QueryGetNextFile_Response()
+                return new Library_QueryGetNextFile_Response
                 {
                     Result = result,
                 };
@@ -179,7 +179,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetPosition();
-                return new Player_GetPosition_Response()
+                return new Player_GetPosition_Response
                 {
                     Result = result,
                 };
@@ -191,7 +191,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetPosition(request.Position);
-                return new Player_SetPosition_Response()
+                return new Player_SetPosition_Response
                 {
                     Result = result,
                 };
@@ -203,7 +203,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetPlayState();
-                return new Player_GetPlayState_Response()
+                return new Player_GetPlayState_Response
                 {
                     Result = (int)result,
                 };
@@ -215,7 +215,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_PlayPause();
-                return new Player_PlayPause_Response()
+                return new Player_PlayPause_Response
                 {
                     Result = result,
                 };
@@ -227,7 +227,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_Stop();
-                return new Player_Stop_Response()
+                return new Player_Stop_Response
                 {
                     Result = result,
                 };
@@ -239,7 +239,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_StopAfterCurrent();
-                return new Player_StopAfterCurrent_Response()
+                return new Player_StopAfterCurrent_Response
                 {
                     Result = result,
                 };
@@ -251,7 +251,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_PlayPreviousTrack();
-                return new Player_PlayPreviousTrack_Response()
+                return new Player_PlayPreviousTrack_Response
                 {
                     Result = result,
                 };
@@ -263,7 +263,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_PlayNextTrack();
-                return new Player_PlayNextTrack_Response()
+                return new Player_PlayNextTrack_Response
                 {
                     Result = result,
                 };
@@ -275,7 +275,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_StartAutoDj();
-                return new Player_StartAutoDj_Response()
+                return new Player_StartAutoDj_Response
                 {
                     Result = result,
                 };
@@ -287,7 +287,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_EndAutoDj();
-                return new Player_EndAutoDj_Response()
+                return new Player_EndAutoDj_Response
                 {
                     Result = result,
                 };
@@ -299,7 +299,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetVolume();
-                return new Player_GetVolume_Response()
+                return new Player_GetVolume_Response
                 {
                     Result = result,
                 };
@@ -311,7 +311,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetVolume(request.Volume);
-                return new Player_SetVolume_Response()
+                return new Player_SetVolume_Response
                 {
                     Result = result,
                 };
@@ -323,7 +323,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetMute();
-                return new Player_GetMute_Response()
+                return new Player_GetMute_Response
                 {
                     Result = result,
                 };
@@ -335,7 +335,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetMute(request.Mute);
-                return new Player_SetMute_Response()
+                return new Player_SetMute_Response
                 {
                     Result = result,
                 };
@@ -347,7 +347,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetShuffle();
-                return new Player_GetShuffle_Response()
+                return new Player_GetShuffle_Response
                 {
                     Result = result,
                 };
@@ -359,7 +359,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetShuffle(request.Shuffle);
-                return new Player_SetShuffle_Response()
+                return new Player_SetShuffle_Response
                 {
                     Result = result,
                 };
@@ -371,7 +371,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetRepeat();
-                return new Player_GetRepeat_Response()
+                return new Player_GetRepeat_Response
                 {
                     Result = (int)result,
                 };
@@ -383,7 +383,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetRepeat((RepeatMode)request.Repeat);
-                return new Player_SetRepeat_Response()
+                return new Player_SetRepeat_Response
                 {
                     Result = result,
                 };
@@ -395,7 +395,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetEqualiserEnabled();
-                return new Player_GetEqualiserEnabled_Response()
+                return new Player_GetEqualiserEnabled_Response
                 {
                     Result = result,
                 };
@@ -407,7 +407,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetEqualiserEnabled(request.Enabled);
-                return new Player_SetEqualiserEnabled_Response()
+                return new Player_SetEqualiserEnabled_Response
                 {
                     Result = result,
                 };
@@ -419,7 +419,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetDspEnabled();
-                return new Player_GetDspEnabled_Response()
+                return new Player_GetDspEnabled_Response
                 {
                     Result = result,
                 };
@@ -431,7 +431,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetDspEnabled(request.Enabled);
-                return new Player_SetDspEnabled_Response()
+                return new Player_SetDspEnabled_Response
                 {
                     Result = result,
                 };
@@ -443,7 +443,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetScrobbleEnabled();
-                return new Player_GetScrobbleEnabled_Response()
+                return new Player_GetScrobbleEnabled_Response
                 {
                     Result = result,
                 };
@@ -455,7 +455,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetScrobbleEnabled(request.Enabled);
-                return new Player_SetScrobbleEnabled_Response()
+                return new Player_SetScrobbleEnabled_Response
                 {
                     Result = result,
                 };
@@ -467,7 +467,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetFileUrl();
-                return new NowPlaying_GetFileUrl_Response()
+                return new NowPlaying_GetFileUrl_Response
                 {
                     Result = result,
                 };
@@ -479,7 +479,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetDuration();
-                return new NowPlaying_GetDuration_Response()
+                return new NowPlaying_GetDuration_Response
                 {
                     Result = result,
                 };
@@ -491,7 +491,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetFileProperty((FilePropertyType)request.Type);
-                return new NowPlaying_GetFileProperty_Response()
+                return new NowPlaying_GetFileProperty_Response
                 {
                     Result = result,
                 };
@@ -503,7 +503,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetFileTag((MetaDataType)request.Field);
-                return new NowPlaying_GetFileTag_Response()
+                return new NowPlaying_GetFileTag_Response
                 {
                     Result = result,
                 };
@@ -515,7 +515,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetLyrics();
-                return new NowPlaying_GetLyrics_Response()
+                return new NowPlaying_GetLyrics_Response
                 {
                     Result = result,
                 };
@@ -527,7 +527,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetArtwork();
-                return new NowPlaying_GetArtwork_Response()
+                return new NowPlaying_GetArtwork_Response
                 {
                     Result = result,
                 };
@@ -539,7 +539,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_Clear();
-                return new NowPlayingList_Clear_Response()
+                return new NowPlayingList_Clear_Response
                 {
                     Result = result,
                 };
@@ -551,7 +551,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_QueryFiles(request.Query);
-                return new NowPlayingList_QueryFiles_Response()
+                return new NowPlayingList_QueryFiles_Response
                 {
                     Result = result,
                 };
@@ -563,7 +563,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_QueryGetNextFile();
-                return new NowPlayingList_QueryGetNextFile_Response()
+                return new NowPlayingList_QueryGetNextFile_Response
                 {
                     Result = result,
                 };
@@ -575,7 +575,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_PlayNow(request.SourceFileUrl);
-                return new NowPlayingList_PlayNow_Response()
+                return new NowPlayingList_PlayNow_Response
                 {
                     Result = result,
                 };
@@ -587,7 +587,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_QueueNext(request.SourceFileUrl);
-                return new NowPlayingList_QueueNext_Response()
+                return new NowPlayingList_QueueNext_Response
                 {
                     Result = result,
                 };
@@ -599,7 +599,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_QueueLast(request.SourceFileUrl);
-                return new NowPlayingList_QueueLast_Response()
+                return new NowPlayingList_QueueLast_Response
                 {
                     Result = result,
                 };
@@ -611,7 +611,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_PlayLibraryShuffled();
-                return new NowPlayingList_PlayLibraryShuffled_Response()
+                return new NowPlayingList_PlayLibraryShuffled_Response
                 {
                     Result = result,
                 };
@@ -623,7 +623,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_QueryPlaylists();
-                return new Playlist_QueryPlaylists_Response()
+                return new Playlist_QueryPlaylists_Response
                 {
                     Result = result,
                 };
@@ -635,7 +635,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_QueryGetNextPlaylist();
-                return new Playlist_QueryGetNextPlaylist_Response()
+                return new Playlist_QueryGetNextPlaylist_Response
                 {
                     Result = result,
                 };
@@ -647,7 +647,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_GetType(request.PlaylistUrl);
-                return new Playlist_GetType_Response()
+                return new Playlist_GetType_Response
                 {
                     Result = (int)result,
                 };
@@ -659,7 +659,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_QueryFiles(request.PlaylistUrl);
-                return new Playlist_QueryFiles_Response()
+                return new Playlist_QueryFiles_Response
                 {
                     Result = result,
                 };
@@ -671,7 +671,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_QueryGetNextFile();
-                return new Playlist_QueryGetNextFile_Response()
+                return new Playlist_QueryGetNextFile_Response
                 {
                     Result = result,
                 };
@@ -701,7 +701,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_GetFieldName((MetaDataType)request.Field);
-                return new Setting_GetFieldName_Response()
+                return new Setting_GetFieldName_Response
                 {
                     Result = result,
                 };
@@ -722,7 +722,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetShowTimeRemaining();
-                return new Player_GetShowTimeRemaining_Response()
+                return new Player_GetShowTimeRemaining_Response
                 {
                     Result = result,
                 };
@@ -734,7 +734,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_GetCurrentIndex();
-                return new NowPlayingList_GetCurrentIndex_Response()
+                return new NowPlayingList_GetCurrentIndex_Response
                 {
                     Result = result,
                 };
@@ -746,7 +746,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_GetListFileUrl(request.Index);
-                return new NowPlayingList_GetListFileUrl_Response()
+                return new NowPlayingList_GetListFileUrl_Response
                 {
                     Result = result,
                 };
@@ -758,7 +758,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_GetFileProperty(request.Index, (FilePropertyType)request.Type);
-                return new NowPlayingList_GetFileProperty_Response()
+                return new NowPlayingList_GetFileProperty_Response
                 {
                     Result = result,
                 };
@@ -770,7 +770,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_GetFileTag(request.Index, (MetaDataType)request.Field);
-                return new NowPlayingList_GetFileTag_Response()
+                return new NowPlayingList_GetFileTag_Response
                 {
                     Result = result,
                 };
@@ -782,7 +782,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetSpectrumData(request.FftData.ToArray());
-                return new NowPlaying_GetSpectrumData_Response()
+                return new NowPlaying_GetSpectrumData_Response
                 {
                     Result = result,
                 };
@@ -794,7 +794,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetSoundGraph(request.GraphData.ToArray());
-                return new NowPlaying_GetSoundGraph_Response()
+                return new NowPlaying_GetSoundGraph_Response
                 {
                     Result = result,
                 };
@@ -806,7 +806,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_GetLocalisation(request.Id, request.DefaultText);
-                return new MB_GetLocalisation_Response()
+                return new MB_GetLocalisation_Response
                 {
                     Result = result,
                 };
@@ -818,7 +818,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_IsAnyPriorTracks();
-                return new NowPlayingList_IsAnyPriorTracks_Response()
+                return new NowPlayingList_IsAnyPriorTracks_Response
                 {
                     Result = result,
                 };
@@ -830,7 +830,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_ShowEqualiser();
-                return new Player_ShowEqualiser_Response()
+                return new Player_ShowEqualiser_Response
                 {
                     Result = result,
                 };
@@ -842,7 +842,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetAutoDjEnabled();
-                return new Player_GetAutoDjEnabled_Response()
+                return new Player_GetAutoDjEnabled_Response
                 {
                     Result = result,
                 };
@@ -854,7 +854,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetStopAfterCurrentEnabled();
-                return new Player_GetStopAfterCurrentEnabled_Response()
+                return new Player_GetStopAfterCurrentEnabled_Response
                 {
                     Result = result,
                 };
@@ -866,7 +866,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetCrossfade();
-                return new Player_GetCrossfade_Response()
+                return new Player_GetCrossfade_Response
                 {
                     Result = result,
                 };
@@ -878,7 +878,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetCrossfade(request.Crossfade);
-                return new Player_SetCrossfade_Response()
+                return new Player_SetCrossfade_Response
                 {
                     Result = result,
                 };
@@ -890,7 +890,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetReplayGainMode();
-                return new Player_GetReplayGainMode_Response()
+                return new Player_GetReplayGainMode_Response
                 {
                     Result = (int)result,
                 };
@@ -902,7 +902,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetReplayGainMode((ReplayGainMode)request.Mode);
-                return new Player_SetReplayGainMode_Response()
+                return new Player_SetReplayGainMode_Response
                 {
                     Result = result,
                 };
@@ -914,7 +914,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_QueueRandomTracks(request.Count);
-                return new Player_QueueRandomTracks_Response()
+                return new Player_QueueRandomTracks_Response
                 {
                     Result = result,
                 };
@@ -926,7 +926,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_GetDataType((MetaDataType)request.Field);
-                return new Setting_GetDataType_Response()
+                return new Setting_GetDataType_Response
                 {
                     Result = (int)result,
                 };
@@ -938,7 +938,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_GetNextIndex(request.Offset);
-                return new NowPlayingList_GetNextIndex_Response()
+                return new NowPlayingList_GetNextIndex_Response
                 {
                     Result = result,
                 };
@@ -950,7 +950,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetArtistPicture(request.FadingPercent);
-                return new NowPlaying_GetArtistPicture_Response()
+                return new NowPlaying_GetArtistPicture_Response
                 {
                     Result = result,
                 };
@@ -962,7 +962,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetDownloadedArtwork();
-                return new NowPlaying_GetDownloadedArtwork_Response()
+                return new NowPlaying_GetDownloadedArtwork_Response
                 {
                     Result = result,
                 };
@@ -974,7 +974,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_ShowNowPlayingAssistant();
-                return new MB_ShowNowPlayingAssistant_Response()
+                return new MB_ShowNowPlayingAssistant_Response
                 {
                     Result = result,
                 };
@@ -986,7 +986,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetDownloadedLyrics();
-                return new NowPlaying_GetDownloadedLyrics_Response()
+                return new NowPlaying_GetDownloadedLyrics_Response
                 {
                     Result = result,
                 };
@@ -998,7 +998,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetShowRatingTrack();
-                return new Player_GetShowRatingTrack_Response()
+                return new Player_GetShowRatingTrack_Response
                 {
                     Result = result,
                 };
@@ -1010,7 +1010,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetShowRatingLove();
-                return new Player_GetShowRatingLove_Response()
+                return new Player_GetShowRatingLove_Response
                 {
                     Result = result,
                 };
@@ -1022,7 +1022,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_GetLastFmUserId();
-                return new Setting_GetLastFmUserId_Response()
+                return new Setting_GetLastFmUserId_Response
                 {
                     Result = result,
                 };
@@ -1034,7 +1034,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_GetName(request.PlaylistUrl);
-                return new Playlist_GetName_Response()
+                return new Playlist_GetName_Response
                 {
                     Result = result,
                 };
@@ -1046,7 +1046,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_CreatePlaylist(request.FolderName, request.PlaylistName, request.Filenames.ToArray());
-                return new Playlist_CreatePlaylist_Response()
+                return new Playlist_CreatePlaylist_Response
                 {
                     Result = result,
                 };
@@ -1058,7 +1058,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_SetFiles(request.PlaylistUrl, request.Filenames.ToArray());
-                return new Playlist_SetFiles_Response()
+                return new Playlist_SetFiles_Response
                 {
                     Result = result,
                 };
@@ -1070,7 +1070,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_QuerySimilarArtists(request.ArtistName, request.MinimumArtistSimilarityRating);
-                return new Library_QuerySimilarArtists_Response()
+                return new Library_QuerySimilarArtists_Response
                 {
                     Result = result,
                 };
@@ -1082,7 +1082,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_QueryLookupTable(request.KeyTags, request.ValueTags, request.Query);
-                return new Library_QueryLookupTable_Response()
+                return new Library_QueryLookupTable_Response
                 {
                     Result = result,
                 };
@@ -1094,7 +1094,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_QueryGetLookupTableValue(request.Key);
-                return new Library_QueryGetLookupTableValue_Response()
+                return new Library_QueryGetLookupTableValue_Response
                 {
                     Result = result,
                 };
@@ -1106,7 +1106,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_QueueFilesNext(request.SourceFileUrl.ToArray());
-                return new NowPlayingList_QueueFilesNext_Response()
+                return new NowPlayingList_QueueFilesNext_Response
                 {
                     Result = result,
                 };
@@ -1118,7 +1118,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_QueueFilesLast(request.SourceFileUrl.ToArray());
-                return new NowPlayingList_QueueFilesLast_Response()
+                return new NowPlayingList_QueueFilesLast_Response
                 {
                     Result = result,
                 };
@@ -1130,7 +1130,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_GetWebProxy();
-                return new Setting_GetWebProxy_Response()
+                return new Setting_GetWebProxy_Response
                 {
                     Result = result,
                 };
@@ -1142,7 +1142,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_RemoveAt(request.Index);
-                return new NowPlayingList_RemoveAt_Response()
+                return new NowPlayingList_RemoveAt_Response
                 {
                     Result = result,
                 };
@@ -1154,7 +1154,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_RemoveAt(request.PlaylistUrl, request.Index);
-                return new Playlist_RemoveAt_Response()
+                return new Playlist_RemoveAt_Response
                 {
                     Result = result,
                 };
@@ -1166,7 +1166,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_OpenFilterInTab((MetaDataType)request.Field1, (ComparisonType)request.Comparison1, request.Value1, (MetaDataType)request.Field2, (ComparisonType)request.Comparison2, request.Value2);
-                return new MB_OpenFilterInTab_Response()
+                return new MB_OpenFilterInTab_Response
                 {
                     Result = result,
                 };
@@ -1178,7 +1178,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_SetWindowSize(request.Width, request.Height);
-                return new MB_SetWindowSize_Response()
+                return new MB_SetWindowSize_Response
                 {
                     Result = result,
                 };
@@ -1190,7 +1190,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetArtistPicture(request.ArtistName, request.FadingPercent, request.FadingColor);
-                return new Library_GetArtistPicture_Response()
+                return new Library_GetArtistPicture_Response
                 {
                     Result = result,
                 };
@@ -1202,7 +1202,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Pending_GetFileUrl();
-                return new Pending_GetFileUrl_Response()
+                return new Pending_GetFileUrl_Response
                 {
                     Result = result,
                 };
@@ -1214,7 +1214,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Pending_GetFileProperty((FilePropertyType)request.Field);
-                return new Pending_GetFileProperty_Response()
+                return new Pending_GetFileProperty_Response
                 {
                     Result = result,
                 };
@@ -1226,7 +1226,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Pending_GetFileTag((MetaDataType)request.Field);
-                return new Pending_GetFileTag_Response()
+                return new Pending_GetFileTag_Response
                 {
                     Result = result,
                 };
@@ -1238,7 +1238,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetButtonEnabled((PlayButtonType)request.Button);
-                return new Player_GetButtonEnabled_Response()
+                return new Player_GetButtonEnabled_Response
                 {
                     Result = result,
                 };
@@ -1250,7 +1250,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_MoveFiles(request.FromIndices.ToArray(), request.ToIndex);
-                return new NowPlayingList_MoveFiles_Response()
+                return new NowPlayingList_MoveFiles_Response
                 {
                     Result = result,
                 };
@@ -1262,7 +1262,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetArtworkUrl(request.SourceFileUrl, request.Index);
-                return new Library_GetArtworkUrl_Response()
+                return new Library_GetArtworkUrl_Response
                 {
                     Result = result,
                 };
@@ -1274,7 +1274,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetArtistPictureThumb(request.ArtistName);
-                return new Library_GetArtistPictureThumb_Response()
+                return new Library_GetArtistPictureThumb_Response
                 {
                     Result = result,
                 };
@@ -1286,7 +1286,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetArtworkUrl();
-                return new NowPlaying_GetArtworkUrl_Response()
+                return new NowPlaying_GetArtworkUrl_Response
                 {
                     Result = result,
                 };
@@ -1298,7 +1298,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetDownloadedArtworkUrl();
-                return new NowPlaying_GetDownloadedArtworkUrl_Response()
+                return new NowPlaying_GetDownloadedArtworkUrl_Response
                 {
                     Result = result,
                 };
@@ -1310,7 +1310,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetArtistPictureThumb();
-                return new NowPlaying_GetArtistPictureThumb_Response()
+                return new NowPlaying_GetArtistPictureThumb_Response
                 {
                     Result = result,
                 };
@@ -1322,7 +1322,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_IsInList(request.PlaylistUrl, request.Filename);
-                return new Playlist_IsInList_Response()
+                return new Playlist_IsInList_Response
                 {
                     Result = result,
                 };
@@ -1334,7 +1334,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetArtistPictureUrls(request.ArtistName, request.LocalOnly, out var urls);
-                return new Library_GetArtistPictureUrls_Response()
+                return new Library_GetArtistPictureUrls_Response
                 {
                     Result = result,
                     Urls = { urls },
@@ -1347,7 +1347,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetArtistPictureUrls(request.LocalOnly, out var urls);
-                return new NowPlaying_GetArtistPictureUrls_Response()
+                return new NowPlaying_GetArtistPictureUrls_Response
                 {
                     Result = result,
                     Urls = { urls },
@@ -1360,7 +1360,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_AppendFiles(request.PlaylistUrl, request.Filenames.ToArray());
-                return new Playlist_AppendFiles_Response()
+                return new Playlist_AppendFiles_Response
                 {
                     Result = result,
                 };
@@ -1372,7 +1372,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Sync_FileStart(request.Filename);
-                return new Sync_FileStart_Response()
+                return new Sync_FileStart_Response
                 {
                     Result = result,
                 };
@@ -1393,7 +1393,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_QueryFilesEx(request.Query, out var files);
-                return new Library_QueryFilesEx_Response()
+                return new Library_QueryFilesEx_Response
                 {
                     Result = result,
                     Files = { files ?? Array.Empty<string>() },
@@ -1406,7 +1406,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_QueryFilesEx(request.Query, out var files);
-                return new NowPlayingList_QueryFilesEx_Response()
+                return new NowPlayingList_QueryFilesEx_Response
                 {
                     Result = result,
                     Files = { files ?? Array.Empty<string>() },
@@ -1419,7 +1419,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_QueryFilesEx(request.PlaylistUrl, out var filenames);
-                return new Playlist_QueryFilesEx_Response()
+                return new Playlist_QueryFilesEx_Response
                 {
                     Result = result,
                     Filenames = { filenames },
@@ -1432,7 +1432,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_MoveFiles(request.PlaylistUrl, request.FromIndices.ToArray(), request.ToIndex);
-                return new Playlist_MoveFiles_Response()
+                return new Playlist_MoveFiles_Response
                 {
                     Result = result,
                 };
@@ -1444,7 +1444,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_PlayNow(request.PlaylistUrl);
-                return new Playlist_PlayNow_Response()
+                return new Playlist_PlayNow_Response
                 {
                     Result = result,
                 };
@@ -1456,7 +1456,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_IsSoundtrack();
-                return new NowPlaying_IsSoundtrack_Response()
+                return new NowPlaying_IsSoundtrack_Response
                 {
                     Result = result,
                 };
@@ -1468,7 +1468,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetSoundtrackPictureUrls(request.LocalOnly, out var urls);
-                return new NowPlaying_GetSoundtrackPictureUrls_Response()
+                return new NowPlaying_GetSoundtrackPictureUrls_Response
                 {
                     Result = result,
                     Urls = { urls },
@@ -1481,7 +1481,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetDevicePersistentId(request.SourceFileUrl, (DeviceIdType)request.IdType);
-                return new Library_GetDevicePersistentId_Response()
+                return new Library_GetDevicePersistentId_Response
                 {
                     Result = result,
                 };
@@ -1493,7 +1493,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_SetDevicePersistentId(request.SourceFileUrl, (DeviceIdType)request.IdType, request.Value);
-                return new Library_SetDevicePersistentId_Response()
+                return new Library_SetDevicePersistentId_Response
                 {
                     Result = result,
                 };
@@ -1505,7 +1505,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_FindDevicePersistentId((DeviceIdType)request.IdType, request.Ids.ToArray(), out var values);
-                return new Library_FindDevicePersistentId_Response()
+                return new Library_FindDevicePersistentId_Response
                 {
                     Result = result,
                     Values = { values },
@@ -1518,7 +1518,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_AddFileToLibrary(request.SourceFileUrl, (LibraryCategory)request.Category);
-                return new Library_AddFileToLibrary_Response()
+                return new Library_AddFileToLibrary_Response
                 {
                     Result = result,
                 };
@@ -1530,7 +1530,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Playlist_DeletePlaylist(request.PlaylistUrl);
-                return new Playlist_DeletePlaylist_Response()
+                return new Playlist_DeletePlaylist_Response
                 {
                     Result = result,
                 };
@@ -1542,7 +1542,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetFileTags(request.SourceFileUrl, request.Fields.Cast<MetaDataType>().ToArray(), out var results);
-                return new Library_GetFileTags_Response()
+                return new Library_GetFileTags_Response
                 {
                     Result = result,
                     Results = { results },
@@ -1555,7 +1555,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetFileTags(request.Fields.Cast<MetaDataType>().ToArray(), out var results);
-                return new NowPlaying_GetFileTags_Response()
+                return new NowPlaying_GetFileTags_Response
                 {
                     Result = result,
                     Results = { results },
@@ -1568,7 +1568,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlayingList_GetFileTags(request.Index, request.Fields.Cast<MetaDataType>().ToArray(), out var results);
-                return new NowPlayingList_GetFileTags_Response()
+                return new NowPlayingList_GetFileTags_Response
                 {
                     Result = result,
                     Results = { results },
@@ -1581,7 +1581,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_DownloadFile(request.Url, (DownloadTarget)request.Target, request.TargetFolder, request.CancelDownload);
-                return new MB_DownloadFile_Response()
+                return new MB_DownloadFile_Response
                 {
                     Result = result,
                 };
@@ -1593,7 +1593,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Setting_GetFileConvertCommandLine((FileCodec)request.Codec, (EncodeQuality)request.EncodeQuality);
-                return new Setting_GetFileConvertCommandLine_Response()
+                return new Setting_GetFileConvertCommandLine_Response
                 {
                     Result = result,
                 };
@@ -1605,7 +1605,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_OpenStreamHandle(request.Url, request.UseMusicBeeSettings, request.EnableDsp, (ReplayGainMode)request.GainType);
-                return new Player_OpenStreamHandle_Response()
+                return new Player_OpenStreamHandle_Response
                 {
                     Result = result,
                 };
@@ -1617,7 +1617,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_UpdatePlayStatistics(request.Url, (PlayStatisticType)request.CountType, request.DisableScrobble);
-                return new Player_UpdatePlayStatistics_Response()
+                return new Player_UpdatePlayStatistics_Response
                 {
                     Result = result,
                 };
@@ -1629,7 +1629,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_GetArtworkEx(request.SourceFileUrl, request.Index, request.RetrievePictureData, out var pictureLocations, out var pictureUrl, out var imageData);
-                return new Library_GetArtworkEx_Response()
+                return new Library_GetArtworkEx_Response
                 {
                     Result = result,
                     PictureLocations = (int)pictureLocations,
@@ -1644,7 +1644,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Library_SetArtworkEx(request.SourceFileUrl, request.Index, request.ImageData.ToByteArray());
-                return new Library_SetArtworkEx_Response()
+                return new Library_SetArtworkEx_Response
                 {
                     Result = result,
                 };
@@ -1656,7 +1656,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_GetVisualiserInformation(out var visualiserNames, out var defaultVisualiserName, out var defaultState, out var currentState);
-                return new MB_GetVisualiserInformation_Response()
+                return new MB_GetVisualiserInformation_Response
                 {
                     Result = result,
                     VisualiserNames = { visualiserNames },
@@ -1672,7 +1672,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_ShowVisualiser(request.VisualiserName, (WindowState)request.State);
-                return new MB_ShowVisualiser_Response()
+                return new MB_ShowVisualiser_Response
                 {
                     Result = result,
                 };
@@ -1684,7 +1684,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_GetPluginViewInformation(request.PluginFilename, out var viewNames, out var defaultViewName, out var defaultState, out var currentState);
-                return new MB_GetPluginViewInformation_Response()
+                return new MB_GetPluginViewInformation_Response
                 {
                     Result = result,
                     ViewNames = { viewNames },
@@ -1700,7 +1700,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_ShowPluginView(request.PluginFilename, request.ViewName, (WindowState)request.State);
-                return new MB_ShowPluginView_Response()
+                return new MB_ShowPluginView_Response
                 {
                     Result = result,
                 };
@@ -1712,7 +1712,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_GetOutputDevices(out var deviceNames, out var activeDeviceName);
-                return new Player_GetOutputDevices_Response()
+                return new Player_GetOutputDevices_Response
                 {
                     Result = result,
                     DeviceNames = { deviceNames },
@@ -1726,7 +1726,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_SetOutputDevice(request.DeviceName);
-                return new Player_SetOutputDevice_Response()
+                return new Player_SetOutputDevice_Response
                 {
                     Result = result,
                 };
@@ -1738,7 +1738,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.MB_UninstallPlugin(request.PluginFilename, request.Password);
-                return new MB_UninstallPlugin_Response()
+                return new MB_UninstallPlugin_Response
                 {
                     Result = result,
                 };
@@ -1750,7 +1750,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_PlayPreviousAlbum();
-                return new Player_PlayPreviousAlbum_Response()
+                return new Player_PlayPreviousAlbum_Response
                 {
                     Result = result,
                 };
@@ -1762,7 +1762,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Player_PlayNextAlbum();
-                return new Player_PlayNextAlbum_Response()
+                return new Player_PlayNextAlbum_Response
                 {
                     Result = result,
                 };
@@ -1774,7 +1774,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Podcasts_QuerySubscriptions(request.Query, out var ids);
-                return new Podcasts_QuerySubscriptions_Response()
+                return new Podcasts_QuerySubscriptions_Response
                 {
                     Result = result,
                     Ids = { ids },
@@ -1787,7 +1787,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Podcasts_GetSubscription(request.Id, out var subscription);
-                return new Podcasts_GetSubscription_Response()
+                return new Podcasts_GetSubscription_Response
                 {
                     Result = result,
                     Subscription = { subscription },
@@ -1800,7 +1800,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Podcasts_GetSubscriptionArtwork(request.Id, request.Index, out var imageData);
-                return new Podcasts_GetSubscriptionArtwork_Response()
+                return new Podcasts_GetSubscriptionArtwork_Response
                 {
                     Result = result,
                     ImageData = ByteString.CopyFrom(imageData),
@@ -1813,7 +1813,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Podcasts_GetSubscriptionEpisodes(request.Id, out var urls);
-                return new Podcasts_GetSubscriptionEpisodes_Response()
+                return new Podcasts_GetSubscriptionEpisodes_Response
                 {
                     Result = result,
                     Urls = { urls },
@@ -1826,7 +1826,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Podcasts_GetSubscriptionEpisode(request.Id, request.Index, out var episode);
-                return new Podcasts_GetSubscriptionEpisode_Response()
+                return new Podcasts_GetSubscriptionEpisode_Response
                 {
                     Result = result,
                     Episode = { episode },
@@ -1839,7 +1839,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.NowPlaying_GetSoundGraphEx(request.GraphData.ToArray(), request.PeakData.ToArray());
-                return new NowPlaying_GetSoundGraphEx_Response()
+                return new NowPlaying_GetSoundGraphEx_Response
                 {
                     Result = result,
                 };
@@ -1851,7 +1851,7 @@ namespace Module.RemoteMusicBeeApi
             return Task.Run(() =>
             {
                 var result = _mbApi.Sync_FileDeleteStart(request.Filename);
-                return new Sync_FileDeleteStart_Response()
+                return new Sync_FileDeleteStart_Response
                 {
                     Result = result,
                 };
@@ -1866,6 +1866,5 @@ namespace Module.RemoteMusicBeeApi
                 return new Empty();
             });
         }
-        
     }
 }
