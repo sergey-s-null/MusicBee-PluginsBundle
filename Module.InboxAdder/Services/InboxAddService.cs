@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mead.MusicBee.Enums;
 using Module.MusicBee.Autogen.Services.Abstract;
-using Module.MusicBee.Enums;
 using Module.MusicBee.Extension.Helpers;
 
 namespace Module.InboxAdder.Services

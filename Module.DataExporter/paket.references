@@ -1,3 +1,4 @@
 group NetFramework
     Newtonsoft.Json
     Autofac
+    Mead.MusicBee

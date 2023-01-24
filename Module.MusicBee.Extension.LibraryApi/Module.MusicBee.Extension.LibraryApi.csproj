@@ -1,69 +1,82 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProjectGuid>{19D0007E-3B42-45CB-BD17-CB8802CD5FF9}</ProjectGuid>
-		<OutputType>Library</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>Module.MusicBee.Extension.LibraryApi</RootNamespace>
-		<AssemblyName>Module.MusicBee.Extension.LibraryApi</AssemblyName>
-		<TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-		<FileAlignment>512</FileAlignment>
-		<LangVersion>11</LangVersion>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<DebugType>pdbonly</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="Entities\Abstract\IMusicFile.cs" />
-		<Compile Include="Entities\Abstract\IReadOnlyMusicFile.cs" />
-		<Compile Include="Entities\CachingReadOnlyMusicFile.cs" />
-		<Compile Include="Entities\MusicFile.cs" />
-		<Compile Include="Exceptions\FilesRetrievingException.cs" />
-		<Compile Include="Factories\Abstract\MusicFileFactory.cs" />
-		<Compile Include="Factories\Abstract\ReadOnlyMusicFileFactory.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="Services\Abstract\IMusicBeeLibrary.cs" />
-		<Compile Include="Services\MusicBeeLibrary.cs" />
-	</ItemGroup>
-	<ItemGroup>
-	  <ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj">
-	    <Project>{fcab066f-2f59-4e30-92d4-f251865b6ea1}</Project>
-	    <Name>Module.MusicBee.Autogen</Name>
-	  </ProjectReference>
-	</ItemGroup>
-	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{19D0007E-3B42-45CB-BD17-CB8802CD5FF9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Module.MusicBee.Extension.LibraryApi</RootNamespace>
+    <AssemblyName>Module.MusicBee.Extension.LibraryApi</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>11</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Abstract\IMusicFile.cs" />
+    <Compile Include="Entities\Abstract\IReadOnlyMusicFile.cs" />
+    <Compile Include="Entities\CachingReadOnlyMusicFile.cs" />
+    <Compile Include="Entities\MusicFile.cs" />
+    <Compile Include="Exceptions\FilesRetrievingException.cs" />
+    <Compile Include="Factories\Abstract\MusicFileFactory.cs" />
+    <Compile Include="Factories\Abstract\ReadOnlyMusicFileFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Abstract\IMusicBeeLibrary.cs" />
+    <Compile Include="Services\MusicBeeLibrary.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj">
+      <Project>{fcab066f-2f59-4e30-92d4-f251865b6ea1}</Project>
+      <Name>Module.MusicBee.Autogen</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="paket.references" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 		 Other similar extension points exist, see Microsoft.Common.targets.
 	<Target Name="BeforeBuild">
 	</Target>
 	<Target Name="AfterBuild">
 	</Target>
 	-->
-
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="Mead.MusicBee">
+          <HintPath>..\packages\netframework\Mead.MusicBee\lib\net472\Mead.MusicBee.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
 </Project>

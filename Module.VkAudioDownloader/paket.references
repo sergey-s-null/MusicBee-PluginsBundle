@@ -7,3 +7,4 @@ group NetFramework
     morelinq
     System.Linq.Async
     Autofac
+    Mead.MusicBee

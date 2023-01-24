@@ -1,4 +1,4 @@
-﻿using Module.MusicBee.Enums;
+﻿using Mead.MusicBee.Enums;
 
 namespace Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Mead.MusicBee.Enums;
 using Module.MusicBee.Autogen.Services.Abstract;
-using Module.MusicBee.Enums;
 using Module.MusicBee.Extension.LibraryApi.Entities.Abstract;
 
 namespace Module.MusicBee.Extension.LibraryApi.Entities;
