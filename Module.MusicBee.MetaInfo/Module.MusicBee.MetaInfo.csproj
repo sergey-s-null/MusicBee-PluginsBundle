@@ -44,6 +44,7 @@
     <Compile Include="Entities\MethodNameWithRestriction.cs" />
     <Compile Include="Entities\ParameterDefinition.cs" />
     <Compile Include="Enums\MethodRestriction.cs" />
+    <Compile Include="Extensions\FieldInfoExtensions.cs" />
     <Compile Include="Extensions\MethodDefinitionExtensions.cs" />
     <Compile Include="Extensions\ParameterDefinitionExtensions.cs" />
     <Compile Include="Extensions\ParameterInfoExtensions.cs" />
