@@ -41,9 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\MethodDefinition.cs" />
-    <Compile Include="Entities\MethodNameWithRestriction.cs" />
     <Compile Include="Entities\ParameterDefinition.cs" />
-    <Compile Include="Enums\MethodRestriction.cs" />
     <Compile Include="Extensions\FieldInfoExtensions.cs" />
     <Compile Include="Extensions\MethodDefinitionExtensions.cs" />
     <Compile Include="Extensions\ParameterDefinitionExtensions.cs" />
