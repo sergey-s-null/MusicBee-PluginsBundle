@@ -80,6 +80,7 @@ namespace Module.MusicBee.Autogen.Services.Abstract
         bool NowPlaying_GetSoundGraph(float[] graphData);
         string MB_GetLocalisation(string id, string defaultText);
         bool NowPlayingList_IsAnyPriorTracks();
+        bool NowPlayingList_IsAnyFollowingTracks();
         bool Player_ShowEqualiser();
         bool Player_GetAutoDjEnabled();
         bool Player_GetStopAfterCurrentEnabled();
