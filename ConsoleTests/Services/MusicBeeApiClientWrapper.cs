@@ -9,8 +9,8 @@ using System.Threading;
 using System.Windows.Forms;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
+using Mead.MusicBee.Enums;
 using Module.MusicBee.Autogen.Services.Abstract;
-using Module.MusicBee.Enums;
 
 namespace ConsoleTests.Services
 {

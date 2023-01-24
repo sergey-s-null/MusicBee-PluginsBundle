@@ -4,3 +4,4 @@ group NetFramework
     Grpc
     Grpc.Tools
     Google.Protobuf
+    Mead.MusicBee
