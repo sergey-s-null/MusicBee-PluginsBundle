@@ -6,7 +6,7 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using Module.MusicBee.Enums;
+using Mead.MusicBee.Enums;
 
 namespace Module.MusicBee.Autogen.Services.Abstract
 {
