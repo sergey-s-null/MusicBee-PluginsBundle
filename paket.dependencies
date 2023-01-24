@@ -17,6 +17,7 @@ framework: net472
     nuget MahApps.Metro.IconPacks
     nuget Autofac
     nuget System.Xml.Linq
+    nuget Mead.MusicBee
 
 
 group MBApiProtoGenerator
