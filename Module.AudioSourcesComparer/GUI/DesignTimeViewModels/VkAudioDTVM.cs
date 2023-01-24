@@ -3,6 +3,8 @@ using System.Windows.Input;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.Mvvm.Extension;
 
+#pragma warning disable CS0067
+
 namespace Module.AudioSourcesComparer.GUI.DesignTimeViewModels
 {
     public sealed class VkAudioDTVM : IVkAudioVM
