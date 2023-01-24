@@ -15,6 +15,9 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=48934c0a_002Dc4b7_002D4929_002Db5f4_002Db8e25e64484c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c59ccecb_002D6f27_002D4485_002Dac03_002Dc96d2ab76847/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from IMusicBeeApi.tt" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;ProjectFile&gt;FCAB066F-2F59-4E30-92D4-F251865B6EA1/d:Services/d:Abstract/f:IMusicBeeApi.tt&lt;/ProjectFile&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Crossfade/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Scrobble/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
