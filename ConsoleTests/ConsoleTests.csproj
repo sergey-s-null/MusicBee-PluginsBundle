@@ -65,10 +65,6 @@
       <Project>{fcab066f-2f59-4e30-92d4-f251865b6ea1}</Project>
       <Name>Module.MusicBee.Autogen</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Module.MusicBee\Module.MusicBee.csproj">
-      <Project>{055ec659-45ea-4971-8195-32aac0061c73}</Project>
-      <Name>Module.MusicBee</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj">
       <Project>{622756ad-5bb9-41d7-b5df-87614df8102e}</Project>
       <Name>Module.VkAudioDownloader</Name>

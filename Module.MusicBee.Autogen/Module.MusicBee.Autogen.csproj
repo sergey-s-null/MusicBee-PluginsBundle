@@ -66,12 +66,6 @@
       <LastGenOutput>MusicBeeApiMemoryContainerWrapper.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Module.MusicBee\Module.MusicBee.csproj">
-      <Project>{055ec659-45ea-4971-8195-32aac0061c73}</Project>
-      <Name>Module.MusicBee</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 		 Other similar extension points exist, see Microsoft.Common.targets.
