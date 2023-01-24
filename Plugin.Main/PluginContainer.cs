@@ -1,19 +1,17 @@
 ﻿using Autofac;
+using Mead.MusicBee.Services;
 using Module.ArtworksSearcher;
 using Module.AudioSourcesComparer;
 using Module.DataExporter;
 using Module.InboxAdder;
-using Module.MusicBee;
 using Module.MusicBee.Autogen;
 using Module.MusicBee.Extension;
-using Module.MusicBee.Services;
 using Module.PlaylistsExporter;
 using Module.Vk;
 using Module.VkAudioDownloader;
 using MusicBeePlugin.GUI.ViewModels;
 using MusicBeePlugin.GUI.Views;
 using MusicBeePlugin.Services;
-using Newtonsoft.Json.Linq;
 using Root.Services.Abstract;
 
 namespace MusicBeePlugin

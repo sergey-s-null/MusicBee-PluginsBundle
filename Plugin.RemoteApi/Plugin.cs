@@ -4,10 +4,10 @@ using Autofac;
 using Grpc.Core;
 using HackModule.AssemblyBindingRedirect.Services;
 using HackModule.AssemblyBindingRedirect.Services.Abstract;
+using Mead.MusicBee.Entities;
+using Mead.MusicBee.Enums;
+using Mead.MusicBee.Services;
 using Module.MusicBee.Autogen.Services.Abstract;
-using Module.MusicBee.Entities;
-using Module.MusicBee.Enums;
-using Module.MusicBee.Services;
 using Module.RemoteMusicBeeApi;
 
 namespace MusicBeePlugin

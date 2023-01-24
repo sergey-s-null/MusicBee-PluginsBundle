@@ -3,3 +3,4 @@
     Grpc.Tools
     Google.Protobuf
     Autofac
+    Mead.MusicBee

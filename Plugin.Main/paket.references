@@ -6,3 +6,4 @@ group NetFramework
     System.Collections.Immutable
     MahApps.Metro.IconPacks
     Autofac
+    Mead.MusicBee

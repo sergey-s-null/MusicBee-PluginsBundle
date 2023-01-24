@@ -1,6 +1,6 @@
 ﻿using Autofac;
+using Mead.MusicBee.Services;
 using Module.MusicBee.Autogen;
-using Module.MusicBee.Services;
 
 namespace MusicBeePlugin
 {
