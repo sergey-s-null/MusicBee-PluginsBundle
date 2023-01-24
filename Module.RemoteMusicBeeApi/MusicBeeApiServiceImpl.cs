@@ -825,6 +825,18 @@ namespace Module.RemoteMusicBeeApi
             });
         }
 
+        public override Task<NowPlayingList_IsAnyFollowingTracks_Response> NowPlayingList_IsAnyFollowingTracks(Empty request, ServerCallContext context)
+        {
+            return Task.Run(() =>
+            {
+                var result = _musicBeeApi.NowPlayingList_IsAnyFollowingTracks();
+                return new NowPlayingList_IsAnyFollowingTracks_Response
+                {
+                    Result = result,
+                };
+            });
+        }
+
         public override Task<Player_ShowEqualiser_Response> Player_ShowEqualiser(Empty request, ServerCallContext context)
         {
             return Task.Run(() =>

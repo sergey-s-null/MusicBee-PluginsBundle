@@ -142,6 +142,8 @@ service MusicBeeApiService {
       returns(MB_GetLocalisation_Response);
   rpc NowPlayingList_IsAnyPriorTracks(google.protobuf.Empty)
       returns(NowPlayingList_IsAnyPriorTracks_Response);
+  rpc NowPlayingList_IsAnyFollowingTracks(google.protobuf.Empty)
+      returns(NowPlayingList_IsAnyFollowingTracks_Response);
   rpc Player_ShowEqualiser(google.protobuf.Empty)
       returns(Player_ShowEqualiser_Response);
   rpc Player_GetAutoDjEnabled(google.protobuf.Empty)
@@ -709,6 +711,10 @@ message MB_GetLocalisation_Response {
 }
 
 message NowPlayingList_IsAnyPriorTracks_Response {
+  bool result = 1;
+}
+
+message NowPlayingList_IsAnyFollowingTracks_Response {
   bool result = 1;
 }
 
