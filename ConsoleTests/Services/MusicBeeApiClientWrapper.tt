@@ -116,7 +116,7 @@ namespace ConsoleTests.Services
         MetaInfoProvider.GetMethodsWithoutRestrictions();
 
     private readonly IReadOnlyCollection<MethodDefinition> _unsupportedMethods =
-        MetaInfoProvider.GetExtendedMethods();
+        MetaInfoProvider.GetOSSpecificMethods();
 
     private readonly ProtoNamingService _namingService = new(
         "Empty",
