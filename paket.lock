@@ -90,7 +90,7 @@ NUGET
     Grpc.Tools (2.46.3)
     HtmlAgilityPack (1.11.43)
     MahApps.Metro.IconPacks (4.11)
-    Mead.MusicBee (1.1)
+    Mead.MusicBee (1.1.1)
     Microsoft.Bcl.AsyncInterfaces (6.0)
       System.Threading.Tasks.Extensions (>= 4.5.4)
     Microsoft.Extensions.DependencyInjection (5.0.2)
