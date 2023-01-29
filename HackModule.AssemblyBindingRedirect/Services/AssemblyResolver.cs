@@ -22,6 +22,7 @@ namespace HackModule.AssemblyBindingRedirect.Services
             "System.Diagnostics.DiagnosticSource",
             "System.Memory",
             "System.Runtime.CompilerServices.Unsafe",
+            "System.Text.Encoding.CodePages",
             "System.Threading.Tasks.Extensions",
         };
 

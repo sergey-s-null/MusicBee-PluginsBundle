@@ -538,6 +538,12 @@ namespace ConsoleTests.Services
             return response.Result;
         }
 
+        public bool NowPlayingList_IsAnyFollowingTracks()
+        {
+            var response = _client.NowPlayingList_IsAnyFollowingTracks(new Empty());
+            return response.Result;
+        }
+
         public bool Player_ShowEqualiser()
         {
             var response = _client.Player_ShowEqualiser(new Empty());

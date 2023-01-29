@@ -401,6 +401,11 @@ namespace Module.MusicBee.Autogen.Services
             return _mbApi.NowPlayingList_IsAnyPriorTracks();
         }
 
+        public bool NowPlayingList_IsAnyFollowingTracks()
+        {
+            return _mbApi.NowPlayingList_IsAnyFollowingTracks();
+        }
+
         public bool Player_ShowEqualiser()
         {
             return _mbApi.Player_ShowEqualiser();

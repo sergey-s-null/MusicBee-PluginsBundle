@@ -14,7 +14,7 @@ using MusicBeePlugin.Services;
 
 namespace MusicBeePlugin
 {
-    public class Plugin
+    public class Plugin : PluginBase
     {
         private const short PluginInfoVersion = 1;
         private const short MinInterfaceVersion = 40; // 41
@@ -26,24 +26,38 @@ namespace MusicBeePlugin
         static Plugin()
         {
             ApplyAssembliesResolution();
+            ServicePointManager.DefaultConnectionLimit = 20;
         }
 
-        public PluginInfo Initialise(IntPtr apiInterfacePtr)
+        protected override void OnMusicBeeApiProvided(MusicBeeApiMemoryContainer musicBeeApi)
         {
-            ServicePointManager.DefaultConnectionLimit = 20;
-
-            var mbApiMemoryContainer = new MusicBeeApiMemoryContainer();
-            mbApiMemoryContainer.Initialise(apiInterfacePtr);
-
-            var container = PluginContainer.Create(mbApiMemoryContainer);
+            var container = PluginContainer.Create(musicBeeApi);
 
             _settingsDialogFactory = container.Resolve<SettingsDialogFactory>();
             _resourceManager = container.Resolve<IResourceManager>();
 
             InitSettings();
             CreateMenuItems(container);
+        }
 
-            return GetPluginInfo();
+        protected override PluginInfo GetPluginInfo()
+        {
+            return new PluginInfo
+            {
+                PluginInfoVersion = PluginInfoVersion,
+                Name = "Laiser399: Plugins Bundle",
+                Description = "Contains list of plugins",
+                Author = "Laiser399",
+                TargetApplication = "",
+                Type = PluginType.General,
+                VersionMajor = 1,
+                VersionMinor = 0,
+                Revision = 1,
+                MinInterfaceVersion = MinInterfaceVersion,
+                MinApiRevision = MinApiRevision,
+                ReceiveNotifications = ReceiveNotificationFlags.StartupOnly,
+                ConfigurationPanelHeight = 0
+            };
         }
 
         private static void ApplyAssembliesResolution()
@@ -100,32 +114,12 @@ namespace MusicBeePlugin
                 });
         }
 
-        private static PluginInfo GetPluginInfo()
-        {
-            return new PluginInfo
-            {
-                PluginInfoVersion = PluginInfoVersion,
-                Name = "Laiser399: Plugins Bundle",
-                Description = "Contains list of plugins",
-                Author = "Laiser399",
-                TargetApplication = "", //  the name of a Plugin Storage device or panel header for a dockable panel
-                Type = PluginType.General,
-                VersionMajor = 1, // your plugin version
-                VersionMinor = 0,
-                Revision = 1,
-                MinInterfaceVersion = MinInterfaceVersion,
-                MinApiRevision = MinApiRevision,
-                ReceiveNotifications = ReceiveNotificationFlags.StartupOnly,
-                ConfigurationPanelHeight = 0
-            };
-        }
-
         private void InitSettings()
         {
             _resourceManager!.CreateRootIfNeeded();
         }
 
-        public bool Configure(IntPtr _)
+        public override bool Configure(IntPtr _)
         {
             _settingsDialogFactory?
                 .Invoke()
@@ -134,7 +128,7 @@ namespace MusicBeePlugin
             return true;
         }
 
-        public void Uninstall()
+        public override void Uninstall()
         {
             var result = MessageBox.Show(
                 "Delete settings?",
@@ -145,11 +139,6 @@ namespace MusicBeePlugin
             {
                 _resourceManager!.DeleteRoot();
             }
-        }
-
-        public void ReceiveNotification(string sourceFileUrl, NotificationType type)
-        {
-            // ignore
         }
     }
 }

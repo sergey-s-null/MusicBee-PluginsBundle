@@ -26,6 +26,15 @@
         "resolved": "2.51.0",
         "contentHash": "dGWgVYiTiwdlQuTK8kqqOkhYVHuOOuq3DVBmkjFwNOYQR9FW9YyEu0TXpxItc7W4xQ4lnahCLuHMNHd4012bnQ=="
       },
+      "Mead.MusicBee.MetaInfo": {
+        "type": "Direct",
+        "requested": "[1.0.1, )",
+        "resolved": "1.0.1",
+        "contentHash": "gRP1AU0vzCnMw9jgZ/76ClQ3rtCvVW3LJyCVF64/+lGbCjjOSsl0OzOXalGmAAF6dcJ0T1DICeZf+iUO/9k58Q==",
+        "dependencies": {
+          "Mead.MusicBee": "1.1.1"
+        }
+      },
       "Autofac": {
         "type": "Transitive",
         "resolved": "6.5.0",

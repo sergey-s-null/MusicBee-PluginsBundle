@@ -1,5 +1,5 @@
-﻿using Module.MusicBee.MetaInfo.Entities;
-using Module.MusicBee.MetaInfo.Extensions;
+﻿using Mead.MusicBee.MetaInfo.Entities;
+using Mead.MusicBee.MetaInfo.Extensions;
 
 namespace Module.MusicBee.MetaInfo.Proto.Services;
 
