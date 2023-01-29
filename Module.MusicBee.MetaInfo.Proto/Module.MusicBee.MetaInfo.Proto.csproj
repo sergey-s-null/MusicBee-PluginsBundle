@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
@@ -10,10 +10,6 @@
 
 	<ItemGroup>
 		<Reference Include="System.Net.Http"/>
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Module.MusicBee.MetaInfo\Module.MusicBee.MetaInfo.csproj"/>
 	</ItemGroup>
 
 </Project>
