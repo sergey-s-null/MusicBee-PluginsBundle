@@ -1,5 +1,0 @@
-group NetFramework
-    System.Linq.Async
-    Newtonsoft.Json
-    VkNet
-    PropertyChanged.Fody
