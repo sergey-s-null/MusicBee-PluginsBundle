@@ -12,7 +12,6 @@
 		<Protobuf Include="Protos\MusicBeeApiService.proto">
 			<GrpcServices>Server</GrpcServices>
 			<DependentUpon>MusicBeeApiService.tt</DependentUpon>
-			<Generator>MSBuild:Compile</Generator>
 		</Protobuf>
 	</ItemGroup>
 
@@ -27,6 +26,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Mead.MusicBee.MetaInfo" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
