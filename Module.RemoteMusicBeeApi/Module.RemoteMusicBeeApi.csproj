@@ -1,205 +1,53 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\netframework\Grpc.Tools\build\Grpc.Tools.props" Condition="Exists('..\packages\netframework\Grpc.Tools\build\Grpc.Tools.props')" Label="Paket" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F9F45EB1-DEFF-4F35-8965-ED4F6CEA7606}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Module.RemoteMusicBeeApi</RootNamespace>
-    <AssemblyName>Module.RemoteMusicBeeApi</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <LangVersion>11</LangVersion>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="MusicBeeApiServiceImpl.cs">
-      <DependentUpon>MusicBeeApiServiceImpl.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MusicBeeApiServiceImpl.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MusicBeeApiServiceImpl.cs</LastGenOutput>
-    </Content>
-    <Content Include="paket.references" />
-    <Content Include="Protos\MusicBeeApiService.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MusicBeeApiService.proto</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj">
-      <Project>{fcab066f-2f59-4e30-92d4-f251865b6ea1}</Project>
-      <Name>Module.MusicBee.Autogen</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Root\Root.csproj">
-      <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
-      <Name>Root</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Protobuf Include="Protos\MusicBeeApiService.proto">
-      <GrpcServices>Server</GrpcServices>
-      <DependentUpon>MusicBeeApiService.tt</DependentUpon>
-    </Protobuf>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <PropertyGroup>
-        <__paket__Grpc_Core_targets>net45\Grpc.Core</__paket__Grpc_Core_targets>
-      </PropertyGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="Google.Protobuf">
-          <HintPath>..\packages\netframework\Google.Protobuf\lib\net45\Google.Protobuf.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="Microsoft.CSharp">
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="Grpc.Core">
-          <HintPath>..\packages\netframework\Grpc.Core\lib\net45\Grpc.Core.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="Grpc.Core.Api">
-          <HintPath>..\packages\netframework\Grpc.Core.Api\lib\net45\Grpc.Core.Api.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="Mead.MusicBee">
-          <HintPath>..\packages\netframework\Mead.MusicBee\lib\net472\Mead.MusicBee.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="mscorlib">
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="System.Buffers">
-          <HintPath>..\packages\netframework\System.Buffers\lib\net461\System.Buffers.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="System.Memory">
-          <HintPath>..\packages\netframework\System.Memory\lib\net461\System.Memory.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="System.Numerics">
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="System.Numerics.Vectors">
-          <HintPath>..\packages\netframework\System.Numerics.Vectors\lib\net46\System.Numerics.Vectors.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="System.Runtime.CompilerServices.Unsafe">
-          <HintPath>..\packages\netframework\System.Runtime.CompilerServices.Unsafe\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Import Project="..\packages\netframework\Grpc.Core\build\$(__paket__Grpc_Core_targets).targets" Condition="Exists('..\packages\netframework\Grpc.Core\build\$(__paket__Grpc_Core_targets).targets')" Label="Paket" />
-  <Import Project="..\packages\netframework\Grpc.Tools\build\Grpc.Tools.targets" Condition="Exists('..\packages\netframework\Grpc.Tools\build\Grpc.Tools.targets')" Label="Paket" />
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>11</LangVersion>
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Protos\MusicBeeApiService.proto">
+			<GrpcServices>Server</GrpcServices>
+			<DependentUpon>MusicBeeApiService.tt</DependentUpon>
+			<Generator>MSBuild:Compile</Generator>
+		</Protobuf>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.21.12" />
+		<PackageReference Include="Grpc" Version="2.46.6" />
+		<PackageReference Include="Grpc.Tools" Version="2.51.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Protos\MusicBeeApiService.tt">
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	    <LastGenOutput>MusicBeeApiService.proto</LastGenOutput>
+	  </None>
+	  <None Update="MusicBeeApiServiceImpl.tt">
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	    <LastGenOutput>MusicBeeApiServiceImpl.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="MusicBeeApiServiceImpl.cs">
+	    <DependentUpon>MusicBeeApiServiceImpl.tt</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
 </Project>

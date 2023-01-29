@@ -1,7 +1,7 @@
 <#@ template language="C#" #>
 <#@ output extension=".proto" encoding="utf-8" #>
-<#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo\bin\Debug\Module.MusicBee.MetaInfo.dll" #>
-<#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo.Proto\bin\Debug\Module.MusicBee.MetaInfo.Proto.dll" #>
+<#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo\bin\Debug\net472\Module.MusicBee.MetaInfo.dll" #>
+<#@ assembly name="$(SolutionDir)\Module.MusicBee.MetaInfo.Proto\bin\Debug\net472\Module.MusicBee.MetaInfo.Proto.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Module.MusicBee.MetaInfo.Extensions" #>
 <#@ import namespace="Module.MusicBee.MetaInfo.Helpers" #>

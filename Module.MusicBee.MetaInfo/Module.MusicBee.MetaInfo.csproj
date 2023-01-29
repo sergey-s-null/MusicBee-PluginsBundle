@@ -9,11 +9,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Reference Include="System.Net.Http"/>
+	  <Reference Include="System.Net.Http" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Module.MusicBee.MetaInfo\Module.MusicBee.MetaInfo.csproj"/>
+	  <ProjectReference Include="..\Root\Root.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Mead.MusicBee" Version="1.1.1" />
 	</ItemGroup>
 
 </Project>

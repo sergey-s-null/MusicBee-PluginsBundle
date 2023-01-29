@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Test_Desktop"
         xmlns:selector="clr-namespace:MusicBeePlugin.GUI;assembly=mb_PluginsBundle"
         xmlns:win="clr-namespace:System.Windows;assembly=System"
-        xmlns:vm="clr-namespace:Module.VkAudioDownloader.GUI.ViewModels;assembly=Module.VKMusicDownloader"
+        xmlns:vm="clr-namespace:Module.VkAudioDownloader.GUI.ViewModels;assembly=Module.VKAudioDownloader"
         mc:Ignorable="d"
         Title="TestDataTemplate" Height="450" Width="800">
     <Window.Resources>
