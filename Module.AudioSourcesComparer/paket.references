@@ -1,6 +1,0 @@
-﻿group NetFramework
-    PropertyChanged.Fody
-    VkNet
-    MahApps.Metro.IconPacks
-    Autofac
-    Mead.MusicBee
