@@ -1,5 +1,0 @@
-﻿group NetFramework
-    VkNet
-    VkNet.AudioBypassService
-    PropertyChanged.Fody
-    Autofac
