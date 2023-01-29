@@ -84,10 +84,6 @@
       <Project>{fcab066f-2f59-4e30-92d4-f251865b6ea1}</Project>
       <Name>Module.MusicBee.Autogen</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Module.MusicBee.MetaInfo\Module.MusicBee.MetaInfo.csproj">
-      <Project>{eb77e965-7a03-4dd0-a78b-c3a78cfa2f10}</Project>
-      <Name>Module.MusicBee.MetaInfo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Root\Root.csproj">
       <Project>{17351e36-4855-4a79-a171-d5f3dd9def55}</Project>
       <Name>Root</Name>
