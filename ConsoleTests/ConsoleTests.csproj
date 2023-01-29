@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -15,22 +15,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj"/>
-		<ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj"/>
-		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj"/>
+		<ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj" />
+		<ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
+		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Google.Protobuf" Version="3.21.12"/>
-		<PackageReference Include="Grpc" Version="2.46.6"/>
+		<PackageReference Include="Google.Protobuf" Version="3.21.12" />
+		<PackageReference Include="Grpc" Version="2.46.6" />
 		<PackageReference Include="Grpc.Tools" Version="2.51.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Mead.MusicBee.MetaInfo" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="System.Windows.Forms"/>
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Services\MusicBeeApiClientWrapper.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>MusicBeeApiClientWrapper.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Services\MusicBeeApiClientWrapper.cs">
+	    <DependentUpon>MusicBeeApiClientWrapper.tt</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
