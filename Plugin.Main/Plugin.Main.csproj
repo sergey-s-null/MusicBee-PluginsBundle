@@ -7,7 +7,13 @@
 		<LangVersion>11</LangVersion>
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 		<UseWpf>true</UseWpf>
+		<AssemblyName>mb_PluginsBundle</AssemblyName>
+		<RootNamespace>MusicBeePlugin</RootNamespace>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="GUI\Views\InboxRelocateContextMenu.xaml"/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="System.Net.Http"/>

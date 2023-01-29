@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Test_Desktop"
-        xmlns:selector="clr-namespace:MusicBeePlugin.GUI;assembly=Plugin.Main"
+        xmlns:selector="clr-namespace:MusicBeePlugin.GUI;assembly=mb_PluginsBundle"
         xmlns:win="clr-namespace:System.Windows;assembly=System"
         xmlns:vm="clr-namespace:Module.VkAudioDownloader.GUI.ViewModels;assembly=Module.VKAudioDownloader"
         mc:Ignorable="d"
