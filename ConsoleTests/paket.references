@@ -1,7 +1,0 @@
-group NetFramework
-    VkNet
-    VkNet.AudioBypassService
-    Grpc
-    Grpc.Tools
-    Google.Protobuf
-    Mead.MusicBee

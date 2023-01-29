@@ -1,9 +1,0 @@
-group NetFramework
-    Fody
-    PropertyChanged.Fody
-    WindowsAPICodePack
-    VkNet
-    System.Collections.Immutable
-    MahApps.Metro.IconPacks
-    Autofac
-    Mead.MusicBee
