@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Windows;
 using Autofac;
@@ -94,8 +93,10 @@ namespace MusicBeePlugin
                 "Laiser399: Inbox relocate context menu",
                 (_, _) =>
                 {
-                    var inboxRelocateContextMenu = container.LoadInboxRelocateContextMenu();
-                    inboxRelocateContextMenu.IsOpen = true;
+                    var _ = new InboxRelocateContextMenu
+                    {
+                        IsOpen = true
+                    };
                 });
         }
 
