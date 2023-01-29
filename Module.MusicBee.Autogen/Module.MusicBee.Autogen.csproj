@@ -19,4 +19,24 @@
 	  <PackageReference Include="Mead.MusicBee" Version="1.1.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Services\MusicBeeApiMemoryContainerWrapper.tt">
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	    <LastGenOutput>MusicBeeApiMemoryContainerWrapper.cs</LastGenOutput>
+	  </None>
+	  <None Update="Services\Abstract\IMusicBeeApi.tt">
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	    <LastGenOutput>IMusicBeeApi.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Services\MusicBeeApiMemoryContainerWrapper.cs">
+	    <DependentUpon>MusicBeeApiMemoryContainerWrapper.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Services\Abstract\IMusicBeeApi.cs">
+	    <DependentUpon>IMusicBeeApi.tt</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
 </Project>
