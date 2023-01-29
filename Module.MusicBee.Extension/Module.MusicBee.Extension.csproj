@@ -6,7 +6,6 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>11</LangVersion>
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-		<RestoreLockedMode>true</RestoreLockedMode>
 	</PropertyGroup>
 
 	<ItemGroup>
