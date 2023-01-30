@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
+using Mead.MusicBee.Api.Services.Abstract;
 using Mead.MusicBee.Enums;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.Factories;
@@ -9,7 +7,6 @@ using Module.AudioSourcesComparer.GUI.Factories;
 using Module.DataExporter.Exceptions;
 using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
-using Module.MusicBee.Autogen.Services.Abstract;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.GUI.Factories;
 using Root.Helpers;
