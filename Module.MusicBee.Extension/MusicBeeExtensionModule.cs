@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Module.MusicBee.Autogen;
+using Mead.MusicBee.Api.Autofac.DependencyInjection.Extensions;
 using Module.MusicBee.Extension.Services;
 using Module.MusicBee.Extension.Services.Abstract;
 
@@ -9,7 +9,7 @@ public class MusicBeeExtensionModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterModule<MusicBeeAutogenModule>();
+        builder.RegisterMusicBeeApi();
 
         builder
             .RegisterType<ResourceManager>()

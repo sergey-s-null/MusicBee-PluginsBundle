@@ -17,8 +17,8 @@
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Mead.MusicBee.Api.Services.Abstract;
 using Mead.MusicBee.Enums;
-using Module.MusicBee.Autogen.Services.Abstract;
 
 // ReSharper disable ConstantNullCoalescingCondition
 

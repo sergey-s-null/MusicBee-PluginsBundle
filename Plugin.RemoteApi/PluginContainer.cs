@@ -1,6 +1,6 @@
 ﻿using Autofac;
+using Mead.MusicBee.Api.Autofac.DependencyInjection.Extensions;
 using Mead.MusicBee.Services;
-using Module.MusicBee.Autogen;
 
 namespace MusicBeePlugin
 {
@@ -10,11 +10,7 @@ namespace MusicBeePlugin
         {
             var builder = new ContainerBuilder();
 
-            builder
-                .Register(_ => mbApiMemoryContainer)
-                .AsSelf();
-
-            builder.RegisterModule<MusicBeeAutogenModule>();
+            builder.RegisterMusicBeeApi(mbApiMemoryContainer);
 
             return builder.Build();
         }

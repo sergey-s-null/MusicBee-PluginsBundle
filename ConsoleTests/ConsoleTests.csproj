@@ -15,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj" />
 		<ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
 		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />
 	</ItemGroup>

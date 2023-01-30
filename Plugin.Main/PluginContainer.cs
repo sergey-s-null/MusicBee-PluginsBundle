@@ -1,10 +1,10 @@
 ﻿using Autofac;
+using Mead.MusicBee.Api.Autofac.DependencyInjection.Extensions;
 using Mead.MusicBee.Services;
 using Module.ArtworksSearcher;
 using Module.AudioSourcesComparer;
 using Module.DataExporter;
 using Module.InboxAdder;
-using Module.MusicBee.Autogen;
 using Module.MusicBee.Extension;
 using Module.PlaylistsExporter;
 using Module.Vk;
@@ -22,11 +22,8 @@ namespace MusicBeePlugin
         {
             var builder = new ContainerBuilder();
 
-            builder
-                .Register(_ => mbApiMemoryContainer)
-                .AsSelf();
+            builder.RegisterMusicBeeApi(mbApiMemoryContainer);
 
-            builder.RegisterModule<MusicBeeAutogenModule>();
             builder.RegisterModule<MusicBeeExtensionModule>();
             builder.RegisterModule(new VkModule(true));
             builder.RegisterModule<MusicDownloaderModule>();

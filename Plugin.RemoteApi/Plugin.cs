@@ -1,13 +1,11 @@
-﻿using System;
-using System.IO;
-using Autofac;
+﻿using Autofac;
 using Grpc.Core;
 using HackModule.AssemblyBindingRedirect.Services;
 using HackModule.AssemblyBindingRedirect.Services.Abstract;
+using Mead.MusicBee.Api.Services.Abstract;
 using Mead.MusicBee.Entities;
 using Mead.MusicBee.Enums;
 using Mead.MusicBee.Services;
-using Module.MusicBee.Autogen.Services.Abstract;
 using Module.RemoteMusicBeeApi;
 
 namespace MusicBeePlugin

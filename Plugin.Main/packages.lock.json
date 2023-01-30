@@ -31,6 +31,23 @@
         "resolved": "1.1.1",
         "contentHash": "CibfHF0f3boyoUDYWCBqHgn/EOi5dbyDzxL50mIQ61eVlP2e1ipcGBQFjEKZK7xCZMVtOyhSvma6xU5gZEBmcw=="
       },
+      "Mead.MusicBee.Api": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "8Wo1JNU+NBPuFt975jCKZwM+HIq+XZl7dB7dTyOOqC9hFKHd6rTH8w1sD/5h2ZcNcU3TECnlKxbP9H43LPdEwA==",
+        "dependencies": {
+          "Mead.MusicBee": "1.1.1"
+        }
+      },
+      "Mead.MusicBee.Api.Autofac.DependencyInjection": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "L0SXL4zbFM0j1DBRNFq1g3eRwoEZKN3H2x4EjtVGC68VYs+ebV/gy/C3iNbxiDN8y0cEhXZ/OAkHKW/eS/yB0Q==",
+        "dependencies": {
+          "Autofac": "6.5.0",
+          "Mead.MusicBee.Api": "1.0.0"
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces": {
         "type": "Transitive",
         "resolved": "6.0.0",
@@ -267,6 +284,7 @@
       "module.artworkssearcher": {
         "type": "Project",
         "dependencies": {
+          "Autofac": "[6.5.0, )",
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Settings.Gui": "[1.0.0, )",
           "Root": "[1.0.0, )",
@@ -278,6 +296,7 @@
         "type": "Project",
         "dependencies": {
           "MahApps.Metro.IconPacks": "[4.11.0, )",
+          "Mead.MusicBee.Api": "[1.0.0, )",
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Vk": "[1.0.0, )",
           "VkNet": "[1.72.0, )"
@@ -286,7 +305,8 @@
       "module.dataexporter": {
         "type": "Project",
         "dependencies": {
-          "Module.MusicBee.Autogen": "[1.0.0, )",
+          "Autofac": "[6.5.0, )",
+          "Mead.MusicBee.Api": "[1.0.0, )",
           "Newtonsoft.Json": "[13.0.2, )"
         }
       },
@@ -294,21 +314,15 @@
         "type": "Project",
         "dependencies": {
           "Mead.MusicBee": "[1.1.1, )",
-          "Module.MusicBee.Autogen": "[1.0.0, )",
           "Module.MusicBee.Extension": "[1.0.0, )"
-        }
-      },
-      "module.musicbee.autogen": {
-        "type": "Project",
-        "dependencies": {
-          "Autofac": "[6.5.0, )",
-          "Mead.MusicBee": "[1.1.1, )"
         }
       },
       "module.musicbee.extension": {
         "type": "Project",
         "dependencies": {
-          "Module.MusicBee.Autogen": "[1.0.0, )"
+          "Autofac": "[6.5.0, )",
+          "Mead.MusicBee.Api": "[1.0.0, )",
+          "Mead.MusicBee.Api.Autofac.DependencyInjection": "[1.0.0, )"
         }
       },
       "module.mvvm.extension": {
@@ -317,6 +331,7 @@
       "module.playlistsexporter": {
         "type": "Project",
         "dependencies": {
+          "Mead.MusicBee.Api": "[1.0.0, )",
           "Module.Settings.Gui": "[1.0.0, )",
           "Root": "[1.0.0, )",
           "morelinq": "[3.3.2, )"
@@ -349,6 +364,7 @@
       "module.vkaudiodownloader": {
         "type": "Project",
         "dependencies": {
+          "Mead.MusicBee.Api": "[1.0.0, )",
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Vk": "[1.0.0, )",
           "WindowsAPICodePack": "[7.0.1, )"
