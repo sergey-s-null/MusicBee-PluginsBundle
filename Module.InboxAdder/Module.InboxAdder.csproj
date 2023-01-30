@@ -13,7 +13,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj" />
 	  <ProjectReference Include="..\Module.MusicBee.Extension\Module.MusicBee.Extension.csproj" />
 	</ItemGroup>
 

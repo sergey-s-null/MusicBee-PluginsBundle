@@ -30,10 +30,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Update="Protos\MusicBeeApiService.tt">
 	    <Generator>TextTemplatingFileGenerator</Generator>
 	    <LastGenOutput>MusicBeeApiService.proto</LastGenOutput>

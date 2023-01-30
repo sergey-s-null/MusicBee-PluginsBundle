@@ -9,11 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Reference Include="System.Net.Http"/>
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Module.MusicBee.Autogen\Module.MusicBee.Autogen.csproj"/>
+		<Reference Include="System.Net.Http" />
 	</ItemGroup>
 
 </Project>
