@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Module.MusicBee.Autogen.Services.Abstract;
+using Mead.MusicBee.Api.Services.Abstract;
 using Module.MusicBee.Extension.Helpers;
 using Module.Mvvm.Extension;
 using Module.PlaylistsExporter.Settings;
