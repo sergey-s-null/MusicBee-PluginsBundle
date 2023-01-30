@@ -10,16 +10,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Reference Include="System.Net.Http"/>
+		<Reference Include="System.Net.Http" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj"/>
-		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj"/>
+		<ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="WindowsAPICodePack" Version="7.0.1"/>
+		<PackageReference Include="Mead.MusicBee.Api" Version="1.0.0" />
+		<PackageReference Include="WindowsAPICodePack" Version="7.0.1" />
 	</ItemGroup>
 
 </Project>
