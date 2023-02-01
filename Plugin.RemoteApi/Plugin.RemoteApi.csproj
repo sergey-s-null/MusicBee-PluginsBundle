@@ -20,7 +20,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Autofac" Version="6.5.0" />
-	  <PackageReference Include="Mead.MusicBee.Api.Autofac.DependencyInjection" Version="1.0.0" />
+	  <PackageReference Include="Mead.MusicBee.Api.Autofac.DependencyInjection" Version="1.0.1" />
 	</ItemGroup>
 
 </Project>

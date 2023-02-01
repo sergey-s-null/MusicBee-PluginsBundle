@@ -50,8 +50,8 @@
       },
       "Mead.MusicBee.Api.Autofac.DependencyInjection": {
         "type": "Transitive",
-        "resolved": "1.0.0",
-        "contentHash": "L0SXL4zbFM0j1DBRNFq1g3eRwoEZKN3H2x4EjtVGC68VYs+ebV/gy/C3iNbxiDN8y0cEhXZ/OAkHKW/eS/yB0Q==",
+        "resolved": "1.0.1",
+        "contentHash": "dYqF1cgxyUbl1C7hu1SDi1LjqG6AaAC9Y0T5qg10UxVvv2lknKzjfAHxCogJSJD/b8JIuxShuYhm2GdSfMowTQ==",
         "dependencies": {
           "Autofac": "6.5.0",
           "Mead.MusicBee.Api": "1.0.0"
@@ -129,7 +129,7 @@
         "dependencies": {
           "Autofac": "[6.5.0, )",
           "Mead.MusicBee.Api": "[1.0.0, )",
-          "Mead.MusicBee.Api.Autofac.DependencyInjection": "[1.0.0, )"
+          "Mead.MusicBee.Api.Autofac.DependencyInjection": "[1.0.1, )"
         }
       },
       "module.mvvm.extension": {
