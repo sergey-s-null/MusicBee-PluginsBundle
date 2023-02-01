@@ -49,9 +49,15 @@ namespace MusicBeePlugin
             builder
                 .RegisterType<InboxRelocateContextMenuVM>()
                 .AsSelf();
+            builder
+                .RegisterType<InboxRelocateContextMenuVM>()
+                .AsSelf();
 
             builder
                 .RegisterType<SettingsDialog>()
+                .AsSelf();
+            builder
+                .RegisterType<InboxRelocateContextMenu>()
                 .AsSelf();
 
             return builder.Build();

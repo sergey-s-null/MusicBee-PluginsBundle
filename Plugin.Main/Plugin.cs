@@ -71,6 +71,7 @@ namespace MusicBeePlugin
         {
             var mbApi = container.Resolve<IMusicBeeApi>();
             var pluginActions = container.Resolve<IPluginActions>();
+            var inboxRelocateContextMenuFactory = container.Resolve<Func<InboxRelocateContextMenu>>();
 
             mbApi.MB_AddMenuItem(
                 "mnuTools/Laiser399: Search Artworks",
@@ -107,10 +108,8 @@ namespace MusicBeePlugin
                 "Laiser399: Inbox relocate context menu",
                 (_, _) =>
                 {
-                    var _ = new InboxRelocateContextMenu
-                    {
-                        IsOpen = true
-                    };
+                    var inboxRelocateContextMenu = inboxRelocateContextMenuFactory();
+                    inboxRelocateContextMenu.IsOpen = true;
                 });
         }
 
