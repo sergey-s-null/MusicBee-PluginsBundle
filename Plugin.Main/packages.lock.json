@@ -287,6 +287,7 @@
           "Autofac": "[6.5.0, )",
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Settings.Gui": "[1.0.0, )",
+          "PropertyChanged.Fody": "[4.1.0, )",
           "Root": "[1.0.0, )",
           "System.Linq.Async": "[6.0.1, )",
           "morelinq": "[3.3.2, )"
