@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Text.RegularExpressions;
-using Grpc.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Module.Vk.Helpers;
 using Module.VkAudioDownloader.Helpers;
@@ -15,45 +12,13 @@ namespace ConsoleTests
 {
     class Program
     {
-        private static string _tokenFilePath = @"../../delete_this/tm_token.txt";
-        private static string _m3u8FilePath = Path.GetFullPath(@"../../delete_this/index.m3u8");
-        private static string _baseUrlFilePath = Path.GetFullPath(@"../../delete_this/baseUrl.txt");
-        private static string _m3u8ConvertedFilePath = Path.GetFullPath(@"../../delete_this/converted.m3u8");
-        private static string _resultFilePath = Path.GetFullPath(@"../../delete_this/result.ts");
-        private static string _encodedFilePath = Path.GetFullPath(@"../../delete_this/encoded.mp3");
-        // from console
-        private static string _compare1FilePath = Path.GetFullPath(@"../../delete_this/to_compare1.mp3");
-        // from vk
-        private static string _compare2FilePath = Path.GetFullPath(@"../../delete_this/to_compare2.mp3");
+        private const string TokenFilePath = @"../../delete_this/tm_token.txt";
+        private static readonly string M3U8FilePath = Path.GetFullPath(@"../../delete_this/index.m3u8");
+        private static readonly string BaseUrlFilePath = Path.GetFullPath(@"../../delete_this/baseUrl.txt");
 
         static void Main(string[] args)
         {
-            var a = new Uri(@"D:\_BIG_FILES_\Music Library\Cdc");
-            var b = new Uri(@"D:\_BIG_FILES_\Music Library\Abs");
-
-            var channel = new Channel("localhost", 4999, ChannelCredentials.Insecure);
-            var client = new MusicBeeApiService.MusicBeeApiServiceClient(channel);
-
-            var filePath =
-                @"D:\_BIG_FILES_\Music Library\Incoming\[2017.03.29] NieR Automata Original Soundtrack [SQEX-10589~91]\NieR Automata Disc 2\06. Forest Kingdom.mp3";
-            var response = client.Library_GetFileTag(new Library_GetFileTag_Request()
-            {
-                SourceFileUrl = filePath,
-                Field = 65
-            });
-            Console.WriteLine(response.Result);
-
-
-            // Console.WriteLine();
-            // Console.WriteLine("Press...");
-            // Console.ReadKey();
         }
-
-        
-
-        
-        
-        
 
         // download m3u8 and baseUrl
         private static void Part1()
@@ -86,20 +51,20 @@ namespace ConsoleTests
             using (WebClient webClient = new WebClient())
             {
                 byte[] data = webClient.DownloadData(audio.Url);
-                File.WriteAllBytes(_m3u8FilePath, data);
+                File.WriteAllBytes(M3U8FilePath, data);
             }
 
             Regex regex = new Regex(@"(^.*/)index\.m3u8");
             Match match = regex.Match(audio.Url.AbsoluteUri);
             string baseUrl = match.Groups[1].Value;
-            File.WriteAllText(_baseUrlFilePath, baseUrl);
+            File.WriteAllText(BaseUrlFilePath, baseUrl);
         }
 
         private static bool TryLoadToken(out string token)
         {
             try
             {
-                token = File.ReadAllText(_tokenFilePath);
+                token = File.ReadAllText(TokenFilePath);
                 return true;
             }
             catch
@@ -113,7 +78,7 @@ namespace ConsoleTests
         {
             try
             {
-                File.WriteAllText(_tokenFilePath, token);
+                File.WriteAllText(TokenFilePath, token);
                 return true;
             }
             catch

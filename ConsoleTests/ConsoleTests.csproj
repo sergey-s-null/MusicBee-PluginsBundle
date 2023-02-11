@@ -9,12 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Protobuf Include="..\Module.RemoteMusicBeeApi\Protos\MusicBeeApiService.proto">
-			<GrpcServices>Client</GrpcServices>
-		</Protobuf>
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
 		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />
 	</ItemGroup>
