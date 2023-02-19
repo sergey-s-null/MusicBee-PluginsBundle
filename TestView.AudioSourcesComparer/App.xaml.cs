@@ -2,7 +2,7 @@
 using Autofac;
 using Module.AudioSourcesComparer.GUI.Factories;
 
-namespace NativeTest.AudioSourcesComparer
+namespace TestView.AudioSourcesComparer
 {
     /// <summary>
     /// Interaction logic for App.xaml

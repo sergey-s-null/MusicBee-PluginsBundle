@@ -3,7 +3,7 @@ using Module.AudioSourcesComparer;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.AudioSourcesComparer.GUI.DesignTimeViewModels;
 
-namespace NativeTest.AudioSourcesComparer
+namespace TestView.AudioSourcesComparer
 {
     public static class ApplicationContainer
     {

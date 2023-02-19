@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.VkAudioDownloader", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTests", "ConsoleTests\ConsoleTests.csproj", "{5A72BCA6-7845-4473-93D5-344AEFFB1A09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeTest.AudioSourcesComparer", "NativeTest.AudioSourcesComparer\NativeTest.AudioSourcesComparer.csproj", "{68B88C7B-0D55-4CB0-946F-58D75F9A036E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestView.AudioSourcesComparer", "TestView.AudioSourcesComparer\TestView.AudioSourcesComparer.csproj", "{68B88C7B-0D55-4CB0-946F-58D75F9A036E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Main", "Plugin.Main\Plugin.Main.csproj", "{D1720C08-18CE-4F9F-835B-BCE291BC1CE3}"
 EndProject
