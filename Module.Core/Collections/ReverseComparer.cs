@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Root.Collections
+namespace Module.Core.Collections
 {
     public sealed class ReverseComparer : IComparer
     {

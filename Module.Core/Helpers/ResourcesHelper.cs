@@ -1,4 +1,4 @@
-﻿namespace Root.Helpers
+﻿namespace Module.Core.Helpers
 {
     public static class ResourcesHelper
     {

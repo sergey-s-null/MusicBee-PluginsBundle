@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Root.Helpers
+﻿namespace Module.Core.Helpers
 {
     public static class DirectoryHelper
     {

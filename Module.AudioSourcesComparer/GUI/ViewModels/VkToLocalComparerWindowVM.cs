@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using Module.AudioSourcesComparer.DataClasses;
@@ -8,10 +6,10 @@ using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.AudioSourcesComparer.GUI.Factories;
 using Module.AudioSourcesComparer.Services.Abstract;
+using Module.Core.Helpers;
 using Module.Mvvm.Extension;
 using Module.Vk.Settings;
 using PropertyChanged;
-using Root.Helpers;
 using VkNet.Abstractions;
 using VkNet.Exception;
 

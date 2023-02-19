@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Windows.Data;
 
-namespace Root.GUI.Converters
+namespace Module.Core.GUI.Converters
 {
     public sealed class GroupConverter : List<IValueConverter>, IValueConverter
     {

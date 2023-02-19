@@ -3,6 +3,7 @@ using Mead.MusicBee.Api.Autofac.DependencyInjection.Extensions;
 using Mead.MusicBee.Services;
 using Module.ArtworksSearcher;
 using Module.AudioSourcesComparer;
+using Module.Core.Services.Abstract;
 using Module.DataExporter;
 using Module.InboxAdder;
 using Module.MusicBee.Extension;
@@ -12,7 +13,6 @@ using Module.VkAudioDownloader;
 using Plugin.Main.GUI.ViewModels;
 using Plugin.Main.GUI.Views;
 using Plugin.Main.Services;
-using Root.Services.Abstract;
 
 namespace Plugin.Main
 {

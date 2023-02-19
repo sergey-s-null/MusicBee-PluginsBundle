@@ -1,9 +1,9 @@
 ﻿using System.Windows;
+using Module.Core.Services.Abstract;
 using Module.Vk.Exceptions;
 using Module.Vk.Helpers;
 using Module.Vk.Settings;
 using Module.VkAudioDownloader.GUI.Factories;
-using Root.Services.Abstract;
 using VkNet.Abstractions;
 
 namespace Plugin.Main.Services

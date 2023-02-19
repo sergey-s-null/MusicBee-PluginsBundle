@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace Root.Helpers
+﻿namespace Module.Core.Helpers
 {
     public static class PathHelper
     {

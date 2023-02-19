@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Root.Helpers
+﻿namespace Module.Core.Helpers
 {
     public static class AsyncEnumerableHelper
     {

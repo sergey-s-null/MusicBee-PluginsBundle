@@ -19,7 +19,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
 	  <ProjectReference Include="..\Module.Settings.Gui\Module.Settings.Gui.csproj" />
-	  <ProjectReference Include="..\Root\Root.csproj" />
+	  <ProjectReference Include="..\Module.Core\Module.Core.csproj" />
 	</ItemGroup>
 
 </Project>

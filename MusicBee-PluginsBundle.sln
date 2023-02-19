@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{09040EAB-CB3C-4F82-B73E-98BDADDC5511}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Root", "Root\Root.csproj", "{E16591F9-37B9-4F2F-A8AA-E755DCC4243D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Core", "Module.Core\Module.Core.csproj", "{E16591F9-37B9-4F2F-A8AA-E755DCC4243D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackModule.AssemblyBindingRedirect", "HackModule.AssemblyBindingRedirect\HackModule.AssemblyBindingRedirect.csproj", "{E9ED5B16-E1DF-4911-A579-947EC6A67928}"
 EndProject

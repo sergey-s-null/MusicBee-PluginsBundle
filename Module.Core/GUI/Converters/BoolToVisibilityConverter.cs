@@ -1,9 +1,8 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Root.GUI.Converters
+namespace Module.Core.GUI.Converters
 {
     public sealed class BoolToVisibilityConverter : IValueConverter
     {

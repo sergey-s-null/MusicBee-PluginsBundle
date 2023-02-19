@@ -1,4 +1,4 @@
-﻿namespace Root.Services.Abstract
+﻿namespace Module.Core.Services.Abstract
 {
     public interface IVkApiAuthorizationsService
     {

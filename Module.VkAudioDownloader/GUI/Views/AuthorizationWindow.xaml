@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
-        xmlns:gconv="clr-namespace:Root.GUI.Converters;assembly=Root"
+        xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
         mc:Ignorable="d"
         Title="Authorization"
         Width="400px" ResizeMode="NoResize" SizeToContent="Height"
@@ -18,10 +18,10 @@
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="0 4" />
         </Style>
-        <gconv:BoolToVisibilityConverter x:Key="TwoFABlockVisibilityConverter"
+        <converters:BoolToVisibilityConverter x:Key="TwoFABlockVisibilityConverter"
                                          VisibilityOnFalse="Collapsed"
                                          VisibilityOnTrue="Visible" />
-        <gconv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
 
     <Grid Margin="6">
