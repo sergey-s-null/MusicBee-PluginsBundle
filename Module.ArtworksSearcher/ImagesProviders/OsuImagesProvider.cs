@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
+﻿using System.IO;
 using System.Windows.Media.Imaging;
 using Module.ArtworksSearcher.Settings;
-using Root.Helpers;
+using Module.Core.Helpers;
 using StringHelper = Module.ArtworksSearcher.Helpers.StringHelper;
 
 namespace Module.ArtworksSearcher.ImagesProviders

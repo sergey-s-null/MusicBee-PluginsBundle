@@ -1,7 +1,7 @@
 ﻿using Module.Settings.Gui.AbstractViewModels;
-using MusicBeePlugin.GUI.AbstractViewModels;
+using Plugin.Main.GUI.AbstractViewModels;
 
-namespace MusicBeePlugin.GUI.ViewModels
+namespace Plugin.Main.GUI.ViewModels
 {
     public sealed class ModuleSettingsVM : IModuleSettingsVM
     {

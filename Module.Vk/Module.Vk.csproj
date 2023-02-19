@@ -10,17 +10,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Reference Include="System.Net.Http"/>
+		<Reference Include="System.Net.Http" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Module.Settings.Gui\Module.Settings.Gui.csproj"/>
-		<ProjectReference Include="..\Root\Root.csproj"/>
+		<ProjectReference Include="..\Module.Settings.Gui\Module.Settings.Gui.csproj" />
+		<ProjectReference Include="..\Module.Core\Module.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="VkNet" Version="1.72.0"/>
-		<PackageReference Include="VkNet.AudioBypassService" Version="1.7.4"/>
+		<PackageReference Include="VkNet" Version="1.72.0" />
+		<PackageReference Include="VkNet.AudioBypassService" Version="1.7.4" />
 	</ItemGroup>
 
 </Project>

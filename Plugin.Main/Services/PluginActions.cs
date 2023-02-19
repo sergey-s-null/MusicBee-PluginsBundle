@@ -4,15 +4,15 @@ using Mead.MusicBee.Enums;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.Factories;
 using Module.AudioSourcesComparer.GUI.Factories;
+using Module.Core.Helpers;
+using Module.Core.Services.Abstract;
 using Module.DataExporter.Exceptions;
 using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
 using Module.VkAudioDownloader.GUI.Factories;
-using Root.Helpers;
-using Root.Services.Abstract;
 
-namespace MusicBeePlugin.Services
+namespace Plugin.Main.Services
 {
     public sealed class PluginActions : IPluginActions
     {

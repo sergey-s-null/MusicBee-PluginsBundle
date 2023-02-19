@@ -200,6 +200,12 @@
           "System.Runtime.CompilerServices.Unsafe": "4.5.3"
         }
       },
+      "module.core": {
+        "type": "Project",
+        "dependencies": {
+          "System.Linq.Async": "[6.0.1, )"
+        }
+      },
       "module.musicbee.extension": {
         "type": "Project",
         "dependencies": {
@@ -224,12 +230,6 @@
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Settings": "[1.0.0, )",
           "PropertyChanged.Fody": "[4.1.0, )"
-        }
-      },
-      "root": {
-        "type": "Project",
-        "dependencies": {
-          "System.Linq.Async": "[6.0.1, )"
         }
       }
     }

@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Settings.Exceptions;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
-using MusicBeePlugin.GUI.AbstractViewModels;
+using Plugin.Main.GUI.AbstractViewModels;
 using PropertyChanged;
 
-namespace MusicBeePlugin.GUI.ViewModels
+namespace Plugin.Main.GUI.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class SettingsDialogVM : ISettingsDialogVM

@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:globalConverters="clr-namespace:Root.GUI.Converters;assembly=Root"
         xmlns:converters="clr-namespace:Module.VkAudioDownloader.GUI.Converters"
         xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views"
         xmlns:vm="clr-namespace:Module.VkAudioDownloader.GUI.ViewModels"
         xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
+        xmlns:coreConverters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
         mc:Ignorable="d"
         Title="Download audios from VK" Height="450" Width="700"
         WindowStartupLocation="CenterScreen"
@@ -16,9 +16,9 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <globalConverters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter" />
-            <globalConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-            <globalConverters:EqualTypesConverter x:Key="EqualsTypesConverter" />
+            <coreConverters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter" />
+            <coreConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <coreConverters:EqualTypesConverter x:Key="EqualsTypesConverter" />
             <converters:IsCorruptedUrlConverter x:Key="IsCorruptedUrlConverter" />
             <CollectionViewSource x:Key="SortedAudios"
                                   Source="{Binding Audios}">

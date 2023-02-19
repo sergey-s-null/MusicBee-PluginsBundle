@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Mead.MusicBee.Api.Services.Abstract;
 using Mead.MusicBee.Enums;
+using Module.Core.Helpers;
 using Module.MusicBee.Extension.Helpers;
 using Module.Mvvm.Extension;
 using Module.Vk.Helpers;
@@ -13,7 +14,6 @@ using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
-using Root.Helpers;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 

@@ -206,6 +206,12 @@
           "protobuf-net": "3.1.25"
         }
       },
+      "module.core": {
+        "type": "Project",
+        "dependencies": {
+          "System.Linq.Async": "[6.0.1, )"
+        }
+      },
       "module.musicbee.extension": {
         "type": "Project",
         "dependencies": {
@@ -235,16 +241,10 @@
       "module.vk": {
         "type": "Project",
         "dependencies": {
+          "Module.Core": "[1.0.0, )",
           "Module.Settings.Gui": "[1.0.0, )",
-          "Root": "[1.0.0, )",
           "VkNet": "[1.72.0, )",
           "VkNet.AudioBypassService": "[1.7.4, )"
-        }
-      },
-      "root": {
-        "type": "Project",
-        "dependencies": {
-          "System.Linq.Async": "[6.0.1, )"
         }
       }
     }

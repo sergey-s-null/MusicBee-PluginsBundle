@@ -1,6 +1,6 @@
 ﻿using Module.Settings.Gui.AbstractViewModels;
 
-namespace MusicBeePlugin.GUI.AbstractViewModels
+namespace Plugin.Main.GUI.AbstractViewModels
 {
     public interface IModuleSettingsVM
     {

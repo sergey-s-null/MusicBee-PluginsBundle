@@ -3,18 +3,18 @@ using Mead.MusicBee.Api.Autofac.DependencyInjection.Extensions;
 using Mead.MusicBee.Services;
 using Module.ArtworksSearcher;
 using Module.AudioSourcesComparer;
+using Module.Core.Services.Abstract;
 using Module.DataExporter;
 using Module.InboxAdder;
 using Module.MusicBee.Extension;
 using Module.PlaylistsExporter;
 using Module.Vk;
 using Module.VkAudioDownloader;
-using MusicBeePlugin.GUI.ViewModels;
-using MusicBeePlugin.GUI.Views;
-using MusicBeePlugin.Services;
-using Root.Services.Abstract;
+using Plugin.Main.GUI.ViewModels;
+using Plugin.Main.GUI.Views;
+using Plugin.Main.Services;
 
-namespace MusicBeePlugin
+namespace Plugin.Main
 {
     public static class PluginContainer
     {

@@ -125,6 +125,12 @@
         "resolved": "4.5.0",
         "contentHash": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ=="
       },
+      "module.core": {
+        "type": "Project",
+        "dependencies": {
+          "System.Linq.Async": "[6.0.1, )"
+        }
+      },
       "module.musicbee.extension": {
         "type": "Project",
         "dependencies": {
@@ -149,12 +155,6 @@
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Settings": "[1.0.0, )",
           "PropertyChanged.Fody": "[4.1.0, )"
-        }
-      },
-      "root": {
-        "type": "Project",
-        "dependencies": {
-          "System.Linq.Async": "[6.0.1, )"
         }
       }
     }

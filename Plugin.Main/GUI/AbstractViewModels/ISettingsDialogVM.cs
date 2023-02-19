@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Module.ArtworksSearcher.GUI.Settings;
+﻿using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 
-namespace MusicBeePlugin.GUI.AbstractViewModels
+namespace Plugin.Main.GUI.AbstractViewModels
 {
     public interface ISettingsDialogVM
     {

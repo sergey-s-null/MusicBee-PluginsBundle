@@ -4,13 +4,13 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:dtvm="clr-namespace:Module.Vk.GUI.DesignTimeViewModels"
-            xmlns:gconv="clr-namespace:Root.GUI.Converters;assembly=Root"
+            xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
             mc:Ignorable="d"
             d:DesignWidth="500"
             d:DataContext="{d:DesignInstance dtvm:VkSettingsDTVM}">
 
     <StackPanel.Resources>
-        <gconv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />

@@ -1,7 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Test_Desktop">
-    <DataTemplate x:Key="ISomeWindowVM" DataType="{x:Type local:ISomeWindowVM}">
-        <TextBox Text="{Binding Field}" />
-    </DataTemplate>
-</ResourceDictionary>

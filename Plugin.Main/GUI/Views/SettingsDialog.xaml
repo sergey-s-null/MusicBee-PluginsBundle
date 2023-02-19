@@ -1,18 +1,18 @@
-﻿<Window x:Class="MusicBeePlugin.GUI.Views.SettingsDialog"
+﻿<Window x:Class="Plugin.Main.GUI.Views.SettingsDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:gconv="clr-namespace:Root.GUI.Converters;assembly=Root"
         xmlns:vkviews="clr-namespace:Module.Vk.GUI.Views;assembly=Module.Vk"
         xmlns:vkavm="clr-namespace:Module.Vk.GUI.AbstractViewModels;assembly=Module.Vk"
         xmlns:ass="clr-namespace:Module.ArtworksSearcher.GUI.Settings;assembly=Module.ArtworksSearcher"
         xmlns:pes="clr-namespace:Module.PlaylistsExporter.GUI.Settings;assembly=Module.PlaylistsExporter"
-        xmlns:avm="clr-namespace:Module.VkAudioDownloader.GUI.AbstractViewModels;assembly=Module.VKAudioDownloader"
-        xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views;assembly=Module.VKAudioDownloader"
-        xmlns:dtvm="clr-namespace:MusicBeePlugin.GUI.DesignTimeViewModels"
+        xmlns:avm="clr-namespace:Module.VkAudioDownloader.GUI.AbstractViewModels;assembly=Module.VkAudioDownloader"
+        xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views;assembly=Module.VkAudioDownloader"
+        xmlns:dtvm="clr-namespace:Plugin.Main.GUI.DesignTimeViewModels"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
         mc:Ignorable="d"
         Title="SettingsDialog" Height="450" Width="800"
         d:DataContext="{d:DesignInstance dtvm:SettingsDialogDTVM, d:IsDesignTimeCreatable=True}">
@@ -20,15 +20,15 @@
         <sys:Boolean x:Key="True">True</sys:Boolean>
         <sys:Boolean x:Key="False">False</sys:Boolean>
 
-        <gconv:GroupConverter
+        <converters:GroupConverter
             x:Key="SettingsVisibilityConverter">
-            <gconv:IsInstanceOfConverter />
-            <gconv:BoolToVisibilityConverter
+            <converters:IsInstanceOfConverter />
+            <converters:BoolToVisibilityConverter
                 VisibilityOnFalse="Collapsed"
                 VisibilityOnTrue="Visible" />
-        </gconv:GroupConverter>
+        </converters:GroupConverter>
 
-        <gconv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
 
     <Grid>
