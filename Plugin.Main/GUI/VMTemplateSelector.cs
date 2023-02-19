@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MusicBeePlugin.GUI
+namespace Plugin.Main.GUI
 {
     public sealed class VMTemplateSelector : DataTemplateSelector
     {

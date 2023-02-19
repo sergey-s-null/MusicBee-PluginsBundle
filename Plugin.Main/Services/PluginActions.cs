@@ -12,7 +12,7 @@ using Module.VkAudioDownloader.GUI.Factories;
 using Root.Helpers;
 using Root.Services.Abstract;
 
-namespace MusicBeePlugin.Services
+namespace Plugin.Main.Services
 {
     public sealed class PluginActions : IPluginActions
     {

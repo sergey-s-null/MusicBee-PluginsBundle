@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
-using MusicBeePlugin.GUI.ViewModels;
+using Plugin.Main.GUI.ViewModels;
 
-namespace MusicBeePlugin.GUI.Views;
+namespace Plugin.Main.GUI.Views;
 
 public partial class InboxRelocateContextMenu : ContextMenu
 {

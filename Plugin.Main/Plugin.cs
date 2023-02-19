@@ -8,10 +8,12 @@ using Mead.MusicBee.Entities;
 using Mead.MusicBee.Enums;
 using Mead.MusicBee.Services;
 using Module.MusicBee.Extension.Services.Abstract;
-using MusicBeePlugin.Factories;
-using MusicBeePlugin.GUI.Views;
-using MusicBeePlugin.Services;
+using Plugin.Main;
+using Plugin.Main.Factories;
+using Plugin.Main.GUI.Views;
+using Plugin.Main.Services;
 
+// ReSharper disable once CheckNamespace
 namespace MusicBeePlugin
 {
     public class Plugin : PluginBase

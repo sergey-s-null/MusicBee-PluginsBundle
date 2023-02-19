@@ -1,6 +1,6 @@
-﻿using MusicBeePlugin.GUI.Views;
+﻿using Plugin.Main.GUI.Views;
 
-namespace MusicBeePlugin.Factories
+namespace Plugin.Main.Factories
 {
     public delegate SettingsDialog SettingsDialogFactory();
 }

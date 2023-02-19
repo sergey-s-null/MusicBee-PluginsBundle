@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Module.ArtworksSearcher.GUI.Settings;
+﻿using Module.ArtworksSearcher.GUI.Settings;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.GUI.DesignTimeViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.DesignTimeViewModels;
-using MusicBeePlugin.GUI.AbstractViewModels;
-using MusicBeePlugin.GUI.ViewModels;
+using Plugin.Main.GUI.AbstractViewModels;
+using Plugin.Main.GUI.ViewModels;
 using PropertyChanged;
 
-namespace MusicBeePlugin.GUI.DesignTimeViewModels
+namespace Plugin.Main.GUI.DesignTimeViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public sealed class SettingsDialogDTVM : ISettingsDialogVM

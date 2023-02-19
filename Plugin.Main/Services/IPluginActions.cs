@@ -1,4 +1,4 @@
-﻿namespace MusicBeePlugin.Services
+﻿namespace Plugin.Main.Services
 {
     public interface IPluginActions
     {

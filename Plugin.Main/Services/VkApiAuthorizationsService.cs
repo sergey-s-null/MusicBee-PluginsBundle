@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Module.Vk.Exceptions;
 using Module.Vk.Helpers;
 using Module.Vk.Settings;
@@ -7,7 +6,7 @@ using Module.VkAudioDownloader.GUI.Factories;
 using Root.Services.Abstract;
 using VkNet.Abstractions;
 
-namespace MusicBeePlugin.Services
+namespace Plugin.Main.Services
 {
     public sealed class VkApiAuthorizationsService : IVkApiAuthorizationsService
     {

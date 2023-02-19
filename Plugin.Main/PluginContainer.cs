@@ -9,12 +9,12 @@ using Module.MusicBee.Extension;
 using Module.PlaylistsExporter;
 using Module.Vk;
 using Module.VkAudioDownloader;
-using MusicBeePlugin.GUI.ViewModels;
-using MusicBeePlugin.GUI.Views;
-using MusicBeePlugin.Services;
+using Plugin.Main.GUI.ViewModels;
+using Plugin.Main.GUI.Views;
+using Plugin.Main.Services;
 using Root.Services.Abstract;
 
-namespace MusicBeePlugin
+namespace Plugin.Main
 {
     public static class PluginContainer
     {
