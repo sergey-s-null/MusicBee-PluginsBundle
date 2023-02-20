@@ -1,190 +1,67 @@
-﻿<Window x:Class="Module.VkAudioDownloader.GUI.Views.VkAudioDownloaderWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:converters="clr-namespace:Module.VkAudioDownloader.GUI.Converters"
-        xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views"
-        xmlns:vm="clr-namespace:Module.VkAudioDownloader.GUI.ViewModels"
-        xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
-        xmlns:coreConverters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
-        mc:Ignorable="d"
-        Title="Download audios from VK" Height="450" Width="700"
-        WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance dtvm:VkAudioDownloaderWindowDTVM}"
-        Loaded="VkAudioDownloaderWindow_OnLoaded">
+﻿<Window
+    x:Class="Module.VkAudioDownloader.GUI.Views.VkAudioDownloaderWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views"
+    xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
+    xmlns:coreConverters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
+    mc:Ignorable="d"
+    Title="Download audios from VK" Height="450" Width="700"
+    WindowStartupLocation="CenterScreen"
+    d:DataContext="{d:DesignInstance dtvm:VkAudioDownloaderWindowDTVM}">
 
     <Window.Resources>
         <ResourceDictionary>
-            <coreConverters:DefaultMultiValueConverter x:Key="DefaultMultiValueConverter" />
             <coreConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-            <coreConverters:EqualTypesConverter x:Key="EqualsTypesConverter" />
-            <converters:IsCorruptedUrlConverter x:Key="IsCorruptedUrlConverter" />
-            <CollectionViewSource x:Key="SortedAudios"
-                                  Source="{Binding Audios}">
-            </CollectionViewSource>
         </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
+
             <Button Grid.Column="0" Grid.Row="0"
                     Content="Refresh"
                     Margin="4"
                     HorizontalAlignment="Right" VerticalAlignment="Top"
-                    Command="{Binding Path=RefreshCmd}" />
-            
-            <Button Grid.Column="2" 
+                    Command="{Binding Path=Refresh}" />
+
+            <Button Grid.Column="2"
                     Content="Download >>"
-                    Margin="4" Command="{Binding DownloadCmd}"
-                    IsEnabled="{Binding IsDownloading, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}" />
-            
+                    Margin="4" Command="{Binding Download}"
+                    IsEnabled="{
+                        Binding IsDownloading, 
+                        Mode=OneWay, 
+                        Converter={StaticResource InverseBooleanConverter}
+                    }" />
         </Grid>
-        
-        <ListView Grid.Row="1"
-                  ItemsSource="{Binding Source={StaticResource SortedAudios}}">
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Style.Triggers>
-                        <DataTrigger
-                            Binding="{Binding ., Converter={StaticResource EqualsTypesConverter},
-                                                ConverterParameter={x:Type vm:MBAudioVM}}"
-                            Value="True">
-                            <Setter Property="Background" Value="{x:Null}" />
-                            <Setter Property="BorderBrush" Value="{x:Null}" />
-                            <Setter Property="Focusable" Value="False" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ., Converter={StaticResource IsCorruptedUrlConverter}}"
-                                     Value="True">
-                            <Setter Property="Background" Value="#ffd4cc" />
-                        </DataTrigger>
-                    </Style.Triggers>
+        <ListBox
+            Grid.Row="1"
+            ItemsSource="{Binding Audios}">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
-            </ListView.ItemContainerStyle>
+            </ListBox.ItemContainerStyle>
 
-            <ListView.View>
-                <GridView>
-                    <GridView.Columns>
-                        <GridViewColumn Header="v"
-                                        Width="{Binding ElementName=FieldColumn0, Path=ActualWidth}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Resources>
-                                            <!-- Такая сложная структура из-за того, что нужно вставить два темплейта для VkAudioVM и MBAudioVM -->
-                                            <DataTemplate DataType="{x:Type vm:VkAudioVM}">
-                                                <CheckBox IsChecked="{Binding IsSelected}"
-                                                          Command="{Binding ViewModel.ApplyCheckStateToSelectedCmd,
-                                                                    RelativeSource={RelativeSource AncestorType=views:VkAudioDownloaderWindow}}">
-                                                    <CheckBox.CommandParameter>
-                                                        <MultiBinding
-                                                            Converter="{StaticResource DefaultMultiValueConverter}">
-                                                            <Binding />
-                                                            <Binding
-                                                                RelativeSource="{RelativeSource AncestorType=ListView}"
-                                                                Path="SelectedItems" />
-                                                        </MultiBinding>
-                                                    </CheckBox.CommandParameter>
-                                                </CheckBox>
-                                            </DataTemplate>
-                                            <DataTemplate DataType="{x:Type vm:MBAudioVM}" />
-                                        </ContentControl.Resources>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Index"
-                                        Width="{Binding ElementName=FieldColumn1, Path=ActualWidth}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Resources>
-                                            <DataTemplate DataType="{x:Type vm:MBAudioVM}">
-                                                <TextBlock Text="{Binding Index, Mode=OneWay}" />
-                                            </DataTemplate>
-                                            <DataTemplate DataType="{x:Type vm:VkAudioVM}" />
-                                        </ContentControl.Resources>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="i1"
-                                        Width="{Binding ElementName=FieldColumn2, Path=ActualWidth}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Resources>
-                                            <DataTemplate DataType="{x:Type vm:MBAudioVM}">
-                                                <TextBlock Text="{Binding Index1Str, Mode=OneWay}" />
-                                            </DataTemplate>
-                                            <DataTemplate DataType="{x:Type vm:VkAudioVM}" />
-                                        </ContentControl.Resources>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="i2"
-                                        Width="{Binding ElementName=FieldColumn3, Path=ActualWidth}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Resources>
-                                            <DataTemplate DataType="{x:Type vm:MBAudioVM}">
-                                                <TextBlock Text="{Binding Index2Str, Mode=OneWay}" />
-                                            </DataTemplate>
-                                            <DataTemplate DataType="{x:Type vm:VkAudioVM}" />
-                                        </ContentControl.Resources>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Vk ID"
-                                        Width="{Binding ElementName=FieldColumn4, Path=ActualWidth}"
-                                        DisplayMemberBinding="{Binding VkId}" />
-                        <GridViewColumn Header="Artist"
-                                        Width="{Binding ElementName=FieldColumn5, Path=ActualWidth}"
-                                        DisplayMemberBinding="{Binding Artist}" />
-                        <GridViewColumn Header="Title"
-                                        Width="{Binding ElementName=FieldColumn6, Path=ActualWidth}"
-                                        DisplayMemberBinding="{Binding Title}" />
-                    </GridView.Columns>
-                </GridView>
-            </ListView.View>
-
-        </ListView>
-
-        <Grid Grid.Row="1" Margin="0 0 30 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="28px" />
-                <ColumnDefinition Width="44px" />
-                <ColumnDefinition Width="26px" />
-                <ColumnDefinition Width="26px" />
-                <ColumnDefinition Width="76px" />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" x:Name="FieldColumn0" />
-            <Grid Grid.Column="1" x:Name="FieldColumn1" />
-            <Grid Grid.Column="2" x:Name="FieldColumn2" />
-            <Grid Grid.Column="3" x:Name="FieldColumn3" />
-            <Grid Grid.Column="4" x:Name="FieldColumn4" />
-            <Grid Grid.Column="5" x:Name="FieldColumn5" />
-            <Grid Grid.Column="6" x:Name="FieldColumn6" />
-        </Grid>
-        
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type dtvm:VkAudioDTVM}">
+                    <views:VkAudio />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
-
-
 </Window>

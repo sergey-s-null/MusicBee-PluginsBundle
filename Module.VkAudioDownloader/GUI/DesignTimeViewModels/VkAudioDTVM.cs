@@ -4,7 +4,7 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels;
 
 public sealed class VkAudioDTVM : IVkAudioVM
 {
-    public bool IsSelected { get; set; } = true;
+    public bool IsSelected { get; set; }
 
     public long VkId { get; }
     public string Artist { get; }
