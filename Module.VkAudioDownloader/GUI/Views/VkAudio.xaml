@@ -22,7 +22,7 @@
                 Grid.Column="0"
                 Margin="4 0"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
-                Checked="{Binding IsSelected}" />
+                IsChecked="{Binding IsSelected}" />
 
             <TextBlock
                 Grid.Column="1"
