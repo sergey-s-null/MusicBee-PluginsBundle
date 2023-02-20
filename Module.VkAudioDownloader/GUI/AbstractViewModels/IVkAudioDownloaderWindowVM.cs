@@ -8,6 +8,5 @@ public interface IVkAudioDownloaderWindowVM
     IList<IVkAudioVM> Audios { get; }
 
     ICommand Refresh { get; }
-    ICommand ApplyCheckStateToSelected { get; }
     ICommand Download { get; }
 }

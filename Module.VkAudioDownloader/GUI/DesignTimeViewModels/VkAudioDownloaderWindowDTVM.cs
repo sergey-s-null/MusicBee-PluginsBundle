@@ -13,9 +13,6 @@ public sealed class VkAudioDownloaderWindowDTVM : IVkAudioDownloaderWindowVM
     public ICommand Refresh { get; } =
         new RelayCommand(_ => { });
 
-    public ICommand ApplyCheckStateToSelected { get; } =
-        new RelayCommand(_ => { });
-
     public ICommand Download { get; } =
         new RelayCommand(_ => { });
 
