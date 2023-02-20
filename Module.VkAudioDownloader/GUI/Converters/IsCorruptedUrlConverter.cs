@@ -1,20 +1,19 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
-using Module.VkAudioDownloader.GUI.ViewModels;
 
 namespace Module.VkAudioDownloader.GUI.Converters
 {
+    // todo maybe delete?
     public sealed class IsCorruptedUrlConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is IAudioVM baseAudioVM)
+            if (value is IVkAudioVM vkAudioVM)
             {
-                return baseAudioVM is VkAudioVM { IsCorruptedUrl: true };
+                return vkAudioVM.IsCorruptedUrl;
             }
-            
+
             throw new NotSupportedException();
         }
 
