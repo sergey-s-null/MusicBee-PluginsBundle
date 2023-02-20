@@ -1,12 +1,10 @@
 ﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
-using PropertyChanged;
 
-namespace Module.VkAudioDownloader.GUI.ViewModels;
+namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels;
 
-[AddINotifyPropertyChangedInterface]
-public sealed class VkAudioVM : IVkAudioVM
+public sealed class VkAudioDTVM : IVkAudioVM
 {
-    public bool IsSelected { get; set; }
+    public bool IsSelected { get; set; } = true;
 
     public long VkId { get; }
     public string Artist { get; }
@@ -14,7 +12,16 @@ public sealed class VkAudioVM : IVkAudioVM
     public string Url { get; }
     public bool IsCorruptedUrl { get; }
 
-    public VkAudioVM(
+    public VkAudioDTVM()
+    {
+        VkId = 5987612340;
+        Artist = "Rick Astley";
+        Title = "Never Gonna Give You Up";
+        Url = "www.example.com";
+        IsCorruptedUrl = false;
+    }
+
+    public VkAudioDTVM(
         long vkId,
         string artist,
         string title,
