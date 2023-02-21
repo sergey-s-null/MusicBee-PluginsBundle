@@ -146,8 +146,7 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
             audio.Id.Value,
             audio.Artist,
             audio.Title,
-            mp3Url,
-            !convertRes,
+            new VkAudioUrlVM(mp3Url, !convertRes),
             false // todo
         )
         {
@@ -181,13 +180,14 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     private static IReadOnlyCollection<Task> MakeDownloadTasks(IEnumerable<VkAudioVMWithFileSavePath> items)
     {
         return items
+            .Where(x => x.VkAudio.Url is not null)
             .Select(item =>
             {
                 var directoryName = Path.GetDirectoryName(item.FilePath);
                 DirectoryHelper.CreateIfNotExists(directoryName
                                                   ?? throw new Exception("DirectoryName is null"));
 
-                return AudioDownloadHelper.DownloadAudioAsync(item.VkAudio.Url, item.FilePath);
+                return AudioDownloadHelper.DownloadAudioAsync(item.VkAudio.Url!.Value, item.FilePath);
             })
             .ToReadOnlyCollection();
     }

@@ -11,7 +11,8 @@ namespace Module.VkAudioDownloader.GUI.Converters
         {
             if (value is IVkAudioVM vkAudioVM)
             {
-                return vkAudioVM.IsCorruptedUrl;
+                return vkAudioVM.Url is not null
+                       && vkAudioVM.Url.IsCorrupted;
             }
 
             throw new NotSupportedException();

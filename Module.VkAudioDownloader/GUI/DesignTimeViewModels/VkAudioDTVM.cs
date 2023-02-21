@@ -9,8 +9,7 @@ public sealed class VkAudioDTVM : IVkAudioVM
     public long VkId { get; }
     public string Artist { get; }
     public string Title { get; }
-    public string Url { get; }
-    public bool IsCorruptedUrl { get; }
+    public IVkAudioUrlVM? Url { get; }
     public bool IsInIncoming { get; }
 
     public VkAudioDTVM()
@@ -18,8 +17,7 @@ public sealed class VkAudioDTVM : IVkAudioVM
         VkId = 5987612340;
         Artist = "Rick Astley";
         Title = "Never Gonna Give You Up";
-        Url = "www.example.com";
-        IsCorruptedUrl = false;
+        Url = new VkAudioUrlDTVM();
         IsInIncoming = false;
     }
 
@@ -27,15 +25,13 @@ public sealed class VkAudioDTVM : IVkAudioVM
         long vkId,
         string artist,
         string title,
-        string url,
-        bool isCorruptedUrl,
+        IVkAudioUrlVM? url,
         bool isInIncoming)
     {
         VkId = vkId;
         Artist = artist;
         Title = title;
         Url = url;
-        IsCorruptedUrl = isCorruptedUrl;
         IsInIncoming = isInIncoming;
     }
 }

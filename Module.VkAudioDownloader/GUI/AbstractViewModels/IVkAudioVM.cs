@@ -2,12 +2,11 @@
 
 public interface IVkAudioVM
 {
-    public bool IsSelected { get; set; }
+    bool IsSelected { get; set; }
 
-    public long VkId { get; }
-    public string Artist { get; }
-    public string Title { get; }
-    public string Url { get; }
-    public bool IsCorruptedUrl { get; }
-    public bool IsInIncoming { get; }
+    long VkId { get; }
+    string Artist { get; }
+    string Title { get; }
+    IVkAudioUrlVM? Url { get; }
+    bool IsInIncoming { get; }
 }
