@@ -2,6 +2,8 @@
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.ViewModels;
 using Module.VkAudioDownloader.GUI.Views;
+using Module.VkAudioDownloader.Services;
+using Module.VkAudioDownloader.Services.Abstract;
 using Module.VkAudioDownloader.Settings;
 using MusicDownloaderSettings = Module.VkAudioDownloader.Settings.MusicDownloaderSettings;
 
@@ -14,6 +16,11 @@ namespace Module.VkAudioDownloader
             builder
                 .RegisterType<MusicDownloaderSettings>()
                 .As<IMusicDownloaderSettings>()
+                .SingleInstance();
+
+            builder
+                .RegisterType<VkAudiosService>()
+                .As<IVkAudiosService>()
                 .SingleInstance();
 
             builder
