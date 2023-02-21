@@ -11,10 +11,10 @@ using Module.Vk.Helpers;
 using Module.VkAudioDownloader.Entities;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.Helpers;
+using Module.VkAudioDownloader.Services.Abstract;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
-using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 
 namespace Module.VkAudioDownloader.GUI.ViewModels;
@@ -37,20 +37,20 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     private readonly MBTagReplacer _tagReplacer = new();
 
     private readonly IMusicBeeApi _mbApi;
-    private readonly IVkApi _vkApi;
     private readonly IMusicDownloaderSettings _settings;
+    private readonly IVkAudiosService _vkAudiosService;
 
     private readonly Semaphore _refreshSemaphore = new(1, 1);
     private readonly Semaphore _applySemaphore = new(1, 1);
 
     public VkAudioDownloaderWindowVM(
         IMusicBeeApi mbApi,
-        IVkApi vkApi,
-        IMusicDownloaderSettings settings)
+        IMusicDownloaderSettings settings,
+        IVkAudiosService vkAudiosService)
     {
         _mbApi = mbApi;
-        _vkApi = vkApi;
         _settings = settings;
+        _vkAudiosService = vkAudiosService;
     }
 
     private async void RefreshInternal()
@@ -120,34 +120,28 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
         RefreshInternal();
     }
 
-    private async Task<IReadOnlyCollection<VkAudioVM>> GetVkAudios(int maxDepth = 50)
+    private async Task<IReadOnlyCollection<IVkAudioVM>> GetVkAudios()
     {
-        var vkIdsFromLibrary = _mbApi.EnumerateVkIdsInLibrary().ToHashSet();
+        var audiosNotInLibrary = _vkAudiosService.GetVkAudiosNotContainingInLibraryAsync()
+            .Select(x => MapToViewModel(x, false));
+        var audiosInIncoming = _vkAudiosService.GetVkAudiosContainingInIncomingAsync()
+            .Select(x => MapToViewModel(x, true));
 
-        return await _vkApi.Audio.AsAsyncEnumerable()
-            .TakeWhile(audio => audio.Id is not null
-                                && !vkIdsFromLibrary.Contains(audio.Id.Value))
-            .Take(maxDepth)
-            .Where(audio => audio.Url is not null)
-            .Select(AudioToVkAudioVM)
-            .ToReadOnlyCollectionAsync();
+        return await audiosNotInLibrary
+            .Union(audiosInIncoming)
+            .ToListAsync();
     }
 
-    private static VkAudioVM AudioToVkAudioVM(Audio audio)
+    private static IVkAudioVM MapToViewModel(Audio audio, bool isInIncoming)
     {
         var convertRes = VkApiHelper.ConvertToMp3(audio.Url.AbsoluteUri, out var mp3Url);
 
-        if (audio.Id is null)
-        {
-            throw new Exception("This message is not being to be shown (If all is alright).");
-        }
-
         return new VkAudioVM(
-            audio.Id.Value,
+            audio.Id!.Value,
             audio.Artist,
             audio.Title,
             new VkAudioUrlVM(mp3Url, !convertRes),
-            false // todo
+            isInIncoming
         )
         {
             IsSelected = true
