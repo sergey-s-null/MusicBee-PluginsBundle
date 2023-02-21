@@ -9,4 +9,5 @@ public interface IVkAudioVM
     public string Title { get; }
     public string Url { get; }
     public bool IsCorruptedUrl { get; }
+    public bool IsInIncoming { get; }
 }

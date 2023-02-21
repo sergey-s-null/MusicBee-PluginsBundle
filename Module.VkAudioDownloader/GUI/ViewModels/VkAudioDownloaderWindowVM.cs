@@ -147,7 +147,8 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
             audio.Artist,
             audio.Title,
             mp3Url,
-            !convertRes
+            !convertRes,
+            false // todo
         )
         {
             IsSelected = true

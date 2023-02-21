@@ -11,6 +11,7 @@ public sealed class VkAudioDTVM : IVkAudioVM
     public string Title { get; }
     public string Url { get; }
     public bool IsCorruptedUrl { get; }
+    public bool IsInIncoming { get; }
 
     public VkAudioDTVM()
     {
@@ -19,6 +20,7 @@ public sealed class VkAudioDTVM : IVkAudioVM
         Title = "Never Gonna Give You Up";
         Url = "www.example.com";
         IsCorruptedUrl = false;
+        IsInIncoming = false;
     }
 
     public VkAudioDTVM(
@@ -26,12 +28,14 @@ public sealed class VkAudioDTVM : IVkAudioVM
         string artist,
         string title,
         string url,
-        bool isCorruptedUrl)
+        bool isCorruptedUrl,
+        bool isInIncoming)
     {
         VkId = vkId;
         Artist = artist;
         Title = title;
         Url = url;
         IsCorruptedUrl = isCorruptedUrl;
+        IsInIncoming = isInIncoming;
     }
 }

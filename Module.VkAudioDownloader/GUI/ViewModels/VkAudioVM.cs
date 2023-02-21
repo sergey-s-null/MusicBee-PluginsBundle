@@ -13,18 +13,21 @@ public sealed class VkAudioVM : IVkAudioVM
     public string Title { get; }
     public string Url { get; }
     public bool IsCorruptedUrl { get; }
+    public bool IsInIncoming { get; }
 
     public VkAudioVM(
         long vkId,
         string artist,
         string title,
         string url,
-        bool isCorruptedUrl)
+        bool isCorruptedUrl,
+        bool isInIncoming)
     {
         VkId = vkId;
         Artist = artist;
         Title = title;
         Url = url;
         IsCorruptedUrl = isCorruptedUrl;
+        IsInIncoming = isInIncoming;
     }
 }
