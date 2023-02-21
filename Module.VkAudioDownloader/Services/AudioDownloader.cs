@@ -1,4 +1,6 @@
-﻿using Module.VkAudioDownloader.Entities;
+﻿using System.IO;
+using Module.Core.Helpers;
+using Module.VkAudioDownloader.Entities;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Services.Abstract;
 
@@ -25,6 +27,8 @@ public sealed class AudioDownloader : IAudioDownloader
     {
         try
         {
+            CreateDirectoryIfNeeded(audio.DestinationPath);
+
             // todo move this method in separate service or in current class
             await AudioDownloadHelper.DownloadAudioAsync(audio.Url, audio.DestinationPath);
             return new AudioDownloadResult(audio.Url, audio.DestinationPath);
@@ -33,5 +37,17 @@ public sealed class AudioDownloader : IAudioDownloader
         {
             return new AudioDownloadResult(audio.Url, audio.DestinationPath, e);
         }
+    }
+
+    private static void CreateDirectoryIfNeeded(string destinationPath)
+    {
+        var directoryName = Path.GetDirectoryName(destinationPath);
+
+        if (directoryName is null)
+        {
+            throw new Exception($"Directory name is null for path \"{destinationPath}\".");
+        }
+
+        DirectoryHelper.CreateIfNotExists(directoryName);
     }
 }
