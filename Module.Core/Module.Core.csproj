@@ -19,12 +19,4 @@
 	  <PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Page Include="GUI\Views\Components\CopyToClipboardButton.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	    <XamlRuntime>Wpf</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	</ItemGroup>
-
 </Project>
