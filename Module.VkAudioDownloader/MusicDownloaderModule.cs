@@ -22,6 +22,10 @@ namespace Module.VkAudioDownloader
                 .RegisterType<VkAudiosService>()
                 .As<IVkAudiosService>()
                 .SingleInstance();
+            builder
+                .RegisterType<AudioDownloader>()
+                .As<IAudioDownloader>()
+                .SingleInstance();
 
             builder
                 .RegisterType<VkAudioDownloaderWindowVM>()
