@@ -4,11 +4,11 @@ using System.Windows;
 using System.Windows.Input;
 using Mead.MusicBee.Api.Services.Abstract;
 using Mead.MusicBee.Enums;
-using Module.Core.Helpers;
 using Module.MusicBee.Extension.Helpers;
 using Module.Mvvm.Extension;
 using Module.Vk.Helpers;
 using Module.VkAudioDownloader.Entities;
+using Module.VkAudioDownloader.Extensions;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Services.Abstract;
@@ -39,6 +39,7 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     private readonly IMusicBeeApi _mbApi;
     private readonly IMusicDownloaderSettings _settings;
     private readonly IVkAudiosService _vkAudiosService;
+    private readonly IAudioDownloader _audioDownloader;
 
     private readonly Semaphore _refreshSemaphore = new(1, 1);
     private readonly Semaphore _applySemaphore = new(1, 1);
@@ -46,11 +47,13 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     public VkAudioDownloaderWindowVM(
         IMusicBeeApi mbApi,
         IMusicDownloaderSettings settings,
-        IVkAudiosService vkAudiosService)
+        IVkAudiosService vkAudiosService,
+        IAudioDownloader audioDownloader)
     {
         _mbApi = mbApi;
         _settings = settings;
         _vkAudiosService = vkAudiosService;
+        _audioDownloader = audioDownloader;
     }
 
     private async void RefreshInternal()
@@ -101,21 +104,13 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
             return;
         }
 
-        var items = GetItemsForDownload();
+        var audios = GetValidSelectedAudios();
 
-        var downloadTasks = MakeDownloadTasks(items);
+        var downloadResult = await _audioDownloader.DownloadBatchAsync(MapToAudiosToDownload(audios));
 
-        try
-        {
-            await Task.WhenAll(downloadTasks);
-        }
-        catch (Exception e)
-        {
-            HandleDownloadError(items, e.Message);
-            return;
-        }
+        CommitDownload(audios, downloadResult.Results);
 
-        CommitDownload(items);
+        DisplayErrorsIfExists(downloadResult);
 
         RefreshInternal();
     }
@@ -148,19 +143,31 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
         };
     }
 
-    private IReadOnlyCollection<VkAudioVMWithFileSavePath> GetItemsForDownload()
+    private IReadOnlyList<IVkAudioVM> GetValidSelectedAudios()
     {
         return Audios
-            .Where(vkAudio => vkAudio.IsSelected)
-            .Reverse()
-            .Select(AddFileSavePath)
-            .ToReadOnlyCollection();
+            .Where(vkAudio => vkAudio.IsSelected
+                              && vkAudio.Url is not null)
+            .ToList();
     }
 
-    private VkAudioVMWithFileSavePath AddFileSavePath(IVkAudioVM vkAudioVM)
+    private IReadOnlyList<AudioToDownload> MapToAudiosToDownload(IReadOnlyList<IVkAudioVM> audios)
     {
-        _tagReplacer.SetReplaceValue(MBTagReplacer.Tag.Artist, vkAudioVM.Artist);
-        _tagReplacer.SetReplaceValue(MBTagReplacer.Tag.Title, vkAudioVM.Title);
+        return audios
+            .Select(MapToAudioToDownload)
+            .ToList();
+    }
+
+    private AudioToDownload MapToAudioToDownload(IVkAudioVM vkAudio)
+    {
+        var destinationPath = GetAudioDownloadPath(vkAudio);
+        return new AudioToDownload(vkAudio.Url!.Value, destinationPath);
+    }
+
+    private string GetAudioDownloadPath(IVkAudioVM vkAudio)
+    {
+        _tagReplacer.SetReplaceValue(MBTagReplacer.Tag.Artist, vkAudio.Artist);
+        _tagReplacer.SetReplaceValue(MBTagReplacer.Tag.Title, vkAudio.Title);
 
         var downloadDir = _tagReplacer.Prepare(_settings.DownloadDirTemplate);
         var fileName = _tagReplacer.Prepare(_settings.FileNameTemplate) + ".mp3";
@@ -168,52 +175,41 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
         downloadDir = PathEx.RemoveInvalidDirChars(downloadDir);
         fileName = PathEx.RemoveInvalidFileNameChars(fileName);
 
-        return new VkAudioVMWithFileSavePath(vkAudioVM, Path.Combine(downloadDir, fileName));
+        return Path.Combine(downloadDir, fileName);
     }
 
-    private static IReadOnlyCollection<Task> MakeDownloadTasks(IEnumerable<VkAudioVMWithFileSavePath> items)
+    private void DisplayErrorsIfExists(BatchDownloadResult downloadResult)
     {
-        return items
-            .Where(x => x.VkAudio.Url is not null)
-            .Select(item =>
+        var errorResults = downloadResult.Results
+            .Where(x => !x.IsSuccess)
+            .ToList();
+
+        if (errorResults.Count == 0)
+        {
+            return;
+        }
+
+        var message = string.Join(
+            "\n\n",
+            errorResults.Select(x =>
+                $"Error occured while downloading from {x.Url} to \"{x.DestinationPath}\".")
+        );
+
+        // TODO display with message in TextBox
+        MessageBox.Show(message);
+    }
+
+    private void CommitDownload(IReadOnlyList<IVkAudioVM> audios, IReadOnlyList<AudioDownloadResult> downloadResults)
+    {
+        foreach (var (vkAudioVM, result) in audios.Zip(downloadResults))
+        {
+            if (!result.IsSuccess)
             {
-                var directoryName = Path.GetDirectoryName(item.FilePath);
-                DirectoryHelper.CreateIfNotExists(directoryName
-                                                  ?? throw new Exception("DirectoryName is null"));
+                continue;
+            }
 
-                return AudioDownloadHelper.DownloadAudioAsync(item.VkAudio.Url!.Value, item.FilePath);
-            })
-            .ToReadOnlyCollection();
-    }
+            var filePath = result.DestinationPath;
 
-    private static void HandleDownloadError(IReadOnlyCollection<VkAudioVMWithFileSavePath> items, string message)
-    {
-        var notDeleted = items
-            .Where(x => File.Exists(x.FilePath))
-            .Where(x => !FileEx.TryDelete(x.FilePath))
-            .Select(x => x.FilePath)
-            .ToReadOnlyCollection();
-
-        if (notDeleted.Count > 0)
-        {
-            // TODO display with message in TextBox
-            var dialogMessage =
-                "Error downloading files.\n\n" +
-                $"Message: {message}\n\n" +
-                "These files was not deleted:\n" +
-                string.Join(Environment.NewLine, notDeleted);
-            MessageBox.Show(dialogMessage);
-        }
-        else
-        {
-            MessageBox.Show($"Error downloading file: {message}.");
-        }
-    }
-
-    private void CommitDownload(IEnumerable<VkAudioVMWithFileSavePath> items)
-    {
-        foreach (var (vkAudioVM, filePath) in items)
-        {
             _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Inbox);
 
             _mbApi.SetVkId(filePath, vkAudioVM.VkId, false);
