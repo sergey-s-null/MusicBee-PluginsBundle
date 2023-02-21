@@ -122,7 +122,7 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
 
     private async Task<IReadOnlyCollection<VkAudioVM>> GetVkAudios(int maxDepth = 50)
     {
-        var vkIdsFromLibrary = _mbApi.EnumerateVkIds().ToHashSet();
+        var vkIdsFromLibrary = _mbApi.EnumerateVkIdsInLibrary().ToHashSet();
 
         return await _vkApi.Audio.AsAsyncEnumerable()
             .TakeWhile(audio => audio.Id is not null
