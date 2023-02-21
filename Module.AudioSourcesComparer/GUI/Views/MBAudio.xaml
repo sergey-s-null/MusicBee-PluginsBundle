@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:dtvm="clr-namespace:Module.AudioSourcesComparer.GUI.DesignTimeViewModels"
-             xmlns:comp="clr-namespace:Module.AudioSourcesComparer.GUI.Views.Components"
+             xmlns:components="clr-namespace:Module.AudioSourcesComparer.GUI.Views.Components"
+             xmlns:coreComponents="clr-namespace:Module.Core.GUI.Views.Components;assembly=Module.Core"
              mc:Ignorable="d"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance dtvm:MBAudioDTVM}">
@@ -19,11 +20,11 @@
             <Setter Property="Margin" Value="0 4" />
         </Style>
 
-        <Style TargetType="comp:CopyToClipboardButton">
+        <Style TargetType="coreComponents:CopyToClipboardButton">
             <Setter Property="Margin" Value="2 0" />
         </Style>
 
-        <Style TargetType="comp:ContextMenuButton">
+        <Style TargetType="components:ContextMenuButton">
             <Setter Property="Margin" Value="3 0" />
             <Setter Property="Padding" Value="3 0" />
         </Style>
@@ -39,12 +40,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <comp:CopyToClipboardButton Grid.Column="0" Content="{Binding VkId}" />
-            <comp:CopyToClipboardButton Grid.Column="1" Content="{Binding Index}" />
-            <comp:CopyToClipboardButton Grid.Column="2" Content="{Binding Artist}" />
-            <comp:CopyToClipboardButton Grid.Column="3" Content="{Binding Title}" />
-            <comp:ContextMenuButton Grid.Column="4">
-                <comp:ContextMenuButton.ContextMenu>
+            <coreComponents:CopyToClipboardButton Grid.Column="0" Content="{Binding VkId}" />
+            <coreComponents:CopyToClipboardButton Grid.Column="1" Content="{Binding Index}" />
+            <coreComponents:CopyToClipboardButton Grid.Column="2" Content="{Binding Artist}" />
+            <coreComponents:CopyToClipboardButton Grid.Column="3" Content="{Binding Title}" />
+            <components:ContextMenuButton Grid.Column="4">
+                <components:ContextMenuButton.ContextMenu>
                     <ContextMenu>
                         <MenuItem
                             Header="Copy File Path"
@@ -57,11 +58,11 @@
                             Header="Copy Artist - Title"
                             Command="{Binding SetArtistAndTitleToClipboardCmd}" />
                     </ContextMenu>
-                </comp:ContextMenuButton.ContextMenu>
-                <comp:ContextMenuButton.Content>
+                </components:ContextMenuButton.ContextMenu>
+                <components:ContextMenuButton.Content>
                     <iconPacks:PackIconBootstrapIcons Kind="ThreeDots" />
-                </comp:ContextMenuButton.Content>
-            </comp:ContextMenuButton>
+                </components:ContextMenuButton.Content>
+            </components:ContextMenuButton>
         </Grid>
     </Border>
 

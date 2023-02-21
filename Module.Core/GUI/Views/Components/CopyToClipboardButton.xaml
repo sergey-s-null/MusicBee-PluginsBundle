@@ -1,15 +1,15 @@
-﻿<Button x:Class="Module.AudioSourcesComparer.GUI.Views.Components.CopyToClipboardButton"
+﻿<Button x:Class="Module.Core.GUI.Views.Components.CopyToClipboardButton"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:cmd="clr-namespace:Module.AudioSourcesComparer.GUI.Commands"
+        xmlns:commands="clr-namespace:Module.Core.GUI.Commands"
         mc:Ignorable="d"
         d:DesignWidth="100" d:DesignHeight="40"
         CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}">
 
     <Button.Command>
-        <cmd:CopyToClipboardCommand />
+        <commands:CopyToClipboardCommand />
     </Button.Command>
 
     <Button.Template>
