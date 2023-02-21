@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
+    xmlns:coreComponents="clr-namespace:Module.Core.GUI.Views.Components;assembly=Module.Core"
     mc:Ignorable="d"
     d:DesignHeight="Auto" d:DesignWidth="400"
     d:DataContext="{d:DesignInstance dtvm:VkAudioDTVM}">
@@ -24,16 +25,16 @@
                 VerticalAlignment="Center" HorizontalAlignment="Center"
                 IsChecked="{Binding IsSelected}" />
 
-            <TextBlock
+            <coreComponents:CopyToClipboardButton
                 Grid.Column="1"
                 Margin="4 0"
-                Text="{Binding VkId}" />
-            <TextBlock
+                Content="{Binding VkId}" />
+            <coreComponents:CopyToClipboardButton
                 Grid.Column="2"
-                Text="{Binding Artist}" />
-            <TextBlock
+                Content="{Binding Artist}" />
+            <coreComponents:CopyToClipboardButton
                 Grid.Column="3"
-                Text="{Binding Title}" />
+                Content="{Binding Title}" />
         </Grid>
     </Border>
 </UserControl>
