@@ -18,23 +18,21 @@ public sealed class VkAudiosService : IVkAudiosService
         _vkApi = vkApi;
     }
 
-    public async Task<IReadOnlyList<Audio>> GetVkAudiosNotContainingInLibraryAsync()
+    public IAsyncEnumerable<Audio> GetVkAudiosNotContainingInLibraryAsync()
     {
         var vkIdsToIgnore = _musicBeeApi.EnumerateVkIdsInLibrary().ToHashSet();
 
-        return await _vkApi.Audio.AsAsyncEnumerable()
+        return _vkApi.Audio.AsAsyncEnumerable()
             .Where(x => x.Id is not null
-                        && !vkIdsToIgnore.Contains(x.Id.Value))
-            .ToListAsync();
+                        && !vkIdsToIgnore.Contains(x.Id.Value));
     }
 
-    public async Task<IReadOnlyList<Audio>> GetVkAudiosContainingInIncomingAsync()
+    public IAsyncEnumerable<Audio> GetVkAudiosContainingInIncomingAsync()
     {
         var vkIdsToAccept = _musicBeeApi.EnumerateVkIdsInIncoming().ToHashSet();
 
-        return await _vkApi.Audio.AsAsyncEnumerable()
+        return _vkApi.Audio.AsAsyncEnumerable()
             .Where(x => x.Id is not null
-                        && vkIdsToAccept.Contains(x.Id.Value))
-            .ToListAsync();
+                        && vkIdsToAccept.Contains(x.Id.Value));
     }
 }

@@ -4,7 +4,7 @@ namespace Module.VkAudioDownloader.Services.Abstract;
 
 public interface IVkAudiosService
 {
-    Task<IReadOnlyList<Audio>> GetVkAudiosNotContainingInLibraryAsync();
+    IAsyncEnumerable<Audio> GetVkAudiosNotContainingInLibraryAsync();
 
-    Task<IReadOnlyList<Audio>> GetVkAudiosContainingInIncomingAsync();
+    IAsyncEnumerable<Audio> GetVkAudiosContainingInIncomingAsync();
 }
