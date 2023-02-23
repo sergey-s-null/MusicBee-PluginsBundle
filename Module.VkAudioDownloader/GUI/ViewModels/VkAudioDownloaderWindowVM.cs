@@ -22,6 +22,7 @@ namespace Module.VkAudioDownloader.GUI.ViewModels;
 [AddINotifyPropertyChangedInterface]
 public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
 {
+    public bool IsRefreshing { get; private set; }
     public bool IsDownloading { get; private set; }
 
     public IList<IVkAudioVM> Audios { get; } = new ObservableCollection<IVkAudioVM>();
@@ -65,6 +66,8 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
 
         try
         {
+            IsRefreshing = true;
+
             Audios.Clear();
 
             var vkAudios = await GetVkAudios();
@@ -73,6 +76,7 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
         }
         finally
         {
+            IsRefreshing = false;
             _refreshSemaphore.Release();
         }
     }

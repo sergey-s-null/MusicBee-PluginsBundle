@@ -1,0 +1,120 @@
+﻿<UserControl
+    x:Class="Module.VkAudioDownloader.GUI.Views.LoadingPlaceholder"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    mc:Ignorable="d"
+    d:DesignHeight="Auto" d:DesignWidth="Auto">
+
+    <UserControl.Resources>
+        <Style
+            x:Key="FirstAnimation"
+            TargetType="iconPacks:PackIconVaadinIcons">
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="iconPacks:PackIconVaadinIcons.Loaded">
+                    <BeginStoryboard Name="SpinnerRotationStoryboard">
+                        <Storyboard TargetProperty="RotationAngle">
+                            <DoubleAnimation
+                                From="0" To="360"
+                                Duration="0:0:4"
+                                RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="iconPacks:PackIconVaadinIcons.Unloaded">
+                    <StopStoryboard BeginStoryboardName="SpinnerRotationStoryboard" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style
+            x:Key="SecondAnimation"
+            TargetType="iconPacks:PackIconVaadinIcons">
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="iconPacks:PackIconVaadinIcons.Loaded">
+                    <BeginStoryboard Name="SpinnerRotationStoryboard">
+                        <Storyboard TargetProperty="RotationAngle">
+                            <DoubleAnimation
+                                From="360" To="0"
+                                Duration="0:0:2"
+                                RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="iconPacks:PackIconVaadinIcons.Unloaded">
+                    <StopStoryboard BeginStoryboardName="SpinnerRotationStoryboard" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style
+            x:Key="ThirdAnimation"
+            TargetType="iconPacks:PackIconVaadinIcons">
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="iconPacks:PackIconVaadinIcons.Loaded">
+                    <BeginStoryboard Name="SpinnerRotationStoryboard">
+                        <Storyboard TargetProperty="RotationAngle">
+                            <DoubleAnimation
+                                From="0" To="360"
+                                Duration="0:0:8"
+                                RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="iconPacks:PackIconVaadinIcons.Unloaded">
+                    <StopStoryboard BeginStoryboardName="SpinnerRotationStoryboard" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <iconPacks:PackIconVaadinIcons
+            Grid.Row="0" Grid.Column="0"
+            Kind="SpinnerThird"
+            Width="30" Height="30"
+            Margin="10"
+            Padding="0 4 0 0"
+            Foreground="LightSeaGreen"
+            Style="{StaticResource FirstAnimation}" />
+
+        <iconPacks:PackIconVaadinIcons
+            Grid.Row="0" Grid.Column="1"
+            Kind="SpinnerArc"
+            Width="30" Height="30"
+            Margin="10"
+            Padding="0 14 0 0"
+            Foreground="LimeGreen"
+            Style="{StaticResource SecondAnimation}" />
+
+        <iconPacks:PackIconVaadinIcons
+            Grid.Row="0" Grid.Column="2"
+            Width="30" Height="30"
+            Margin="10"
+            Kind="Spinner"
+            Foreground="Green"
+            Style="{StaticResource ThirdAnimation}" />
+
+        <TextBlock
+            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+            HorizontalAlignment="Center"
+            FontSize="20"
+            Margin="0 4"
+            Text="Loading" />
+    </Grid>
+</UserControl>

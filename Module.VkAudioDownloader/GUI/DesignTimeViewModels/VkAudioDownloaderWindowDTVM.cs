@@ -6,6 +6,7 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels;
 
 public sealed class VkAudioDownloaderWindowDTVM : IVkAudioDownloaderWindowVM
 {
+    public bool IsRefreshing => false;
     public bool IsDownloading => false;
 
     public IList<IVkAudioVM> Audios { get; }

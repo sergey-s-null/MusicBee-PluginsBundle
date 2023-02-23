@@ -7,6 +7,7 @@
     xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views"
     xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
     xmlns:coreConverters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d"
     Title="Download audios from VK" Height="450" Width="700"
     WindowStartupLocation="CenterScreen"
@@ -15,6 +16,10 @@
     <Window.Resources>
         <ResourceDictionary>
             <coreConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <coreConverters:IntegerToBoolConverter
+                x:Key="IntegerEqualityToBoolConverter"
+                CompareOperator="Equal" />
+            <sys:Int32 x:Key="Zero">0</sys:Int32>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -47,27 +52,67 @@
                     }" />
         </Grid>
 
-        <ListBox
-            Grid.Row="1"
-            SelectionMode="Extended"
-            ItemsSource="{Binding Audios}">
-
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <ContentControl Grid.Row="1">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanBeSelectedForDownloading}" Value="False">
-                            <Setter Property="Focusable" Value="False" />
+                        <DataTrigger
+                            Binding="{Binding IsRefreshing}"
+                            Value="True">
+
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <views:LoadingPlaceholder
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" />
+                                </Setter.Value>
+                            </Setter>
                         </DataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition
+                                    Binding="{Binding IsRefreshing}"
+                                    Value="False" />
+                                <Condition
+                                    Binding="{
+                                        Binding Audios.Count,
+                                        Converter={StaticResource IntegerEqualityToBoolConverter},
+                                        ConverterParameter={StaticResource Zero}
+                                    }"
+                                    Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <views:NoAudiosForDownloadPlaceholder
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" />
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+                        
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition
+                                    Binding="{Binding IsRefreshing}"
+                                    Value="False" />
+                                <Condition
+                                    Binding="{
+                                        Binding Audios.Count,
+                                        Converter={StaticResource IntegerEqualityToBoolConverter},
+                                        ConverterParameter={StaticResource Zero}
+                                    }"
+                                    Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <views:VkAudiosList />
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ListBox.ItemContainerStyle>
-
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type dtvm:VkAudioDTVM}">
-                    <views:VkAudio />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ContentControl.Style>
+        </ContentControl>
     </Grid>
 </Window>
