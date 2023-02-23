@@ -55,6 +55,16 @@ public sealed class VkAudioVM : IVkAudioVM
         Warnings = GetWarnings();
     }
 
+    public void SelectIfPossible()
+    {
+        if (!CanBeSelectedForDownloading)
+        {
+            return;
+        }
+
+        IsSelected = true;
+    }
+
     private IReadOnlyList<string> GetWarnings()
     {
         var warnings = new List<string>();

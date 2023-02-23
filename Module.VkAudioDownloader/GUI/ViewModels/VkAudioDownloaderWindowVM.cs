@@ -131,16 +131,15 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     {
         var convertRes = VkApiHelper.ConvertToMp3(audio.Url.AbsoluteUri, out var mp3Url);
 
-        return new VkAudioVM(
+        var audioVm = new VkAudioVM(
             audio.Id!.Value,
             audio.Artist,
             audio.Title,
             new VkAudioUrlVM(mp3Url, !convertRes),
             isInIncoming
-        )
-        {
-            IsSelected = true
-        };
+        );
+        audioVm.SelectIfPossible();
+        return audioVm;
     }
 
     private IReadOnlyList<IVkAudioVM> GetValidSelectedAudios()
