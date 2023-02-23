@@ -6,13 +6,27 @@ namespace Module.VkAudioDownloader.GUI.ViewModels;
 [AddINotifyPropertyChangedInterface]
 public sealed class VkAudioVM : IVkAudioVM
 {
-    public bool IsSelected { get; set; }
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set
+        {
+            if (value && IsInIncoming)
+            {
+                throw new InvalidOperationException("Could not select audio that contains in Incoming.");
+            }
+
+            _isSelected = value;
+        }
+    }
 
     public long VkId { get; }
     public string Artist { get; }
     public string Title { get; }
     public IVkAudioUrlVM? Url { get; }
     public bool IsInIncoming { get; }
+
+    private bool _isSelected;
 
     public VkAudioVM(
         long vkId,
