@@ -43,20 +43,26 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 ToolTip="Refresh"
                 Command="{Binding Path=Refresh}">
-                
+
                 <Button.Content>
                     <iconPacks:PackIconBootstrapIcons Kind="ArrowRepeat" />
                 </Button.Content>
             </Button>
 
-            <Button Grid.Column="2"
-                    Content="Download >>"
-                    Margin="4" Command="{Binding Download}"
-                    IsEnabled="{
-                        Binding IsDownloading, 
-                        Mode=OneWay, 
-                        Converter={StaticResource InverseBooleanConverter}
-                    }" />
+            <Button
+                Grid.Column="2"
+                Margin="4" Command="{Binding Download}"
+                ToolTip="Download"
+                IsEnabled="{
+                    Binding IsDownloading, 
+                    Mode=OneWay, 
+                    Converter={StaticResource InverseBooleanConverter}
+                }">
+
+                <Button.Content>
+                    <iconPacks:PackIconJamIcons Kind="Download" />
+                </Button.Content>
+            </Button>
         </Grid>
 
         <ContentControl Grid.Row="1">
