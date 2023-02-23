@@ -28,12 +28,15 @@
             <coreComponents:CopyToClipboardButton
                 Grid.Column="1"
                 Margin="4 0"
+                HorizontalAlignment="Left"
                 Content="{Binding VkId}" />
             <coreComponents:CopyToClipboardButton
                 Grid.Column="2"
+                HorizontalAlignment="Left"
                 Content="{Binding Artist}" />
             <coreComponents:CopyToClipboardButton
                 Grid.Column="3"
+                HorizontalAlignment="Left"
                 Content="{Binding Title}" />
         </Grid>
     </Border>
