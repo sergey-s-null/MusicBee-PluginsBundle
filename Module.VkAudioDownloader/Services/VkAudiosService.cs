@@ -30,6 +30,17 @@ public sealed class VkAudiosService : IVkAudiosService
             .Select(x => Map(x, vkIdsInIncoming.Contains(x.Id!.Value)));
     }
 
+    public IAsyncEnumerable<VkAudioModel> GetFirstVkAudiosToDisplay()
+    {
+        var vkIdsInLibrary = _musicBeeApi.EnumerateVkIdsInLibrary().ToHashSet();
+        var vkIdsInIncoming = _musicBeeApi.EnumerateVkIdsInIncoming().ToHashSet();
+
+        return _vkApi.Audio.AsAsyncEnumerable()
+            .Where(x => x.Id is not null)
+            .TakeWhile(x => !vkIdsInLibrary.Contains(x.Id!.Value))
+            .Select(x => Map(x, vkIdsInIncoming.Contains(x.Id!.Value)));
+    }
+
     private static VkAudioModel Map(Audio audio, bool isInIncoming)
     {
         return new VkAudioModel(

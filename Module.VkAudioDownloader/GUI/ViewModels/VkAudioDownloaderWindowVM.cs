@@ -121,7 +121,7 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     private async Task<IReadOnlyCollection<IVkAudioVM>> GetVkAudios()
     {
         return await _vkAudiosService
-            .GetVkAudiosToDisplay()
+            .GetFirstVkAudiosToDisplay()
             .Select(MapToViewModel)
             .ToListAsync();
     }
