@@ -5,6 +5,7 @@ namespace Module.VkAudioDownloader.GUI.AbstractViewModels;
 public interface IVkAudioVM
 {
     bool IsSelected { get; set; }
+    bool CanBeSelectedForDownloading { get; }
 
     long VkId { get; }
     string Artist { get; }

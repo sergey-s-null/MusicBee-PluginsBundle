@@ -7,6 +7,7 @@ namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels;
 public sealed class VkAudioDTVM : IVkAudioVM
 {
     public bool IsSelected { get; set; }
+    public bool CanBeSelectedForDownloading => !IsInIncoming && Url is not null;
 
     public long VkId { get; }
     public string Artist { get; }

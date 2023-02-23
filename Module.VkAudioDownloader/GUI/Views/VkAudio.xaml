@@ -14,7 +14,6 @@
     d:DataContext="{d:DesignInstance dtvm:VkAudioDTVM}">
 
     <UserControl.Resources>
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:IntegerCompareToVisibilityConverter
             x:Key="WarningButtonVisibilityConverter"
             CompareOperator="GreaterThan"
@@ -36,7 +35,7 @@
             <CheckBox
                 Grid.Column="0"
                 Margin="4 0"
-                IsEnabled="{Binding IsInIncoming, Converter={StaticResource InverseBooleanConverter}}"
+                IsEnabled="{Binding CanBeSelectedForDownloading}"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
                 IsChecked="{Binding IsSelected}" />
 

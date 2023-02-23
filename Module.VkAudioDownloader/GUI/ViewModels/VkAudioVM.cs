@@ -14,7 +14,7 @@ public sealed class VkAudioVM : IVkAudioVM
         get => _isSelected;
         set
         {
-            if (value && IsInIncoming)
+            if (value && !CanBeSelectedForDownloading)
             {
                 throw new InvalidOperationException("Could not select audio that contains in Incoming.");
             }
@@ -22,6 +22,9 @@ public sealed class VkAudioVM : IVkAudioVM
             _isSelected = value;
         }
     }
+
+    [DependsOn(nameof(IsInIncoming), nameof(Url))]
+    public bool CanBeSelectedForDownloading => !IsInIncoming && Url is not null;
 
     public long VkId { get; }
     public string Artist { get; }

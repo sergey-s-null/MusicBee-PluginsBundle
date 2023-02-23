@@ -56,7 +56,7 @@
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsInIncoming}" Value="True">
+                        <DataTrigger Binding="{Binding CanBeSelectedForDownloading}" Value="False">
                             <Setter Property="Focusable" Value="False" />
                         </DataTrigger>
                     </Style.Triggers>
