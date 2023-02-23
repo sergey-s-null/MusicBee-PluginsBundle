@@ -19,9 +19,6 @@ public sealed partial class VkAudioDownloaderWindow : Window
 
     protected override void OnContentRendered(EventArgs e)
     {
-        // todo double call?
-        ICommand cmd = _viewModel.Refresh;
-        cmd.Execute(null);
         _viewModel.Refresh.Execute(null);
 
         base.OnContentRendered(e);
