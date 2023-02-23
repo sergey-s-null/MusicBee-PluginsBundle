@@ -52,7 +52,7 @@ public sealed class VkAudioDownloaderWindowDTVM : IVkAudioDownloaderWindowVM
                 null,
                 false,
                 new[] { "Url is null." }
-            ) { IsSelected = true },
+            ),
             new VkAudioDTVM(
                 348254,
                 "Goose house",
@@ -60,7 +60,7 @@ public sealed class VkAudioDownloaderWindowDTVM : IVkAudioDownloaderWindowVM
                 new VkAudioUrlDTVM("www.example.com", false),
                 false,
                 null
-            ),
+            ) { IsSelected = true },
             new VkAudioDTVM(
                 3456,
                 "Stone Sour",
