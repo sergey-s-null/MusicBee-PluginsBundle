@@ -1,4 +1,6 @@
-﻿namespace Module.Core.Helpers
+﻿using System.IO;
+
+namespace Module.Core.Helpers
 {
     public static class DirectoryHelper
     {

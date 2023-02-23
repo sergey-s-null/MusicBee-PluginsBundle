@@ -57,7 +57,7 @@ namespace HackModule.AssemblyBindingRedirect.Services
             }
 
             return !shortName.EndsWith("resources")
-                   && (AssembliesToRedirect.Contains(shortName) || shortName.StartsWith("MahApps.Metro.IconPacks."));
+                   && (AssembliesToRedirect.Contains(shortName) || shortName.StartsWith("MahApps.Metro.IconPacks"));
         }
     }
 }

@@ -1,57 +1,40 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
-using Module.Core.Collections;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
-using Module.VkAudioDownloader.GUI.Comparers;
 
-namespace Module.VkAudioDownloader.GUI.Views
+namespace Module.VkAudioDownloader.GUI.Views;
+
+public sealed partial class VkAudioDownloaderWindow : Window
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
-    public sealed partial class VkAudioDownloaderWindow : Window
+    private readonly IVkAudioDownloaderWindowVM _viewModel;
+
+    public VkAudioDownloaderWindow(IVkAudioDownloaderWindowVM viewModel)
     {
-        public IVkAudioDownloaderWindowVM ViewModel { get; }
+        _viewModel = viewModel;
 
-        public VkAudioDownloaderWindow(IVkAudioDownloaderWindowVM viewModel)
+        InitializeComponent();
+        DataContext = _viewModel;
+    }
+
+    protected override void OnContentRendered(EventArgs e)
+    {
+        _viewModel.Refresh.Execute(null);
+
+        base.OnContentRendered(e);
+    }
+
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        if (_viewModel.IsDownloading)
         {
-            InitializeComponent();
-
-            ViewModel = viewModel;
-
-            DataContext = ViewModel;
-        }
-
-        private void VkAudioDownloaderWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var sortedAudiosSource = (CollectionViewSource) Resources["SortedAudios"];
-            var sortedAudiosView = (ListCollectionView) sortedAudiosSource.View;
-            sortedAudiosView.CustomSort = new ReverseComparer(new AudioVMComparer());
-        }
-
-        protected override void OnContentRendered(EventArgs e)
-        {
-            ICommand cmd = ViewModel.RefreshCmd;
-            cmd.Execute(null);
-            ViewModel.RefreshCmd.Execute(null);
-
-            base.OnContentRendered(e);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            if (ViewModel.IsDownloading)
+            if (MessageBox.Show("Downloading in process. Are you sure to close window?", "!!!",
+                    MessageBoxButton.YesNo) == MessageBoxResult.No)
             {
-                if (MessageBox.Show("Downloading in process. Are you sure to close window?", "!!!",
-                        MessageBoxButton.YesNo) == MessageBoxResult.No)
-                {
-                    e.Cancel = true;
-                }
+                e.Cancel = true;
             }
-
-            base.OnClosing(e);
         }
+
+        base.OnClosing(e);
     }
 }

@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace Module.VkAudioDownloader.GUI.AbstractViewModels
+namespace Module.VkAudioDownloader.GUI.AbstractViewModels;
+
+public interface IVkAudioDownloaderWindowVM
 {
-    public interface IVkAudioDownloaderWindowVM
-    {
-        ICommand RefreshCmd { get; }
-        ICommand ApplyCheckStateToSelectedCmd { get; }
-        bool IsDownloading { get; }
-        ICommand DownloadCmd { get; }
-        IList<IAudioVM> Audios { get; }
-    }
+    bool IsRefreshing { get; }
+    bool IsDownloading { get; }
+    bool IsCheckAllVkAudios { get; set; }
+    IList<IVkAudioVM> Audios { get; }
+
+    ICommand Refresh { get; }
+    ICommand Download { get; }
 }

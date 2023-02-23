@@ -38,10 +38,11 @@ public static class BaseMusicBeeApiHelper
         return true;
     }
 
-    public static IEnumerable<long> EnumerateVkIds(this IMusicBeeApi api)
+    public static IEnumerable<long> EnumerateVkIdsInLibrary(this IMusicBeeApi api)
     {
+        // todo переписать на новое апи, когда (если) будет сделано
         const string query =
-            "<Source Type=\"1\">" + // 1 - библиотека (без входящих)
+            "<Source Type=\"1\">" + // библиотека (без новых файлов)
             "    <Conditions CombineMethod=\"All\">" +
             "        <Condition Field=\"Custom3\" Comparison=\"IsNotNull\"/>" + // vk id не пусто
             "    </Conditions>" +
@@ -55,6 +56,30 @@ public static class BaseMusicBeeApiHelper
         foreach (var filePath in filePaths!)
         {
             if (api.TryGetVkId(filePath, out var vkId))
+            {
+                yield return vkId;
+            }
+        }
+    }
+
+    public static IEnumerable<long> EnumerateVkIdsInIncoming(this IMusicBeeApi musicBeeApi)
+    {
+        // todo переписать на новое апи, когда (если) будет сделано
+        const string query =
+            "<Source Type=\"4\">" + // новые файлы (входящие)
+            "    <Conditions CombineMethod=\"All\">" +
+            "        <Condition Field=\"Custom3\" Comparison=\"IsNotNull\"/>" + // vk id не пусто
+            "    </Conditions>" +
+            "</Source>";
+
+        if (!musicBeeApi.Library_QueryFilesEx(query, out var filePaths))
+        {
+            yield break;
+        }
+
+        foreach (var filePath in filePaths!)
+        {
+            if (musicBeeApi.TryGetVkId(filePath, out var vkId))
             {
                 yield return vkId;
             }

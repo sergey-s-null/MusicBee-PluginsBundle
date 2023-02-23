@@ -2,6 +2,12 @@
   "version": 1,
   "dependencies": {
     ".NETFramework,Version=v4.7.2": {
+      "MahApps.Metro.IconPacks": {
+        "type": "Direct",
+        "requested": "[4.11.0, )",
+        "resolved": "4.11.0",
+        "contentHash": "hanveh4ZZLYZ00ONrwjyzDJnekxWcgFQ7rHHrmC7GppO3js3tAEhmW+lo0rNgG4naxkggEYZFLeH+rxeJLMSuQ=="
+      },
       "Mead.MusicBee.Api": {
         "type": "Direct",
         "requested": "[1.0.0, )",
@@ -9,6 +15,15 @@
         "contentHash": "8Wo1JNU+NBPuFt975jCKZwM+HIq+XZl7dB7dTyOOqC9hFKHd6rTH8w1sD/5h2ZcNcU3TECnlKxbP9H43LPdEwA==",
         "dependencies": {
           "Mead.MusicBee": "1.1.1"
+        }
+      },
+      "PropertyChanged.Fody": {
+        "type": "Direct",
+        "requested": "[4.1.0, )",
+        "resolved": "4.1.0",
+        "contentHash": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
+        "dependencies": {
+          "Fody": "6.6.4"
         }
       },
       "WindowsAPICodePack": {
@@ -100,14 +115,6 @@
         "type": "Transitive",
         "resolved": "13.0.2",
         "contentHash": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg=="
-      },
-      "PropertyChanged.Fody": {
-        "type": "Transitive",
-        "resolved": "4.1.0",
-        "contentHash": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
-        "dependencies": {
-          "Fody": "6.6.4"
-        }
       },
       "protobuf-net": {
         "type": "Transitive",

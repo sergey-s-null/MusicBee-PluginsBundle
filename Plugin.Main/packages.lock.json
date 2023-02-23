@@ -371,9 +371,11 @@
       "module.vkaudiodownloader": {
         "type": "Project",
         "dependencies": {
+          "MahApps.Metro.IconPacks": "[4.11.0, )",
           "Mead.MusicBee.Api": "[1.0.0, )",
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Vk": "[1.0.0, )",
+          "PropertyChanged.Fody": "[4.1.0, )",
           "WindowsAPICodePack": "[7.0.1, )"
         }
       }

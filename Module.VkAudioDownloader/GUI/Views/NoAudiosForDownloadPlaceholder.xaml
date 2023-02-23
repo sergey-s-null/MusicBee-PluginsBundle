@@ -1,0 +1,29 @@
+﻿<UserControl
+    x:Class="Module.VkAudioDownloader.GUI.Views.NoAudiosForDownloadPlaceholder"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    mc:Ignorable="d"
+    d:DesignHeight="Auto" d:DesignWidth="Auto">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Grid.Column="0"
+            FontSize="20"
+            Text="No audios for download" />
+
+        <iconPacks:PackIconUnicons
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Width="24" Height="24"
+            Margin="12 0 0 0"
+            Kind="Annoyed" />
+    </Grid>
+</UserControl>
