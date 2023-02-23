@@ -25,6 +25,7 @@ public sealed class VkAudioVM : IVkAudioVM
     public string Title { get; }
     public IVkAudioUrlVM? Url { get; }
     public bool IsInIncoming { get; }
+    public IReadOnlyList<string> Warnings { get; }
 
     private bool _isSelected;
 
@@ -40,5 +41,24 @@ public sealed class VkAudioVM : IVkAudioVM
         Title = title;
         Url = url;
         IsInIncoming = isInIncoming;
+
+        Warnings = GetWarnings();
+    }
+
+    private IReadOnlyList<string> GetWarnings()
+    {
+        var warnings = new List<string>();
+
+        if (Url is null)
+        {
+            warnings.Add("No download url.");
+        }
+
+        if (IsInIncoming)
+        {
+            warnings.Add("Audio already in Incoming.");
+        }
+
+        return warnings;
     }
 }

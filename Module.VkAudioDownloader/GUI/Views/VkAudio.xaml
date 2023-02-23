@@ -7,12 +7,20 @@
     xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
     xmlns:coreComponents="clr-namespace:Module.Core.GUI.Views.Components;assembly=Module.Core"
     xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d"
     d:DesignHeight="Auto" d:DesignWidth="400"
     d:DataContext="{d:DesignInstance dtvm:VkAudioDTVM}">
 
     <UserControl.Resources>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:IntegerCompareToVisibilityConverter
+            x:Key="WarningButtonVisibilityConverter"
+            CompareOperator="GreaterThan"
+            VisibilityOnTrue="Visible"
+            VisibilityOnFalse="Hidden" />
+        <sys:Int32 x:Key="Zero">0</sys:Int32>
     </UserControl.Resources>
 
     <Border Padding="4">
@@ -22,6 +30,7 @@
                 <ColumnDefinition Width="84" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
 
             <CheckBox
@@ -44,6 +53,33 @@
                 Grid.Column="3"
                 HorizontalAlignment="Left"
                 Content="{Binding Title}" />
+
+
+            <Button
+                Grid.Column="4"
+                VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                Visibility="{
+                    Binding Warnings.Count, 
+                    Mode=OneWay, 
+                    Converter={StaticResource WarningButtonVisibilityConverter},
+                    ConverterParameter={StaticResource Zero}
+                }"
+                Background="Transparent">
+
+                <iconPacks:PackIconModern
+                    Foreground="Orange"
+                    Kind="Warning" />
+
+                <Button.ToolTip>
+                    <TextBlock>
+                        <TextBlock.Inlines>
+                            <Run Text="Show Warnings (" />
+                            <Run Text="{Binding Warnings.Count, Mode=OneWay}" />
+                            <Run Text=")" />
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
         </Grid>
     </Border>
 </UserControl>

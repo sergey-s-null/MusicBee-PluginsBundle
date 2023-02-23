@@ -9,4 +9,6 @@ public interface IVkAudioVM
     string Title { get; }
     IVkAudioUrlVM? Url { get; }
     bool IsInIncoming { get; }
+
+    IReadOnlyList<string> Warnings { get; }
 }

@@ -11,6 +11,7 @@ public sealed class VkAudioDTVM : IVkAudioVM
     public string Title { get; }
     public IVkAudioUrlVM? Url { get; }
     public bool IsInIncoming { get; }
+    public IReadOnlyList<string> Warnings { get; }
 
     public VkAudioDTVM()
     {
@@ -19,6 +20,7 @@ public sealed class VkAudioDTVM : IVkAudioVM
         Title = "Never Gonna Give You Up";
         Url = new VkAudioUrlDTVM();
         IsInIncoming = false;
+        Warnings = new List<string>();
     }
 
     public VkAudioDTVM(
@@ -26,12 +28,14 @@ public sealed class VkAudioDTVM : IVkAudioVM
         string artist,
         string title,
         IVkAudioUrlVM? url,
-        bool isInIncoming)
+        bool isInIncoming,
+        IReadOnlyList<string>? warnings)
     {
         VkId = vkId;
         Artist = artist;
         Title = title;
         Url = url;
         IsInIncoming = isInIncoming;
+        Warnings = warnings ?? new List<string>();
     }
 }
