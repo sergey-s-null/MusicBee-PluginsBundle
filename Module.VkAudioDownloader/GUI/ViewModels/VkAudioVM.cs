@@ -1,4 +1,7 @@
-﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
+﻿using System.Windows;
+using System.Windows.Input;
+using Module.Mvvm.Extension;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using PropertyChanged;
 
 namespace Module.VkAudioDownloader.GUI.ViewModels;
@@ -27,7 +30,11 @@ public sealed class VkAudioVM : IVkAudioVM
     public bool IsInIncoming { get; }
     public IReadOnlyList<string> Warnings { get; }
 
+    public ICommand ShowWarnings => _showWarnings
+        ??= new RelayCommand(_ => ShowWarningsInternal());
+
     private bool _isSelected;
+    private ICommand? _showWarnings;
 
     public VkAudioVM(
         long vkId,
@@ -60,5 +67,12 @@ public sealed class VkAudioVM : IVkAudioVM
         }
 
         return warnings;
+    }
+
+    private void ShowWarningsInternal()
+    {
+        // todo use dialog with text box
+        var message = string.Join("\n", Warnings.Select((x, i) => $"{i + 1}. {x}"));
+        MessageBox.Show(message, "Warnings");
     }
 }

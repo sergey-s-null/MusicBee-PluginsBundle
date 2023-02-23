@@ -1,4 +1,6 @@
-﻿namespace Module.VkAudioDownloader.GUI.AbstractViewModels;
+﻿using System.Windows.Input;
+
+namespace Module.VkAudioDownloader.GUI.AbstractViewModels;
 
 public interface IVkAudioVM
 {
@@ -11,4 +13,6 @@ public interface IVkAudioVM
     bool IsInIncoming { get; }
 
     IReadOnlyList<string> Warnings { get; }
+
+    ICommand ShowWarnings { get; }
 }

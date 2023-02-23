@@ -64,7 +64,8 @@
                     Converter={StaticResource WarningButtonVisibilityConverter},
                     ConverterParameter={StaticResource Zero}
                 }"
-                Background="Transparent">
+                Background="Transparent"
+                Command="{Binding ShowWarnings}">
 
                 <iconPacks:PackIconModern
                     Foreground="Orange"

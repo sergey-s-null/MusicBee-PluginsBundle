@@ -1,4 +1,6 @@
-﻿using Module.VkAudioDownloader.GUI.AbstractViewModels;
+﻿using System.Windows.Input;
+using Module.Mvvm.Extension;
+using Module.VkAudioDownloader.GUI.AbstractViewModels;
 
 namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels;
 
@@ -12,6 +14,8 @@ public sealed class VkAudioDTVM : IVkAudioVM
     public IVkAudioUrlVM? Url { get; }
     public bool IsInIncoming { get; }
     public IReadOnlyList<string> Warnings { get; }
+
+    public ICommand ShowWarnings { get; } = new RelayCommand(_ => { });
 
     public VkAudioDTVM()
     {
