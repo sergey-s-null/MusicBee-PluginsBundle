@@ -15,7 +15,6 @@ using Module.VkAudioDownloader.Services.Abstract;
 using Module.VkAudioDownloader.Settings;
 using Module.VkAudioDownloader.TagReplacer;
 using PropertyChanged;
-using VkNet.Model.Attachments;
 
 namespace Module.VkAudioDownloader.GUI.ViewModels;
 
@@ -121,26 +120,22 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
 
     private async Task<IReadOnlyCollection<IVkAudioVM>> GetVkAudios()
     {
-        var audiosNotInLibrary = _vkAudiosService.GetVkAudiosNotContainingInLibraryAsync()
-            .Select(x => MapToViewModel(x, false));
-        var audiosInIncoming = _vkAudiosService.GetVkAudiosContainingInIncomingAsync()
-            .Select(x => MapToViewModel(x, true));
-
-        return await audiosNotInLibrary
-            .Union(audiosInIncoming)
+        return await _vkAudiosService
+            .GetVkAudiosToDisplay()
+            .Select(MapToViewModel)
             .ToListAsync();
     }
 
-    private static IVkAudioVM MapToViewModel(Audio audio, bool isInIncoming)
+    private static IVkAudioVM MapToViewModel(VkAudioModel audio)
     {
-        var convertRes = VkApiHelper.ConvertToMp3(audio.Url.AbsoluteUri, out var mp3Url);
+        var convertRes = VkApiHelper.ConvertToMp3(audio.Url, out var mp3Url);
 
         var audioVm = new VkAudioVM(
-            audio.Id!.Value,
+            audio.Id,
             audio.Artist,
             audio.Title,
             new VkAudioUrlVM(mp3Url, !convertRes),
-            isInIncoming
+            audio.IsInIncoming
         );
         audioVm.SelectIfPossible();
         return audioVm;

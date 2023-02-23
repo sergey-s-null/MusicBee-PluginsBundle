@@ -1,5 +1,6 @@
 ﻿using Mead.MusicBee.Api.Services.Abstract;
 using Module.MusicBee.Extension.Helpers;
+using Module.VkAudioDownloader.Entities;
 using Module.VkAudioDownloader.Helpers;
 using Module.VkAudioDownloader.Services.Abstract;
 using VkNet.Abstractions;
@@ -18,21 +19,25 @@ public sealed class VkAudiosService : IVkAudiosService
         _vkApi = vkApi;
     }
 
-    public IAsyncEnumerable<Audio> GetVkAudiosNotContainingInLibraryAsync()
+    public IAsyncEnumerable<VkAudioModel> GetVkAudiosToDisplay()
     {
-        var vkIdsToIgnore = _musicBeeApi.EnumerateVkIdsInLibrary().ToHashSet();
+        var vkIdsInLibrary = _musicBeeApi.EnumerateVkIdsInLibrary().ToHashSet();
+        var vkIdsInIncoming = _musicBeeApi.EnumerateVkIdsInIncoming().ToHashSet();
 
         return _vkApi.Audio.AsAsyncEnumerable()
             .Where(x => x.Id is not null
-                        && !vkIdsToIgnore.Contains(x.Id.Value));
+                        && !vkIdsInLibrary.Contains(x.Id.Value))
+            .Select(x => Map(x, vkIdsInIncoming.Contains(x.Id!.Value)));
     }
 
-    public IAsyncEnumerable<Audio> GetVkAudiosContainingInIncomingAsync()
+    private static VkAudioModel Map(Audio audio, bool isInIncoming)
     {
-        var vkIdsToAccept = _musicBeeApi.EnumerateVkIdsInIncoming().ToHashSet();
-
-        return _vkApi.Audio.AsAsyncEnumerable()
-            .Where(x => x.Id is not null
-                        && vkIdsToAccept.Contains(x.Id.Value));
+        return new VkAudioModel(
+            audio.Id!.Value,
+            audio.Artist,
+            audio.Title,
+            audio.Url.AbsoluteUri,
+            isInIncoming
+        );
     }
 }
