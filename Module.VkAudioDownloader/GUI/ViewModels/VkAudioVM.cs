@@ -60,6 +60,10 @@ public sealed class VkAudioVM : IVkAudioVM
         {
             warnings.Add("No download url.");
         }
+        else if (Url.IsCorrupted)
+        {
+            warnings.Add("Url is corrupted: Failed convert m3u8 url to mp3 url.");
+        }
 
         if (IsInIncoming)
         {
