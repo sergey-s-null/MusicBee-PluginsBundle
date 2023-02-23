@@ -6,9 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
     xmlns:coreComponents="clr-namespace:Module.Core.GUI.Views.Components;assembly=Module.Core"
+    xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
     mc:Ignorable="d"
     d:DesignHeight="Auto" d:DesignWidth="400"
     d:DataContext="{d:DesignInstance dtvm:VkAudioDTVM}">
+
+    <UserControl.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </UserControl.Resources>
 
     <Border Padding="4">
         <Grid>
@@ -22,6 +27,7 @@
             <CheckBox
                 Grid.Column="0"
                 Margin="4 0"
+                IsEnabled="{Binding IsInIncoming, Converter={StaticResource InverseBooleanConverter}}"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
                 IsChecked="{Binding IsSelected}" />
 
