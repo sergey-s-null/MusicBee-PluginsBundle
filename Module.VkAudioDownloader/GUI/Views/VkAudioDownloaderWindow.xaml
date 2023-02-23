@@ -8,6 +8,7 @@
     xmlns:dtvm="clr-namespace:Module.VkAudioDownloader.GUI.DesignTimeViewModels"
     xmlns:coreConverters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     mc:Ignorable="d"
     Title="Download audios from VK" Height="450" Width="700"
     WindowStartupLocation="CenterScreen"
@@ -36,11 +37,17 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="0"
-                    Content="Refresh"
-                    Margin="4"
-                    HorizontalAlignment="Right" VerticalAlignment="Top"
-                    Command="{Binding Path=Refresh}" />
+            <Button
+                Grid.Column="0" Grid.Row="0"
+                Margin="4"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                ToolTip="Refresh"
+                Command="{Binding Path=Refresh}">
+                
+                <Button.Content>
+                    <iconPacks:PackIconBootstrapIcons Kind="ArrowRepeat" />
+                </Button.Content>
+            </Button>
 
             <Button Grid.Column="2"
                     Content="Download >>"
@@ -90,7 +97,7 @@
                                 </Setter.Value>
                             </Setter>
                         </MultiDataTrigger>
-                        
+
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition
