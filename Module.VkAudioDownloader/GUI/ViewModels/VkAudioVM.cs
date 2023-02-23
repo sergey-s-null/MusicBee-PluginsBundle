@@ -71,8 +71,7 @@ public sealed class VkAudioVM : IVkAudioVM
 
     private void ShowWarningsInternal()
     {
-        // todo use dialog with text box
         var message = string.Join("\n", Warnings.Select((x, i) => $"{i + 1}. {x}"));
-        MessageBox.Show(message, "Warnings");
+        MessageBox.Show(message, "Warnings", MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 }
