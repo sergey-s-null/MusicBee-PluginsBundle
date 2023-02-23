@@ -9,6 +9,8 @@ public sealed class VkAudioDownloaderWindowDTVM : IVkAudioDownloaderWindowVM
     public bool IsRefreshing => false;
     public bool IsDownloading => false;
 
+    public bool IsCheckAllVkAudios { get; set; }
+
     public IList<IVkAudioVM> Audios { get; }
 
     public ICommand Refresh { get; } =

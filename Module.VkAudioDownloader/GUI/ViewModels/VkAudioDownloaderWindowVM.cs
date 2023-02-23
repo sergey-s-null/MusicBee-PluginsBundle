@@ -24,6 +24,8 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
     public bool IsRefreshing { get; private set; }
     public bool IsDownloading { get; private set; }
 
+    public bool IsCheckAllVkAudios { get; set; }
+
     public IList<IVkAudioVM> Audios { get; } = new ObservableCollection<IVkAudioVM>();
 
     public ICommand Refresh => _refreshCmd ??= new RelayCommand(_ => RefreshInternal());
@@ -120,8 +122,11 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
 
     private async Task<IReadOnlyCollection<IVkAudioVM>> GetVkAudios()
     {
-        return await _vkAudiosService
-            .GetFirstVkAudiosToDisplay()
+        var audios = IsCheckAllVkAudios
+            ? _vkAudiosService.GetVkAudiosToDisplay()
+            : _vkAudiosService.GetFirstVkAudiosToDisplay();
+
+        return await audios
             .Select(MapToViewModel)
             .ToListAsync();
     }
