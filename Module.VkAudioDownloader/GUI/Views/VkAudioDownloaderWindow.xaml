@@ -49,7 +49,7 @@
 
         <ListBox
             Grid.Row="1"
-            SelectionMode="Multiple"
+            SelectionMode="Extended"
             ItemsSource="{Binding Audios}">
 
             <ListBox.ItemContainerStyle>
