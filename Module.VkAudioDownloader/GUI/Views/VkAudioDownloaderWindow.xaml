@@ -49,6 +49,7 @@
 
         <ListBox
             Grid.Row="1"
+            SelectionMode="Multiple"
             ItemsSource="{Binding Audios}">
 
             <ListBox.ItemContainerStyle>
