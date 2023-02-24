@@ -1,17 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Module.Settings.Gui.AbstractViewModels;
 
-namespace Module.PlaylistsExporter.GUI.Settings
-{
-    public interface IPlaylistsExporterSettingsVM : IBaseSettingsVM
-    {
-        string PlaylistsDirectoryPath { get; set; }
-        string FilesLibraryPath { get; set; }
-        string PlaylistsNewDirectoryName { get; set; }
+namespace Module.PlaylistsExporter.GUI.Settings;
 
-        string PlaylistsBasePath { get; }
-        IList<PlaylistVM> Playlists { get; }
-        ICommand ApplyCheckStateToSelectedCmd { get; }
-    }
+public interface IPlaylistsExporterSettingsVM : IBaseSettingsVM
+{
+    string PlaylistsDirectoryPath { get; set; }
+    string FilesLibraryPath { get; set; }
+    string PlaylistsNewDirectoryName { get; set; }
+
+    string PlaylistsBasePath { get; }
+    IList<PlaylistVM> Playlists { get; }
+    ICommand ApplyCheckStateToSelectedCmd { get; }
 }

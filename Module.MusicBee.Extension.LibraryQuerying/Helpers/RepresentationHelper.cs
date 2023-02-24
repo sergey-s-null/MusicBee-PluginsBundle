@@ -1,5 +1,4 @@
-﻿using System;
-using Module.MusicBee.Extension.LibraryQuerying.Entities;
+﻿using Module.MusicBee.Extension.LibraryQuerying.Entities;
 using Module.MusicBee.Extension.LibraryQuerying.Enums;
 
 namespace Module.MusicBee.Extension.LibraryQuerying.Helpers;

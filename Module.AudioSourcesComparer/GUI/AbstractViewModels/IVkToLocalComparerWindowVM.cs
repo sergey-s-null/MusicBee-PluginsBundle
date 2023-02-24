@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace Module.AudioSourcesComparer.GUI.AbstractViewModels
+namespace Module.AudioSourcesComparer.GUI.AbstractViewModels;
+
+public interface IVkToLocalComparerWindowVM
 {
-    public interface IVkToLocalComparerWindowVM
-    {
-        ICommand RefreshCmd { get; }
-        bool Refreshing { get; }
+    ICommand RefreshCmd { get; }
+    bool Refreshing { get; }
 
-        IList<IVkAudioVM> VkOnlyAudios { get; }
-        ICommand DeleteAllVkOnlyAudiosCmd { get; }
+    IList<IVkAudioVM> VkOnlyAudios { get; }
+    ICommand DeleteAllVkOnlyAudiosCmd { get; }
 
-        IList<IMBAudioVM> LocalOnlyAudios { get; }
-    }
+    IList<IMBAudioVM> LocalOnlyAudios { get; }
 }

@@ -1,12 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace Module.AudioSourcesComparer.GUI.Views.Components
+namespace Module.AudioSourcesComparer.GUI.Views.Components;
+
+public sealed partial class ContextMenuButton : Button
 {
-    public sealed partial class ContextMenuButton : Button
+    public ContextMenuButton()
     {
-        public ContextMenuButton()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Module.PlaylistsExporter.Entities;
 
-namespace Module.PlaylistsExporter.Services
+namespace Module.PlaylistsExporter.Services;
+
+public interface IPlaylistToLibraryConverter
 {
-    public interface IPlaylistToLibraryConverter
-    {
-        Playlist Convert(Playlist playlist);
-    }
+    Playlist Convert(Playlist playlist);
 }

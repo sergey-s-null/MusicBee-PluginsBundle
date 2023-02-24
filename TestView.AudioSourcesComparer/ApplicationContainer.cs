@@ -3,21 +3,20 @@ using Module.AudioSourcesComparer;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.AudioSourcesComparer.GUI.DesignTimeViewModels;
 
-namespace TestView.AudioSourcesComparer
+namespace TestView.AudioSourcesComparer;
+
+public static class ApplicationContainer
 {
-    public static class ApplicationContainer
+    public static IContainer Create()
     {
-        public static IContainer Create()
-        {
-            var builder = new ContainerBuilder();
+        var builder = new ContainerBuilder();
 
-            builder.RegisterModule<AudioSourcesComparerModule>();
+        builder.RegisterModule<AudioSourcesComparerModule>();
 
-            builder
-                .RegisterType<VkToLocalComparerWindowDTVM>()
-                .As<IVkToLocalComparerWindowVM>();
+        builder
+            .RegisterType<VkToLocalComparerWindowDTVM>()
+            .As<IVkToLocalComparerWindowVM>();
 
-            return builder.Build();
-        }
+        return builder.Build();
     }
 }

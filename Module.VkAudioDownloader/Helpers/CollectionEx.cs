@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
+﻿namespace Module.VkAudioDownloader.Helpers;
 
-namespace Module.VkAudioDownloader.Helpers
+public static class CollectionEx
 {
-    public static class CollectionEx
+    public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> enumerable)
     {
-        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> enumerable)
+        foreach (var item in enumerable)
         {
-            foreach (var item in enumerable)
-            {
-                collection.Add(item);
-            }
+            collection.Add(item);
         }
     }
 }

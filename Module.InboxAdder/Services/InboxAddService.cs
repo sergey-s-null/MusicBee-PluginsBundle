@@ -2,75 +2,74 @@
 using Mead.MusicBee.Enums;
 using Module.MusicBee.Extension.Helpers;
 
-namespace Module.InboxAdder.Services
+namespace Module.InboxAdder.Services;
+
+public sealed class InboxAddService : IInboxAddService
 {
-    public sealed class InboxAddService : IInboxAddService
+    private readonly IMusicBeeApi _mbApi;
+
+    public InboxAddService(IMusicBeeApi mbApi)
     {
-        private readonly IMusicBeeApi _mbApi;
+        _mbApi = mbApi;
+    }
 
-        public InboxAddService(IMusicBeeApi mbApi)
+    public void AddToLibrary(string filePath)
+    {
+        if (IsInLibrary(filePath))
         {
-            _mbApi = mbApi;
+            return;
         }
 
-        public void AddToLibrary(string filePath)
+        var currentIndex = GetLastIndex() + 1;
+
+        BaseMusicBeeApiHelper.CalcIndices(currentIndex, out var i1, out var i2);
+
+        _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Music);
+        _mbApi.SetIndex(filePath, currentIndex, false);
+        _mbApi.SetIndex1(filePath, i1, false);
+        _mbApi.SetIndex2(filePath, i2, false);
+
+        _mbApi.Library_CommitTagsToFile(filePath);
+    }
+
+    public void RetrieveToInbox(string filePath)
+    {
+        if (!IsInLibrary(filePath))
         {
-            if (IsInLibrary(filePath))
-            {
-                return;
-            }
-
-            var currentIndex = GetLastIndex() + 1;
-
-            BaseMusicBeeApiHelper.CalcIndices(currentIndex, out var i1, out var i2);
-
-            _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Music);
-            _mbApi.SetIndex(filePath, currentIndex, false);
-            _mbApi.SetIndex1(filePath, i1, false);
-            _mbApi.SetIndex2(filePath, i2, false);
-
-            _mbApi.Library_CommitTagsToFile(filePath);
+            return;
         }
 
-        public void RetrieveToInbox(string filePath)
+        _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Inbox);
+
+        _mbApi.ClearIndex(filePath, false);
+        _mbApi.ClearIndex1(filePath, false);
+        _mbApi.ClearIndex2(filePath, false);
+
+        _mbApi.Library_CommitTagsToFile(filePath);
+    }
+
+    private bool IsInLibrary(string filePath)
+    {
+        return _mbApi.TryGetIndex(filePath, out var index)
+               && index >= 0;
+    }
+
+    private int GetLastIndex()
+    {
+        return GetFilePaths()
+            .Select(p => _mbApi.TryGetIndex(p, out var index)
+                ? index
+                : -1)
+            .Max();
+    }
+
+    private IReadOnlyCollection<string> GetFilePaths()
+    {
+        if (!_mbApi.Library_QueryFilesEx("", out var filePaths))
         {
-            if (!IsInLibrary(filePath))
-            {
-                return;
-            }
-
-            _mbApi.Library_AddFileToLibrary(filePath, LibraryCategory.Inbox);
-
-            _mbApi.ClearIndex(filePath, false);
-            _mbApi.ClearIndex1(filePath, false);
-            _mbApi.ClearIndex2(filePath, false);
-
-            _mbApi.Library_CommitTagsToFile(filePath);
+            throw new Exception("Error on receive files from library");
         }
 
-        private bool IsInLibrary(string filePath)
-        {
-            return _mbApi.TryGetIndex(filePath, out var index)
-                   && index >= 0;
-        }
-
-        private int GetLastIndex()
-        {
-            return GetFilePaths()
-                .Select(p => _mbApi.TryGetIndex(p, out var index)
-                    ? index
-                    : -1)
-                .Max();
-        }
-
-        private IReadOnlyCollection<string> GetFilePaths()
-        {
-            if (!_mbApi.Library_QueryFilesEx("", out var filePaths))
-            {
-                throw new Exception("Error on receive files from library");
-            }
-
-            return filePaths!;
-        }
+        return filePaths!;
     }
 }

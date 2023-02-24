@@ -1,34 +1,33 @@
 ﻿using System.Windows;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 
-namespace Module.VkAudioDownloader.GUI.Views
+namespace Module.VkAudioDownloader.GUI.Views;
+
+/// <summary>
+/// Логика взаимодействия для AuthDialog.xaml
+/// </summary>
+public sealed partial class AuthorizationWindow : Window
 {
-    /// <summary>
-    /// Логика взаимодействия для AuthDialog.xaml
-    /// </summary>
-    public sealed partial class AuthorizationWindow : Window
+    private readonly IAuthorizationWindowVM _viewModel;
+
+    public AuthorizationWindow(IAuthorizationWindowVM viewModel)
     {
-        private readonly IAuthorizationWindowVM _viewModel;
+        _viewModel = viewModel;
 
-        public AuthorizationWindow(IAuthorizationWindowVM viewModel)
-        {
-            _viewModel = viewModel;
+        InitializeComponent();
 
-            InitializeComponent();
+        DataContext = viewModel;
+        viewModel.ClosingRequested += (_, _) => DialogResult = true;
+    }
 
-            DataContext = viewModel;
-            viewModel.ClosingRequested += (_, _) => DialogResult = true;
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Authorization result</returns>
+    public new bool ShowDialog()
+    {
+        base.ShowDialog();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Authorization result</returns>
-        public new bool ShowDialog()
-        {
-            base.ShowDialog();
-
-            return _viewModel.AuthorizationResult;
-        }
+        return _viewModel.AuthorizationResult;
     }
 }

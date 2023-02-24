@@ -1,13 +1,12 @@
-﻿namespace Plugin.Main.Services
+﻿namespace Plugin.Main.Services;
+
+public interface IPluginActions
 {
-    public interface IPluginActions
-    {
-        void SearchArtworks();
-        void DownloadVkAudios();
-        void CompareVkAndLocalAudios();
-        void AddSelectedFileToLibrary();
-        void RetrieveSelectedFileToInbox();
-        void ExportPlaylists();
-        void ExportLibraryData();
-    }
+    void SearchArtworks();
+    void DownloadVkAudios();
+    void CompareVkAndLocalAudios();
+    void AddSelectedFileToLibrary();
+    void RetrieveSelectedFileToInbox();
+    void ExportPlaylists();
+    void ExportLibraryData();
 }

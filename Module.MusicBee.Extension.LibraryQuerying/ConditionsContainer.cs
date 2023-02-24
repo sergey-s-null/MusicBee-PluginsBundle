@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Module.MusicBee.Extension.LibraryQuerying.Entities;
 using Module.MusicBee.Extension.LibraryQuerying.Enums;
 using Module.MusicBee.Extension.LibraryQuerying.Factories.Abstract;

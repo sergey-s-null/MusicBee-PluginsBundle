@@ -14,53 +14,52 @@ using Plugin.Main.GUI.ViewModels;
 using Plugin.Main.GUI.Views;
 using Plugin.Main.Services;
 
-namespace Plugin.Main
+namespace Plugin.Main;
+
+public static class PluginContainer
 {
-    public static class PluginContainer
+    public static IContainer Create(MusicBeeApiMemoryContainer mbApiMemoryContainer)
     {
-        public static IContainer Create(MusicBeeApiMemoryContainer mbApiMemoryContainer)
-        {
-            var builder = new ContainerBuilder();
+        var builder = new ContainerBuilder();
 
-            builder.RegisterMusicBeeApi(mbApiMemoryContainer);
+        builder.RegisterMusicBeeApi(mbApiMemoryContainer);
 
-            builder.RegisterModule<MusicBeeExtensionModule>();
-            builder.RegisterModule(new VkModule(true));
-            builder.RegisterModule<MusicDownloaderModule>();
-            builder.RegisterModule<ArtworksSearcherModule>();
-            builder.RegisterModule<PlaylistsExporterModule>();
-            builder.RegisterModule<InboxAdderModule>();
-            builder.RegisterModule<DataExporterModule>();
-            builder.RegisterModule<AudioSourcesComparerModule>();
+        builder.RegisterModule<MusicBeeExtensionModule>();
+        builder.RegisterModule(new VkModule(true));
+        builder.RegisterModule<MusicDownloaderModule>();
+        builder.RegisterModule<ArtworksSearcherModule>();
+        builder.RegisterModule<PlaylistsExporterModule>();
+        builder.RegisterModule<InboxAdderModule>();
+        builder.RegisterModule<DataExporterModule>();
+        builder.RegisterModule<AudioSourcesComparerModule>();
 
-            builder
-                .RegisterType<PluginActions>()
-                .As<IPluginActions>()
-                .SingleInstance();
+        builder
+            .RegisterType<PluginActions>()
+            .As<IPluginActions>()
+            .SingleInstance();
 
-            builder
-                .RegisterType<VkApiAuthorizationsService>()
-                .As<IVkApiAuthorizationsService>()
-                .SingleInstance();
+        builder
+            .RegisterType<VkApiAuthorizationsService>()
+            .As<IVkApiAuthorizationsService>()
+            .SingleInstance();
 
-            builder
-                .RegisterType<SettingsDialogVM>()
-                .AsSelf();
-            builder
-                .RegisterType<InboxRelocateContextMenuVM>()
-                .AsSelf();
-            builder
-                .RegisterType<InboxRelocateContextMenuVM>()
-                .AsSelf();
+        builder
+            .RegisterType<SettingsDialogVM>()
+            .AsSelf();
+        builder
+            .RegisterType<InboxRelocateContextMenuVM>()
+            .AsSelf();
+        builder
+            .RegisterType<InboxRelocateContextMenuVM>()
+            .AsSelf();
 
-            builder
-                .RegisterType<SettingsDialog>()
-                .AsSelf();
-            builder
-                .RegisterType<InboxRelocateContextMenu>()
-                .AsSelf();
+        builder
+            .RegisterType<SettingsDialog>()
+            .AsSelf();
+        builder
+            .RegisterType<InboxRelocateContextMenu>()
+            .AsSelf();
 
-            return builder.Build();
-        }
+        return builder.Build();
     }
 }

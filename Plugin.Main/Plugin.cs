@@ -14,132 +14,131 @@ using Plugin.Main.GUI.Views;
 using Plugin.Main.Services;
 
 // ReSharper disable once CheckNamespace
-namespace MusicBeePlugin
+namespace MusicBeePlugin;
+
+public class Plugin : PluginBase
 {
-    public class Plugin : PluginBase
+    private const short PluginInfoVersion = 1;
+    private const short MinInterfaceVersion = 40; // 41
+    private const short MinApiRevision = 53;
+
+    private SettingsDialogFactory? _settingsDialogFactory;
+    private IResourceManager? _resourceManager;
+
+    static Plugin()
     {
-        private const short PluginInfoVersion = 1;
-        private const short MinInterfaceVersion = 40; // 41
-        private const short MinApiRevision = 53;
+        ApplyAssembliesResolution();
+        ServicePointManager.DefaultConnectionLimit = 20;
+    }
 
-        private SettingsDialogFactory? _settingsDialogFactory;
-        private IResourceManager? _resourceManager;
+    protected override void OnMusicBeeApiProvided(MusicBeeApiMemoryContainer musicBeeApi)
+    {
+        var container = PluginContainer.Create(musicBeeApi);
 
-        static Plugin()
+        _settingsDialogFactory = container.Resolve<SettingsDialogFactory>();
+        _resourceManager = container.Resolve<IResourceManager>();
+
+        InitSettings();
+        CreateMenuItems(container);
+    }
+
+    protected override PluginInfo GetPluginInfo()
+    {
+        return new PluginInfo
         {
-            ApplyAssembliesResolution();
-            ServicePointManager.DefaultConnectionLimit = 20;
-        }
+            PluginInfoVersion = PluginInfoVersion,
+            Name = "Laiser399: Plugins Bundle",
+            Description = "Contains list of plugins",
+            Author = "Laiser399",
+            TargetApplication = "",
+            Type = PluginType.General,
+            VersionMajor = 1,
+            VersionMinor = 0,
+            Revision = 1,
+            MinInterfaceVersion = MinInterfaceVersion,
+            MinApiRevision = MinApiRevision,
+            ReceiveNotifications = ReceiveNotificationFlags.StartupOnly,
+            ConfigurationPanelHeight = 0
+        };
+    }
 
-        protected override void OnMusicBeeApiProvided(MusicBeeApiMemoryContainer musicBeeApi)
-        {
-            var container = PluginContainer.Create(musicBeeApi);
+    private static void ApplyAssembliesResolution()
+    {
+        var assembliesDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
+        var assemblyResolver = new AssemblyResolver(assembliesDirectory);
+        AppDomain.CurrentDomain.AssemblyResolve += assemblyResolver.ResolveHandler;
+    }
 
-            _settingsDialogFactory = container.Resolve<SettingsDialogFactory>();
-            _resourceManager = container.Resolve<IResourceManager>();
+    private static void CreateMenuItems(IContainer container)
+    {
+        var mbApi = container.Resolve<IMusicBeeApi>();
+        var pluginActions = container.Resolve<IPluginActions>();
+        var inboxRelocateContextMenuFactory = container.Resolve<Func<InboxRelocateContextMenu>>();
 
-            InitSettings();
-            CreateMenuItems(container);
-        }
+        mbApi.MB_AddMenuItem(
+            "mnuTools/Laiser399: Search Artworks",
+            "Laiser399: Search Artworks",
+            (_, _) => pluginActions.SearchArtworks());
 
-        protected override PluginInfo GetPluginInfo()
-        {
-            return new PluginInfo
+        mbApi.MB_AddMenuItem(
+            "mnuTools/Laiser399: Download Vk Audio",
+            "Laiser399: Download Vk Audio",
+            (_, _) => pluginActions.DownloadVkAudios());
+
+        mbApi.MB_AddMenuItem(
+            "mnuTools/Laiser399: Compare Vk And Local Audios",
+            "Laiser399: Compare Vk And Local Audios",
+            (_, _) => pluginActions.CompareVkAndLocalAudios());
+
+        mbApi.MB_AddMenuItem(
+            "mnuTools/Laiser399: Add to Library",
+            "Laiser399: Add to Library",
+            (_, _) => pluginActions.AddSelectedFileToLibrary());
+
+        mbApi.MB_AddMenuItem(
+            "mnuTools/Laiser399: Export Playlists",
+            "Laiser399: Export Playlists",
+            (_, _) => pluginActions.ExportPlaylists());
+
+        mbApi.MB_AddMenuItem(
+            "mnuTools/Laiser399: Export Library Data",
+            "Laiser399: Export Library Data",
+            (_, _) => pluginActions.ExportLibraryData());
+
+        mbApi.MB_AddMenuItem(
+            "mnuTools/Laiser399: Inbox relocate context menu",
+            "Laiser399: Inbox relocate context menu",
+            (_, _) =>
             {
-                PluginInfoVersion = PluginInfoVersion,
-                Name = "Laiser399: Plugins Bundle",
-                Description = "Contains list of plugins",
-                Author = "Laiser399",
-                TargetApplication = "",
-                Type = PluginType.General,
-                VersionMajor = 1,
-                VersionMinor = 0,
-                Revision = 1,
-                MinInterfaceVersion = MinInterfaceVersion,
-                MinApiRevision = MinApiRevision,
-                ReceiveNotifications = ReceiveNotificationFlags.StartupOnly,
-                ConfigurationPanelHeight = 0
-            };
-        }
+                var inboxRelocateContextMenu = inboxRelocateContextMenuFactory();
+                inboxRelocateContextMenu.IsOpen = true;
+            });
+    }
 
-        private static void ApplyAssembliesResolution()
+    private void InitSettings()
+    {
+        _resourceManager!.CreateRootIfNeeded();
+    }
+
+    public override bool Configure(IntPtr _)
+    {
+        _settingsDialogFactory?
+            .Invoke()
+            .ShowDialog();
+
+        return true;
+    }
+
+    public override void Uninstall()
+    {
+        var result = MessageBox.Show(
+            "Delete settings?",
+            "o(╥﹏╥)o",
+            MessageBoxButton.YesNo);
+
+        if (result == MessageBoxResult.Yes)
         {
-            var assembliesDirectory = Path.Combine(Environment.CurrentDirectory, "Plugins");
-            var assemblyResolver = new AssemblyResolver(assembliesDirectory);
-            AppDomain.CurrentDomain.AssemblyResolve += assemblyResolver.ResolveHandler;
-        }
-
-        private static void CreateMenuItems(IContainer container)
-        {
-            var mbApi = container.Resolve<IMusicBeeApi>();
-            var pluginActions = container.Resolve<IPluginActions>();
-            var inboxRelocateContextMenuFactory = container.Resolve<Func<InboxRelocateContextMenu>>();
-
-            mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Search Artworks",
-                "Laiser399: Search Artworks",
-                (_, _) => pluginActions.SearchArtworks());
-
-            mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Download Vk Audio",
-                "Laiser399: Download Vk Audio",
-                (_, _) => pluginActions.DownloadVkAudios());
-
-            mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Compare Vk And Local Audios",
-                "Laiser399: Compare Vk And Local Audios",
-                (_, _) => pluginActions.CompareVkAndLocalAudios());
-
-            mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Add to Library",
-                "Laiser399: Add to Library",
-                (_, _) => pluginActions.AddSelectedFileToLibrary());
-
-            mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Export Playlists",
-                "Laiser399: Export Playlists",
-                (_, _) => pluginActions.ExportPlaylists());
-
-            mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Export Library Data",
-                "Laiser399: Export Library Data",
-                (_, _) => pluginActions.ExportLibraryData());
-
-            mbApi.MB_AddMenuItem(
-                "mnuTools/Laiser399: Inbox relocate context menu",
-                "Laiser399: Inbox relocate context menu",
-                (_, _) =>
-                {
-                    var inboxRelocateContextMenu = inboxRelocateContextMenuFactory();
-                    inboxRelocateContextMenu.IsOpen = true;
-                });
-        }
-
-        private void InitSettings()
-        {
-            _resourceManager!.CreateRootIfNeeded();
-        }
-
-        public override bool Configure(IntPtr _)
-        {
-            _settingsDialogFactory?
-                .Invoke()
-                .ShowDialog();
-
-            return true;
-        }
-
-        public override void Uninstall()
-        {
-            var result = MessageBox.Show(
-                "Delete settings?",
-                "o(╥﹏╥)o",
-                MessageBoxButton.YesNo);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                _resourceManager!.DeleteRoot();
-            }
+            _resourceManager!.DeleteRoot();
         }
     }
 }

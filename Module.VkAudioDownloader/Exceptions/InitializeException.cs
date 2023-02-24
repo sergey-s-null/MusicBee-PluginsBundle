@@ -1,12 +1,9 @@
-﻿using System;
+﻿namespace Module.VkAudioDownloader.Exceptions;
 
-namespace Module.VkAudioDownloader.Exceptions
+public class InitializeException : Exception
 {
-    public class InitializeException : Exception
+    public InitializeException(string message, Exception innerException) 
+        : base(message, innerException)
     {
-        public InitializeException(string message, Exception innerException) 
-            : base(message, innerException)
-        {
-        }
     }
 }

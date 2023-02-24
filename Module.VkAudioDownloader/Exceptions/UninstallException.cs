@@ -1,13 +1,10 @@
-﻿using System;
+﻿namespace Module.VkAudioDownloader.Exceptions;
 
-namespace Module.VkAudioDownloader.Exceptions
+public class UninstallException : Exception
 {
-    public class UninstallException : Exception
+    public UninstallException(string message, Exception innerException) 
+        : base(message, innerException)
     {
-        public UninstallException(string message, Exception innerException) 
-            : base(message, innerException)
-        {
             
-        }
     }
 }

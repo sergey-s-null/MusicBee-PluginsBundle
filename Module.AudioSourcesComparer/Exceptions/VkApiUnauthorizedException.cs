@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace Module.AudioSourcesComparer.Exceptions;
 
-namespace Module.AudioSourcesComparer.Exceptions
+public sealed class VkApiUnauthorizedException : Exception
 {
-    public sealed class VkApiUnauthorizedException : Exception
+    public VkApiUnauthorizedException(string message) : base(message)
     {
-        public VkApiUnauthorizedException(string message) : base(message)
-        {
-        }
     }
 }

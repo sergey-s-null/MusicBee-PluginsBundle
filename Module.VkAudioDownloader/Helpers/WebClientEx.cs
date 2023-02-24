@@ -1,32 +1,30 @@
 ﻿using System.Net;
-using System.Threading.Tasks;
 
-namespace Module.VkAudioDownloader.Helpers
+namespace Module.VkAudioDownloader.Helpers;
+
+public static class WebClientEx
 {
-    public static class WebClientEx
+    public static async Task DownloadFileAsync(string address, string fileName)
     {
-        public static async Task DownloadFileAsync(string address, string fileName)
+        using (WebClient webClient = new WebClient())
         {
-            using (WebClient webClient = new WebClient())
-            {
-                await webClient.DownloadFileTaskAsync(address, fileName);
-            }
+            await webClient.DownloadFileTaskAsync(address, fileName);
         }
+    }
 
-        public static async Task<string> DownloadStringAsync(string address)
+    public static async Task<string> DownloadStringAsync(string address)
+    {
+        using (WebClient webClient = new WebClient())
         {
-            using (WebClient webClient = new WebClient())
-            {
-                return await webClient.DownloadStringTaskAsync(address);
-            }
+            return await webClient.DownloadStringTaskAsync(address);
         }
+    }
 
-        public static async Task<byte[]> DownloadDataAsync(string address)
+    public static async Task<byte[]> DownloadDataAsync(string address)
+    {
+        using (WebClient webClient = new WebClient())
         {
-            using (WebClient webClient = new WebClient())
-            {
-                return await webClient.DownloadDataTaskAsync(address);
-            }
+            return await webClient.DownloadDataTaskAsync(address);
         }
     }
 }

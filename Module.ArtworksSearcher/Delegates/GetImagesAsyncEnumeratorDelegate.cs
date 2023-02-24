@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 
-namespace Module.ArtworksSearcher.Delegates
-{
-    public delegate IAsyncEnumerator<BitmapImage> GetImagesAsyncEnumeratorDelegate(string query);
-}
+namespace Module.ArtworksSearcher.Delegates;
+
+public delegate IAsyncEnumerator<BitmapImage> GetImagesAsyncEnumeratorDelegate(string query);

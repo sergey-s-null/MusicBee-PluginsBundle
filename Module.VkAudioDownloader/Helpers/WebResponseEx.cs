@@ -1,16 +1,15 @@
 ﻿using System.IO;
 using System.Net;
 
-namespace Module.VkAudioDownloader.Helpers
+namespace Module.VkAudioDownloader.Helpers;
+
+public static class WebResponseEx
 {
-    public static class WebResponseEx
+    public static string ReadAllText(this WebResponse response)
     {
-        public static string ReadAllText(this WebResponse response)
+        using (var reader = new StreamReader(response.GetResponseStream()))
         {
-            using (var reader = new StreamReader(response.GetResponseStream()))
-            {
-                return reader.ReadToEnd();
-            }
+            return reader.ReadToEnd();
         }
     }
 }

@@ -5,27 +5,26 @@ using Module.AudioSourcesComparer.GUI.Views;
 using Module.AudioSourcesComparer.Services;
 using Module.AudioSourcesComparer.Services.Abstract;
 
-namespace Module.AudioSourcesComparer
+namespace Module.AudioSourcesComparer;
+
+public sealed class AudioSourcesComparerModule : Autofac.Module
 {
-    public sealed class AudioSourcesComparerModule : Autofac.Module
+    protected override void Load(ContainerBuilder builder)
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder
-                .RegisterType<VkToLocalComparerService>()
-                .As<IVkToLocalComparerService>()
-                .SingleInstance();
+        builder
+            .RegisterType<VkToLocalComparerService>()
+            .As<IVkToLocalComparerService>()
+            .SingleInstance();
 
-            builder
-                .RegisterType<VkToLocalComparerWindowVM>()
-                .As<IVkToLocalComparerWindowVM>();
-            builder
-                .RegisterType<VkAudioVM>()
-                .As<IVkAudioVM>();
+        builder
+            .RegisterType<VkToLocalComparerWindowVM>()
+            .As<IVkToLocalComparerWindowVM>();
+        builder
+            .RegisterType<VkAudioVM>()
+            .As<IVkAudioVM>();
 
-            builder
-                .RegisterType<VkToLocalComparerWindow>()
-                .AsSelf();
-        }
+        builder
+            .RegisterType<VkToLocalComparerWindow>()
+            .AsSelf();
     }
 }

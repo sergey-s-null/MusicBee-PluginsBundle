@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 
-namespace Module.ArtworksSearcher.ImagesProviders
+namespace Module.ArtworksSearcher.ImagesProviders;
+
+public interface IImagesProvidersFactory
 {
-    public interface IImagesProvidersFactory
-    {
-        IAsyncEnumerable<BitmapImage> SearchInOsuDirectory(string query);
-        IAsyncEnumerable<BitmapImage> SearchInGoogle(string query);
-    }
+    IAsyncEnumerable<BitmapImage> SearchInOsuDirectory(string query);
+    IAsyncEnumerable<BitmapImage> SearchInGoogle(string query);
 }

@@ -7,42 +7,41 @@ using Module.VkAudioDownloader.Services.Abstract;
 using Module.VkAudioDownloader.Settings;
 using MusicDownloaderSettings = Module.VkAudioDownloader.Settings.MusicDownloaderSettings;
 
-namespace Module.VkAudioDownloader
+namespace Module.VkAudioDownloader;
+
+public sealed class MusicDownloaderModule : Autofac.Module
 {
-    public sealed class MusicDownloaderModule : Autofac.Module
+    protected override void Load(ContainerBuilder builder)
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder
-                .RegisterType<MusicDownloaderSettings>()
-                .As<IMusicDownloaderSettings>()
-                .SingleInstance();
+        builder
+            .RegisterType<MusicDownloaderSettings>()
+            .As<IMusicDownloaderSettings>()
+            .SingleInstance();
 
-            builder
-                .RegisterType<VkAudiosService>()
-                .As<IVkAudiosService>()
-                .SingleInstance();
-            builder
-                .RegisterType<AudioDownloader>()
-                .As<IAudioDownloader>()
-                .SingleInstance();
+        builder
+            .RegisterType<VkAudiosService>()
+            .As<IVkAudiosService>()
+            .SingleInstance();
+        builder
+            .RegisterType<AudioDownloader>()
+            .As<IAudioDownloader>()
+            .SingleInstance();
 
-            builder
-                .RegisterType<VkAudioDownloaderWindowVM>()
-                .As<IVkAudioDownloaderWindowVM>();
-            builder
-                .RegisterType<MusicDownloaderSettingsVM>()
-                .As<IMusicDownloaderSettingsVM>();
-            builder
-                .RegisterType<AuthorizationWindowVM>()
-                .As<IAuthorizationWindowVM>();
+        builder
+            .RegisterType<VkAudioDownloaderWindowVM>()
+            .As<IVkAudioDownloaderWindowVM>();
+        builder
+            .RegisterType<MusicDownloaderSettingsVM>()
+            .As<IMusicDownloaderSettingsVM>();
+        builder
+            .RegisterType<AuthorizationWindowVM>()
+            .As<IAuthorizationWindowVM>();
 
-            builder
-                .RegisterType<VkAudioDownloaderWindow>()
-                .AsSelf();
-            builder
-                .RegisterType<AuthorizationWindow>()
-                .AsSelf();
-        }
+        builder
+            .RegisterType<VkAudioDownloaderWindow>()
+            .AsSelf();
+        builder
+            .RegisterType<AuthorizationWindow>()
+            .AsSelf();
     }
 }

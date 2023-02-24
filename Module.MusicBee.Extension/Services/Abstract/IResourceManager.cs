@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Module.MusicBee.Extension.Services.Abstract;
+﻿namespace Module.MusicBee.Extension.Services.Abstract;
 
 public interface IResourceManager
 {

@@ -6,67 +6,66 @@ using Module.Vk.Settings;
 using Module.VkAudioDownloader.GUI.Factories;
 using VkNet.Abstractions;
 
-namespace Plugin.Main.Services
+namespace Plugin.Main.Services;
+
+public sealed class VkApiAuthorizationsService : IVkApiAuthorizationsService
 {
-    public sealed class VkApiAuthorizationsService : IVkApiAuthorizationsService
+    private readonly IVkApi _vkApi;
+    private readonly IVkSettings _vkSettings;
+    private readonly AuthorizationWindowFactory _authorizationWindowFactory;
+
+    public VkApiAuthorizationsService(
+        IVkApi vkApi,
+        IVkSettings vkSettings,
+        AuthorizationWindowFactory authorizationWindowFactory)
     {
-        private readonly IVkApi _vkApi;
-        private readonly IVkSettings _vkSettings;
-        private readonly AuthorizationWindowFactory _authorizationWindowFactory;
+        _vkApi = vkApi;
+        _vkSettings = vkSettings;
+        _authorizationWindowFactory = authorizationWindowFactory;
+    }
 
-        public VkApiAuthorizationsService(
-            IVkApi vkApi,
-            IVkSettings vkSettings,
-            AuthorizationWindowFactory authorizationWindowFactory)
+    public bool AuthorizeVkApiIfNeeded()
+    {
+        if (_vkApi.IsAuthorizedWithCheck())
         {
-            _vkApi = vkApi;
-            _vkSettings = vkSettings;
-            _authorizationWindowFactory = authorizationWindowFactory;
+            return true;
         }
 
-        public bool AuthorizeVkApiIfNeeded()
+        try
         {
-            if (_vkApi.IsAuthorizedWithCheck())
+            _vkApi.AuthorizeWithValidation(_vkSettings.AccessToken);
+            return true;
+        }
+        catch (ArgumentException e)
+        {
+            if (!ContinueWithAuthorizationDialog(e))
             {
-                return true;
+                return false;
             }
-
-            try
+        }
+        catch (VkApiAuthorizationException e)
+        {
+            if (!ContinueWithAuthorizationDialog(e))
             {
-                _vkApi.AuthorizeWithValidation(_vkSettings.AccessToken);
-                return true;
+                return false;
             }
-            catch (ArgumentException e)
-            {
-                if (!ContinueWithAuthorizationDialog(e))
-                {
-                    return false;
-                }
-            }
-            catch (VkApiAuthorizationException e)
-            {
-                if (!ContinueWithAuthorizationDialog(e))
-                {
-                    return false;
-                }
-            }
-
-            var authorizationWindow = _authorizationWindowFactory();
-            var authorized = authorizationWindow.ShowDialog();
-            return authorized;
         }
 
-        private static bool ContinueWithAuthorizationDialog(Exception e)
-        {
-            var dialogResult = MessageBox.Show(
-                "Got error on authorization with access token from settings.\n\n" +
-                $"{e}\n\n" +
-                "Continue with dialog authorization?",
-                "?",
-                MessageBoxButton.YesNo
-            );
+        var authorizationWindow = _authorizationWindowFactory();
+        var authorized = authorizationWindow.ShowDialog();
+        return authorized;
+    }
 
-            return dialogResult == MessageBoxResult.Yes;
-        }
+    private static bool ContinueWithAuthorizationDialog(Exception e)
+    {
+        var dialogResult = MessageBox.Show(
+            "Got error on authorization with access token from settings.\n\n" +
+            $"{e}\n\n" +
+            "Continue with dialog authorization?",
+            "?",
+            MessageBoxButton.YesNo
+        );
+
+        return dialogResult == MessageBoxResult.Yes;
     }
 }

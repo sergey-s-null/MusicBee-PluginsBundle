@@ -1,34 +1,32 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Module.Mvvm.Extension;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 
-namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels
+namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels;
+
+public sealed class MusicDownloaderSettingsDTVM : IMusicDownloaderSettingsVM
 {
-    public sealed class MusicDownloaderSettingsDTVM : IMusicDownloaderSettingsVM
+    public bool Loaded => true;
+    public string LoadingErrorMessage => "(no error)";
+
+    public string DownloadDirTemplate { get; set; } = @"D:\Path\To\Directory\<i1>\<i2>";
+    public string FileNameTemplate { get; set; } = "<artist> - <title>";
+    public string AvailableTags => "<i1>; <i2>; <artist>; <title>";
+    public string DownloadDirCheck => @"D:\Path\To\Directory\Index1\Index2";
+    public string FileNameCheck => "Artist - Title";
+
+    public ICommand ChangeDownloadDirCmd =>
+        new RelayCommand(_ => throw new NotSupportedException());
+
+    public ICommand ReloadCmd { get; } = new RelayCommand(_ => { });
+
+    public void Load()
     {
-        public bool Loaded => true;
-        public string LoadingErrorMessage => "(no error)";
+        throw new NotSupportedException();
+    }
 
-        public string DownloadDirTemplate { get; set; } = @"D:\Path\To\Directory\<i1>\<i2>";
-        public string FileNameTemplate { get; set; } = "<artist> - <title>";
-        public string AvailableTags => "<i1>; <i2>; <artist>; <title>";
-        public string DownloadDirCheck => @"D:\Path\To\Directory\Index1\Index2";
-        public string FileNameCheck => "Artist - Title";
-
-        public ICommand ChangeDownloadDirCmd =>
-            new RelayCommand(_ => throw new NotSupportedException());
-
-        public ICommand ReloadCmd { get; } = new RelayCommand(_ => { });
-
-        public void Load()
-        {
-            throw new NotSupportedException();
-        }
-
-        public bool Save()
-        {
-            throw new NotSupportedException();
-        }
+    public bool Save()
+    {
+        throw new NotSupportedException();
     }
 }

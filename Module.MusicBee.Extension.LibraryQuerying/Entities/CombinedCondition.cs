@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Module.MusicBee.Extension.LibraryQuerying.Entities.Abstract;
 using Module.MusicBee.Extension.LibraryQuerying.Enums;
 

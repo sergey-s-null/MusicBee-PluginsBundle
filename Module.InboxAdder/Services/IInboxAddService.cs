@@ -1,8 +1,7 @@
-﻿namespace Module.InboxAdder.Services
+﻿namespace Module.InboxAdder.Services;
+
+public interface IInboxAddService
 {
-    public interface IInboxAddService
-    {
-        void AddToLibrary(string filePath);
-        void RetrieveToInbox(string filePath);
-    }
+    void AddToLibrary(string filePath);
+    void RetrieveToInbox(string filePath);
 }

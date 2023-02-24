@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 
 namespace Module.VkAudioDownloader.GUI.Views;

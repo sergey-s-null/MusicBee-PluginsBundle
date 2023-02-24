@@ -1,16 +1,15 @@
 ﻿using Autofac;
 using Module.InboxAdder.Services;
 
-namespace Module.InboxAdder
+namespace Module.InboxAdder;
+
+public sealed class InboxAdderModule : Autofac.Module
 {
-    public sealed class InboxAdderModule : Autofac.Module
+    protected override void Load(ContainerBuilder builder)
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder
-                .RegisterType<InboxAddService>()
-                .As<IInboxAddService>()
-                .SingleInstance();
-        }
+        builder
+            .RegisterType<InboxAddService>()
+            .As<IInboxAddService>()
+            .SingleInstance();
     }
 }

@@ -2,22 +2,21 @@
 using Autofac;
 using Module.AudioSourcesComparer.GUI.Factories;
 
-namespace TestView.AudioSourcesComparer
+namespace TestView.AudioSourcesComparer;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public sealed partial class App
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public sealed partial class App
+    protected override void OnStartup(StartupEventArgs e)
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            var container = ApplicationContainer.Create();
+        var container = ApplicationContainer.Create();
 
-            var vkToLocalComparerWindowFactory = container.Resolve<VkToLocalComparerWindowFactory>();
+        var vkToLocalComparerWindowFactory = container.Resolve<VkToLocalComparerWindowFactory>();
 
-            var window = vkToLocalComparerWindowFactory();
+        var window = vkToLocalComparerWindowFactory();
 
-            window.ShowDialog();
-        }
+        window.ShowDialog();
     }
 }

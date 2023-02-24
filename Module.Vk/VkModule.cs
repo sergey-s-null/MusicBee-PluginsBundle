@@ -7,44 +7,43 @@ using VkNet;
 using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
 
-namespace Module.Vk
+namespace Module.Vk;
+
+public sealed class VkModule : Autofac.Module
 {
-    public sealed class VkModule : Autofac.Module
+    private readonly bool _withAudioBypass;
+
+    public VkModule(bool withAudioBypass)
     {
-        private readonly bool _withAudioBypass;
+        _withAudioBypass = withAudioBypass;
+    }
 
-        public VkModule(bool withAudioBypass)
+    protected override void Load(ContainerBuilder builder)
+    {
+        builder
+            .RegisterType<VkSettings>()
+            .As<IVkSettings>()
+            .SingleInstance();
+
+        builder
+            .Register(x => CreateVkApi())
+            .As<IVkApi>()
+            .SingleInstance();
+
+        builder
+            .RegisterType<VkSettingsVM>()
+            .As<IVkSettingsVM>();
+    }
+
+    private IVkApi CreateVkApi()
+    {
+        if (!_withAudioBypass)
         {
-            _withAudioBypass = withAudioBypass;
+            return new VkApi();
         }
 
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder
-                .RegisterType<VkSettings>()
-                .As<IVkSettings>()
-                .SingleInstance();
-
-            builder
-                .Register(x => CreateVkApi())
-                .As<IVkApi>()
-                .SingleInstance();
-
-            builder
-                .RegisterType<VkSettingsVM>()
-                .As<IVkSettingsVM>();
-        }
-
-        private IVkApi CreateVkApi()
-        {
-            if (!_withAudioBypass)
-            {
-                return new VkApi();
-            }
-
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.AddAudioBypass();
-            return new VkApi(serviceCollection);
-        }
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddAudioBypass();
+        return new VkApi(serviceCollection);
     }
 }
