@@ -19,6 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
 		<PackageReference Include="VkNet" Version="1.72.0" />
 		<PackageReference Include="VkNet.AudioBypassService" Version="1.7.4" />
 	</ItemGroup>

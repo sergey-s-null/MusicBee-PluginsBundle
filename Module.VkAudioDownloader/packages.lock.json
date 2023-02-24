@@ -297,8 +297,7 @@
         "type": "Project",
         "dependencies": {
           "Module.Mvvm.Extension": "[1.0.0, )",
-          "Module.Settings": "[1.0.0, )",
-          "PropertyChanged.Fody": "[4.1.0, )"
+          "Module.Settings": "[1.0.0, )"
         }
       },
       "module.vk": {

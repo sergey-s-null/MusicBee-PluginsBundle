@@ -20,6 +20,15 @@
           "System.ValueTuple": "4.5.0"
         }
       },
+      "PropertyChanged.Fody": {
+        "type": "Direct",
+        "requested": "[4.1.0, )",
+        "resolved": "4.1.0",
+        "contentHash": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
+        "dependencies": {
+          "Fody": "6.6.4"
+        }
+      },
       "Autofac": {
         "type": "Transitive",
         "resolved": "6.5.0",
@@ -60,14 +69,6 @@
         "type": "Transitive",
         "resolved": "13.0.2",
         "contentHash": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg=="
-      },
-      "PropertyChanged.Fody": {
-        "type": "Transitive",
-        "resolved": "4.1.0",
-        "contentHash": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
-        "dependencies": {
-          "Fody": "6.6.4"
-        }
       },
       "System.Buffers": {
         "type": "Transitive",
@@ -151,8 +152,7 @@
         "type": "Project",
         "dependencies": {
           "Module.Mvvm.Extension": "[1.0.0, )",
-          "Module.Settings": "[1.0.0, )",
-          "PropertyChanged.Fody": "[4.1.0, )"
+          "Module.Settings": "[1.0.0, )"
         }
       }
     }
