@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.Settings.Exceptions;
+﻿namespace Module.Settings.Exceptions;
 
 public sealed class SettingsSaveException : Exception
 {

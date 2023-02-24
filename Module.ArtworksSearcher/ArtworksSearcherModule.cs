@@ -7,47 +7,46 @@ using Module.ArtworksSearcher.Services.Abstract;
 using Module.ArtworksSearcher.Settings;
 using ArtworksSearcherSettings = Module.ArtworksSearcher.Settings.ArtworksSearcherSettings;
 
-namespace Module.ArtworksSearcher
+namespace Module.ArtworksSearcher;
+
+public sealed class ArtworksSearcherModule : Autofac.Module
 {
-    public sealed class ArtworksSearcherModule : Autofac.Module
+    protected override void Load(ContainerBuilder builder)
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder
-                .RegisterType<ArtworksSearcherSettings>()
-                .As<IArtworksSearcherSettings>()
-                .SingleInstance();
+        builder
+            .RegisterType<ArtworksSearcherSettings>()
+            .As<IArtworksSearcherSettings>()
+            .SingleInstance();
 
-            builder
-                .RegisterType<ArtworksSearcherSettingsVM>()
-                .As<IArtworksSearcherSettingsVM>();
+        builder
+            .RegisterType<ArtworksSearcherSettingsVM>()
+            .As<IArtworksSearcherSettingsVM>();
 
-            builder
-                .RegisterType<ImagesProvidersFactory>()
-                .As<IImagesProvidersFactory>()
-                .SingleInstance();
+        builder
+            .RegisterType<ImagesProvidersFactory>()
+            .As<IImagesProvidersFactory>()
+            .SingleInstance();
 
-            builder
-                .RegisterType<OsuImagesProvider>()
-                .AsSelf();
-            builder
-                .RegisterType<GoogleImagesProvider>()
-                .AsSelf();
-            builder
-                .RegisterType<SearchWindowVM>()
-                .AsSelf();
-            builder
-                .RegisterType<SearchWindow>()
-                .AsSelf();
+        builder
+            .RegisterType<OsuImagesProvider>()
+            .AsSelf();
+        builder
+            .RegisterType<GoogleImagesProvider>()
+            .AsSelf();
+        builder
+            .RegisterType<SearchWindowVM>()
+            .AsSelf();
+        builder
+            .RegisterType<SearchWindow>()
+            .AsSelf();
 
-            builder
-                .RegisterType<GoogleImageSearchService>()
-                .As<IGoogleImageSearchService>()
-                .SingleInstance();
+        builder
+            .RegisterType<GoogleImageSearchService>()
+            .As<IGoogleImageSearchService>()
+            .SingleInstance();
 
-            builder
-                .RegisterType<GoogleImagesAsyncEnumerator>()
-                .AsSelf();
-        }
+        builder
+            .RegisterType<GoogleImagesAsyncEnumerator>()
+            .AsSelf();
     }
 }

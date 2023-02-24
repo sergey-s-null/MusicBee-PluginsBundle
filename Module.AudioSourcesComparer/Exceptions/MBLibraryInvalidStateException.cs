@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace Module.AudioSourcesComparer.Exceptions;
 
-namespace Module.AudioSourcesComparer.Exceptions
+public sealed class MBLibraryInvalidStateException : Exception
 {
-    public sealed class MBLibraryInvalidStateException : Exception
+    public MBLibraryInvalidStateException(string message) : base(message)
     {
-        public MBLibraryInvalidStateException(string message) : base(message)
-        {
-        }
     }
 }

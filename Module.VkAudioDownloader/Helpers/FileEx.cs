@@ -1,20 +1,19 @@
 ﻿using System.IO;
 
-namespace Module.VkAudioDownloader.Helpers
+namespace Module.VkAudioDownloader.Helpers;
+
+static class FileEx
 {
-    static class FileEx
+    public static bool TryDelete(string filePath)
     {
-        public static bool TryDelete(string filePath)
+        try
         {
-            try
-            {
-                File.Delete(filePath);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            File.Delete(filePath);
+            return true;
+        }
+        catch
+        {
+            return false;
         }
     }
 }

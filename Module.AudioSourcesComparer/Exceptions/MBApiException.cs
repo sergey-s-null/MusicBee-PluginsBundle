@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace Module.AudioSourcesComparer.Exceptions;
 
-namespace Module.AudioSourcesComparer.Exceptions
+public sealed class MBApiException : Exception
 {
-    public sealed class MBApiException : Exception
+    public MBApiException(string message) : base(message)
     {
-        public MBApiException(string message) : base(message)
-        {
-        }
     }
 }

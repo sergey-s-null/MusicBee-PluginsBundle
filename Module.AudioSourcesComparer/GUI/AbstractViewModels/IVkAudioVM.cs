@@ -1,17 +1,15 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace Module.AudioSourcesComparer.GUI.AbstractViewModels
+namespace Module.AudioSourcesComparer.GUI.AbstractViewModels;
+
+public interface IVkAudioVM
 {
-    public interface IVkAudioVM
-    {
-        event EventHandler<EventArgs>? DeleteRequested;
+    event EventHandler<EventArgs>? DeleteRequested;
 
-        long Id { get; }
-        string Artist { get; }
-        string Title { get; }
+    long Id { get; }
+    string Artist { get; }
+    string Title { get; }
 
-        ICommand SetArtistAndTitleToClipboardCmd { get; }
-        ICommand DeleteCmd { get; }
-    }
+    ICommand SetArtistAndTitleToClipboardCmd { get; }
+    ICommand DeleteCmd { get; }
 }

@@ -1,15 +1,14 @@
 ﻿using Autofac;
 using Module.DataExporter.Services;
 
-namespace Module.DataExporter
+namespace Module.DataExporter;
+
+public sealed class DataExporterModule : Autofac.Module
 {
-    public sealed class DataExporterModule : Autofac.Module
+    protected override void Load(ContainerBuilder builder)
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder
-                .RegisterType<DataExportService>()
-                .As<IDataExportService>();
-        }
+        builder
+            .RegisterType<DataExportService>()
+            .As<IDataExportService>();
     }
 }

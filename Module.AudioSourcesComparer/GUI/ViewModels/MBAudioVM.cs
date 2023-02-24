@@ -4,51 +4,50 @@ using System.Windows.Input;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.Mvvm.Extension;
 
-namespace Module.AudioSourcesComparer.GUI.ViewModels
+namespace Module.AudioSourcesComparer.GUI.ViewModels;
+
+public sealed class MBAudioVM : IMBAudioVM
 {
-    public sealed class MBAudioVM : IMBAudioVM
+    private readonly string _filePath;
+    public long VkId { get; }
+    public int Index { get; }
+    public string Artist { get; }
+    public string Title { get; }
+
+    public ICommand SetFilePathToClipboardCmd =>
+        _setFilePathToClipboardCmd ??= new RelayCommand(_ => SetFilePathToClipboard());
+
+    public ICommand SetFileNameToClipboardCmd =>
+        _setFileNameToClipboardCmd ??= new RelayCommand(_ => SetFileNameToClipboard());
+
+    public ICommand SetArtistAndTitleToClipboardCmd =>
+        _setArtistAndTitleToClipboardCmd ??= new RelayCommand(_ => SetArtistAndTitleToClipboard());
+
+    private ICommand? _setFilePathToClipboardCmd;
+    private ICommand? _setFileNameToClipboardCmd;
+    private ICommand? _setArtistAndTitleToClipboardCmd;
+
+    public MBAudioVM(string filePath, long vkId, int index, string artist, string title)
     {
-        private readonly string _filePath;
-        public long VkId { get; }
-        public int Index { get; }
-        public string Artist { get; }
-        public string Title { get; }
+        _filePath = filePath;
+        VkId = vkId;
+        Index = index;
+        Artist = artist;
+        Title = title;
+    }
 
-        public ICommand SetFilePathToClipboardCmd =>
-            _setFilePathToClipboardCmd ??= new RelayCommand(_ => SetFilePathToClipboard());
+    private void SetFilePathToClipboard()
+    {
+        Clipboard.SetText(_filePath);
+    }
 
-        public ICommand SetFileNameToClipboardCmd =>
-            _setFileNameToClipboardCmd ??= new RelayCommand(_ => SetFileNameToClipboard());
+    private void SetFileNameToClipboard()
+    {
+        Clipboard.SetText(Path.GetFileName(_filePath));
+    }
 
-        public ICommand SetArtistAndTitleToClipboardCmd =>
-            _setArtistAndTitleToClipboardCmd ??= new RelayCommand(_ => SetArtistAndTitleToClipboard());
-
-        private ICommand? _setFilePathToClipboardCmd;
-        private ICommand? _setFileNameToClipboardCmd;
-        private ICommand? _setArtistAndTitleToClipboardCmd;
-
-        public MBAudioVM(string filePath, long vkId, int index, string artist, string title)
-        {
-            _filePath = filePath;
-            VkId = vkId;
-            Index = index;
-            Artist = artist;
-            Title = title;
-        }
-
-        private void SetFilePathToClipboard()
-        {
-            Clipboard.SetText(_filePath);
-        }
-
-        private void SetFileNameToClipboard()
-        {
-            Clipboard.SetText(Path.GetFileName(_filePath));
-        }
-
-        private void SetArtistAndTitleToClipboard()
-        {
-            Clipboard.SetText($"{Artist} - {Title}");
-        }
+    private void SetArtistAndTitleToClipboard()
+    {
+        Clipboard.SetText($"{Artist} - {Title}");
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace HackModule.AssemblyBindingRedirect.Services.Abstract
+namespace HackModule.AssemblyBindingRedirect.Services.Abstract;
+
+public interface IAssemblyResolver
 {
-    public interface IAssemblyResolver
-    {
-        Assembly? ResolveHandler(object sender, ResolveEventArgs eventArgs);
-    }
+    Assembly? ResolveHandler(object sender, ResolveEventArgs eventArgs);
 }

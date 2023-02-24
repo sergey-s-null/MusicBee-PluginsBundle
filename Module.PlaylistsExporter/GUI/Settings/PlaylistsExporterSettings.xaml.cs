@@ -1,12 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace Module.PlaylistsExporter.GUI.Settings
+namespace Module.PlaylistsExporter.GUI.Settings;
+
+public sealed partial class PlaylistsExporterSettings : UserControl
 {
-    public sealed partial class PlaylistsExporterSettings : UserControl
+    public PlaylistsExporterSettings()
     {
-        public PlaylistsExporterSettings()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

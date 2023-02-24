@@ -1,7 +1,6 @@
-﻿namespace Module.DataExporter.Services
+﻿namespace Module.DataExporter.Services;
+
+public interface IDataExportService
 {
-    public interface IDataExportService
-    {
-        void Export(string dirPath);
-    }
+    void Export(string dirPath);
 }

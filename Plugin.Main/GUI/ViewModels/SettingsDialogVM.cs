@@ -8,82 +8,81 @@ using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Plugin.Main.GUI.AbstractViewModels;
 using PropertyChanged;
 
-namespace Plugin.Main.GUI.ViewModels
+namespace Plugin.Main.GUI.ViewModels;
+
+[AddINotifyPropertyChangedInterface]
+public class SettingsDialogVM : ISettingsDialogVM
 {
-    [AddINotifyPropertyChangedInterface]
-    public class SettingsDialogVM : ISettingsDialogVM
+    public IVkSettingsVM VkSettingsVM { get; }
+    public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
+    public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
+    public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
+
+    public IList<IModuleSettingsVM> SettingsModules { get; } = new ObservableCollection<IModuleSettingsVM>();
+
+    public IModuleSettingsVM SelectedSettingsModule { get; set; }
+
+    public SettingsDialogVM(
+        IVkSettingsVM vkSettingsVM,
+        IMusicDownloaderSettingsVM musicDownloaderSettingsVM,
+        IArtworksSearcherSettingsVM artworksSearcherSettingsVM,
+        IPlaylistsExporterSettingsVM playlistsExporterSettingsVM)
     {
-        public IVkSettingsVM VkSettingsVM { get; }
-        public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
-        public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
-        public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
+        VkSettingsVM = vkSettingsVM;
+        MusicDownloaderSettingsVM = musicDownloaderSettingsVM;
+        ArtworksSearcherSettingsVM = artworksSearcherSettingsVM;
+        PlaylistsExporterSettingsVM = playlistsExporterSettingsVM;
 
-        public IList<IModuleSettingsVM> SettingsModules { get; } = new ObservableCollection<IModuleSettingsVM>();
+        SettingsModules.Add(new ModuleSettingsVM("Vk",
+            vkSettingsVM));
+        SettingsModules.Add(new ModuleSettingsVM("Music downloader",
+            musicDownloaderSettingsVM));
+        SettingsModules.Add(new ModuleSettingsVM("Artworks searcher",
+            artworksSearcherSettingsVM));
+        SettingsModules.Add(new ModuleSettingsVM("Playlists exporter",
+            playlistsExporterSettingsVM));
 
-        public IModuleSettingsVM SelectedSettingsModule { get; set; }
+        SelectedSettingsModule = SettingsModules.First();
 
-        public SettingsDialogVM(
-            IVkSettingsVM vkSettingsVM,
-            IMusicDownloaderSettingsVM musicDownloaderSettingsVM,
-            IArtworksSearcherSettingsVM artworksSearcherSettingsVM,
-            IPlaylistsExporterSettingsVM playlistsExporterSettingsVM)
+        Load();
+    }
+
+    private void Load()
+    {
+        foreach (var moduleSettingsVM in SettingsModules)
         {
-            VkSettingsVM = vkSettingsVM;
-            MusicDownloaderSettingsVM = musicDownloaderSettingsVM;
-            ArtworksSearcherSettingsVM = artworksSearcherSettingsVM;
-            PlaylistsExporterSettingsVM = playlistsExporterSettingsVM;
-
-            SettingsModules.Add(new ModuleSettingsVM("Vk",
-                vkSettingsVM));
-            SettingsModules.Add(new ModuleSettingsVM("Music downloader",
-                musicDownloaderSettingsVM));
-            SettingsModules.Add(new ModuleSettingsVM("Artworks searcher",
-                artworksSearcherSettingsVM));
-            SettingsModules.Add(new ModuleSettingsVM("Playlists exporter",
-                playlistsExporterSettingsVM));
-
-            SelectedSettingsModule = SettingsModules.First();
-
-            Load();
+            moduleSettingsVM.ModuleSettings.Load();
         }
+    }
 
-        private void Load()
+    /// <returns>true - settings window can be closed. false - continue edit settings.</returns>
+    public bool Save()
+    {
+        foreach (var setting in SettingsModules)
         {
-            foreach (var moduleSettingsVM in SettingsModules)
+            try
             {
-                moduleSettingsVM.ModuleSettings.Load();
-            }
-        }
-
-        /// <returns>true - settings window can be closed. false - continue edit settings.</returns>
-        public bool Save()
-        {
-            foreach (var setting in SettingsModules)
-            {
-                try
+                if (!setting.ModuleSettings.Save())
                 {
-                    if (!setting.ModuleSettings.Save())
-                    {
-                        return false;
-                    }
-                }
-                catch (SettingsSaveException e)
-                {
-                    var dialogResult = MessageBox.Show(
-                        $"Error on save settings module \"{setting.ModuleName}\".\n\n" +
-                        $"{e}\n\n" +
-                        "Continue save other settings modules?",
-                        "Error!",
-                        MessageBoxButton.YesNo
-                    );
-                    if (dialogResult != MessageBoxResult.Yes)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
-
-            return true;
+            catch (SettingsSaveException e)
+            {
+                var dialogResult = MessageBox.Show(
+                    $"Error on save settings module \"{setting.ModuleName}\".\n\n" +
+                    $"{e}\n\n" +
+                    "Continue save other settings modules?",
+                    "Error!",
+                    MessageBoxButton.YesNo
+                );
+                if (dialogResult != MessageBoxResult.Yes)
+                {
+                    return false;
+                }
+            }
         }
+
+        return true;
     }
 }

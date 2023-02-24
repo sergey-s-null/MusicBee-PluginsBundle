@@ -1,8 +1,7 @@
-﻿namespace Module.VkAudioDownloader.GUI.AbstractViewModels
+﻿namespace Module.VkAudioDownloader.GUI.AbstractViewModels;
+
+public interface IInputDialogVM
 {
-    public interface IInputDialogVM
-    {
-        string TitleText { get; set; }
-        string InputText { get; set; }
-    }
+    string TitleText { get; set; }
+    string InputText { get; set; }
 }

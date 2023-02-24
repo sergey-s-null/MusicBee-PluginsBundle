@@ -1,12 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace Module.VkAudioDownloader.GUI.Views
+namespace Module.VkAudioDownloader.GUI.Views;
+
+public sealed partial class MusicDownloaderSettings : UserControl
 {
-    public sealed partial class MusicDownloaderSettings : UserControl
+    public MusicDownloaderSettings()
     {
-        public MusicDownloaderSettings()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

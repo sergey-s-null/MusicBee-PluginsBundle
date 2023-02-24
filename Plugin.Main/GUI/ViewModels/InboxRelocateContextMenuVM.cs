@@ -2,36 +2,35 @@
 using Plugin.Main.Services;
 using PropertyChanged;
 
-namespace Plugin.Main.GUI.ViewModels
+namespace Plugin.Main.GUI.ViewModels;
+
+[AddINotifyPropertyChangedInterface]
+public class InboxRelocateContextMenuVM
 {
-    [AddINotifyPropertyChangedInterface]
-    public class InboxRelocateContextMenuVM
+    private RelayCommand? _addToLibraryCommand;
+
+    public RelayCommand AddToLibraryCommand =>
+        _addToLibraryCommand ??= new RelayCommand(_ => AddToLibrary());
+
+    private RelayCommand? _retrieveToInboxCommand;
+
+    public RelayCommand RetrieveToInboxCommand =>
+        _retrieveToInboxCommand ??= new RelayCommand(_ => RetrieveToInbox());
+
+    private readonly IPluginActions _pluginActions;
+
+    public InboxRelocateContextMenuVM(IPluginActions pluginActions)
     {
-        private RelayCommand? _addToLibraryCommand;
+        _pluginActions = pluginActions;
+    }
 
-        public RelayCommand AddToLibraryCommand =>
-            _addToLibraryCommand ??= new RelayCommand(_ => AddToLibrary());
+    private void AddToLibrary()
+    {
+        _pluginActions.AddSelectedFileToLibrary();
+    }
 
-        private RelayCommand? _retrieveToInboxCommand;
-
-        public RelayCommand RetrieveToInboxCommand =>
-            _retrieveToInboxCommand ??= new RelayCommand(_ => RetrieveToInbox());
-
-        private readonly IPluginActions _pluginActions;
-
-        public InboxRelocateContextMenuVM(IPluginActions pluginActions)
-        {
-            _pluginActions = pluginActions;
-        }
-
-        private void AddToLibrary()
-        {
-            _pluginActions.AddSelectedFileToLibrary();
-        }
-
-        private void RetrieveToInbox()
-        {
-            _pluginActions.RetrieveSelectedFileToInbox();
-        }
+    private void RetrieveToInbox()
+    {
+        _pluginActions.RetrieveSelectedFileToInbox();
     }
 }

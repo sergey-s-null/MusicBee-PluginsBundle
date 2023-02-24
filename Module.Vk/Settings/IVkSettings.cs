@@ -1,10 +1,9 @@
 ﻿using Module.Settings.Entities.Abstract;
 
-namespace Module.Vk.Settings
+namespace Module.Vk.Settings;
+
+public interface IVkSettings : ISettings
 {
-    public interface IVkSettings : ISettings
-    {
-        string AccessToken { get; set; }
-        long UserId { get; set; }
-    }
+    string AccessToken { get; set; }
+    long UserId { get; set; }
 }
