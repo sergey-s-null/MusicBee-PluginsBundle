@@ -71,7 +71,7 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
 
             Audios.Clear();
 
-            var vkAudios = await GetVkAudios();
+            var vkAudios = await GetVkAudiosAsync();
 
             Audios.AddRange(vkAudios);
         }
@@ -120,15 +120,15 @@ public sealed class VkAudioDownloaderWindowVM : IVkAudioDownloaderWindowVM
         RefreshInternal();
     }
 
-    private async Task<IReadOnlyCollection<IVkAudioVM>> GetVkAudios()
+    private async Task<IReadOnlyCollection<IVkAudioVM>> GetVkAudiosAsync()
     {
         var audios = IsCheckAllVkAudios
-            ? _vkAudiosService.GetVkAudiosToDisplay()
-            : _vkAudiosService.GetFirstVkAudiosToDisplay();
+            ? await _vkAudiosService.GetVkAudiosToDisplayAsync()
+            : await _vkAudiosService.GetFirstVkAudiosToDisplayAsync();
 
-        return await audios
+        return audios
             .Select(MapToViewModel)
-            .ToListAsync();
+            .ToList();
     }
 
     private static IVkAudioVM MapToViewModel(VkAudioModel audio)

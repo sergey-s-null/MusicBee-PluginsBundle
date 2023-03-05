@@ -19,26 +19,28 @@ public sealed class VkAudiosService : IVkAudiosService
         _vkApi = vkApi;
     }
 
-    public IAsyncEnumerable<VkAudioModel> GetVkAudiosToDisplay()
+    public async Task<IReadOnlyList<VkAudioModel>> GetVkAudiosToDisplayAsync()
     {
         var vkIdsInLibrary = _musicBeeApi.EnumerateVkIdsInLibrary().ToHashSet();
         var vkIdsInIncoming = _musicBeeApi.EnumerateVkIdsInIncoming().ToHashSet();
 
-        return _vkApi.Audio.AsAsyncEnumerable()
+        return await _vkApi.Audio.AsAsyncEnumerable()
             .Where(x => x.Id is not null
                         && !vkIdsInLibrary.Contains(x.Id.Value))
-            .Select(x => Map(x, vkIdsInIncoming.Contains(x.Id!.Value)));
+            .Select(x => Map(x, vkIdsInIncoming.Contains(x.Id!.Value)))
+            .ToListAsync();
     }
 
-    public IAsyncEnumerable<VkAudioModel> GetFirstVkAudiosToDisplay()
+    public async Task<IReadOnlyList<VkAudioModel>> GetFirstVkAudiosToDisplayAsync()
     {
         var vkIdsInLibrary = _musicBeeApi.EnumerateVkIdsInLibrary().ToHashSet();
         var vkIdsInIncoming = _musicBeeApi.EnumerateVkIdsInIncoming().ToHashSet();
 
-        return _vkApi.Audio.AsAsyncEnumerable()
+        return await _vkApi.Audio.AsAsyncEnumerable()
             .Where(x => x.Id is not null)
             .TakeWhile(x => !vkIdsInLibrary.Contains(x.Id!.Value))
-            .Select(x => Map(x, vkIdsInIncoming.Contains(x.Id!.Value)));
+            .Select(x => Map(x, vkIdsInIncoming.Contains(x.Id!.Value)))
+            .ToListAsync();
     }
 
     private static VkAudioModel Map(Audio audio, bool isInIncoming)
