@@ -9,7 +9,7 @@ public interface IVkAudiosService
     /// 1. presented only in Vk;<br/>
     /// 2. presented in Vk and in Incoming.
     /// </summary>
-    IAsyncEnumerable<VkAudioModel> GetVkAudiosToDisplay();
+    Task<IReadOnlyList<VkAudioModel>> GetVkAudiosToDisplayAsync();
 
     /// <summary>
     /// Returns audios:<br/>
@@ -17,5 +17,5 @@ public interface IVkAudiosService
     /// 2. presented in Vk and in Incoming.<br/>
     /// Takes audios until meets audio presented both in Vk and Library.
     /// </summary>
-    IAsyncEnumerable<VkAudioModel> GetFirstVkAudiosToDisplay();
+    Task<IReadOnlyList<VkAudioModel>> GetFirstVkAudiosToDisplayAsync();
 }
