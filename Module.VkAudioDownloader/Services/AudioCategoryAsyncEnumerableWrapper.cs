@@ -7,21 +7,28 @@ namespace Module.VkAudioDownloader.Services;
 public sealed class AudioCategoryAsyncEnumerableWrapper : IAsyncEnumerable<Audio>
 {
     private readonly IAudioCategory _audioCategory;
+    private readonly int _audiosPerRequest;
 
-    public AudioCategoryAsyncEnumerableWrapper(IAudioCategory audioCategory)
+    public AudioCategoryAsyncEnumerableWrapper(
+        IAudioCategory audioCategory,
+        int audiosPerRequest)
     {
         _audioCategory = audioCategory;
+        _audiosPerRequest = audiosPerRequest;
     }
 
-    public IAsyncEnumerator<Audio> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken())
+    public IAsyncEnumerator<Audio> GetAsyncEnumerator(CancellationToken cancellationToken = new())
     {
-        return new AudiosAsyncEnumerator(async (offset, count) =>
-            await _audioCategory
-                .GetAsync(new AudioGetParams
-                {
-                    Offset = offset,
-                    Count = count
-                }));
+        return new AudiosAsyncEnumerator(
+            async (offset, count) =>
+                await _audioCategory
+                    .GetAsync(new AudioGetParams
+                    {
+                        Offset = offset,
+                        Count = count
+                    }),
+            _audiosPerRequest
+        );
     }
 
     private delegate Task<IReadOnlyCollection<Audio>> GetAudiosAsyncDelegate(
@@ -31,20 +38,23 @@ public sealed class AudioCategoryAsyncEnumerableWrapper : IAsyncEnumerable<Audio
 
     private sealed class AudiosAsyncEnumerator : IAsyncEnumerator<Audio>
     {
-        private const int AudiosPerRequest = 10;
-
         private Audio? _current;
 
         public Audio Current => _current
                                 ?? throw new InvalidOperationException($"{nameof(Current)} is null");
 
         private readonly GetAudiosAsyncDelegate _getAudiosAsync;
+        private readonly int _audiosPerRequest;
+
         private int _offset;
         private readonly Queue<Audio> _readyAudios = new();
 
-        public AudiosAsyncEnumerator(GetAudiosAsyncDelegate getAudiosAsync)
+        public AudiosAsyncEnumerator(
+            GetAudiosAsyncDelegate getAudiosAsync,
+            int audiosPerRequest)
         {
             _getAudiosAsync = getAudiosAsync;
+            _audiosPerRequest = audiosPerRequest;
         }
 
         public async ValueTask<bool> MoveNextAsync()
@@ -70,7 +80,7 @@ public sealed class AudioCategoryAsyncEnumerableWrapper : IAsyncEnumerable<Audio
         {
             try
             {
-                var audios = await _getAudiosAsync(_offset, AudiosPerRequest);
+                var audios = await _getAudiosAsync(_offset, _audiosPerRequest);
 
                 _offset += audios.Count;
                 Enqueue(audios);
