@@ -10,6 +10,8 @@ namespace Module.VkAudioDownloader.Services;
 
 public sealed class VkAudiosService : IVkAudiosService
 {
+    private const int AllAudiosPerRequest = 5000;
+    
     private readonly IMusicBeeApi _musicBeeApi;
     private readonly IVkApi _vkApi;
 
@@ -24,7 +26,7 @@ public sealed class VkAudiosService : IVkAudiosService
         var vkIdsInLibrary = _musicBeeApi.EnumerateVkIdsInLibrary().ToHashSet();
         var vkIdsInIncoming = _musicBeeApi.EnumerateVkIdsInIncoming().ToHashSet();
 
-        return await _vkApi.Audio.AsAsyncEnumerable()
+        return await _vkApi.Audio.AsAsyncEnumerable(AllAudiosPerRequest)
             .Where(x => x.Id is not null
                         && !vkIdsInLibrary.Contains(x.Id.Value))
             .Select(x => Map(x, vkIdsInIncoming.Contains(x.Id!.Value)))
