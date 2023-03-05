@@ -4,11 +4,11 @@ using VkNet.Model.RequestParams;
 
 namespace Module.VkAudioDownloader.Services;
 
-public sealed class AsyncEnumerableWrapper : IAsyncEnumerable<Audio>
+public sealed class AudioCategoryAsyncEnumerableWrapper : IAsyncEnumerable<Audio>
 {
     private readonly IAudioCategory _audioCategory;
 
-    public AsyncEnumerableWrapper(IAudioCategory audioCategory)
+    public AudioCategoryAsyncEnumerableWrapper(IAudioCategory audioCategory)
     {
         _audioCategory = audioCategory;
     }

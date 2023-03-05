@@ -28,6 +28,6 @@ public static class AudioCategoryHelper
 
     public static IAsyncEnumerable<Audio> AsAsyncEnumerable(this IAudioCategory audioCategory)
     {
-        return new AsyncEnumerableWrapper(audioCategory);
+        return new AudioCategoryAsyncEnumerableWrapper(audioCategory);
     }
 }
