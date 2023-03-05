@@ -8,7 +8,7 @@ namespace Module.VkAudioDownloader.Helpers;
 
 public static class AudioCategoryHelper
 {
-    private const int AudiosPerRequest = 10;
+    private const int DefaultAudiosPerRequest = 10;
 
     public static IEnumerable<Audio> GetIter(this IAudioCategory audioCategory)
     {
@@ -30,11 +30,11 @@ public static class AudioCategoryHelper
 
     public static IAsyncEnumerable<Audio> AsAsyncEnumerable(this IAudioCategory audioCategory)
     {
-        return new AudioCategoryAsyncEnumerableWrapper(audioCategory, AudiosPerRequest);
+        return new AudioCategoryAsyncEnumerableWrapper(audioCategory, DefaultAudiosPerRequest);
     }
 
     public static IAsyncEnumerable<Audio> AsAsyncEnumerable(this IAudioCategory audioCategory, int audiosPerRequest)
     {
-        throw new NotImplementedException();
+        return new AudioCategoryAsyncEnumerableWrapper(audioCategory, audiosPerRequest);
     }
 }
