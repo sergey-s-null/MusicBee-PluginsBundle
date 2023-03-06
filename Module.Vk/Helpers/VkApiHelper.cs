@@ -75,7 +75,8 @@ public static class VkApiHelper
                && vkApi.UserId is not null;
     }
 
-    // static without this
+    // Got from vk_api:
+    // https://github.com/python273/vk_api/blob/1ef82594baabc80802ef4792aceee9180ae3e9c9/vk_api/audio.py#L22
     private static readonly Regex ConvertToMp3Regex = new Regex(@"/[0-9a-f]+(/audios)?/([0-9a-f]+)/index.m3u8");
 
     // ReSharper disable once InconsistentNaming
