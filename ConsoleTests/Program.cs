@@ -1,145 +1,106 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
-using Module.Vk.Helpers;
-using Module.VkAudioDownloader.Helpers;
 using VkNet;
+using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
 using VkNet.Model;
 using VkNet.Model.RequestParams;
 
 namespace ConsoleTests;
 
-class Program
+internal static class Program
 {
-    private const string TokenFilePath = @"../../delete_this/tm_token.txt";
+    private static readonly string TokenFilePath =
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "vk_secret.txt");
+
     private static readonly string M3U8FilePath = Path.GetFullPath(@"../../delete_this/index.m3u8");
     private static readonly string BaseUrlFilePath = Path.GetFullPath(@"../../delete_this/baseUrl.txt");
 
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
     }
 
     // download m3u8 and baseUrl
     private static void Part1()
     {
-        var serviceCollection = new ServiceCollection();
-        serviceCollection.AddAudioBypass();
-
-        var api = new VkApi(serviceCollection);
-        // TODO delete auth data
-        string login = "";
-        string password = "";
-
-
-        ApiAuthParams authParams;
-        if (TryLoadToken(out string token))
-        {
-            authParams = MakeAuthParams(login, password, token);
-        }
-        else
-        {
-            authParams = MakeAuthParams(login, password);
-        }
-
-        api.Authorize(authParams);
-        TrySaveToken(api.Token);
+        var api = GetAuthorizedVkApi();
 
         // TODO change indices
         var audio = api.Audio.Get(new AudioGetParams() { Offset = 1, Count = 1 })[0];
 
-        using (WebClient webClient = new WebClient())
+        using (var webClient = new WebClient())
         {
-            byte[] data = webClient.DownloadData(audio.Url);
+            var data = webClient.DownloadData(audio.Url);
             File.WriteAllBytes(M3U8FilePath, data);
         }
 
-        Regex regex = new Regex(@"(^.*/)index\.m3u8");
-        Match match = regex.Match(audio.Url.AbsoluteUri);
-        string baseUrl = match.Groups[1].Value;
+        var regex = new Regex(@"(^.*/)index\.m3u8");
+        var match = regex.Match(audio.Url.AbsoluteUri);
+        var baseUrl = match.Groups[1].Value;
         File.WriteAllText(BaseUrlFilePath, baseUrl);
+    }
+
+    private static IVkApi GetAuthorizedVkApi()
+    {
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddAudioBypass();
+        var vkApi = new VkApi(serviceCollection);
+        AuthorizeWithStoredToken(vkApi);
+        return vkApi;
+    }
+
+    private static void AuthorizeWithStoredToken(IVkApi vkApi)
+    {
+        var authParams = GetVkAuthParamsWithStoredToken();
+        vkApi.Authorize(authParams);
+        SaveToken(vkApi.Token);
+    }
+
+    private static ApiAuthParams GetVkAuthParamsWithStoredToken()
+    {
+        // todo delete secrets
+        const string login = "";
+        const string password = "";
+
+        if (TryLoadToken(out var token))
+        {
+            Console.WriteLine("Token loaded.");
+            return MakeAuthParams(login, password, token);
+        }
+
+        Console.WriteLine("Could not load token. Auth with default credentials.");
+        return MakeAuthParams(login, password);
     }
 
     private static bool TryLoadToken(out string token)
     {
         try
         {
-            token = File.ReadAllText(TokenFilePath);
+            LoadToken(out token);
             return true;
         }
-        catch
+        catch (Exception e)
         {
+            Console.WriteLine($"Could not load token: {e}");
             token = "";
             return false;
         }
     }
 
-    private static bool TrySaveToken(string token)
+    private static void LoadToken(out string token)
     {
-        try
-        {
-            File.WriteAllText(TokenFilePath, token);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
+        token = File.ReadAllText(TokenFilePath);
     }
 
-    private static void TestVkNet()
+    private static void SaveToken(string token)
     {
-        // TODO delete file
-        string tokenFilePath = @"tm_token.txt";
-        string token;
-        try
-        {
-            token = File.ReadAllText(tokenFilePath);
-        }
-        catch
-        {
-            token = "";
-        }
-
-        var serviceCollection = new ServiceCollection();
-        serviceCollection.AddAudioBypass();
-
-        var api = new VkApi(serviceCollection);
-        // TODO delete auth data
-        string login = "";
-        string password = "";
-
-        ApiAuthParams authParams;
-        if (token.Length == 0)
-            authParams = MakeAuthParams(login, password);
-        else
-            authParams = MakeAuthParams(login, password, token);
-        api.Authorize(authParams);
-
-        int count = 15;
-        foreach (var audio in api.Audio.GetIter())
-        {
-            VkApiHelper.ConvertToMp3(audio.Url.AbsoluteUri, out string mp3Url);
-
-            Console.WriteLine(audio.Artist);
-            Console.WriteLine(audio.Title);
-            Console.WriteLine(audio.Url.AbsoluteUri);
-            Console.WriteLine(mp3Url);
-            Console.WriteLine();
-            if (--count == 0)
-                break;
-        }
-
-        File.WriteAllText(tokenFilePath, api.Token);
-
-        Console.WriteLine();
-        Console.WriteLine("Press...");
-        Console.ReadKey();
+        File.WriteAllText(TokenFilePath, token);
     }
 
     private static ApiAuthParams MakeAuthParams(string login, string password)
     {
-        return new ApiAuthParams()
+        return new ApiAuthParams
         {
             Login = login,
             Password = password,
@@ -153,7 +114,7 @@ class Program
 
     private static ApiAuthParams MakeAuthParams(string login, string password, string token)
     {
-        return new ApiAuthParams()
+        return new ApiAuthParams
         {
             Login = login,
             Password = password,
@@ -164,19 +125,5 @@ class Program
             },
             AccessToken = token
         };
-    }
-
-    private static bool GetAuthData(out string login, out string password)
-    {
-        login = "";
-        password = "";
-        return true;
-    }
-
-    private static bool InputCode(out string code)
-    {
-        Console.Write("Enter code? ");
-        code = Console.ReadLine();
-        return true;
     }
 }
