@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestView.VkAudioDownloader"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicSourcesStorage", "Module.MusicSourcesStorage\Module.MusicSourcesStorage.csproj", "{5D0830EF-E8F0-41FC-BDDF-003EFB567E94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicSourcesStorage.Database", "Module.MusicSourcesStorage.Database\Module.MusicSourcesStorage.Database.csproj", "{E40983A9-2622-4A46-B148-20EFDD8FC538}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,10 @@ Global
 		{5D0830EF-E8F0-41FC-BDDF-003EFB567E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D0830EF-E8F0-41FC-BDDF-003EFB567E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D0830EF-E8F0-41FC-BDDF-003EFB567E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E40983A9-2622-4A46-B148-20EFDD8FC538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E40983A9-2622-4A46-B148-20EFDD8FC538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E40983A9-2622-4A46-B148-20EFDD8FC538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E40983A9-2622-4A46-B148-20EFDD8FC538}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E9ED5B16-E1DF-4911-A579-947EC6A67928} = {D7E52F12-14D4-46BC-AB5A-E1EEC8E39D88}
@@ -151,5 +157,6 @@ Global
 		{E16591F9-37B9-4F2F-A8AA-E755DCC4243D} = {D7E52F12-14D4-46BC-AB5A-E1EEC8E39D88}
 		{1CD379A6-A897-45F8-A542-5B13618C4CDD} = {09040EAB-CB3C-4F82-B73E-98BDADDC5511}
 		{5D0830EF-E8F0-41FC-BDDF-003EFB567E94} = {D7E52F12-14D4-46BC-AB5A-E1EEC8E39D88}
+		{E40983A9-2622-4A46-B148-20EFDD8FC538} = {D7E52F12-14D4-46BC-AB5A-E1EEC8E39D88}
 	EndGlobalSection
 EndGlobal
