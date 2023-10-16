@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
         mc:Ignorable="d"
-        Title="MusicSourcesWindow" Height="450" Width="800">
+        Title="MusicSourcesWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance dtvm:MusicSourcesWindowDTVM}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,40 +22,14 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0">
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
-            <TextBlock Text="Hello"></TextBlock>
+        <ListBox Grid.Column="0"
+                 ItemsSource="{Binding MusicSources}"
+                 SelectedItem="{Binding SelectedMusicSource}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
         <GridSplitter Grid.Column="1"
@@ -61,53 +37,14 @@
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Center" />
 
-        <TreeView Grid.Column="2">
-            <TreeViewItem Header="SomeDir" IsExpanded="True"
-                          HorizontalAlignment="Stretch">
-                <TreeViewItem Header="Another dir" IsExpanded="True">
-                    <TreeViewItem Header="123123" />
-                    <TreeViewItem Header="hihiihi" />
-                    <TreeViewItem Header="109283457132049857" Background="Goldenrod" />
-                </TreeViewItem>
-                <TreeViewItem Header="kavo" />
-            </TreeViewItem>
-            <TreeViewItem Header="Root">
-                <TreeViewItem Header="Selected, Disabled" IsEnabled="False" IsSelected="True" />
-            </TreeViewItem>
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
-            <TreeViewItem Header="first" IsSelected="True" />
+        <TreeView Grid.Column="2"
+                  ItemsSource="{Binding SelectedMusicSource.RootElements, FallbackValue=null}"
+                  ItemContainerStyle="{StaticResource TreeViewItemStyle}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding ChildNodes}">
+                    <TextBlock Text="{Binding Name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
         </TreeView>
     </Grid>
 </Window>
