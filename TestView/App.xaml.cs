@@ -2,6 +2,8 @@
 using System.Windows;
 using Module.AudioSourcesComparer.GUI.DesignTimeViewModels;
 using Module.AudioSourcesComparer.GUI.Views;
+using Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
+using Module.MusicSourcesStorage.Gui.Views;
 using Module.VkAudioDownloader.GUI.DesignTimeViewModels;
 using Module.VkAudioDownloader.GUI.Views;
 
@@ -14,7 +16,7 @@ namespace TestView
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var window = GetWindow(WindowType.VkAudioDownloader);
+            var window = GetWindow(WindowType.MusicSources);
             window.ShowDialog();
         }
 
@@ -24,6 +26,7 @@ namespace TestView
             {
                 WindowType.VkAudioDownloader => new VkAudioDownloaderWindow(new VkAudioDownloaderWindowDTVM()),
                 WindowType.VkToLocalComparer => new VkToLocalComparerWindow(new VkToLocalComparerWindowDTVM()),
+                WindowType.MusicSources => new MusicSourcesWindow(new MusicSourcesWindowDTVM()),
                 _ => throw new ArgumentOutOfRangeException(nameof(windowType), windowType, "Unknown window type.")
             };
         }

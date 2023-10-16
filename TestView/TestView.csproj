@@ -10,6 +10,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Module.AudioSourcesComparer\Module.AudioSourcesComparer.csproj" />
+	  <ProjectReference Include="..\Module.MusicSourcesStorage.Gui\Module.MusicSourcesStorage.Gui.csproj" />
 	  <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
 	</ItemGroup>
 
