@@ -62,5 +62,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
         {
             MusicSources.Add(new MusicSourceDTVM("-Inf"));
         }
+
+        SelectedMusicSource = MusicSources[0];
     }
 }
