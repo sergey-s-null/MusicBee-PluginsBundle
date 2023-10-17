@@ -27,11 +27,12 @@
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0"
+                 HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding MusicSources}"
                  SelectedItem="{Binding SelectedMusicSource}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
+                    <components:MusicSource Height="30" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

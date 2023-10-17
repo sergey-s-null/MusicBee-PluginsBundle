@@ -18,7 +18,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
 
         MusicSources = new List<IMusicSourceVM>
         {
-            new MusicSourceDTVM("First", new INodeVM[]
+            new MusicSourceDTVM("First", MusicSourceType.Torrent, new INodeVM[]
             {
                 new DirectoryDTVM("Album 1", new INodeVM[]
                 {
@@ -44,12 +44,12 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
                     new ImageFileDTVM("only-cover.png", true)
                 }, "horizontal.png")
             }),
-            new MusicSourceDTVM("2nd", new INodeVM[]
+            new MusicSourceDTVM("2nd", MusicSourceType.VkPost, new INodeVM[]
             {
                 new MusicFileDTVM("Hello.mp3", MusicFileState.InLibrary),
                 new MusicFileDTVM("There.mp3", MusicFileState.ListenedAndDeleted)
             }),
-            new MusicSourceDTVM("So Deep", new INodeVM[]
+            new MusicSourceDTVM("So Deep", MusicSourceType.VkPost, new INodeVM[]
             {
                 new DirectoryDTVM("Right", new INodeVM[]
                 {
@@ -62,12 +62,12 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
                     })
                 })
             }),
-            new MusicSourceDTVM("So BIG", hundred)
+            new MusicSourceDTVM("So BIG", MusicSourceType.Torrent, hundred)
         };
 
         for (var i = 0; i < 100; i++)
         {
-            MusicSources.Add(new MusicSourceDTVM("-Inf"));
+            MusicSources.Add(new MusicSourceDTVM("-Inf", MusicSourceType.Torrent));
         }
 
         SelectedMusicSource = MusicSources[0];
