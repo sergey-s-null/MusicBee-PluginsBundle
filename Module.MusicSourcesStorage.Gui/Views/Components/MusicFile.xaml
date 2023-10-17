@@ -32,7 +32,8 @@
         <iconPacks:PackIconUnicons Grid.Column="1"
                                    Width="14" Height="14"
                                    Margin="6 0 4 0"
-                                   VerticalAlignment="Center">
+                                   VerticalAlignment="Center"
+                                   Background="Transparent">
             <iconPacks:PackIconUnicons.Style>
                 <Style TargetType="iconPacks:PackIconUnicons">
                     <Style.Triggers>
@@ -40,21 +41,25 @@
                                      Value="{x:Static enums:MusicFileState.NotListened}">
                             <Setter Property="Kind" Value="Circle" />
                             <Setter Property="Foreground" Value="Gray" />
+                            <Setter Property="ToolTip" Value="File was not listened" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding State}"
                                      Value="{x:Static enums:MusicFileState.InIncoming}">
                             <Setter Property="Kind" Value="QuestionCircle" />
                             <Setter Property="Foreground" Value="Orange" />
+                            <Setter Property="ToolTip" Value="File in incoming" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding State}"
                                      Value="{x:Static enums:MusicFileState.InLibrary}">
                             <Setter Property="Kind" Value="CheckCircle" />
                             <Setter Property="Foreground" Value="Green" />
+                            <Setter Property="ToolTip" Value="File in library" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding State}"
                                      Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
                             <Setter Property="Kind" Value="TimesCircle" />
                             <Setter Property="Foreground" Value="Gray" />
+                            <Setter Property="ToolTip" Value="File was listened and deleted" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
