@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
              mc:Ignorable="d"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance dtvm:MusicFileDTVM}">
@@ -20,6 +21,7 @@
     <Grid Style="{StaticResource NodeContainerStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -27,7 +29,39 @@
                                    Kind="MusicNote"
                                    Style="{StaticResource NodeIconStyle}" />
 
-        <TextBlock Grid.Column="1"
+        <iconPacks:PackIconUnicons Grid.Column="1"
+                                   Width="14" Height="14"
+                                   Margin="6 0 4 0"
+                                   VerticalAlignment="Center">
+            <iconPacks:PackIconUnicons.Style>
+                <Style TargetType="iconPacks:PackIconUnicons">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding State}"
+                                     Value="{x:Static enums:MusicFileState.NotListened}">
+                            <Setter Property="Kind" Value="Circle" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}"
+                                     Value="{x:Static enums:MusicFileState.InIncoming}">
+                            <Setter Property="Kind" Value="QuestionCircle" />
+                            <Setter Property="Foreground" Value="Orange" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}"
+                                     Value="{x:Static enums:MusicFileState.InLibrary}">
+                            <Setter Property="Kind" Value="CheckCircle" />
+                            <Setter Property="Foreground" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}"
+                                     Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
+                            <Setter Property="Kind" Value="TimesCircle" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </iconPacks:PackIconUnicons.Style>
+        </iconPacks:PackIconUnicons>
+
+        <TextBlock Grid.Column="2"
                    Text="{Binding Name}"
                    VerticalAlignment="Center" />
     </Grid>
