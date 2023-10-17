@@ -22,9 +22,10 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
             {
                 new DirectoryDTVM("Album 1", new INodeVM[]
                 {
-                    new MusicFileDTVM("Song1.mp3", MusicFileState.InIncoming),
+                    new MusicFileDTVM("Song1.mp3", MusicFileState.NotListened),
                     new MusicFileDTVM("Song2.mp3", MusicFileState.InIncoming),
                     new MusicFileDTVM("Song999.mp3", MusicFileState.InLibrary),
+                    new MusicFileDTVM("Song42.mp3", MusicFileState.ListenedAndDeleted),
                     new ImageFileDTVM("cover.jpg", true)
                 }),
                 new DirectoryDTVM("Epic Album 666", new INodeVM[]
