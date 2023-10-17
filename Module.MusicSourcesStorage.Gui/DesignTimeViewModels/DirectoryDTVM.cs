@@ -2,9 +2,14 @@
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-public sealed record DirectoryDTVM(string Name, IList<INodeVM> ChildNodes) : INodeVM
+public sealed record DirectoryDTVM(string Name, IList<INodeVM> ChildNodes) : IDirectoryVM
 {
-    public DirectoryDTVM(string name) : this(name, Array.Empty<INodeVM>())
+    // ReSharper disable once UnusedMember.Global
+    public DirectoryDTVM() : this("SomeDirectory")
+    {
+    }
+
+    public DirectoryDTVM(string Name) : this(Name, Array.Empty<INodeVM>())
     {
     }
 }
