@@ -27,7 +27,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
                     new MusicFileDTVM("Song999.mp3", MusicFileState.InLibrary),
                     new MusicFileDTVM("Song42.mp3", MusicFileState.ListenedAndDeleted),
                     new ImageFileDTVM("cover.jpg", true)
-                }),
+                }, "quad.png"),
                 new DirectoryDTVM("Epic Album 666", new INodeVM[]
                 {
                     new DirectoryDTVM("Special", new INodeVM[]
@@ -38,7 +38,11 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
                     new MusicFileDTVM("Single.flac", MusicFileState.ListenedAndDeleted),
                     new ImageFileDTVM("cover.png", true),
                     new ImageFileDTVM("some image.png", false)
-                })
+                }, "vertical.png"),
+                new DirectoryDTVM("Just a joke", new INodeVM[]
+                {
+                    new ImageFileDTVM("only-cover.png", true)
+                }, "horizontal.png")
             }),
             new MusicSourceDTVM("2nd", new INodeVM[]
             {

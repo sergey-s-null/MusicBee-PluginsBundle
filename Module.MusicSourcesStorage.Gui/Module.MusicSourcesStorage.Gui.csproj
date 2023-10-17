@@ -20,4 +20,10 @@
 		<ProjectReference Include="..\Module.Core\Module.Core.csproj"/>
 	</ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\DesignTime\Covers\horizontal.png"/>
+		<EmbeddedResource Include="Resources\DesignTime\Covers\quad.png"/>
+		<EmbeddedResource Include="Resources\DesignTime\Covers\vertical.png"/>
+	</ItemGroup>
+
 </Project>

@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
              mc:Ignorable="d"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance dtvm:DirectoryDTVM}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles/FilesHierarchy/NodeIconStyle.xaml" />
+                <ResourceDictionary Source="../Styles/FilesHierarchy/NodeIconContainerStyle.xaml" />
                 <ResourceDictionary Source="../Styles/FilesHierarchy/NodeContainerStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -23,9 +23,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <iconPacks:PackIconUnicons Grid.Column="0"
-                                   Kind="Folder"
-                                   Style="{StaticResource NodeIconStyle}" />
+        <Grid Grid.Column="0"
+              Style="{StaticResource NodeIconContainerStyle}">
+            <components:DirectoryIcon />
+        </Grid>
 
         <TextBlock Grid.Column="1"
                    Text="{Binding Name}"

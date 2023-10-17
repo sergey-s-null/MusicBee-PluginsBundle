@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/FilesHierarchy/NodeIconStyle.xaml" />
+                <ResourceDictionary Source="../Styles/FilesHierarchy/NodeIconContainerStyle.xaml" />
                 <ResourceDictionary Source="../Styles/FilesHierarchy/NodeContainerStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -23,9 +24,11 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <iconPacks:PackIconUnicons Grid.Column="0"
-                                   Kind="FileBlank"
-                                   Style="{StaticResource NodeIconStyle}" />
+        <Grid Grid.Column="0"
+              Style="{StaticResource NodeIconContainerStyle}">
+            <iconPacks:PackIconUnicons Kind="FileBlank"
+                                       Style="{StaticResource NodeIconStyle}" />
+        </Grid>
 
         <TextBlock Grid.Column="1"
                    Text="{Binding Name}"
