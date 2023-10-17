@@ -2,9 +2,9 @@
 
 namespace Module.MusicSourcesStorage.Gui.Views.Components;
 
-public partial class Image : UserControl
+public partial class ImageFile : UserControl
 {
-    public Image()
+    public ImageFile()
     {
         InitializeComponent();
     }

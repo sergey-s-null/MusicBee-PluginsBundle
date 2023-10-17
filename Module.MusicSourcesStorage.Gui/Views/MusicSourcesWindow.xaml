@@ -85,7 +85,7 @@
                                         Value="True">
                                         <Setter Property="Content">
                                             <Setter.Value>
-                                                <components:Image />
+                                                <components:ImageFile />
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
