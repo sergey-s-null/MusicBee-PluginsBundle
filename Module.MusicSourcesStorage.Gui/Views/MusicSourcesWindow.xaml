@@ -4,6 +4,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+        xmlns:avm="clr-namespace:Module.MusicSourcesStorage.Gui.AbstractViewModels"
+        xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
+        xmlns:conv="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
         mc:Ignorable="d"
         Title="MusicSourcesWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance dtvm:MusicSourcesWindowDTVM}">
@@ -12,6 +15,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/TreeViewItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <conv:IsImplementsConverter x:Key="IsImplementsConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -42,7 +46,66 @@
                   ItemContainerStyle="{StaticResource TreeViewItemStyle}">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ChildNodes}">
-                    <TextBlock Text="{Binding Name}" />
+                    <ContentControl>
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{
+                                            Binding ., 
+                                            Converter={StaticResource IsImplementsConverter}, 
+                                            ConverterParameter={x:Type avm:IDirectoryVM}
+                                        }"
+                                        Value="True">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <components:Directory />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{
+                                            Binding ., 
+                                            Converter={StaticResource IsImplementsConverter}, 
+                                            ConverterParameter={x:Type avm:IMusicFileVM}
+                                        }"
+                                        Value="True">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <components:MusicFile />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{
+                                            Binding ., 
+                                            Converter={StaticResource IsImplementsConverter}, 
+                                            ConverterParameter={x:Type avm:IImageFileVM}
+                                        }"
+                                        Value="True">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <components:Image />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{
+                                            Binding ., 
+                                            Converter={StaticResource IsImplementsConverter}, 
+                                            ConverterParameter={x:Type avm:IUnknownFileVM}
+                                        }"
+                                        Value="True">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <components:UnknownFile />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

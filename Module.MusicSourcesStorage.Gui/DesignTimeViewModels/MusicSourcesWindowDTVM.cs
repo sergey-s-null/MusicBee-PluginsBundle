@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
@@ -12,7 +13,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
         var hundred = new List<INodeVM>();
         for (var i = 0; i < 100; i++)
         {
-            hundred.Add(new FileDTVM($"Song{i}.mp3"));
+            hundred.Add(new MusicFileDTVM($"Song{i}.mp3", MusicFileState.NotListened));
         }
 
         MusicSources = new List<IMusicSourceVM>
@@ -21,26 +22,27 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
             {
                 new DirectoryDTVM("Album 1", new INodeVM[]
                 {
-                    new FileDTVM("Song1.mp3"),
-                    new FileDTVM("Song2.mp3"),
-                    new FileDTVM("Song999.mp3"),
-                    new FileDTVM("cover.jpg")
+                    new MusicFileDTVM("Song1.mp3", MusicFileState.InIncoming),
+                    new MusicFileDTVM("Song2.mp3", MusicFileState.InIncoming),
+                    new MusicFileDTVM("Song999.mp3", MusicFileState.InLibrary),
+                    new ImageFileDTVM("cover.jpg", true)
                 }),
                 new DirectoryDTVM("Epic Album 666", new INodeVM[]
                 {
                     new DirectoryDTVM("Special", new INodeVM[]
                     {
-                        new FileDTVM("song lyrics.txt"),
-                        new FileDTVM("message from author.txt")
+                        new UnknownFileDTVM("song lyrics.txt"),
+                        new UnknownFileDTVM("message from author.txt")
                     }),
-                    new FileDTVM("Single.flac"),
-                    new FileDTVM("cover.png")
+                    new MusicFileDTVM("Single.flac", MusicFileState.ListenedAndDeleted),
+                    new ImageFileDTVM("cover.png", true),
+                    new ImageFileDTVM("some image.png", false)
                 })
             }),
             new MusicSourceDTVM("2nd", new INodeVM[]
             {
-                new FileDTVM("Hello.mp3"),
-                new FileDTVM("There.mp3")
+                new MusicFileDTVM("Hello.mp3", MusicFileState.InLibrary),
+                new MusicFileDTVM("There.mp3", MusicFileState.ListenedAndDeleted)
             }),
             new MusicSourceDTVM("So Deep", new INodeVM[]
             {
