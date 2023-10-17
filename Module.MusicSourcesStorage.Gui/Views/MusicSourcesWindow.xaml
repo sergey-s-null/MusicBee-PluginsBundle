@@ -13,7 +13,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/TreeViewItemStyle.xaml" />
+                <ResourceDictionary Source="Styles/FilesHierarchy/TreeViewItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conv:IsImplementsConverter x:Key="IsImplementsConverter" />
         </ResourceDictionary>
