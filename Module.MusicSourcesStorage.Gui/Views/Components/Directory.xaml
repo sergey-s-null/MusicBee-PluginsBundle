@@ -18,6 +18,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+    <UserControl.ContextMenu>
+        <components:DirectoryContextMenu />
+    </UserControl.ContextMenu>
+
     <Grid Style="{StaticResource NodeContainerStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

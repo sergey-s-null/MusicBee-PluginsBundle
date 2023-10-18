@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+             xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
              mc:Ignorable="d"
@@ -19,6 +20,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+
+    <UserControl.ContextMenu>
+        <components:MusicFileContextMenu />
+    </UserControl.ContextMenu>
 
     <Grid Style="{StaticResource NodeContainerStyle}">
         <Grid.ColumnDefinitions>
