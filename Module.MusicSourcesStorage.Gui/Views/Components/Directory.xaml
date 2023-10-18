@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/FilesHierarchy/NodeIconContainerStyle.xaml" />
                 <ResourceDictionary Source="../Styles/FilesHierarchy/NodeContainerStyle.xaml" />
+                <ResourceDictionary Source="../Styles/FilesHierarchy/NodeTextStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -30,6 +31,7 @@
 
         <TextBlock Grid.Column="1"
                    Text="{Binding Name}"
+                   Style="{StaticResource NodeTextStyle}"
                    VerticalAlignment="Center" />
     </Grid>
 </UserControl>

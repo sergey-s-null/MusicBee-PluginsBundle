@@ -26,4 +26,12 @@
 		<EmbeddedResource Include="Resources\DesignTime\Covers\vertical.png"/>
 	</ItemGroup>
 
+	<ItemGroup>
+		<Folder Include="Resources\Fonts\"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\Fonts\Roboto-Regular.ttf"/>
+	</ItemGroup>
+
 </Project>
