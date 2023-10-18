@@ -44,7 +44,9 @@
 
         <TreeView Grid.Column="2"
                   ItemsSource="{Binding SelectedMusicSource.RootElements, FallbackValue=null}"
-                  ItemContainerStyle="{StaticResource TreeViewItemStyle}">
+                  ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                  HorizontalContentAlignment="Stretch"
+                  PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ChildNodes}">
                     <ContentControl>
