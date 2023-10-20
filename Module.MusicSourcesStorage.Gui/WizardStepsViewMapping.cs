@@ -4,7 +4,7 @@ using Module.MusicSourcesStorage.Gui.Views.WizardSteps;
 
 namespace Module.MusicSourcesStorage.Gui;
 
-public static class ViewModelToViewMapping
+public static class WizardStepsViewMapping
 {
     public static readonly IDictionary<Type, Func<FrameworkElement>> Map =
         new Dictionary<Type, Func<FrameworkElement>>

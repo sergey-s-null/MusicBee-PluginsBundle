@@ -19,7 +19,7 @@
         <components:ViewSelector
             Grid.Row="0"
             ViewModel="{Binding CurrentStep}"
-            SelectionTable="{x:Static root:ViewModelToViewMapping.Map}" />
+            SelectionTable="{x:Static root:WizardStepsViewMapping.Map}" />
 
         <Border Grid.Row="1"
                 BorderThickness="0 1 0 0" BorderBrush="Black"
