@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace Module.MusicSourcesStorage.Gui.Views.Components;
 
-public sealed class ViewSelector : ContentControl
+public class ViewSelector : ContentControl
 {
     public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(
         nameof(ViewModel),
