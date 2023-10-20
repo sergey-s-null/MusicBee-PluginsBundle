@@ -12,6 +12,7 @@
             x:Key="FalseToHiddenVisibilityConverter"
             VisibilityOnFalse="Hidden"
             VisibilityOnTrue="Visible" />
+        <converters:NullCoalescingConverter x:Key="NullCoalescingConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -32,8 +33,12 @@
                 Command="{Binding Back}" />
 
         <Button Grid.Column="1"
-                Content="Next"
                 Margin="12 0 0 0" Padding="6 0"
+                Content="{
+                    Binding CustomNextStepName,
+                    Converter={StaticResource NullCoalescingConverter},
+                    ConverterParameter=Next
+                }"
                 Visibility="{
                     Binding HasNextStep,
                     Converter={StaticResource FalseToHiddenVisibilityConverter}
