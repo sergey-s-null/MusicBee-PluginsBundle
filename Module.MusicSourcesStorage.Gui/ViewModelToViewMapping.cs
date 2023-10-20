@@ -1,4 +1,6 @@
 using System.Windows;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Views.WizardSteps;
 
 namespace Module.MusicSourcesStorage.Gui;
 
@@ -7,6 +9,6 @@ public static class ViewModelToViewMapping
     public static readonly IDictionary<Type, Func<FrameworkElement>> Map =
         new Dictionary<Type, Func<FrameworkElement>>
         {
-            // [typeof(IFirstStepVM)] = () => new FirstStep(),
+            [typeof(ISelectVkPostStepVM)] = () => new SelectVkPostStep(),
         };
 }
