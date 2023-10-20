@@ -7,10 +7,12 @@ public sealed class IsInstanceOfConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
     {
-        return
-            value is not null
-            && parameter is Type parameterType
-            && parameterType.IsInstanceOfType(value);
+        if (parameter is not Type baseType)
+        {
+            throw new ArgumentException("Parameter is not type.", nameof(parameter));
+        }
+
+        return baseType.IsInstanceOfType(value);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

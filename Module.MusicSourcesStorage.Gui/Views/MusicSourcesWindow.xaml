@@ -15,7 +15,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/FilesHierarchy/TreeViewItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <conv:IsImplementsConverter x:Key="IsImplementsConverter" />
+            <conv:IsInstanceOfConverter x:Key="IsInstanceOfConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -56,7 +56,7 @@
                                     <DataTrigger
                                         Binding="{
                                             Binding ., 
-                                            Converter={StaticResource IsImplementsConverter}, 
+                                            Converter={StaticResource IsInstanceOfConverter}, 
                                             ConverterParameter={x:Type avm:IDirectoryVM}
                                         }"
                                         Value="True">
@@ -69,7 +69,7 @@
                                     <DataTrigger
                                         Binding="{
                                             Binding ., 
-                                            Converter={StaticResource IsImplementsConverter}, 
+                                            Converter={StaticResource IsInstanceOfConverter}, 
                                             ConverterParameter={x:Type avm:IMusicFileVM}
                                         }"
                                         Value="True">
@@ -82,7 +82,7 @@
                                     <DataTrigger
                                         Binding="{
                                             Binding ., 
-                                            Converter={StaticResource IsImplementsConverter}, 
+                                            Converter={StaticResource IsInstanceOfConverter}, 
                                             ConverterParameter={x:Type avm:IImageFileVM}
                                         }"
                                         Value="True">
@@ -95,7 +95,7 @@
                                     <DataTrigger
                                         Binding="{
                                             Binding ., 
-                                            Converter={StaticResource IsImplementsConverter}, 
+                                            Converter={StaticResource IsInstanceOfConverter}, 
                                             ConverterParameter={x:Type avm:IUnknownFileVM}
                                         }"
                                         Value="True">
