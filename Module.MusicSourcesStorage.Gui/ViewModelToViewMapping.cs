@@ -11,5 +11,6 @@ public static class ViewModelToViewMapping
         {
             [typeof(ISelectVkPostStepVM)] = () => new SelectVkPostStep(),
             [typeof(IProcessingStepVM)] = () => new ProcessingStep(),
+            [typeof(IErrorStepVM)] = () => new ErrorStep(),
         };
 }
