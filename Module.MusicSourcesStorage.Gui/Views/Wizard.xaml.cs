@@ -3,9 +3,9 @@ using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 
 namespace Module.MusicSourcesStorage.Gui.Views;
 
-public partial class SourceAddingWizard : Window
+public partial class Wizard : Window
 {
-    public SourceAddingWizard(ISourceAddingWizardVM viewModel)
+    public Wizard(IWizardVM viewModel)
     {
         InitializeComponent();
 

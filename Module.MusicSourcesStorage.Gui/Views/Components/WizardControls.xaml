@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Module.MusicSourcesStorage.Gui.Views.Components.WizardControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:avm="clr-namespace:Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+             xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
+             xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance dtvm:WizardDTVM}">
+
+    <UserControl.Resources>
+        <converters:IsInstanceOfConverter x:Key="IsInstanceOfConverter" />
+    </UserControl.Resources>
+
+    <ContentControl>
+        <ContentControl.Style>
+            <Style TargetType="ContentControl">
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{
+                            Binding CurrentStep,
+                            Converter={StaticResource IsInstanceOfConverter},
+                            ConverterParameter={x:Type avm:IManualWizardStepVM}
+                        }"
+                        Value="True">
+
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <components:WizardStepControls
+                                    VerticalAlignment="Center"
+                                    Margin="0 0 12 0"
+                                    DataContext="{Binding CurrentStep}" />
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+    </ContentControl>
+</UserControl>
