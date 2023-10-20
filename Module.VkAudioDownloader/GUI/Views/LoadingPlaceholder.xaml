@@ -14,7 +14,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <components:LoadingAnimation Grid.Row="0" />
+        <components:ProcessingAnimation Grid.Row="0" />
 
         <TextBlock
             Grid.Row="1"

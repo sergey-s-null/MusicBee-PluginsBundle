@@ -2,9 +2,9 @@
 
 namespace Module.Core.GUI.Views.Components;
 
-public partial class LoadingAnimation : UserControl
+public partial class ProcessingAnimation : UserControl
 {
-    public LoadingAnimation()
+    public ProcessingAnimation()
     {
         InitializeComponent();
     }
