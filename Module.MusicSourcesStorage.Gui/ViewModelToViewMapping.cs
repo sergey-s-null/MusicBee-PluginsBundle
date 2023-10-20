@@ -10,5 +10,6 @@ public static class ViewModelToViewMapping
         new Dictionary<Type, Func<FrameworkElement>>
         {
             [typeof(ISelectVkPostStepVM)] = () => new SelectVkPostStep(),
+            [typeof(IProcessingStepVM)] = () => new ProcessingStep(),
         };
 }
