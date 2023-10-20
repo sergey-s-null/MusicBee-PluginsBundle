@@ -2,5 +2,5 @@
 
 public interface IAutomaticWizardStepVM : IWizardStepVM
 {
-    // todo implement
+    void Start();
 }
