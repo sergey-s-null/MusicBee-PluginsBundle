@@ -82,6 +82,7 @@
             Kind="SpinnerThird"
             Width="30" Height="30"
             Margin="10"
+            HorizontalAlignment="Center"
             Padding="0 4 0 0"
             Foreground="LightSeaGreen"
             Style="{StaticResource FirstAnimation}" />
@@ -91,6 +92,7 @@
             Kind="SpinnerArc"
             Width="30" Height="30"
             Margin="10"
+            HorizontalAlignment="Center"
             Padding="0 14 0 0"
             Foreground="LimeGreen"
             Style="{StaticResource SecondAnimation}" />
@@ -99,6 +101,7 @@
             Grid.Column="2"
             Width="30" Height="30"
             Margin="10"
+            HorizontalAlignment="Center"
             Kind="Spinner"
             Foreground="Green"
             Style="{StaticResource ThirdAnimation}" />
