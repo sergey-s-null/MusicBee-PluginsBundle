@@ -12,5 +12,6 @@ public static class WizardStepsViewMapping
             [typeof(ISelectVkPostStepVM)] = () => new SelectVkPostStep(),
             [typeof(IProcessingStepVM)] = () => new ProcessingStep(),
             [typeof(IErrorStepVM)] = () => new ErrorStep(),
+            [typeof(ISelectVkPostAttachmentStepVM)] = () => new SelectVkPostAttachmentStep(),
         };
 }
