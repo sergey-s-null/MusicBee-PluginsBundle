@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Module.MusicSourcesStorage.Gui.Exceptions;
+using Module.MusicSourcesStorage.Gui.ViewMappings;
 
 namespace Module.MusicSourcesStorage.Gui.Views.Components;
 
@@ -16,22 +17,21 @@ public class ViewSelector : ContentControl
             (obj, _) =>
             {
                 var viewSelector = (ViewSelector)obj;
-                viewSelector.OnViewModelOrSelectionTableChanged();
+                viewSelector.OnViewModelOrMapperChanged();
             }
         )
     );
 
-    public static readonly DependencyProperty SelectionTableProperty = DependencyProperty.Register(
-        nameof(SelectionTable),
-        typeof(IDictionary<Type, Func<FrameworkElement>>),
+    public static readonly DependencyProperty ViewMapperProperty = DependencyProperty.Register(
+        nameof(ViewMapper),
+        typeof(IViewMapper),
         typeof(ViewSelector),
-        new FrameworkPropertyMetadata(
-            new Dictionary<Type, Func<FrameworkElement>>(),
-            FrameworkPropertyMetadataOptions.AffectsRender,
+        new PropertyMetadata(
+            null,
             (obj, _) =>
             {
                 var viewSelector = (ViewSelector)obj;
-                viewSelector.OnViewModelOrSelectionTableChanged();
+                viewSelector.OnViewModelOrMapperChanged();
             }
         )
     );
@@ -49,10 +49,10 @@ public class ViewSelector : ContentControl
         set => SetValue(ViewModelProperty, value);
     }
 
-    public IDictionary<Type, Func<FrameworkElement>> SelectionTable
+    public IViewMapper? ViewMapper
     {
-        get => (IDictionary<Type, Func<FrameworkElement>>)GetValue(SelectionTableProperty);
-        set => SetValue(SelectionTableProperty, value);
+        get => (IViewMapper?)GetValue(ViewMapperProperty);
+        set => SetValue(ViewMapperProperty, value);
     }
 
     public bool ThrowExceptionOnFallback
@@ -61,15 +61,15 @@ public class ViewSelector : ContentControl
         set => SetValue(ThrowExceptionOnFallbackProperty, value);
     }
 
-    private void OnViewModelOrSelectionTableChanged()
+    private void OnViewModelOrMapperChanged()
     {
-        if (ViewModel is null)
+        if (ViewModel is null || ViewMapper is null)
         {
             Content = null;
             return;
         }
 
-        if (!TryFindAppropriateViewFactory(out var viewFactory))
+        if (!ViewMapper.TryGetViewFactory(ViewModel.GetType(), out var viewFactory))
         {
             if (ThrowExceptionOnFallback)
             {
@@ -84,26 +84,5 @@ public class ViewSelector : ContentControl
         var view = viewFactory();
         view.DataContext = ViewModel;
         Content = view;
-    }
-
-    private bool TryFindAppropriateViewFactory(out Func<FrameworkElement> viewFactory)
-    {
-        var viewModelType = ViewModel!.GetType();
-
-        if (SelectionTable.TryGetValue(viewModelType, out viewFactory))
-        {
-            return true;
-        }
-
-        var implementedInterfaces = viewModelType.GetInterfaces();
-        foreach (var implementedInterface in implementedInterfaces)
-        {
-            if (SelectionTable.TryGetValue(implementedInterface, out viewFactory))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
