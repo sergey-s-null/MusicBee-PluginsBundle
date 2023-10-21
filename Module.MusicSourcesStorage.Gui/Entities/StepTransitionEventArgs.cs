@@ -4,9 +4,9 @@ namespace Module.MusicSourcesStorage.Gui.Entities;
 
 public sealed class StepTransitionEventArgs : EventArgs
 {
-    public IWizardStepVM? Step { get; }
+    public IWizardStepVM Step { get; }
 
-    public StepTransitionEventArgs(IWizardStepVM? step)
+    public StepTransitionEventArgs(IWizardStepVM step)
     {
         Step = step;
     }
