@@ -19,6 +19,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
         MusicSources = new List<IMusicSourceVM>
         {
             new MusicSourceDTVM("First", MusicSourceType.Torrent, NodesHierarchyDTVM.ConnectedAllTypes),
+            new MusicSourceDTVM("NOT CONNECTED", MusicSourceType.Torrent, NodesHierarchyDTVM.NotConnectedAllTypes),
             new MusicSourceDTVM("2nd", MusicSourceType.VkPost, new NodesHierarchyDTVM(new INodeVM[]
             {
                 new ConnectedMusicFileDTVM("Hello.mp3", MusicFileState.InLibrary),
