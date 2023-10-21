@@ -1,0 +1,37 @@
+﻿<UserControl
+    x:Class="Module.MusicSourcesStorage.Gui.Views.Components.NodesHierarchy"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+    xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="300"
+    d:DataContext="{d:DesignInstance dtvm:NodesHierarchyDTVM}">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="../Styles/FilesHierarchy/TreeViewItemStyle.xaml" />
+    </UserControl.Resources>
+
+    <TreeView
+        ItemsSource="{Binding RootNodes}"
+        ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+        HorizontalContentAlignment="Stretch"
+        PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
+
+        <TreeView.ItemTemplate>
+            <HierarchicalDataTemplate ItemsSource="{Binding ChildNodes}">
+                <components:HierarchyNodesViewSelector
+                    UseConnectedViewMapping="{
+                        Binding IsConnectedToStorage, 
+                        RelativeSource={
+                            RelativeSource FindAncestor,
+                            AncestorType={x:Type components:NodesHierarchy}
+                        }
+                    }"
+                    ViewModel="{Binding .}" />
+            </HierarchicalDataTemplate>
+        </TreeView.ItemTemplate>
+    </TreeView>
+</UserControl>
