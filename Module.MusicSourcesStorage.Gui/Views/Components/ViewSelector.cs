@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using Module.MusicSourcesStorage.Gui.Exceptions;
 
 namespace Module.MusicSourcesStorage.Gui.Views.Components;
 
@@ -9,7 +10,14 @@ public class ViewSelector : ContentControl
         nameof(ViewModel),
         typeof(object),
         typeof(ViewSelector),
-        new FrameworkPropertyMetadata(null, OnViewModelChanged)
+        new FrameworkPropertyMetadata(
+            null,
+            (obj, _) =>
+            {
+                var viewSelector = (ViewSelector)obj;
+                viewSelector.OnViewModelChanged();
+            }
+        )
     );
 
     public static readonly DependencyProperty SelectionTableProperty = DependencyProperty.Register(
@@ -17,6 +25,13 @@ public class ViewSelector : ContentControl
         typeof(IDictionary<Type, Func<FrameworkElement>>),
         typeof(ViewSelector),
         new FrameworkPropertyMetadata(new Dictionary<Type, Func<FrameworkElement>>())
+    );
+
+    public static readonly DependencyProperty ThrowExceptionOnFallbackProperty = DependencyProperty.Register(
+        nameof(ThrowExceptionOnFallback),
+        typeof(bool),
+        typeof(ViewSelector),
+        new PropertyMetadata(true)
     );
 
     public object? ViewModel
@@ -31,37 +46,42 @@ public class ViewSelector : ContentControl
         set => SetValue(SelectionTableProperty, value);
     }
 
-    private static void OnViewModelChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+    public bool ThrowExceptionOnFallback
     {
-        var viewSelector = (ViewSelector)dependencyObject;
+        get => (bool)GetValue(ThrowExceptionOnFallbackProperty);
+        set => SetValue(ThrowExceptionOnFallbackProperty, value);
+    }
 
-        var viewModel = viewSelector.ViewModel;
-        if (viewModel is null)
+    private void OnViewModelChanged()
+    {
+        if (ViewModel is null)
         {
-            viewSelector.Content = null;
+            Content = null;
             return;
         }
 
-        var selectionTable = viewSelector.SelectionTable;
-        var type = viewModel.GetType();
-
-        if (!TryFindAppropriateViewFactory(selectionTable, type, out var viewFactory))
+        if (!TryFindAppropriateViewFactory(out var viewFactory))
         {
-            viewSelector.Content = null;
+            if (ThrowExceptionOnFallback)
+            {
+                throw new ViewSelectionException(
+                    $"Could not find appropriate view factory for view model: {ViewModel}.");
+            }
+
+            Content = null;
             return;
         }
 
         var view = viewFactory();
-        view.DataContext = viewModel;
-        viewSelector.Content = view;
+        view.DataContext = ViewModel;
+        Content = view;
     }
 
-    private static bool TryFindAppropriateViewFactory(
-        IDictionary<Type, Func<FrameworkElement>> selectionTable,
-        Type viewModelType,
-        out Func<FrameworkElement> viewFactory)
+    private bool TryFindAppropriateViewFactory(out Func<FrameworkElement> viewFactory)
     {
-        if (selectionTable.TryGetValue(viewModelType, out viewFactory))
+        var viewModelType = ViewModel!.GetType();
+
+        if (SelectionTable.TryGetValue(viewModelType, out viewFactory))
         {
             return true;
         }
@@ -69,7 +89,7 @@ public class ViewSelector : ContentControl
         var implementedInterfaces = viewModelType.GetInterfaces();
         foreach (var implementedInterface in implementedInterfaces)
         {
-            if (selectionTable.TryGetValue(implementedInterface, out viewFactory))
+            if (SelectionTable.TryGetValue(implementedInterface, out viewFactory))
             {
                 return true;
             }
