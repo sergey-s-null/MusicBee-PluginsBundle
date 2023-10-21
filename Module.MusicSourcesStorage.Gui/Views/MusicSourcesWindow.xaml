@@ -40,7 +40,7 @@
                       HorizontalAlignment="Center" />
 
         <TreeView Grid.Column="2"
-                  ItemsSource="{Binding SelectedMusicSource.RootElements, FallbackValue=null}"
+                  ItemsSource="{Binding SelectedMusicSource.RootElements, FallbackValue={x:Null}}"
                   ItemContainerStyle="{StaticResource TreeViewItemStyle}"
                   HorizontalContentAlignment="Stretch"
                   PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
