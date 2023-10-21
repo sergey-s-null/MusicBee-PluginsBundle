@@ -11,6 +11,8 @@ public interface IManualWizardStepVM : IWizardStepVM
     bool HasPreviousStep { get; }
     bool CanGoBack { get; }
 
+    string? CustomCloseWizardCommandName { get; }
+
     ICommand Back { get; }
     ICommand Next { get; }
     ICommand CloseWizard { get; }

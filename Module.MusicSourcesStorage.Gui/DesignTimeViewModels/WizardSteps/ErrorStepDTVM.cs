@@ -16,6 +16,8 @@ public sealed class ErrorStepDTVM : IErrorStepVM
     public bool HasPreviousStep => true;
     public bool CanGoBack => true;
 
+    public string? CustomCloseWizardCommandName => null;
+
     public string Error => "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
                            "Suspendisse ullamcorper ante lorem, vitae dapibus leo egestas eu.\n" +
                            "Nulla vitae nunc dignissim, dignissim augue non, ornare neque.\n" +

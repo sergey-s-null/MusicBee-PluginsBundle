@@ -16,6 +16,8 @@ public sealed class ManualWizardStepDTVM : IManualWizardStepVM
     public bool HasPreviousStep => false;
     public bool CanGoBack => false;
 
+    public string? CustomCloseWizardCommandName => null;
+
     public ICommand Back => null!;
     public ICommand Next => null!;
     public ICommand CloseWizard => null!;

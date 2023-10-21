@@ -16,6 +16,8 @@ public sealed class SelectVkPostAttachmentStepDTVM : ISelectVkPostAttachmentStep
     public bool HasPreviousStep => true;
     public bool CanGoBack => true;
 
+    public string? CustomCloseWizardCommandName => null;
+
     public ICommand Back => null!;
     public ICommand Next => null!;
     public ICommand CloseWizard => null!;

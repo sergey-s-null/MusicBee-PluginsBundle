@@ -9,16 +9,17 @@ public sealed class SuccessResultStepDTVM : ISuccessResultStepVM
     public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
 
-    public bool HasNextStep => true;
-    public bool CanGoNext => true;
-    public string? CustomNextStepName => "Done";
+    public bool HasNextStep => false;
+    public bool CanGoNext => false;
+    public string? CustomNextStepName => null;
 
     public bool HasPreviousStep => false;
     public bool CanGoBack => false;
 
+    public string? CustomCloseWizardCommandName => "Done";
+
     public ICommand Back => null!;
     public ICommand Next => null!;
-    // todo make custom text for close wizard
     public ICommand CloseWizard => null!;
 
     public string Text { get; }

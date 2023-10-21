@@ -17,6 +17,8 @@ public class IndexingResultStepDTVM : IIndexingResultStepVM
     public bool HasPreviousStep => true;
     public bool CanGoBack => true;
 
+    public string? CustomCloseWizardCommandName => null;
+
     public ICommand Back => null!;
     public ICommand Next => null!;
     public ICommand CloseWizard => null!;
