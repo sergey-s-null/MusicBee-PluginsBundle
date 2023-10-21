@@ -1,15 +1,17 @@
-﻿<UserControl x:Class="Module.MusicSourcesStorage.Gui.Views.Components.ImageFile"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
-             xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             mc:Ignorable="d"
-             d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance dtvm:ReadOnlyImageFileDTVM}">
-    <UserControl.Resources>
+﻿<components:HierarchyNodeBase
+    x:Class="Module.MusicSourcesStorage.Gui.Views.Components.ImageFile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+    xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    mc:Ignorable="d"
+    d:DesignWidth="300"
+    d:DataContext="{d:DesignInstance dtvm:ReadOnlyImageFileDTVM}">
+
+    <components:HierarchyNodeBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/FilesHierarchy/NodeIconStyle.xaml" />
@@ -18,11 +20,7 @@
                 <ResourceDictionary Source="../Styles/FilesHierarchy/NodeTextStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </UserControl.Resources>
-
-    <UserControl.ContextMenu>
-        <components:ImageFileContextMenu />
-    </UserControl.ContextMenu>
+    </components:HierarchyNodeBase.Resources>
 
     <Grid Style="{StaticResource NodeContainerStyle}">
         <Grid.ColumnDefinitions>
@@ -41,4 +39,4 @@
                    Style="{StaticResource NodeTextStyle}"
                    VerticalAlignment="Center" />
     </Grid>
-</UserControl>
+</components:HierarchyNodeBase>
