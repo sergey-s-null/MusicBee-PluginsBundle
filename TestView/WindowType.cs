@@ -4,5 +4,6 @@ public enum WindowType
 {
     VkAudioDownloader,
     VkToLocalComparer,
-    MusicSources
+    MusicSources,
+    Wizard,
 }
