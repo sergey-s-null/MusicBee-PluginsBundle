@@ -4,9 +4,7 @@ namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 
 public interface IWizardStepVM
 {
-    event EventHandler<StepTransitionEventArgs> NextStepRequested;
-
-    event EventHandler<StepTransitionEventArgs> PreviousStepRequested;
+    event EventHandler<StepTransitionEventArgs> StepTransitionRequested;
 
     event EventHandler CloseWizardRequested;
 }

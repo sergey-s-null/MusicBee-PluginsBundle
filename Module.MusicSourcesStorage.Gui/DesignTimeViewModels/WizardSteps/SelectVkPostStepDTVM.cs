@@ -9,8 +9,7 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps;
 [AddINotifyPropertyChangedInterface]
 public sealed class SelectVkPostStepDTVM : ISelectVkPostStepVM
 {
-    public event EventHandler<StepTransitionEventArgs>? NextStepRequested;
-    public event EventHandler<StepTransitionEventArgs>? PreviousStepRequested;
+    public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
 
     public bool HasNextStep => true;
