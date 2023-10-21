@@ -16,7 +16,6 @@ public sealed class WizardVM : IWizardVM
     public WizardVM(Window ownerWindow, IWizardStepVM initialStep)
     {
         _ownerWindow = ownerWindow;
-        _ownerWindow.Closing += OnCloseWizardRequested;
 
         AddEventHandlers(initialStep);
         StartIfAutomatic(initialStep);
@@ -46,17 +45,7 @@ public sealed class WizardVM : IWizardVM
 
     private void OnCloseWizardRequested(object _, EventArgs __)
     {
-        var result = MessageBox.Show(
-            "Close wizard?",
-            "?",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Asterisk
-        );
-
-        if (result == MessageBoxResult.Yes)
-        {
-            _ownerWindow.Close();
-        }
+        _ownerWindow.Close();
     }
 
     private static void StartIfAutomatic(IWizardStepVM step)
