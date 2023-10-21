@@ -15,9 +15,8 @@ public sealed class NodesHierarchyDTVM : INodesHierarchyVM
 
     public IReadOnlyList<INodeVM> RootNodes { get; }
 
-    public NodesHierarchyDTVM()
+    public NodesHierarchyDTVM() : this(DesignTimeData.NotConnectedAllTypesNodes)
     {
-        RootNodes = DesignTimeData.NotConnectedAllTypesNodes;
     }
 
     public NodesHierarchyDTVM(IReadOnlyList<INodeVM> rootNodes)
