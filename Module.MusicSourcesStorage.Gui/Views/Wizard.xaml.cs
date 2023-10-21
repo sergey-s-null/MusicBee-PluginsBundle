@@ -5,10 +5,10 @@ namespace Module.MusicSourcesStorage.Gui.Views;
 
 public partial class Wizard : Window
 {
-    public Wizard(IWizardVM viewModel)
+    public Wizard(Func<Window, IWizardVM> viewModelFactory)
     {
         InitializeComponent();
 
-        DataContext = viewModel;
+        DataContext = viewModelFactory(this);
     }
 }
