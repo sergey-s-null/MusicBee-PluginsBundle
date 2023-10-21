@@ -1,11 +1,9 @@
 using System.Windows;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
-using Module.MusicSourcesStorage.Gui.ViewMappings;
 using Module.MusicSourcesStorage.Gui.Views.WizardSteps;
 
-namespace Module.MusicSourcesStorage.Gui;
+namespace Module.MusicSourcesStorage.Gui.ViewMappers;
 
-// todo move to ViewMappers dir
 public sealed class WizardStepsViewMapper : ViewMapperBase
 {
     public static readonly IViewMapper Instance = new WizardStepsViewMapper();

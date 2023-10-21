@@ -1,11 +1,9 @@
 ﻿using System.Windows;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
-using Module.MusicSourcesStorage.Gui.ViewMappings;
 using Module.MusicSourcesStorage.Gui.Views.Components;
 
-namespace Module.MusicSourcesStorage.Gui;
+namespace Module.MusicSourcesStorage.Gui.ViewMappers;
 
-// todo move to ViewMappers dir
 public sealed class HierarchyNodesViewMapper : ViewMapperBase
 {
     public static readonly IViewMapper Instance = new HierarchyNodesViewMapper();

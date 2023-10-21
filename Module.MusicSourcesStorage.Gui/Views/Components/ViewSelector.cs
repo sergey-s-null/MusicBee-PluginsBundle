@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Module.MusicSourcesStorage.Gui.Exceptions;
-using Module.MusicSourcesStorage.Gui.ViewMappings;
+using Module.MusicSourcesStorage.Gui.ViewMappers;
 
 namespace Module.MusicSourcesStorage.Gui.Views.Components;
 

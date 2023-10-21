@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Module.MusicSourcesStorage.Gui.ViewMappings;
+namespace Module.MusicSourcesStorage.Gui.ViewMappers;
 
 public interface IViewMapper
 {

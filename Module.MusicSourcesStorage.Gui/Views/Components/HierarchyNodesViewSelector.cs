@@ -1,4 +1,6 @@
-﻿namespace Module.MusicSourcesStorage.Gui.Views.Components;
+﻿using Module.MusicSourcesStorage.Gui.ViewMappers;
+
+namespace Module.MusicSourcesStorage.Gui.Views.Components;
 
 // Костыль - внутри HierarchicalDataTemplate невозможно выставить свойтво из статического контекста.
 // Не работает
