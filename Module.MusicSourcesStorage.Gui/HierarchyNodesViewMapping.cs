@@ -6,13 +6,21 @@ namespace Module.MusicSourcesStorage.Gui;
 
 public static class HierarchyNodesViewMapping
 {
-    // todo make 2 different maps - for read only and for editable
     public static readonly IDictionary<Type, Func<FrameworkElement>> Map =
         new Dictionary<Type, Func<FrameworkElement>>
         {
-            [typeof(IDirectoryVM)] = () => new Directory(),
+            [typeof(IDirectoryVM)] = () => new Directory { IsReadOnly = true },
+            [typeof(IMusicFileVM)] = () => new MusicFile { IsReadOnly = true },
+            [typeof(IImageFileVM)] = () => new ImageFile { IsReadOnly = true },
+            [typeof(IUnknownFileVM)] = () => new UnknownFile { IsReadOnly = true },
+        };
+
+    public static readonly IDictionary<Type, Func<FrameworkElement>> ConnectedMap =
+        new Dictionary<Type, Func<FrameworkElement>>
+        {
+            [typeof(IConnectedDirectoryVM)] = () => new Directory(),
             [typeof(IConnectedMusicFileVM)] = () => new MusicFile(),
-            [typeof(IImageFileVM)] = () => new ImageFile(),
-            [typeof(IUnknownFileVM)] = () => new UnknownFile(),
+            [typeof(IConnectedImageFileVM)] = () => new ImageFile(),
+            [typeof(IConnectedUnknownFileVM)] = () => new UnknownFile(),
         };
 }
