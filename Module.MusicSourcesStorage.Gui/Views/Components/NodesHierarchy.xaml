@@ -23,13 +23,6 @@
         <TreeView.ItemTemplate>
             <HierarchicalDataTemplate ItemsSource="{Binding ChildNodes}">
                 <components:HierarchyNodesViewSelector
-                    UseConnectedViewMapping="{
-                        Binding IsConnectedToStorage, 
-                        RelativeSource={
-                            RelativeSource FindAncestor,
-                            AncestorType={x:Type components:NodesHierarchy}
-                        }
-                    }"
                     ViewModel="{Binding .}" />
             </HierarchicalDataTemplate>
         </TreeView.ItemTemplate>

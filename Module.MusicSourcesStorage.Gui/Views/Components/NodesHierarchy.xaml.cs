@@ -7,19 +7,6 @@ namespace Module.MusicSourcesStorage.Gui.Views.Components;
 
 public partial class NodesHierarchy : UserControl
 {
-    public static readonly DependencyProperty IsConnectedToStorageProperty = DependencyProperty.Register(
-        nameof(IsConnectedToStorage),
-        typeof(bool),
-        typeof(NodesHierarchy),
-        new PropertyMetadata(false)
-    );
-
-    public bool IsConnectedToStorage
-    {
-        get => (bool)GetValue(IsConnectedToStorageProperty);
-        set => SetValue(IsConnectedToStorageProperty, value);
-    }
-
     public NodesHierarchy()
     {
         InitializeComponent();

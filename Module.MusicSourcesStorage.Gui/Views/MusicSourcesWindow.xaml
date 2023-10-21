@@ -34,7 +34,6 @@
 
         <components:NodesHierarchy
             Grid.Column="2"
-            IsConnectedToStorage="True"
             DataContext="{Binding SelectedMusicSource.Items, FallbackValue={x:Null}}" />
     </Grid>
 </Window>
