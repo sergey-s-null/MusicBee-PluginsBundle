@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels;
 
-public interface IReadOnlyDirectoryVM : INodeVM
+public interface IDirectoryVM : INodeVM
 {
     bool HasCover { get; }
     Stream? CoverStream { get; }

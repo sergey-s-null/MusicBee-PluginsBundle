@@ -20,7 +20,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
         {
             new MusicSourceDTVM("First", MusicSourceType.Torrent, new INodeVM[]
             {
-                new ReadOnlyDirectoryDTVM("Album 1", new INodeVM[]
+                new DirectoryDTVM("Album 1", new INodeVM[]
                 {
                     new MusicFileDTVM("Song1.mp3", MusicFileState.NotListened),
                     new MusicFileDTVM("Song2.mp3", MusicFileState.InIncoming),
@@ -28,9 +28,9 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
                     new MusicFileDTVM("Song42.mp3", MusicFileState.ListenedAndDeleted),
                     new ReadOnlyImageFileDTVM("cover.jpg", true)
                 }, "quad.png"),
-                new ReadOnlyDirectoryDTVM("Epic Album 666", new INodeVM[]
+                new DirectoryDTVM("Epic Album 666", new INodeVM[]
                 {
-                    new ReadOnlyDirectoryDTVM("Special", new INodeVM[]
+                    new DirectoryDTVM("Special", new INodeVM[]
                     {
                         new UnknownFileDTVM("song lyrics.txt"),
                         new UnknownFileDTVM("message from author.txt")
@@ -39,7 +39,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
                     new ReadOnlyImageFileDTVM("cover.png", true),
                     new ReadOnlyImageFileDTVM("some image.png", false)
                 }, "vertical.png"),
-                new ReadOnlyDirectoryDTVM("Just a joke", new INodeVM[]
+                new DirectoryDTVM("Just a joke", new INodeVM[]
                 {
                     new ReadOnlyImageFileDTVM("only-cover.png", true)
                 }, "horizontal.png")
@@ -51,13 +51,13 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
             }),
             new MusicSourceDTVM("So Deep", MusicSourceType.VkPost, new INodeVM[]
             {
-                new ReadOnlyDirectoryDTVM("Right", new INodeVM[]
+                new DirectoryDTVM("Right", new INodeVM[]
                 {
-                    new ReadOnlyDirectoryDTVM("Into", new INodeVM[]
+                    new DirectoryDTVM("Into", new INodeVM[]
                     {
-                        new ReadOnlyDirectoryDTVM("The", new INodeVM[]
+                        new DirectoryDTVM("The", new INodeVM[]
                         {
-                            new ReadOnlyDirectoryDTVM("Abyss")
+                            new DirectoryDTVM("Abyss")
                         })
                     })
                 })

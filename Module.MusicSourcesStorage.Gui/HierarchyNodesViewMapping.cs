@@ -10,7 +10,7 @@ public static class HierarchyNodesViewMapping
     public static readonly IDictionary<Type, Func<FrameworkElement>> Map =
         new Dictionary<Type, Func<FrameworkElement>>
         {
-            [typeof(IReadOnlyDirectoryVM)] = () => new Directory(),
+            [typeof(IDirectoryVM)] = () => new Directory(),
             [typeof(IMusicFileVM)] = () => new MusicFile(),
             [typeof(IReadOnlyImageFileVM)] = () => new ImageFile(),
             [typeof(IUnknownFileVM)] = () => new UnknownFile(),
