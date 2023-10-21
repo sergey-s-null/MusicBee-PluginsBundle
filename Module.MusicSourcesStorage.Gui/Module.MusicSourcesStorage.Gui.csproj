@@ -9,31 +9,31 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Reference Include="System.Net.Http"/>
+		<Reference Include="System.Net.Http" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0"/>
-		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0"/>
+		<PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Module.Core\Module.Core.csproj"/>
-		<ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj"/>
+		<ProjectReference Include="..\Module.Core\Module.Core.csproj" />
+		<ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="Resources\DesignTime\Covers\horizontal.png"/>
-		<EmbeddedResource Include="Resources\DesignTime\Covers\quad.png"/>
-		<EmbeddedResource Include="Resources\DesignTime\Covers\vertical.png"/>
+		<EmbeddedResource Include="Resources\DesignTime\Covers\horizontal.png" />
+		<EmbeddedResource Include="Resources\DesignTime\Covers\quad.png" />
+		<EmbeddedResource Include="Resources\DesignTime\Covers\vertical.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Resources\Fonts\"/>
+		<Folder Include="Resources\Fonts\" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Resources\Fonts\Roboto-Regular.ttf"/>
+		<Resource Include="Resources\Fonts\Roboto-Regular.ttf" />
 	</ItemGroup>
 
 </Project>
