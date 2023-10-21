@@ -12,10 +12,11 @@ public class ViewSelector : ContentControl
         typeof(ViewSelector),
         new FrameworkPropertyMetadata(
             null,
+            FrameworkPropertyMetadataOptions.AffectsRender,
             (obj, _) =>
             {
                 var viewSelector = (ViewSelector)obj;
-                viewSelector.OnViewModelChanged();
+                viewSelector.OnViewModelOrSelectionTableChanged();
             }
         )
     );
@@ -24,7 +25,15 @@ public class ViewSelector : ContentControl
         nameof(SelectionTable),
         typeof(IDictionary<Type, Func<FrameworkElement>>),
         typeof(ViewSelector),
-        new FrameworkPropertyMetadata(new Dictionary<Type, Func<FrameworkElement>>())
+        new FrameworkPropertyMetadata(
+            new Dictionary<Type, Func<FrameworkElement>>(),
+            FrameworkPropertyMetadataOptions.AffectsRender,
+            (obj, _) =>
+            {
+                var viewSelector = (ViewSelector)obj;
+                viewSelector.OnViewModelOrSelectionTableChanged();
+            }
+        )
     );
 
     public static readonly DependencyProperty ThrowExceptionOnFallbackProperty = DependencyProperty.Register(
@@ -52,7 +61,7 @@ public class ViewSelector : ContentControl
         set => SetValue(ThrowExceptionOnFallbackProperty, value);
     }
 
-    private void OnViewModelChanged()
+    private void OnViewModelOrSelectionTableChanged()
     {
         if (ViewModel is null)
         {
