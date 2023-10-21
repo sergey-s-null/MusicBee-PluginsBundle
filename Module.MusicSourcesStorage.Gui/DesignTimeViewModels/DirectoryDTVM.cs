@@ -10,7 +10,7 @@ public sealed class DirectoryDTVM : IDirectoryVM
         $"{nameof(Module)}.{nameof(MusicSourcesStorage)}.{nameof(Gui)}.Resources.DesignTime.Covers";
 
     public string Name { get; }
-    public IList<INodeVM> ChildNodes { get; }
+    public IReadOnlyList<INodeVM> ChildNodes { get; }
     public bool HasCover => _coverFileName is not null;
     public Stream? CoverStream => GetCoverStream();
 
@@ -25,7 +25,7 @@ public sealed class DirectoryDTVM : IDirectoryVM
     {
     }
 
-    public DirectoryDTVM(string name, IList<INodeVM> childNodes, string? coverFileName = null)
+    public DirectoryDTVM(string name, IReadOnlyList<INodeVM> childNodes, string? coverFileName = null)
     {
         Name = name;
         ChildNodes = childNodes;

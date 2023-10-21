@@ -3,5 +3,5 @@
 public interface INodeVM
 {
     string Name { get; }
-    IList<INodeVM> ChildNodes { get; }
+    IReadOnlyList<INodeVM> ChildNodes { get; }
 }

@@ -6,7 +6,7 @@ public sealed class UnknownFileDTVM : IUnknownFileVM
 {
     public string Name { get; }
     public string Path { get; }
-    public IList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
+    public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
 
     // ReSharper disable once UnusedMember.Global
     public UnknownFileDTVM() : this("some/path/to/unknown_file")

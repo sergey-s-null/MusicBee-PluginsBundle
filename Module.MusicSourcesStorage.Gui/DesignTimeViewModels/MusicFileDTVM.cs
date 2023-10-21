@@ -8,7 +8,7 @@ public sealed class MusicFileDTVM : IMusicFileVM
     public string Name { get; }
     public string Path { get; }
     public MusicFileState State { get; }
-    public IList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
+    public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
 
     // ReSharper disable once UnusedMember.Global
     public MusicFileDTVM() : this("some/path/to/music.mp3", MusicFileState.InLibrary)
