@@ -22,7 +22,7 @@ public sealed class WizardDTVM : IWizardVM
 
     public WizardDTVM()
     {
-        CurrentStep = new ManualWizardStepDTVM();
+        CurrentStep = new ProcessingStepDTVM();
     }
 
     public WizardDTVM(IWizardStepVM initialStep)
