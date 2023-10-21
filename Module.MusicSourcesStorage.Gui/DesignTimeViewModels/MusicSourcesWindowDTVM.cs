@@ -13,7 +13,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
         var hundred = new List<INodeVM>();
         for (var i = 0; i < 100; i++)
         {
-            hundred.Add(new MusicFileDTVM($"Song{i}.mp3", MusicFileState.NotListened));
+            hundred.Add(new ConnectedMusicFileDTVM($"Song{i}.mp3", MusicFileState.NotListened));
         }
 
         MusicSources = new List<IMusicSourceVM>
@@ -22,10 +22,10 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
             {
                 new DirectoryDTVM("Album 1", new INodeVM[]
                 {
-                    new MusicFileDTVM("Song1.mp3", MusicFileState.NotListened),
-                    new MusicFileDTVM("Song2.mp3", MusicFileState.InIncoming),
-                    new MusicFileDTVM("Song999.mp3", MusicFileState.InLibrary),
-                    new MusicFileDTVM("Song42.mp3", MusicFileState.ListenedAndDeleted),
+                    new ConnectedMusicFileDTVM("Song1.mp3", MusicFileState.NotListened),
+                    new ConnectedMusicFileDTVM("Song2.mp3", MusicFileState.InIncoming),
+                    new ConnectedMusicFileDTVM("Song999.mp3", MusicFileState.InLibrary),
+                    new ConnectedMusicFileDTVM("Song42.mp3", MusicFileState.ListenedAndDeleted),
                     new ImageFileDTVM("cover.jpg", true)
                 }, "quad.png"),
                 new DirectoryDTVM("Epic Album 666", new INodeVM[]
@@ -35,7 +35,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
                         new UnknownFileDTVM("song lyrics.txt"),
                         new UnknownFileDTVM("message from author.txt")
                     }),
-                    new MusicFileDTVM("Single.flac", MusicFileState.ListenedAndDeleted),
+                    new ConnectedMusicFileDTVM("Single.flac", MusicFileState.ListenedAndDeleted),
                     new ImageFileDTVM("cover.png", true),
                     new ImageFileDTVM("some image.png", false)
                 }, "vertical.png"),
@@ -46,8 +46,8 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
             }),
             new MusicSourceDTVM("2nd", MusicSourceType.VkPost, new INodeVM[]
             {
-                new MusicFileDTVM("Hello.mp3", MusicFileState.InLibrary),
-                new MusicFileDTVM("There.mp3", MusicFileState.ListenedAndDeleted)
+                new ConnectedMusicFileDTVM("Hello.mp3", MusicFileState.InLibrary),
+                new ConnectedMusicFileDTVM("There.mp3", MusicFileState.ListenedAndDeleted)
             }),
             new MusicSourceDTVM("So Deep", MusicSourceType.VkPost, new INodeVM[]
             {

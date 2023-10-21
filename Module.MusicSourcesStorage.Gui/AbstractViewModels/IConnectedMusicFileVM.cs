@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels;
 
-public interface IMusicFileVM : IReadOnlyMusicFileVM
+public interface IConnectedMusicFileVM : IReadOnlyMusicFileVM
 {
     MusicFileState State { get; }
 }

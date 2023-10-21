@@ -11,7 +11,7 @@ public static class HierarchyNodesViewMapping
         new Dictionary<Type, Func<FrameworkElement>>
         {
             [typeof(IDirectoryVM)] = () => new Directory(),
-            [typeof(IMusicFileVM)] = () => new MusicFile(),
+            [typeof(IConnectedMusicFileVM)] = () => new MusicFile(),
             [typeof(IImageFileVM)] = () => new ImageFile(),
             [typeof(IUnknownFileVM)] = () => new UnknownFile(),
         };

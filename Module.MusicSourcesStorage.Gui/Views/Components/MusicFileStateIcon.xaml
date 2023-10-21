@@ -8,7 +8,7 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignInstance dtvm:MusicFileDTVM}">
+    d:DataContext="{d:DesignInstance dtvm:ConnectedMusicFileDTVM}">
 
     <iconPacks:PackIconUnicons
         Width="14" Height="14"
