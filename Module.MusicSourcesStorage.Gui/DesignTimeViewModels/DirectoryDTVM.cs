@@ -4,7 +4,7 @@ using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-public sealed class DirectoryDTVM : IDirectoryVM
+public class DirectoryDTVM : IDirectoryVM
 {
     private const string DesignTimeCoversPath =
         $"{nameof(Module)}.{nameof(MusicSourcesStorage)}.{nameof(Gui)}.Resources.DesignTime.Covers";

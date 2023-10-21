@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-public sealed class ImageFileDTVM : IImageFileVM
+public class ImageFileDTVM : IImageFileVM
 {
     public string Name { get; }
     public string Path { get; }

@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-public sealed class UnknownFileDTVM : IUnknownFileVM
+public class UnknownFileDTVM : IUnknownFileVM
 {
     public string Name { get; }
     public string Path { get; }
