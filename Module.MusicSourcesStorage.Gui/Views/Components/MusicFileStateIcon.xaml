@@ -1,0 +1,50 @@
+﻿<UserControl
+    x:Class="Module.MusicSourcesStorage.Gui.Views.Components.MusicFileStateIcon"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance dtvm:MusicFileDTVM}">
+
+    <iconPacks:PackIconUnicons
+        Width="14" Height="14"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="Transparent">
+
+        <iconPacks:PackIconUnicons.Style>
+            <Style TargetType="iconPacks:PackIconUnicons">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding State}"
+                                 Value="{x:Static enums:MusicFileState.NotListened}">
+                        <Setter Property="Kind" Value="Circle" />
+                        <Setter Property="Foreground" Value="Gray" />
+                        <Setter Property="ToolTip" Value="File was not listened" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State}"
+                                 Value="{x:Static enums:MusicFileState.InIncoming}">
+                        <Setter Property="Kind" Value="QuestionCircle" />
+                        <Setter Property="Foreground" Value="Orange" />
+                        <Setter Property="ToolTip" Value="File in incoming" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State}"
+                                 Value="{x:Static enums:MusicFileState.InLibrary}">
+                        <Setter Property="Kind" Value="CheckCircle" />
+                        <Setter Property="Foreground" Value="Green" />
+                        <Setter Property="ToolTip" Value="File in library" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State}"
+                                 Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
+                        <Setter Property="Kind" Value="TimesCircle" />
+                        <Setter Property="Foreground" Value="Gray" />
+                        <Setter Property="ToolTip" Value="File was listened and deleted" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </iconPacks:PackIconUnicons.Style>
+    </iconPacks:PackIconUnicons>
+</UserControl>
