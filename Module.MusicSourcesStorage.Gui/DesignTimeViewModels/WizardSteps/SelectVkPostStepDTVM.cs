@@ -12,6 +12,8 @@ public sealed class SelectVkPostStepDTVM : ISelectVkPostStepVM
     public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
 
+    public bool CanSafelyCloseWizard => false;
+
     public bool HasNextStep => true;
     public bool CanGoNext { get; private set; }
     public string? CustomNextStepName => null;

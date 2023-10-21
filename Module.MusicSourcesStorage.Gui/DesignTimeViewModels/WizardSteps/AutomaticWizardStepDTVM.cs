@@ -8,6 +8,8 @@ public sealed class AutomaticWizardStepDTVM : IAutomaticWizardStepVM
     public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
 
+    public bool CanSafelyCloseWizard => false;
+
     public void Start()
     {
         throw new NotImplementedException();

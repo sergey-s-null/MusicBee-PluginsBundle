@@ -7,4 +7,6 @@ public interface IWizardStepVM
     event EventHandler<StepTransitionEventArgs> StepTransitionRequested;
 
     event EventHandler CloseWizardRequested;
+
+    bool CanSafelyCloseWizard { get; }
 }

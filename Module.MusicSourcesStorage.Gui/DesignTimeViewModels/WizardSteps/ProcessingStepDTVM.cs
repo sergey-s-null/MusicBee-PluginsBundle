@@ -9,6 +9,8 @@ public sealed class ProcessingStepDTVM : IProcessingStepVM
     public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
 
+    public bool CanSafelyCloseWizard => false;
+
     public string Text => "Do very very very very hard work";
 
     public ICommand Cancel => null!;

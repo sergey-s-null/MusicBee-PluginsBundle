@@ -9,6 +9,8 @@ public sealed class ManualWizardStepDTVM : IManualWizardStepVM
     public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
 
+    public bool CanSafelyCloseWizard => false;
+
     public bool HasNextStep => true;
     public bool CanGoNext => true;
     public string? CustomNextStepName => "Add";

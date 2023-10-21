@@ -9,6 +9,8 @@ public sealed class ErrorStepDTVM : IErrorStepVM
     public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
 
+    public bool CanSafelyCloseWizard => true;
+
     public bool HasNextStep => false;
     public bool CanGoNext => false;
     public string? CustomNextStepName => null;
