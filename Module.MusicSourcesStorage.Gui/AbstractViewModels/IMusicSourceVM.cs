@@ -6,5 +6,5 @@ public interface IMusicSourceVM
 {
     string Name { get; }
     MusicSourceType Type { get; }
-    IList<INodeVM> RootElements { get; }
+    INodesHierarchyVM Items { get; }
 }

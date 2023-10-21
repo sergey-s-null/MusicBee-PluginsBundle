@@ -8,13 +8,6 @@
         mc:Ignorable="d"
         Title="MusicSourcesWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance dtvm:MusicSourcesWindowDTVM}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/FilesHierarchy/TreeViewItemStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,18 +32,9 @@
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Center" />
 
-        <TreeView Grid.Column="2"
-                  ItemsSource="{Binding SelectedMusicSource.RootElements, FallbackValue={x:Null}}"
-                  ItemContainerStyle="{StaticResource TreeViewItemStyle}"
-                  HorizontalContentAlignment="Stretch"
-                  PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding ChildNodes}">
-                    <components:HierarchyNodesViewSelector
-                        UseConnectedViewMapping="True"
-                        ViewModel="{Binding .}" />
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
+        <components:NodesHierarchy
+            Grid.Column="2"
+            IsConnectedToStorage="True"
+            DataContext="{Binding SelectedMusicSource.Items, FallbackValue={x:Null}}" />
     </Grid>
 </Window>

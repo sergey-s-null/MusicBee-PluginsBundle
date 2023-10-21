@@ -3,14 +3,21 @@ using Module.MusicSourcesStorage.Gui.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-public sealed record MusicSourceDTVM(string Name, MusicSourceType Type, IList<INodeVM> RootElements) : IMusicSourceVM
+public sealed class MusicSourceDTVM : IMusicSourceVM
 {
+    public string Name { get; }
+    public MusicSourceType Type { get; }
+    public INodesHierarchyVM Items { get; }
+
     // ReSharper disable once UnusedMember.Global
     public MusicSourceDTVM() : this("Some Source", MusicSourceType.VkPost)
     {
     }
 
-    public MusicSourceDTVM(string name, MusicSourceType type) : this(name, type, Array.Empty<INodeVM>())
+    public MusicSourceDTVM(string name, MusicSourceType type, INodesHierarchyVM? items = null)
     {
+        Name = name;
+        Type = type;
+        Items = items ?? NodesHierarchyDTVM.Empty;
     }
 }

@@ -18,38 +18,13 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
 
         MusicSources = new List<IMusicSourceVM>
         {
-            new MusicSourceDTVM("First", MusicSourceType.Torrent, new INodeVM[]
-            {
-                new ConnectedDirectoryDTVM("Album 1", new INodeVM[]
-                {
-                    new ConnectedMusicFileDTVM("Song1.mp3", MusicFileState.NotListened),
-                    new ConnectedMusicFileDTVM("Song2.mp3", MusicFileState.InIncoming),
-                    new ConnectedMusicFileDTVM("Song999.mp3", MusicFileState.InLibrary),
-                    new ConnectedMusicFileDTVM("Song42.mp3", MusicFileState.ListenedAndDeleted),
-                    new ConnectedImageFileDTVM("cover.jpg", true)
-                }, "quad.png"),
-                new ConnectedDirectoryDTVM("Epic Album 666", new INodeVM[]
-                {
-                    new ConnectedDirectoryDTVM("Special", new INodeVM[]
-                    {
-                        new ConnectedUnknownFileDTVM("song lyrics.txt"),
-                        new ConnectedUnknownFileDTVM("message from author.txt")
-                    }),
-                    new ConnectedMusicFileDTVM("Single.flac", MusicFileState.ListenedAndDeleted),
-                    new ConnectedImageFileDTVM("cover.png", true),
-                    new ConnectedImageFileDTVM("some image.png", false)
-                }, "vertical.png"),
-                new ConnectedDirectoryDTVM("Just a joke", new INodeVM[]
-                {
-                    new ConnectedImageFileDTVM("only-cover.png", true)
-                }, "horizontal.png")
-            }),
-            new MusicSourceDTVM("2nd", MusicSourceType.VkPost, new INodeVM[]
+            new MusicSourceDTVM("First", MusicSourceType.Torrent, NodesHierarchyDTVM.ConnectedAllTypes),
+            new MusicSourceDTVM("2nd", MusicSourceType.VkPost, new NodesHierarchyDTVM(new INodeVM[]
             {
                 new ConnectedMusicFileDTVM("Hello.mp3", MusicFileState.InLibrary),
                 new ConnectedMusicFileDTVM("There.mp3", MusicFileState.ListenedAndDeleted)
-            }),
-            new MusicSourceDTVM("So Deep", MusicSourceType.VkPost, new INodeVM[]
+            })),
+            new MusicSourceDTVM("So Deep", MusicSourceType.VkPost, new NodesHierarchyDTVM(new INodeVM[]
             {
                 new ConnectedDirectoryDTVM("Right", new INodeVM[]
                 {
@@ -61,8 +36,8 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
                         })
                     })
                 })
-            }),
-            new MusicSourceDTVM("So BIG", MusicSourceType.Torrent, hundred)
+            })),
+            new MusicSourceDTVM("So BIG", MusicSourceType.Torrent, new NodesHierarchyDTVM(hundred))
         };
 
         for (var i = 0; i < 100; i++)
