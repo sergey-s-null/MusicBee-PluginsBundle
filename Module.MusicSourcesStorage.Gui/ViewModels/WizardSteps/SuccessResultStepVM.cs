@@ -1,7 +1,9 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
+[AddINotifyPropertyChangedInterface]
 public sealed class SuccessResultStepVM : ManualStepBaseVM, ISuccessResultStepVM
 {
     public override bool CanSafelyCloseWizard { get; protected set; }
