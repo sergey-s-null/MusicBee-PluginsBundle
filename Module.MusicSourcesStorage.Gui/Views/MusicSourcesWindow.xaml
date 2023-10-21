@@ -46,7 +46,9 @@
                   PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ChildNodes}">
-                    <components:HierarchyNodesViewSelector ViewModel="{Binding .}" />
+                    <components:HierarchyNodesViewSelector
+                        UseConnectedViewMapping="True"
+                        ViewModel="{Binding .}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
