@@ -8,7 +8,7 @@
     xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
     mc:Ignorable="d"
     d:DesignWidth="300"
-    d:DataContext="{d:DesignInstance dtvm:DirectoryDTVM}">
+    d:DataContext="{d:DesignInstance dtvm:ReadOnlyDirectoryDTVM}">
 
     <components:HierarchyNodeBase.Resources>
         <ResourceDictionary>

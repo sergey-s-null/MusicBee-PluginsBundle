@@ -4,7 +4,7 @@ using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-public sealed class DirectoryDTVM : IDirectoryVM
+public sealed class ReadOnlyDirectoryDTVM : IReadOnlyDirectoryVM
 {
     private const string DesignTimeCoversPath =
         $"{nameof(Module)}.{nameof(MusicSourcesStorage)}.{nameof(Gui)}.Resources.DesignTime.Covers";
@@ -17,15 +17,15 @@ public sealed class DirectoryDTVM : IDirectoryVM
     private readonly string? _coverFileName;
 
     // ReSharper disable once UnusedMember.Global
-    public DirectoryDTVM() : this("SomeDirectory")
+    public ReadOnlyDirectoryDTVM() : this("SomeDirectory")
     {
     }
 
-    public DirectoryDTVM(string name) : this(name, Array.Empty<INodeVM>())
+    public ReadOnlyDirectoryDTVM(string name) : this(name, Array.Empty<INodeVM>())
     {
     }
 
-    public DirectoryDTVM(string name, IReadOnlyList<INodeVM> childNodes, string? coverFileName = null)
+    public ReadOnlyDirectoryDTVM(string name, IReadOnlyList<INodeVM> childNodes, string? coverFileName = null)
     {
         Name = name;
         ChildNodes = childNodes;
@@ -40,6 +40,6 @@ public sealed class DirectoryDTVM : IDirectoryVM
         }
 
         var resourceName = $"{DesignTimeCoversPath}.{_coverFileName}";
-        return Assembly.GetAssembly(typeof(DirectoryDTVM)).GetManifestResourceStream(resourceName);
+        return Assembly.GetAssembly(typeof(ReadOnlyDirectoryDTVM)).GetManifestResourceStream(resourceName);
     }
 }
