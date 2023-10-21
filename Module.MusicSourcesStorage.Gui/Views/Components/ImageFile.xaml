@@ -9,7 +9,7 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     mc:Ignorable="d"
     d:DesignWidth="300"
-    d:DataContext="{d:DesignInstance dtvm:ReadOnlyImageFileDTVM}">
+    d:DataContext="{d:DesignInstance dtvm:ImageFileDTVM}">
 
     <components:HierarchyNodeBase.Resources>
         <ResourceDictionary>

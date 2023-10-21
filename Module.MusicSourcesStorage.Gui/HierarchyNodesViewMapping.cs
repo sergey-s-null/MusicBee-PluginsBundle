@@ -12,7 +12,7 @@ public static class HierarchyNodesViewMapping
         {
             [typeof(IDirectoryVM)] = () => new Directory(),
             [typeof(IMusicFileVM)] = () => new MusicFile(),
-            [typeof(IReadOnlyImageFileVM)] = () => new ImageFile(),
+            [typeof(IImageFileVM)] = () => new ImageFile(),
             [typeof(IUnknownFileVM)] = () => new UnknownFile(),
         };
 }

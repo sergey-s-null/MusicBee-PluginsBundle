@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-public sealed class ReadOnlyImageFileDTVM : IReadOnlyImageFileVM
+public sealed class ImageFileDTVM : IImageFileVM
 {
     public string Name { get; }
     public string Path { get; }
@@ -10,11 +10,11 @@ public sealed class ReadOnlyImageFileDTVM : IReadOnlyImageFileVM
     public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
 
     // ReSharper disable once UnusedMember.Global
-    public ReadOnlyImageFileDTVM() : this("some/path/to/image.png", true)
+    public ImageFileDTVM() : this("some/path/to/image.png", true)
     {
     }
 
-    public ReadOnlyImageFileDTVM(string path, bool isCover)
+    public ImageFileDTVM(string path, bool isCover)
     {
         Name = System.IO.Path.GetFileName(path);
         Path = path;
