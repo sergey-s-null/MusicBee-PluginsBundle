@@ -13,7 +13,7 @@ public interface IManualWizardStepVM : IWizardStepVM
 
     string? CustomCloseWizardCommandName { get; }
 
-    ICommand Back { get; }
     ICommand Next { get; }
+    ICommand Back { get; }
     ICommand CloseWizard { get; }
 }
