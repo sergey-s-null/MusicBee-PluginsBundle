@@ -9,7 +9,7 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     mc:Ignorable="d"
     d:DesignWidth="300"
-    d:DataContext="{d:DesignInstance dtvm:ConnectedMusicFileDTVM}">
+    d:DataContext="{d:DesignInstance dtvm:MusicFileDTVM}">
 
     <components:HierarchyNodeBase.Resources>
         <ResourceDictionary>
