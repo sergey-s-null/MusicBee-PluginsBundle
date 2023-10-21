@@ -10,16 +10,16 @@ public abstract class ManualStepBaseVM : IManualWizardStepVM
     public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
 
-    public abstract bool CanSafelyCloseWizard { get; }
+    public abstract bool CanSafelyCloseWizard { get; protected set; }
 
-    public abstract bool HasNextStep { get; }
-    public abstract bool CanGoNext { get; }
-    public abstract string? CustomNextStepName { get; }
+    public abstract bool HasNextStep { get; protected set; }
+    public abstract bool CanGoNext { get; protected set; }
+    public abstract string? CustomNextStepName { get; protected set; }
 
-    public abstract bool HasPreviousStep { get; }
-    public abstract bool CanGoBack { get; }
+    public abstract bool HasPreviousStep { get; protected set; }
+    public abstract bool CanGoBack { get; protected set; }
 
-    public abstract string? CustomCloseWizardCommandName { get; }
+    public abstract string? CustomCloseWizardCommandName { get; protected set; }
 
     public ICommand Next => _nextCmd ??= new RelayCommand(NextCmd);
     public ICommand Back => _backCmd ??= new RelayCommand(BackCmd);
