@@ -8,7 +8,7 @@ public abstract class HierarchyNodeBase : ContentControl
     public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(
         nameof(IsReadOnly),
         typeof(bool),
-        typeof(ImageFile),
+        typeof(HierarchyNodeBase),
         new PropertyMetadata(
             false,
             (obj, args) =>

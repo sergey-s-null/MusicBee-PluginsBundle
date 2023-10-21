@@ -17,7 +17,6 @@ public partial class Directory : HierarchyNodeBase
         }
 
         UpdateContextMenuDisplayingState();
-        throw new NotImplementedException();
     }
 
     private void UpdateContextMenuDisplayingState()
