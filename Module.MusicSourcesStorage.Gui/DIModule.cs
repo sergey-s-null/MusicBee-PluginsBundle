@@ -8,7 +8,7 @@ using Module.MusicSourcesStorage.Gui.Views;
 
 namespace Module.MusicSourcesStorage.Gui;
 
-public class Module : Autofac.Module
+public class DIModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {
