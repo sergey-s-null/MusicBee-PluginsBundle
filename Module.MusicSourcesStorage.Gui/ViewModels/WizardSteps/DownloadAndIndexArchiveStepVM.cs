@@ -1,25 +1,29 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+using Module.MusicSourcesStorage.Gui.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
+using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
+[AddINotifyPropertyChangedInterface]
 public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
 
-    private readonly VkDocument _vkDocument;
-
+    private readonly IAddingVkPostWithArchiveContext _context;
     private readonly IVkDocumentDownloader _vkDocumentDownloader;
     private readonly IArchiveIndexer _archiveIndexer;
 
     public DownloadAndIndexArchiveStepVM(
-        VkDocument vkDocument,
+        IAddingVkPostWithArchiveContext context,
         IVkDocumentDownloader vkDocumentDownloader,
         IArchiveIndexer archiveIndexer)
     {
-        _vkDocument = vkDocument;
+        _context = context;
         _vkDocumentDownloader = vkDocumentDownloader;
         _archiveIndexer = archiveIndexer;
+
+        _context.ValidateHasSelectedDocument();
 
         Text = "Starting";
     }
@@ -27,12 +31,11 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
     protected override async Task ProcessAsync(CancellationToken token)
     {
         Text = "Downloading archive";
-        var archiveFilePath = await _vkDocumentDownloader.DownloadAsync(_vkDocument, token);
+        var archiveFilePath = await _vkDocumentDownloader.DownloadAsync(_context.SelectedDocument!, token);
 
         Text = "Indexing archive";
         var files = _archiveIndexer.Index(archiveFilePath);
 
-        // todo save result to context
-        throw new NotImplementedException();
+        _context.IndexedFiles = files;
     }
 }

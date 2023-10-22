@@ -1,7 +1,11 @@
-﻿using Module.MusicSourcesStorage.Logic.Services.Abstract;
+﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+using Module.MusicSourcesStorage.Gui.Extensions;
+using Module.MusicSourcesStorage.Logic.Services.Abstract;
+using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
+[AddINotifyPropertyChangedInterface]
 public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
@@ -9,27 +13,32 @@ public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
     private readonly ulong _postOwnerId;
     private readonly ulong _postId;
 
+    private readonly IAddingVkPostWithArchiveContext _context;
     private readonly IVkService _vkService;
 
     public ReceiveVkPostDocumentsStepVM(
-        ulong postOwnerId,
-        ulong postId,
+        IAddingVkPostWithArchiveContext context,
         IVkService vkService)
     {
-        // todo get ids from context
-        _postOwnerId = postOwnerId;
-        _postId = postId;
-
+        _context = context;
         _vkService = vkService;
+
+        _context.ValidateHasPostId();
+
+        _postOwnerId = _context.PostId!.OwnerId;
+        _postId = _context.PostId.LocalId;
 
         Text = "Receiving documents attached to post";
     }
 
     protected override async Task ProcessAsync(CancellationToken token)
     {
-        var documents = await _vkService.GetAttachedDocumentsFromPostAsync(_postOwnerId, _postId, token);
+        var documents = await _vkService.GetAttachedDocumentsFromPostAsync(
+            _postOwnerId,
+            _postId,
+            token
+        );
 
-        // todo save docs to context
-        throw new NotImplementedException();
+        _context.AttachedDocuments = documents;
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
@@ -20,11 +20,11 @@ public sealed class SelectVkPostStepVM : ISelectVkPostStepVM
     public ulong? OwnerId { get; private set; }
     public ulong? PostId { get; private set; }
 
-    private readonly IVkPostWithArchiveMusicSourceBuilder _musicSourceBuilder;
+    private readonly IAddingVkPostWithArchiveContext _context;
 
-    public SelectVkPostStepVM(IVkPostWithArchiveMusicSourceBuilder builder)
+    public SelectVkPostStepVM(IAddingVkPostWithArchiveContext context)
     {
-        _musicSourceBuilder = builder;
+        _context = context;
 
         PostGlobalId = string.Empty;
     }
@@ -36,7 +36,7 @@ public sealed class SelectVkPostStepVM : ISelectVkPostStepVM
             throw new InvalidOperationException();
         }
 
-        _musicSourceBuilder.PostId = new VkPostGlobalId(OwnerId.Value, PostId.Value);
+        _context.PostId = new VkPostGlobalId(OwnerId.Value, PostId.Value);
 
         return StepResult.Success;
     }

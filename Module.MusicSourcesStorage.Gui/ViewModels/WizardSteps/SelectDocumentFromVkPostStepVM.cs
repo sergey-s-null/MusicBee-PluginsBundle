@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
+using Module.MusicSourcesStorage.Gui.Extensions;
 using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
@@ -20,25 +21,24 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
     [OnChangedMethod(nameof(UpdateValidityState))]
     public IVkDocumentVM? SelectedDocument { get; set; }
 
-    private readonly IVkPostWithArchiveMusicSourceBuilder _musicSourceBuilder;
+    private readonly IAddingVkPostWithArchiveContext _context;
     private readonly IMapper _mapper;
 
     private readonly IReadOnlyDictionary<IVkDocumentVM, VkDocument> _documentsMap;
 
     public SelectDocumentFromVkPostStepVM(
-        IReadOnlyList<VkDocument> documents,
-        IVkPostWithArchiveMusicSourceBuilder musicSourceBuilder,
+        IAddingVkPostWithArchiveContext context,
         IMapper mapper)
     {
-        _musicSourceBuilder = musicSourceBuilder;
+        _context = context;
         _mapper = mapper;
 
-        ValidateBuilderState();
+        ValidateContext();
 
-        PostOwnerId = _musicSourceBuilder.PostId!.OwnerId;
-        PostId = _musicSourceBuilder.PostId!.LocalId;
+        PostOwnerId = _context.PostId!.OwnerId;
+        PostId = _context.PostId!.LocalId;
 
-        MapDocuments(documents, out _documentsMap, out var viewModels, out var selectedViewModel);
+        MapDocuments(_context.AttachedDocuments!, out _documentsMap, out var viewModels, out var selectedViewModel);
         Documents = viewModels;
         SelectedDocument = selectedViewModel;
 
@@ -52,20 +52,15 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
             throw new InvalidOperationException();
         }
 
-        _musicSourceBuilder.Document = _documentsMap[SelectedDocument];
+        _context.SelectedDocument = _documentsMap[SelectedDocument];
 
         return StepResult.Success;
     }
 
-    private void ValidateBuilderState()
+    private void ValidateContext()
     {
-        if (_musicSourceBuilder.PostId is null)
-        {
-            throw new InvalidOperationException(
-                "Music source builder has invalid state. " +
-                "PostId is null."
-            );
-        }
+        _context.ValidateHasPostId();
+        _context.ValidateHasAttachedDocuments();
     }
 
     private void MapDocuments(
@@ -84,7 +79,7 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
             mapInternal[viewModel] = document;
             viewModelsInternal.Add(viewModel);
 
-            if (_musicSourceBuilder.Document == document)
+            if (_context.SelectedDocument == document)
             {
                 selectedViewModel = viewModel;
             }
