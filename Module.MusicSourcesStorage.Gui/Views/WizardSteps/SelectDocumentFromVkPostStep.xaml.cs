@@ -2,9 +2,9 @@
 
 namespace Module.MusicSourcesStorage.Gui.Views.WizardSteps;
 
-public partial class SelectVkPostAttachmentStep : UserControl
+public partial class SelectDocumentFromVkPostStep : UserControl
 {
-    public SelectVkPostAttachmentStep()
+    public SelectDocumentFromVkPostStep()
     {
         InitializeComponent();
     }

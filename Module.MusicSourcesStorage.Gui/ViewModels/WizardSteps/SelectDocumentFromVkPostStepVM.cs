@@ -4,7 +4,7 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class SelectVkPostAttachmentStepVM : ManualStepBaseVM, ISelectVkPostAttachmentStepVM
+public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDocumentFromVkPostStepVM
 {
     public override bool CanSafelyCloseWizard { get; protected set; }
 
@@ -20,19 +20,19 @@ public sealed class SelectVkPostAttachmentStepVM : ManualStepBaseVM, ISelectVkPo
     public ulong PostOwnerId { get; }
     public ulong PostId { get; }
 
-    public IReadOnlyList<IVkPostAttachmentVM> Attachments { get; }
+    public IReadOnlyList<IVkDocumentVM> Documents { get; }
 
-    [OnChangedMethod(nameof(OnSelectedAttachmentChanged))]
-    public IVkPostAttachmentVM? SelectedAttachment { get; set; }
+    [OnChangedMethod(nameof(OnSelectedDocumentChanged))]
+    public IVkDocumentVM? SelectedDocument { get; set; }
 
-    public SelectVkPostAttachmentStepVM(
+    public SelectDocumentFromVkPostStepVM(
         ulong postOwnerId,
         ulong postId,
-        IReadOnlyList<IVkPostAttachmentVM> attachments)
+        IReadOnlyList<IVkDocumentVM> documents)
     {
         PostOwnerId = postOwnerId;
         PostId = postId;
-        Attachments = attachments;
+        Documents = documents;
 
         CanSafelyCloseWizard = false;
         HasNextStep = true;
@@ -53,8 +53,8 @@ public sealed class SelectVkPostAttachmentStepVM : ManualStepBaseVM, ISelectVkPo
         throw new NotImplementedException();
     }
 
-    private void OnSelectedAttachmentChanged()
+    private void OnSelectedDocumentChanged()
     {
-        CanGoNext = SelectedAttachment is not null;
+        CanGoNext = SelectedDocument is not null;
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps;
 
-public sealed class VkPostAttachmentDTVM : IVkPostAttachmentVM
+public sealed class VkDocumentDTVM : IVkDocumentVM
 {
     public string Name { get; }
 
-    public VkPostAttachmentDTVM(string name)
+    public VkDocumentDTVM(string name)
     {
         Name = name;
     }

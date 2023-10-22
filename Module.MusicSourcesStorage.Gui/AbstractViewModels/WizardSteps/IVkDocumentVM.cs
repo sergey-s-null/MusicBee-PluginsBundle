@@ -1,6 +1,6 @@
 ﻿namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 
-public interface IVkPostAttachmentVM
+public interface IVkDocumentVM
 {
     string Name { get; }
 }

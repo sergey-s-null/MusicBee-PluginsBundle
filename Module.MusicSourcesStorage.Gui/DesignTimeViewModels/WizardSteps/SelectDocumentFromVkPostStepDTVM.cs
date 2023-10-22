@@ -4,7 +4,7 @@ using Module.MusicSourcesStorage.Gui.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps;
 
-public sealed class SelectVkPostAttachmentStepDTVM : ISelectVkPostAttachmentStepVM
+public sealed class SelectDocumentFromVkPostStepDTVM : ISelectDocumentFromVkPostStepVM
 {
     public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
     public event EventHandler? CloseWizardRequested;
@@ -27,23 +27,23 @@ public sealed class SelectVkPostAttachmentStepDTVM : ISelectVkPostAttachmentStep
     public ulong PostOwnerId => 2323;
     public ulong PostId => 600909;
 
-    public IReadOnlyList<IVkPostAttachmentVM> Attachments { get; }
-    public IVkPostAttachmentVM? SelectedAttachment { get; set; }
+    public IReadOnlyList<IVkDocumentVM> Documents { get; }
+    public IVkDocumentVM? SelectedDocument { get; set; }
 
-    public SelectVkPostAttachmentStepDTVM()
+    public SelectDocumentFromVkPostStepDTVM()
     {
-        var attachments = new List<IVkPostAttachmentVM>
+        var documents = new List<IVkDocumentVM>
         {
-            new VkPostAttachmentDTVM("Attachment1"),
-            new VkPostAttachmentDTVM("Music_flac.zip"),
-            new VkPostAttachmentDTVM("Music_mp3.rar"),
+            new VkDocumentDTVM("Document1"),
+            new VkDocumentDTVM("Music_flac.zip"),
+            new VkDocumentDTVM("Music_mp3.rar"),
         };
 
         for (var i = 0; i < 100; i++)
         {
-            attachments.Add(new VkPostAttachmentDTVM("empty.rar"));
+            documents.Add(new VkDocumentDTVM("empty.rar"));
         }
 
-        Attachments = attachments;
+        Documents = documents;
     }
 }
