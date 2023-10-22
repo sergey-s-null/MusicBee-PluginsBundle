@@ -6,5 +6,7 @@ public interface IVkPostWithArchiveMusicSourceBuilder
 {
     VkPostGlobalId? PostId { get; set; }
 
+    VkDocument? Document { get; set; }
+
     VkPostWithArchiveMusicSource Build();
 }
