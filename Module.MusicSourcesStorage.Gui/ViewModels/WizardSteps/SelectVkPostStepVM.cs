@@ -3,6 +3,7 @@ using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
@@ -22,11 +23,15 @@ public sealed class SelectVkPostStepVM : ISelectVkPostStepVM
 
     private readonly IAddingVkPostWithArchiveContext _context;
 
-    public SelectVkPostStepVM(IAddingVkPostWithArchiveContext context)
+    public SelectVkPostStepVM(
+        IAddingVkPostWithArchiveContext context,
+        IVkService vkService)
     {
         _context = context;
 
-        PostGlobalId = string.Empty;
+        PostGlobalId = context.PostId is not null
+            ? vkService.GetPostGlobalIdString(context.PostId)
+            : string.Empty;
     }
 
     public StepResult Confirm()
