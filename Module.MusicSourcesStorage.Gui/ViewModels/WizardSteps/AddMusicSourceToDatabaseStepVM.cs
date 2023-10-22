@@ -6,7 +6,7 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
 
     public AddMusicSourceToDatabaseStepVM()
     {
-        Text = "Adding music source to database";
+        Text = "Starting";
     }
 
     protected override Task ProcessAsync(CancellationToken token)
