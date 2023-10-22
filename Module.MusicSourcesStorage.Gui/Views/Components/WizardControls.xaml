@@ -30,8 +30,7 @@
                             <Setter.Value>
                                 <components:WizardStepControls
                                     VerticalAlignment="Center"
-                                    Margin="0 0 12 0"
-                                    DataContext="{Binding CurrentStep}" />
+                                    Margin="0 0 12 0" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
