@@ -22,6 +22,6 @@ public class IndexingResultStepDTVM : IIndexingResultStepVM
 
     public StepResult Confirm()
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }

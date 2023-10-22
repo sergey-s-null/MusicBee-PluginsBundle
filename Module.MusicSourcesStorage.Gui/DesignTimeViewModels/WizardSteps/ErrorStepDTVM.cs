@@ -11,6 +11,6 @@ public sealed class ErrorStepDTVM : IErrorStepVM
 
     public StepResult Confirm()
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }

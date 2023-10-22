@@ -15,6 +15,6 @@ public sealed class ProcessingStepDTVM : IProcessingStepVM
 
     public void Start()
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }

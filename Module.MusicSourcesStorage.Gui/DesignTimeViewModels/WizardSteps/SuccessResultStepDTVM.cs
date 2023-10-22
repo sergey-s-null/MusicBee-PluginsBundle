@@ -20,6 +20,6 @@ public sealed class SuccessResultStepDTVM : ISuccessResultStepVM
 
     public StepResult Confirm()
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }

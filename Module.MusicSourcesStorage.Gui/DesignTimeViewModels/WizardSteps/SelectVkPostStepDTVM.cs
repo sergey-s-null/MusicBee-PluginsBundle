@@ -38,6 +38,6 @@ public sealed class SelectVkPostStepDTVM : ISelectVkPostStepVM
 
     public StepResult Confirm()
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }
