@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
@@ -26,12 +27,13 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
     public IVkDocumentVM? SelectedDocument { get; set; }
 
     public SelectDocumentFromVkPostStepVM(
-        ulong postOwnerId,
-        ulong postId,
+        IVkPostWithArchiveMusicSourceBuilder musicSourceBuilder,
         IReadOnlyList<IVkDocumentVM> documents)
     {
-        PostOwnerId = postOwnerId;
-        PostId = postId;
+        ValidateCurrentState(musicSourceBuilder);
+
+        PostOwnerId = musicSourceBuilder.PostOwnerId!.Value;
+        PostId = musicSourceBuilder.PostId!.Value;
         Documents = documents;
 
         CanSafelyCloseWizard = false;
@@ -56,5 +58,16 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
     private void OnSelectedDocumentChanged()
     {
         CanGoNext = SelectedDocument is not null;
+    }
+
+    private static void ValidateCurrentState(IVkPostWithArchiveMusicSourceBuilder musicSourceBuilder)
+    {
+        if (musicSourceBuilder.PostOwnerId is null || musicSourceBuilder.PostId is null)
+        {
+            throw new InvalidOperationException(
+                "Music source build has invalid state. " +
+                "PostOwnerId or PostId is null."
+            );
+        }
     }
 }
