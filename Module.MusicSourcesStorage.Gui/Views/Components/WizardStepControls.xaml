@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps"
+             xmlns:avm="clr-namespace:Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
              xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance dtvm:ManualWizardStepDTVM}">
+             d:DataContext="{d:DesignInstance dtvm:WizardDTVM}">
     <UserControl.Resources>
         <converters:BoolToVisibilityConverter
             x:Key="FalseToHiddenVisibilityConverter"
@@ -29,13 +30,12 @@
                     Binding HasPreviousStep,
                     Converter={StaticResource FalseToHiddenVisibilityConverter}
                 }"
-                IsEnabled="{Binding CanGoBack}"
                 Command="{Binding Back}" />
 
         <Button Grid.Column="1"
                 Margin="12 0 0 0" Padding="6 0"
                 Content="{
-                    Binding CustomNextStepName,
+                    Binding CustomNextCommandName,
                     Converter={StaticResource NullCoalescingConverter},
                     ConverterParameter=Next
                 }"
@@ -43,7 +43,7 @@
                     Binding HasNextStep,
                     Converter={StaticResource FalseToHiddenVisibilityConverter}
                 }"
-                IsEnabled="{Binding CanGoNext}"
+                IsEnabled="{Binding CurrentStep.(avm:IManualWizardStepVM.IsValidState), FallbackValue=False}"
                 Command="{Binding Next}" />
 
         <Button Grid.Column="2"
@@ -53,6 +53,6 @@
                     Converter={StaticResource NullCoalescingConverter},
                     ConverterParameter=Cancel
                 }"
-                Command="{Binding CloseWizard}" />
+                Command="{Binding Close}" />
     </Grid>
 </UserControl>

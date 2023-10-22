@@ -1,17 +1,14 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities;
-using Module.MusicSourcesStorage.Gui.Factories.Abstract;
+using Module.MusicSourcesStorage.Gui.Enums;
 using Module.Mvvm.Extension;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
 public abstract class ProcessingStepBaseVM : IProcessingStepVM
 {
-    public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
-    public event EventHandler? CloseWizardRequested;
-
-    public abstract bool CanSafelyCloseWizard { get; protected set; }
+    public event EventHandler<StepResultEventArgs>? ProcessingCompleted;
 
     public abstract string Text { get; protected set; }
 
@@ -19,15 +16,8 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
 
     private ICommand? _cancelCmd;
 
-    private readonly IWizardCommonStepsFactory _commonStepsFactory;
-
     private CancellationTokenSource? _cancellationTokenSource;
     private Task? _task;
-
-    protected ProcessingStepBaseVM(IWizardCommonStepsFactory commonStepsFactory)
-    {
-        _commonStepsFactory = commonStepsFactory;
-    }
 
     public void Start()
     {
@@ -36,43 +26,46 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
             .ContinueWith(HandleTaskEnd, _cancellationTokenSource.Token);
     }
 
-    protected abstract Task<IWizardStepVM> ProcessAsync(CancellationToken token);
+    protected abstract Task ProcessAsync(CancellationToken token);
 
-    private void HandleTaskEnd(Task<IWizardStepVM> task)
+    private void HandleTaskEnd(Task task)
     {
         switch (task)
         {
             case { Status: TaskStatus.RanToCompletion }:
-                MakeTransition(task.Result);
+                DispatchProcessingCompletedEvent(StepResult.Success);
                 break;
             case { Exception: not null }:
-                MakeTransition(_commonStepsFactory.CreateErrorStep(task.Exception));
+                // todo set error in wizard context
+                DispatchProcessingCompletedEvent(StepResult.Error);
                 break;
             default:
-                MakeTransition(_commonStepsFactory.CreateErrorStep(
-                    "Task was not ran to completion and does not contains exception. " +
-                    $"Task status: {task.Status}."
-                ));
+                // todo set error in wizard context
+                //     "Task was not ran to completion and does not contains exception. " +
+                //     $"Task status: {task.Status}."
+                DispatchProcessingCompletedEvent(StepResult.Error);
                 break;
         }
     }
 
-    private void MakeTransition(IWizardStepVM nextStep)
-    {
-        StepTransitionRequested?.Invoke(
-            this,
-            new StepTransitionEventArgs(nextStep)
-        );
-    }
-
     private void CancelCmd()
     {
-        if (_cancellationTokenSource is null || _task is null)
+        if (_cancellationTokenSource is null)
         {
             return;
         }
 
         _cancellationTokenSource.Cancel();
-        _task.Wait();
+        _task?.Wait();
+
+        DispatchProcessingCompletedEvent(StepResult.Canceled);
+    }
+
+    private void DispatchProcessingCompletedEvent(StepResult result)
+    {
+        ProcessingCompleted?.Invoke(
+            this,
+            new StepResultEventArgs(result)
+        );
     }
 }

@@ -1,13 +1,9 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
-using Module.MusicSourcesStorage.Gui.Factories.Abstract;
-using Module.MusicSourcesStorage.Logic.Services.Abstract;
+﻿using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
 public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
 {
-    public override bool CanSafelyCloseWizard { get; protected set; }
-
     public override string Text { get; protected set; }
 
     private readonly ulong _postOwnerId;
@@ -18,23 +14,22 @@ public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
     public ReceiveVkPostDocumentsStepVM(
         ulong postOwnerId,
         ulong postId,
-        IVkService vkService,
-        IWizardCommonStepsFactory commonStepsFactory)
-        : base(commonStepsFactory)
+        IVkService vkService)
     {
+        // todo get ids from context
         _postOwnerId = postOwnerId;
         _postId = postId;
 
         _vkService = vkService;
 
-        CanSafelyCloseWizard = false;
         Text = "Receiving documents attached to post";
     }
 
-    protected override async Task<IWizardStepVM> ProcessAsync(CancellationToken token)
+    protected override async Task ProcessAsync(CancellationToken token)
     {
         var documents = await _vkService.GetAttachedDocumentsFromPostAsync(_postOwnerId, _postId, token);
 
+        // todo save docs to context
         throw new NotImplementedException();
     }
 }

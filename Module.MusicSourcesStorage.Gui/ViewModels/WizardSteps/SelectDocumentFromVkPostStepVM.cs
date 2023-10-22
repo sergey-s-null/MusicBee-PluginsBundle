@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
@@ -7,25 +8,16 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDocumentFromVkPostStepVM
+public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostStepVM
 {
-    public override bool CanSafelyCloseWizard { get; protected set; }
-
-    public override bool HasNextStep { get; protected set; }
-    public override bool CanGoNext { get; protected set; }
-    public override string? CustomNextStepName { get; protected set; }
-
-    public override bool HasPreviousStep { get; protected set; }
-    public override bool CanGoBack { get; protected set; }
-
-    public override string? CustomCloseWizardCommandName { get; protected set; }
+    public bool IsValidState { get; private set; }
 
     public ulong PostOwnerId { get; }
     public ulong PostId { get; }
 
     public IReadOnlyList<IVkDocumentVM> Documents { get; }
 
-    [OnChangedMethod(nameof(OnSelectedDocumentChanged))]
+    [OnChangedMethod(nameof(UpdateValidityState))]
     public IVkDocumentVM? SelectedDocument { get; set; }
 
     private readonly IVkPostWithArchiveMusicSourceBuilder _musicSourceBuilder;
@@ -41,15 +33,7 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
         _musicSourceBuilder = musicSourceBuilder;
         _mapper = mapper;
 
-        ValidateCurrentState();
-
-        CanSafelyCloseWizard = false;
-        HasNextStep = true;
-        CanGoNext = false;
-        CustomNextStepName = null;
-        HasPreviousStep = true;
-        CanGoBack = true;
-        CustomCloseWizardCommandName = null;
+        ValidateBuilderState();
 
         PostOwnerId = _musicSourceBuilder.PostId!.OwnerId;
         PostId = _musicSourceBuilder.PostId!.LocalId;
@@ -57,26 +41,23 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
         MapDocuments(documents, out _documentsMap, out var viewModels, out var selectedViewModel);
         Documents = viewModels;
         SelectedDocument = selectedViewModel;
+
+        UpdateValidityState();
     }
 
-    protected override IWizardStepVM GetNextStep()
+    public StepResult Confirm()
     {
-        if (SelectedDocument is null)
+        if (!IsValidState || SelectedDocument is null)
         {
             throw new InvalidOperationException();
         }
 
         _musicSourceBuilder.Document = _documentsMap[SelectedDocument];
 
-        throw new NotImplementedException();
+        return StepResult.Success;
     }
 
-    protected override IWizardStepVM GetPreviousStep()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void ValidateCurrentState()
+    private void ValidateBuilderState()
     {
         if (_musicSourceBuilder.PostId is null)
         {
@@ -113,8 +94,8 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
         viewModels = viewModelsInternal;
     }
 
-    private void OnSelectedDocumentChanged()
+    private void UpdateValidityState()
     {
-        CanGoNext = SelectedDocument is not null;
+        IsValidState = SelectedDocument is not null;
     }
 }

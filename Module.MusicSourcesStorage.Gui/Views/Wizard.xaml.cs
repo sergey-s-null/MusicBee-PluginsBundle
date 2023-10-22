@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Windows;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 
@@ -6,21 +5,18 @@ namespace Module.MusicSourcesStorage.Gui.Views;
 
 public partial class Wizard : Window
 {
-    private readonly IWizardVM _viewModel;
-
-    public Wizard(Func<Window, IWizardVM> viewModelFactory)
+    public Wizard(Func<Wizard, IWizardVM> viewModelFactory)
     {
         InitializeComponent();
 
-        _viewModel = viewModelFactory(this);
-        DataContext = _viewModel;
+        DataContext = viewModelFactory(this);
     }
 
-    protected override void OnClosing(CancelEventArgs e)
+    public void Close(bool askUser)
     {
-        if (_viewModel.CurrentStep.CanSafelyCloseWizard)
+        if (!askUser)
         {
-            base.OnClosing(e);
+            Close();
             return;
         }
 
@@ -32,9 +28,9 @@ public partial class Wizard : Window
             MessageBoxImage.Question
         );
 
-        if (result != MessageBoxResult.Yes)
+        if (result == MessageBoxResult.Yes)
         {
-            e.Cancel = true;
+            Close();
         }
     }
 }

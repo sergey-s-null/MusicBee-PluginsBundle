@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -7,18 +8,9 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class SelectVkPostStepVM : ManualStepBaseVM, ISelectVkPostStepVM
+public sealed class SelectVkPostStepVM : ISelectVkPostStepVM
 {
-    public override bool CanSafelyCloseWizard { get; protected set; }
-
-    public override bool HasNextStep { get; protected set; }
-    public override bool CanGoNext { get; protected set; }
-    public override string? CustomNextStepName { get; protected set; }
-
-    public override bool HasPreviousStep { get; protected set; }
-    public override bool CanGoBack { get; protected set; }
-
-    public override string? CustomCloseWizardCommandName { get; protected set; }
+    public bool IsValidState { get; private set; }
 
     [OnChangedMethod(nameof(OnPostGlobalIdChanged))]
     public string PostGlobalId { get; set; }
@@ -34,33 +26,19 @@ public sealed class SelectVkPostStepVM : ManualStepBaseVM, ISelectVkPostStepVM
     {
         _musicSourceBuilder = builder;
 
-        CanSafelyCloseWizard = true;
-        HasNextStep = true;
-        CanGoNext = false;
-        CustomNextStepName = null;
-        HasPreviousStep = false;
-        CanGoBack = false;
-        CustomCloseWizardCommandName = null;
-
         PostGlobalId = string.Empty;
     }
 
-    protected override IWizardStepVM GetNextStep()
+    public StepResult Confirm()
     {
-        if (OwnerId is null || PostId is null)
+        if (!IsValidState || OwnerId is null || PostId is null)
         {
             throw new InvalidOperationException();
         }
 
         _musicSourceBuilder.PostId = new VkPostGlobalId(OwnerId.Value, PostId.Value);
 
-        // todo add transition
-        throw new NotImplementedException();
-    }
-
-    protected override IWizardStepVM GetPreviousStep()
-    {
-        throw new InvalidOperationException();
+        return StepResult.Success;
     }
 
     private void OnPostGlobalIdChanged()
@@ -70,14 +48,14 @@ public sealed class SelectVkPostStepVM : ManualStepBaseVM, ISelectVkPostStepVM
             OwnerId = postOwnerId;
             PostId = postId;
             IsValidPostGlobalId = true;
-            CanGoNext = true;
+            IsValidState = true;
         }
         else
         {
             OwnerId = null;
             PostId = null;
             IsValidPostGlobalId = false;
-            CanGoNext = false;
+            IsValidState = false;
         }
     }
 }

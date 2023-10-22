@@ -6,10 +6,8 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps;
 
 public sealed class ProcessingStepDTVM : IProcessingStepVM
 {
-    public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
-    public event EventHandler? CloseWizardRequested;
-
-    public bool CanSafelyCloseWizard => false;
+    #pragma warning disable CS0067
+    public event EventHandler<StepResultEventArgs>? ProcessingCompleted;
 
     public string Text => "Do very very very very hard work";
 

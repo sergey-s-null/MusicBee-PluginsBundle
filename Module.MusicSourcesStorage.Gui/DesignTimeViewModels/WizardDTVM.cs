@@ -2,23 +2,24 @@ using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps;
-using Module.Mvvm.Extension;
-using PropertyChanged;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-[AddINotifyPropertyChangedInterface]
 public sealed class WizardDTVM : IWizardVM
 {
-    public IWizardStepVM CurrentStep { get; private set; }
+    public IWizardStepVM CurrentStep { get; }
 
-    public ICommand Back => _backCmd ??= new RelayCommand(BackCmd);
-    public ICommand Next => _nextCmd ??= new RelayCommand(NextCmd);
-    public ICommand Cancel => _cancelCmd ??= new RelayCommand(CancelCmd);
+    public bool HasNextStep => true;
+    public string? CustomNextCommandName => "Add";
 
-    private ICommand? _backCmd;
-    private ICommand? _nextCmd;
-    private ICommand? _cancelCmd;
+    public bool HasPreviousStep => true;
+
+    public string? CustomCloseWizardCommandName => "End";
+
+    public ICommand Next => null!;
+    public ICommand Back => null!;
+    public ICommand Close => null!;
 
     public WizardDTVM()
     {
@@ -30,18 +31,8 @@ public sealed class WizardDTVM : IWizardVM
         CurrentStep = initialStep;
     }
 
-    private void BackCmd()
+    public WizardDTVM(IWizardStepDescriptor descriptor)
     {
-        throw new NotImplementedException();
-    }
-
-    private void NextCmd()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void CancelCmd()
-    {
-        throw new NotImplementedException();
+        CurrentStep = descriptor.CreateStepViewModel();
     }
 }

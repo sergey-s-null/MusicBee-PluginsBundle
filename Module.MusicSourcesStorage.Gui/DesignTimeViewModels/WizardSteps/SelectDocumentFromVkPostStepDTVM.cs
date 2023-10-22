@@ -1,28 +1,11 @@
-﻿using System.Windows.Input;
-using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
-using Module.MusicSourcesStorage.Gui.Entities;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps;
 
 public sealed class SelectDocumentFromVkPostStepDTVM : ISelectDocumentFromVkPostStepVM
 {
-    public event EventHandler<StepTransitionEventArgs>? StepTransitionRequested;
-    public event EventHandler? CloseWizardRequested;
-
-    public bool CanSafelyCloseWizard => true;
-
-    public bool HasNextStep => true;
-    public bool CanGoNext => false;
-    public string? CustomNextStepName => null;
-
-    public bool HasPreviousStep => true;
-    public bool CanGoBack => true;
-
-    public string? CustomCloseWizardCommandName => null;
-
-    public ICommand Back => null!;
-    public ICommand Next => null!;
-    public ICommand CloseWizard => null!;
+    public bool IsValidState => true;
 
     public ulong PostOwnerId => 2323;
     public ulong PostId => 600909;
@@ -45,5 +28,10 @@ public sealed class SelectDocumentFromVkPostStepDTVM : ISelectDocumentFromVkPost
         }
 
         Documents = documents;
+    }
+
+    public StepResult Confirm()
+    {
+        throw new NotImplementedException();
     }
 }
