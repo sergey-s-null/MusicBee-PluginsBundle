@@ -6,4 +6,5 @@ public interface ISelectVkPostAttachmentStepVM : IManualWizardStepVM
     ulong PostId { get; }
 
     IReadOnlyList<IVkPostAttachmentVM> Attachments { get; }
+    IVkPostAttachmentVM? SelectedAttachment { get; set; }
 }
