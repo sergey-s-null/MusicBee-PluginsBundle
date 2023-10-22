@@ -1,5 +1,6 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Helpers;
+using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
@@ -26,8 +27,12 @@ public sealed class SelectVkPostStepVM : ManualStepBaseVM, ISelectVkPostStepVM
     public ulong? OwnerId { get; private set; }
     public ulong? PostId { get; private set; }
 
-    public SelectVkPostStepVM()
+    private readonly IVkPostWithArchiveMusicSourceBuilder _musicSourceBuilder;
+
+    public SelectVkPostStepVM(IVkPostWithArchiveMusicSourceBuilder builder)
     {
+        _musicSourceBuilder = builder;
+
         CanSafelyCloseWizard = true;
         HasNextStep = true;
         CanGoNext = false;
@@ -41,6 +46,15 @@ public sealed class SelectVkPostStepVM : ManualStepBaseVM, ISelectVkPostStepVM
 
     protected override IWizardStepVM GetNextStep()
     {
+        if (OwnerId is null || PostId is null)
+        {
+            throw new InvalidOperationException();
+        }
+
+        _musicSourceBuilder.PostOwnerId = OwnerId;
+        _musicSourceBuilder.PostId = PostId;
+
+        // todo add transition
         throw new NotImplementedException();
     }
 
