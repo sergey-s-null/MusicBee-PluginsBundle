@@ -29,10 +29,20 @@ public sealed class VkService : IVkService
             .ToList();
     }
 
+    public string GetPostGlobalIdString(ulong ownerId, ulong localId)
+    {
+        return $"-{ownerId}_{localId}";
+    }
+
+    public string GetPostGlobalIdString(VkPostGlobalId id)
+    {
+        return GetPostGlobalIdString(id.OwnerId, id.LocalId);
+    }
+
     private async Task<Post> GetPostByIdAsync(ulong postOwnerId, ulong postId, CancellationToken token)
     {
         var result = await Task.Run(
-            () => _vkApi.Wall.GetById(new[] { GetPostGlobalId(postOwnerId, postId) }),
+            () => _vkApi.Wall.GetById(new[] { GetPostGlobalIdString(postOwnerId, postId) }),
             token
         );
 
@@ -48,10 +58,5 @@ public sealed class VkService : IVkService
         }
 
         return posts.Single();
-    }
-
-    private static string GetPostGlobalId(ulong postOwnerId, ulong postId)
-    {
-        return $"-{postOwnerId}_{postId}";
     }
 }

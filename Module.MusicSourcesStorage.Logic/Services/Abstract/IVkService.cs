@@ -12,4 +12,8 @@ public interface IVkService
         ulong postOwnerId,
         ulong postId,
         CancellationToken token = default);
+
+    string GetPostGlobalIdString(ulong ownerId, ulong localId);
+
+    string GetPostGlobalIdString(VkPostGlobalId id);
 }
