@@ -43,7 +43,7 @@
                     Binding HasNextStep,
                     Converter={StaticResource FalseToHiddenVisibilityConverter}
                 }"
-                IsEnabled="{Binding CurrentStep.(avm:IManualWizardStepVM.IsValidState), FallbackValue=False}"
+                IsEnabled="{Binding Path=CurrentStep.(avm:IManualWizardStepVM.IsValidState), FallbackValue=False}"
                 Command="{Binding Next}" />
 
         <Button Grid.Column="2"
