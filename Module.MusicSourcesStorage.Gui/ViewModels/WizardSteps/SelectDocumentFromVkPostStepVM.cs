@@ -29,13 +29,17 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
     public IVkDocumentVM? SelectedDocument { get; set; }
 
     private readonly IVkPostWithArchiveMusicSourceBuilder _musicSourceBuilder;
+    private readonly IMapper _mapper;
+
+    private readonly IReadOnlyDictionary<IVkDocumentVM, VkDocument> _documentsMap;
 
     public SelectDocumentFromVkPostStepVM(
         IReadOnlyList<VkDocument> documents,
         IVkPostWithArchiveMusicSourceBuilder musicSourceBuilder,
-        IMapperBase mapper)
+        IMapper mapper)
     {
         _musicSourceBuilder = musicSourceBuilder;
+        _mapper = mapper;
 
         ValidateCurrentState();
 
@@ -49,8 +53,10 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
 
         PostOwnerId = _musicSourceBuilder.PostId!.OwnerId;
         PostId = _musicSourceBuilder.PostId!.LocalId;
-        Documents = mapper.Map<IReadOnlyList<IVkDocumentVM>>(documents);
-        RestoreSelectedDocument();
+
+        MapDocuments(documents, out _documentsMap, out var viewModels, out var selectedViewModel);
+        Documents = viewModels;
+        SelectedDocument = selectedViewModel;
     }
 
     protected override IWizardStepVM GetNextStep()
@@ -60,7 +66,7 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
             throw new InvalidOperationException();
         }
 
-        _musicSourceBuilder.Document = SelectedDocument.UnderlyingModel;
+        _musicSourceBuilder.Document = _documentsMap[SelectedDocument];
 
         throw new NotImplementedException();
     }
@@ -81,16 +87,30 @@ public sealed class SelectDocumentFromVkPostStepVM : ManualStepBaseVM, ISelectDo
         }
     }
 
-    private void RestoreSelectedDocument()
+    private void MapDocuments(
+        IReadOnlyList<VkDocument> documents,
+        out IReadOnlyDictionary<IVkDocumentVM, VkDocument> map,
+        out IReadOnlyList<IVkDocumentVM> viewModels,
+        out IVkDocumentVM? selectedViewModel)
     {
-        if (_musicSourceBuilder.Document is null)
+        var mapInternal = new Dictionary<IVkDocumentVM, VkDocument>();
+        var viewModelsInternal = new List<IVkDocumentVM>();
+        selectedViewModel = null;
+
+        foreach (var document in documents)
         {
-            return;
+            var viewModel = _mapper.Map<IVkDocumentVM>(document);
+            mapInternal[viewModel] = document;
+            viewModelsInternal.Add(viewModel);
+
+            if (_musicSourceBuilder.Document == document)
+            {
+                selectedViewModel = viewModel;
+            }
         }
 
-        SelectedDocument = Documents.FirstOrDefault(
-            x => x.UnderlyingModel == _musicSourceBuilder.Document
-        );
+        map = mapInternal;
+        viewModels = viewModelsInternal;
     }
 
     private void OnSelectedDocumentChanged()
