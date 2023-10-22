@@ -4,8 +4,7 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 public interface IVkPostWithArchiveMusicSourceBuilder
 {
-    ulong? PostOwnerId { get; set; }
-    ulong? PostId { get; set; }
+    VkPostGlobalId? PostId { get; set; }
 
     VkPostWithArchiveMusicSource Build();
 }

@@ -1,5 +1,6 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Helpers;
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
@@ -51,8 +52,7 @@ public sealed class SelectVkPostStepVM : ManualStepBaseVM, ISelectVkPostStepVM
             throw new InvalidOperationException();
         }
 
-        _musicSourceBuilder.PostOwnerId = OwnerId;
-        _musicSourceBuilder.PostId = PostId;
+        _musicSourceBuilder.PostId = new VkPostGlobalId(OwnerId.Value, PostId.Value);
 
         // todo add transition
         throw new NotImplementedException();
