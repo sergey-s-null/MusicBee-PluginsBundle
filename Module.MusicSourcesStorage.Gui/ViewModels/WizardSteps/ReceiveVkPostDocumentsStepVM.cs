@@ -18,7 +18,9 @@ public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
 
     public ReceiveVkPostDocumentsStepVM(
         IAddingVkPostWithArchiveContext context,
-        IVkService vkService)
+        IVkService vkService
+    )
+        : base(context)
     {
         _context = context;
         _vkService = vkService;

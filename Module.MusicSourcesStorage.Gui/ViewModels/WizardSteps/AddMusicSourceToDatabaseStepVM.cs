@@ -1,10 +1,15 @@
-﻿namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
+﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+using PropertyChanged;
 
+namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
+
+[AddINotifyPropertyChangedInterface]
 public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
 
-    public AddMusicSourceToDatabaseStepVM()
+    public AddMusicSourceToDatabaseStepVM(IAddingVkPostWithArchiveContext context)
+        : base(context)
     {
         Text = "Starting";
     }

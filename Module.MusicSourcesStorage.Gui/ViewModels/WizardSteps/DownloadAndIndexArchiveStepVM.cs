@@ -17,7 +17,9 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
     public DownloadAndIndexArchiveStepVM(
         IAddingVkPostWithArchiveContext context,
         IVkDocumentDownloader vkDocumentDownloader,
-        IArchiveIndexer archiveIndexer)
+        IArchiveIndexer archiveIndexer
+    )
+        : base(context)
     {
         _context = context;
         _vkDocumentDownloader = vkDocumentDownloader;

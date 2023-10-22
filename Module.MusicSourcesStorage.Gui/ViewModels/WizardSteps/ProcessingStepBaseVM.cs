@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.Mvvm.Extension;
 
@@ -16,8 +17,15 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
 
     private ICommand? _cancelCmd;
 
+    private readonly IAddingVkPostWithArchiveContext _context;
+
     private CancellationTokenSource? _cancellationTokenSource;
     private Task? _task;
+
+    protected ProcessingStepBaseVM(IAddingVkPostWithArchiveContext context)
+    {
+        _context = context;
+    }
 
     public void Start()
     {
@@ -36,13 +44,12 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
                 DispatchProcessingCompletedEvent(StepResult.Success);
                 break;
             case { Exception: not null }:
-                // todo set error in wizard context
+                _context.Error = task.Exception.ToString();
                 DispatchProcessingCompletedEvent(StepResult.Error);
                 break;
             default:
-                // todo set error in wizard context
-                //     "Task was not ran to completion and does not contains exception. " +
-                //     $"Task status: {task.Status}."
+                _context.Error = "Task was not ran to completion and does not contains exception. " +
+                                 $"Task status: {task.Status}.";
                 DispatchProcessingCompletedEvent(StepResult.Error);
                 break;
         }
