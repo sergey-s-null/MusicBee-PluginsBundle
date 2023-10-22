@@ -28,6 +28,7 @@ public sealed class SelectVkPostAttachmentStepDTVM : ISelectVkPostAttachmentStep
     public ulong PostId => 600909;
 
     public IReadOnlyList<IVkPostAttachmentVM> Attachments { get; }
+    public IVkPostAttachmentVM? SelectedAttachment { get; set; }
 
     public SelectVkPostAttachmentStepDTVM()
     {
