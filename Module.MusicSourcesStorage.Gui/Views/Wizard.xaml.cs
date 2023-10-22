@@ -12,6 +12,7 @@ public partial class Wizard : Window
         DataContext = viewModelFactory(this);
     }
 
+    // todo поправить закрытие при нажатии на крестик в углу
     public void Close(bool askUser)
     {
         if (!askUser)
