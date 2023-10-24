@@ -17,11 +17,11 @@ public sealed class IndexingResultStepVM : IIndexingResultStepVM
 
     public IndexingResultStepVM(
         IAddingVkPostWithArchiveContext context,
-        INodesHierarchyBuilder nodesHierarchyBuilder)
+        INodesHierarchyVMBuilder nodesHierarchyVMBuilder)
     {
         context.ValidateHasIndexedFiles();
 
-        Items = nodesHierarchyBuilder.Build(context.IndexedFiles!);
+        Items = nodesHierarchyVMBuilder.Build(context.IndexedFiles!);
     }
 
     public StepResult Confirm()
