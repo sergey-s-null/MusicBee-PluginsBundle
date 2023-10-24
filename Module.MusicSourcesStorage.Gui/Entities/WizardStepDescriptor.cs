@@ -1,5 +1,7 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+using Module.MusicSourcesStorage.Gui.Enums;
+using Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.Entities;
 
@@ -13,15 +15,19 @@ public sealed class WizardStepDescriptor : IWizardStepDescriptor
     public string? CustomCloseWizardCommandName { get; set; }
     public bool CanSafelyCloseWizard { get; set; }
 
-    private readonly Func<IWizardStepVM> _stepViewModelFactory;
+    private readonly StepType _stepType;
+    private readonly IWizardStepViewModelsFactory _viewModelsFactory;
 
-    public WizardStepDescriptor(Func<IWizardStepVM> stepViewModelFactory)
+    public WizardStepDescriptor(
+        StepType stepType,
+        IWizardStepViewModelsFactory viewModelsFactory)
     {
-        _stepViewModelFactory = stepViewModelFactory;
+        _stepType = stepType;
+        _viewModelsFactory = viewModelsFactory;
     }
 
     public IWizardStepVM CreateStepViewModel()
     {
-        return _stepViewModelFactory();
+        return _viewModelsFactory.Create(_stepType);
     }
 }
