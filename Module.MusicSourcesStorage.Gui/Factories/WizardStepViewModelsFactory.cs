@@ -9,9 +9,10 @@ public sealed class WizardStepViewModelsFactory : IWizardStepViewModelsFactory
 {
     private readonly IReadOnlyDictionary<StepType, Func<IWizardStepVM>> _factories;
 
-    public WizardStepViewModelsFactory(IContainer container)
+    public WizardStepViewModelsFactory(ILifetimeScope lifetimeScope)
     {
-        _factories = CreateFactories(container);
+        // todo make lazy
+        _factories = CreateFactories(lifetimeScope);
     }
 
     public IWizardStepVM Create(StepType stepType)
@@ -24,13 +25,13 @@ public sealed class WizardStepViewModelsFactory : IWizardStepViewModelsFactory
         return factory();
     }
 
-    private IReadOnlyDictionary<StepType, Func<IWizardStepVM>> CreateFactories(IContainer container)
+    private IReadOnlyDictionary<StepType, Func<IWizardStepVM>> CreateFactories(ILifetimeScope lifetimeScope)
     {
         var stepTypes = Enum.GetValues(typeof(StepType)).OfType<StepType>();
         var factories = new Dictionary<StepType, Func<IWizardStepVM>>();
         foreach (var stepType in stepTypes)
         {
-            var factory = container.ResolveKeyed<Func<IWizardStepVM>>(stepType);
+            var factory = lifetimeScope.ResolveKeyed<Func<IWizardStepVM>>(stepType);
             factories[stepType] = factory;
         }
 
