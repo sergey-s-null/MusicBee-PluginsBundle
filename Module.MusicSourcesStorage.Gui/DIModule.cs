@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Entities;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Factories;
 using Module.MusicSourcesStorage.Gui.Factories.Abstract;
@@ -14,10 +16,25 @@ public sealed class DIModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {
+        RegisterEntities(builder);
         RegisterViews(builder);
         RegisterViewModels(builder);
         RegisterStepViewModels(builder);
         RegisterFactories(builder);
+    }
+
+    private static void RegisterEntities(ContainerBuilder builder)
+    {
+        builder
+            .RegisterType<WizardPipelines>()
+            .As<IWizardPipelines>();
+        builder
+            .RegisterType<WizardStepDescriptor>()
+            .AsSelf();
+        builder
+            .RegisterType<AddingVkPostWithArchiveContext>()
+            .As<IAddingVkPostWithArchiveContext>()
+            .InstancePerMatchingLifetimeScope(WizardType.AddingVkPostWithArchive);
     }
 
     private static void RegisterViews(ContainerBuilder builder)
@@ -70,7 +87,6 @@ public sealed class DIModule : Autofac.Module
             .SingleInstance();
         builder
             .RegisterType<WizardStepViewModelsFactory>()
-            .As<IWizardStepViewModelsFactory>()
-            .SingleInstance();
+            .As<IWizardStepViewModelsFactory>();
     }
 }
