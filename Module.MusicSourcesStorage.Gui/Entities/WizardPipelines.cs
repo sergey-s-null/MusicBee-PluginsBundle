@@ -5,17 +5,23 @@ namespace Module.MusicSourcesStorage.Gui.Entities;
 
 public sealed class WizardPipelines : IWizardPipelines
 {
-    public IWizardStepDescriptor AddingVkPostWithArchivePipeline => _addingVkPostWithArchivePipeline.Value;
-
     private readonly Func<StepType, WizardStepDescriptor> _descriptorFactory;
 
     private readonly Lazy<IWizardStepDescriptor> _addingVkPostWithArchivePipeline;
 
-    public WizardPipelines(Func<StepType, WizardStepDescriptor> descriptorFactory
-    )
+    public WizardPipelines(Func<StepType, WizardStepDescriptor> descriptorFactory)
     {
         _descriptorFactory = descriptorFactory;
         _addingVkPostWithArchivePipeline = new Lazy<IWizardStepDescriptor>(CreateAddingVkPostWithArchivePipeline);
+    }
+
+    public IWizardStepDescriptor GetRootDescriptor(WizardType wizardType)
+    {
+        return wizardType switch
+        {
+            WizardType.AddingVkPostWithArchive => _addingVkPostWithArchivePipeline.Value,
+            _ => throw new ArgumentOutOfRangeException(nameof(wizardType), wizardType, "Unknown wizard type.")
+        };
     }
 
     private IWizardStepDescriptor CreateAddingVkPostWithArchivePipeline()

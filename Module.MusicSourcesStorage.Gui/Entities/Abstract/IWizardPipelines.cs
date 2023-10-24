@@ -1,6 +1,8 @@
-﻿namespace Module.MusicSourcesStorage.Gui.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Gui.Enums;
+
+namespace Module.MusicSourcesStorage.Gui.Entities.Abstract;
 
 public interface IWizardPipelines
 {
-    IWizardStepDescriptor AddingVkPostWithArchivePipeline { get; }
+    IWizardStepDescriptor GetRootDescriptor(WizardType wizardType);
 }
