@@ -3,7 +3,7 @@ using Module.MusicSourcesStorage.Gui.Views;
 
 namespace Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
-public interface IWizardFactory
+public interface IWizardService
 {
-    Wizard Create(WizardType wizardType);
+    void Open(WizardType wizardType);
 }

@@ -65,8 +65,8 @@ public sealed class DIModule : Autofac.Module
     private static void RegisterFactories(ContainerBuilder builder)
     {
         builder
-            .RegisterType<WizardFactory>()
-            .As<IWizardFactory>()
+            .RegisterType<WizardService>()
+            .As<IWizardService>()
             .SingleInstance();
         builder
             .RegisterType<WizardStepViewModelsFactory>()
