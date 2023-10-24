@@ -7,16 +7,16 @@ namespace Module.MusicSourcesStorage.Gui.Factories;
 
 public sealed class WizardFactory : IWizardFactory
 {
-    private readonly IContainer _container;
+    private readonly ILifetimeScope _lifetimeScope;
 
-    public WizardFactory(IContainer container)
+    public WizardFactory(ILifetimeScope lifetimeScope)
     {
-        _container = container;
+        _lifetimeScope = lifetimeScope;
     }
 
     public Wizard Create(WizardType wizardType)
     {
-        using var scope = _container.BeginLifetimeScope(wizardType);
+        using var scope = _lifetimeScope.BeginLifetimeScope(wizardType);
         return scope.Resolve<Wizard>();
     }
 }
