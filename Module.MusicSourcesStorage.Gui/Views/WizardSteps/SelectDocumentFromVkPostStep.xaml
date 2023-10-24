@@ -42,7 +42,8 @@
         </Grid>
 
         <ListBox Grid.Row="1"
-                 ItemsSource="{Binding Documents}">
+                 ItemsSource="{Binding Documents}"
+                 SelectedItem="{Binding SelectedDocument}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name, Mode=OneWay}" />
