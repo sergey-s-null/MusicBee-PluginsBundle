@@ -1,6 +1,6 @@
 ﻿using System.Net;
+using Module.MusicSourcesStorage.Core.Entities.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Entities.Abstract;
 using Module.MusicSourcesStorage.Logic.Exceptions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
@@ -8,9 +8,9 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class VkDocumentDownloader : IVkDocumentDownloader
 {
-    private readonly IConfiguration _configuration;
+    private readonly IModuleConfiguration _configuration;
 
-    public VkDocumentDownloader(IConfiguration configuration)
+    public VkDocumentDownloader(IModuleConfiguration configuration)
     {
         _configuration = configuration;
     }
