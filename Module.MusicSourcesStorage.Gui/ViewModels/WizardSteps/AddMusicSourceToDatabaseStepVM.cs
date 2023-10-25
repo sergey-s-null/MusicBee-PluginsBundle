@@ -8,14 +8,19 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
 
+    private readonly IAddingVkPostWithArchiveContext _context;
+
     public AddMusicSourceToDatabaseStepVM(IAddingVkPostWithArchiveContext context)
         : base(context)
     {
+        _context = context;
         Text = "Starting";
     }
 
     protected override Task ProcessAsync(CancellationToken token)
     {
-        throw new NotImplementedException();
+        _context.SuccessResultText = "Music source added to database";
+        // todo add to database
+        return Task.CompletedTask;
     }
 }

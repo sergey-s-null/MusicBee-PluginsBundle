@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.Entities.Abstract;
 
-public interface IAddingVkPostWithArchiveContext : IWizardErrorContext
+public interface IAddingVkPostWithArchiveContext : IWizardErrorContext, IWizardSuccessResultContext
 {
     VkPostGlobalId? PostId { get; set; }
     IReadOnlyList<VkDocument>? AttachedDocuments { get; set; }
