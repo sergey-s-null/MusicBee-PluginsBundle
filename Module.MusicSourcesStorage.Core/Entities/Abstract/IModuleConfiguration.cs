@@ -3,4 +3,5 @@
 public interface IModuleConfiguration
 {
     string VkDocumentsDownloadingDirectory { get; }
+    string DatabaseConnectionString { get; }
 }
