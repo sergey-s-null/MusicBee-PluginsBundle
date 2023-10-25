@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+﻿using Autofac.Features.AttributeFilters;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
@@ -17,6 +18,7 @@ public sealed class IndexingResultStepVM : IIndexingResultStepVM
 
     public IndexingResultStepVM(
         IAddingVkPostWithArchiveContext context,
+        [KeyFilter(ConnectionState.NotConnected)]
         INodesHierarchyVMBuilder nodesHierarchyVMBuilder)
     {
         context.ValidateHasIndexedFiles();

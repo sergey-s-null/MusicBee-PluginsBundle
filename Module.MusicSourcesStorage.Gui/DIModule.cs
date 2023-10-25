@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Features.AttributeFilters;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities;
@@ -6,6 +7,8 @@ using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Factories;
 using Module.MusicSourcesStorage.Gui.Factories.Abstract;
+using Module.MusicSourcesStorage.Gui.Services;
+using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.ViewModels;
 using Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Views;
@@ -20,6 +23,7 @@ public sealed class DIModule : Autofac.Module
         RegisterViews(builder);
         RegisterViewModels(builder);
         RegisterStepViewModels(builder);
+        RegisterServices(builder);
         RegisterFactories(builder);
     }
 
@@ -74,10 +78,17 @@ public sealed class DIModule : Autofac.Module
             .Keyed<IWizardStepVM>(StepType.DownloadAndIndexArchive);
         builder
             .RegisterType<IndexingResultStepVM>()
-            .Keyed<IWizardStepVM>(StepType.IndexingResult);
+            .Keyed<IWizardStepVM>(StepType.IndexingResult)
+            .WithAttributeFiltering();
         builder
             .RegisterType<AddMusicSourceToDatabaseStepVM>()
             .Keyed<IWizardStepVM>(StepType.AddMusicSourceToDatabase);
+    }
+
+    private static void RegisterServices(ContainerBuilder builder)
+    {
+        RegisterNodesHierarchyVMBuilder(builder, ConnectionState.Connected);
+        RegisterNodesHierarchyVMBuilder(builder, ConnectionState.NotConnected);
     }
 
     private static void RegisterFactories(ContainerBuilder builder)
@@ -89,5 +100,25 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<WizardStepViewModelsFactory>()
             .As<IWizardStepViewModelsFactory>();
+        builder
+            .RegisterType<ConnectedHierarchyNodeVMFactory>()
+            .Keyed<IHierarchyNodeVMFactory>(ConnectionState.Connected)
+            .SingleInstance();
+        builder
+            .RegisterType<NotConnectedHierarchyNodeVMFactory>()
+            .Keyed<IHierarchyNodeVMFactory>(ConnectionState.NotConnected)
+            .SingleInstance();
+    }
+
+    private static void RegisterNodesHierarchyVMBuilder(ContainerBuilder builder, ConnectionState connectionState)
+    {
+        builder
+            .RegisterType<NodesHierarchyVMBuilder>()
+            .WithParameter(
+                (parameterInfo, _) => parameterInfo.ParameterType == typeof(IHierarchyNodeVMFactory),
+                (_, context) => context.ResolveKeyed<IHierarchyNodeVMFactory>(connectionState)
+            )
+            .Keyed<INodesHierarchyVMBuilder>(connectionState)
+            .SingleInstance();
     }
 }
