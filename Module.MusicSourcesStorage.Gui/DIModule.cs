@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Core;
 using Autofac.Features.AttributeFilters;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
@@ -120,14 +121,8 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<NodesHierarchyVMBuilder>()
-            .WithParameter(
-                (parameterInfo, _) => parameterInfo.ParameterType == typeof(INodeVMFactory),
-                (_, context) => context.ResolveKeyed<INodeVMFactory>(connectionState)
-            )
-            .WithParameter(
-                (parameterInfo, _) => parameterInfo.ParameterType == typeof(INodeVMBuilder),
-                (_, context) => context.ResolveKeyed<INodeVMBuilder>(connectionState)
-            )
+            .WithParameter(ResolvedParameter.ForKeyed<INodeVMFactory>(connectionState))
+            .WithParameter(ResolvedParameter.ForKeyed<INodeVMBuilder>(connectionState))
             .Keyed<INodesHierarchyVMBuilder>(connectionState)
             .SingleInstance();
     }
@@ -136,10 +131,7 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<NodeVMBuilder>()
-            .WithParameter(
-                (parameterInfo, _) => parameterInfo.ParameterType == typeof(INodeVMFactory),
-                (_, context) => context.ResolveKeyed<INodeVMFactory>(connectionState)
-            )
+            .WithParameter(ResolvedParameter.ForKeyed<INodeVMFactory>(connectionState))
             .Keyed<INodeVMBuilder>(connectionState)
             .SingleInstance();
     }
