@@ -90,6 +90,10 @@ public sealed class DIModule : Autofac.Module
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.Connected);
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.NotConnected);
         builder
+            .RegisterType<FileClassifier>()
+            .As<IFileClassifier>()
+            .SingleInstance();
+        builder
             .RegisterType<NodeVMBuilder>()
             .As<INodeVMBuilder>()
             .SingleInstance();
