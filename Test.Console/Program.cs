@@ -7,7 +7,7 @@ using VkNet.AudioBypassService.Extensions;
 using VkNet.Model;
 using VkNet.Model.RequestParams;
 
-namespace ConsoleTests;
+namespace Test.Console;
 
 internal static class Program
 {
@@ -65,11 +65,11 @@ internal static class Program
 
         if (TryLoadToken(out var token))
         {
-            Console.WriteLine("Token loaded.");
+            System.Console.WriteLine("Token loaded.");
             return MakeAuthParams(login, password, token);
         }
 
-        Console.WriteLine("Could not load token. Auth with default credentials.");
+        System.Console.WriteLine("Could not load token. Auth with default credentials.");
         return MakeAuthParams(login, password);
     }
 
@@ -82,7 +82,7 @@ internal static class Program
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Could not load token: {e}");
+            System.Console.WriteLine($"Could not load token: {e}");
             token = "";
             return false;
         }
@@ -106,8 +106,8 @@ internal static class Program
             Password = password,
             TwoFactorAuthorization = () =>
             {
-                Console.Write("Code? ");
-                return Console.ReadLine();
+                System.Console.Write("Code? ");
+                return System.Console.ReadLine();
             }
         };
     }
@@ -120,8 +120,8 @@ internal static class Program
             Password = password,
             TwoFactorAuthorization = () =>
             {
-                Console.Write("Code? ");
-                return Console.ReadLine();
+                System.Console.Write("Code? ");
+                return System.Console.ReadLine();
             },
             AccessToken = token
         };

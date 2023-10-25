@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Vk", "Module.Vk\Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.VkAudioDownloader", "Module.VkAudioDownloader\Module.VkAudioDownloader.csproj", "{AF4F8C48-B567-449A-AF22-7B5A23495B10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTests", "ConsoleTests\ConsoleTests.csproj", "{5A72BCA6-7845-4473-93D5-344AEFFB1A09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Console", "Test.Console\Test.Console.csproj", "{5A72BCA6-7845-4473-93D5-344AEFFB1A09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Main", "Plugin.Main\Plugin.Main.csproj", "{D1720C08-18CE-4F9F-835B-BCE291BC1CE3}"
 EndProject
