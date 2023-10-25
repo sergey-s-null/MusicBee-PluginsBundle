@@ -28,7 +28,7 @@ namespace TestView
                 WindowType.VkAudioDownloader => new VkAudioDownloaderWindow(new VkAudioDownloaderWindowDTVM()),
                 WindowType.VkToLocalComparer => new VkToLocalComparerWindow(new VkToLocalComparerWindowDTVM()),
                 WindowType.MusicSources => new MusicSourcesWindow(new MusicSourcesWindowDTVM()),
-                WindowType.Wizard => new Wizard(new WizardDTVM(new SuccessResultStepDTVM())),
+                WindowType.Wizard => new Wizard(_ => new WizardDTVM(new SuccessResultStepDTVM())),
                 _ => throw new ArgumentOutOfRangeException(nameof(windowType), windowType, "Unknown window type.")
             };
         }
