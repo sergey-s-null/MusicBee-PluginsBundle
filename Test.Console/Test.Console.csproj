@@ -11,6 +11,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
 		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />
+		<ProjectReference Include="..\Test.Common\Test.Common.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
