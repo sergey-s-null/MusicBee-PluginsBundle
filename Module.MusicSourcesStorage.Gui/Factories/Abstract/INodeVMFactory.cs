@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
-public interface IHierarchyNodeVMFactory
+public interface INodeVMFactory
 {
     IDirectoryVM CreateDirectoryVM(string name, IReadOnlyList<INodeVM>? childNodes = null);
 

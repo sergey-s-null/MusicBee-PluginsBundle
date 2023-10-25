@@ -3,14 +3,14 @@ using Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.Factories;
 
-public sealed class ConnectedHierarchyNodeVMFactory : IHierarchyNodeVMFactory
+public sealed class ConnectedNodeVMFactory : INodeVMFactory
 {
     private readonly ConnectedDirectoryVMFactory _connectedDirectoryVMFactory;
     private readonly ConnectedMusicFileVMFactory _connectedMusicFileVMFactory;
     private readonly ConnectedImageFileVMFactory _connectedImageFileVMFactory;
     private readonly ConnectedUnknownFileVMFactory _connectedUnknownFileVMFactory;
 
-    public ConnectedHierarchyNodeVMFactory(
+    public ConnectedNodeVMFactory(
         ConnectedDirectoryVMFactory connectedDirectoryVMFactory,
         ConnectedMusicFileVMFactory connectedMusicFileVMFactory,
         ConnectedImageFileVMFactory connectedImageFileVMFactory,

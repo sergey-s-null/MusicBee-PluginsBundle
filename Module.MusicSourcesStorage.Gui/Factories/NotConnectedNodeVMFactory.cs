@@ -4,7 +4,7 @@ using Module.MusicSourcesStorage.Gui.ViewModels;
 
 namespace Module.MusicSourcesStorage.Gui.Factories;
 
-public sealed class NotConnectedHierarchyNodeVMFactory : IHierarchyNodeVMFactory
+public sealed class NotConnectedNodeVMFactory : INodeVMFactory
 {
     public IDirectoryVM CreateDirectoryVM(string name, IReadOnlyList<INodeVM>? childNodes)
     {

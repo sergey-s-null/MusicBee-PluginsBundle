@@ -101,12 +101,12 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<WizardStepViewModelsFactory>()
             .As<IWizardStepViewModelsFactory>();
         builder
-            .RegisterType<ConnectedHierarchyNodeVMFactory>()
-            .Keyed<IHierarchyNodeVMFactory>(ConnectionState.Connected)
+            .RegisterType<ConnectedNodeVMFactory>()
+            .Keyed<INodeVMFactory>(ConnectionState.Connected)
             .SingleInstance();
         builder
-            .RegisterType<NotConnectedHierarchyNodeVMFactory>()
-            .Keyed<IHierarchyNodeVMFactory>(ConnectionState.NotConnected)
+            .RegisterType<NotConnectedNodeVMFactory>()
+            .Keyed<INodeVMFactory>(ConnectionState.NotConnected)
             .SingleInstance();
     }
 
@@ -115,8 +115,8 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<NodesHierarchyVMBuilder>()
             .WithParameter(
-                (parameterInfo, _) => parameterInfo.ParameterType == typeof(IHierarchyNodeVMFactory),
-                (_, context) => context.ResolveKeyed<IHierarchyNodeVMFactory>(connectionState)
+                (parameterInfo, _) => parameterInfo.ParameterType == typeof(INodeVMFactory),
+                (_, context) => context.ResolveKeyed<INodeVMFactory>(connectionState)
             )
             .Keyed<INodesHierarchyVMBuilder>(connectionState)
             .SingleInstance();

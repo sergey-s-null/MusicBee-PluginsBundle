@@ -11,14 +11,14 @@ namespace Module.MusicSourcesStorage.Gui.Services;
 
 public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 {
-    private readonly IHierarchyNodeVMFactory _hierarchyNodeVMFactory;
+    private readonly INodeVMFactory _nodeVMFactory;
     private readonly IHierarchyBuilder<MusicSourceFile, string> _hierarchyBuilder;
 
     public NodesHierarchyVMBuilder(
-        IHierarchyNodeVMFactory hierarchyNodeVMFactory,
+        INodeVMFactory nodeVMFactory,
         HierarchyBuilderFactory<MusicSourceFile, string> hierarchyBuilderFactory)
     {
-        _hierarchyNodeVMFactory = hierarchyNodeVMFactory;
+        _nodeVMFactory = nodeVMFactory;
         _hierarchyBuilder = hierarchyBuilderFactory(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase
@@ -48,12 +48,12 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
     {
         var childNodes = CreateNodeViewModels(node.ChildNodes, node.Leaves);
 
-        return _hierarchyNodeVMFactory.CreateDirectoryVM(node.PathElement, childNodes);
+        return _nodeVMFactory.CreateDirectoryVM(node.PathElement, childNodes);
     }
 
     private INodeVM CreateNodeVM(MusicSourceFile file)
     {
         // todo classify
-        return _hierarchyNodeVMFactory.CreateUnknownFileVM("<blank>", file.Path);
+        return _nodeVMFactory.CreateUnknownFileVM("<blank>", file.Path);
     }
 }
