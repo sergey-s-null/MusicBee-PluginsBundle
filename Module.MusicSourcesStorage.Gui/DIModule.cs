@@ -93,10 +93,8 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<FileClassifier>()
             .As<IFileClassifier>()
             .SingleInstance();
-        builder
-            .RegisterType<NodeVMBuilder>()
-            .As<INodeVMBuilder>()
-            .SingleInstance();
+        RegisterNodeVMBuilder(builder, ConnectionState.Connected);
+        RegisterNodeVMBuilder(builder, ConnectionState.NotConnected);
     }
 
     private static void RegisterFactories(ContainerBuilder builder)
@@ -126,7 +124,23 @@ public sealed class DIModule : Autofac.Module
                 (parameterInfo, _) => parameterInfo.ParameterType == typeof(INodeVMFactory),
                 (_, context) => context.ResolveKeyed<INodeVMFactory>(connectionState)
             )
+            .WithParameter(
+                (parameterInfo, _) => parameterInfo.ParameterType == typeof(INodeVMBuilder),
+                (_, context) => context.ResolveKeyed<INodeVMBuilder>(connectionState)
+            )
             .Keyed<INodesHierarchyVMBuilder>(connectionState)
+            .SingleInstance();
+    }
+
+    private static void RegisterNodeVMBuilder(ContainerBuilder builder, ConnectionState connectionState)
+    {
+        builder
+            .RegisterType<NodeVMBuilder>()
+            .WithParameter(
+                (parameterInfo, _) => parameterInfo.ParameterType == typeof(INodeVMFactory),
+                (_, context) => context.ResolveKeyed<INodeVMFactory>(connectionState)
+            )
+            .Keyed<INodeVMBuilder>(connectionState)
             .SingleInstance();
     }
 }
