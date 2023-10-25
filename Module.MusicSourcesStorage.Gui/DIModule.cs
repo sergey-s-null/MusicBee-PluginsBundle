@@ -89,6 +89,10 @@ public sealed class DIModule : Autofac.Module
     {
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.Connected);
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.NotConnected);
+        builder
+            .RegisterType<NodeVMBuilder>()
+            .As<INodeVMBuilder>()
+            .SingleInstance();
     }
 
     private static void RegisterFactories(ContainerBuilder builder)
