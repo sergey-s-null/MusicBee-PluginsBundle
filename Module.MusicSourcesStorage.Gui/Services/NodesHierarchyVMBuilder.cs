@@ -13,16 +13,22 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 {
     private readonly INodeVMFactory _nodeVMFactory;
     private readonly IHierarchyBuilder<MusicSourceFile, string> _hierarchyBuilder;
+    private readonly IFileClassifier _fileClassifier;
+    private readonly INodeVMBuilder _nodeVMBuilder;
 
     public NodesHierarchyVMBuilder(
         INodeVMFactory nodeVMFactory,
-        HierarchyBuilderFactory<MusicSourceFile, string> hierarchyBuilderFactory)
+        HierarchyBuilderFactory<MusicSourceFile, string> hierarchyBuilderFactory,
+        IFileClassifier fileClassifier,
+        INodeVMBuilder nodeVMBuilder)
     {
         _nodeVMFactory = nodeVMFactory;
         _hierarchyBuilder = hierarchyBuilderFactory(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase
         );
+        _fileClassifier = fileClassifier;
+        _nodeVMBuilder = nodeVMBuilder;
     }
 
     public INodesHierarchyVM Build(IReadOnlyList<MusicSourceFile> files)
@@ -53,7 +59,7 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 
     private INodeVM CreateNodeVM(MusicSourceFile file)
     {
-        // todo classify
-        return _nodeVMFactory.CreateUnknownFileVM("<blank>", file.Path);
+        var fileType = _fileClassifier.Classify(file);
+        return _nodeVMBuilder.Build(file, fileType);
     }
 }
