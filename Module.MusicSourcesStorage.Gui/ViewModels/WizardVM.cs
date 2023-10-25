@@ -39,6 +39,7 @@ public sealed class WizardVM : IWizardVM
     private ICommand? _backCmd;
     private ICommand? _closeCmd;
 
+    private readonly object _stepTransitionSync = new();
     private readonly Wizard _wizard;
 
     private IWizardStepDescriptor _currentStepDescriptor;
@@ -194,9 +195,12 @@ public sealed class WizardVM : IWizardVM
 
     private void GoToStep(IWizardStepDescriptor stepDescriptor)
     {
-        _currentStepDescriptor = stepDescriptor;
-        var step = _currentStepDescriptor.CreateStepViewModel();
-        ActivateStep(step);
-        CurrentStep = step;
+        lock (_stepTransitionSync)
+        {
+            _currentStepDescriptor = stepDescriptor;
+            var step = _currentStepDescriptor.CreateStepViewModel();
+            ActivateStep(step);
+            CurrentStep = step;
+        }
     }
 }
