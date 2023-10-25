@@ -34,6 +34,7 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<AddingVkPostWithArchiveContext>()
             .As<IAddingVkPostWithArchiveContext>()
+            .As<IWizardErrorContext>()
             .InstancePerMatchingLifetimeScope(WizardType.AddingVkPostWithArchive);
     }
 
