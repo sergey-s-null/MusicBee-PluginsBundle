@@ -49,7 +49,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicSourcesStorage.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicSourcesStorage.Gui", "Module.MusicSourcesStorage.Gui\Module.MusicSourcesStorage.Gui.csproj", "{A7D1A0DA-36D6-4F57-8262-5BB36D5EE578}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestView", "TestView\TestView.csproj", "{52DC24A4-27BF-4956-BFF5-89370B4733FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Gui", "Test.Gui\Test.Gui.csproj", "{52DC24A4-27BF-4956-BFF5-89370B4733FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicSourcesStorage.Logic", "Module.MusicSourcesStorage.Logic\Module.MusicSourcesStorage.Logic.csproj", "{5158BFED-9E8C-4CEC-8DF3-B2D3E0A2028F}"
 EndProject
