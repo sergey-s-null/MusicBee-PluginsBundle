@@ -1,5 +1,4 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Enums;
+﻿using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
@@ -19,9 +18,9 @@ public sealed class FileClassifier : IFileClassifier
         ".jpeg",
     };
 
-    public FileType Classify(MusicSourceFile file)
+    public FileType Classify(string filePath)
     {
-        var extension = Path.GetExtension(file.Path)?.ToLower();
+        var extension = Path.GetExtension(filePath)?.ToLower();
 
         if (MusicFileExtensions.Contains(extension))
         {
