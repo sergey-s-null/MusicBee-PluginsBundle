@@ -21,6 +21,10 @@ public sealed class DIModule : Autofac.Module
             .As<IArchiveIndexer>()
             .SingleInstance();
         builder
+            .RegisterType<FileClassifier>()
+            .As<IFileClassifier>()
+            .SingleInstance();
+        builder
             .RegisterGeneric(typeof(HierarchyBuilder<,>))
             .As(typeof(IHierarchyBuilder<,>));
     }

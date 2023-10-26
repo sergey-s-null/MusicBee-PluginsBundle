@@ -1,4 +1,4 @@
-﻿namespace Module.MusicSourcesStorage.Gui.Enums;
+﻿namespace Module.MusicSourcesStorage.Logic.Enums;
 
 public enum FileType
 {
