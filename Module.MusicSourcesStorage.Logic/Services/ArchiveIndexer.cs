@@ -7,14 +7,30 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class ArchiveIndexer : IArchiveIndexer
 {
+    private readonly IFileClassifier _fileClassifier;
+
+    public ArchiveIndexer(IFileClassifier fileClassifier)
+    {
+        _fileClassifier = fileClassifier;
+    }
+
     public IReadOnlyList<MusicSourceFile> Index(string filePath)
     {
         using var archive = OpenArchive(filePath);
 
         return archive.Entries
             .Where(x => !x.IsDirectory)
-            .Select(x => new MusicSourceFile(x.Key, x.Size))
+            .Select(CreateModel)
             .ToList();
+    }
+
+    private MusicSourceFile CreateModel(ZipArchiveEntry zipArchiveEntry)
+    {
+        return new MusicSourceFile(
+            zipArchiveEntry.Key,
+            zipArchiveEntry.Size,
+            _fileClassifier.Classify(zipArchiveEntry.Key)
+        );
     }
 
     private static ZipArchive OpenArchive(string filePath)

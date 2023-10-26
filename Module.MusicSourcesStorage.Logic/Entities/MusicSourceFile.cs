@@ -1,3 +1,9 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Enums;
 
-public sealed record MusicSourceFile(string Path, long Size);
+namespace Module.MusicSourcesStorage.Logic.Entities;
+
+public sealed record MusicSourceFile(
+    string Path,
+    long Size,
+    FileType Type
+);
