@@ -13,13 +13,11 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 {
     private readonly INodeVMFactory _nodeVMFactory;
     private readonly IHierarchyBuilder<MusicSourceFile, string> _hierarchyBuilder;
-    private readonly IFileClassifier _fileClassifier;
     private readonly INodeVMBuilder _nodeVMBuilder;
 
     public NodesHierarchyVMBuilder(
         INodeVMFactory nodeVMFactory,
         HierarchyBuilderFactory<MusicSourceFile, string> hierarchyBuilderFactory,
-        IFileClassifier fileClassifier,
         INodeVMBuilder nodeVMBuilder)
     {
         _nodeVMFactory = nodeVMFactory;
@@ -27,7 +25,6 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase
         );
-        _fileClassifier = fileClassifier;
         _nodeVMBuilder = nodeVMBuilder;
     }
 
@@ -45,7 +42,7 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
         return nodes
             .Select(CreateNodeVM)
             .Concat(leaves
-                .Select(x => CreateNodeVM(x.Value))
+                .Select(x => _nodeVMBuilder.BuildLeaf(x.Value))
             )
             .ToList();
     }
@@ -55,11 +52,5 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
         var childNodes = CreateNodeViewModels(node.ChildNodes, node.Leaves);
 
         return _nodeVMFactory.CreateDirectoryVM(node.PathElement, childNodes);
-    }
-
-    private INodeVM CreateNodeVM(MusicSourceFile file)
-    {
-        var fileType = _fileClassifier.Classify(file);
-        return _nodeVMBuilder.Build(file, fileType);
     }
 }
