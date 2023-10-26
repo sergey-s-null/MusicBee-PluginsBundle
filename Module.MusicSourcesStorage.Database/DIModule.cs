@@ -12,5 +12,8 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<MusicSourcesRepository>()
             .As<IMusicSourcesRepository>()
             .SingleInstance();
+        builder
+            .RegisterType<MusicSourcesStorageContext>()
+            .AsSelf();
     }
 }
