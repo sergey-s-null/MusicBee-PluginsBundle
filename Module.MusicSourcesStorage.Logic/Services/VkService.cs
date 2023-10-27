@@ -19,8 +19,8 @@ public sealed class VkService : IVkService
     }
 
     public async Task<IReadOnlyList<VkDocument>> GetAttachedDocumentsFromPostAsync(
-        ulong postOwnerId,
-        ulong postId,
+        long postOwnerId,
+        long postId,
         CancellationToken token)
     {
         var post = await GetPostByIdAsync(postOwnerId, postId, token);
@@ -32,7 +32,7 @@ public sealed class VkService : IVkService
             .ToList();
     }
 
-    public string GetPostGlobalIdString(ulong ownerId, ulong localId)
+    public string GetPostGlobalIdString(long ownerId, long localId)
     {
         return $"-{ownerId}_{localId}";
     }
@@ -42,7 +42,7 @@ public sealed class VkService : IVkService
         return GetPostGlobalIdString(id.OwnerId, id.LocalId);
     }
 
-    private async Task<Post> GetPostByIdAsync(ulong postOwnerId, ulong postId, CancellationToken token)
+    private async Task<Post> GetPostByIdAsync(long postOwnerId, long postId, CancellationToken token)
     {
         var result = await Task.Run(
             () => _vkApi.Wall.GetById(new[] { GetPostGlobalIdString(postOwnerId, postId) }),

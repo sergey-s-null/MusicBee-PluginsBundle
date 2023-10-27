@@ -13,8 +13,8 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
 {
     public bool IsValidState { get; private set; }
 
-    public ulong PostOwnerId { get; }
-    public ulong PostId { get; }
+    public long PostOwnerId { get; }
+    public long PostId { get; }
 
     public IReadOnlyList<IVkDocumentVM> Documents { get; }
 

@@ -7,8 +7,8 @@ public sealed class SelectDocumentFromVkPostStepDTVM : ISelectDocumentFromVkPost
 {
     public bool IsValidState => true;
 
-    public ulong PostOwnerId => 2323;
-    public ulong PostId => 600909;
+    public long PostOwnerId => 2323;
+    public long PostId => 600909;
 
     public IReadOnlyList<IVkDocumentVM> Documents { get; }
     public IVkDocumentVM? SelectedDocument { get; set; }

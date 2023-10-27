@@ -10,8 +10,8 @@ public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
 
-    private readonly ulong _postOwnerId;
-    private readonly ulong _postId;
+    private readonly long _postOwnerId;
+    private readonly long _postId;
 
     private readonly IAddingVkPostWithArchiveContext _context;
     private readonly IVkService _vkService;

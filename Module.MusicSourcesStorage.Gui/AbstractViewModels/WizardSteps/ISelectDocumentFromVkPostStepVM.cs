@@ -2,8 +2,8 @@
 
 public interface ISelectDocumentFromVkPostStepVM : IManualWizardStepVM
 {
-    ulong PostOwnerId { get; }
-    ulong PostId { get; }
+    long PostOwnerId { get; }
+    long PostId { get; }
 
     IReadOnlyList<IVkDocumentVM> Documents { get; }
     IVkDocumentVM? SelectedDocument { get; set; }

@@ -6,7 +6,7 @@ public static class VkHelper
 {
     private static readonly Regex PostGlobalIdRegex = new(@"-?(\d+)_(\d+)$");
 
-    public static bool TryParsePostGlobalId(string postGlobalId, out ulong postOwnerId, out ulong postId)
+    public static bool TryParsePostGlobalId(string postGlobalId, out long postOwnerId, out long postId)
     {
         var match = PostGlobalIdRegex.Match(postGlobalId);
         if (!match.Success)
@@ -16,8 +16,8 @@ public static class VkHelper
             return false;
         }
 
-        if (!ulong.TryParse(match.Groups[1].Value, out postOwnerId)
-            || !ulong.TryParse(match.Groups[2].Value, out postId))
+        if (!long.TryParse(match.Groups[1].Value, out postOwnerId)
+            || !long.TryParse(match.Groups[2].Value, out postId))
         {
             postId = 0;
             return false;

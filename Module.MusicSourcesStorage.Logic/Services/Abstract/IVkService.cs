@@ -9,11 +9,11 @@ public interface IVkService
     /// Error on get documents
     /// </exception>
     Task<IReadOnlyList<VkDocument>> GetAttachedDocumentsFromPostAsync(
-        ulong postOwnerId,
-        ulong postId,
+        long postOwnerId,
+        long postId,
         CancellationToken token = default);
 
-    string GetPostGlobalIdString(ulong ownerId, ulong localId);
+    string GetPostGlobalIdString(long ownerId, long localId);
 
     string GetPostGlobalIdString(VkPostGlobalId id);
 }

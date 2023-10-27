@@ -5,6 +5,6 @@ public interface ISelectVkPostStepVM : IManualWizardStepVM
     string PostGlobalId { get; set; }
     bool IsValidPostGlobalId { get; }
 
-    ulong? OwnerId { get; }
-    ulong? PostId { get; }
+    long? OwnerId { get; }
+    long? PostId { get; }
 }

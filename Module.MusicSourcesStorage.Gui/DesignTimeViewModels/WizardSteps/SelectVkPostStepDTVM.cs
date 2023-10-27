@@ -15,8 +15,8 @@ public sealed class SelectVkPostStepDTVM : ISelectVkPostStepVM
 
     public bool IsValidPostGlobalId { get; private set; }
 
-    public ulong? OwnerId { get; private set; }
-    public ulong? PostId { get; private set; }
+    public long? OwnerId { get; private set; }
+    public long? PostId { get; private set; }
 
     private void OnGlobalPostIdChanged()
     {

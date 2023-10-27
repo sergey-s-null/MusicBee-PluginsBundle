@@ -8,10 +8,10 @@ public sealed class VkPostInfo
     /// <summary>
     /// Id of post in VK context.
     /// </summary>
-    public ulong Id { get; set; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Post owner id in VK context.
     /// </summary>
-    public ulong OwnerId { get; set; }
+    public long OwnerId { get; set; }
 }
