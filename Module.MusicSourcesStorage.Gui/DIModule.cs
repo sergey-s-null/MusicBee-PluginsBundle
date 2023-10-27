@@ -85,6 +85,10 @@ public sealed class DIModule : Autofac.Module
 
     private static void RegisterServices(ContainerBuilder builder)
     {
+        builder
+            .RegisterType<WizardService>()
+            .As<IWizardService>()
+            .SingleInstance();
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.Connected);
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.NotConnected);
         RegisterNodeVMBuilder(builder, ConnectionState.Connected);
@@ -93,15 +97,10 @@ public sealed class DIModule : Autofac.Module
 
     private static void RegisterFactories(ContainerBuilder builder)
     {
-        // todo move to services
-        builder
-            .RegisterType<WizardService>()
-            .As<IWizardService>()
-            .SingleInstance();
         builder
             .RegisterType<WizardStepDescriptorFactory>()
             .As<IWizardStepDescriptorFactory>()
-            .SingleInstance();// todo is singleton?
+            .SingleInstance(); // todo is singleton?
         builder
             .RegisterType<WizardStepViewModelsFactory>()
             .As<IWizardStepViewModelsFactory>();
