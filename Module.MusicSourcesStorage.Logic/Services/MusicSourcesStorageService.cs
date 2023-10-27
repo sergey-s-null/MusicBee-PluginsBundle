@@ -8,7 +8,6 @@ using File = Module.MusicSourcesStorage.Database.Models.File;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
-// todo register
 public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 {
     private readonly IMapper _mapper;
