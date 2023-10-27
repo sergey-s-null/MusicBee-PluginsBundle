@@ -30,9 +30,6 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
     {
         Text = "Adding music source to database";
 
-        // todo: current step should not know anything about other steps except Error step. Success step is not ERROR STEP.
-        _context.SuccessResultText = "Music source added to database";
-
         return _storageService.AddMusicSourceAsync(
             _context.PostId!,
             _context.SelectedDocument!,

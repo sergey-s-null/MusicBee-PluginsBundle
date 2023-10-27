@@ -1,5 +1,4 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
-using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using PropertyChanged;
 
@@ -12,9 +11,13 @@ public sealed class SuccessResultStepVM : ISuccessResultStepVM
 
     public string Text { get; }
 
-    public SuccessResultStepVM(IWizardSuccessResultContext context)
+    public SuccessResultStepVM() : this("Success")
     {
-        Text = context.SuccessResultText ?? "Success";
+    }
+
+    public SuccessResultStepVM(string text)
+    {
+        Text = text;
     }
 
     public StepResult Confirm()
