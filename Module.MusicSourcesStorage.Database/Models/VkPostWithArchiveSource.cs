@@ -2,7 +2,7 @@
 
 public sealed class VkPostWithArchiveSource : MusicSource
 {
-    public int PostOwnerId { get; set; }
-    public int PostId { get; set; }
-    // todo add some information to define what attachment to use
+    public VkPostInfo PostInfo { get; set; } = new();
+
+    public VkDocumentInfo SelectedDocumentInfo { get; set; } = new();
 }
