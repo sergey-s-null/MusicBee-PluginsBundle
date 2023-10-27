@@ -48,7 +48,6 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
                 Id = postId.LocalId,
                 OwnerId = postId.OwnerId
             },
-            // todo configure mapper
             SelectedDocumentInfo = _mapper.Map<VkDocumentInfo>(selectedDocument),
             Files = CreateFileModels(files)
         };
@@ -65,7 +64,6 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
     {
         return file.Type switch
         {
-            // todo configure mapper
             FileType.MusicFile => _mapper.Map<MusicFile>(file),
             FileType.Image => _mapper.Map<ImageFile>(file),
             FileType.Unknown => _mapper.Map<UnknownFile>(file),
