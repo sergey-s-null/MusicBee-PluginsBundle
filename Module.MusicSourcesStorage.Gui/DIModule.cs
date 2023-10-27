@@ -34,9 +34,6 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<WizardPipelines>()
             .As<IWizardPipelines>();
         builder
-            .RegisterType<WizardStepDescriptor>()
-            .AsSelf();
-        builder
             .RegisterType<AddingVkPostWithArchiveContext>()
             .As<IAddingVkPostWithArchiveContext>()
             .As<IWizardErrorContext>()
@@ -96,10 +93,15 @@ public sealed class DIModule : Autofac.Module
 
     private static void RegisterFactories(ContainerBuilder builder)
     {
+        // todo move to services
         builder
             .RegisterType<WizardService>()
             .As<IWizardService>()
             .SingleInstance();
+        builder
+            .RegisterType<WizardStepDescriptorFactory>()
+            .As<IWizardStepDescriptorFactory>()
+            .SingleInstance();// todo is singleton?
         builder
             .RegisterType<WizardStepViewModelsFactory>()
             .As<IWizardStepViewModelsFactory>();
