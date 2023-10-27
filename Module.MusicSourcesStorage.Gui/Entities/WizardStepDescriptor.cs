@@ -15,19 +15,22 @@ public sealed class WizardStepDescriptor : IWizardStepDescriptor
     public string? CustomCloseWizardCommandName { get; set; }
     public bool CanSafelyCloseWizard { get; set; }
 
-    private readonly StepType _stepType;
-    private readonly IWizardStepViewModelsFactory _viewModelsFactory;
+    private readonly Func<IWizardStepVM> _stepVMFactory;
 
     public WizardStepDescriptor(
         StepType stepType,
         IWizardStepViewModelsFactory viewModelsFactory)
+        : this(() => viewModelsFactory.Create(stepType))
     {
-        _stepType = stepType;
-        _viewModelsFactory = viewModelsFactory;
+    }
+
+    public WizardStepDescriptor(Func<IWizardStepVM> stepVMFactory)
+    {
+        _stepVMFactory = stepVMFactory;
     }
 
     public IWizardStepVM CreateStepViewModel()
     {
-        return _viewModelsFactory.Create(_stepType);
+        return _stepVMFactory();
     }
 }
