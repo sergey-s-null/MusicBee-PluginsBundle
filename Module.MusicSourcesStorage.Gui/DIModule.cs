@@ -58,6 +58,7 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<SuccessResultStepVM>()
+            .As<ISuccessResultStepVM>()
             .Keyed<IWizardStepVM>(StepType.SuccessResult);
         builder
             .RegisterType<ErrorStepVM>()
@@ -99,8 +100,7 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<WizardStepDescriptorFactory>()
-            .As<IWizardStepDescriptorFactory>()
-            .SingleInstance(); // todo is singleton?
+            .As<IWizardStepDescriptorFactory>();
         builder
             .RegisterType<WizardStepViewModelsFactory>()
             .As<IWizardStepViewModelsFactory>();
