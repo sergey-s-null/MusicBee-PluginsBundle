@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Module.MusicSourcesStorage.Logic.Factories;
+using Module.MusicSourcesStorage.Logic.Factories.Abstract;
 using Module.MusicSourcesStorage.Logic.Services;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
@@ -23,6 +25,10 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<FileClassifier>()
             .As<IFileClassifier>()
+            .SingleInstance();
+        builder
+            .RegisterType<HierarchyBuilderFactory>()
+            .As<IHierarchyBuilderFactory>()
             .SingleInstance();
         builder
             .RegisterGeneric(typeof(HierarchyBuilder<,>))
