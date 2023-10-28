@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Reflection;
-using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
+namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
 public class DirectoryDTVM : IDirectoryVM
 {

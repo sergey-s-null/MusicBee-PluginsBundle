@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+using Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;

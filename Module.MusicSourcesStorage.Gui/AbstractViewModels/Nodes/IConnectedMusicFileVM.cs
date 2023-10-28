@@ -1,6 +1,6 @@
 ﻿using Module.MusicSourcesStorage.Gui.Enums;
 
-namespace Module.MusicSourcesStorage.Gui.AbstractViewModels;
+namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
 public interface IConnectedMusicFileVM : IMusicFileVM
 {

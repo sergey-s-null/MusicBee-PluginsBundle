@@ -1,6 +1,6 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Factories.Abstract;
-using Module.MusicSourcesStorage.Gui.ViewModels;
+using Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 
 namespace Module.MusicSourcesStorage.Gui.Factories;
 

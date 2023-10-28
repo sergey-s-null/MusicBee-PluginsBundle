@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Views.Components;
 
 namespace Module.MusicSourcesStorage.Gui.ViewMappers;
