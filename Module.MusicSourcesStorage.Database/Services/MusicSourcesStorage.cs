@@ -20,4 +20,9 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
 
         await context.SaveChangesAsync(token);
     }
+
+    public Task<IReadOnlyList<MusicSource>> GetAllAsync(CancellationToken token = default)
+    {
+        throw new NotImplementedException();
+    }
 }
