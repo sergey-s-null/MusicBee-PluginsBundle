@@ -1,10 +1,9 @@
-﻿using Module.MusicSourcesStorage.Database.Models;
-using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
 
 public interface IMusicSourceVMBuilder
 {
-    [Obsolete("Gui -> Database is forbidden")]
-    IMusicSourceVM Build(MusicSourceModel musicSource);
+    IMusicSourceVM Build(MusicSource musicSource);
 }

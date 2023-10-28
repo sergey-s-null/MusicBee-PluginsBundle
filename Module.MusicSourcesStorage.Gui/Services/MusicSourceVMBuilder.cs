@@ -1,8 +1,7 @@
-﻿using Module.MusicSourcesStorage.Database.Models;
-using Module.MusicSourcesStorage.Gui.AbstractViewModels;
-using Module.MusicSourcesStorage.Gui.Extensions;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.ViewModels;
+using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services;
 
@@ -20,7 +19,7 @@ public sealed class MusicSourceVMBuilder : IMusicSourceVMBuilder
     {
         return new MusicSourceVM(
             musicSource.Name,
-            musicSource.GetSourceType(),
+            musicSource.Type,
             _nodesHierarchyVMBuilder.Build(musicSource.Files)
         );
     }
