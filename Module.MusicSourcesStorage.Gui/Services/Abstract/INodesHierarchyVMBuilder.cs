@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+﻿using Module.MusicSourcesStorage.Database.Models;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
@@ -6,4 +7,6 @@ namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
 public interface INodesHierarchyVMBuilder
 {
     INodesHierarchyVM Build(IReadOnlyList<IndexedFile> files);
+
+    INodesHierarchyVM Build(IReadOnlyList<File> files);
 }
