@@ -8,19 +8,19 @@ public sealed class VkPostWithArchiveSource : MusicSource
     public static VkPostWithArchiveSource New(
         string name,
         IReadOnlyList<SourceFile> files,
-        VkPostInfo vkPostInfo,
+        VkPost post,
         VkDocument document)
     {
         return new VkPostWithArchiveSource(
             0,
             name,
             files,
-            vkPostInfo,
+            post,
             document
         );
     }
 
-    public VkPostInfo PostInfo { get; }
+    public VkPost Post { get; }
 
     public VkDocument Document { get; }
 
@@ -28,11 +28,11 @@ public sealed class VkPostWithArchiveSource : MusicSource
         int id,
         string name,
         IReadOnlyList<SourceFile> files,
-        VkPostInfo postInfo,
+        VkPost post,
         VkDocument document)
         : base(id, name, files)
     {
-        PostInfo = postInfo;
+        Post = post;
         Document = document;
     }
 }
