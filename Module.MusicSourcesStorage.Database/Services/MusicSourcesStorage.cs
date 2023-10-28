@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Database.Models;
+﻿using System.Data.Entity;
+using Module.MusicSourcesStorage.Database.Models;
 using Module.MusicSourcesStorage.Database.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Database.Services;
@@ -21,8 +22,12 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         await context.SaveChangesAsync(token);
     }
 
-    public Task<IReadOnlyList<MusicSource>> GetAllAsync(CancellationToken token = default)
+    public async Task<IReadOnlyList<MusicSource>> GetAllAsync(CancellationToken token = default)
     {
-        throw new NotImplementedException();
+        using var context = _contextFactory();
+
+        return await context.Sources
+            .Include(x => x.Files)
+            .ToListAsync(token);
     }
 }
