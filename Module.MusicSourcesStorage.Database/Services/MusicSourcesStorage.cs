@@ -13,7 +13,7 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         _contextFactory = contextFactory;
     }
 
-    public async Task AddAsync(MusicSource musicSource, CancellationToken token)
+    public async Task AddAsync(MusicSourceModel musicSource, CancellationToken token)
     {
         using var context = _contextFactory();
 
@@ -22,7 +22,7 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         await context.SaveChangesAsync(token);
     }
 
-    public async Task<IReadOnlyList<MusicSource>> GetAllAsync(CancellationToken token = default)
+    public async Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token = default)
     {
         using var context = _contextFactory();
 

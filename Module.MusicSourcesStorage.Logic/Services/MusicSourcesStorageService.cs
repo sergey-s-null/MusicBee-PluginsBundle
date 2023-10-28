@@ -4,7 +4,12 @@ using Module.MusicSourcesStorage.Database.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using File = Module.MusicSourcesStorage.Database.Models.File;
+using FileModel = Module.MusicSourcesStorage.Database.Models.FileModel;
+using ImageFileModel = Module.MusicSourcesStorage.Database.Models.ImageFileModel;
+using MusicFileModel = Module.MusicSourcesStorage.Database.Models.MusicFileModel;
+using UnknownFileModel = Module.MusicSourcesStorage.Database.Models.UnknownFileModel;
+using VkDocumentModel = Module.MusicSourcesStorage.Logic.Entities.VkDocumentModel;
+using VkPostWithArchiveSourceModel = Module.MusicSourcesStorage.Database.Models.VkPostWithArchiveSourceModel;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
@@ -32,39 +37,39 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return _musicSourcesStorage.AddAsync(musicSource, token);
     }
 
-    private VkPostWithArchiveSource CreateMusicSourceModel(
+    private VkPostWithArchiveSourceModel CreateMusicSourceModel(
         VkPostGlobalId postId,
         VkDocumentModel selectedDocument,
         IReadOnlyList<IndexedFile> files)
     {
-        return new VkPostWithArchiveSource
+        return new VkPostWithArchiveSourceModel
         {
             // todo use another name
             Name = $"{postId.OwnerId}_{postId.LocalId}",
-            PostInfo = new VkPostInfo
+            Post = new VkPostModel
             {
                 Id = postId.LocalId,
                 OwnerId = postId.OwnerId
             },
-            SelectedDocumentInfo = _mapper.Map<VkDocumentInfo>(selectedDocument),
+            Document = _mapper.Map<Database.Models.VkDocumentModel>(selectedDocument),
             Files = CreateFileModels(files)
         };
     }
 
-    private List<File> CreateFileModels(IReadOnlyList<IndexedFile> files)
+    private List<FileModel> CreateFileModels(IReadOnlyList<IndexedFile> files)
     {
         return files
             .Select(CreateFileModel)
             .ToList();
     }
 
-    private File CreateFileModel(IndexedFile file)
+    private FileModel CreateFileModel(IndexedFile file)
     {
         return file.Type switch
         {
-            FileType.MusicFile => _mapper.Map<MusicFile>(file),
-            FileType.Image => _mapper.Map<ImageFile>(file),
-            FileType.Unknown => _mapper.Map<UnknownFile>(file),
+            FileType.MusicFile => _mapper.Map<MusicFileModel>(file),
+            FileType.Image => _mapper.Map<ImageFileModel>(file),
+            FileType.Unknown => _mapper.Map<UnknownFileModel>(file),
             _ => throw new ArgumentOutOfRangeException(
                 nameof(file.Type),
                 file.Type,

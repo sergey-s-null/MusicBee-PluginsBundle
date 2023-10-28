@@ -6,5 +6,5 @@ namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
 public interface IMusicSourceVMBuilder
 {
     [Obsolete("Gui -> Database is forbidden")]
-    IMusicSourceVM Build(MusicSource musicSource);
+    IMusicSourceVM Build(MusicSourceModel musicSource);
 }

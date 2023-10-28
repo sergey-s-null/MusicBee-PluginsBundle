@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
-using Module.MusicSourcesStorage.Database.Models;
 using Module.MusicSourcesStorage.Logic.Entities;
 using VkNet.Model.Attachments;
+using ImageFileModel = Module.MusicSourcesStorage.Database.Models.ImageFileModel;
+using MusicFileModel = Module.MusicSourcesStorage.Database.Models.MusicFileModel;
+using UnknownFileModel = Module.MusicSourcesStorage.Database.Models.UnknownFileModel;
 
 namespace Module.MusicSourcesStorage.Logic;
 
@@ -18,8 +20,8 @@ public sealed class MapperProfile : Profile
                 x.Size
             ));
 
-        CreateMap<VkDocumentModel, VkDocumentInfo>()
-            .ConstructUsing(x => new VkDocumentInfo
+        CreateMap<VkDocumentModel, Database.Models.VkDocumentModel>()
+            .ConstructUsing(x => new Database.Models.VkDocumentModel
             {
                 Id = x.Id,
                 OwnerId = x.OwnerId,
@@ -28,23 +30,23 @@ public sealed class MapperProfile : Profile
                 Size = x.Size,
             });
 
-        CreateMap<IndexedFile, MusicFile>()
-            .ConstructUsing(x => new MusicFile
+        CreateMap<IndexedFile, MusicFileModel>()
+            .ConstructUsing(x => new MusicFileModel
             {
                 Path = x.Path,
                 Size = x.Size,
                 IsListened = false
             });
-        CreateMap<IndexedFile, ImageFile>()
-            .ConstructUsing(x => new ImageFile
+        CreateMap<IndexedFile, ImageFileModel>()
+            .ConstructUsing(x => new ImageFileModel
             {
                 Path = x.Path,
                 Size = x.Size,
                 IsCover = false,
                 Data = null
             });
-        CreateMap<IndexedFile, UnknownFile>()
-            .ConstructUsing(x => new UnknownFile
+        CreateMap<IndexedFile, UnknownFileModel>()
+            .ConstructUsing(x => new UnknownFileModel
             {
                 Path = x.Path,
                 Size = x.Size

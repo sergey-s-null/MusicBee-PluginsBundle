@@ -3,7 +3,7 @@
 namespace Module.MusicSourcesStorage.Database.Models;
 
 [ComplexType]
-public sealed class VkPostInfo
+public sealed class VkPostModel
 {
     /// <summary>
     /// Id of post in VK context.

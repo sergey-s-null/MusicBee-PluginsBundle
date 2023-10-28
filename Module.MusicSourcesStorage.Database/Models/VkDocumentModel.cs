@@ -3,7 +3,7 @@
 namespace Module.MusicSourcesStorage.Database.Models;
 
 [ComplexType]
-public sealed class VkDocumentInfo
+public sealed class VkDocumentModel
 {
     /// <summary>
     /// Document id in VK context.

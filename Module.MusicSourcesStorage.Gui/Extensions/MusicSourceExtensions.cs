@@ -5,12 +5,12 @@ namespace Module.MusicSourcesStorage.Gui.Extensions;
 
 public static class MusicSourceExtensions
 {
-    public static MusicSourceType GetSourceType(this MusicSource musicSource)
+    public static MusicSourceType GetSourceType(this MusicSourceModel musicSource)
     {
         return musicSource switch
         {
-            VkPostWithArchiveSource => MusicSourceType.VkPost,
-            TorrentSource => MusicSourceType.Torrent,
+            VkPostWithArchiveSourceModel => MusicSourceType.VkPost,
+            TorrentSourceModel => MusicSourceType.Torrent,
             _ => throw new ArgumentOutOfRangeException(
                 nameof(musicSource),
                 musicSource,
