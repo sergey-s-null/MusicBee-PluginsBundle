@@ -2,7 +2,6 @@
 using Module.MusicSourcesStorage.Database.Models;
 using Module.MusicSourcesStorage.Database.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
@@ -23,7 +22,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
     public Task AddMusicSourceAsync(
         VkPostGlobalId postId,
         VkDocument selectedDocument,
-        IReadOnlyList<IndexedFile> files,
+        IReadOnlyList<SourceFile> files,
         CancellationToken token = default)
     {
         var musicSource = CreateMusicSourceModel(postId, selectedDocument, files);
@@ -34,7 +33,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
     private VkPostWithArchiveSourceModel CreateMusicSourceModel(
         VkPostGlobalId postId,
         VkDocument selectedDocument,
-        IReadOnlyList<IndexedFile> files)
+        IReadOnlyList<SourceFile> files)
     {
         return new VkPostWithArchiveSourceModel
         {
@@ -50,25 +49,10 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         };
     }
 
-    private List<FileModel> CreateFileModels(IReadOnlyList<IndexedFile> files)
+    private List<FileModel> CreateFileModels(IReadOnlyList<SourceFile> files)
     {
         return files
-            .Select(CreateFileModel)
+            .Select(x => _mapper.Map<FileModel>(x))
             .ToList();
-    }
-
-    private FileModel CreateFileModel(IndexedFile file)
-    {
-        return file.Type switch
-        {
-            FileType.MusicFile => _mapper.Map<MusicFileModel>(file),
-            FileType.Image => _mapper.Map<ImageFileModel>(file),
-            FileType.Unknown => _mapper.Map<UnknownFileModel>(file),
-            _ => throw new ArgumentOutOfRangeException(
-                nameof(file.Type),
-                file.Type,
-                "Got unknown file type."
-            )
-        };
     }
 }

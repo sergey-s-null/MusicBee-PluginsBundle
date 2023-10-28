@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Exceptions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using SharpCompress.Archives.Zip;
@@ -14,7 +15,7 @@ public sealed class ArchiveIndexer : IArchiveIndexer
         _fileClassifier = fileClassifier;
     }
 
-    public IReadOnlyList<IndexedFile> Index(string filePath)
+    public IReadOnlyList<SourceFile> Index(string filePath)
     {
         using var archive = OpenArchive(filePath);
 
@@ -24,13 +25,17 @@ public sealed class ArchiveIndexer : IArchiveIndexer
             .ToList();
     }
 
-    private IndexedFile CreateModel(ZipArchiveEntry zipArchiveEntry)
+    private SourceFile CreateModel(ZipArchiveEntry zipArchiveEntry)
     {
-        return new IndexedFile(
-            zipArchiveEntry.Key,
-            zipArchiveEntry.Size,
-            _fileClassifier.Classify(zipArchiveEntry.Key)
-        );
+        var fileType = _fileClassifier.Classify(zipArchiveEntry.Key);
+
+        return fileType switch
+        {
+            FileType.MusicFile => MusicFile.New(zipArchiveEntry.Key, zipArchiveEntry.Size),
+            FileType.Image => ImageFile.New(zipArchiveEntry.Key, zipArchiveEntry.Size),
+            FileType.Unknown => UnknownFile.New(zipArchiveEntry.Key, zipArchiveEntry.Size),
+            _ => throw new ArgumentOutOfRangeException(nameof(fileType), fileType, "Unknown file type.")
+        };
     }
 
     private static ZipArchive OpenArchive(string filePath)

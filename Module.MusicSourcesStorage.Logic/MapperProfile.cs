@@ -28,24 +28,30 @@ public sealed class MapperProfile : Profile
                 Size = x.Size,
             });
 
-        CreateMap<IndexedFile, MusicFileModel>()
+        CreateMap<MusicFile, MusicFileModel>()
+            .IncludeBase<SourceFile, FileModel>()
             .ConstructUsing(x => new MusicFileModel
             {
+                Id = x.Id,
                 Path = x.Path,
                 Size = x.Size,
                 IsListened = false
             });
-        CreateMap<IndexedFile, ImageFileModel>()
+        CreateMap<ImageFile, ImageFileModel>()
+            .IncludeBase<SourceFile, FileModel>()
             .ConstructUsing(x => new ImageFileModel
             {
+                Id = x.Id,
                 Path = x.Path,
                 Size = x.Size,
                 IsCover = false,
                 Data = null
             });
-        CreateMap<IndexedFile, UnknownFileModel>()
+        CreateMap<UnknownFile, UnknownFileModel>()
+            .IncludeBase<SourceFile, FileModel>()
             .ConstructUsing(x => new UnknownFileModel
             {
+                Id = x.Id,
                 Path = x.Path,
                 Size = x.Size
             });

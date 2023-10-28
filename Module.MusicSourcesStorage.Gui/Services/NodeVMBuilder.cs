@@ -16,7 +16,8 @@ public sealed class NodeVMBuilder : INodeVMBuilder
         _nodeVMFactory = nodeVMFactory;
     }
 
-    public INodeVM BuildLeaf(IndexedFile file)
+    // todo use mapper
+    public INodeVM BuildLeaf(SourceFile file)
     {
         return file.Type switch
         {
