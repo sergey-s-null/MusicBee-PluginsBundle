@@ -51,7 +51,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         };
     }
 
-    private IList<File> CreateFileModels(IReadOnlyList<IndexedFile> files)
+    private List<File> CreateFileModels(IReadOnlyList<IndexedFile> files)
     {
         return files
             .Select(CreateFileModel)
