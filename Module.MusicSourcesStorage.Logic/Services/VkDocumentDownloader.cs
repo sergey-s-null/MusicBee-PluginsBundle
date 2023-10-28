@@ -15,7 +15,7 @@ public sealed class VkDocumentDownloader : IVkDocumentDownloader
         _configuration = configuration;
     }
 
-    public async Task<string> DownloadAsync(VkDocument document, CancellationToken token)
+    public async Task<string> DownloadAsync(VkDocumentModel document, CancellationToken token)
     {
         using var client = new WebClient();
         using var _ = token.Register(client.CancelAsync);

@@ -9,8 +9,8 @@ public sealed class MapperProfile : Profile
 {
     public MapperProfile()
     {
-        CreateMap<Document, VkDocument>()
-            .ConstructUsing(x => new VkDocument(
+        CreateMap<Document, VkDocumentModel>()
+            .ConstructUsing(x => new VkDocumentModel(
                 x.Id!.Value,
                 x.OwnerId!.Value,
                 x.Title,
@@ -18,7 +18,7 @@ public sealed class MapperProfile : Profile
                 x.Size
             ));
 
-        CreateMap<VkDocument, VkDocumentInfo>()
+        CreateMap<VkDocumentModel, VkDocumentInfo>()
             .ConstructUsing(x => new VkDocumentInfo
             {
                 Id = x.Id,

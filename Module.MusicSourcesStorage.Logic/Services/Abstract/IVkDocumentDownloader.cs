@@ -14,5 +14,5 @@ public interface IVkDocumentDownloader
     /// <exception cref="VkDocumentDownloadingException">
     /// Error on downloading. 
     /// </exception>
-    Task<string> DownloadAsync(VkDocument document, CancellationToken token = default);
+    Task<string> DownloadAsync(VkDocumentModel document, CancellationToken token = default);
 }
