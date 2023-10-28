@@ -2,6 +2,7 @@
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Enums;
+using Module.MusicSourcesStorage.Logic.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
@@ -22,12 +23,12 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
         {
             new MusicSourceDTVM("First", MusicSourceType.Torrent, NodesHierarchyDTVM.ConnectedAllTypes),
             new MusicSourceDTVM("NOT CONNECTED", MusicSourceType.Torrent, NodesHierarchyDTVM.NotConnectedAllTypes),
-            new MusicSourceDTVM("2nd", MusicSourceType.VkPost, new NodesHierarchyDTVM(new INodeVM[]
+            new MusicSourceDTVM("2nd", MusicSourceType.VkPostWithArchive, new NodesHierarchyDTVM(new INodeVM[]
             {
                 new ConnectedMusicFileDTVM("Hello.mp3", MusicFileState.InLibrary),
                 new ConnectedMusicFileDTVM("There.mp3", MusicFileState.ListenedAndDeleted)
             })),
-            new MusicSourceDTVM("So Deep", MusicSourceType.VkPost, new NodesHierarchyDTVM(new INodeVM[]
+            new MusicSourceDTVM("So Deep", MusicSourceType.VkPostWithArchive, new NodesHierarchyDTVM(new INodeVM[]
             {
                 new ConnectedDirectoryDTVM("Right", new INodeVM[]
                 {

@@ -1,5 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
-using Module.MusicSourcesStorage.Gui.Enums;
+using Module.MusicSourcesStorage.Logic.Enums;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels;

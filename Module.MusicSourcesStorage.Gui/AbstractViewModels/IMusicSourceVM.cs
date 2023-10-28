@@ -1,4 +1,4 @@
-﻿using Module.MusicSourcesStorage.Gui.Enums;
+﻿using Module.MusicSourcesStorage.Logic.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels;
 

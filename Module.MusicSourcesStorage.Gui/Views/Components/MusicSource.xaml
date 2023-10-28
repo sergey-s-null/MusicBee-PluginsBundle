@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
-             xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
+             xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Logic.Enums;assembly=Module.MusicSourcesStorage.Logic"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              d:DesignHeight="40" d:DesignWidth="300"
@@ -31,7 +31,7 @@
                 <Style TargetType="ContentControl">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Type}"
-                                     Value="{x:Static enums:MusicSourceType.VkPost}">
+                                     Value="{x:Static enums:MusicSourceType.VkPostWithArchive}">
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <iconPacks:PackIconUnicons Kind="Vk"
