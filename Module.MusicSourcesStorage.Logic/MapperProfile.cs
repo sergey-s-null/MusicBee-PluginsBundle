@@ -28,8 +28,12 @@ public sealed class MapperProfile : Profile
                 Size = x.Size,
             });
 
+        CreateMap<SourceFile, FileModel>()
+            .Include<MusicFile, MusicFileModel>()
+            .Include<ImageFile, ImageFileModel>()
+            .Include<UnknownFile, UnknownFileModel>();
+
         CreateMap<MusicFile, MusicFileModel>()
-            .IncludeBase<SourceFile, FileModel>()
             .ConstructUsing(x => new MusicFileModel
             {
                 Id = x.Id,
@@ -38,7 +42,6 @@ public sealed class MapperProfile : Profile
                 IsListened = false
             });
         CreateMap<ImageFile, ImageFileModel>()
-            .IncludeBase<SourceFile, FileModel>()
             .ConstructUsing(x => new ImageFileModel
             {
                 Id = x.Id,
@@ -48,7 +51,6 @@ public sealed class MapperProfile : Profile
                 Data = null
             });
         CreateMap<UnknownFile, UnknownFileModel>()
-            .IncludeBase<SourceFile, FileModel>()
             .ConstructUsing(x => new UnknownFileModel
             {
                 Id = x.Id,
