@@ -4,7 +4,6 @@ using Module.MusicSourcesStorage.Gui.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
-// todo implement
 public interface IWizardStepDescriptorFactory
 {
     WizardStepDescriptor Create(StepType stepType);
