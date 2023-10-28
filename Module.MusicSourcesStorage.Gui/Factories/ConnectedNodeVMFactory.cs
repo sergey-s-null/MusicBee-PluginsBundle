@@ -29,16 +29,16 @@ public sealed class ConnectedNodeVMFactory : INodeVMFactory
 
     public IMusicFileVM CreateMusicFileVM(string name, string path)
     {
-        return _connectedMusicFileVMFactory(name, path);
+        return _connectedMusicFileVMFactory(path);
     }
 
     public IImageFileVM CreateImageFileVM(string name, string path)
     {
-        return _connectedImageFileVMFactory(name, path);
+        return _connectedImageFileVMFactory(path);
     }
 
     public IUnknownFileVM CreateUnknownFileVM(string name, string path)
     {
-        return _connectedUnknownFileVMFactory(name, path);
+        return _connectedUnknownFileVMFactory(path);
     }
 }

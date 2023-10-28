@@ -9,7 +9,7 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 {
     public MusicFileState State { get; private set; }
 
-    public ConnectedMusicFileVM(string name, string path) : base(name, path)
+    public ConnectedMusicFileVM(string path) : base(path)
     {
         // todo get from api
         State = MusicFileState.NotListened;

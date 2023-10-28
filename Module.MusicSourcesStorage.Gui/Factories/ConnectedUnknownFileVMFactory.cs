@@ -2,4 +2,6 @@
 
 namespace Module.MusicSourcesStorage.Gui.Factories;
 
-public delegate IConnectedUnknownFileVM ConnectedUnknownFileVMFactory(string name, string path);
+public delegate IConnectedUnknownFileVM ConnectedUnknownFileVMFactory(
+    string path
+);

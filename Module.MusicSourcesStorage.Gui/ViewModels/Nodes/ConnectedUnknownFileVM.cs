@@ -6,7 +6,7 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFileVM
 {
-    public ConnectedUnknownFileVM(string name, string path) : base(name, path)
+    public ConnectedUnknownFileVM(string path) : base(path)
     {
     }
 }
