@@ -7,34 +7,34 @@ namespace Module.MusicSourcesStorage.Gui.Factories;
 
 public sealed class WizardStepViewModelsFactory : IWizardStepViewModelsFactory
 {
-    private readonly IReadOnlyDictionary<StepType, Func<IWizardStepVM>> _factories;
+    private readonly ILifetimeScope _lifetimeScope;
+
+    private readonly IDictionary<StepType, Func<IWizardStepVM>> _factories;
 
     public WizardStepViewModelsFactory(ILifetimeScope lifetimeScope)
     {
-        // todo make lazy
-        _factories = CreateFactories(lifetimeScope);
+        _lifetimeScope = lifetimeScope;
+
+        _factories = new Dictionary<StepType, Func<IWizardStepVM>>();
     }
 
     public IWizardStepVM Create(StepType stepType)
     {
-        if (!_factories.TryGetValue(stepType, out var factory))
+        if (_factories.TryGetValue(stepType, out var factory))
         {
-            throw new ArgumentOutOfRangeException(nameof(stepType), stepType, "Unknown step type.");
+            return factory();
         }
 
+        if (!_lifetimeScope.TryResolveKeyed(stepType, out factory))
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(stepType),
+                stepType,
+                "Could not resolve wizard step vm factory for specified step type."
+            );
+        }
+
+        _factories[stepType] = factory;
         return factory();
-    }
-
-    private IReadOnlyDictionary<StepType, Func<IWizardStepVM>> CreateFactories(ILifetimeScope lifetimeScope)
-    {
-        var stepTypes = Enum.GetValues(typeof(StepType)).OfType<StepType>();
-        var factories = new Dictionary<StepType, Func<IWizardStepVM>>();
-        foreach (var stepType in stepTypes)
-        {
-            var factory = lifetimeScope.ResolveKeyed<Func<IWizardStepVM>>(stepType);
-            factories[stepType] = factory;
-        }
-
-        return factories;
     }
 }
