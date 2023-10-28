@@ -8,4 +8,6 @@ public interface IMusicSourcesStorageService
         MusicSource musicSource,
         CancellationToken token = default
     );
+
+    Task<IReadOnlyList<MusicSource>> GetMusicSourcesAsync(CancellationToken token = default);
 }

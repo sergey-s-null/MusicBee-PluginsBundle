@@ -19,10 +19,19 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         _musicSourcesStorage = musicSourcesStorage;
     }
 
-    public Task AddMusicSourceAsync(MusicSource musicSource, CancellationToken token = default)
+    public Task AddMusicSourceAsync(MusicSource musicSource, CancellationToken token)
     {
         var model = _mapper.Map<MusicSourceModel>(musicSource);
 
         return _musicSourcesStorage.AddAsync(model, token);
+    }
+
+    public async Task<IReadOnlyList<MusicSource>> GetMusicSourcesAsync(CancellationToken token)
+    {
+        var models = await _musicSourcesStorage.GetAllAsync(token);
+
+        return models
+            .Select(x => _mapper.Map<MusicSource>(x))
+            .ToList();
     }
 }

@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using Module.MusicSourcesStorage.Database.Models;
-using Module.MusicSourcesStorage.Database.Services.Abstract;
-using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.Services.Abstract;
+using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels;
@@ -10,22 +10,22 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels;
 public sealed class MusicSourcesWindowVM : IMusicSourcesWindowVM
 {
     // todo add loading placeholder
-    
+
     public IList<IMusicSourceVM> MusicSources { get; private set; }
 
     public IMusicSourceVM? SelectedMusicSource { get; set; }
 
-    private readonly IMapper _mapper;
+    private readonly IMusicSourceVMBuilder _musicSourceVMBuilder;
 
     public MusicSourcesWindowVM(
-        IMusicSourcesStorage musicSourcesStorage,
-        IMapper mapper)
+        IMusicSourceVMBuilder musicSourceVMBuilder,
+        IMusicSourcesStorageService storageService)
     {
-        _mapper = mapper;
+        _musicSourceVMBuilder = musicSourceVMBuilder;
 
         MusicSources = new List<IMusicSourceVM>();
 
-        musicSourcesStorage.GetAllAsync()
+        storageService.GetMusicSourcesAsync()
             .ContinueWith(OnMusicSourcesLoaded);
     }
 
@@ -34,8 +34,7 @@ public sealed class MusicSourcesWindowVM : IMusicSourcesWindowVM
         var sources = task.Result;
 
         MusicSources = sources
-            // todo configure mapper
-            .Select(x => _mapper.Map<IMusicSourceVM>(x))
+            .Select(x => _musicSourceVMBuilder.Build(x))
             .ToList();
     }
 }
