@@ -3,7 +3,7 @@ using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 using Module.MusicSourcesStorage.Logic.Entities;
 
-namespace Module.MusicSourcesStorage.Gui;
+namespace Module.MusicSourcesStorage.Gui.MapperProfiles;
 
 public sealed class NotConnectedFilesProfile : Profile
 {

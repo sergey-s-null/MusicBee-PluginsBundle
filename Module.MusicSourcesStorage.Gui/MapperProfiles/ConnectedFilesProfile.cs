@@ -4,9 +4,8 @@ using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Factories;
 using Module.MusicSourcesStorage.Logic.Entities;
 
-namespace Module.MusicSourcesStorage.Gui;
+namespace Module.MusicSourcesStorage.Gui.MapperProfiles;
 
-// todo move profiles to special folder
 public sealed class ConnectedFilesProfile : Profile
 {
     public ConnectedFilesProfile(ILifetimeScope lifetimeScope)
