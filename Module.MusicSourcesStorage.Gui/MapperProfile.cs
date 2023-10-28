@@ -9,7 +9,7 @@ public sealed class MapperProfile : Profile
 {
     public MapperProfile()
     {
-        CreateMap<VkDocumentModel, IVkDocumentVM>()
+        CreateMap<VkDocument, IVkDocumentVM>()
             .ConstructUsing(x => new VkDocumentVM(x.Name));
     }
 }

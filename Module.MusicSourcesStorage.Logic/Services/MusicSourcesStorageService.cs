@@ -4,12 +4,6 @@ using Module.MusicSourcesStorage.Database.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using FileModel = Module.MusicSourcesStorage.Database.Models.FileModel;
-using ImageFileModel = Module.MusicSourcesStorage.Database.Models.ImageFileModel;
-using MusicFileModel = Module.MusicSourcesStorage.Database.Models.MusicFileModel;
-using UnknownFileModel = Module.MusicSourcesStorage.Database.Models.UnknownFileModel;
-using VkDocumentModel = Module.MusicSourcesStorage.Logic.Entities.VkDocumentModel;
-using VkPostWithArchiveSourceModel = Module.MusicSourcesStorage.Database.Models.VkPostWithArchiveSourceModel;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
@@ -28,7 +22,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 
     public Task AddMusicSourceAsync(
         VkPostGlobalId postId,
-        VkDocumentModel selectedDocument,
+        VkDocument selectedDocument,
         IReadOnlyList<IndexedFile> files,
         CancellationToken token = default)
     {
@@ -39,7 +33,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 
     private VkPostWithArchiveSourceModel CreateMusicSourceModel(
         VkPostGlobalId postId,
-        VkDocumentModel selectedDocument,
+        VkDocument selectedDocument,
         IReadOnlyList<IndexedFile> files)
     {
         return new VkPostWithArchiveSourceModel
@@ -51,7 +45,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
                 Id = postId.LocalId,
                 OwnerId = postId.OwnerId
             },
-            Document = _mapper.Map<Database.Models.VkDocumentModel>(selectedDocument),
+            Document = _mapper.Map<VkDocumentModel>(selectedDocument),
             Files = CreateFileModels(files)
         };
     }

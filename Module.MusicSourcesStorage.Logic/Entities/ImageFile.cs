@@ -2,14 +2,14 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed class ImageFileModel : FileModel
+public sealed class ImageFile : SourceFile
 {
     /// <summary>
     /// "New" mean that created model does not exists in database yet.
     /// </summary>
-    public static ImageFileModel New(string path, long size)
+    public static ImageFile New(string path, long size)
     {
-        return new ImageFileModel(
+        return new ImageFile(
             0,
             path,
             size,
@@ -21,7 +21,7 @@ public sealed class ImageFileModel : FileModel
     public bool IsCover { get; }
     public byte[]? Data { get; }
 
-    public ImageFileModel(
+    public ImageFile(
         int id,
         string path,
         long size,

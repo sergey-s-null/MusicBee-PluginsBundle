@@ -18,7 +18,7 @@ public sealed class VkService : IVkService
         _mapper = mapper;
     }
 
-    public async Task<IReadOnlyList<VkDocumentModel>> GetAttachedDocumentsFromPostAsync(
+    public async Task<IReadOnlyList<VkDocument>> GetAttachedDocumentsFromPostAsync(
         long postOwnerId,
         long postId,
         CancellationToken token)
@@ -28,7 +28,7 @@ public sealed class VkService : IVkService
         return post.Attachments
             .Select(x => x.Instance)
             .OfType<Document>()
-            .Select(x => _mapper.Map<VkDocumentModel>(x))
+            .Select(x => _mapper.Map<VkDocument>(x))
             .ToList();
     }
 

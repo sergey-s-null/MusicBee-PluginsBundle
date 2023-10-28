@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public abstract class FileModel
+public abstract class SourceFile
 {
     public int Id { get; }
     public string Path { get; }
@@ -10,7 +10,7 @@ public abstract class FileModel
     // todo del?
     public FileType Type { get; }
 
-    protected FileModel(int id, string path, long size, FileType type)
+    protected SourceFile(int id, string path, long size, FileType type)
     {
         Id = id;
         Path = path;

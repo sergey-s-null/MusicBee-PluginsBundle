@@ -8,7 +8,7 @@ public interface IVkService
     /// <exception cref="VkServiceException">
     /// Error on get documents
     /// </exception>
-    Task<IReadOnlyList<VkDocumentModel>> GetAttachedDocumentsFromPostAsync(
+    Task<IReadOnlyList<VkDocument>> GetAttachedDocumentsFromPostAsync(
         long postOwnerId,
         long postId,
         CancellationToken token = default);

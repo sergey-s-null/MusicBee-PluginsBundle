@@ -24,7 +24,7 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
     private readonly IAddingVkPostWithArchiveContext _context;
     private readonly IMapper _mapper;
 
-    private readonly IReadOnlyDictionary<IVkDocumentVM, VkDocumentModel> _documentsMap;
+    private readonly IReadOnlyDictionary<IVkDocumentVM, VkDocument> _documentsMap;
 
     public SelectDocumentFromVkPostStepVM(
         IAddingVkPostWithArchiveContext context,
@@ -64,12 +64,12 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
     }
 
     private void MapDocuments(
-        IReadOnlyList<VkDocumentModel> documents,
-        out IReadOnlyDictionary<IVkDocumentVM, VkDocumentModel> map,
+        IReadOnlyList<VkDocument> documents,
+        out IReadOnlyDictionary<IVkDocumentVM, VkDocument> map,
         out IReadOnlyList<IVkDocumentVM> viewModels,
         out IVkDocumentVM? selectedViewModel)
     {
-        var mapInternal = new Dictionary<IVkDocumentVM, VkDocumentModel>();
+        var mapInternal = new Dictionary<IVkDocumentVM, VkDocument>();
         var viewModelsInternal = new List<IVkDocumentVM>();
         selectedViewModel = null;
 

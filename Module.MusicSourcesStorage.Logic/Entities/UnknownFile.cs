@@ -2,21 +2,21 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed class UnknownFileModel : FileModel
+public sealed class UnknownFile : SourceFile
 {
     /// <summary>
     /// "New" mean that created model does not exists in database yet.
     /// </summary>
-    public static UnknownFileModel New(string path, long size)
+    public static UnknownFile New(string path, long size)
     {
-        return new UnknownFileModel(
+        return new UnknownFile(
             0,
             path,
             size
         );
     }
 
-    public UnknownFileModel(
+    public UnknownFile(
         int id,
         string path,
         long size)

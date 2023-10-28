@@ -2,14 +2,14 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed class MusicFileModel : FileModel
+public sealed class MusicFile : SourceFile
 {
     /// <summary>
     /// "New" mean that created model does not exists in database yet.
     /// </summary>
-    public static MusicFileModel New(string path, long size)
+    public static MusicFile New(string path, long size)
     {
-        return new MusicFileModel(
+        return new MusicFile(
             0,
             path,
             size,
@@ -19,7 +19,7 @@ public sealed class MusicFileModel : FileModel
 
     public bool IsListened { get; }
 
-    public MusicFileModel(
+    public MusicFile(
         int id,
         string path,
         long size,

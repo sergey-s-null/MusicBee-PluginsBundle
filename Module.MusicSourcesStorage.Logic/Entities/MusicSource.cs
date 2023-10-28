@@ -1,16 +1,15 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities;
 
-// todo move "Model" to Database level
-public abstract class MusicSourceModel
+public abstract class MusicSource
 {
     public int Id { get; }
     public string Name { get; }
-    public IReadOnlyList<FileModel> Files { get; }
+    public IReadOnlyList<SourceFile> Files { get; }
 
-    protected MusicSourceModel(
+    protected MusicSource(
         int id,
         string name,
-        IReadOnlyList<FileModel> files)
+        IReadOnlyList<SourceFile> files)
     {
         Id = id;
         Name = name;

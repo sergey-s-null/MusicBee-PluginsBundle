@@ -1,16 +1,16 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed class TorrentSourceModel : MusicSourceModel
+public sealed class TorrentSource : MusicSource
 {
     /// <summary>
     /// "New" mean that created model does not exists in database yet.
     /// </summary>
-    public static TorrentSourceModel New(
+    public static TorrentSource New(
         string name,
-        IReadOnlyList<FileModel> files,
+        IReadOnlyList<SourceFile> files,
         byte[] torrentFile)
     {
-        return new TorrentSourceModel(
+        return new TorrentSource(
             0,
             name,
             files,
@@ -20,10 +20,10 @@ public sealed class TorrentSourceModel : MusicSourceModel
 
     public byte[] TorrentFile { get; }
 
-    public TorrentSourceModel(
+    public TorrentSource(
         int id,
         string name,
-        IReadOnlyList<FileModel> files,
+        IReadOnlyList<SourceFile> files,
         byte[] torrentFile)
         : base(id, name, files)
     {

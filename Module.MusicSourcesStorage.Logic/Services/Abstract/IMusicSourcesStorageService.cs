@@ -6,7 +6,7 @@ public interface IMusicSourcesStorageService
 {
     Task AddMusicSourceAsync(
         VkPostGlobalId postId,
-        VkDocumentModel selectedDocument,
+        VkDocument selectedDocument,
         IReadOnlyList<IndexedFile> files,
         CancellationToken token = default
     );

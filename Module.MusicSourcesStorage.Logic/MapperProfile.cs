@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
+using Module.MusicSourcesStorage.Database.Models;
 using Module.MusicSourcesStorage.Logic.Entities;
 using VkNet.Model.Attachments;
-using ImageFileModel = Module.MusicSourcesStorage.Database.Models.ImageFileModel;
-using MusicFileModel = Module.MusicSourcesStorage.Database.Models.MusicFileModel;
-using UnknownFileModel = Module.MusicSourcesStorage.Database.Models.UnknownFileModel;
 
 namespace Module.MusicSourcesStorage.Logic;
 
@@ -11,8 +9,8 @@ public sealed class MapperProfile : Profile
 {
     public MapperProfile()
     {
-        CreateMap<Document, VkDocumentModel>()
-            .ConstructUsing(x => new VkDocumentModel(
+        CreateMap<Document, VkDocument>()
+            .ConstructUsing(x => new VkDocument(
                 x.Id!.Value,
                 x.OwnerId!.Value,
                 x.Title,
@@ -20,8 +18,8 @@ public sealed class MapperProfile : Profile
                 x.Size
             ));
 
-        CreateMap<VkDocumentModel, Database.Models.VkDocumentModel>()
-            .ConstructUsing(x => new Database.Models.VkDocumentModel
+        CreateMap<VkDocument, VkDocumentModel>()
+            .ConstructUsing(x => new VkDocumentModel
             {
                 Id = x.Id,
                 OwnerId = x.OwnerId,
