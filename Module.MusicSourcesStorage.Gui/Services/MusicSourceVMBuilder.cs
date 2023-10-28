@@ -5,7 +5,6 @@ using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services;
 
-// todo register and think about keyed and scope
 public sealed class MusicSourceVMBuilder : IMusicSourceVMBuilder
 {
     private readonly INodesHierarchyVMBuilder _nodesHierarchyVMBuilder;

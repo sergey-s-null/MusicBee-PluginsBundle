@@ -1,4 +1,6 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+﻿using Autofac.Features.AttributeFilters;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -18,6 +20,7 @@ public sealed class MusicSourcesWindowVM : IMusicSourcesWindowVM
     private readonly IMusicSourceVMBuilder _musicSourceVMBuilder;
 
     public MusicSourcesWindowVM(
+        [KeyFilter(ConnectionState.Connected)]
         IMusicSourceVMBuilder musicSourceVMBuilder,
         IMusicSourcesStorageService storageService)
     {

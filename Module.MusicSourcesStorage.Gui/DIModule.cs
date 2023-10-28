@@ -45,12 +45,19 @@ public sealed class DIModule : Autofac.Module
     private static void RegisterViews(ContainerBuilder builder)
     {
         builder
+            .RegisterType<MusicSourcesWindow>()
+            .AsSelf();
+        builder
             .RegisterType<Wizard>()
             .AsSelf();
     }
 
     private static void RegisterViewModels(ContainerBuilder builder)
     {
+        builder
+            .RegisterType<MusicSourcesWindowVM>()
+            .WithAttributeFiltering()
+            .As<IMusicSourcesWindowVM>();
         builder
             .RegisterType<WizardVM>()
             .As<IWizardVM>();
@@ -92,6 +99,8 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<WizardService>()
             .As<IWizardService>()
             .SingleInstance();
+        RegisterMusicSourceVMBuilder(builder, ConnectionState.Connected);
+        RegisterMusicSourceVMBuilder(builder, ConnectionState.NotConnected);
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.Connected);
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.NotConnected);
     }
@@ -115,6 +124,15 @@ public sealed class DIModule : Autofac.Module
                 (name, nodes) => new ConnectedDirectoryVM(name, nodes)
             )
             .Keyed<DirectoryVMFactory>(ConnectionState.Connected)
+            .SingleInstance();
+    }
+
+    private static void RegisterMusicSourceVMBuilder(ContainerBuilder builder, ConnectionState connectionState)
+    {
+        builder
+            .RegisterType<MusicSourceVMBuilder>()
+            .WithParameter(ResolvedParameter.ForKeyed<INodesHierarchyVMBuilder>(connectionState))
+            .Keyed<IMusicSourceVMBuilder>(connectionState)
             .SingleInstance();
     }
 
