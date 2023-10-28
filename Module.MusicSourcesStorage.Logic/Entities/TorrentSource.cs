@@ -1,4 +1,6 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Enums;
+
+namespace Module.MusicSourcesStorage.Logic.Entities;
 
 public sealed class TorrentSource : MusicSource
 {
@@ -25,7 +27,7 @@ public sealed class TorrentSource : MusicSource
         string name,
         IReadOnlyList<SourceFile> files,
         byte[] torrentFile)
-        : base(id, name, files)
+        : base(id, name, MusicSourceType.Torrent, files)
     {
         TorrentFile = torrentFile;
     }

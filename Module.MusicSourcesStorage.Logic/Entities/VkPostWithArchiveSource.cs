@@ -1,4 +1,6 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Enums;
+
+namespace Module.MusicSourcesStorage.Logic.Entities;
 
 public sealed class VkPostWithArchiveSource : MusicSource
 {
@@ -30,7 +32,7 @@ public sealed class VkPostWithArchiveSource : MusicSource
         IReadOnlyList<SourceFile> files,
         VkPost post,
         VkDocument document)
-        : base(id, name, files)
+        : base(id, name, MusicSourceType.VkPostWithArchive, files)
     {
         Post = post;
         Document = document;
