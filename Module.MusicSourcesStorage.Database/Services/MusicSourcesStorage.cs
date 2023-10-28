@@ -3,11 +3,11 @@ using Module.MusicSourcesStorage.Database.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Database.Services;
 
-public sealed class MusicSourcesRepository : IMusicSourcesRepository
+public sealed class MusicSourcesStorage : IMusicSourcesStorage
 {
     private readonly Func<MusicSourcesStorageContext> _contextFactory;
 
-    public MusicSourcesRepository(Func<MusicSourcesStorageContext> contextFactory)
+    public MusicSourcesStorage(Func<MusicSourcesStorageContext> contextFactory)
     {
         _contextFactory = contextFactory;
     }

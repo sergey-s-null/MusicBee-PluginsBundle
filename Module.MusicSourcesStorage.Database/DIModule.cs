@@ -9,8 +9,8 @@ public sealed class DIModule : Autofac.Module
     protected override void Load(ContainerBuilder builder)
     {
         builder
-            .RegisterType<MusicSourcesRepository>()
-            .As<IMusicSourcesRepository>()
+            .RegisterType<Services.MusicSourcesStorage>()
+            .As<IMusicSourcesStorage>()
             .SingleInstance();
         builder
             .RegisterType<MusicSourcesStorageContext>()
