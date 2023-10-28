@@ -8,5 +8,5 @@ public interface IArchiveIndexer
     /// <exception cref="ArchiveIndexingException">
     /// Error on indexing archive.
     /// </exception>
-    IReadOnlyList<MusicSourceFile> Index(string filePath);
+    IReadOnlyList<IndexedFile> Index(string filePath);
 }

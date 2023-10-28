@@ -14,7 +14,7 @@ public sealed class ArchiveIndexer : IArchiveIndexer
         _fileClassifier = fileClassifier;
     }
 
-    public IReadOnlyList<MusicSourceFile> Index(string filePath)
+    public IReadOnlyList<IndexedFile> Index(string filePath)
     {
         using var archive = OpenArchive(filePath);
 
@@ -24,9 +24,9 @@ public sealed class ArchiveIndexer : IArchiveIndexer
             .ToList();
     }
 
-    private MusicSourceFile CreateModel(ZipArchiveEntry zipArchiveEntry)
+    private IndexedFile CreateModel(ZipArchiveEntry zipArchiveEntry)
     {
-        return new MusicSourceFile(
+        return new IndexedFile(
             zipArchiveEntry.Key,
             zipArchiveEntry.Size,
             _fileClassifier.Classify(zipArchiveEntry.Key)

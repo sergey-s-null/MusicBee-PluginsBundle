@@ -16,7 +16,7 @@ public sealed class NodeVMBuilder : INodeVMBuilder
         _nodeVMFactory = nodeVMFactory;
     }
 
-    public INodeVM BuildLeaf(MusicSourceFile file)
+    public INodeVM BuildLeaf(IndexedFile file)
     {
         return file.Type switch
         {

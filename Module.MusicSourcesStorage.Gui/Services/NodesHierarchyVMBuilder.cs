@@ -13,12 +13,12 @@ namespace Module.MusicSourcesStorage.Gui.Services;
 public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 {
     private readonly INodeVMFactory _nodeVMFactory;
-    private readonly IHierarchyBuilder<MusicSourceFile, string> _hierarchyBuilder;
+    private readonly IHierarchyBuilder<IndexedFile, string> _hierarchyBuilder;
     private readonly INodeVMBuilder _nodeVMBuilder;
 
     public NodesHierarchyVMBuilder(
         INodeVMFactory nodeVMFactory,
-        HierarchyBuilderFactory<MusicSourceFile, string> hierarchyBuilderFactory,
+        HierarchyBuilderFactory<IndexedFile, string> hierarchyBuilderFactory,
         INodeVMBuilder nodeVMBuilder)
     {
         _nodeVMFactory = nodeVMFactory;
@@ -29,7 +29,7 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
         _nodeVMBuilder = nodeVMBuilder;
     }
 
-    public INodesHierarchyVM Build(IReadOnlyList<MusicSourceFile> files)
+    public INodesHierarchyVM Build(IReadOnlyList<IndexedFile> files)
     {
         _hierarchyBuilder.Build(files, out var rootNodes, out var rootLeaves);
 
@@ -37,8 +37,8 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
     }
 
     private IReadOnlyList<INodeVM> CreateNodeViewModels(
-        IReadOnlyList<Node<MusicSourceFile, string>> nodes,
-        IReadOnlyList<Leaf<MusicSourceFile, string>> leaves)
+        IReadOnlyList<Node<IndexedFile, string>> nodes,
+        IReadOnlyList<Leaf<IndexedFile, string>> leaves)
     {
         return nodes
             .Select(CreateNodeVM)
@@ -48,7 +48,7 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
             .ToList();
     }
 
-    private INodeVM CreateNodeVM(Node<MusicSourceFile, string> node)
+    private INodeVM CreateNodeVM(Node<IndexedFile, string> node)
     {
         var childNodes = CreateNodeViewModels(node.ChildNodes, node.Leaves);
 

@@ -5,5 +5,5 @@ namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
 
 public interface INodesHierarchyVMBuilder
 {
-    INodesHierarchyVM Build(IReadOnlyList<MusicSourceFile> files);
+    INodesHierarchyVM Build(IReadOnlyList<IndexedFile> files);
 }

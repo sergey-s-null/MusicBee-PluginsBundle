@@ -5,5 +5,5 @@ namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
 
 public interface INodeVMBuilder
 {
-    INodeVM BuildLeaf(MusicSourceFile file);
+    INodeVM BuildLeaf(IndexedFile file);
 }

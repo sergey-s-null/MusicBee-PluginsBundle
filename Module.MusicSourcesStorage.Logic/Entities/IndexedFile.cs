@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed record MusicSourceFile(
+public sealed record IndexedFile(
     string Path,
     long Size,
     FileType Type

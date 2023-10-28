@@ -24,7 +24,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
     public Task AddMusicSourceAsync(
         VkPostGlobalId postId,
         VkDocument selectedDocument,
-        IReadOnlyList<MusicSourceFile> files,
+        IReadOnlyList<IndexedFile> files,
         CancellationToken token = default)
     {
         var musicSource = CreateMusicSourceModel(postId, selectedDocument, files);
@@ -35,7 +35,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
     private VkPostWithArchiveSource CreateMusicSourceModel(
         VkPostGlobalId postId,
         VkDocument selectedDocument,
-        IReadOnlyList<MusicSourceFile> files)
+        IReadOnlyList<IndexedFile> files)
     {
         return new VkPostWithArchiveSource
         {
@@ -51,14 +51,14 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         };
     }
 
-    private IList<File> CreateFileModels(IReadOnlyList<MusicSourceFile> files)
+    private IList<File> CreateFileModels(IReadOnlyList<IndexedFile> files)
     {
         return files
             .Select(CreateFileModel)
             .ToList();
     }
 
-    private File CreateFileModel(MusicSourceFile file)
+    private File CreateFileModel(IndexedFile file)
     {
         return file.Type switch
         {

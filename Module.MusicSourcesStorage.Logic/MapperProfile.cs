@@ -28,14 +28,14 @@ public sealed class MapperProfile : Profile
                 Size = x.Size,
             });
 
-        CreateMap<MusicSourceFile, MusicFile>()
+        CreateMap<IndexedFile, MusicFile>()
             .ConstructUsing(x => new MusicFile
             {
                 Path = x.Path,
                 Size = x.Size,
                 IsListened = false
             });
-        CreateMap<MusicSourceFile, ImageFile>()
+        CreateMap<IndexedFile, ImageFile>()
             .ConstructUsing(x => new ImageFile
             {
                 Path = x.Path,
@@ -43,7 +43,7 @@ public sealed class MapperProfile : Profile
                 IsCover = false,
                 Data = null
             });
-        CreateMap<MusicSourceFile, UnknownFile>()
+        CreateMap<IndexedFile, UnknownFile>()
             .ConstructUsing(x => new UnknownFile
             {
                 Path = x.Path,

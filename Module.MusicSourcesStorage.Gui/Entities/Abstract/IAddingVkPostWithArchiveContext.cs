@@ -7,5 +7,5 @@ public interface IAddingVkPostWithArchiveContext : IWizardErrorContext
     VkPostGlobalId? PostId { get; set; }
     IReadOnlyList<VkDocument>? AttachedDocuments { get; set; }
     VkDocument? SelectedDocument { get; set; }
-    IReadOnlyList<MusicSourceFile>? IndexedFiles { get; set; }
+    IReadOnlyList<IndexedFile>? IndexedFiles { get; set; }
 }
