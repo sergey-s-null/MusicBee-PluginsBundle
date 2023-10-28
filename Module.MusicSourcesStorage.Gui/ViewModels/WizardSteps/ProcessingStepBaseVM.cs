@@ -63,7 +63,14 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
         }
 
         _cancellationTokenSource.Cancel();
-        _task?.Wait();
+        try
+        {
+            _task?.Wait();
+        }
+        catch
+        {
+            // ignored
+        }
 
         DispatchProcessingCompletedEvent(StepResult.Canceled);
     }
