@@ -77,6 +77,7 @@ public sealed class WizardPipelines : IWizardPipelines
 
         step5.PreviousStepDescriptor = step3;
         step5.NextStepDescriptor = step6;
+        step5.CustomNextCommandName = "Add";
 
         step6.PreviousStepDescriptor = step5;
         step6.NextStepDescriptor = step6Success;
