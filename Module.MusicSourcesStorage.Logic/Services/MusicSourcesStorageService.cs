@@ -19,40 +19,10 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         _musicSourcesStorage = musicSourcesStorage;
     }
 
-    public Task AddMusicSourceAsync(
-        VkPostGlobalId postId,
-        VkDocument selectedDocument,
-        IReadOnlyList<SourceFile> files,
-        CancellationToken token = default)
+    public Task AddMusicSourceAsync(MusicSource musicSource, CancellationToken token = default)
     {
-        var musicSource = CreateMusicSourceModel(postId, selectedDocument, files);
+        var model = _mapper.Map<MusicSourceModel>(musicSource);
 
-        return _musicSourcesStorage.AddAsync(musicSource, token);
-    }
-
-    private VkPostWithArchiveSourceModel CreateMusicSourceModel(
-        VkPostGlobalId postId,
-        VkDocument selectedDocument,
-        IReadOnlyList<SourceFile> files)
-    {
-        return new VkPostWithArchiveSourceModel
-        {
-            // todo use another name
-            Name = $"{postId.OwnerId}_{postId.LocalId}",
-            Post = new VkPostModel
-            {
-                Id = postId.LocalId,
-                OwnerId = postId.OwnerId
-            },
-            Document = _mapper.Map<VkDocumentModel>(selectedDocument),
-            Files = CreateFileModels(files)
-        };
-    }
-
-    private List<FileModel> CreateFileModels(IReadOnlyList<SourceFile> files)
-    {
-        return files
-            .Select(x => _mapper.Map<FileModel>(x))
-            .ToList();
+        return _musicSourcesStorage.AddAsync(model, token);
     }
 }

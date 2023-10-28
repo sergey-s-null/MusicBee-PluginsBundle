@@ -1,5 +1,6 @@
 ﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Extensions;
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
@@ -30,12 +31,13 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
     {
         Text = "Adding music source to database";
 
-        return _storageService.AddMusicSourceAsync(
-            _context.PostId!,
-            _context.SelectedDocument!,
+        var source = VkPostWithArchiveSource.New(
+            _context.SelectedDocument!.Name,
             _context.IndexedFiles!,
-            token
+            new VkPost(_context.PostId!),
+            _context.SelectedDocument
         );
+        return _storageService.AddMusicSourceAsync(source, token);
     }
 
     private void ValidateContext()

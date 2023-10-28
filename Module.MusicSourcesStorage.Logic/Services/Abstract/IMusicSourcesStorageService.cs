@@ -5,9 +5,7 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 public interface IMusicSourcesStorageService
 {
     Task AddMusicSourceAsync(
-        VkPostGlobalId postId,
-        VkDocument selectedDocument,
-        IReadOnlyList<SourceFile> files,
+        MusicSource musicSource,
         CancellationToken token = default
     );
 }
