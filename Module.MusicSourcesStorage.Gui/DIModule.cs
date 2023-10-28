@@ -92,8 +92,6 @@ public sealed class DIModule : Autofac.Module
             .SingleInstance();
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.Connected);
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.NotConnected);
-        RegisterNodeVMBuilder(builder, ConnectionState.Connected);
-        RegisterNodeVMBuilder(builder, ConnectionState.NotConnected);
     }
 
     private static void RegisterFactories(ContainerBuilder builder)
@@ -105,12 +103,16 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<WizardStepViewModelsFactory>()
             .As<IWizardStepViewModelsFactory>();
         builder
-            .RegisterType<ConnectedNodeVMFactory>()
-            .Keyed<INodeVMFactory>(ConnectionState.Connected)
+            .Register<DirectoryVMFactory>(_ =>
+                (name, nodes) => new DirectoryVM(name, nodes)
+            )
+            .Keyed<DirectoryVMFactory>(ConnectionState.NotConnected)
             .SingleInstance();
         builder
-            .RegisterType<NotConnectedNodeVMFactory>()
-            .Keyed<INodeVMFactory>(ConnectionState.NotConnected)
+            .Register<DirectoryVMFactory>(_ =>
+                (name, nodes) => new ConnectedDirectoryVM(name, nodes)
+            )
+            .Keyed<DirectoryVMFactory>(ConnectionState.Connected)
             .SingleInstance();
     }
 
@@ -118,18 +120,9 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<NodesHierarchyVMBuilder>()
-            .WithParameter(ResolvedParameter.ForKeyed<INodeVMFactory>(connectionState))
-            .WithParameter(ResolvedParameter.ForKeyed<INodeVMBuilder>(connectionState))
+            .WithParameter(ResolvedParameter.ForKeyed<IMapper>(connectionState))
+            .WithParameter(ResolvedParameter.ForKeyed<DirectoryVMFactory>(connectionState))
             .Keyed<INodesHierarchyVMBuilder>(connectionState)
-            .SingleInstance();
-    }
-
-    private static void RegisterNodeVMBuilder(ContainerBuilder builder, ConnectionState connectionState)
-    {
-        builder
-            .RegisterType<NodeVMBuilder>()
-            .WithParameter(ResolvedParameter.ForKeyed<INodeVMFactory>(connectionState))
-            .Keyed<INodeVMBuilder>(connectionState)
             .SingleInstance();
     }
 }

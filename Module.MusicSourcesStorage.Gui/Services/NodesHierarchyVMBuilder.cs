@@ -1,7 +1,8 @@
 ﻿using System.IO;
+using AutoMapper;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
-using Module.MusicSourcesStorage.Gui.Factories.Abstract;
+using Module.MusicSourcesStorage.Gui.Factories;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.ViewModels;
 using Module.MusicSourcesStorage.Logic.Entities;
@@ -12,21 +13,21 @@ namespace Module.MusicSourcesStorage.Gui.Services;
 
 public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 {
-    private readonly INodeVMFactory _nodeVMFactory;
+    private readonly IMapper _mapper;
+    private readonly DirectoryVMFactory _directoryVMFactory;
     private readonly IHierarchyBuilder<SourceFile, string> _hierarchyBuilder;
-    private readonly INodeVMBuilder _nodeVMBuilder;
 
     public NodesHierarchyVMBuilder(
-        INodeVMFactory nodeVMFactory,
-        IHierarchyBuilderFactory hierarchyBuilderFactory,
-        INodeVMBuilder nodeVMBuilder)
+        IMapper mapper,
+        DirectoryVMFactory directoryVMFactory,
+        IHierarchyBuilderFactory hierarchyBuilderFactory)
     {
-        _nodeVMFactory = nodeVMFactory;
+        _mapper = mapper;
+        _directoryVMFactory = directoryVMFactory;
         _hierarchyBuilder = hierarchyBuilderFactory.Create<SourceFile, string>(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase
         );
-        _nodeVMBuilder = nodeVMBuilder;
     }
 
     public INodesHierarchyVM Build(IReadOnlyList<SourceFile> files)
@@ -43,8 +44,7 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
         return nodes
             .Select(CreateNodeVM)
             .Concat(leaves
-                .Select(x => _nodeVMBuilder.BuildLeaf(x.Value))
-            )
+                .Select(x => _mapper.Map<IFileVM>(x.Value)))
             .ToList();
     }
 
@@ -52,6 +52,6 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
     {
         var childNodes = CreateNodeViewModels(node.ChildNodes, node.Leaves);
 
-        return _nodeVMFactory.CreateDirectoryVM(node.PathElement, childNodes);
+        return _directoryVMFactory(node.PathElement, childNodes);
     }
 }
