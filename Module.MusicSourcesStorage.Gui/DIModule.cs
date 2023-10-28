@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Autofac.Features.AttributeFilters;
+using AutoMapper;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities;
@@ -11,6 +12,7 @@ using Module.MusicSourcesStorage.Gui.Factories.Abstract;
 using Module.MusicSourcesStorage.Gui.Services;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.ViewModels;
+using Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Views;
 
