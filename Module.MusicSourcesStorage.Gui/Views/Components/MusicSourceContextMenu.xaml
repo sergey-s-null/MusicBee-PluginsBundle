@@ -1,0 +1,18 @@
+﻿<ContextMenu x:Class="Module.MusicSourcesStorage.Gui.Views.Components.MusicSourceContextMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d"
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance dtvm:MusicSourceDTVM}">
+
+    <MenuItem Header="Edit"
+              Command="{Binding Edit}">
+        <MenuItem.Icon>
+            <iconPacks:PackIconUnicons Kind="Edit" />
+        </MenuItem.Icon>
+    </MenuItem>
+</ContextMenu>
