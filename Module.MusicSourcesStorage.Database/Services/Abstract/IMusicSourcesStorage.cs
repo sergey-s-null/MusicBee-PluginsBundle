@@ -13,8 +13,15 @@ public interface IMusicSourcesStorage
 
     Task<MusicSourceAdditionalInfoModel?> GetAdditionalInfoAsync(int id, CancellationToken token = default);
 
+    /// <returns>
+    /// Updated model.
+    /// </returns>
     /// <exception cref="DatabaseException">
     /// Error on receive or update additional info.
     /// </exception>
-    Task UpdateAdditionalInfo(int id, MusicSourceAdditionalInfoModel additionalInfo, CancellationToken token = default);
+    Task<MusicSourceAdditionalInfoModel> UpdateAdditionalInfo(
+        int id,
+        MusicSourceAdditionalInfoModel additionalInfo,
+        CancellationToken token = default
+    );
 }

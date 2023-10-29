@@ -42,7 +42,7 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         return model?.AdditionalInfo;
     }
 
-    public async Task UpdateAdditionalInfo(
+    public async Task<MusicSourceAdditionalInfoModel> UpdateAdditionalInfo(
         int id,
         MusicSourceAdditionalInfoModel additionalInfo,
         CancellationToken token)
@@ -57,5 +57,7 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
 
         model.AdditionalInfo = additionalInfo;
         await context.SaveChangesAsync(token);
+
+        return model.AdditionalInfo;
     }
 }

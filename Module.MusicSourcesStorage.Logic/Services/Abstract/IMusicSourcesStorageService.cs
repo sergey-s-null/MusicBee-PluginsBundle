@@ -16,5 +16,12 @@ public interface IMusicSourcesStorageService
 
     Task<MusicSourceAdditionalInfo?> GetAdditionalInfoByIdAsync(int id, CancellationToken token = default);
 
-    Task UpdateAdditionalInfoAsync(int id, MusicSourceAdditionalInfo additionalInfo, CancellationToken token = default);
+    /// <returns>
+    /// Updated model.
+    /// </returns>
+    Task<MusicSourceAdditionalInfo> UpdateAdditionalInfoAsync(
+        int id,
+        MusicSourceAdditionalInfo additionalInfo,
+        CancellationToken token = default
+    );
 }
