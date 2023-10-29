@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.Services.Abstract;
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.Mvvm.Extension;
 using PropertyChanged;
@@ -17,18 +19,28 @@ public sealed class MusicSourceVM : IMusicSourceVM
 
     private ICommand? _editCmd;
 
+    private readonly int _musicSourceId;
+    private readonly IWizardService _wizardService;
+
     public MusicSourceVM(
-        string name,
+        int musicSourceId,
+        MusicSourceAdditionalInfo additionalInfo,
         MusicSourceType type,
-        INodesHierarchyVM items)
+        INodesHierarchyVM items,
+        IWizardService wizardService)
     {
-        Name = name;
+        _musicSourceId = musicSourceId;
+        _wizardService = wizardService;
+
+        Name = additionalInfo.Name;
         Type = type;
         Items = items;
     }
 
     private void EditCmd()
     {
+        _wizardService.EditMusicSourceAdditionalInfo(_musicSourceId);
+        // todo update current state
         throw new NotImplementedException();
     }
 }

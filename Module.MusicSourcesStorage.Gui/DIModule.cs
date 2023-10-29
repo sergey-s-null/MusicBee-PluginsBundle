@@ -58,6 +58,9 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<WizardVM>()
             .As<IWizardVM>();
         builder
+            .RegisterType<MusicSourceVM>()
+            .As<IMusicSourceVM>();
+        builder
             .RegisterType<ConnectedMusicFileVM>()
             .As<IConnectedMusicFileVM>();
         builder
