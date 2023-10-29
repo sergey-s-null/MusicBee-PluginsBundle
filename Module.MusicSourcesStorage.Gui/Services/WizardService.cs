@@ -2,10 +2,10 @@
 using Module.MusicSourcesStorage.Gui.Entities;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
-using Module.MusicSourcesStorage.Gui.Factories.Abstract;
+using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.Views;
 
-namespace Module.MusicSourcesStorage.Gui.Factories;
+namespace Module.MusicSourcesStorage.Gui.Services;
 
 public sealed class WizardService : IWizardService
 {
