@@ -94,8 +94,7 @@ public static class DbToLogicMappingExtensions
     public static VkDocument ToLogicModel(this VkDocumentModel model)
     {
         return new VkDocument(
-            model.Id,
-            model.OwnerId,
+            new VkOwnedEntityId(model.OwnerId, model.Id),
             model.Name,
             model.Uri,
             model.Size

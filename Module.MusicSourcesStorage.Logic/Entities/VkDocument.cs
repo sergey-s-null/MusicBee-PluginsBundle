@@ -1,8 +1,7 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities;
 
 public sealed record VkDocument(
-    long Id,
-    long OwnerId,
+    VkOwnedEntityId Id,
     string Name,
     string Uri,
     long? Size

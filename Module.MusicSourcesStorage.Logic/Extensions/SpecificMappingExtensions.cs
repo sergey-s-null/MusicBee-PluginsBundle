@@ -8,8 +8,7 @@ public static class SpecificMappingExtensions
     public static VkDocument ToLogicModel(this Document document)
     {
         return new VkDocument(
-            document.Id!.Value,
-            document.OwnerId!.Value,
+            new VkOwnedEntityId(document.OwnerId!.Value, document.Id!.Value),
             document.Title,
             document.Uri,
             document.Size

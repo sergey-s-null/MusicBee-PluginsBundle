@@ -107,8 +107,8 @@ public static class LogicToDbMappingExtensions
     {
         return new VkDocumentModel
         {
-            Id = vkPost.Id,
-            OwnerId = vkPost.OwnerId,
+            Id = vkPost.Id.Id,
+            OwnerId = vkPost.Id.OwnerId,
             Name = vkPost.Name,
             Uri = vkPost.Uri,
             Size = vkPost.Size
