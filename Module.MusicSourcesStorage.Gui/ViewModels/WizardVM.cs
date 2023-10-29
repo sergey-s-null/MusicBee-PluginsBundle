@@ -146,10 +146,10 @@ public sealed class WizardVM : IWizardVM
         switch (result)
         {
             case StepResult.Success:
-                GoNext();
+                GoNextOrClose();
                 break;
             case StepResult.Canceled:
-                GoBack();
+                GoBackOrClose();
                 break;
             case StepResult.Error:
                 GoError();
@@ -175,6 +175,17 @@ public sealed class WizardVM : IWizardVM
         GoToStep(_currentStepDescriptor.NextStepDescriptor);
     }
 
+    private void GoNextOrClose()
+    {
+        if (_currentStepDescriptor.NextStepDescriptor is null)
+        {
+            _wizard.Close(false);
+            return;
+        }
+
+        GoToStep(_currentStepDescriptor.NextStepDescriptor);
+    }
+
     private void GoBack()
     {
         if (_currentStepDescriptor.PreviousStepDescriptor is null)
@@ -182,6 +193,17 @@ public sealed class WizardVM : IWizardVM
             throw new InvalidOperationException(
                 "Can't go back. Previous step descriptor is empty."
             );
+        }
+
+        GoToStep(_currentStepDescriptor.PreviousStepDescriptor);
+    }
+
+    private void GoBackOrClose()
+    {
+        if (_currentStepDescriptor.PreviousStepDescriptor is null)
+        {
+            _wizard.Close(false);
+            return;
         }
 
         GoToStep(_currentStepDescriptor.PreviousStepDescriptor);
