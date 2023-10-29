@@ -98,7 +98,7 @@ public static class LogicToDbMappingExtensions
     {
         return new VkPostModel
         {
-            Id = vkPost.Id.LocalId,
+            Id = vkPost.Id.Id,
             OwnerId = vkPost.Id.OwnerId
         };
     }

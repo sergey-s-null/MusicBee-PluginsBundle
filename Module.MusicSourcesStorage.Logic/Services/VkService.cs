@@ -35,9 +35,9 @@ public sealed class VkService : IVkService
         return $"-{ownerId}_{localId}";
     }
 
-    public string GetPostGlobalIdString(VkPostGlobalId id)
+    public string GetPostGlobalIdString(VkOwnedEntityId id)
     {
-        return GetPostGlobalIdString(id.OwnerId, id.LocalId);
+        return GetPostGlobalIdString(id.OwnerId, id.Id);
     }
 
     private async Task<Post> GetPostByIdAsync(long postOwnerId, long postId, CancellationToken token)

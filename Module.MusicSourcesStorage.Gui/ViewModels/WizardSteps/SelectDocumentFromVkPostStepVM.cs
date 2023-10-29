@@ -31,7 +31,7 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
         ValidateContext();
 
         PostOwnerId = _context.PostId!.OwnerId;
-        PostId = _context.PostId!.LocalId;
+        PostId = _context.PostId!.Id;
 
         MapDocuments(_context.AttachedDocuments!, out _documentsMap, out var viewModels, out var selectedViewModel);
         Documents = viewModels;

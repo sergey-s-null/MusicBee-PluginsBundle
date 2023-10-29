@@ -41,7 +41,7 @@ public sealed class SelectVkPostStepVM : ISelectVkPostStepVM
             throw new InvalidOperationException();
         }
 
-        _context.PostId = new VkPostGlobalId(OwnerId.Value, PostId.Value);
+        _context.PostId = new VkOwnedEntityId(OwnerId.Value, PostId.Value);
 
         return StepResult.Success;
     }

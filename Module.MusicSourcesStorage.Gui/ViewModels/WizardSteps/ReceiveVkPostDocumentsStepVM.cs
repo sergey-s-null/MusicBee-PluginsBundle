@@ -29,7 +29,7 @@ public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
         _context.ValidateHasPostId();
 
         _postOwnerId = _context.PostId!.OwnerId;
-        _postId = _context.PostId.LocalId;
+        _postId = _context.PostId.Id;
 
         Text = "Receiving documents attached to post";
     }

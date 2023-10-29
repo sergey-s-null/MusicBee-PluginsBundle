@@ -1,3 +1,3 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed record VkPost(VkPostGlobalId Id);
+public sealed record VkPost(VkOwnedEntityId Id);

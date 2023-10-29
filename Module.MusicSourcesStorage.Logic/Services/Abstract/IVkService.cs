@@ -15,5 +15,5 @@ public interface IVkService
 
     string GetPostGlobalIdString(long ownerId, long localId);
 
-    string GetPostGlobalIdString(VkPostGlobalId id);
+    string GetPostGlobalIdString(VkOwnedEntityId id);
 }

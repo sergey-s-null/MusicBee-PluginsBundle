@@ -7,7 +7,7 @@ public sealed class AddingVkPostWithArchiveContext : IAddingVkPostWithArchiveCon
 {
     public string? Error { get; set; }
 
-    public VkPostGlobalId? PostId { get; set; }
+    public VkOwnedEntityId? PostId { get; set; }
     public IReadOnlyList<VkDocument>? AttachedDocuments { get; set; }
     public VkDocument? SelectedDocument { get; set; }
     public IReadOnlyList<SourceFile>? IndexedFiles { get; set; }

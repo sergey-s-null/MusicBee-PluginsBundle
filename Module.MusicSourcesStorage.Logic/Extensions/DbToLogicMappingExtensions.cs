@@ -88,7 +88,7 @@ public static class DbToLogicMappingExtensions
 
     public static VkPost ToLogicModel(this VkPostModel model)
     {
-        return new VkPost(new VkPostGlobalId(model.OwnerId, model.Id));
+        return new VkPost(new VkOwnedEntityId(model.OwnerId, model.Id));
     }
 
     public static VkDocument ToLogicModel(this VkDocumentModel model)
