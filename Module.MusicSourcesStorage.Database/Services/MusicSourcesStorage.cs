@@ -30,4 +30,13 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
             .Include(x => x.Files)
             .ToListAsync(token);
     }
+
+    public async Task<MusicSourceAdditionalInfoModel?> GetAdditionalInfoByIdAsync(int id, CancellationToken token)
+    {
+        using var context = _contextFactory();
+
+        var model = await context.Sources.FindAsync(token, id);
+
+        return model?.AdditionalInfo;
+    }
 }

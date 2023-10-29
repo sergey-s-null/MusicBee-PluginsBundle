@@ -10,4 +10,6 @@ public interface IMusicSourcesStorageService
     );
 
     Task<IReadOnlyList<MusicSource>> GetMusicSourcesAsync(CancellationToken token = default);
+
+    Task<MusicSourceAdditionalInfo?> GetAdditionalInfoByIdAsync(int id, CancellationToken token = default);
 }

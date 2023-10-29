@@ -29,4 +29,11 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
             .Select(x => x.ToLogicModel())
             .ToList();
     }
+
+    public async Task<MusicSourceAdditionalInfo?> GetAdditionalInfoByIdAsync(int id, CancellationToken token)
+    {
+        var model = await _musicSourcesStorage.GetAdditionalInfoByIdAsync(id, token);
+
+        return model?.ToLogicModel();
+    }
 }
