@@ -38,7 +38,9 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
             new VkPost(_context.PostId!),
             _context.SelectedDocument!
         );
-        await _storageService.AddMusicSourceAsync(source, token);
+        var result = await _storageService.AddMusicSourceAsync(source, token);
+
+        _context.Result = result;
 
         return StepResult.Success;
     }

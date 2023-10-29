@@ -47,7 +47,11 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
             throw new InvalidOperationException();
         }
 
-        _context.SelectedDocument = _documentsMap[SelectedDocument];
+        var selectedDocument = _documentsMap[SelectedDocument];
+
+        _context.SelectedDocument = selectedDocument;
+
+        _context.AdditionalInfo ??= new MusicSourceAdditionalInfo(selectedDocument.Name);
 
         return StepResult.Success;
     }

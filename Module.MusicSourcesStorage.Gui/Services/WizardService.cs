@@ -4,6 +4,7 @@ using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.Views;
+using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services;
 
@@ -20,21 +21,26 @@ public sealed class WizardService : IWizardService
         _lifetimeScope = lifetimeScope;
     }
 
-    public void AddVkPostWithArchiveSource()
+    public MusicSource? AddVkPostWithArchiveSource()
     {
+        var context = new AddingVkPostWithArchiveContext();
+
         var wizardScope = _lifetimeScope.BeginLifetimeScope(builder =>
         {
             RegisterRootDescriptor(builder, WizardType.AddingVkPostWithArchive);
             builder
-                .RegisterType<AddingVkPostWithArchiveContext>()
+                .RegisterInstance(context)
                 .As<IAddingVkPostWithArchiveContext>()
                 .As<IMusicSourceAdditionalInfoContext>()
                 .As<IWizardErrorContext>()
+                .As<IWizardResultContext<MusicSource>>()
                 .SingleInstance();
         });
 
         var wizard = wizardScope.Resolve<Wizard>();
         wizard.ShowDialog();
+
+        return context.Result;
     }
 
     public void EditMusicSourceAdditionalInfo(int musicSourceId)

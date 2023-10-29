@@ -12,4 +12,6 @@ public sealed class AddingVkPostWithArchiveContext : IAddingVkPostWithArchiveCon
     public VkDocument? SelectedDocument { get; set; }
     public IReadOnlyList<SourceFile>? IndexedFiles { get; set; }
     public MusicSourceAdditionalInfo? AdditionalInfo { get; set; }
+
+    public MusicSource? Result { get; set; }
 }
