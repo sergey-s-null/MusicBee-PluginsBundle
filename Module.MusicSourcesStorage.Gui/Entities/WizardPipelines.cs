@@ -36,7 +36,7 @@ public sealed class WizardPipelines : IWizardPipelines
 
         var step5 = new WizardStepDescriptor(StepType.IndexingResult);
 
-        var step6 = new WizardStepDescriptor(StepType.SpecifyMusicSourceAdditionalInformation);
+        var step6 = new WizardStepDescriptor(StepType.EditMusicSourceAdditionalInfo);
 
         var step7 = new WizardStepDescriptor(StepType.AddMusicSourceToDatabase);
         var step7Error = new WizardStepDescriptor(StepType.Error);
@@ -87,7 +87,7 @@ public sealed class WizardPipelines : IWizardPipelines
         var step1 = new WizardStepDescriptor(StepType.ReceiveMusicSourceAdditionalInfo);
         var step1Error = new WizardStepDescriptor(StepType.Error);
 
-        var step2 = new WizardStepDescriptor(StepType.SpecifyMusicSourceAdditionalInformation);
+        var step2 = new WizardStepDescriptor(StepType.EditMusicSourceAdditionalInfo);
 
         var step3 = new WizardStepDescriptor(StepType.UpdateMusicSourceAdditionalInfoInDatabase);
         var step3Error = new WizardStepDescriptor(StepType.Error);

@@ -9,7 +9,7 @@ public enum StepType
     SelectDocumentFromVkPost,
     DownloadAndIndexArchive,
     IndexingResult,
-    SpecifyMusicSourceAdditionalInformation,
+    EditMusicSourceAdditionalInfo,
     AddMusicSourceToDatabase,
     ReceiveMusicSourceAdditionalInfo,
     UpdateMusicSourceAdditionalInfoInDatabase,
