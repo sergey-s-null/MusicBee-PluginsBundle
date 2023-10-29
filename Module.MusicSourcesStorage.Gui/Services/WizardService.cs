@@ -43,7 +43,7 @@ public sealed class WizardService : IWizardService
         return context.Result;
     }
 
-    public void EditMusicSourceAdditionalInfo(int musicSourceId)
+    public MusicSourceAdditionalInfo? EditMusicSourceAdditionalInfo(int musicSourceId)
     {
         var context = new EditMusicSourceAdditionalInfoContext(musicSourceId);
 
@@ -54,11 +54,14 @@ public sealed class WizardService : IWizardService
                 .RegisterInstance(context)
                 .As<IMusicSourceContext>()
                 .As<IMusicSourceAdditionalInfoContext>()
-                .As<IWizardErrorContext>();
+                .As<IWizardErrorContext>()
+                .As<IWizardResultContext<MusicSourceAdditionalInfo>>();
         });
 
         var wizard = wizardScope.Resolve<Wizard>();
         wizard.ShowDialog();
+
+        return context.Result;
     }
 
     private void RegisterRootDescriptor(ContainerBuilder builder, WizardType wizardType)

@@ -9,5 +9,8 @@ public interface IWizardService
     /// </returns>
     MusicSource? AddVkPostWithArchiveSource();
 
-    void EditMusicSourceAdditionalInfo(int musicSourceId);
+    /// <returns>
+    /// Modified music source additional info or null if cancelled.
+    /// </returns>
+    MusicSourceAdditionalInfo? EditMusicSourceAdditionalInfo(int musicSourceId);
 }
