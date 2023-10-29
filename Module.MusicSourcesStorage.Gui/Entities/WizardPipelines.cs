@@ -8,11 +8,15 @@ public sealed class WizardPipelines : IWizardPipelines
     private readonly Lazy<IWizardStepDescriptor> _addingVkPostWithArchivePipeline =
         new(CreateAddingVkPostWithArchivePipeline);
 
+    private readonly Lazy<IWizardStepDescriptor> _editMusicSourceAdditionalInfoPipeline =
+        new(CreateEditMusicSourceAdditionalInfoPipeline);
+
     public IWizardStepDescriptor GetRootDescriptor(WizardType wizardType)
     {
         return wizardType switch
         {
             WizardType.AddingVkPostWithArchive => _addingVkPostWithArchivePipeline.Value,
+            WizardType.EditMusicSourceAdditionalInfo => _editMusicSourceAdditionalInfoPipeline.Value,
             _ => throw new ArgumentOutOfRangeException(nameof(wizardType), wizardType, "Unknown wizard type.")
         };
     }
@@ -74,6 +78,30 @@ public sealed class WizardPipelines : IWizardPipelines
 
         step7Success.CanSafelyCloseWizard = true;
         step7Success.CustomCloseWizardCommandName = "Done";
+
+        return step1;
+    }
+
+    private static IWizardStepDescriptor CreateEditMusicSourceAdditionalInfoPipeline()
+    {
+        var step1 = new WizardStepDescriptor(StepType.ReceiveMusicSourceAdditionalInfo);
+        var step1Error = new WizardStepDescriptor(StepType.Error);
+
+        var step2 = new WizardStepDescriptor(StepType.SpecifyMusicSourceAdditionalInformation);
+
+        var step3 = new WizardStepDescriptor(StepType.UpdateMusicSourceAdditionalInfoInDatabase);
+        var step3Error = new WizardStepDescriptor(StepType.Error);
+
+        step1.NextStepDescriptor = step2;
+        step1.ErrorStepDescriptor = step1Error;
+
+        step2.NextStepDescriptor = step3;
+        step2.CustomNextCommandName = "Save";
+
+        step3.PreviousStepDescriptor = step2;
+        step3.ErrorStepDescriptor = step3Error;
+
+        step3Error.PreviousStepDescriptor = step2;
 
         return step1;
     }

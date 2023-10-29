@@ -99,6 +99,12 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<AddMusicSourceToDatabaseStepVM>()
             .Keyed<IWizardStepVM>(StepType.AddMusicSourceToDatabase);
+        builder
+            .RegisterType<ReceiveMusicSourceAdditionalInfoStepVM>()
+            .Keyed<IWizardStepVM>(StepType.ReceiveMusicSourceAdditionalInfo);
+        builder
+            .RegisterType<UpdateMusicSourceAdditionalInfoInDatabaseVM>()
+            .Keyed<IWizardStepVM>(StepType.UpdateMusicSourceAdditionalInfoInDatabase);
     }
 
     private static void RegisterServices(ContainerBuilder builder)

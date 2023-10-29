@@ -11,4 +11,6 @@ public enum StepType
     IndexingResult,
     SpecifyMusicSourceAdditionalInformation,
     AddMusicSourceToDatabase,
+    ReceiveMusicSourceAdditionalInfo,
+    UpdateMusicSourceAdditionalInfoInDatabase,
 }

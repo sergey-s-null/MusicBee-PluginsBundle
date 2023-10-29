@@ -22,20 +22,37 @@ public sealed class WizardService : IWizardService
 
     public void AddVkPostWithArchiveSource()
     {
-        var wizardScope = CreateScope(WizardType.AddingVkPostWithArchive);
+        var wizardScope = _lifetimeScope.BeginLifetimeScope(builder =>
+        {
+            RegisterRootDescriptor(builder, WizardType.AddingVkPostWithArchive);
+            builder
+                .RegisterType<AddingVkPostWithArchiveContext>()
+                .As<IAddingVkPostWithArchiveContext>()
+                .As<IMusicSourceAdditionalInfoContext>()
+                .As<IWizardErrorContext>()
+                .SingleInstance();
+        });
+
         var wizard = wizardScope.Resolve<Wizard>();
         wizard.ShowDialog();
     }
 
-    private ILifetimeScope CreateScope(WizardType wizardType)
+    public void EditMusicSourceAdditionalInfo(int musicSourceId)
     {
-        return _lifetimeScope.BeginLifetimeScope(
-            builder =>
-            {
-                RegisterRootDescriptor(builder, wizardType);
-                RegisterWizardContext(builder, wizardType);
-            }
-        );
+        var context = new EditMusicSourceAdditionalInfoContext(musicSourceId);
+
+        var wizardScope = _lifetimeScope.BeginLifetimeScope(builder =>
+        {
+            RegisterRootDescriptor(builder, WizardType.EditMusicSourceAdditionalInfo);
+            builder
+                .RegisterInstance(context)
+                .As<IMusicSourceContext>()
+                .As<IMusicSourceAdditionalInfoContext>()
+                .As<IWizardErrorContext>();
+        });
+
+        var wizard = wizardScope.Resolve<Wizard>();
+        wizard.ShowDialog();
     }
 
     private void RegisterRootDescriptor(ContainerBuilder builder, WizardType wizardType)
@@ -43,21 +60,5 @@ public sealed class WizardService : IWizardService
         builder
             .RegisterInstance(_wizardPipelines.GetRootDescriptor(wizardType))
             .As<IWizardStepDescriptor>();
-    }
-
-    private static void RegisterWizardContext(ContainerBuilder builder, WizardType wizardType)
-    {
-        switch (wizardType)
-        {
-            case WizardType.AddingVkPostWithArchive:
-                builder
-                    .RegisterType<AddingVkPostWithArchiveContext>()
-                    .As<IAddingVkPostWithArchiveContext>()
-                    .As<IWizardErrorContext>()
-                    .SingleInstance();
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(wizardType), wizardType, "Wizard type is unknown.");
-        }
     }
 }

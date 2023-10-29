@@ -2,5 +2,6 @@
 
 public enum WizardType
 {
-    AddingVkPostWithArchive
+    AddingVkPostWithArchive,
+    EditMusicSourceAdditionalInfo,
 }

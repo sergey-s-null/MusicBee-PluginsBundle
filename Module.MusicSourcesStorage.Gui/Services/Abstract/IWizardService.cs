@@ -3,4 +3,6 @@
 public interface IWizardService
 {
     void AddVkPostWithArchiveSource();
+
+    void EditMusicSourceAdditionalInfo(int musicSourceId);
 }
