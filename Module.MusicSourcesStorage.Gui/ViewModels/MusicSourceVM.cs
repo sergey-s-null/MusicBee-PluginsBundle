@@ -11,7 +11,7 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels;
 [AddINotifyPropertyChangedInterface]
 public sealed class MusicSourceVM : IMusicSourceVM
 {
-    public string Name { get; }
+    public string Name { get; private set; } = string.Empty;
     public MusicSourceType Type { get; }
     public INodesHierarchyVM Items { get; }
 
@@ -32,15 +32,22 @@ public sealed class MusicSourceVM : IMusicSourceVM
         _musicSourceId = musicSourceId;
         _wizardService = wizardService;
 
-        Name = additionalInfo.Name;
+        UpdateFields(additionalInfo);
         Type = type;
         Items = items;
     }
 
     private void EditCmd()
     {
-        _wizardService.EditMusicSourceAdditionalInfo(_musicSourceId);
-        // todo update current state
-        throw new NotImplementedException();
+        var modifiedAdditionalInfo = _wizardService.EditMusicSourceAdditionalInfo(_musicSourceId);
+        if (modifiedAdditionalInfo is not null)
+        {
+            UpdateFields(modifiedAdditionalInfo);
+        }
+    }
+
+    private void UpdateFields(MusicSourceAdditionalInfo additionalInfo)
+    {
+        Name = additionalInfo.Name;
     }
 }
