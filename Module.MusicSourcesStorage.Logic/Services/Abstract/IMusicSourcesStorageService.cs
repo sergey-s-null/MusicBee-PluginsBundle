@@ -4,7 +4,10 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 public interface IMusicSourcesStorageService
 {
-    Task AddMusicSourceAsync(
+    /// <summary>
+    /// Add music source and return model with valid ids.
+    /// </summary>
+    Task<MusicSource> AddMusicSourceAsync(
         MusicSource musicSource,
         CancellationToken token = default
     );

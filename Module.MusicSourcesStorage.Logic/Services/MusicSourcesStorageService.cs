@@ -14,11 +14,13 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         _musicSourcesStorage = musicSourcesStorage;
     }
 
-    public Task AddMusicSourceAsync(MusicSource musicSource, CancellationToken token)
+    public async Task<MusicSource> AddMusicSourceAsync(MusicSource musicSource, CancellationToken token)
     {
         var model = musicSource.ToDbModel();
 
-        return _musicSourcesStorage.AddAsync(model, token);
+        model = await _musicSourcesStorage.AddAsync(model, token);
+
+        return model.ToLogicModel();
     }
 
     public async Task<IReadOnlyList<MusicSource>> GetMusicSourcesAsync(CancellationToken token)

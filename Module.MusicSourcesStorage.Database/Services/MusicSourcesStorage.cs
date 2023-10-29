@@ -13,13 +13,15 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         _contextFactory = contextFactory;
     }
 
-    public async Task AddAsync(MusicSourceModel musicSource, CancellationToken token)
+    public async Task<MusicSourceModel> AddAsync(MusicSourceModel musicSource, CancellationToken token)
     {
         using var context = _contextFactory();
 
-        context.Sources.Add(musicSource);
+        var model = context.Sources.Add(musicSource);
 
         await context.SaveChangesAsync(token);
+
+        return model;
     }
 
     public async Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token = default)
