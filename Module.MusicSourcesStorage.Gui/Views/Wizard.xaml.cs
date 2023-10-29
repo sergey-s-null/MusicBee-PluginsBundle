@@ -17,7 +17,7 @@ public partial class Wizard : Window
     {
         if (!askUser)
         {
-            Close();
+            Dispatcher.Invoke(Close);
             return;
         }
 
