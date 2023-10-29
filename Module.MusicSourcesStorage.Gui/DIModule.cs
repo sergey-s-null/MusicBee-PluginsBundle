@@ -34,12 +34,8 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<WizardPipelines>()
-            .As<IWizardPipelines>();
-        builder
-            .RegisterType<AddingVkPostWithArchiveContext>()
-            .As<IAddingVkPostWithArchiveContext>()
-            .As<IWizardErrorContext>()
-            .InstancePerMatchingLifetimeScope(WizardType.AddingVkPostWithArchive);
+            .As<IWizardPipelines>()
+            .SingleInstance();
     }
 
     private static void RegisterViews(ContainerBuilder builder)
@@ -127,9 +123,6 @@ public sealed class DIModule : Autofac.Module
 
     private static void RegisterFactories(ContainerBuilder builder)
     {
-        builder
-            .RegisterType<WizardStepDescriptorFactory>()
-            .As<IWizardStepDescriptorFactory>();
         builder
             .RegisterType<WizardStepViewModelsFactory>()
             .As<IWizardStepViewModelsFactory>();

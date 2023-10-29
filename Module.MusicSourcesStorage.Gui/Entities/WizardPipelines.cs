@@ -1,26 +1,12 @@
 ﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
-using Module.MusicSourcesStorage.Gui.Factories;
-using Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.Entities;
 
 public sealed class WizardPipelines : IWizardPipelines
 {
-    private readonly IWizardStepDescriptorFactory _stepDescriptorFactory;
-    private readonly SuccessResultStepVMFactory _successResultStepVMFactory;
-
-    private readonly Lazy<IWizardStepDescriptor> _addingVkPostWithArchivePipeline;
-
-    public WizardPipelines(
-        IWizardStepDescriptorFactory stepDescriptorFactory,
-        SuccessResultStepVMFactory successResultStepVMFactory)
-    {
-        _stepDescriptorFactory = stepDescriptorFactory;
-        _successResultStepVMFactory = successResultStepVMFactory;
-
-        _addingVkPostWithArchivePipeline = new Lazy<IWizardStepDescriptor>(CreateAddingVkPostWithArchivePipeline);
-    }
+    private readonly Lazy<IWizardStepDescriptor> _addingVkPostWithArchivePipeline =
+        new(CreateAddingVkPostWithArchivePipeline);
 
     public IWizardStepDescriptor GetRootDescriptor(WizardType wizardType)
     {
@@ -31,28 +17,26 @@ public sealed class WizardPipelines : IWizardPipelines
         };
     }
 
-    private IWizardStepDescriptor CreateAddingVkPostWithArchivePipeline()
+    private static IWizardStepDescriptor CreateAddingVkPostWithArchivePipeline()
     {
-        var step1 = _stepDescriptorFactory.Create(StepType.SelectVkPost);
-        var step1Error = _stepDescriptorFactory.Create(StepType.Error);
+        var step1 = new WizardStepDescriptor(StepType.SelectVkPost);
+        var step1Error = new WizardStepDescriptor(StepType.Error);
 
-        var step2 = _stepDescriptorFactory.Create(StepType.ReceiveVkPostDocumentsStepVM);
-        var step2Error = _stepDescriptorFactory.Create(StepType.Error);
+        var step2 = new WizardStepDescriptor(StepType.ReceiveVkPostDocumentsStepVM);
+        var step2Error = new WizardStepDescriptor(StepType.Error);
 
-        var step3 = _stepDescriptorFactory.Create(StepType.SelectDocumentFromVkPost);
+        var step3 = new WizardStepDescriptor(StepType.SelectDocumentFromVkPost);
 
-        var step4 = _stepDescriptorFactory.Create(StepType.DownloadAndIndexArchive);
-        var step4Error = _stepDescriptorFactory.Create(StepType.Error);
+        var step4 = new WizardStepDescriptor(StepType.DownloadAndIndexArchive);
+        var step4Error = new WizardStepDescriptor(StepType.Error);
 
-        var step5 = _stepDescriptorFactory.Create(StepType.IndexingResult);
+        var step5 = new WizardStepDescriptor(StepType.IndexingResult);
 
-        var step6 = _stepDescriptorFactory.Create(StepType.SpecifyMusicSourceAdditionalInformation);
+        var step6 = new WizardStepDescriptor(StepType.SpecifyMusicSourceAdditionalInformation);
 
-        var step7 = _stepDescriptorFactory.Create(StepType.AddMusicSourceToDatabase);
-        var step7Error = _stepDescriptorFactory.Create(StepType.Error);
-        var step7Success = _stepDescriptorFactory.Create(
-            () => _successResultStepVMFactory("Music source added to database")
-        );
+        var step7 = new WizardStepDescriptor(StepType.AddMusicSourceToDatabase);
+        var step7Error = new WizardStepDescriptor(StepType.Error);
+        var step7Success = new SuccessStepDescriptor("Music source added to database");
 
         step1.NextStepDescriptor = step2;
         step1.ErrorStepDescriptor = step1Error;

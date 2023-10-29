@@ -4,6 +4,7 @@ using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
+using Module.MusicSourcesStorage.Gui.Factories.Abstract;
 using Module.MusicSourcesStorage.Gui.Views;
 using Module.Mvvm.Extension;
 using PropertyChanged;
@@ -41,12 +42,17 @@ public sealed class WizardVM : IWizardVM
 
     private readonly object _stepTransitionSync = new();
     private readonly Wizard _wizard;
+    private readonly IWizardStepViewModelsFactory _stepViewModelsFactory;
 
     private IWizardStepDescriptor _currentStepDescriptor;
 
-    public WizardVM(Wizard wizard, IWizardStepDescriptor initialStepDescriptor)
+    public WizardVM(
+        Wizard wizard,
+        IWizardStepDescriptor initialStepDescriptor,
+        IWizardStepViewModelsFactory stepViewModelsFactory)
     {
         _wizard = wizard;
+        _stepViewModelsFactory = stepViewModelsFactory;
 
         (_currentStepDescriptor, CurrentStep) = (null!, null!);
         GoToStep(initialStepDescriptor);
@@ -198,7 +204,7 @@ public sealed class WizardVM : IWizardVM
         lock (_stepTransitionSync)
         {
             _currentStepDescriptor = stepDescriptor;
-            var step = _currentStepDescriptor.CreateStepViewModel();
+            var step = _stepViewModelsFactory.Create(_currentStepDescriptor);
             ActivateStep(step);
             CurrentStep = step;
         }

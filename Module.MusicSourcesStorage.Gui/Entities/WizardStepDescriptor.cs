@@ -1,12 +1,12 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
-using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
-using Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.Entities;
 
-public sealed class WizardStepDescriptor : IWizardStepDescriptor
+public class WizardStepDescriptor : IWizardStepDescriptor
 {
+    public StepType StepType { get; }
+
     public IWizardStepDescriptor? NextStepDescriptor { get; set; }
     public IWizardStepDescriptor? PreviousStepDescriptor { get; set; }
     public IWizardStepDescriptor? ErrorStepDescriptor { get; set; }
@@ -15,22 +15,8 @@ public sealed class WizardStepDescriptor : IWizardStepDescriptor
     public string? CustomCloseWizardCommandName { get; set; }
     public bool CanSafelyCloseWizard { get; set; }
 
-    private readonly Func<IWizardStepVM> _stepVMFactory;
-
-    public WizardStepDescriptor(
-        StepType stepType,
-        IWizardStepViewModelsFactory viewModelsFactory)
-        : this(() => viewModelsFactory.Create(stepType))
+    public WizardStepDescriptor(StepType stepType)
     {
-    }
-
-    public WizardStepDescriptor(Func<IWizardStepVM> stepVMFactory)
-    {
-        _stepVMFactory = stepVMFactory;
-    }
-
-    public IWizardStepVM CreateStepViewModel()
-    {
-        return _stepVMFactory();
+        StepType = stepType;
     }
 }

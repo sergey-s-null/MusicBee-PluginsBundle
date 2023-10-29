@@ -2,7 +2,6 @@ using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps;
-using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
@@ -29,10 +28,5 @@ public sealed class WizardDTVM : IWizardVM
     public WizardDTVM(IWizardStepVM initialStep)
     {
         CurrentStep = initialStep;
-    }
-
-    public WizardDTVM(IWizardStepDescriptor descriptor)
-    {
-        CurrentStep = descriptor.CreateStepViewModel();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
@@ -18,23 +19,31 @@ public sealed class WizardStepViewModelsFactory : IWizardStepViewModelsFactory
         _factories = new Dictionary<StepType, Func<IWizardStepVM>>();
     }
 
-    public IWizardStepVM Create(StepType stepType)
+    public IWizardStepVM Create(IWizardStepDescriptor descriptor)
     {
-        if (_factories.TryGetValue(stepType, out var factory))
+        if (descriptor is ISuccessStepDescriptor successStepDescriptor)
+        {
+            return _lifetimeScope.ResolveKeyed<IWizardStepVM>(
+                successStepDescriptor.StepType,
+                new TypedParameter(typeof(string), successStepDescriptor.Text)
+            );
+        }
+
+        if (_factories.TryGetValue(descriptor.StepType, out var factory))
         {
             return factory();
         }
 
-        if (!_lifetimeScope.TryResolveKeyed(stepType, out factory))
+        if (!_lifetimeScope.TryResolveKeyed(descriptor.StepType, out factory))
         {
             throw new ArgumentOutOfRangeException(
-                nameof(stepType),
-                stepType,
+                nameof(descriptor.StepType),
+                descriptor.StepType,
                 "Could not resolve wizard step vm factory for specified step type."
             );
         }
 
-        _factories[stepType] = factory;
+        _factories[descriptor.StepType] = factory;
         return factory();
     }
 }
