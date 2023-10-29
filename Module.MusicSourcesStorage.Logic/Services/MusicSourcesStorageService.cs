@@ -32,7 +32,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 
     public async Task<MusicSourceAdditionalInfo?> GetAdditionalInfoByIdAsync(int id, CancellationToken token)
     {
-        var model = await _musicSourcesStorage.GetAdditionalInfoByIdAsync(id, token);
+        var model = await _musicSourcesStorage.GetAdditionalInfoAsync(id, token);
 
         return model?.ToLogicModel();
     }

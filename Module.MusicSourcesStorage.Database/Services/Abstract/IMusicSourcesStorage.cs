@@ -8,7 +8,7 @@ public interface IMusicSourcesStorage
 
     Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token = default);
 
-    Task<MusicSourceAdditionalInfoModel?> GetAdditionalInfoByIdAsync(int id, CancellationToken token = default);
+    Task<MusicSourceAdditionalInfoModel?> GetAdditionalInfoAsync(int id, CancellationToken token = default);
 
     /// <exception cref="DatabaseException">
     /// Error on receive or update additional info.
