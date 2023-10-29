@@ -32,17 +32,32 @@ public sealed class WizardService : IWizardService
         return _lifetimeScope.BeginLifetimeScope(
             builder =>
             {
-                builder
-                    .RegisterInstance(_wizardPipelines.GetRootDescriptor(wizardType))
-                    .As<IWizardStepDescriptor>();
+                RegisterRootDescriptor(builder, wizardType);
+                RegisterWizardContext(builder, wizardType);
+            }
+        );
+    }
 
-                // todo use difference context for diff wizards
+    private void RegisterRootDescriptor(ContainerBuilder builder, WizardType wizardType)
+    {
+        builder
+            .RegisterInstance(_wizardPipelines.GetRootDescriptor(wizardType))
+            .As<IWizardStepDescriptor>();
+    }
+
+    private static void RegisterWizardContext(ContainerBuilder builder, WizardType wizardType)
+    {
+        switch (wizardType)
+        {
+            case WizardType.AddingVkPostWithArchive:
                 builder
                     .RegisterType<AddingVkPostWithArchiveContext>()
                     .As<IAddingVkPostWithArchiveContext>()
                     .As<IWizardErrorContext>()
                     .SingleInstance();
-            }
-        );
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(wizardType), wizardType, "Wizard type is unknown.");
+        }
     }
 }
