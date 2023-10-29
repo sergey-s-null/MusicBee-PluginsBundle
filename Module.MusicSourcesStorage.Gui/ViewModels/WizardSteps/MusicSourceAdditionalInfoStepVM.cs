@@ -14,9 +14,9 @@ public sealed class MusicSourceAdditionalInfoStepVM : IMusicSourceAdditionalInfo
 
     public bool IsValidState { get; private set; }
 
-    private readonly IAddingVkPostWithArchiveContext _context;
+    private readonly IMusicSourceAdditionalInfoContext _context;
 
-    public MusicSourceAdditionalInfoStepVM(IAddingVkPostWithArchiveContext context)
+    public MusicSourceAdditionalInfoStepVM(IMusicSourceAdditionalInfoContext context)
     {
         _context = context;
 
@@ -40,10 +40,6 @@ public sealed class MusicSourceAdditionalInfoStepVM : IMusicSourceAdditionalInfo
         if (_context.AdditionalInfo is not null)
         {
             Name = _context.AdditionalInfo.Name;
-        }
-        else if (_context.SelectedDocument is not null)
-        {
-            Name = _context.SelectedDocument.Name;
         }
     }
 
