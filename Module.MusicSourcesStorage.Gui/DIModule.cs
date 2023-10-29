@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Autofac.Features.AttributeFilters;
-using AutoMapper;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities;
@@ -103,6 +102,14 @@ public sealed class DIModule : Autofac.Module
         RegisterMusicSourceVMBuilder(builder, ConnectionState.NotConnected);
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.Connected);
         RegisterNodesHierarchyVMBuilder(builder, ConnectionState.NotConnected);
+        builder
+            .RegisterType<ConnectedFileVMBuilder>()
+            .Keyed<IFileVMBuilder>(ConnectionState.Connected)
+            .SingleInstance();
+        builder
+            .RegisterType<NotConnectedFileVMBuilder>()
+            .Keyed<IFileVMBuilder>(ConnectionState.NotConnected)
+            .SingleInstance();
     }
 
     private static void RegisterFactories(ContainerBuilder builder)
@@ -140,8 +147,8 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<NodesHierarchyVMBuilder>()
-            .WithParameter(ResolvedParameter.ForKeyed<IMapper>(connectionState))
             .WithParameter(ResolvedParameter.ForKeyed<DirectoryVMFactory>(connectionState))
+            .WithParameter(ResolvedParameter.ForKeyed<IFileVMBuilder>(connectionState))
             .Keyed<INodesHierarchyVMBuilder>(connectionState)
             .SingleInstance();
     }

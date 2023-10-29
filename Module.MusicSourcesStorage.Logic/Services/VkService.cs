@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Exceptions;
+using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
@@ -10,12 +10,10 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 public sealed class VkService : IVkService
 {
     private readonly IVkApi _vkApi;
-    private readonly IMapper _mapper;
 
-    public VkService(IVkApi vkApi, IMapper mapper)
+    public VkService(IVkApi vkApi)
     {
         _vkApi = vkApi;
-        _mapper = mapper;
     }
 
     public async Task<IReadOnlyList<VkDocument>> GetAttachedDocumentsFromPostAsync(
@@ -28,7 +26,7 @@ public sealed class VkService : IVkService
         return post.Attachments
             .Select(x => x.Instance)
             .OfType<Document>()
-            .Select(x => _mapper.Map<VkDocument>(x))
+            .Select(x => x.ToLogicModel())
             .ToList();
     }
 

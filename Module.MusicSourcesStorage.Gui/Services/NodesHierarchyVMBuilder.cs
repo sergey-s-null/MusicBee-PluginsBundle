@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using AutoMapper;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Factories;
@@ -13,21 +12,21 @@ namespace Module.MusicSourcesStorage.Gui.Services;
 
 public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 {
-    private readonly IMapper _mapper;
     private readonly DirectoryVMFactory _directoryVMFactory;
     private readonly IHierarchyBuilder<SourceFile, string> _hierarchyBuilder;
+    private readonly IFileVMBuilder _fileVMBuilder;
 
     public NodesHierarchyVMBuilder(
-        IMapper mapper,
         DirectoryVMFactory directoryVMFactory,
-        IHierarchyBuilderFactory hierarchyBuilderFactory)
+        IHierarchyBuilderFactory hierarchyBuilderFactory,
+        IFileVMBuilder fileVMBuilder)
     {
-        _mapper = mapper;
         _directoryVMFactory = directoryVMFactory;
         _hierarchyBuilder = hierarchyBuilderFactory.Create<SourceFile, string>(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase
         );
+        _fileVMBuilder = fileVMBuilder;
     }
 
     public INodesHierarchyVM Build(IReadOnlyList<SourceFile> files)
@@ -44,7 +43,7 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
         return nodes
             .Select(CreateNodeVM)
             .Concat(leaves
-                .Select(x => _mapper.Map<IFileVM>(x.Value)))
+                .Select(x => _fileVMBuilder.Build(x.Value)))
             .ToList();
     }
 

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
@@ -22,16 +21,12 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
     public IVkDocumentVM? SelectedDocument { get; set; }
 
     private readonly IAddingVkPostWithArchiveContext _context;
-    private readonly IMapper _mapper;
 
     private readonly IReadOnlyDictionary<IVkDocumentVM, VkDocument> _documentsMap;
 
-    public SelectDocumentFromVkPostStepVM(
-        IAddingVkPostWithArchiveContext context,
-        IMapper mapper)
+    public SelectDocumentFromVkPostStepVM(IAddingVkPostWithArchiveContext context)
     {
         _context = context;
-        _mapper = mapper;
 
         ValidateContext();
 
@@ -75,7 +70,7 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
 
         foreach (var document in documents)
         {
-            var viewModel = _mapper.Map<IVkDocumentVM>(document);
+            var viewModel = document.ToViewModel();
             mapInternal[viewModel] = document;
             viewModelsInternal.Add(viewModel);
 
