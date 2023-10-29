@@ -20,9 +20,9 @@ public sealed class WizardService : IWizardService
         _lifetimeScope = lifetimeScope;
     }
 
-    public void Open(WizardType wizardType)
+    public void AddVkPostWithArchiveSource()
     {
-        var wizardScope = CreateScope(wizardType);
+        var wizardScope = CreateScope(WizardType.AddingVkPostWithArchive);
         var wizard = wizardScope.Resolve<Wizard>();
         wizard.ShowDialog();
     }
