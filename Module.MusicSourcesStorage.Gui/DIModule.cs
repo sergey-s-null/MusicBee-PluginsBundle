@@ -2,6 +2,7 @@
 using Autofac.Core;
 using Autofac.Features.AttributeFilters;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
@@ -60,6 +61,15 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<WizardVM>()
             .As<IWizardVM>();
+        builder
+            .RegisterType<ConnectedMusicFileVM>()
+            .As<IConnectedMusicFileVM>();
+        builder
+            .RegisterType<ConnectedImageFileVM>()
+            .As<IConnectedImageFileVM>();
+        builder
+            .RegisterType<ConnectedUnknownFileVM>()
+            .As<IConnectedUnknownFileVM>();
     }
 
     private static void RegisterStepViewModels(ContainerBuilder builder)
