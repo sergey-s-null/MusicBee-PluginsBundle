@@ -19,6 +19,6 @@
                    VerticalAlignment="Center" />
         <TextBox Grid.Column="1"
                  VerticalAlignment="Center"
-                 Text="{Binding Name}" />
+                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>
