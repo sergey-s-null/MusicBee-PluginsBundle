@@ -8,14 +8,14 @@ public sealed class VkPostWithArchiveSource : MusicSource
     /// "New" mean that created model does not exists in database yet.
     /// </summary>
     public static VkPostWithArchiveSource New(
-        string name,
+        MusicSourceAdditionalInfo additionalInfo,
         IReadOnlyList<SourceFile> files,
         VkPost post,
         VkDocument document)
     {
         return new VkPostWithArchiveSource(
             0,
-            name,
+            additionalInfo,
             files,
             post,
             document
@@ -28,11 +28,11 @@ public sealed class VkPostWithArchiveSource : MusicSource
 
     public VkPostWithArchiveSource(
         int id,
-        string name,
+        MusicSourceAdditionalInfo additionalInfo,
         IReadOnlyList<SourceFile> files,
         VkPost post,
         VkDocument document)
-        : base(id, name, MusicSourceType.VkPostWithArchive, files)
+        : base(id, additionalInfo, MusicSourceType.VkPostWithArchive, files)
     {
         Post = post;
         Document = document;

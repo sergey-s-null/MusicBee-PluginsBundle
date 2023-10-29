@@ -32,10 +32,10 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
         Text = "Adding music source to database";
 
         var source = VkPostWithArchiveSource.New(
-            _context.SelectedDocument!.Name,
+            _context.AdditionalInfo!,
             _context.IndexedFiles!,
             new VkPost(_context.PostId!),
-            _context.SelectedDocument
+            _context.SelectedDocument!
         );
         return _storageService.AddMusicSourceAsync(source, token);
     }
@@ -45,5 +45,6 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
         _context.ValidateHasPostId();
         _context.ValidateHasSelectedDocument();
         _context.ValidateHasIndexedFiles();
+        _context.ValidateHasAdditionalInfo();
     }
 }

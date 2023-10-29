@@ -8,4 +8,5 @@ public interface IAddingVkPostWithArchiveContext : IWizardErrorContext
     IReadOnlyList<VkDocument>? AttachedDocuments { get; set; }
     VkDocument? SelectedDocument { get; set; }
     IReadOnlyList<SourceFile>? IndexedFiles { get; set; }
+    MusicSourceAdditionalInfo? AdditionalInfo { get; set; }
 }

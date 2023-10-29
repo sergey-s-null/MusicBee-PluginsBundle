@@ -8,13 +8,13 @@ public sealed class TorrentSource : MusicSource
     /// "New" mean that created model does not exists in database yet.
     /// </summary>
     public static TorrentSource New(
-        string name,
+        MusicSourceAdditionalInfo additionalInfo,
         IReadOnlyList<SourceFile> files,
         byte[] torrentFile)
     {
         return new TorrentSource(
             0,
-            name,
+            additionalInfo,
             files,
             torrentFile
         );
@@ -24,10 +24,10 @@ public sealed class TorrentSource : MusicSource
 
     public TorrentSource(
         int id,
-        string name,
+        MusicSourceAdditionalInfo additionalInfo,
         IReadOnlyList<SourceFile> files,
         byte[] torrentFile)
-        : base(id, name, MusicSourceType.Torrent, files)
+        : base(id, additionalInfo, MusicSourceType.Torrent, files)
     {
         TorrentFile = torrentFile;
     }

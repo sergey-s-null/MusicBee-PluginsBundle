@@ -46,11 +46,11 @@ public sealed class WizardPipelines : IWizardPipelines
 
         var step5 = _stepDescriptorFactory.Create(StepType.IndexingResult);
 
-        // todo? add step for additional information
+        var step6 = _stepDescriptorFactory.Create(StepType.SpecifyMusicSourceAdditionalInformation);
 
-        var step6 = _stepDescriptorFactory.Create(StepType.AddMusicSourceToDatabase);
-        var step6Error = _stepDescriptorFactory.Create(StepType.Error);
-        var step6Success = _stepDescriptorFactory.Create(
+        var step7 = _stepDescriptorFactory.Create(StepType.AddMusicSourceToDatabase);
+        var step7Error = _stepDescriptorFactory.Create(StepType.Error);
+        var step7Success = _stepDescriptorFactory.Create(
             () => _successResultStepVMFactory("Music source added to database")
         );
 
@@ -77,16 +77,19 @@ public sealed class WizardPipelines : IWizardPipelines
 
         step5.PreviousStepDescriptor = step3;
         step5.NextStepDescriptor = step6;
-        step5.CustomNextCommandName = "Add";
 
         step6.PreviousStepDescriptor = step5;
-        step6.NextStepDescriptor = step6Success;
-        step6.ErrorStepDescriptor = step6Error;
+        step6.NextStepDescriptor = step7;
+        step6.CustomNextCommandName = "Add";
 
-        step6Error.PreviousStepDescriptor = step5;
+        step7.PreviousStepDescriptor = step6;
+        step7.NextStepDescriptor = step7Success;
+        step7.ErrorStepDescriptor = step7Error;
 
-        step6Success.CanSafelyCloseWizard = true;
-        step6Success.CustomCloseWizardCommandName = "Done";
+        step7Error.PreviousStepDescriptor = step5;
+
+        step7Success.CanSafelyCloseWizard = true;
+        step7Success.CustomCloseWizardCommandName = "Done";
 
         return step1;
     }

@@ -98,6 +98,9 @@ public sealed class DIModule : Autofac.Module
             .Keyed<IWizardStepVM>(StepType.IndexingResult)
             .WithAttributeFiltering();
         builder
+            .RegisterType<MusicSourceAdditionalInfoStepVM>()
+            .Keyed<IWizardStepVM>(StepType.SpecifyMusicSourceAdditionalInformation);
+        builder
             .RegisterType<AddMusicSourceToDatabaseStepVM>()
             .Keyed<IWizardStepVM>(StepType.AddMusicSourceToDatabase);
     }

@@ -17,7 +17,7 @@ public sealed class MusicSourceVMBuilder : IMusicSourceVMBuilder
     public IMusicSourceVM Build(MusicSource musicSource)
     {
         return new MusicSourceVM(
-            musicSource.Name,
+            musicSource.AdditionalInfo.Name,
             musicSource.Type,
             _nodesHierarchyVMBuilder.Build(musicSource.Files)
         );

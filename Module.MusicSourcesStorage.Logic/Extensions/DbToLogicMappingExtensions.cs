@@ -19,7 +19,7 @@ public static class DbToLogicMappingExtensions
     {
         return new VkPostWithArchiveSource(
             model.Id,
-            model.Name,
+            model.AdditionalInfo.ToLogicModel(),
             model.Files
                 .Select(x => x.ToLogicModel())
                 .ToList(),
@@ -32,12 +32,17 @@ public static class DbToLogicMappingExtensions
     {
         return new TorrentSource(
             model.Id,
-            model.Name,
+            model.AdditionalInfo.ToLogicModel(),
             model.Files
                 .Select(x => x.ToLogicModel())
                 .ToList(),
             model.TorrentFile
         );
+    }
+
+    public static MusicSourceAdditionalInfo ToLogicModel(this MusicSourceAdditionalInfoModel model)
+    {
+        return new MusicSourceAdditionalInfo(model.Name);
     }
 
     public static SourceFile ToLogicModel(this FileModel model)

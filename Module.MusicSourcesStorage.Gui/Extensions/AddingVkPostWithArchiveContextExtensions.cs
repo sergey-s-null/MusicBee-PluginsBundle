@@ -36,4 +36,12 @@ public static class AddingVkPostWithArchiveContextExtensions
             throw new ValidationException("Context has not indexed files.");
         }
     }
+
+    public static void ValidateHasAdditionalInfo(this IAddingVkPostWithArchiveContext context)
+    {
+        if (context.AdditionalInfo is null)
+        {
+            throw new ValidationException("Context has not additional info.");
+        }
+    }
 }

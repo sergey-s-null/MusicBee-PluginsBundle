@@ -5,19 +5,20 @@ namespace Module.MusicSourcesStorage.Logic.Entities;
 public abstract class MusicSource
 {
     public int Id { get; }
-    public string Name { get; }
+    public MusicSourceAdditionalInfo AdditionalInfo { get; }
     public MusicSourceType Type { get; }
     public IReadOnlyList<SourceFile> Files { get; }
 
     protected MusicSource(
         int id,
-        string name,
+        MusicSourceAdditionalInfo additionalInfo,
         MusicSourceType type,
         IReadOnlyList<SourceFile> files)
     {
         Id = id;
-        Name = name;
+        AdditionalInfo = additionalInfo;
         Type = type;
         Files = files;
+        AdditionalInfo = additionalInfo;
     }
 }

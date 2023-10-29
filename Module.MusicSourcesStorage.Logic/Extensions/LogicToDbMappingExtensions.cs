@@ -15,30 +15,38 @@ public static class LogicToDbMappingExtensions
         };
     }
 
-    public static VkPostWithArchiveSourceModel ToDbModel(this VkPostWithArchiveSource vkPostWithArchiveSource)
+    public static VkPostWithArchiveSourceModel ToDbModel(this VkPostWithArchiveSource source)
     {
         return new VkPostWithArchiveSourceModel
         {
-            Id = vkPostWithArchiveSource.Id,
-            Name = vkPostWithArchiveSource.Name,
-            Files = vkPostWithArchiveSource.Files
+            Id = source.Id,
+            AdditionalInfo = source.AdditionalInfo.ToDbModel(),
+            Files = source.Files
                 .Select(x => x.ToDbModel())
                 .ToList(),
-            Post = vkPostWithArchiveSource.Post.ToDbModel(),
-            Document = vkPostWithArchiveSource.Document.ToDbModel()
+            Post = source.Post.ToDbModel(),
+            Document = source.Document.ToDbModel()
         };
     }
 
-    public static TorrentSourceModel ToDbModel(this TorrentSource torrentSource)
+    public static TorrentSourceModel ToDbModel(this TorrentSource source)
     {
         return new TorrentSourceModel
         {
-            Id = torrentSource.Id,
-            Name = torrentSource.Name,
-            Files = torrentSource.Files
+            Id = source.Id,
+            AdditionalInfo = source.AdditionalInfo.ToDbModel(),
+            Files = source.Files
                 .Select(f => f.ToDbModel())
                 .ToList(),
-            TorrentFile = torrentSource.TorrentFile
+            TorrentFile = source.TorrentFile
+        };
+    }
+
+    public static MusicSourceAdditionalInfoModel ToDbModel(this MusicSourceAdditionalInfo additionalInfo)
+    {
+        return new MusicSourceAdditionalInfoModel
+        {
+            Name = additionalInfo.Name
         };
     }
 
