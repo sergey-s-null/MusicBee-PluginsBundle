@@ -36,4 +36,9 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 
         return model?.ToLogicModel();
     }
+
+    public Task UpdateAdditionalInfoAsync(int id, MusicSourceAdditionalInfo additionalInfo, CancellationToken token)
+    {
+        return _musicSourcesStorage.UpdateAdditionalInfo(id, additionalInfo.ToDbModel(), token);
+    }
 }

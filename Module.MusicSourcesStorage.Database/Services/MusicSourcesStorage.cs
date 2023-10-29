@@ -39,4 +39,21 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
 
         return model?.AdditionalInfo;
     }
+
+    public async Task UpdateAdditionalInfo(
+        int id,
+        MusicSourceAdditionalInfoModel additionalInfo,
+        CancellationToken token)
+    {
+        using var context = _contextFactory();
+
+        var model = await context.Sources.FindAsync(token, id);
+        if (model is null)
+        {
+            throw new DatabaseException($"Could not find music source with id {id}.");
+        }
+
+        model.AdditionalInfo = additionalInfo;
+        await context.SaveChangesAsync(token);
+    }
 }
