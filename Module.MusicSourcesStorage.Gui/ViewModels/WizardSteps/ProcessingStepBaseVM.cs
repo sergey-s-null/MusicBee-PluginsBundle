@@ -17,14 +17,14 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
 
     private ICommand? _cancelCmd;
 
-    private readonly IAddingVkPostWithArchiveContext _context;
+    private readonly IWizardErrorContext _errorContext;
 
     private CancellationTokenSource? _cancellationTokenSource;
     private Task? _task;
 
-    protected ProcessingStepBaseVM(IAddingVkPostWithArchiveContext context)
+    protected ProcessingStepBaseVM(IWizardErrorContext errorContext)
     {
-        _context = context;
+        _errorContext = errorContext;
     }
 
     public void Start()
@@ -34,21 +34,21 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
             .ContinueWith(HandleTaskEnd, _cancellationTokenSource.Token);
     }
 
-    protected abstract Task ProcessAsync(CancellationToken token);
+    protected abstract Task<StepResult> ProcessAsync(CancellationToken token);
 
-    private void HandleTaskEnd(Task task)
+    private void HandleTaskEnd(Task<StepResult> task)
     {
         switch (task)
         {
             case { Status: TaskStatus.RanToCompletion }:
-                DispatchProcessingCompletedEvent(StepResult.Success);
+                DispatchProcessingCompletedEvent(task.Result);
                 break;
             case { Exception: not null }:
-                _context.Error = task.Exception.ToString();
+                _errorContext.Error = task.Exception.ToString();
                 DispatchProcessingCompletedEvent(StepResult.Error);
                 break;
             default:
-                _context.Error = "Task was not ran to completion and does not contains exception. " +
+                _errorContext.Error = "Task was not ran to completion and does not contains exception. " +
                                  $"Task status: {task.Status}.";
                 DispatchProcessingCompletedEvent(StepResult.Error);
                 break;

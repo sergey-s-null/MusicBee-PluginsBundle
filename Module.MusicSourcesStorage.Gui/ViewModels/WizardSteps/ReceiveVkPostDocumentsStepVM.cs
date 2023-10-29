@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
@@ -33,7 +34,7 @@ public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
         Text = "Receiving documents attached to post";
     }
 
-    protected override async Task ProcessAsync(CancellationToken token)
+    protected override async Task<StepResult> ProcessAsync(CancellationToken token)
     {
         var documents = await _vkService.GetAttachedDocumentsFromPostAsync(
             _postOwnerId,
@@ -42,5 +43,7 @@ public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
         );
 
         _context.AttachedDocuments = documents;
+
+        return StepResult.Success;
     }
 }

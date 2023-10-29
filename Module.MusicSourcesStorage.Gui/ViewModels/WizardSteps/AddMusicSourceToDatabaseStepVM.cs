@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -27,7 +28,7 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
         Text = "Starting";
     }
 
-    protected override Task ProcessAsync(CancellationToken token)
+    protected override async Task<StepResult> ProcessAsync(CancellationToken token)
     {
         Text = "Adding music source to database";
 
@@ -37,7 +38,9 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
             new VkPost(_context.PostId!),
             _context.SelectedDocument!
         );
-        return _storageService.AddMusicSourceAsync(source, token);
+        await _storageService.AddMusicSourceAsync(source, token);
+
+        return StepResult.Success;
     }
 
     private void ValidateContext()
