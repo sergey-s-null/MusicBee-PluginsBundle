@@ -12,18 +12,17 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
     public override string Text { get; protected set; }
 
     private readonly IAddingVkPostWithArchiveContext _context;
-    private readonly IVkDocumentDownloader _vkDocumentDownloader;
+    private readonly IVkDocumentDownloadingTaskManager _vkDocumentDownloadingTaskManager;
     private readonly IArchiveIndexer _archiveIndexer;
 
     public DownloadAndIndexArchiveStepVM(
         IAddingVkPostWithArchiveContext context,
-        IVkDocumentDownloader vkDocumentDownloader,
-        IArchiveIndexer archiveIndexer
-    )
+        IVkDocumentDownloadingTaskManager vkDocumentDownloadingTaskManager,
+        IArchiveIndexer archiveIndexer)
         : base(context)
     {
         _context = context;
-        _vkDocumentDownloader = vkDocumentDownloader;
+        _vkDocumentDownloadingTaskManager = vkDocumentDownloadingTaskManager;
         _archiveIndexer = archiveIndexer;
 
         _context.ValidateHasSelectedDocument();
@@ -34,13 +33,19 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
     protected override async Task<StepResult> ProcessAsync(CancellationToken token)
     {
         Text = "Downloading archive";
-        var archiveFilePath = await _vkDocumentDownloader.DownloadAsync(_context.SelectedDocument!, token);
+        var downloadingTask = _vkDocumentDownloadingTaskManager.GetOrStartNew(_context.SelectedDocument!);
+        await downloadingTask.WaitCompletionAsync(token);
 
         Text = "Indexing archive";
-        var files = _archiveIndexer.Index(archiveFilePath);
+        var files = _archiveIndexer.Index(downloadingTask.TargetFilePath);
 
         _context.IndexedFiles = files;
 
         return StepResult.Success;
+    }
+
+    protected override void OnCancelled()
+    {
+        _vkDocumentDownloadingTaskManager.CancelDownloading(_context.SelectedDocument!);
     }
 }

@@ -15,8 +15,12 @@ public sealed class DIModule : Autofac.Module
             .As<IVkService>()
             .SingleInstance();
         builder
-            .RegisterType<VkDocumentDownloader>()
-            .As<IVkDocumentDownloader>()
+            .RegisterType<VkDocumentDownloadingTaskManager>()
+            .As<IVkDocumentDownloadingTaskManager>()
+            .SingleInstance();
+        builder
+            .RegisterType<DownloadedVkDocumentsCache>()
+            .As<IDownloadedVkDocumentsCache>()
             .SingleInstance();
         builder
             .RegisterType<ArchiveIndexer>()
