@@ -36,6 +36,10 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
 
     protected abstract Task<StepResult> ProcessAsync(CancellationToken token);
 
+    protected virtual void OnCancelled()
+    {
+    }
+
     private void HandleTaskEnd(Task<StepResult> task)
     {
         switch (task)
@@ -49,7 +53,7 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
                 break;
             default:
                 _errorContext.Error = "Task was not ran to completion and does not contains exception. " +
-                                 $"Task status: {task.Status}.";
+                                      $"Task status: {task.Status}.";
                 DispatchProcessingCompletedEvent(StepResult.Error);
                 break;
         }
@@ -71,6 +75,8 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
         {
             // ignored
         }
+
+        OnCancelled();
 
         DispatchProcessingCompletedEvent(StepResult.Canceled);
     }
