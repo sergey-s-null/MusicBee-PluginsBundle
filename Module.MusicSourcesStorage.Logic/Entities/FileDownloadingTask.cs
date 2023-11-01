@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Runtime.ExceptionServices;
 using Module.MusicSourcesStorage.Logic.Entities.Abstract;
 using Module.MusicSourcesStorage.Logic.Enums;
 
@@ -48,7 +49,7 @@ public sealed class FileDownloadingTask : IFileDownloadingTask
         );
 
         _downloadTask = _webClient.DownloadFileTaskAsync(_sourceUri, TargetFilePath)
-            .ContinueWith(HandleDownloadingEnd);
+            .ContinueWith(HandleDownloadingEnd, _cancellationTokenSource.Token);
 
         State = TaskState.Running;
     }
@@ -60,13 +61,11 @@ public sealed class FileDownloadingTask : IFileDownloadingTask
         _downloadTask!.Wait();
     }
 
-    public async Task WaitCompletionAsync(CancellationToken token)
+    public Task WaitCompletionAsync(CancellationToken token)
     {
         CheckThatStarted();
 
-        token.Register(Cancel);
-
-        await _downloadTask!;
+        return Task.Run(() => _downloadTask!.Wait(token), token);
     }
 
     public void Cancel()
@@ -78,6 +77,23 @@ public sealed class FileDownloadingTask : IFileDownloadingTask
         try
         {
             _downloadTask!.Wait();
+        }
+        catch (AggregateException e)
+        {
+            switch (e.InnerExceptions.Count)
+            {
+                case 1:
+                {
+                    if (e.InnerException is not TaskCanceledException)
+                    {
+                        ExceptionDispatchInfo.Capture(e.InnerException!).Throw();
+                    }
+
+                    break;
+                }
+                case > 1:
+                    throw;
+            }
         }
         catch (TaskCanceledException)
         {
