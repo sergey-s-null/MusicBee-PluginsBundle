@@ -47,6 +47,16 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         return StartNewDownloadingTask(document);
     }
 
+    public void CancelDownloading(VkDocument document)
+    {
+        if (!TryPopRunningTask(document.Id, out var task))
+        {
+            return;
+        }
+
+        task.Cancel();
+    }
+
     private string GetFilePath(VkDocument document)
     {
         var fileName = PathHelper.ReplaceInvalidCharacters(document.Name, "_");
@@ -63,6 +73,25 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         finally
         {
             _lock.ExitReadLock();
+        }
+    }
+
+    private bool TryPopRunningTask(VkOwnedEntityId documentId, out FileDownloadingTask task)
+    {
+        _lock.EnterWriteLock();
+        try
+        {
+            var result = _runningTasks.TryGetValue(documentId, out task);
+            if (result)
+            {
+                _runningTasks.Remove(documentId);
+            }
+
+            return result;
+        }
+        finally
+        {
+            _lock.ExitWriteLock();
         }
     }
 
