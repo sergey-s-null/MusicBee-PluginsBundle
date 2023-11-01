@@ -24,6 +24,16 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         return model;
     }
 
+    public async Task DeleteAsync(int id, CancellationToken token = default)
+    {
+        using var context = _contextFactory();
+
+        var model = await context.Sources.FindAsync(token, id);
+        context.Sources.Remove(model);
+
+        await context.SaveChangesAsync(token);
+    }
+
     public async Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token = default)
     {
         using var context = _contextFactory();

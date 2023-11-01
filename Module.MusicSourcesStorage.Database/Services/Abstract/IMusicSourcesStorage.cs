@@ -9,6 +9,8 @@ public interface IMusicSourcesStorage
     /// </summary>
     Task<MusicSourceModel> AddAsync(MusicSourceModel musicSource, CancellationToken token = default);
 
+    Task DeleteAsync(int id, CancellationToken token = default);
+
     Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token = default);
 
     Task<MusicSourceAdditionalInfoModel?> GetAdditionalInfoAsync(int id, CancellationToken token = default);

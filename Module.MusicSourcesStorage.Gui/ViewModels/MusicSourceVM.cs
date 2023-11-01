@@ -1,8 +1,10 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
+using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Module.Mvvm.Extension;
 using PropertyChanged;
 
@@ -25,16 +27,19 @@ public sealed class MusicSourceVM : IMusicSourceVM
 
     private readonly int _musicSourceId;
     private readonly IWizardService _wizardService;
+    private readonly IMusicSourcesStorageService _storageService;
 
     public MusicSourceVM(
         int musicSourceId,
         MusicSourceAdditionalInfo additionalInfo,
         MusicSourceType type,
         INodesHierarchyVM items,
-        IWizardService wizardService)
+        IWizardService wizardService,
+        IMusicSourcesStorageService storageService)
     {
         _musicSourceId = musicSourceId;
         _wizardService = wizardService;
+        _storageService = storageService;
 
         UpdateFields(additionalInfo);
         Type = type;
@@ -50,9 +55,20 @@ public sealed class MusicSourceVM : IMusicSourceVM
         }
     }
 
-    private void DeleteCmd()
+    private async void DeleteCmd()
     {
-        throw new NotImplementedException();
+        var result = MessageBox.Show(
+            $"Are you sure you want to delete source \"{Name}\" with id {_musicSourceId}?",
+            "\u255a(•\u2302•)\u255d",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Stop
+        );
+
+        if (result == MessageBoxResult.Yes)
+        {
+            await _storageService.DeleteMusicSourceAsync(_musicSourceId);
+            Deleted?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void UpdateFields(MusicSourceAdditionalInfo additionalInfo)
