@@ -15,4 +15,11 @@
             <iconPacks:PackIconUnicons Kind="Edit" />
         </MenuItem.Icon>
     </MenuItem>
+    <Separator />
+    <MenuItem Header="Delete"
+              Command="{Binding Delete}">
+        <MenuItem.Icon>
+            <iconPacks:PackIconForkAwesome Kind="Trash" />
+        </MenuItem.Icon>
+    </MenuItem>
 </ContextMenu>
