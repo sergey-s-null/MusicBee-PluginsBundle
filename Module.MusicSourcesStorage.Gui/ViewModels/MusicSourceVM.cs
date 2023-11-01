@@ -16,8 +16,10 @@ public sealed class MusicSourceVM : IMusicSourceVM
     public INodesHierarchyVM Items { get; }
 
     public ICommand Edit => _editCmd ??= new RelayCommand(EditCmd);
+    public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
 
     private ICommand? _editCmd;
+    private ICommand? _deleteCmd;
 
     private readonly int _musicSourceId;
     private readonly IWizardService _wizardService;
@@ -44,6 +46,11 @@ public sealed class MusicSourceVM : IMusicSourceVM
         {
             UpdateFields(modifiedAdditionalInfo);
         }
+    }
+
+    private void DeleteCmd()
+    {
+        throw new NotImplementedException();
     }
 
     private void UpdateFields(MusicSourceAdditionalInfo additionalInfo)

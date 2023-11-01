@@ -10,4 +10,5 @@ public interface IMusicSourceVM
     INodesHierarchyVM Items { get; }
 
     ICommand Edit { get; }
+    ICommand Delete { get; }
 }

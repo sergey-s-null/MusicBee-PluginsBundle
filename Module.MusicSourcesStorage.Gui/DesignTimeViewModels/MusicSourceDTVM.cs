@@ -11,6 +11,7 @@ public sealed class MusicSourceDTVM : IMusicSourceVM
     public INodesHierarchyVM Items { get; }
 
     public ICommand Edit => null!;
+    public ICommand Delete => null!;
 
     // ReSharper disable once UnusedMember.Global
     public MusicSourceDTVM() : this("Some Source", MusicSourceType.VkPostWithArchive)
