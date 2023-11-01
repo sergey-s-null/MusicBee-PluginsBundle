@@ -6,6 +6,8 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
 public sealed class MusicSourceDTVM : IMusicSourceVM
 {
+    public event EventHandler? Deleted;
+
     public string Name { get; }
     public MusicSourceType Type { get; }
     public INodesHierarchyVM Items { get; }

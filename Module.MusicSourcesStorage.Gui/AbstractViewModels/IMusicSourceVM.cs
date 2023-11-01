@@ -5,6 +5,8 @@ namespace Module.MusicSourcesStorage.Gui.AbstractViewModels;
 
 public interface IMusicSourceVM
 {
+    event EventHandler Deleted;
+
     string Name { get; }
     MusicSourceType Type { get; }
     INodesHierarchyVM Items { get; }

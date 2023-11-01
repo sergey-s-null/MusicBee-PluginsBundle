@@ -11,6 +11,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels;
 [AddINotifyPropertyChangedInterface]
 public sealed class MusicSourceVM : IMusicSourceVM
 {
+    public event EventHandler? Deleted;
+
     public string Name { get; private set; } = string.Empty;
     public MusicSourceType Type { get; }
     public INodesHierarchyVM Items { get; }
