@@ -8,7 +8,7 @@ public sealed class ConnectedImageFileDTVM : ImageFileDTVM, IConnectedImageFileV
     {
     }
 
-    public ConnectedImageFileDTVM(string path, bool isCover) : base(path, isCover)
+    public ConnectedImageFileDTVM(string path, bool isCover) : base(path)
     {
     }
 }

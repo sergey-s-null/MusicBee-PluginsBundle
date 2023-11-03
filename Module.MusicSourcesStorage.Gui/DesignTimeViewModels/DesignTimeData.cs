@@ -14,7 +14,7 @@ public static class DesignTimeData
             new MusicFileDTVM("Song2.mp3"),
             new MusicFileDTVM("Song999.mp3"),
             new MusicFileDTVM("Song42.mp3"),
-            new ImageFileDTVM("cover.jpg", true)
+            new ImageFileDTVM("cover.jpg")
         }, "quad.png"),
         new DirectoryDTVM("Epic Album 666", new INodeVM[]
         {
@@ -24,12 +24,12 @@ public static class DesignTimeData
                 new UnknownFileDTVM("message from author.txt")
             }),
             new MusicFileDTVM("Single.flac"),
-            new ImageFileDTVM("cover.png", true),
-            new ImageFileDTVM("some image.png", false)
+            new ImageFileDTVM("cover.png"),
+            new ImageFileDTVM("some image.png")
         }, "vertical.png"),
         new DirectoryDTVM("Just a joke", new INodeVM[]
         {
-            new ImageFileDTVM("only-cover.png", true)
+            new ImageFileDTVM("only-cover.png")
         }, "horizontal.png")
     };
 
