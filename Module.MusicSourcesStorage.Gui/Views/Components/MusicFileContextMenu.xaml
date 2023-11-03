@@ -3,35 +3,111 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
+             xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
-             d:DesignWidth="300">
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance dtvm:ConnectedMusicFileDTVM}">
 
-    <MenuItem Header="Download">
-        <MenuItem.Icon>
-            <iconPacks:PackIconUnicons Kind="Import" />
-        </MenuItem.Icon>
-    </MenuItem>
+    <ContextMenu.Resources>
+        <Style x:Key="DownloadStyle" TargetType="MenuItem">
+            <Setter Property="IsEnabled" Value="False" />
+            <Setter Property="Icon">
+                <Setter.Value>
+                    <iconPacks:PackIconUnicons Kind="Import" />
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CanDownload}"
+                             Value="True">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="MarkAsListenedStyle" TargetType="MenuItem">
+            <Setter Property="IsEnabled" Value="False" />
+            <Setter Property="Icon">
+                <Setter.Value>
+                    <iconPacks:PackIconPicolIcons Kind="MusicCancel" />
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding State}"
+                             Value="{x:Static enums:MusicFileState.NotListened}">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="MarkAsNotListenedStyle" TargetType="MenuItem">
+            <Setter Property="IsEnabled" Value="False" />
+            <Setter Property="Icon">
+                <Setter.Value>
+                    <iconPacks:PackIconPicolIcons Kind="Music" />
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding State}"
+                             Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="DeleteFileBaseStyle"
+               TargetType="MenuItem">
+            <Setter Property="IsEnabled" Value="False" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CanDelete}"
+                             Value="True">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="DeleteFileAndMarkAsListenedStyle"
+               BasedOn="{StaticResource DeleteFileBaseStyle}"
+               TargetType="MenuItem">
+            <Setter Property="Icon">
+                <Setter.Value>
+                    <iconPacks:PackIconForkAwesome Kind="Trash" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DeleteFileStyle"
+               BasedOn="{StaticResource DeleteFileBaseStyle}"
+               TargetType="MenuItem">
+            <Setter Property="Icon">
+                <Setter.Value>
+                    <iconPacks:PackIconForkAwesome Kind="TrashOutline" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ContextMenu.Resources>
+
+
+    <MenuItem Header="Download"
+              Style="{StaticResource DownloadStyle}"
+              Command="{Binding Download}" />
+
     <Separator />
-    <MenuItem Header="Mark as listened">
-        <MenuItem.Icon>
-            <iconPacks:PackIconPicolIcons Kind="MusicCancel" />
-        </MenuItem.Icon>
-    </MenuItem>
-    <MenuItem Header="Mark as not listened">
-        <MenuItem.Icon>
-            <iconPacks:PackIconPicolIcons Kind="Music" />
-        </MenuItem.Icon>
-    </MenuItem>
+
+    <MenuItem Header="Mark as listened"
+              Style="{StaticResource MarkAsListenedStyle}"
+              Command="{Binding SwitchListenedState}" />
+    <MenuItem Header="Mark as not listened"
+              Style="{StaticResource MarkAsNotListenedStyle}"
+              Command="{Binding SwitchListenedState}" />
+
     <Separator />
-    <MenuItem Header="Delete and mark as listened">
-        <MenuItem.Icon>
-            <iconPacks:PackIconForkAwesome Kind="Trash" />
-        </MenuItem.Icon>
-    </MenuItem>
-    <MenuItem Header="Delete">
-        <MenuItem.Icon>
-            <iconPacks:PackIconForkAwesome Kind="TrashOutline" />
-        </MenuItem.Icon>
-    </MenuItem>
+
+    <MenuItem Header="Delete file and mark as listened"
+              Style="{StaticResource DeleteFileAndMarkAsListenedStyle}"
+              Command="{Binding DeleteAndMarkAsListened}" />
+    <MenuItem Header="Delete file"
+              Style="{StaticResource DeleteFileStyle}"
+              Command="{Binding Delete}" />
+
 </ContextMenu>
