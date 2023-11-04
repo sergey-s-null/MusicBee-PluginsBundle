@@ -15,7 +15,7 @@ public static class DesignTimeData
             new MusicFileDTVM("Song999.mp3"),
             new MusicFileDTVM("Song42.mp3"),
             new ImageFileDTVM("cover.jpg")
-        }, "quad.png"),
+        }),
         new DirectoryDTVM("Epic Album 666", new INodeVM[]
         {
             new DirectoryDTVM("Special", new INodeVM[]
@@ -26,11 +26,11 @@ public static class DesignTimeData
             new MusicFileDTVM("Single.flac"),
             new ImageFileDTVM("cover.png"),
             new ImageFileDTVM("some image.png")
-        }, "vertical.png"),
+        }),
         new DirectoryDTVM("Just a joke", new INodeVM[]
         {
             new ImageFileDTVM("only-cover.png")
-        }, "horizontal.png")
+        })
     };
 
     public static readonly IReadOnlyList<INodeVM> ConnectedAllTypesNodes = new INodeVM[]
