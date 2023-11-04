@@ -10,55 +10,55 @@
              d:DataContext="{d:DesignInstance dtvm:ConnectedImageFileDTVM}">
 
     <ContextMenu.Resources>
-        <Style x:Key="DownloadStyle"
-               TargetType="MenuItem">
-            <Setter Property="IsEnabled" Value="False" />
-            <Setter Property="Icon">
-                <Setter.Value>
-                    <iconPacks:PackIconUnicons Kind="Import" />
-                </Setter.Value>
-            </Setter>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsDownloaded}"
-                             Value="False">
-                    <Setter Property="IsEnabled" Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="SelectAsCoverStyle"
-               TargetType="MenuItem">
-            <Setter Property="IsEnabled" Value="False" />
-            <Setter Property="Icon">
-                <Setter.Value>
-                    <iconPacks:PackIconUnicons Kind="ImageCheck" />
-                </Setter.Value>
-            </Setter>
+            <Style x:Key="DownloadStyle"
+                   BasedOn="{StaticResource DownloadMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsDownloaded}"
+                                 Value="False">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
 
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsCover}"
-                             Value="False">
-                    <Setter Property="IsEnabled" Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DeleteStyle"
-               TargetType="MenuItem">
-            <Setter Property="IsEnabled" Value="False" />
-            <Setter Property="Icon">
-                <Setter.Value>
-                    <iconPacks:PackIconForkAwesome Kind="TrashOutline" />
-                </Setter.Value>
-            </Setter>
+            <Style x:Key="SelectAsCoverStyle"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Setter Property="Icon">
+                    <Setter.Value>
+                        <iconPacks:PackIconUnicons Kind="ImageCheck" />
+                    </Setter.Value>
+                </Setter>
 
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsDownloaded}"
-                             Value="True">
-                    <Setter Property="IsEnabled" Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsCover}"
+                                 Value="False">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DeleteStyle"
+                   BasedOn="{StaticResource DeleteMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsDownloaded}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </ContextMenu.Resources>
+
 
     <MenuItem Header="Download"
               Style="{StaticResource DownloadStyle}"
