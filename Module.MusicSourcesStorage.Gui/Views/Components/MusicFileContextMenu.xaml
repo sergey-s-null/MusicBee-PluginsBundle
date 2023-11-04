@@ -11,80 +11,82 @@
              d:DataContext="{d:DesignInstance dtvm:ConnectedMusicFileDTVM}">
 
     <ContextMenu.Resources>
-        <Style x:Key="DownloadStyle" TargetType="MenuItem">
-            <Setter Property="IsEnabled" Value="False" />
-            <Setter Property="Icon">
-                <Setter.Value>
-                    <iconPacks:PackIconUnicons Kind="Import" />
-                </Setter.Value>
-            </Setter>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/AltDeleteMenuItemBaseStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding CanDownload}"
-                             Value="True">
-                    <Setter Property="IsEnabled" Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="MarkAsListenedStyle" TargetType="MenuItem">
-            <Setter Property="IsEnabled" Value="False" />
-            <Setter Property="Icon">
-                <Setter.Value>
-                    <iconPacks:PackIconPicolIcons Kind="MusicCancel" />
-                </Setter.Value>
-            </Setter>
+            <Style x:Key="DownloadStyle"
+                   BasedOn="{StaticResource DownloadMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDownload}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
 
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding State}"
-                             Value="{x:Static enums:MusicFileState.NotListened}">
-                    <Setter Property="IsEnabled" Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="MarkAsNotListenedStyle" TargetType="MenuItem">
-            <Setter Property="IsEnabled" Value="False" />
-            <Setter Property="Icon">
-                <Setter.Value>
-                    <iconPacks:PackIconPicolIcons Kind="Music" />
-                </Setter.Value>
-            </Setter>
+            <Style x:Key="MarkAsListenedStyle"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Setter Property="Icon">
+                    <Setter.Value>
+                        <iconPacks:PackIconPicolIcons Kind="MusicCancel" />
+                    </Setter.Value>
+                </Setter>
 
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding State}"
-                             Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
-                    <Setter Property="IsEnabled" Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DeleteFileBaseStyle"
-               TargetType="MenuItem">
-            <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding State}"
+                                 Value="{x:Static enums:MusicFileState.NotListened}">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
 
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding CanDelete}"
-                             Value="True">
-                    <Setter Property="IsEnabled" Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DeleteFileAndMarkAsListenedStyle"
-               BasedOn="{StaticResource DeleteFileBaseStyle}"
-               TargetType="MenuItem">
-            <Setter Property="Icon">
-                <Setter.Value>
-                    <iconPacks:PackIconForkAwesome Kind="Trash" />
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="DeleteFileStyle"
-               BasedOn="{StaticResource DeleteFileBaseStyle}"
-               TargetType="MenuItem">
-            <Setter Property="Icon">
-                <Setter.Value>
-                    <iconPacks:PackIconForkAwesome Kind="TrashOutline" />
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <Style x:Key="MarkAsNotListenedStyle" TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Setter Property="Icon">
+                    <Setter.Value>
+                        <iconPacks:PackIconPicolIcons Kind="Music" />
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding State}"
+                                 Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DeleteFileAndMarkAsListenedStyle"
+                   BasedOn="{StaticResource AltDeleteMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDelete}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DeleteFileStyle"
+                   BasedOn="{StaticResource DeleteMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDelete}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </ContextMenu.Resources>
 
 
