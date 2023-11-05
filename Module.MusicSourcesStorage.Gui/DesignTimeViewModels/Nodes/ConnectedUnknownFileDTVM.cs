@@ -5,6 +5,7 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
 public sealed class ConnectedUnknownFileDTVM : UnknownFileDTVM, IConnectedUnknownFileVM
 {
+    public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => false;
 
     public ICommand Download => null!;

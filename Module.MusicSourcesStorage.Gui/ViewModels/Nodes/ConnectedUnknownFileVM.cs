@@ -8,7 +8,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFileVM
 {
-    public bool IsDownloaded { get; private set; }
+    public bool CanDownload => throw new NotImplementedException();
+    public bool IsDownloaded => throw new NotImplementedException();
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
@@ -18,8 +19,6 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
 
     public ConnectedUnknownFileVM(string path) : base(path)
     {
-        // todo fill using api
-        IsDownloaded = false;
     }
 
     private void DownloadCmd()

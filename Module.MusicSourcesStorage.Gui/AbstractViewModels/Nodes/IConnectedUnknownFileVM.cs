@@ -2,10 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-public interface IConnectedUnknownFileVM : IUnknownFileVM
+public interface IConnectedUnknownFileVM : IUnknownFileVM, IDownloadableVM
 {
-    bool IsDownloaded { get; }
-
-    ICommand Download { get; }
     ICommand Delete { get; }
 }

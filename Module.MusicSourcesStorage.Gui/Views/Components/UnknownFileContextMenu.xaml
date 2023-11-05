@@ -20,8 +20,8 @@
                    TargetType="MenuItem">
                 <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsDownloaded}"
-                                 Value="False">
+                    <DataTrigger Binding="{Binding CanDownload}"
+                                 Value="True">
                         <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -32,6 +32,7 @@
                    TargetType="MenuItem">
                 <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
+                    <!-- todo use IDeletableVM -->
                     <DataTrigger Binding="{Binding IsDownloaded}"
                                  Value="True">
                         <Setter Property="IsEnabled" Value="True" />
