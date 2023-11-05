@@ -11,6 +11,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 {
     public bool CanDownload => throw new NotImplementedException();
+    public bool IsDownloaded => throw new NotImplementedException();
+
     public DirectoryListenedState ListenedState => throw new NotImplementedException();
 
     public Stream? CoverStream => throw new NotImplementedException();
