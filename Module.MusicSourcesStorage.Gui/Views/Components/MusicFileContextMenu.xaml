@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
              xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance dtvm:ConnectedMusicFileDTVM}">
@@ -14,6 +13,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/MarkAsListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/MarkAsNotListenedBaseStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/AltDeleteMenuItemBaseStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -31,14 +32,9 @@
             </Style>
 
             <Style x:Key="MarkAsListenedStyle"
+                   BasedOn="{StaticResource MarkAsListenedBaseStyle}"
                    TargetType="MenuItem">
                 <Setter Property="IsEnabled" Value="False" />
-                <Setter Property="Icon">
-                    <Setter.Value>
-                        <iconPacks:PackIconPicolIcons Kind="MusicCancel" />
-                    </Setter.Value>
-                </Setter>
-
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding State}"
                                  Value="{x:Static enums:MusicFileState.NotListened}">
@@ -47,14 +43,10 @@
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="MarkAsNotListenedStyle" TargetType="MenuItem">
+            <Style x:Key="MarkAsNotListenedStyle"
+                   BasedOn="{StaticResource MarkAsNotListenedBaseStyle}"
+                   TargetType="MenuItem">
                 <Setter Property="IsEnabled" Value="False" />
-                <Setter Property="Icon">
-                    <Setter.Value>
-                        <iconPacks:PackIconPicolIcons Kind="Music" />
-                    </Setter.Value>
-                </Setter>
-
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding State}"
                                  Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
