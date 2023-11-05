@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Module.MusicSourcesStorage.Gui.Views.Components;
+namespace Module.MusicSourcesStorage.Gui.Views.Nodes;
 
 public partial class MusicFile : HierarchyNodeBase
 {

@@ -1,25 +1,17 @@
-﻿<UserControl x:Class="Module.MusicSourcesStorage.Gui.Views.Components.ConnectedDirectoryIcon"
+﻿<UserControl x:Class="Module.MusicSourcesStorage.Gui.Views.Nodes.DirectoryIcon"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
+             xmlns:avm="clr-namespace:Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes"
              xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
-             xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
+             xmlns:nodes="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Nodes"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance dtvm:ConnectedDirectoryDTVM}">
-
+             d:DesignHeight="40" d:DesignWidth="40"
+             d:DataContext="{d:DesignInstance dtvm:DirectoryDTVM}">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles/Nodes/AlbumCoverContainerStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-            <converters:NullabilityToBoolConverter
-                x:Key="DefaultNullabilityToBoolConverter"
-                ValueOnNotNull="True" />
-        </ResourceDictionary>
+        <converters:IsInstanceOfConverter x:Key="InstanceOfConverter" />
     </UserControl.Resources>
 
     <ContentControl>
@@ -28,30 +20,30 @@
                 <Style.Triggers>
                     <DataTrigger
                         Binding="{
-                            Binding CoverStream,
-                            Converter={StaticResource DefaultNullabilityToBoolConverter}
+                            Binding ., 
+                            Converter={StaticResource InstanceOfConverter}, 
+                            ConverterParameter={x:Type avm:IConnectedDirectoryVM}
                         }"
                         Value="True">
 
                         <Setter Property="Content">
                             <Setter.Value>
-                                <Border Style="{StaticResource AlbumCoverContainerStyle}">
-                                    <Image Source="{Binding CoverStream}" />
-                                </Border>
+                                <nodes:ConnectedDirectoryIcon />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
 
                     <DataTrigger
                         Binding="{
-                            Binding CoverStream,
-                            Converter={StaticResource DefaultNullabilityToBoolConverter}
+                            Binding ., 
+                            Converter={StaticResource InstanceOfConverter}, 
+                            ConverterParameter={x:Type avm:IConnectedDirectoryVM}
                         }"
                         Value="False">
 
                         <Setter Property="Content">
                             <Setter.Value>
-                                <components:DirectoryBaseIcon />
+                                <nodes:DirectoryBaseIcon />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>

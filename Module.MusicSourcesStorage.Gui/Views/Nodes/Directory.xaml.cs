@@ -1,8 +1,8 @@
-﻿namespace Module.MusicSourcesStorage.Gui.Views.Components;
+﻿namespace Module.MusicSourcesStorage.Gui.Views.Nodes;
 
-public partial class ImageFile : HierarchyNodeBase
+public partial class Directory : HierarchyNodeBase
 {
-    public ImageFile()
+    public Directory()
     {
         InitializeComponent();
 
@@ -23,6 +23,6 @@ public partial class ImageFile : HierarchyNodeBase
     {
         ContextMenu = IsReadOnly
             ? null
-            : new ImageFileContextMenu();
+            : new DirectoryContextMenu();
     }
 }

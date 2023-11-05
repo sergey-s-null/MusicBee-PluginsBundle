@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Module.MusicSourcesStorage.Gui.Views.Components;
+namespace Module.MusicSourcesStorage.Gui.Views.Nodes;
 
 public abstract class HierarchyNodeBase : ContentControl
 {

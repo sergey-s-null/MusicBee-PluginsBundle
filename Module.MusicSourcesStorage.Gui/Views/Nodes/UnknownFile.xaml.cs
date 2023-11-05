@@ -1,4 +1,4 @@
-﻿namespace Module.MusicSourcesStorage.Gui.Views.Components;
+﻿namespace Module.MusicSourcesStorage.Gui.Views.Nodes;
 
 public partial class UnknownFile : HierarchyNodeBase
 {

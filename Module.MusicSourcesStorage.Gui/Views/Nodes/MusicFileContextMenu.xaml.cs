@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 
-namespace Module.MusicSourcesStorage.Gui.Views.Components;
+namespace Module.MusicSourcesStorage.Gui.Views.Nodes;
 
 public partial class MusicFileContextMenu : ContextMenu
 {

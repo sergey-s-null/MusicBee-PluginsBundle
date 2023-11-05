@@ -1,20 +1,19 @@
-<ContextMenu x:Class="Module.MusicSourcesStorage.Gui.Views.Components.DirectoryContextMenu"
+<ContextMenu x:Class="Module.MusicSourcesStorage.Gui.Views.Nodes.ImageFileContextMenu"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
-             xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance dtvm:ConnectedDirectoryDTVM}">
+             d:DataContext="{d:DesignInstance dtvm:ConnectedImageFileDTVM}">
 
     <ContextMenu.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
-                <ResourceDictionary Source="../Styles/Nodes/MarkAsListenedBaseStyle.xaml" />
-                <ResourceDictionary Source="../Styles/Nodes/MarkAsNotListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="DownloadStyle"
@@ -29,40 +28,52 @@
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="MarkAllAsListenedStyle"
-                   BasedOn="{StaticResource MarkAsListenedBaseStyle}"
+            <Style x:Key="SelectAsCoverStyle"
                    TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Setter Property="Icon">
+                    <Setter.Value>
+                        <iconPacks:PackIconUnicons Kind="ImageCheck" />
+                    </Setter.Value>
+                </Setter>
+
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ListenedState}"
-                                 Value="{x:Static enums:DirectoryListenedState.AllListened}">
-                        <Setter Property="IsEnabled" Value="False" />
+                    <DataTrigger Binding="{Binding IsCover}"
+                                 Value="False">
+                        <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="MarkAllAsNotListenedStyle"
-                   BasedOn="{StaticResource MarkAsNotListenedBaseStyle}"
+            <Style x:Key="DeleteStyle"
+                   BasedOn="{StaticResource DeleteMenuItemBaseStyle}"
                    TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ListenedState}"
-                                 Value="{x:Static enums:DirectoryListenedState.AllNotListened}">
-                        <Setter Property="IsEnabled" Value="False" />
+                    <!-- todo use IDeletableVM -->
+                    <DataTrigger Binding="{Binding IsDownloaded}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </ResourceDictionary>
     </ContextMenu.Resources>
 
-    <MenuItem Header="Download files"
+
+    <MenuItem Header="Download"
               Style="{StaticResource DownloadStyle}"
               Command="{Binding Download}" />
 
     <Separator />
 
-    <MenuItem Header="Mark all as listened"
-              Style="{StaticResource MarkAllAsListenedStyle}"
-              Command="{Binding MarkAllAsListened}" />
-    <MenuItem Header="Mark all as not listened"
-              Style="{StaticResource MarkAllAsNotListenedStyle}"
-              Command="{Binding MarkAllAsNotListened}" />
+    <MenuItem Header="Select as cover"
+              Style="{StaticResource SelectAsCoverStyle}"
+              Command="{Binding SelectAsCover}" />
+
+    <Separator />
+
+    <MenuItem Header="Delete"
+              Style="{StaticResource DeleteStyle}"
+              Command="{Binding Delete}" />
 </ContextMenu>

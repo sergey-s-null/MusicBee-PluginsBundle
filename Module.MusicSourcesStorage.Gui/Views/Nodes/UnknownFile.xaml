@@ -1,5 +1,5 @@
-﻿<components:HierarchyNodeBase
-    x:Class="Module.MusicSourcesStorage.Gui.Views.Components.ImageFile"
+﻿<nodes:HierarchyNodeBase
+    x:Class="Module.MusicSourcesStorage.Gui.Views.Nodes.UnknownFile"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,11 +7,12 @@
     xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
     xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:nodes="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Nodes"
     mc:Ignorable="d"
     d:DesignWidth="300"
-    d:DataContext="{d:DesignInstance dtvm:ImageFileDTVM}">
-
-    <components:HierarchyNodeBase.Resources>
+    d:DataContext="{d:DesignInstance dtvm:UnknownFileDTVM}">
+    
+    <nodes:HierarchyNodeBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Nodes/NodeIconStyle.xaml" />
@@ -20,7 +21,7 @@
                 <ResourceDictionary Source="../Styles/Nodes/NodeTextStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </components:HierarchyNodeBase.Resources>
+    </nodes:HierarchyNodeBase.Resources>
 
     <Grid Style="{StaticResource NodeContainerStyle}">
         <Grid.ColumnDefinitions>
@@ -30,7 +31,7 @@
 
         <Grid Grid.Column="0"
               Style="{StaticResource NodeIconContainerStyle}">
-            <iconPacks:PackIconUnicons Kind="ImageV"
+            <iconPacks:PackIconUnicons Kind="FileBlank"
                                        Style="{StaticResource NodeIconStyle}" />
         </Grid>
 
@@ -39,4 +40,4 @@
                    Style="{StaticResource NodeTextStyle}"
                    VerticalAlignment="Center" />
     </Grid>
-</components:HierarchyNodeBase>
+</nodes:HierarchyNodeBase>
