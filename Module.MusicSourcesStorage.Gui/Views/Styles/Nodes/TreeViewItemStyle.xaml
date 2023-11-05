@@ -55,7 +55,7 @@
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetName="Header"
                                                                       Storyboard.TargetProperty="Background.Color">
                                             <DiscreteColorKeyFrame KeyTime="0"
-                                                                   Value="#A0C0D6" />
+                                                                   Value="#E1E9EF" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
