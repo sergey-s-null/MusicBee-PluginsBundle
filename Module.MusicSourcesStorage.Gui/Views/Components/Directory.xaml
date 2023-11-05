@@ -13,9 +13,9 @@
     <components:HierarchyNodeBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles/FilesHierarchy/NodeIconContainerStyle.xaml" />
-                <ResourceDictionary Source="../Styles/FilesHierarchy/NodeContainerStyle.xaml" />
-                <ResourceDictionary Source="../Styles/FilesHierarchy/NodeTextStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/NodeIconContainerStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/NodeContainerStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/NodeTextStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </components:HierarchyNodeBase.Resources>

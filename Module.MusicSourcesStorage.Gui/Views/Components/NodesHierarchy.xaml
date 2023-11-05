@@ -11,7 +11,7 @@
     d:DataContext="{d:DesignInstance dtvm:NodesHierarchyDTVM}">
 
     <UserControl.Resources>
-        <ResourceDictionary Source="../Styles/FilesHierarchy/TreeViewItemStyle.xaml" />
+        <ResourceDictionary Source="../Styles/Nodes/TreeViewItemStyle.xaml" />
     </UserControl.Resources>
 
     <TreeView
