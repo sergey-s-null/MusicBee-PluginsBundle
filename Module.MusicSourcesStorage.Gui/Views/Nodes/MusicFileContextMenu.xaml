@@ -37,7 +37,7 @@
                 <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:ListenedState.AllNotListened}">
+                                 Value="{x:Static enums:ListenedState.NotListened}">
                         <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -49,7 +49,7 @@
                 <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:ListenedState.AllListened}">
+                                 Value="{x:Static enums:ListenedState.Listened}">
                         <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>

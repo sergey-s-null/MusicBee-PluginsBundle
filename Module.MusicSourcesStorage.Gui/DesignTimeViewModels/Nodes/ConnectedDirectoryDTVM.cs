@@ -14,7 +14,7 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
     public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => false;
 
-    public ListenedState ListenedState => ListenedState.AllNotListened;
+    public ListenedState ListenedState => ListenedState.NotListened;
 
     public Stream? CoverStream { get; }
 

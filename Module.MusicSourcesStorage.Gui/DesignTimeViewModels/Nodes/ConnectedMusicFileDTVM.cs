@@ -11,8 +11,8 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
 
     public ListenedState ListenedState => State switch
     {
-        MusicFileState.NotListened => ListenedState.AllNotListened,
-        _ => ListenedState.AllListened
+        MusicFileState.NotListened => ListenedState.NotListened,
+        _ => ListenedState.Listened
     };
 
     public bool CanDelete => State == MusicFileState.InIncoming;

@@ -2,7 +2,7 @@
 
 public enum ListenedState
 {
-    AllListened,
-    AllNotListened,
+    Listened,
+    NotListened,
     Mixed
 }

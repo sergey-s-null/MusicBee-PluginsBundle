@@ -34,7 +34,7 @@
                    TargetType="MenuItem">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding ListenedState}"
-                                 Value="{x:Static enums:ListenedState.AllListened}">
+                                 Value="{x:Static enums:ListenedState.Listened}">
                         <Setter Property="IsEnabled" Value="False" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -45,7 +45,7 @@
                    TargetType="MenuItem">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding ListenedState}"
-                                 Value="{x:Static enums:ListenedState.AllNotListened}">
+                                 Value="{x:Static enums:ListenedState.NotListened}">
                         <Setter Property="IsEnabled" Value="False" />
                     </DataTrigger>
                 </Style.Triggers>
