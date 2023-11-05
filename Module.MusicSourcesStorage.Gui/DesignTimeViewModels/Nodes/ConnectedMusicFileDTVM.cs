@@ -7,6 +7,7 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileVM
 {
     public bool CanDownload => State is MusicFileState.NotListened or MusicFileState.ListenedAndDeleted;
+    public bool IsDownloaded => State is MusicFileState.InIncoming or MusicFileState.InLibrary;
     public bool CanDelete => State == MusicFileState.InIncoming;
 
     public MusicFileState State { get; }
@@ -16,7 +17,6 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
     public ICommand DeleteAndMarkAsListened => null!;
     public ICommand Delete => null!;
 
-    // ReSharper disable once UnusedMember.Global
     public ConnectedMusicFileDTVM() : this("some/path/to/music.mp3", MusicFileState.InLibrary)
     {
     }

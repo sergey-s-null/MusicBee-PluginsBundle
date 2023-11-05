@@ -9,9 +9,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 {
-    [DependsOn(nameof(State))]
-    public bool CanDownload =>
-        State is MusicFileState.NotListened or MusicFileState.ListenedAndDeleted;
+    public bool CanDownload => throw new NotImplementedException();
+    public bool IsDownloaded => throw new NotImplementedException();
 
     [DependsOn(nameof(State))]
     public bool CanDelete =>

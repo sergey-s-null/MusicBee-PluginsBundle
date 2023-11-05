@@ -3,14 +3,12 @@ using Module.MusicSourcesStorage.Gui.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-public interface IConnectedMusicFileVM : IMusicFileVM
+public interface IConnectedMusicFileVM : IMusicFileVM, IDownloadableVM
 {
-    bool CanDownload { get; }
     bool CanDelete { get; }
 
     MusicFileState State { get; }
 
-    ICommand Download { get; }
     ICommand SwitchListenedState { get; }
     ICommand DeleteAndMarkAsListened { get; }
     ICommand Delete { get; }
