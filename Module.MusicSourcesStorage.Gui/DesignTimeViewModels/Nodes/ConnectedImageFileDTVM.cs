@@ -5,7 +5,9 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
 public sealed class ConnectedImageFileDTVM : ImageFileDTVM, IConnectedImageFileVM
 {
+    public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => true;
+
     public bool IsCover => false;
 
     public ICommand Download => null!;
