@@ -12,6 +12,8 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 
+    public ListenedState ListenedState => throw new NotImplementedException();
+
     [DependsOn(nameof(State))]
     public bool CanDelete =>
         State == MusicFileState.InIncoming;
@@ -21,8 +23,11 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
     public ICommand Download =>
         _downloadCmd ??= new RelayCommand(DownloadCmd);
 
-    public ICommand SwitchListenedState =>
-        _switchListenedStateCmd ??= new RelayCommand(SwitchListenedStateCmd);
+    public ICommand MarkAsListened =>
+        _markAsListenedCmd ??= new RelayCommand(MarkAsListenedCmd);
+
+    public ICommand MarkAsNotListened =>
+        _markAsNotListenedCmd ??= new RelayCommand(MarkAsNotListenedCmd);
 
     public ICommand DeleteAndMarkAsListened =>
         _deleteAndMarkAsListenedCmd ??= new RelayCommand(DeleteAndMarkAsListenedCmd);
@@ -31,7 +36,8 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
         _deleteCmd ??= new RelayCommand(DeleteCmd);
 
     private ICommand? _downloadCmd;
-    private ICommand? _switchListenedStateCmd;
+    private ICommand? _markAsListenedCmd;
+    private ICommand? _markAsNotListenedCmd;
     private ICommand? _deleteAndMarkAsListenedCmd;
     private ICommand? _deleteCmd;
 
@@ -46,7 +52,12 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
         throw new NotImplementedException();
     }
 
-    private void SwitchListenedStateCmd()
+    private void MarkAsListenedCmd()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void MarkAsNotListenedCmd()
     {
         throw new NotImplementedException();
     }

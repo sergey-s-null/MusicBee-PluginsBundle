@@ -8,12 +8,20 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
 {
     public bool CanDownload => State is MusicFileState.NotListened or MusicFileState.ListenedAndDeleted;
     public bool IsDownloaded => State is MusicFileState.InIncoming or MusicFileState.InLibrary;
+
+    public ListenedState ListenedState => State switch
+    {
+        MusicFileState.NotListened => ListenedState.AllNotListened,
+        _ => ListenedState.AllListened
+    };
+
     public bool CanDelete => State == MusicFileState.InIncoming;
 
     public MusicFileState State { get; }
 
     public ICommand Download => null!;
-    public ICommand SwitchListenedState => null!;
+    public ICommand MarkAsListened => null!;
+    public ICommand MarkAsNotListened => null!;
     public ICommand DeleteAndMarkAsListened => null!;
     public ICommand Delete => null!;
 
