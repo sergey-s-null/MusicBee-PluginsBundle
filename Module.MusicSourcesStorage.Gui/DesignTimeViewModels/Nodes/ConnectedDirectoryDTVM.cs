@@ -11,17 +11,16 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
     private const string DesignTimeCoversPath =
         $"{nameof(Module)}.{nameof(MusicSourcesStorage)}.{nameof(Gui)}.Resources.DesignTime.Covers";
 
-
     public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => false;
 
-    public DirectoryListenedState ListenedState => DirectoryListenedState.AllNotListened;
+    public ListenedState ListenedState => ListenedState.AllNotListened;
 
     public Stream? CoverStream { get; }
 
     public ICommand Download => null!;
-    public ICommand MarkAllAsListened => null!;
-    public ICommand MarkAllAsNotListened => null!;
+    public ICommand MarkAsListened => null!;
+    public ICommand MarkAsNotListened => null!;
 
     public ConnectedDirectoryDTVM()
         : this("Some connected directory")

@@ -34,7 +34,7 @@
                    TargetType="MenuItem">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding ListenedState}"
-                                 Value="{x:Static enums:DirectoryListenedState.AllListened}">
+                                 Value="{x:Static enums:ListenedState.AllListened}">
                         <Setter Property="IsEnabled" Value="False" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -45,7 +45,7 @@
                    TargetType="MenuItem">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding ListenedState}"
-                                 Value="{x:Static enums:DirectoryListenedState.AllNotListened}">
+                                 Value="{x:Static enums:ListenedState.AllNotListened}">
                         <Setter Property="IsEnabled" Value="False" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -61,8 +61,8 @@
 
     <MenuItem Header="Mark all as listened"
               Style="{StaticResource MarkAllAsListenedStyle}"
-              Command="{Binding MarkAllAsListened}" />
+              Command="{Binding MarkAsListened}" />
     <MenuItem Header="Mark all as not listened"
               Style="{StaticResource MarkAllAsNotListenedStyle}"
-              Command="{Binding MarkAllAsNotListened}" />
+              Command="{Binding MarkAsNotListened}" />
 </ContextMenu>

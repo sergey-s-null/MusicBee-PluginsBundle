@@ -13,17 +13,17 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 
-    public DirectoryListenedState ListenedState => throw new NotImplementedException();
+    public ListenedState ListenedState => throw new NotImplementedException();
 
     public Stream? CoverStream => throw new NotImplementedException();
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
-    public ICommand MarkAllAsListened => _markAllAsListenedCmd ??= new RelayCommand(MarkAllAsListenedCmd);
-    public ICommand MarkAllAsNotListened => _markAllAsNotListenedCmd ??= new RelayCommand(MarkAllAsNotListenedCmd);
+    public ICommand MarkAsListened => _markAsListenedCmd ??= new RelayCommand(MarkAllAsListenedCmd);
+    public ICommand MarkAsNotListened => _markAsNotListenedCmd ??= new RelayCommand(MarkAllAsNotListenedCmd);
 
     private ICommand? _downloadCmd;
-    private ICommand? _markAllAsListenedCmd;
-    private ICommand? _markAllAsNotListenedCmd;
+    private ICommand? _markAsListenedCmd;
+    private ICommand? _markAsNotListenedCmd;
 
     public ConnectedDirectoryVM(string name, IReadOnlyList<INodeVM> childNodes) : base(name, childNodes)
     {

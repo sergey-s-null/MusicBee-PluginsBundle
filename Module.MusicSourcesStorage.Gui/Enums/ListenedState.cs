@@ -1,6 +1,6 @@
 ﻿namespace Module.MusicSourcesStorage.Gui.Enums;
 
-public enum DirectoryListenedState
+public enum ListenedState
 {
     AllListened,
     AllNotListened,
