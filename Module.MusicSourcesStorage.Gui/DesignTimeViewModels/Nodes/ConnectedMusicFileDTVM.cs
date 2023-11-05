@@ -9,11 +9,7 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
     public bool CanDownload => State is MusicFileState.NotListened or MusicFileState.ListenedAndDeleted;
     public bool IsDownloaded => State is MusicFileState.InIncoming or MusicFileState.InLibrary;
 
-    public ListenedState ListenedState => State switch
-    {
-        MusicFileState.NotListened => ListenedState.NotListened,
-        _ => ListenedState.Listened
-    };
+    public bool IsListened => State is not MusicFileState.NotListened;
 
     public bool CanDelete => State == MusicFileState.InIncoming;
 

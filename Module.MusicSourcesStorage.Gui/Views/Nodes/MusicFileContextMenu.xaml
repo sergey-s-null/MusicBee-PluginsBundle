@@ -37,7 +37,7 @@
                 <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:ListenedState.NotListened}">
+                                 Value="{x:Static enums:MusicFileState.NotListened}">
                         <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -49,7 +49,7 @@
                 <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:ListenedState.Listened}">
+                                 Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
                         <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>

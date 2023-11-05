@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
-             xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
              mc:Ignorable="d"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance dtvm:ConnectedDirectoryDTVM}">
@@ -33,8 +32,8 @@
                    BasedOn="{StaticResource MarkAsListenedBaseStyle}"
                    TargetType="MenuItem">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ListenedState}"
-                                 Value="{x:Static enums:ListenedState.Listened}">
+                    <DataTrigger Binding="{Binding IsListened}"
+                                 Value="True">
                         <Setter Property="IsEnabled" Value="False" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -44,8 +43,8 @@
                    BasedOn="{StaticResource MarkAsNotListenedBaseStyle}"
                    TargetType="MenuItem">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ListenedState}"
-                                 Value="{x:Static enums:ListenedState.NotListened}">
+                    <DataTrigger Binding="{Binding IsListened}"
+                                 Value="False">
                         <Setter Property="IsEnabled" Value="False" />
                     </DataTrigger>
                 </Style.Triggers>

@@ -12,7 +12,7 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 
-    public ListenedState ListenedState => throw new NotImplementedException();
+    public bool IsListened => throw new NotImplementedException();
 
     [DependsOn(nameof(State))]
     public bool CanDelete =>

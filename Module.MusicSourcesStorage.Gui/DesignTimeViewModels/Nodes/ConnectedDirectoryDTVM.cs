@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
-using Module.MusicSourcesStorage.Gui.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
@@ -14,7 +13,7 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
     public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => false;
 
-    public ListenedState ListenedState => ListenedState.NotListened;
+    public bool IsListened => false;
 
     public Stream? CoverStream { get; }
 

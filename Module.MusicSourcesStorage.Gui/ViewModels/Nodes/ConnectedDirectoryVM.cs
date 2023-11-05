@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
-using Module.MusicSourcesStorage.Gui.Enums;
 using Module.Mvvm.Extension;
 using PropertyChanged;
 
@@ -13,7 +12,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 
-    public ListenedState ListenedState => throw new NotImplementedException();
+    public bool IsListened => throw new NotImplementedException();
 
     public Stream? CoverStream => throw new NotImplementedException();
 
