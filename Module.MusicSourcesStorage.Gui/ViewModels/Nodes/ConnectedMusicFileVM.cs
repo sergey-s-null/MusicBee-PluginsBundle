@@ -20,6 +20,8 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 
     public MusicFileState State { get; private set; }
 
+    #region Commands
+
     public ICommand Download =>
         _downloadCmd ??= new RelayCommand(DownloadCmd);
 
@@ -40,6 +42,8 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
     private ICommand? _markAsNotListenedCmd;
     private ICommand? _deleteAndMarkAsListenedCmd;
     private ICommand? _deleteCmd;
+
+    #endregion
 
     public ConnectedMusicFileVM(string path) : base(path)
     {
