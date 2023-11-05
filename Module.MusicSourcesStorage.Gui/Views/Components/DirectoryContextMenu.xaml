@@ -3,24 +3,66 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
+             xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
              mc:Ignorable="d"
-             d:DesignWidth="300">
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance dtvm:ConnectedDirectoryDTVM}">
 
-    <MenuItem Header="Download files">
-        <MenuItem.Icon>
-            <iconPacks:PackIconUnicons Kind="Import" />
-        </MenuItem.Icon>
-    </MenuItem>
+    <ContextMenu.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/MarkAsListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/MarkAsNotListenedBaseStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="DownloadStyle"
+                   BasedOn="{StaticResource DownloadMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDownload}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MarkAllAsListenedStyle"
+                   BasedOn="{StaticResource MarkAsListenedBaseStyle}"
+                   TargetType="MenuItem">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ListenedState}"
+                                 Value="{x:Static enums:DirectoryListenedState.AllListened}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MarkAllAsNotListenedStyle"
+                   BasedOn="{StaticResource MarkAsNotListenedBaseStyle}"
+                   TargetType="MenuItem">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ListenedState}"
+                                 Value="{x:Static enums:DirectoryListenedState.AllNotListened}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContextMenu.Resources>
+
+    <MenuItem Header="Download files"
+              Style="{StaticResource DownloadStyle}"
+              Command="{Binding Download}" />
+
     <Separator />
-    <MenuItem Header="Mark all as listened">
-        <MenuItem.Icon>
-            <iconPacks:PackIconPicolIcons Kind="MusicCancel" />
-        </MenuItem.Icon>
-    </MenuItem>
-    <MenuItem Header="Mark all as not listened">
-        <MenuItem.Icon>
-            <iconPacks:PackIconPicolIcons Kind="Music" />
-        </MenuItem.Icon>
-    </MenuItem>
+
+    <MenuItem Header="Mark all as listened"
+              Style="{StaticResource MarkAllAsListenedStyle}"
+              Command="{Binding MarkAllAsListened}" />
+    <MenuItem Header="Mark all as not listened"
+              Style="{StaticResource MarkAllAsNotListenedStyle}"
+              Command="{Binding MarkAllAsNotListened}" />
 </ContextMenu>
