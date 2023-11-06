@@ -11,6 +11,9 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 
+    public bool CanDelete => throw new NotImplementedException();
+    public bool IsDeleted => throw new NotImplementedException();
+
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
 

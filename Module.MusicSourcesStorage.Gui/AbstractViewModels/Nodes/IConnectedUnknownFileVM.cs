@@ -1,8 +1,5 @@
-﻿using System.Windows.Input;
+﻿namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
-
-public interface IConnectedUnknownFileVM : IUnknownFileVM, IDownloadableVM
+public interface IConnectedUnknownFileVM : IUnknownFileVM, IDownloadableVM, IDeletableVM
 {
-    ICommand Delete { get; }
 }

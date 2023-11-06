@@ -8,6 +8,9 @@ public sealed class ConnectedUnknownFileDTVM : UnknownFileDTVM, IConnectedUnknow
     public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => false;
 
+    public bool CanDelete => false;
+    public bool IsDeleted => true;
+
     public ICommand Download => null!;
     public ICommand Delete => null!;
 
