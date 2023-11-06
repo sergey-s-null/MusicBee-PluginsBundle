@@ -1,8 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using MahApps.Metro.IconPacks;
 
 namespace Module.MusicSourcesStorage.Gui.Views.Nodes;
 
-public partial class MusicFileStateIcon : UserControl
+public partial class MusicFileStateIcon : PackIconUnicons
 {
     public MusicFileStateIcon()
     {
