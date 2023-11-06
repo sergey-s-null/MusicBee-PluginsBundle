@@ -19,29 +19,61 @@
         <iconPacks:PackIconUnicons.Style>
             <Style TargetType="iconPacks:PackIconUnicons">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:MusicFileState.NotListened}">
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Location}"
+                                       Value="{x:Static enums:MusicFileLocation.NotDownloaded}" />
+                            <Condition Binding="{Binding IsListened}"
+                                       Value="False" />
+                        </MultiDataTrigger.Conditions>
+
                         <Setter Property="Kind" Value="Circle" />
                         <Setter Property="Foreground" Value="Gray" />
-                        <Setter Property="ToolTip" Value="File was not listened" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:MusicFileState.InIncoming}">
-                        <Setter Property="Kind" Value="QuestionCircle" />
+                        <Setter Property="ToolTip" Value="File not listened and not downloaded" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Location}"
+                                       Value="{x:Static enums:MusicFileLocation.NotDownloaded}" />
+                            <Condition Binding="{Binding IsListened}"
+                                       Value="True" />
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter Property="Kind" Value="TimesCircle" />
+                        <Setter Property="Foreground" Value="Gray" />
+                        <Setter Property="ToolTip" Value="File listened and not downloaded" />
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Location}"
+                                       Value="{x:Static enums:MusicFileLocation.Incoming}" />
+                            <Condition Binding="{Binding IsListened}"
+                                       Value="False" />
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter Property="Kind" Value="Circle" />
                         <Setter Property="Foreground" Value="Orange" />
-                        <Setter Property="ToolTip" Value="File in incoming" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:MusicFileState.InLibrary}">
+                        <Setter Property="ToolTip" Value="File not listened and located in incoming" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Location}"
+                                       Value="{x:Static enums:MusicFileLocation.Incoming}" />
+                            <Condition Binding="{Binding IsListened}"
+                                       Value="True" />
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter Property="Kind" Value="TimesCircle" />
+                        <Setter Property="Foreground" Value="Orange" />
+                        <Setter Property="ToolTip" Value="File listened and located in incoming" />
+                    </MultiDataTrigger>
+
+                    <DataTrigger Binding="{Binding Location}"
+                                 Value="{x:Static enums:MusicFileLocation.Library}">
                         <Setter Property="Kind" Value="CheckCircle" />
                         <Setter Property="Foreground" Value="Green" />
                         <Setter Property="ToolTip" Value="File in library" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
-                        <Setter Property="Kind" Value="TimesCircle" />
-                        <Setter Property="Foreground" Value="Gray" />
-                        <Setter Property="ToolTip" Value="File was listened and deleted" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

@@ -6,14 +6,15 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
 public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileVM
 {
-    public bool CanDownload => State is MusicFileState.NotListened or MusicFileState.ListenedAndDeleted;
-    public bool IsDownloaded => State is MusicFileState.InIncoming or MusicFileState.InLibrary;
+    public bool CanDownload => Location is MusicFileLocation.NotDownloaded;
+    public bool IsDownloaded => Location is MusicFileLocation.Incoming or MusicFileLocation.Library;
 
-    public bool IsListened => State is not MusicFileState.NotListened;
+    // todo get from ctor
+    public bool IsListened => false;
 
-    public bool CanDelete => State == MusicFileState.InIncoming;
+    public bool CanDelete => Location == MusicFileLocation.Incoming;
 
-    public MusicFileState State { get; }
+    public MusicFileLocation Location { get; }
 
     public ICommand Download => null!;
     public ICommand MarkAsListened => null!;
@@ -21,12 +22,12 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
     public ICommand DeleteAndMarkAsListened => null!;
     public ICommand Delete => null!;
 
-    public ConnectedMusicFileDTVM() : this("some/path/to/music.mp3", MusicFileState.InLibrary)
+    public ConnectedMusicFileDTVM() : this("some/path/to/music.mp3", MusicFileLocation.Library)
     {
     }
 
-    public ConnectedMusicFileDTVM(string path, MusicFileState state) : base(path)
+    public ConnectedMusicFileDTVM(string path, MusicFileLocation location) : base(path)
     {
-        State = state;
+        Location = location;
     }
 }

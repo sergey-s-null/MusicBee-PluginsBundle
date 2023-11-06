@@ -7,7 +7,7 @@ public interface IConnectedMusicFileVM : IMusicFileVM, IDownloadableVM, IMarkabl
 {
     bool CanDelete { get; }
 
-    MusicFileState State { get; }
+    MusicFileLocation Location { get; }
 
     ICommand DeleteAndMarkAsListened { get; }
     ICommand Delete { get; }

@@ -14,11 +14,9 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 
     public bool IsListened => throw new NotImplementedException();
 
-    [DependsOn(nameof(State))]
-    public bool CanDelete =>
-        State == MusicFileState.InIncoming;
+    public bool CanDelete => throw new NotImplementedException();
 
-    public MusicFileState State { get; private set; }
+    public MusicFileLocation Location => throw new NotImplementedException();
 
     #region Commands
 
@@ -47,8 +45,6 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 
     public ConnectedMusicFileVM(string path) : base(path)
     {
-        // todo get from api
-        State = MusicFileState.NotListened;
     }
 
     private void DownloadCmd()

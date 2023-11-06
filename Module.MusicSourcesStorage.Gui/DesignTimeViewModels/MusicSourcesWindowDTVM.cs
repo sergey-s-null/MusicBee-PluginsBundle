@@ -16,7 +16,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
         var hundred = new List<INodeVM>();
         for (var i = 0; i < 100; i++)
         {
-            hundred.Add(new ConnectedMusicFileDTVM($"Song{i}.mp3", MusicFileState.NotListened));
+            hundred.Add(new ConnectedMusicFileDTVM($"Song{i}.mp3", MusicFileLocation.NotDownloaded));
         }
 
         MusicSources = new List<IMusicSourceVM>
@@ -25,8 +25,8 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
             new MusicSourceDTVM("NOT CONNECTED", MusicSourceType.Torrent, NodesHierarchyDTVM.NotConnectedAllTypes),
             new MusicSourceDTVM("2nd", MusicSourceType.VkPostWithArchive, new NodesHierarchyDTVM(new INodeVM[]
             {
-                new ConnectedMusicFileDTVM("Hello.mp3", MusicFileState.InLibrary),
-                new ConnectedMusicFileDTVM("There.mp3", MusicFileState.ListenedAndDeleted)
+                new ConnectedMusicFileDTVM("Hello.mp3", MusicFileLocation.Library),
+                new ConnectedMusicFileDTVM("There.mp3", MusicFileLocation.NotDownloaded)
             })),
             new MusicSourceDTVM("So Deep", MusicSourceType.VkPostWithArchive, new NodesHierarchyDTVM(new INodeVM[]
             {

@@ -36,8 +36,8 @@
                    TargetType="MenuItem">
                 <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:MusicFileState.NotListened}">
+                    <DataTrigger Binding="{Binding IsListened}"
+                                 Value="False">
                         <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
@@ -48,8 +48,8 @@
                    TargetType="MenuItem">
                 <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding State}"
-                                 Value="{x:Static enums:MusicFileState.ListenedAndDeleted}">
+                    <DataTrigger Binding="{Binding IsListened}"
+                                 Value="True">
                         <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
