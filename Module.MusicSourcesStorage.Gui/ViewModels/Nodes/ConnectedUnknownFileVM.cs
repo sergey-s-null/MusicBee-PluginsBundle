@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.Mvvm.Extension;
 using PropertyChanged;
 
@@ -22,7 +23,7 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
     private ICommand? _downloadCmd;
     private ICommand? _deleteCmd;
 
-    public ConnectedUnknownFileVM(string path) : base(path)
+    public ConnectedUnknownFileVM(UnknownFile unknownFile) : base(unknownFile.Path)
     {
     }
 
