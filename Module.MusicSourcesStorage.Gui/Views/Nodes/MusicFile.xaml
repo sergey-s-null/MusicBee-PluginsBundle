@@ -35,8 +35,9 @@
                                        Style="{StaticResource NodeIconStyle}" />
         </Grid>
 
-        <ContentControl Grid.Column="1"
-                        x:Name="StateIconControl" />
+        <Grid Grid.Column="1">
+            <ContentControl x:Name="StateIconControl" />
+        </Grid>
 
         <TextBlock Grid.Column="2"
                    Text="{Binding Name}"

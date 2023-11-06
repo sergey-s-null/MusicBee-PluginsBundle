@@ -45,11 +45,11 @@ public partial class MusicFile : HierarchyNodeBase
         StateIconControl.Content = CreateStateIcon();
     }
 
-    private static MusicFileStateIcon CreateStateIcon()
+    private static FrameworkElement CreateStateIcon()
     {
-        return new MusicFileStateIcon
+        return new ProcessingIconWrapper
         {
-            Margin = new Thickness(6, 0, 4, 0)
+            WrappedContent = new MusicFileStateIcon()
         };
     }
 }
