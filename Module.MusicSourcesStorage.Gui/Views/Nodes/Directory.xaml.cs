@@ -6,9 +6,10 @@ public partial class Directory : HierarchyNodeBase
     {
         InitializeComponent();
 
-        UpdateContextMenuDisplayingState();
+        UpdateComponentsDisplayingState();
     }
 
+    // todo rename to "Connected"
     protected override void OnIsReadOnlyChanged(bool oldValue, bool newValue)
     {
         if (oldValue == newValue)
@@ -16,13 +17,31 @@ public partial class Directory : HierarchyNodeBase
             return;
         }
 
-        UpdateContextMenuDisplayingState();
+        UpdateComponentsDisplayingState();
     }
 
-    private void UpdateContextMenuDisplayingState()
+    // todo move to base class
+    private void UpdateComponentsDisplayingState()
     {
-        ContextMenu = IsReadOnly
-            ? null
-            : new DirectoryContextMenu();
+        if (IsReadOnly)
+        {
+            ConfigureReadOnlyState();
+        }
+        else
+        {
+            ConfigureEditableState();
+        }
+    }
+
+    private void ConfigureReadOnlyState()
+    {
+        ContextMenu = null;
+        StateIconControl.Content = null;
+    }
+
+    private void ConfigureEditableState()
+    {
+        ContextMenu = new DirectoryContextMenu();
+        StateIconControl.Content = new DirectoryStateIcon();
     }
 }

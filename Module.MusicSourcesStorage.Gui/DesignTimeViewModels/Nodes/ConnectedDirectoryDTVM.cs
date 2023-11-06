@@ -18,6 +18,8 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
 
     public bool IsListened => false;
 
+    public bool HasDownloadedAndNotAttachedToLibraryFiles { get; }
+
     public Stream? CoverStream { get; }
 
     public ICommand Download => null!;
@@ -38,10 +40,12 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
     public ConnectedDirectoryDTVM(
         string name,
         IReadOnlyList<INodeVM> childNodes,
-        string? coverFileName = null)
+        string? coverFileName = null,
+        bool hasDownloadedAndNotAttachedToLibraryFiles = false)
         : base(name, childNodes)
     {
         CoverStream = GetCoverStream(coverFileName);
+        HasDownloadedAndNotAttachedToLibraryFiles = hasDownloadedAndNotAttachedToLibraryFiles;
     }
 
     private static Stream? GetCoverStream(string? coverFileName)

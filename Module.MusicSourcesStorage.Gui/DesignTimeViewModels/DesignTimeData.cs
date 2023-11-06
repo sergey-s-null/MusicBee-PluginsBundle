@@ -44,7 +44,7 @@ public static class DesignTimeData
             new ConnectedMusicFileDTVM("Song999.mp3", MusicFileLocation.Library, false),
             new ConnectedMusicFileDTVM("Song42.mp3", MusicFileLocation.NotDownloaded, true),
             new ConnectedImageFileDTVM("cover.jpg", true)
-        }, "quad.png"),
+        }, "quad.png", true),
         new ConnectedDirectoryDTVM("Epic Album 666", new INodeVM[]
         {
             new ConnectedDirectoryDTVM("Special", new INodeVM[]

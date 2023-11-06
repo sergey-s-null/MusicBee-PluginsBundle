@@ -17,6 +17,8 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     public bool IsListened => throw new NotImplementedException();
 
+    public bool HasDownloadedAndNotAttachedToLibraryFiles => throw new NotImplementedException();
+
     public Stream? CoverStream => throw new NotImplementedException();
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);

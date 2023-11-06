@@ -1,0 +1,35 @@
+﻿<iconPacks:PackIconUnicons
+    x:Class="Module.MusicSourcesStorage.Gui.Views.Nodes.DirectoryStateIcon"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance dtvm:ConnectedDirectoryDTVM}">
+
+    <iconPacks:PackIconUnicons.Resources>
+        <ResourceDictionary Source="../Styles/Nodes/NodeStateIconStyle.xaml" />
+    </iconPacks:PackIconUnicons.Resources>
+
+    <iconPacks:PackIconUnicons.Style>
+        <Style BasedOn="{StaticResource NodeStateIconStyle}"
+               TargetType="iconPacks:PackIconUnicons">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasDownloadedAndNotAttachedToLibraryFiles}"
+                             Value="True">
+                    <Setter Property="Kind" Value="ExclamationCircle" />
+                    <Setter Property="Foreground" Value="SaddleBrown" />
+                    <Setter Property="ToolTip" Value="Has downloaded and not attached to library files" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding HasDownloadedAndNotAttachedToLibraryFiles}"
+                             Value="False">
+                    <Setter Property="Kind" Value="Circle" />
+                    <Setter Property="Foreground" Value="LightGray " />
+                    <Setter Property="ToolTip" Value="All files attached to library or not downloaded" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </iconPacks:PackIconUnicons.Style>
+</iconPacks:PackIconUnicons>
