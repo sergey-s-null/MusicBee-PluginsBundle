@@ -45,7 +45,7 @@ public static class DesignTimeData
             new ConnectedMusicFileDTVM("Song42.mp3", MusicFileLocation.NotDownloaded, true),
             new ConnectedImageFileDTVM("cover.jpg", true),
             new ConnectedImageFileDTVM("alt_cover.jpg", true, true),
-        }, "quad.png", true),
+        }, "quad.png", isProcessing: true),
         new ConnectedDirectoryDTVM("Epic Album 666", new INodeVM[]
         {
             new ConnectedDirectoryDTVM("Special", new INodeVM[]
@@ -56,11 +56,11 @@ public static class DesignTimeData
             new ConnectedMusicFileDTVM("Single.flac", MusicFileLocation.NotDownloaded, false),
             new ConnectedImageFileDTVM("cover.png", true),
             new ConnectedImageFileDTVM("some image.png", false)
-        }, "vertical.png"),
+        }, "vertical.png", true),
         new ConnectedDirectoryDTVM("Just a joke", new INodeVM[]
         {
             new ConnectedImageFileDTVM("only-cover.png", true)
-        }, "horizontal.png", isProcessing: true)
+        }, "horizontal.png")
     };
 
     public static readonly string BigText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
