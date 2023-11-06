@@ -9,7 +9,8 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
     public bool CanDownload => Location is MusicFileLocation.NotDownloaded;
     public bool IsDownloaded => Location is MusicFileLocation.Incoming or MusicFileLocation.Library;
 
-    public bool CanDelete => Location == MusicFileLocation.Incoming;
+    public bool CanDelete => Location is not MusicFileLocation.NotDownloaded;
+    public bool IsDeleted => Location is MusicFileLocation.NotDownloaded;
 
     public MusicFileLocation Location { get; }
     public bool IsListened { get; }

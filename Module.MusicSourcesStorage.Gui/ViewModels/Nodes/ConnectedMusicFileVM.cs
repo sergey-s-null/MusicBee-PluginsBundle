@@ -12,9 +12,10 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 
-    public bool IsListened => throw new NotImplementedException();
-
     public bool CanDelete => throw new NotImplementedException();
+    public bool IsDeleted => throw new NotImplementedException();
+
+    public bool IsListened => throw new NotImplementedException();
 
     public MusicFileLocation Location => throw new NotImplementedException();
 
