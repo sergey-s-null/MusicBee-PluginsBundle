@@ -9,6 +9,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 {
+    public bool IsProcessing => throw new NotImplementedException();
+
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 

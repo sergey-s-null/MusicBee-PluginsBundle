@@ -37,6 +37,7 @@ public static class DesignTimeData
     {
         new ConnectedDirectoryDTVM("Album 1", new INodeVM[]
         {
+            new ConnectedMusicFileDTVM("Song0.mp3", MusicFileLocation.NotDownloaded, false, true),
             new ConnectedMusicFileDTVM("Song1.mp3", MusicFileLocation.NotDownloaded, false),
             new ConnectedMusicFileDTVM("Song2.mp3", MusicFileLocation.Incoming, false),
             new ConnectedMusicFileDTVM("Song3.mp3", MusicFileLocation.Incoming, true),

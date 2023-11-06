@@ -3,7 +3,12 @@ using Module.MusicSourcesStorage.Gui.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-public interface IConnectedMusicFileVM : IMusicFileVM, IDownloadableVM, IMarkableAsListenedVM, IDeletableVM
+public interface IConnectedMusicFileVM :
+    IMusicFileVM,
+    IProcessableVM,
+    IDownloadableVM,
+    IMarkableAsListenedVM,
+    IDeletableVM
 {
     MusicFileLocation Location { get; }
 

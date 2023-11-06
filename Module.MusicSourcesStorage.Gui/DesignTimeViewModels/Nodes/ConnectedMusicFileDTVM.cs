@@ -6,6 +6,8 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
 public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileVM
 {
+    public bool IsProcessing { get; }
+
     public bool CanDownload => Location is MusicFileLocation.NotDownloaded;
     public bool IsDownloaded => Location is MusicFileLocation.Incoming or MusicFileLocation.Library;
 
@@ -21,13 +23,24 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
     public ICommand DeleteAndMarkAsListened => null!;
     public ICommand Delete => null!;
 
-    public ConnectedMusicFileDTVM() : this("some/path/to/music.mp3", MusicFileLocation.Library, false)
+    public ConnectedMusicFileDTVM()
+        : this(
+            "some/path/to/music.mp3",
+            MusicFileLocation.Library,
+            false
+        )
     {
     }
 
-    public ConnectedMusicFileDTVM(string path, MusicFileLocation location, bool isListened) : base(path)
+    public ConnectedMusicFileDTVM(
+        string path,
+        MusicFileLocation location,
+        bool isListened,
+        bool isProcessing = false)
+        : base(path)
     {
         Location = location;
         IsListened = isListened;
+        IsProcessing = isProcessing;
     }
 }
