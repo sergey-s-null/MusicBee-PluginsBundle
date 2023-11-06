@@ -8,11 +8,14 @@ public sealed class ConnectedImageFileDTVM : ImageFileDTVM, IConnectedImageFileV
     public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => true;
 
+    public bool CanDelete => true;
+    public bool IsDeleted => false;
+
     public bool IsCover => false;
 
     public ICommand Download => null!;
-    public ICommand SelectAsCover => null!;
     public ICommand Delete => null!;
+    public ICommand SelectAsCover => null!;
 
     public ConnectedImageFileDTVM()
     {

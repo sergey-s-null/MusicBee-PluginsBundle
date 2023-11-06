@@ -11,20 +11,21 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 
-    public bool IsCover { get; private set; }
+    public bool CanDelete => throw new NotImplementedException();
+    public bool IsDeleted => throw new NotImplementedException();
+
+    public bool IsCover => throw new NotImplementedException();
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
-    public ICommand SelectAsCover => _selectAsCoverCmd ??= new RelayCommand(SelectAsCoverCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
+    public ICommand SelectAsCover => _selectAsCoverCmd ??= new RelayCommand(SelectAsCoverCmd);
 
     private ICommand? _downloadCmd;
-    private ICommand? _selectAsCoverCmd;
     private ICommand? _deleteCmd;
+    private ICommand? _selectAsCoverCmd;
 
     public ConnectedImageFileVM(string path) : base(path)
     {
-        // todo fill using api
-        IsCover = false;
     }
 
     private void DownloadCmd()
@@ -32,12 +33,12 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         throw new NotImplementedException();
     }
 
-    private void SelectAsCoverCmd()
+    private void DeleteCmd()
     {
         throw new NotImplementedException();
     }
 
-    private void DeleteCmd()
+    private void SelectAsCoverCmd()
     {
         throw new NotImplementedException();
     }
