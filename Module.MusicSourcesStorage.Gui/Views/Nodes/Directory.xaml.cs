@@ -6,45 +6,33 @@ public partial class Directory : HierarchyNodeBase
     {
         InitializeComponent();
 
-        UpdateComponentsDisplayingState();
+        InitializeDisplayingState();
     }
 
-    // todo rename to "Connected"
-    protected override void OnIsReadOnlyChanged(bool oldValue, bool newValue)
+    private void InitializeDisplayingState()
     {
-        if (oldValue == newValue)
+        if (IsConnected)
         {
-            return;
-        }
-
-        UpdateComponentsDisplayingState();
-    }
-
-    // todo move to base class
-    private void UpdateComponentsDisplayingState()
-    {
-        if (IsReadOnly)
-        {
-            ConfigureReadOnlyState();
+            OnBecameConnected();
         }
         else
         {
-            ConfigureEditableState();
+            OnBecameNotConnected();
         }
     }
 
-    private void ConfigureReadOnlyState()
-    {
-        ContextMenu = null;
-        StateIconControl.Content = null;
-    }
-
-    private void ConfigureEditableState()
+    protected override void OnBecameConnected()
     {
         ContextMenu = new DirectoryContextMenu();
         StateIconControl.Content = new ProcessingIconWrapper
         {
             WrappedContent = new DirectoryStateIcon()
         };
+    }
+
+    protected override void OnBecameNotConnected()
+    {
+        ContextMenu = null;
+        StateIconControl.Content = null;
     }
 }

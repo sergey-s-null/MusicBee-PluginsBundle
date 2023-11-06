@@ -6,23 +6,28 @@ public partial class UnknownFile : HierarchyNodeBase
     {
         InitializeComponent();
 
-        UpdateDisplayingState();
+        InitializeDisplayingState();
     }
 
-    protected override void OnIsReadOnlyChanged(bool oldValue, bool newValue)
+    private void InitializeDisplayingState()
     {
-        if (oldValue == newValue)
+        if (IsConnected)
         {
-            return;
+            OnBecameConnected();
         }
-
-        UpdateDisplayingState();
+        else
+        {
+            OnBecameNotConnected();
+        }
     }
 
-    private void UpdateDisplayingState()
+    protected override void OnBecameConnected()
     {
-        ContextMenu = IsReadOnly
-            ? null
-            : new UnknownFileContextMenu();
+        ContextMenu = new UnknownFileContextMenu();
+    }
+
+    protected override void OnBecameNotConnected()
+    {
+        ContextMenu = null;
     }
 }

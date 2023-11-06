@@ -12,17 +12,17 @@ public sealed class HierarchyNodesViewMapper : ViewMapperBase
     {
         new Dictionary<Type, Func<FrameworkElement>>
         {
-            [typeof(IConnectedDirectoryVM)] = () => new Directory(),
-            [typeof(IConnectedMusicFileVM)] = () => new MusicFile(),
-            [typeof(IConnectedImageFileVM)] = () => new ImageFile(),
-            [typeof(IConnectedUnknownFileVM)] = () => new UnknownFile(),
+            [typeof(IConnectedDirectoryVM)] = () => new Directory { IsConnected = true },
+            [typeof(IConnectedMusicFileVM)] = () => new MusicFile { IsConnected = true },
+            [typeof(IConnectedImageFileVM)] = () => new ImageFile { IsConnected = true },
+            [typeof(IConnectedUnknownFileVM)] = () => new UnknownFile { IsConnected = true },
         },
         new Dictionary<Type, Func<FrameworkElement>>
         {
-            [typeof(IDirectoryVM)] = () => new Directory { IsReadOnly = true },
-            [typeof(IMusicFileVM)] = () => new MusicFile { IsReadOnly = true },
-            [typeof(IImageFileVM)] = () => new ImageFile { IsReadOnly = true },
-            [typeof(IUnknownFileVM)] = () => new UnknownFile { IsReadOnly = true },
+            [typeof(IDirectoryVM)] = () => new Directory(),
+            [typeof(IMusicFileVM)] = () => new MusicFile(),
+            [typeof(IImageFileVM)] = () => new ImageFile(),
+            [typeof(IUnknownFileVM)] = () => new UnknownFile(),
         },
     };
 

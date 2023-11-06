@@ -8,41 +8,31 @@ public partial class MusicFile : HierarchyNodeBase
     {
         InitializeComponent();
 
-        UpdateComponentsDisplayingState();
+        InitializeDisplayingState();
     }
 
-    protected override void OnIsReadOnlyChanged(bool oldValue, bool newValue)
+    private void InitializeDisplayingState()
     {
-        if (oldValue == newValue)
+        if (IsConnected)
         {
-            return;
-        }
-
-        UpdateComponentsDisplayingState();
-    }
-
-    private void UpdateComponentsDisplayingState()
-    {
-        if (IsReadOnly)
-        {
-            ConfigureReadOnlyState();
+            OnBecameConnected();
         }
         else
         {
-            ConfigureEditableState();
+            OnBecameNotConnected();
         }
     }
 
-    private void ConfigureReadOnlyState()
-    {
-        ContextMenu = null;
-        StateIconControl.Content = null;
-    }
-
-    private void ConfigureEditableState()
+    protected override void OnBecameConnected()
     {
         ContextMenu = new MusicFileContextMenu();
         StateIconControl.Content = CreateStateIcon();
+    }
+
+    protected override void OnBecameNotConnected()
+    {
+        ContextMenu = null;
+        StateIconControl.Content = null;
     }
 
     private static FrameworkElement CreateStateIcon()

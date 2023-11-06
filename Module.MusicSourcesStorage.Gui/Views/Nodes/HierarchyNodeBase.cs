@@ -5,25 +5,40 @@ namespace Module.MusicSourcesStorage.Gui.Views.Nodes;
 
 public abstract class HierarchyNodeBase : ContentControl
 {
-    public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(
-        nameof(IsReadOnly),
+    public static readonly DependencyProperty IsConnectedProperty = DependencyProperty.Register(
+        nameof(IsConnected),
         typeof(bool),
         typeof(HierarchyNodeBase),
         new PropertyMetadata(
             false,
             (obj, args) =>
             {
-                var node = ((HierarchyNodeBase)obj);
-                node.OnIsReadOnlyChanged((bool)args.OldValue, (bool)args.NewValue);
+                var (oldIsConnected, isConnected) = ((bool)args.OldValue, (bool)args.NewValue);
+                if (oldIsConnected == isConnected)
+                {
+                    return;
+                }
+
+                var node = (HierarchyNodeBase)obj;
+                if (isConnected)
+                {
+                    node.OnBecameConnected();
+                }
+                else
+                {
+                    node.OnBecameNotConnected();
+                }
             }
         )
     );
 
-    public bool IsReadOnly
+    public bool IsConnected
     {
-        get => (bool)GetValue(IsReadOnlyProperty);
-        set => SetValue(IsReadOnlyProperty, value);
+        get => (bool)GetValue(IsConnectedProperty);
+        set => SetValue(IsConnectedProperty, value);
     }
 
-    protected abstract void OnIsReadOnlyChanged(bool oldValue, bool newValue);
+    protected abstract void OnBecameConnected();
+
+    protected abstract void OnBecameNotConnected();
 }

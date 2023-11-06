@@ -6,23 +6,28 @@ public partial class ImageFile : HierarchyNodeBase
     {
         InitializeComponent();
 
-        UpdateContextMenuDisplayingState();
+        InitializeDisplayingState();
     }
 
-    protected override void OnIsReadOnlyChanged(bool oldValue, bool newValue)
+    private void InitializeDisplayingState()
     {
-        if (oldValue == newValue)
+        if (IsConnected)
         {
-            return;
+            OnBecameConnected();
         }
-
-        UpdateContextMenuDisplayingState();
+        else
+        {
+            OnBecameNotConnected();
+        }
     }
 
-    private void UpdateContextMenuDisplayingState()
+    protected override void OnBecameConnected()
     {
-        ContextMenu = IsReadOnly
-            ? null
-            : new ImageFileContextMenu();
+        ContextMenu = new ImageFileContextMenu();
+    }
+
+    protected override void OnBecameNotConnected()
+    {
+        ContextMenu = null;
     }
 }
