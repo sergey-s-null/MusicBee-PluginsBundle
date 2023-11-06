@@ -133,8 +133,8 @@ public sealed class DIModule : Autofac.Module
     private static void RegisterFactories(ContainerBuilder builder)
     {
         builder
-            .RegisterType<WizardStepViewModelsFactory>()
-            .As<IWizardStepViewModelsFactory>();
+            .RegisterType<WizardStepVMFactory>()
+            .As<IWizardStepVMFactory>();
         builder
             .Register<DirectoryVMFactory>(_ =>
                 (name, nodes) => new DirectoryVM(name, nodes)

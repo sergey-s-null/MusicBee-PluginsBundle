@@ -6,13 +6,13 @@ using Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.Factories;
 
-public sealed class WizardStepViewModelsFactory : IWizardStepViewModelsFactory
+public sealed class WizardStepVMFactory : IWizardStepVMFactory
 {
     private readonly ILifetimeScope _lifetimeScope;
 
     private readonly IDictionary<StepType, Func<IWizardStepVM>> _factories;
 
-    public WizardStepViewModelsFactory(ILifetimeScope lifetimeScope)
+    public WizardStepVMFactory(ILifetimeScope lifetimeScope)
     {
         _lifetimeScope = lifetimeScope;
 

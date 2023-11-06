@@ -42,17 +42,17 @@ public sealed class WizardVM : IWizardVM
 
     private readonly object _stepTransitionSync = new();
     private readonly Wizard _wizard;
-    private readonly IWizardStepViewModelsFactory _stepViewModelsFactory;
+    private readonly IWizardStepVMFactory _stepVMFactory;
 
     private IWizardStepDescriptor _currentStepDescriptor;
 
     public WizardVM(
         Wizard wizard,
         IWizardStepDescriptor initialStepDescriptor,
-        IWizardStepViewModelsFactory stepViewModelsFactory)
+        IWizardStepVMFactory stepVMFactory)
     {
         _wizard = wizard;
-        _stepViewModelsFactory = stepViewModelsFactory;
+        _stepVMFactory = stepVMFactory;
 
         (_currentStepDescriptor, CurrentStep) = (null!, null!);
         GoToStep(initialStepDescriptor);
@@ -226,7 +226,7 @@ public sealed class WizardVM : IWizardVM
         lock (_stepTransitionSync)
         {
             _currentStepDescriptor = stepDescriptor;
-            var step = _stepViewModelsFactory.Create(_currentStepDescriptor);
+            var step = _stepVMFactory.Create(_currentStepDescriptor);
             ActivateStep(step);
             CurrentStep = step;
         }

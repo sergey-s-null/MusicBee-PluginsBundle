@@ -3,8 +3,7 @@ using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.Factories.Abstract;
 
-// todo rename to IWizardStepVMFactory
-public interface IWizardStepViewModelsFactory
+public interface IWizardStepVMFactory
 {
     IWizardStepVM Create(IWizardStepDescriptor descriptor);
 }
