@@ -50,7 +50,7 @@ public static class DesignTimeData
         {
             new ConnectedDirectoryDTVM("Special", new INodeVM[]
             {
-                new ConnectedUnknownFileDTVM("song lyrics.txt"),
+                new ConnectedUnknownFileDTVM("song lyrics.txt", true),
                 new ConnectedUnknownFileDTVM("message from author.txt")
             }),
             new ConnectedMusicFileDTVM("Single.flac", MusicFileLocation.NotDownloaded, false),

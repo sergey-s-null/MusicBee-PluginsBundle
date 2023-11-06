@@ -5,13 +5,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
-    xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:nodes="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Nodes"
     mc:Ignorable="d"
     d:DesignWidth="300"
     d:DataContext="{d:DesignInstance dtvm:UnknownFileDTVM}">
-    
+
     <nodes:HierarchyNodeBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,6 +25,7 @@
     <Grid Style="{StaticResource NodeContainerStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -35,7 +35,11 @@
                                        Style="{StaticResource NodeIconStyle}" />
         </Grid>
 
-        <TextBlock Grid.Column="1"
+        <Grid Grid.Column="1">
+            <ContentControl x:Name="StateIconControl" />
+        </Grid>
+
+        <TextBlock Grid.Column="2"
                    Text="{Binding Name}"
                    Style="{StaticResource NodeTextStyle}"
                    VerticalAlignment="Center" />

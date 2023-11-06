@@ -6,7 +6,7 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 public sealed class ConnectedUnknownFileDTVM : UnknownFileDTVM, IConnectedUnknownFileVM
 {
     public bool CanDownload => !IsDownloaded;
-    public bool IsDownloaded => false;
+    public bool IsDownloaded { get; }
 
     public bool CanDelete => false;
     public bool IsDeleted => true;
@@ -18,7 +18,11 @@ public sealed class ConnectedUnknownFileDTVM : UnknownFileDTVM, IConnectedUnknow
     {
     }
 
-    public ConnectedUnknownFileDTVM(string path) : base(path)
+    public ConnectedUnknownFileDTVM(
+        string path,
+        bool isDownloaded = false)
+        : base(path)
     {
+        IsDownloaded = isDownloaded;
     }
 }
