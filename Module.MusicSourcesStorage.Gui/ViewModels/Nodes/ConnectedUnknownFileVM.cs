@@ -8,6 +8,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFileVM
 {
+    public bool IsProcessing => throw new NotImplementedException();
+
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 

@@ -24,7 +24,10 @@ public partial class UnknownFile : HierarchyNodeBase
     protected override void OnBecameConnected()
     {
         ContextMenu = new UnknownFileContextMenu();
-        StateIconControl.Content = new DownloadStateIcon();
+        StateIconControl.Content = new ProcessingIconWrapper
+        {
+            WrappedContent = new DownloadStateIcon()
+        };
     }
 
     protected override void OnBecameNotConnected()
