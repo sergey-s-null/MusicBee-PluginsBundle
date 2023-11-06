@@ -21,6 +21,7 @@
                    TargetType="iconPacks:PackIconSimpleIcons">
                 <Setter Property="Kind" Value="Spinrilla" />
                 <Setter Property="Foreground" Value="Purple" />
+                <Setter Property="ToolTip" Value="Processing" />
 
                 <Style.Triggers>
                     <EventTrigger RoutedEvent="iconPacks:PackIconSimpleIcons.Loaded">
