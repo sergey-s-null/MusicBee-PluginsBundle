@@ -1,0 +1,68 @@
+﻿<ContentControl
+    x:Class="Module.MusicSourcesStorage.Gui.Views.Nodes.ProcessingIconWrapper"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
+    xmlns:nodes="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Nodes"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance dtvm:ProcessableDTVM}">
+
+    <ContentControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Nodes/NodeStateIconStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="ProcessingIconStyle"
+                   BasedOn="{StaticResource NodeStateIconStyle}"
+                   TargetType="iconPacks:PackIconSimpleIcons">
+                <Setter Property="Kind" Value="Spinrilla" />
+                <Setter Property="Foreground" Value="Purple" />
+
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="iconPacks:PackIconSimpleIcons.Loaded">
+                        <BeginStoryboard Name="RotationStoryboard">
+                            <Storyboard TargetProperty="RotationAngle">
+                                <DoubleAnimation
+                                    From="0"
+                                    To="360"
+                                    Duration="0:0:2"
+                                    RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="iconPacks:PackIconSimpleIcons.Unloaded">
+                        <StopStoryboard BeginStoryboardName="RotationStoryboard" />
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <iconPacks:PackIconSimpleIcons
+                x:Key="ProcessingIcon"
+                Style="{StaticResource ProcessingIconStyle}" />
+        </ResourceDictionary>
+    </ContentControl.Resources>
+
+    <ContentControl.Style>
+        <Style TargetType="ContentControl">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsProcessing}"
+                             Value="True">
+                    <Setter Property="Content" Value="{StaticResource ProcessingIcon}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsProcessing}"
+                             Value="False">
+                    <Setter
+                        Property="Content"
+                        Value="{
+                            Binding Path=(nodes:ProcessingIconWrapper.WrappedContent), 
+                            RelativeSource={RelativeSource Self}
+                        }" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ContentControl.Style>
+</ContentControl>
