@@ -5,6 +5,8 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
 public sealed class ConnectedImageFileDTVM : ImageFileDTVM, IConnectedImageFileVM
 {
+    public bool IsProcessing { get; }
+
     public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded { get; }
 
@@ -22,8 +24,13 @@ public sealed class ConnectedImageFileDTVM : ImageFileDTVM, IConnectedImageFileV
     }
 
     // todo use isCover?
-    public ConnectedImageFileDTVM(string path, bool isCover, bool isDownloaded = false) : base(path)
+    public ConnectedImageFileDTVM(
+        string path,
+        bool isCover,
+        bool isDownloaded = false,
+        bool isProcessing = false) : base(path)
     {
         IsDownloaded = isDownloaded;
+        IsProcessing = isProcessing;
     }
 }

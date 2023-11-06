@@ -43,6 +43,7 @@ public static class DesignTimeData
             new ConnectedMusicFileDTVM("Song3.mp3", MusicFileLocation.Incoming, true),
             new ConnectedMusicFileDTVM("Song999.mp3", MusicFileLocation.Library, false),
             new ConnectedMusicFileDTVM("Song42.mp3", MusicFileLocation.NotDownloaded, true),
+            new ConnectedImageFileDTVM("aga.jpg", false, isProcessing: true),
             new ConnectedImageFileDTVM("cover.jpg", true),
             new ConnectedImageFileDTVM("alt_cover.jpg", true, true),
         }, "quad.png", isProcessing: true),

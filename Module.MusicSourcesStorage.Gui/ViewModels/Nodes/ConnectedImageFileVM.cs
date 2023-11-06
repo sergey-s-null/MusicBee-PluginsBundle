@@ -8,6 +8,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 {
+    public bool IsProcessing => throw new NotImplementedException();
+
     public bool CanDownload => throw new NotImplementedException();
     public bool IsDownloaded => throw new NotImplementedException();
 
