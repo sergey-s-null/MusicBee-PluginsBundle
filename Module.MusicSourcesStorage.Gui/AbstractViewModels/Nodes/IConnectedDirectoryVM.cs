@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-public interface IConnectedDirectoryVM : IDirectoryVM, IDownloadableVM, IMarkableAsListenedVM
+public interface IConnectedDirectoryVM : IDirectoryVM, IDownloadableVM, IMarkableAsListenedVM, IDeletableVM
 {
     Stream? CoverStream { get; }
 }

@@ -13,11 +13,15 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
     public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => false;
 
+    public bool CanDelete => false;
+    public bool IsDeleted => true;
+
     public bool IsListened => false;
 
     public Stream? CoverStream { get; }
 
     public ICommand Download => null!;
+    public ICommand Delete => null!;
     public ICommand MarkAsListened => null!;
     public ICommand MarkAsNotListened => null!;
 
