@@ -10,6 +10,9 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
     private const string DesignTimeCoversPath =
         $"{nameof(Module)}.{nameof(MusicSourcesStorage)}.{nameof(Gui)}.Resources.DesignTime.Covers";
 
+
+    public bool IsProcessing { get; }
+
     public bool CanDownload => !IsDownloaded;
     public bool IsDownloaded => false;
 
@@ -41,11 +44,13 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
         string name,
         IReadOnlyList<INodeVM> childNodes,
         string? coverFileName = null,
-        bool hasDownloadedAndNotAttachedToLibraryFiles = false)
+        bool hasDownloadedAndNotAttachedToLibraryFiles = false,
+        bool isProcessing = false)
         : base(name, childNodes)
     {
         CoverStream = GetCoverStream(coverFileName);
         HasDownloadedAndNotAttachedToLibraryFiles = hasDownloadedAndNotAttachedToLibraryFiles;
+        IsProcessing = isProcessing;
     }
 
     private static Stream? GetCoverStream(string? coverFileName)

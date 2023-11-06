@@ -59,7 +59,7 @@ public static class DesignTimeData
         new ConnectedDirectoryDTVM("Just a joke", new INodeVM[]
         {
             new ConnectedImageFileDTVM("only-cover.png", true)
-        }, "horizontal.png")
+        }, "horizontal.png", isProcessing: true)
     };
 
     public static readonly string BigText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +

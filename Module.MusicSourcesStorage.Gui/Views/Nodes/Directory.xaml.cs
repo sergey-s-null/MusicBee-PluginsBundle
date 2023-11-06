@@ -42,6 +42,9 @@ public partial class Directory : HierarchyNodeBase
     private void ConfigureEditableState()
     {
         ContextMenu = new DirectoryContextMenu();
-        StateIconControl.Content = new DirectoryStateIcon();
+        StateIconControl.Content = new ProcessingIconWrapper
+        {
+            WrappedContent = new DirectoryStateIcon()
+        };
     }
 }

@@ -2,7 +2,12 @@
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-public interface IConnectedDirectoryVM : IDirectoryVM, IDownloadableVM, IMarkableAsListenedVM, IDeletableVM
+public interface IConnectedDirectoryVM :
+    IDirectoryVM,
+    IProcessableVM,
+    IDownloadableVM,
+    IMarkableAsListenedVM,
+    IDeletableVM
 {
     bool HasDownloadedAndNotAttachedToLibraryFiles { get; }
 
