@@ -9,12 +9,10 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
     public bool CanDownload => Location is MusicFileLocation.NotDownloaded;
     public bool IsDownloaded => Location is MusicFileLocation.Incoming or MusicFileLocation.Library;
 
-    // todo get from ctor
-    public bool IsListened => false;
-
     public bool CanDelete => Location == MusicFileLocation.Incoming;
 
     public MusicFileLocation Location { get; }
+    public bool IsListened { get; }
 
     public ICommand Download => null!;
     public ICommand MarkAsListened => null!;
@@ -22,12 +20,13 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
     public ICommand DeleteAndMarkAsListened => null!;
     public ICommand Delete => null!;
 
-    public ConnectedMusicFileDTVM() : this("some/path/to/music.mp3", MusicFileLocation.Library)
+    public ConnectedMusicFileDTVM() : this("some/path/to/music.mp3", MusicFileLocation.Library, false)
     {
     }
 
-    public ConnectedMusicFileDTVM(string path, MusicFileLocation location) : base(path)
+    public ConnectedMusicFileDTVM(string path, MusicFileLocation location, bool isListened) : base(path)
     {
         Location = location;
+        IsListened = isListened;
     }
 }
