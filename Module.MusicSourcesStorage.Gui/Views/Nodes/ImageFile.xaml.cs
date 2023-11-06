@@ -24,10 +24,12 @@ public partial class ImageFile : HierarchyNodeBase
     protected override void OnBecameConnected()
     {
         ContextMenu = new ImageFileContextMenu();
+        StateIconControl.Content = new DownloadStateIcon();
     }
 
     protected override void OnBecameNotConnected()
     {
         ContextMenu = null;
+        StateIconControl.Content = null;
     }
 }
