@@ -34,10 +34,10 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
     {
         Text = "Downloading archive";
         var downloadingTask = _vkDocumentDownloadingTaskManager.GetOrStartNew(_context.SelectedDocument!);
-        await downloadingTask.WaitCompletionAsync(token);
+        var targetFilePath = await Task.Run(() => downloadingTask.Task.Result, token);
 
         Text = "Indexing archive";
-        var files = _archiveIndexer.Index(downloadingTask.TargetFilePath);
+        var files = _archiveIndexer.Index(targetFilePath);
 
         _context.IndexedFiles = files;
 

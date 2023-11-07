@@ -1,28 +1,18 @@
 ﻿using Module.MusicSourcesStorage.Logic.Entities.Abstract;
-using Module.MusicSourcesStorage.Logic.Enums;
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed class CompletedFileDownloadingTask : IFileDownloadingTask
+public sealed class CompletedFileDownloadingTask : ITaskWithProgress<string>
 {
     public event EventHandler<ProgressChangedEventArgs>? ProgressChanged;
-    public event EventHandler<TaskCompletedEventArgs>? Completed;
+    public event EventHandler<TaskFailedEventArgs>? Failed;
+    public event EventHandler? Cancelled;
+    public event EventHandler<TaskResultEventArgs<string>>? SuccessfullyCompleted;
 
-    public TaskState State => TaskState.Completed;
-
-    public string TargetFilePath { get; }
+    public Task<string> Task { get; }
 
     public CompletedFileDownloadingTask(string downloadedFilePath)
     {
-        TargetFilePath = downloadedFilePath;
-    }
-
-    public void WaitCompletion()
-    {
-    }
-
-    public Task WaitCompletionAsync(CancellationToken token = default)
-    {
-        return Task.CompletedTask;
+        Task = System.Threading.Tasks.Task.FromResult(downloadedFilePath);
     }
 }

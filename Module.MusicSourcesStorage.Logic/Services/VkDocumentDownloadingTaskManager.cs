@@ -27,7 +27,7 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         _downloadedVkDocumentsCache = downloadedVkDocumentsCache;
     }
 
-    public IFileDownloadingTask GetOrStartNew(VkDocument document)
+    public ITaskWithProgress<string> GetOrStartNew(VkDocument document)
     {
         if (TryGetDoneTask(document.Id, out var doneTask))
         {
@@ -57,10 +57,64 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         task.Cancel();
     }
 
+    private FileDownloadingTask StartNewDownloadingTask(VkDocument document)
+    {
+        var filePath = GetFilePath(document);
+        var newTask = new FileDownloadingTask(document.Uri, filePath, true);
+
+        newTask.SuccessfullyCompleted += (_, args) => OnTaskSuccessfullyCompleted(document.Id, args.Result);
+        newTask.Failed += (_, _) => RemoveRunningTask(document.Id);
+        newTask.Cancelled += (_, _) => RemoveRunningTask(document.Id);
+        AddRunningTask(document.Id, newTask);
+        newTask.Start();
+        return newTask;
+    }
+
     private string GetFilePath(VkDocument document)
     {
         var fileName = PathHelper.ReplaceInvalidCharacters(document.Name, "_");
         return Path.Combine(_configuration.VkDocumentsDownloadingDirectory, fileName);
+    }
+
+    private void OnTaskSuccessfullyCompleted(VkOwnedEntityId documentId, string targetFilePath)
+    {
+        _lock.EnterWriteLock();
+        try
+        {
+            _runningTasks.Remove(documentId);
+            _doneTasks[documentId] = new CompletedFileDownloadingTask(targetFilePath);
+            _downloadedVkDocumentsCache.Add(documentId, targetFilePath);
+        }
+        finally
+        {
+            _lock.ExitWriteLock();
+        }
+    }
+
+    private void AddRunningTask(VkOwnedEntityId documentId, FileDownloadingTask task)
+    {
+        _lock.EnterWriteLock();
+        try
+        {
+            _runningTasks[documentId] = task;
+        }
+        finally
+        {
+            _lock.ExitWriteLock();
+        }
+    }
+
+    private void RemoveRunningTask(VkOwnedEntityId documentId)
+    {
+        _lock.EnterWriteLock();
+        try
+        {
+            _runningTasks.Remove(documentId);
+        }
+        finally
+        {
+            _lock.ExitWriteLock();
+        }
     }
 
     private bool TryGetRunningTask(VkOwnedEntityId documentId, out FileDownloadingTask task)
@@ -95,32 +149,6 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         }
     }
 
-    private bool TryGetDoneTask(VkOwnedEntityId documentId, out CompletedFileDownloadingTask task)
-    {
-        _lock.EnterReadLock();
-        try
-        {
-            return _doneTasks.TryGetValue(documentId, out task);
-        }
-        finally
-        {
-            _lock.ExitReadLock();
-        }
-    }
-
-    private void AddRunningTask(VkOwnedEntityId documentId, FileDownloadingTask task)
-    {
-        _lock.EnterWriteLock();
-        try
-        {
-            _runningTasks[documentId] = task;
-        }
-        finally
-        {
-            _lock.ExitWriteLock();
-        }
-    }
-
     private CompletedFileDownloadingTask AddDoneTask(VkOwnedEntityId documentId, string filePath)
     {
         var task = new CompletedFileDownloadingTask(filePath);
@@ -137,32 +165,16 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         }
     }
 
-    private FileDownloadingTask StartNewDownloadingTask(VkDocument document)
+    private bool TryGetDoneTask(VkOwnedEntityId documentId, out CompletedFileDownloadingTask task)
     {
-        var filePath = GetFilePath(document);
-        var newTask = new FileDownloadingTask(document.Uri, filePath, true);
-        newTask.Completed += (_, args) => OnTaskCompleted(document.Id, filePath, args.IsSucceeded);
-        AddRunningTask(document.Id, newTask);
-        newTask.Start();
-        return newTask;
-    }
-
-    private void OnTaskCompleted(VkOwnedEntityId documentId, string targetFilePath, bool isSucceeded)
-    {
-        _lock.EnterWriteLock();
+        _lock.EnterReadLock();
         try
         {
-            _runningTasks.Remove(documentId);
-
-            if (isSucceeded)
-            {
-                _doneTasks[documentId] = new CompletedFileDownloadingTask(targetFilePath);
-                _downloadedVkDocumentsCache.Add(documentId, targetFilePath);
-            }
+            return _doneTasks.TryGetValue(documentId, out task);
         }
         finally
         {
-            _lock.ExitWriteLock();
+            _lock.ExitReadLock();
         }
     }
 }

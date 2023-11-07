@@ -5,7 +5,8 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 public interface IVkDocumentDownloadingTaskManager
 {
-    IFileDownloadingTask GetOrStartNew(VkDocument document);
+    /// <returns>Path to downloaded file.</returns>
+    ITaskWithProgress<string> GetOrStartNew(VkDocument document);
 
     void CancelDownloading(VkDocument document);
 }
