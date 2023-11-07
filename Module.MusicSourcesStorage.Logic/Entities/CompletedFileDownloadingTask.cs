@@ -15,4 +15,8 @@ public sealed class CompletedFileDownloadingTask : ITaskWithProgress<string>
     {
         Task = System.Threading.Tasks.Task.FromResult(downloadedFilePath);
     }
+
+    public void Activate()
+    {
+    }
 }

@@ -30,11 +30,11 @@ public sealed class FileDownloadingTask : ITaskWithProgress<string>
         Task = new Task<string>(ExecuteDownloading, _cancellationTokenSource.Token);
     }
 
-    public void Start()
+    public void Activate()
     {
         if (Task.Status != TaskStatus.Created)
         {
-            throw new InvalidOperationException("Task already started.");
+            return;
         }
 
         Task.Start();

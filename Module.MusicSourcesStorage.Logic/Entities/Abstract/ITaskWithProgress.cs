@@ -8,4 +8,6 @@ public interface ITaskWithProgress<T>
     event EventHandler<TaskResultEventArgs<T>> SuccessfullyCompleted;
 
     Task<T> Task { get; }
+
+    void Activate();
 }
