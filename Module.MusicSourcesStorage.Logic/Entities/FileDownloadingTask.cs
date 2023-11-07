@@ -12,22 +12,23 @@ public sealed class FileDownloadingTask : ITaskWithProgress<string>
 
     public Task<string> Task { get; }
 
-    private readonly CancellationTokenSource _cancellationTokenSource = new();
-
     private readonly string _sourceUri;
     private readonly string _targetFilePath;
     private readonly bool _createDirectory;
+    private CancellationToken _token;
 
     public FileDownloadingTask(
         string sourceUri,
         string targetFilePath,
-        bool createDirectory)
+        bool createDirectory,
+        CancellationToken token)
     {
         _sourceUri = sourceUri;
         _targetFilePath = targetFilePath;
         _createDirectory = createDirectory;
+        _token = token;
 
-        Task = new Task<string>(ExecuteDownloading, _cancellationTokenSource.Token);
+        Task = new Task<string>(ExecuteDownloading, token);
     }
 
     public void Activate()
@@ -38,36 +39,6 @@ public sealed class FileDownloadingTask : ITaskWithProgress<string>
         }
 
         Task.Start();
-    }
-
-    public void Cancel()
-    {
-        if (Task.Status == TaskStatus.Created)
-        {
-            throw new InvalidOperationException("Task is not started.");
-        }
-
-        _cancellationTokenSource.Cancel();
-
-        try
-        {
-            Task.Wait();
-        }
-        catch (AggregateException e)
-        {
-            if (e.InnerExceptions.Count == 1 && e.InnerException is TaskCanceledException)
-            {
-                Cancelled?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                throw;
-            }
-        }
-        catch (TaskCanceledException)
-        {
-            Cancelled?.Invoke(this, EventArgs.Empty);
-        }
     }
 
     private string ExecuteDownloading()
@@ -107,7 +78,7 @@ public sealed class FileDownloadingTask : ITaskWithProgress<string>
     private void DownloadFile()
     {
         using var webClient = new WebClient();
-        _cancellationTokenSource.Token.Register(webClient.CancelAsync);
+        _token.Register(webClient.CancelAsync);
         webClient.DownloadProgressChanged += (_, args) => ProgressChanged?.Invoke(
             this,
             new ProgressChangedEventArgs(args.ProgressPercentage / 100.0)

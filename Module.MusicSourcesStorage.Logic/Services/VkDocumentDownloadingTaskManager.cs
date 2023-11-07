@@ -66,13 +66,14 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
     {
         var filePath = GetFilePath(document);
 
-        var task = new FileDownloadingTask(document.Uri, filePath, true);
+        var tokenSource = new CancellationTokenSource();
+        var task = new FileDownloadingTask(document.Uri, filePath, true, tokenSource.Token);
 
         task.SuccessfullyCompleted += (_, args) => OnTaskSuccessfullyCompleted(document.Id, args.Result);
         task.Failed += (_, _) => RemoveRunningTask(document.Id);
         task.Cancelled += (_, _) => RemoveRunningTask(document.Id);
 
-        return new FileDownloadingTaskWithMetaInfo(task, new CancellationTokenSource(), taskRequestingInitCount);
+        return new FileDownloadingTaskWithMetaInfo(task, tokenSource, taskRequestingInitCount);
     }
 
     private string GetFilePath(VkDocument document)
