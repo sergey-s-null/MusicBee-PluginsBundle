@@ -33,8 +33,12 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
     protected override async Task<StepResult> ProcessAsync(CancellationToken token)
     {
         Text = "Downloading archive";
-        var downloadingTask = _vkDocumentDownloadingTaskManager.GetOrStartNew(_context.SelectedDocument!);
-        var targetFilePath = await Task.Run(() => downloadingTask.Task.Result, token);
+        var downloadingTask = _vkDocumentDownloadingTaskManager.GetOrCreateNewAsync(
+            _context.SelectedDocument!,
+            true,
+            token
+        );
+        var targetFilePath = await downloadingTask.Task;
 
         Text = "Indexing archive";
         var files = _archiveIndexer.Index(targetFilePath);
@@ -42,10 +46,5 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
         _context.IndexedFiles = files;
 
         return StepResult.Success;
-    }
-
-    protected override void OnCancelled()
-    {
-        _vkDocumentDownloadingTaskManager.CancelDownloading(_context.SelectedDocument!);
     }
 }
