@@ -10,6 +10,7 @@ public interface IArchiveExtractor
     /// <param name="archiveFilePath">Path to archive extract file from.</param>
     /// <param name="filePathInArchive">Relative path to file inside archive to extract.</param>
     /// <param name="targetFilePath">Path to file in which file should be extracted.</param>
+    /// <param name="createDirectory">Create directory where target file should be located.</param>
     /// <param name="activateTask">Activate task after creation.</param>
     /// <param name="token">cancellation token.</param>
     /// <returns>Path to extracted file.</returns>
@@ -17,6 +18,7 @@ public interface IArchiveExtractor
         string archiveFilePath,
         string filePathInArchive,
         string targetFilePath,
+        bool createDirectory,
         bool activateTask,
         CancellationToken token = default
     );

@@ -16,6 +16,7 @@ public sealed class ArchiveExtractor : IArchiveExtractor
         string archiveFilePath,
         string filePathInArchive,
         string targetFilePath,
+        bool createDirectory,
         bool activateTask,
         CancellationToken token)
     {
@@ -24,6 +25,7 @@ public sealed class ArchiveExtractor : IArchiveExtractor
                 archiveFilePath,
                 filePathInArchive,
                 targetFilePath,
+                createDirectory,
                 progressCallback,
                 internalToken
             ),
@@ -42,9 +44,15 @@ public sealed class ArchiveExtractor : IArchiveExtractor
         string archiveFilePath,
         string filePathInArchive,
         string targetFilePath,
+        bool createDirectory,
         RelativeProgressCallback progressCallback,
         CancellationToken token)
     {
+        if (createDirectory)
+        {
+            CreateDirectoryForFile(targetFilePath);
+        }
+
         using var archive = ZipArchive.Open(archiveFilePath);
 
         var entry = GetEntry(archive, filePathInArchive);
@@ -63,6 +71,17 @@ public sealed class ArchiveExtractor : IArchiveExtractor
         task.Wait(token);
 
         return targetFilePath;
+    }
+
+    private static void CreateDirectoryForFile(string filePath)
+    {
+        var directoryPath = Path.GetDirectoryName(filePath);
+        if (directoryPath is null)
+        {
+            return;
+        }
+
+        Directory.CreateDirectory(directoryPath);
     }
 
     private static IArchiveEntry GetEntry(IArchive archive, string filePathInArchive)
