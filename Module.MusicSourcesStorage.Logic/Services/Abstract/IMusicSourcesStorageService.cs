@@ -14,6 +14,8 @@ public interface IMusicSourcesStorageService
 
     Task DeleteMusicSourceAsync(int id, CancellationToken token = default);
 
+    Task<MusicSource> GetMusicSourceByFileIdAsync(int fileId, CancellationToken token = default);
+
     Task<IReadOnlyList<MusicSource>> GetMusicSourcesAsync(CancellationToken token = default);
 
     Task<MusicSourceAdditionalInfo?> FindAdditionalInfoByIdAsync(int id, CancellationToken token = default);

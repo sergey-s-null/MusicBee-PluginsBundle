@@ -28,6 +28,12 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return _musicSourcesStorage.DeleteAsync(id, token);
     }
 
+    public async Task<MusicSource> GetMusicSourceByFileIdAsync(int fileId, CancellationToken token = default)
+    {
+        var model = await _musicSourcesStorage.GetSourceByFileIdAsync(fileId, true, token);
+        return model.ToLogicModel();
+    }
+
     public async Task<IReadOnlyList<MusicSource>> GetMusicSourcesAsync(CancellationToken token)
     {
         var models = await _musicSourcesStorage.GetAllAsync(token);

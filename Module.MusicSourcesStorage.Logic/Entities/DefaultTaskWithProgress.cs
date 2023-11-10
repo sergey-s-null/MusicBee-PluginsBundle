@@ -12,6 +12,20 @@ public sealed class DefaultTaskWithProgress<T> : ITaskWithProgress<T>
 
     public Task<T> Task { get; }
 
+    public DefaultTaskWithProgress(Func<CancellationToken, T> taskFunction, CancellationToken token)
+        : this(
+            (progressCallback, internalToken) =>
+            {
+                progressCallback(0);
+                var result = taskFunction(internalToken);
+                progressCallback(1);
+                return result;
+            },
+            token
+        )
+    {
+    }
+
     public DefaultTaskWithProgress(TaskFunction<T> taskFunction, CancellationToken token)
     {
         Task = new Task<T>(() => taskFunction(OnProgressChanged, token), token);

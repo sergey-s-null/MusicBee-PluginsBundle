@@ -11,4 +11,11 @@ public static class TaskWithProgressExtensions
     {
         return new ChainedTasksPair<TFirstResult, TResult>(firstTask, secondTaskFactory);
     }
+
+    public static IMultiStepTaskWithProgress<TResult> Chain<TFirstResult, TResult>(
+        this ITaskWithProgress<TFirstResult> firstTask,
+        Func<TFirstResult, IMultiStepTaskWithProgress<TResult>> secondTaskFactory)
+    {
+        throw new NotImplementedException();
+    }
 }

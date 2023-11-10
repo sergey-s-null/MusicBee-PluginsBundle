@@ -34,6 +34,27 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         await context.SaveChangesAsync(token);
     }
 
+    public async Task<MusicSourceModel> GetSourceByFileIdAsync(int fileId, bool includeFiles, CancellationToken token)
+    {
+        using var context = _contextFactory();
+
+        var sources = includeFiles
+            ? context.Sources.Include(x => x.Files)
+            : context.Sources;
+
+        var source = await sources.FirstOrDefaultAsync(
+            source => source.Files.Any(file => file.Id == fileId),
+            token
+        );
+
+        if (source is null)
+        {
+            throw new DatabaseException($"Could not find source for file with id {fileId}");
+        }
+
+        return source;
+    }
+
     public async Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token = default)
     {
         using var context = _contextFactory();
