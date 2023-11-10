@@ -82,4 +82,24 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
 
         return model.AdditionalInfo;
     }
+
+    public async Task<FileModel> GetSourceFileAsync(int fileId, bool includeSource, CancellationToken token)
+    {
+        using var context = _contextFactory();
+
+        var files = includeSource
+            ? context.Files.Include(x => x.Source)
+            : context.Files;
+
+        var file = await files
+            .Where(x => x.Id == fileId)
+            .FirstOrDefaultAsync(token);
+
+        if (file is null)
+        {
+            throw new DatabaseException($"Could not find source file with id {fileId}.");
+        }
+
+        return file;
+    }
 }

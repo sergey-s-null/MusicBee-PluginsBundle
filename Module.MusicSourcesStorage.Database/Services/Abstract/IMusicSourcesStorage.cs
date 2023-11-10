@@ -28,4 +28,6 @@ public interface IMusicSourcesStorage
         MusicSourceAdditionalInfoModel additionalInfo,
         CancellationToken token = default
     );
+
+    Task<FileModel> GetSourceFileAsync(int fileId, bool includeSource = false, CancellationToken token = default);
 }

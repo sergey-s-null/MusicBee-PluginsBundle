@@ -58,4 +58,10 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         model = await _musicSourcesStorage.UpdateAdditionalInfo(id, model, token);
         return model.ToLogicModel();
     }
+
+    public async Task<SourceFile> GetSourceFileAsync(int id, CancellationToken token = default)
+    {
+        var model = await _musicSourcesStorage.GetSourceFileAsync(id, false, token);
+        return model.ToLogicModel();
+    }
 }
