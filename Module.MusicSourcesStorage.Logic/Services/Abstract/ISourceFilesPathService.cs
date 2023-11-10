@@ -5,7 +5,7 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 public interface ISourceFilesPathService
 {
     /// <summary>
-    /// Return path in which source file should be downloaded.
+    /// Return path where file should be located if it was downloaded. 
     /// </summary>
-    string GetDownloadingFilePath(MusicSourceAdditionalInfo sourceAdditionalInfo, SourceFile file);
+    string GetSourceFileTargetPath(MusicSourceAdditionalInfo sourceAdditionalInfo, SourceFile file);
 }

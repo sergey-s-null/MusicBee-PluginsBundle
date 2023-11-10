@@ -14,7 +14,7 @@ public sealed class SourceFilesPathService : ISourceFilesPathService
         _configuration = configuration;
     }
 
-    public string GetDownloadingFilePath(MusicSourceAdditionalInfo sourceAdditionalInfo, SourceFile file)
+    public string GetSourceFileTargetPath(MusicSourceAdditionalInfo sourceAdditionalInfo, SourceFile file)
     {
         return Path.Combine(
             _configuration.SourceFilesDownloadingDirectory,
