@@ -1,6 +1,6 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed class ProgressChangedEventArgs : EventArgs
+public class ProgressChangedEventArgs : EventArgs
 {
     /// <summary>
     /// Downloading progress in range [0; 1].
