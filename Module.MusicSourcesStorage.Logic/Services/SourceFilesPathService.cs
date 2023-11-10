@@ -14,11 +14,11 @@ public sealed class SourceFilesPathService : ISourceFilesPathService
         _configuration = configuration;
     }
 
-    public string GetDownloadingFilePath(MusicSource source, SourceFile file)
+    public string GetDownloadingFilePath(MusicSourceAdditionalInfo sourceAdditionalInfo, SourceFile file)
     {
         return Path.Combine(
             _configuration.SourceFilesDownloadingDirectory,
-            PathHelper.ReplaceInvalidCharacters(source.AdditionalInfo.Name, "_"),
+            PathHelper.ReplaceInvalidCharacters(sourceAdditionalInfo.Name, "_"),
             file.Path
         );
     }

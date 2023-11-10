@@ -27,7 +27,7 @@ public sealed class VkArchiveFilesDownloadingService : IVkArchiveFilesDownloadin
         bool activateTask,
         CancellationToken token = default)
     {
-        var targetFilePath = _sourceFilesPathService.GetDownloadingFilePath(source, file);
+        var targetFilePath = _sourceFilesPathService.GetDownloadingFilePath(source.AdditionalInfo, file);
 
         var task = _vkDocumentDownloadingTaskManager.GetOrCreateNewAsync(source.Document, false, token)
             .Chain(archiveFilePath => _archiveExtractor.ExtractAsync(
