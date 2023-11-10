@@ -43,13 +43,25 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
             .ToListAsync(token);
     }
 
-    public async Task<MusicSourceAdditionalInfoModel?> GetAdditionalInfoAsync(int id, CancellationToken token)
+    public async Task<MusicSourceAdditionalInfoModel?> FindAdditionalInfoAsync(int id, CancellationToken token)
     {
         using var context = _contextFactory();
 
         var model = await context.Sources.FindAsync(token, id);
 
         return model?.AdditionalInfo;
+    }
+
+    public async Task<MusicSourceAdditionalInfoModel> GetAdditionalInfoAsync(int id, CancellationToken token)
+    {
+        var additionalInfo = await FindAdditionalInfoAsync(id, token);
+
+        if (additionalInfo is null)
+        {
+            throw new DatabaseException($"Could not find source additional info for source with id {id}.");
+        }
+
+        return additionalInfo;
     }
 
     public async Task<MusicSourceAdditionalInfoModel> UpdateAdditionalInfo(

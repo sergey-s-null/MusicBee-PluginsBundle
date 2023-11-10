@@ -37,11 +37,16 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
             .ToList();
     }
 
-    public async Task<MusicSourceAdditionalInfo?> GetAdditionalInfoByIdAsync(int id, CancellationToken token)
+    public async Task<MusicSourceAdditionalInfo?> FindAdditionalInfoByIdAsync(int id, CancellationToken token)
+    {
+        var model = await _musicSourcesStorage.FindAdditionalInfoAsync(id, token);
+        return model?.ToLogicModel();
+    }
+
+    public async Task<MusicSourceAdditionalInfo> GetAdditionalInfoByIdAsync(int id, CancellationToken token)
     {
         var model = await _musicSourcesStorage.GetAdditionalInfoAsync(id, token);
-
-        return model?.ToLogicModel();
+        return model.ToLogicModel();
     }
 
     public async Task<MusicSourceAdditionalInfo> UpdateAdditionalInfoAsync(

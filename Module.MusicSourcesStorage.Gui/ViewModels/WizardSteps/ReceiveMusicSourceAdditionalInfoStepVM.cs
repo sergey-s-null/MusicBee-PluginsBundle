@@ -31,7 +31,8 @@ public sealed class ReceiveMusicSourceAdditionalInfoStepVM : ProcessingStepBaseV
     {
         Text = "Receiving additional info from database";
 
-        var additionalInfo = await _storageService.GetAdditionalInfoByIdAsync(_musicSourceContext.MusicSourceId, token);
+        var additionalInfo =
+            await _storageService.FindAdditionalInfoByIdAsync(_musicSourceContext.MusicSourceId, token);
         if (additionalInfo is null)
         {
             _errorContext.Error =
