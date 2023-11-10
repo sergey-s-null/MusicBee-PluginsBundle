@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Module.MusicSourcesStorage.Database.Models;
 
@@ -8,5 +9,8 @@ public abstract class FileModel
     [Required] public string Path { get; set; } = string.Empty;
     [Required] public long Size { get; set; }
 
-    [Required] public MusicSourceModel? Source { get; set; }
+    public int SourceId { get; set; }
+
+    [Required, ForeignKey(nameof(SourceId))]
+    public MusicSourceModel? Source { get; set; }
 }
