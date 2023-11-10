@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Gui.Enums"
+    xmlns:enums="clr-namespace:Module.MusicSourcesStorage.Logic.Enums;assembly=Module.MusicSourcesStorage.Logic"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance dtvm:ConnectedMusicFileDTVM}">
 

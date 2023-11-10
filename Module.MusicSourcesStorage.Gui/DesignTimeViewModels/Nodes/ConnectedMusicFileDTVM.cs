@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
-using Module.MusicSourcesStorage.Gui.Enums;
+using Module.MusicSourcesStorage.Logic.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
