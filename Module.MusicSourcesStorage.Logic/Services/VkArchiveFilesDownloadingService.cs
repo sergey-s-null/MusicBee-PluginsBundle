@@ -22,14 +22,15 @@ public sealed class VkArchiveFilesDownloadingService : IVkArchiveFilesDownloadin
     }
 
     public IMultiStepTaskWithProgress<string> DownloadAsync(
-        VkPostWithArchiveSource source,
+        MusicSourceAdditionalInfo additionalInfo,
+        VkDocument document,
         SourceFile file,
         bool activateTask,
-        CancellationToken token = default)
+        CancellationToken token)
     {
-        var targetFilePath = _sourceFilesPathService.GetSourceFileTargetPath(source.AdditionalInfo, file);
+        var targetFilePath = _sourceFilesPathService.GetSourceFileTargetPath(additionalInfo, file);
 
-        var task = _vkDocumentDownloadingTaskManager.GetOrCreateNewAsync(source.Document, false, token)
+        var task = _vkDocumentDownloadingTaskManager.GetOrCreateNewAsync(document, false, token)
             .Chain(archiveFilePath => _archiveExtractor.ExtractAsync(
                 archiveFilePath,
                 file.Path,

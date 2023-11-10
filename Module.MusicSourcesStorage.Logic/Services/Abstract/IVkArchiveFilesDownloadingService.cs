@@ -7,7 +7,8 @@ public interface IVkArchiveFilesDownloadingService
 {
     /// <returns>Downloaded file path.</returns>
     IMultiStepTaskWithProgress<string> DownloadAsync(
-        VkPostWithArchiveSource source,
+        MusicSourceAdditionalInfo additionalInfo,
+        VkDocument document,
         SourceFile file,
         bool activateTask,
         CancellationToken token = default
