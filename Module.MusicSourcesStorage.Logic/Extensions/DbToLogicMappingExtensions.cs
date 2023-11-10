@@ -60,6 +60,7 @@ public static class DbToLogicMappingExtensions
     {
         return new MusicFile(
             model.Id,
+            model.SourceId,
             model.Path,
             model.Size,
             model.IsListened
@@ -70,6 +71,7 @@ public static class DbToLogicMappingExtensions
     {
         return new ImageFile(
             model.Id,
+            model.SourceId,
             model.Path,
             model.Size,
             model.IsCover,
@@ -81,6 +83,7 @@ public static class DbToLogicMappingExtensions
     {
         return new UnknownFile(
             model.Id,
+            model.SourceId,
             model.Path,
             model.Size
         );

@@ -11,6 +11,7 @@ public sealed class UnknownFile : SourceFile
     {
         return new UnknownFile(
             0,
+            0,
             path,
             size
         );
@@ -18,9 +19,10 @@ public sealed class UnknownFile : SourceFile
 
     public UnknownFile(
         int id,
+        int sourceId,
         string path,
         long size)
-        : base(id, path, size, FileType.Unknown)
+        : base(id, sourceId, path, size, FileType.Unknown)
     {
     }
 }

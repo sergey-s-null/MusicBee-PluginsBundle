@@ -11,6 +11,7 @@ public sealed class MusicFile : SourceFile
     {
         return new MusicFile(
             0,
+            0,
             path,
             size,
             false
@@ -21,10 +22,11 @@ public sealed class MusicFile : SourceFile
 
     public MusicFile(
         int id,
+        int sourceId,
         string path,
         long size,
         bool isListened)
-        : base(id, path, size, FileType.MusicFile)
+        : base(id, sourceId, path, size, FileType.MusicFile)
     {
         IsListened = isListened;
     }

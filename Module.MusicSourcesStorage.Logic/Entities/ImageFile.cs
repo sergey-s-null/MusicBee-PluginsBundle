@@ -11,6 +11,7 @@ public sealed class ImageFile : SourceFile
     {
         return new ImageFile(
             0,
+            0,
             path,
             size,
             false,
@@ -23,11 +24,12 @@ public sealed class ImageFile : SourceFile
 
     public ImageFile(
         int id,
+        int sourceId,
         string path,
         long size,
         bool isCover,
         byte[]? data)
-        : base(id, path, size, FileType.Image)
+        : base(id, sourceId, path, size, FileType.Image)
     {
         IsCover = isCover;
         Data = data;
