@@ -12,12 +12,12 @@ public static class DirectoryHelper
     private static IEnumerable<string> GetFilesInDirectory(string path)
     {
         var files = Directory.GetFiles(path) as IEnumerable<string>;
-            
+
         return Directory.GetDirectories(path)
             .Select(GetFilesInDirectory)
             .Aggregate(files, (first, second) => first.Concat(second));
     }
-        
+
     public static bool TryCreateDirectory(string dirPath)
     {
         if (Directory.Exists(dirPath))
@@ -40,5 +40,16 @@ public static class DirectoryHelper
         {
             Directory.CreateDirectory(directoryPath);
         }
+    }
+
+    public static void CreateForFile(string filePath)
+    {
+        var directory = Path.GetDirectoryName(filePath);
+        if (directory is null)
+        {
+            return;
+        }
+
+        Directory.CreateDirectory(directory);
     }
 }
