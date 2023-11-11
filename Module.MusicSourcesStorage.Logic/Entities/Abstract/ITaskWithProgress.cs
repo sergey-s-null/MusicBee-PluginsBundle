@@ -1,13 +1,14 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities.Abstract;
 
-public interface ITaskWithProgress<T>
+public interface ITaskWithProgress<TResult>
 {
     event EventHandler<ProgressChangedEventArgs> ProgressChanged;
     event EventHandler<TaskFailedEventArgs> Failed;
     event EventHandler Cancelled;
-    event EventHandler<TaskResultEventArgs<T>> SuccessfullyCompleted;
+    event EventHandler<TaskResultEventArgs<TResult>> SuccessfullyCompleted;
 
-    Task<T> Task { get; }
+    bool IsActivated { get; }
 
-    void Activate();
+    /// <exception cref="InvalidOperationException">Task is not activated.</exception>
+    Task<TResult> Task { get; }
 }
