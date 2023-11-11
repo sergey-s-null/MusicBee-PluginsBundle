@@ -15,6 +15,13 @@ public sealed class DIModule : Autofac.Module
             .As<IVkService>()
             .SingleInstance();
         builder
+            .RegisterType<FilesDownloadingService>()
+            .As<IFilesDownloadingService>();
+        builder
+            .RegisterType<VkArchiveFilesDownloadingService>()
+            .As<IVkArchiveFilesDownloadingService>()
+            .SingleInstance();
+        builder
             .RegisterType<VkDocumentDownloadingTaskManager>()
             .As<IVkDocumentDownloadingTaskManager>()
             .SingleInstance();
@@ -40,6 +47,18 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<MusicSourcesStorageService>()
             .As<IMusicSourcesStorageService>()
+            .SingleInstance();
+        builder
+            .RegisterType<SourceFilesPathService>()
+            .As<ISourceFilesPathService>()
+            .SingleInstance();
+        builder
+            .RegisterType<VkDocumentDownloader>()
+            .As<IVkDocumentDownloader>()
+            .SingleInstance();
+        builder
+            .RegisterType<ArchiveExtractor>()
+            .As<IArchiveExtractor>()
             .SingleInstance();
     }
 }
