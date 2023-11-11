@@ -32,6 +32,20 @@ public static class ActivableTaskWithProgressExtensions
         return task;
     }
 
+    public static IActivableTaskWithProgress<TArgs, TResult> Activated<TArgs, TResult>(
+        this IActivableTaskWithProgress<TArgs, TResult> task,
+        TArgs args,
+        CancellationToken token = default)
+    {
+        if (task.IsActivated)
+        {
+            return task;
+        }
+
+        task.Activate(args, token);
+        return task;
+    }
+
     public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
         Chain<TFirstArgs, TFirstResult, TSecondArgs, TResult>(
             this IActivableTaskWithProgress<TFirstArgs, TFirstResult> firstTask,

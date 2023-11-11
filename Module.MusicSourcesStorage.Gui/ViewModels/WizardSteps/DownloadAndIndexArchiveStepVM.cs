@@ -1,6 +1,7 @@
 ﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
+using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
 
@@ -33,15 +34,13 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
     protected override async Task<StepResult> ProcessAsync(CancellationToken token)
     {
         Text = "Downloading archive";
-        var downloadingTask = _vkDocumentDownloadingTaskManager.GetOrCreateNewAsync(
-            _context.SelectedDocument!,
-            true,
-            token
-        );
-        var targetFilePath = await downloadingTask.Task;
+        var downloadingTask = _vkDocumentDownloadingTaskManager
+            .CreateDownloadTask()
+            .Activated(_context.SelectedDocument!, token);
+        var downloadedDocumentPath = await downloadingTask.Task;
 
         Text = "Indexing archive";
-        var files = _archiveIndexer.Index(targetFilePath);
+        var files = _archiveIndexer.Index(downloadedDocumentPath);
 
         _context.IndexedFiles = files;
 
