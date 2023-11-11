@@ -9,17 +9,22 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 {
-    public bool IsProcessing => throw new NotImplementedException();
+    public bool IsProcessing { get; private set; }
 
-    public bool CanDownload => throw new NotImplementedException();
-    public bool IsDownloaded => throw new NotImplementedException();
+    [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
+    public bool CanDownload => !IsDownloaded && !IsProcessing;
 
-    public bool CanDelete => throw new NotImplementedException();
-    public bool IsDeleted => throw new NotImplementedException();
+    [DependsOn(nameof(Location))]
+    public bool IsDownloaded => Location is MusicFileLocation.Incoming or MusicFileLocation.Library;
 
-    public bool IsListened => throw new NotImplementedException();
+    [DependsOn(nameof(IsDeleted), nameof(IsProcessing))]
+    public bool CanDelete => !IsDeleted && !IsProcessing;
 
-    public MusicFileLocation Location => throw new NotImplementedException();
+    [DependsOn(nameof(IsDownloaded))] public bool IsDeleted => !IsDownloaded;
+
+    public bool IsListened { get; private set; }
+
+    public MusicFileLocation Location { get; private set; }
 
     #region Commands
 
@@ -48,6 +53,10 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 
     public ConnectedMusicFileVM(string path) : base(path)
     {
+        // todo init
+        IsProcessing = false;
+        IsListened = false;
+        Location = MusicFileLocation.NotDownloaded;
     }
 
     private void DownloadCmd()
