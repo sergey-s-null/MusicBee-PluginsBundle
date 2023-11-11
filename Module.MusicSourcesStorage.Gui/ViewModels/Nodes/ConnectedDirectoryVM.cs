@@ -151,21 +151,21 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     {
         IsProcessing = ChildNodes
             .OfType<IProcessableVM>()
-            .Any(x => IsProcessing);
+            .Any(x => x.IsProcessing);
     }
 
     private void UpdateCanDownload()
     {
         CanDownload = ChildNodes
             .OfType<IDownloadableVM>()
-            .Any(x => CanDownload);
+            .Any(x => x.CanDownload);
     }
 
     private void UpdateIsDownloaded()
     {
         IsDownloaded = ChildNodes
             .OfType<IDownloadableVM>()
-            .All(x => IsDownloaded);
+            .All(x => x.IsDownloaded);
     }
 
     private void UpdateCanDelete()
