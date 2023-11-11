@@ -33,7 +33,8 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
     {
         if (TryGetDownloadedDocumentPath(document.Id, out var documentPath))
         {
-            return new CompletedTaskWithProgress<string>(documentPath);
+            return new ActivableTaskWithProgress<string>(documentPath)
+                .WithToken(externalToken);
         }
 
         if (!TryGetRunningTask(document.Id, out var taskWithTechnicalInfo))

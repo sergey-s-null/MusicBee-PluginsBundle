@@ -17,6 +17,16 @@ public sealed class ActivableTaskWithProgress<TResult> :
     private Task<TResult>? _task;
     private readonly TaskFunction<TResult> _taskFunction;
 
+    public ActivableTaskWithProgress(TResult result)
+        : this(() => result)
+    {
+    }
+
+    public ActivableTaskWithProgress(Func<TResult> taskFunction)
+        : this(_ => taskFunction())
+    {
+    }
+
     public ActivableTaskWithProgress(Func<CancellationToken, TResult> taskFunction)
         : this(
             (progressCallback, internalToken) =>
