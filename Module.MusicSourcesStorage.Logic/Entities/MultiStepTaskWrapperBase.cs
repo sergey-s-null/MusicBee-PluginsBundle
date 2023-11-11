@@ -37,6 +37,15 @@ public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTaskWithProg
         InitializeCommonEvents(task, stepOffset);
     }
 
+    protected void InitializeEventsForFinalTask(IMultiStepTaskWithProgress<TResult> task, int stepOffset)
+    {
+        InitializeCommonEvents(task, stepOffset);
+        task.FullySuccessfullyCompleted += (_, args) => FullySuccessfullyCompleted?.Invoke(
+            this,
+            args
+        );
+    }
+
     protected void InitializeEventsForFinalTaskWithDifferentResult<TDifferentResult>(
         IMultiStepTaskWithProgress<TDifferentResult> task,
         Func<TDifferentResult, TResult> resultSelector,

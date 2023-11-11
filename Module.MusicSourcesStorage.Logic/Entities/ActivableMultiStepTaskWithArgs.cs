@@ -22,7 +22,7 @@ public sealed class ActivableMultiStepTaskWithArgs<TArgs, TResult> :
         _internalTask = internalTask;
         _args = args;
 
-        InitializeEvents(_internalTask, 0);
+        InitializeEventsForFinalTask(_internalTask, 0);
     }
 
     public void Activate(CancellationToken token)
