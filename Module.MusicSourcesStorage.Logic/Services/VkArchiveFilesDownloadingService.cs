@@ -18,28 +18,21 @@ public sealed class VkArchiveFilesDownloadingService : IVkArchiveFilesDownloadin
         _archiveExtractor = archiveExtractor;
     }
 
-    public IMultiStepTaskWithProgress<string> DownloadAsync(
-        VkDocument document,
-        SourceFile file,
-        string targetPath,
-        bool activateTask,
-        CancellationToken token)
+    public IActivableMultiStepTaskWithProgress<VkArchiveFileDownloadArgs, string> CreateDownloadTask()
     {
-        var task = _vkDocumentDownloadingTaskManager.GetOrCreateNewAsync(document, false, token)
-            .Chain(archiveFilePath => _archiveExtractor.ExtractAsync(
-                archiveFilePath,
-                file.Path,
-                targetPath,
-                true,
-                false,
-                token
-            ));
+        var archiveDownloadingTask = _vkDocumentDownloadingTaskManager.CreateDownloadTask();
+        var fileExtractionTask = _archiveExtractor.CreateFileExtractionTask();
 
-        if (activateTask)
-        {
-            task.Activate();
-        }
-
-        return task;
+        return archiveDownloadingTask
+            .ChangeArgs((VkArchiveFileDownloadArgs args) => args.Archive)
+            .Chain(
+                (args, archiveFilePath) => new FileExtractionArgs(
+                    archiveFilePath,
+                    args.SourceFile.Path,
+                    args.TargetFilePath,
+                    true
+                ),
+                fileExtractionTask
+            );
     }
 }
