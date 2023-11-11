@@ -45,6 +45,10 @@ public sealed class DIModule : Autofac.Module
             .RegisterGeneric(typeof(HierarchyBuilder<,>))
             .As(typeof(IHierarchyBuilder<,>));
         builder
+            .RegisterType<FilesLocatingService>()
+            .As<IFilesLocatingService>()
+            .SingleInstance();
+        builder
             .RegisterType<MusicSourcesStorageService>()
             .As<IMusicSourcesStorageService>()
             .SingleInstance();
