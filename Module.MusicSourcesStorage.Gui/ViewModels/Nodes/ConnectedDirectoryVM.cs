@@ -124,14 +124,21 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
                         x => x.Location,
                         (_, _) => UpdateHasDownloadedAndNotAttachedToLibraryFiles()
                     );
-                    return;
+                    break;
                 case IConnectedDirectoryVM directory:
                     ViewModelHelper.RegisterPropertyChangedCallback(
                         directory,
                         x => x.HasDownloadedAndNotAttachedToLibraryFiles,
                         (_, _) => UpdateHasDownloadedAndNotAttachedToLibraryFiles()
                     );
-                    return;
+                    break;
+                case IDownloadableVM downloadable:
+                    ViewModelHelper.RegisterPropertyChangedCallback(
+                        downloadable,
+                        x => x.IsDownloaded,
+                        (_, _) => UpdateHasDownloadedAndNotAttachedToLibraryFiles()
+                    );
+                    break;
             }
         }
     }
@@ -195,10 +202,21 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         {
             switch (node)
             {
-                case IConnectedMusicFileVM { Location: MusicFileLocation.Incoming }:
+                case IConnectedMusicFileVM musicFile:
+                    switch (musicFile.Location)
+                    {
+                        case MusicFileLocation.Library:
+                            continue;
+                        case MusicFileLocation.Incoming:
+                            HasDownloadedAndNotAttachedToLibraryFiles = true;
+                            return;
+                    }
+
+                    break;
+                case IConnectedDirectoryVM { HasDownloadedAndNotAttachedToLibraryFiles: true }:
                     HasDownloadedAndNotAttachedToLibraryFiles = true;
                     return;
-                case IConnectedDirectoryVM { HasDownloadedAndNotAttachedToLibraryFiles: true }:
+                case IDownloadableVM { IsDownloaded: true }:
                     HasDownloadedAndNotAttachedToLibraryFiles = true;
                     return;
             }
