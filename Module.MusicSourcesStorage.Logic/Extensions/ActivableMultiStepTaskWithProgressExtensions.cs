@@ -11,7 +11,7 @@ public static class ActivableMultiStepTaskWithProgressExtensions
             TArgs args
         )
     {
-        throw new NotImplementedException();
+        return new ActivableMultiStepTaskWithArgs<TArgs, TResult>(task, args);
     }
 
     public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
