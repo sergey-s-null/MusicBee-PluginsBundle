@@ -1,16 +1,17 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities.Abstract;
 
-public interface IMultiStepTaskWithProgress<T>
+public interface IMultiStepTaskWithProgress<TResult>
 {
     event EventHandler<StepProgressChangedEventArgs> ProgressChanged;
     event EventHandler<StepFailedEventArgs> Failed;
     event EventHandler<StepCancelledEventArgs> Cancelled;
     event EventHandler<StepSuccessfullyCompletedEventArgs> StepSuccessfullyCompleted;
-    event EventHandler<TaskResultEventArgs<T>> FullySuccessfullyCompleted;
+    event EventHandler<TaskResultEventArgs<TResult>> FullySuccessfullyCompleted;
 
     int StepCount { get; }
 
-    Task<T> Task { get; }
+    bool IsActivated { get; }
 
-    void Activate();
+    /// <exception cref="InvalidOperationException">Task is not activated.</exception>
+    Task<TResult> Task { get; }
 }
