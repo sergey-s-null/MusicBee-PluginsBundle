@@ -8,13 +8,16 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 public sealed class FilesDownloadingService : IFilesDownloadingService
 {
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
+    private readonly ISourceFilesPathService _sourceFilesPathService;
     private readonly IVkArchiveFilesDownloadingService _vkArchiveFilesDownloadingService;
 
     public FilesDownloadingService(
         IMusicSourcesStorageService musicSourcesStorageService,
+        ISourceFilesPathService sourceFilesPathService,
         IVkArchiveFilesDownloadingService vkArchiveFilesDownloadingService)
     {
         _musicSourcesStorageService = musicSourcesStorageService;
+        _sourceFilesPathService = sourceFilesPathService;
         _vkArchiveFilesDownloadingService = vkArchiveFilesDownloadingService;
     }
 
@@ -46,10 +49,14 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
             throw new NotSupportedException("Only vk post with archive source supported.");
         }
 
+        var sourceFile = source.Files.First(x => x.Id == fileId);
+
+        var targetPath = _sourceFilesPathService.GetSourceFileTargetPath(source.AdditionalInfo, sourceFile);
+
         return _vkArchiveFilesDownloadingService.DownloadAsync(
-            vkPostWithArchiveSource.AdditionalInfo,
             vkPostWithArchiveSource.Document,
-            vkPostWithArchiveSource.Files.First(x => x.Id == fileId),
+            sourceFile,
+            targetPath,
             activateTask,
             token
         );
