@@ -12,32 +12,18 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class ArchiveExtractor : IArchiveExtractor
 {
-    public ITaskWithProgress<string> ExtractAsync(
-        string archiveFilePath,
-        string filePathInArchive,
-        string targetFilePath,
-        bool createDirectory,
-        bool activateTask,
-        CancellationToken token)
+    public IActivableTaskWithProgress<FileExtractionArgs, string> CreateFileExtractionTask()
     {
-        var task = new DefaultTaskWithProgress<string>(
-            (progressCallback, internalToken) => ExtractInternal(
-                archiveFilePath,
-                filePathInArchive,
-                targetFilePath,
-                createDirectory,
+        return new ActivableTaskWithProgress<FileExtractionArgs, string>(
+            (arg, progressCallback, internalToken) => ExtractInternal(
+                arg.ArchiveFilePath,
+                arg.FilePathInArchive,
+                arg.TargetFilePath,
+                arg.CreateDirectory,
                 progressCallback,
                 internalToken
-            ),
-            token
+            )
         );
-
-        if (activateTask)
-        {
-            task.Activate();
-        }
-
-        return task;
     }
 
     private static string ExtractInternal(
