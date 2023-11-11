@@ -1,7 +1,6 @@
-﻿using Module.Core.Helpers;
-using Module.MusicSourcesStorage.Core.Entities.Abstract;
-using Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
@@ -10,76 +9,66 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
 {
     private readonly ReaderWriterLockSlim _lock = new();
 
-    private readonly Dictionary<VkOwnedEntityId, FileDownloadingTaskWithMetaInfo> _runningTasks = new();
-    private readonly Dictionary<VkOwnedEntityId, CompletedFileDownloadingTask> _doneTasks = new();
+    private readonly Dictionary<VkOwnedEntityId, ActivableTaskWithTechnicalInfo<string>> _runningTasks = new();
 
-    private readonly IModuleConfiguration _configuration;
     private readonly IDownloadedVkDocumentsCache _downloadedVkDocumentsCache;
+    private readonly IVkDocumentDownloader _vkDocumentDownloader;
 
     public VkDocumentDownloadingTaskManager(
-        IModuleConfiguration configuration,
-        IDownloadedVkDocumentsCache downloadedVkDocumentsCache)
+        IDownloadedVkDocumentsCache downloadedVkDocumentsCache,
+        IVkDocumentDownloader vkDocumentDownloader)
     {
-        _configuration = configuration;
         _downloadedVkDocumentsCache = downloadedVkDocumentsCache;
+        _vkDocumentDownloader = vkDocumentDownloader;
     }
 
-    public ITaskWithProgress<string> GetOrCreateNewAsync(
-        VkDocument document,
-        bool activateTask,
-        CancellationToken token)
+    public IActivableTaskWithProgress<VkDocument, string> CreateDownloadTask()
     {
-        if (TryGetDoneTask(document.Id, out var doneTask))
-        {
-            return doneTask;
-        }
-
-        if (_downloadedVkDocumentsCache.TryGet(document.Id, out var filePath))
-        {
-            return AddDoneTask(document.Id, filePath);
-        }
-
-        if (TryGetRunningTask(document.Id, out var task))
-        {
-            task.IncreaseTaskRequestingCount();
-        }
-        else
-        {
-            task = CreateDownloadingTaskWithMetaInfo(document, 1);
-            AddRunningTask(document.Id, task);
-        }
-
-        token.Register(() => OnExternalTaskCancelled(document.Id));
-
-        var wrappedTask = new TaskCancellationWrapper<string>(task.Task, token);
-        if (activateTask)
-        {
-            wrappedTask.Activate();
-        }
-
-        return wrappedTask;
+        return new ActivableTaskWithProgressWrapper<VkDocument, string>(GetInternalTask);
     }
 
-    private FileDownloadingTaskWithMetaInfo CreateDownloadingTaskWithMetaInfo(
+    private IActivableWithoutCancellationTaskWithProgress<string> GetInternalTask(
+        VkDocument document,
+        CancellationToken externalToken)
+    {
+        if (TryGetDownloadedDocumentPath(document.Id, out var documentPath))
+        {
+            return new CompletedTaskWithProgress<string>(documentPath);
+        }
+
+        if (!TryGetRunningTask(document.Id, out var taskWithTechnicalInfo))
+        {
+            taskWithTechnicalInfo = CreateDownloadingTaskWithMetaInfo(document, 0);
+            AddRunningTask(document.Id, taskWithTechnicalInfo);
+        }
+
+        taskWithTechnicalInfo.IncreaseTaskRequestingCount();
+
+        externalToken.Register(() => OnExternalTaskCancelled(document.Id));
+
+        return taskWithTechnicalInfo.TaskWithEmbeddedToken;
+    }
+
+    private bool TryGetDownloadedDocumentPath(VkOwnedEntityId documentId, out string documentPath)
+    {
+        return _downloadedVkDocumentsCache.TryGet(documentId, out documentPath)
+               && File.Exists(documentPath);
+    }
+
+    private ActivableTaskWithTechnicalInfo<string> CreateDownloadingTaskWithMetaInfo(
         VkDocument document,
         int taskRequestingInitCount)
     {
-        var filePath = GetFilePath(document);
-
         var tokenSource = new CancellationTokenSource();
-        var task = new FileDownloadingTask(document.Uri, filePath, true, tokenSource.Token);
+        var task = _vkDocumentDownloader
+            .CreateDownloadTask()
+            .WithArgs(document);
 
         task.SuccessfullyCompleted += (_, args) => OnTaskSuccessfullyCompleted(document.Id, args.Result);
         task.Failed += (_, _) => RemoveRunningTask(document.Id);
         task.Cancelled += (_, _) => RemoveRunningTask(document.Id);
 
-        return new FileDownloadingTaskWithMetaInfo(task, tokenSource, taskRequestingInitCount);
-    }
-
-    private string GetFilePath(VkDocument document)
-    {
-        var fileName = PathHelper.ReplaceInvalidCharacters(document.Name, "_");
-        return Path.Combine(_configuration.VkDocumentsDownloadingDirectory, fileName);
+        return new ActivableTaskWithTechnicalInfo<string>(task, tokenSource, taskRequestingInitCount);
     }
 
     private void OnTaskSuccessfullyCompleted(VkOwnedEntityId documentId, string targetFilePath)
@@ -88,7 +77,6 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         try
         {
             _runningTasks.Remove(documentId);
-            _doneTasks[documentId] = new CompletedFileDownloadingTask(targetFilePath);
             _downloadedVkDocumentsCache.Add(documentId, targetFilePath);
         }
         finally
@@ -115,12 +103,12 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
 
     private void AddRunningTask(
         VkOwnedEntityId documentId,
-        FileDownloadingTaskWithMetaInfo taskWithMetaInfo)
+        ActivableTaskWithTechnicalInfo<string> taskWithTechnicalInfo)
     {
         _lock.EnterWriteLock();
         try
         {
-            _runningTasks[documentId] = taskWithMetaInfo;
+            _runningTasks[documentId] = taskWithTechnicalInfo;
         }
         finally
         {
@@ -143,12 +131,12 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
 
     private bool TryGetRunningTask(
         VkOwnedEntityId documentId,
-        out FileDownloadingTaskWithMetaInfo taskWithMetaInfo)
+        out ActivableTaskWithTechnicalInfo<string> taskWithTechnicalInfo)
     {
         _lock.EnterReadLock();
         try
         {
-            return _runningTasks.TryGetValue(documentId, out taskWithMetaInfo);
+            return _runningTasks.TryGetValue(documentId, out taskWithTechnicalInfo);
         }
         finally
         {
@@ -156,42 +144,13 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         }
     }
 
-    private CompletedFileDownloadingTask AddDoneTask(VkOwnedEntityId documentId, string filePath)
+    private static void CancelInternalTask(ActivableTaskWithTechnicalInfo<string> taskWithTechnicalInfo)
     {
-        var task = new CompletedFileDownloadingTask(filePath);
-
-        _lock.EnterWriteLock();
-        try
-        {
-            _doneTasks[documentId] = task;
-            return task;
-        }
-        finally
-        {
-            _lock.ExitWriteLock();
-        }
-    }
-
-    private bool TryGetDoneTask(VkOwnedEntityId documentId, out CompletedFileDownloadingTask task)
-    {
-        _lock.EnterReadLock();
-        try
-        {
-            return _doneTasks.TryGetValue(documentId, out task);
-        }
-        finally
-        {
-            _lock.ExitReadLock();
-        }
-    }
-
-    private static void CancelInternalTask(FileDownloadingTaskWithMetaInfo taskWithMetaInfo)
-    {
-        taskWithMetaInfo.TokenSource.Cancel();
+        taskWithTechnicalInfo.TokenSource.Cancel();
 
         try
         {
-            taskWithMetaInfo.Task.Task.Wait();
+            taskWithTechnicalInfo.TaskWithProgress.Task.Wait();
         }
         catch (AggregateException e)
         {
