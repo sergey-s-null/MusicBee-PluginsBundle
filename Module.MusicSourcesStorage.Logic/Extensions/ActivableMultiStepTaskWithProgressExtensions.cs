@@ -5,6 +5,18 @@ namespace Module.MusicSourcesStorage.Logic.Extensions;
 
 public static class ActivableMultiStepTaskWithProgressExtensions
 {
+    public static IActivableMultiStepTaskWithProgress<TResult> Activated<TResult>(
+        this IActivableMultiStepTaskWithProgress<TResult> task,
+        CancellationToken token = default)
+    {
+        if (!task.IsActivated)
+        {
+            task.Activate(token);
+        }
+
+        return task;
+    }
+
     public static IActivableMultiStepTaskWithProgress<TResult>
         WithArgs<TArgs, TResult>(
             this IActivableMultiStepTaskWithProgress<TArgs, TResult> task,

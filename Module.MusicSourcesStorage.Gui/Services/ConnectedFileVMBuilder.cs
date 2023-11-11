@@ -9,13 +9,16 @@ namespace Module.MusicSourcesStorage.Gui.Services;
 public sealed class ConnectedFileVMBuilder : IFileVMBuilder
 {
     private readonly ILifetimeScope _lifetimeScope;
+    private readonly ConnectedImageFileVMFactory _connectedImageFileVMFactory;
     private readonly ConnectedUnknownFileVMFactory _connectedUnknownFileVMFactory;
 
     public ConnectedFileVMBuilder(
         ILifetimeScope lifetimeScope,
+        ConnectedImageFileVMFactory connectedImageFileVMFactory,
         ConnectedUnknownFileVMFactory connectedUnknownFileVMFactory)
     {
         _lifetimeScope = lifetimeScope;
+        _connectedImageFileVMFactory = connectedImageFileVMFactory;
         _connectedUnknownFileVMFactory = connectedUnknownFileVMFactory;
     }
 
@@ -24,7 +27,7 @@ public sealed class ConnectedFileVMBuilder : IFileVMBuilder
         return sourceFile switch
         {
             MusicFile musicFile => Build(musicFile),
-            ImageFile imageFile => Build(imageFile),
+            ImageFile imageFile => _connectedImageFileVMFactory(imageFile),
             UnknownFile unknownFile => _connectedUnknownFileVMFactory(unknownFile),
             _ => throw new ArgumentOutOfRangeException(nameof(sourceFile))
         };
@@ -35,14 +38,6 @@ public sealed class ConnectedFileVMBuilder : IFileVMBuilder
         // todo use delegate factory
         return _lifetimeScope.Resolve<IConnectedMusicFileVM>(
             new NamedParameter("path", musicFile.Path)
-        );
-    }
-
-    private IConnectedImageFileVM Build(ImageFile imageFile)
-    {
-        // todo use delegate factory
-        return _lifetimeScope.Resolve<IConnectedImageFileVM>(
-            new NamedParameter("path", imageFile.Path)
         );
     }
 }
