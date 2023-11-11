@@ -4,10 +4,11 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 public interface IFilesDownloadingService
 {
-    /// <returns>Downloaded file path.</returns>
-    IMultiStepTaskWithProgress<string> DownloadAsync(
+    /// <param name="fileId">File to download.</param>
+    /// <param name="token">Token.</param>
+    /// <returns>Task with result as path to downloaded file.</returns>
+    Task<IActivableMultiStepTaskWithProgress<string>> CreateFileDownloadTaskAsync(
         int fileId,
-        bool activateTask,
         CancellationToken token = default
     );
 }

@@ -5,6 +5,15 @@ namespace Module.MusicSourcesStorage.Logic.Extensions;
 
 public static class ActivableMultiStepTaskWithProgressExtensions
 {
+    public static IActivableMultiStepTaskWithProgress<TResult>
+        WithArgs<TArgs, TResult>(
+            this IActivableMultiStepTaskWithProgress<TArgs, TResult> task,
+            TArgs args
+        )
+    {
+        throw new NotImplementedException();
+    }
+
     public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
         Chain<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult>(
             this IActivableMultiStepTaskWithProgress<TFirstArgs, TFirstResult> firstTask,

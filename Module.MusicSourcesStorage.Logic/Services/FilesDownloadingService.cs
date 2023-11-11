@@ -21,44 +21,33 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         _vkArchiveFilesDownloadingService = vkArchiveFilesDownloadingService;
     }
 
-    public IMultiStepTaskWithProgress<string> DownloadAsync(int fileId, bool activateTask, CancellationToken token)
+    public async Task<IActivableMultiStepTaskWithProgress<string>> CreateFileDownloadTaskAsync(
+        int fileId,
+        CancellationToken token)
     {
-        var getSourceTask = new DefaultTaskWithProgress<MusicSource>(
-            internalToken => _musicSourcesStorageService.GetMusicSourceByFileIdAsync(fileId, internalToken).Result,
-            token
-        );
+        var source = await _musicSourcesStorageService.GetMusicSourceByFileIdAsync(fileId, token);
+        var file = source.Files.First(x => x.Id == fileId);
 
-        var task = getSourceTask.Chain(x => DownloadInternalAsync(x, fileId, false, token));
-
-        if (activateTask)
-        {
-            task.Activate();
-        }
-
-        return task;
+        return CreateFileDownloadTask(source, file);
     }
 
-    private IMultiStepTaskWithProgress<string> DownloadInternalAsync(
-        MusicSource source,
-        int fileId,
-        bool activateTask,
-        CancellationToken token)
+    private IActivableMultiStepTaskWithProgress<string> CreateFileDownloadTask(MusicSource source, SourceFile file)
     {
         if (source is not VkPostWithArchiveSource vkPostWithArchiveSource)
         {
             throw new NotSupportedException("Only vk post with archive source supported.");
         }
 
-        var sourceFile = source.Files.First(x => x.Id == fileId);
+        var args = CreateVkArchiveFileDownloadArgs(vkPostWithArchiveSource, file);
 
-        var targetPath = _sourceFilesPathService.GetSourceFileTargetPath(source.AdditionalInfo, sourceFile);
+        return _vkArchiveFilesDownloadingService
+            .CreateDownloadTask()
+            .WithArgs(args);
+    }
 
-        return _vkArchiveFilesDownloadingService.DownloadAsync(
-            vkPostWithArchiveSource.Document,
-            sourceFile,
-            targetPath,
-            activateTask,
-            token
-        );
+    private VkArchiveFileDownloadArgs CreateVkArchiveFileDownloadArgs(VkPostWithArchiveSource source, SourceFile file)
+    {
+        var targetPath = _sourceFilesPathService.GetSourceFileTargetPath(source.AdditionalInfo, file);
+        return new VkArchiveFileDownloadArgs(source.Document, file, targetPath);
     }
 }
