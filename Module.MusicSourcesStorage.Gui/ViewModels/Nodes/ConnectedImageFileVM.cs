@@ -8,15 +8,19 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 {
-    public bool IsProcessing => throw new NotImplementedException();
+    public bool IsProcessing { get; private set; }
 
-    public bool CanDownload => throw new NotImplementedException();
-    public bool IsDownloaded => throw new NotImplementedException();
+    [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
+    public bool CanDownload => !IsDownloaded && !IsProcessing;
 
-    public bool CanDelete => throw new NotImplementedException();
-    public bool IsDeleted => throw new NotImplementedException();
+    public bool IsDownloaded { get; private set; }
 
-    public bool IsCover => throw new NotImplementedException();
+    [DependsOn(nameof(IsDeleted), nameof(IsProcessing))]
+    public bool CanDelete => !IsDeleted && !IsProcessing;
+
+    [DependsOn(nameof(IsDownloaded))] public bool IsDeleted => !IsDownloaded;
+
+    public bool IsCover { get; private set; }
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
@@ -28,6 +32,10 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
     public ConnectedImageFileVM(string path) : base(path)
     {
+        // todo init
+        IsProcessing = false;
+        IsDownloaded = false;
+        IsCover = false;
     }
 
     private void DownloadCmd()
