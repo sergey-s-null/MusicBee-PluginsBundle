@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/MarkAsListenedBaseStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/MarkAsNotListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="DownloadStyle"
@@ -51,6 +52,18 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="DeleteAllStyle"
+                   BasedOn="{StaticResource DeleteMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDelete}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </ContextMenu.Resources>
 
@@ -66,4 +79,10 @@
     <MenuItem Header="Mark all as not listened"
               Style="{StaticResource MarkAllAsNotListenedStyle}"
               Command="{Binding MarkAsNotListened}" />
+
+    <Separator />
+
+    <MenuItem Header="Delete all"
+              Style="{StaticResource DeleteAllStyle}"
+              Command="{Binding Delete}" />
 </ContextMenu>

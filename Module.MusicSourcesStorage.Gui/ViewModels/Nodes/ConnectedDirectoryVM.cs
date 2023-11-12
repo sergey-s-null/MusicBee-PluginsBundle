@@ -122,6 +122,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
         foreach (var node in nodesCanBeDeleted)
         {
+            // todo use NoPrompt command
             node.Delete.Execute(null);
         }
     }
