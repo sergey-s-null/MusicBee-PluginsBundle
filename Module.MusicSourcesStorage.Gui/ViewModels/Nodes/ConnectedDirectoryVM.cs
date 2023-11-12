@@ -159,7 +159,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             ViewModelHelper.RegisterPropertyChangedCallback(
                 processable,
                 x => x.IsProcessing,
-                (_, _) => UpdateIsProcessing()
+                (_, _) => IsProcessing = CalculateIsProcessing()
             );
         }
 
@@ -168,12 +168,12 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             ViewModelHelper.RegisterPropertyChangedCallback(
                 downloadable,
                 x => x.CanDownload,
-                (_, _) => UpdateCanDownload()
+                (_, _) => CanDownload = CalculateCanDownload()
             );
             ViewModelHelper.RegisterPropertyChangedCallback(
                 downloadable,
                 x => x.IsDownloaded,
-                (_, _) => UpdateIsDownloaded()
+                (_, _) => IsDownloaded = CalculateIsDownloaded()
             );
         }
 
@@ -182,12 +182,12 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             ViewModelHelper.RegisterPropertyChangedCallback(
                 deletable,
                 x => x.CanDelete,
-                (_, _) => UpdateCanDelete()
+                (_, _) => CanDelete = CalculateCanDelete()
             );
             ViewModelHelper.RegisterPropertyChangedCallback(
                 deletable,
                 x => x.IsDeleted,
-                (_, _) => UpdateIsDeleted()
+                (_, _) => IsDeleted = CalculateIsDeleted()
             );
         }
 
@@ -196,7 +196,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             ViewModelHelper.RegisterPropertyChangedCallback(
                 listenable,
                 x => x.IsListened,
-                (_, _) => UpdateIsListened()
+                (_, _) => IsListened = CalculateIsListened()
             );
         }
 
@@ -250,21 +250,24 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
                     ViewModelHelper.RegisterPropertyChangedCallback(
                         musicFile,
                         x => x.Location,
-                        (_, _) => UpdateHasDownloadedAndNotAttachedToLibraryFiles()
+                        (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =
+                            CalculateHasDownloadedAndNotAttachedToLibraryFiles()
                     );
                     break;
                 case IConnectedDirectoryVM directory:
                     ViewModelHelper.RegisterPropertyChangedCallback(
                         directory,
                         x => x.HasDownloadedAndNotAttachedToLibraryFiles,
-                        (_, _) => UpdateHasDownloadedAndNotAttachedToLibraryFiles()
+                        (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =
+                            CalculateHasDownloadedAndNotAttachedToLibraryFiles()
                     );
                     break;
                 case IDownloadableVM downloadable:
                     ViewModelHelper.RegisterPropertyChangedCallback(
                         downloadable,
                         x => x.IsDownloaded,
-                        (_, _) => UpdateHasDownloadedAndNotAttachedToLibraryFiles()
+                        (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =
+                            CalculateHasDownloadedAndNotAttachedToLibraryFiles()
                     );
                     break;
             }
@@ -273,53 +276,55 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private void UpdateState()
     {
-        UpdateIsProcessing();
-        UpdateCanDownload();
-        UpdateIsDownloaded();
-        UpdateCanDelete();
-        UpdateIsDeleted();
-        UpdateIsListened();
-        UpdateHasDownloadedAndNotAttachedToLibraryFiles();
+        IsProcessing = CalculateIsProcessing();
+        CanDownload = CalculateCanDownload();
+        IsDownloaded = CalculateIsDownloaded();
+        CanDelete = CalculateCanDelete();
+        IsDeleted = CalculateIsDeleted();
+        IsListened = CalculateIsListened();
+        IsAllListened = CalculateIsAllListened();
+        IsAllNotListened = CalculateIsAllNotListened();
+        HasDownloadedAndNotAttachedToLibraryFiles = CalculateHasDownloadedAndNotAttachedToLibraryFiles();
     }
 
-    private void UpdateIsProcessing()
+    private bool CalculateIsProcessing()
     {
-        IsProcessing = ChildNodes
+        return ChildNodes
             .OfType<IProcessableVM>()
             .Any(x => x.IsProcessing);
     }
 
-    private void UpdateCanDownload()
+    private bool CalculateCanDownload()
     {
-        CanDownload = ChildNodes
+        return ChildNodes
             .OfType<IDownloadableVM>()
             .Any(x => x.CanDownload);
     }
 
-    private void UpdateIsDownloaded()
+    private bool CalculateIsDownloaded()
     {
-        IsDownloaded = ChildNodes
+        return ChildNodes
             .OfType<IDownloadableVM>()
             .All(x => x.IsDownloaded);
     }
 
-    private void UpdateCanDelete()
+    private bool CalculateCanDelete()
     {
-        CanDelete = ChildNodes
+        return ChildNodes
             .OfType<IDeletableVM>()
             .Any(x => x.CanDelete);
     }
 
-    private void UpdateIsDeleted()
+    private bool CalculateIsDeleted()
     {
-        IsDeleted = ChildNodes
+        return ChildNodes
             .OfType<IDeletableVM>()
             .All(x => x.IsDeleted);
     }
 
-    private void UpdateIsListened()
+    private bool CalculateIsListened()
     {
-        IsListened = ChildNodes
+        return ChildNodes
             .OfType<IMarkableAsListenedVM>()
             .All(x => x.IsListened);
     }
@@ -356,7 +361,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         return true;
     }
 
-    private void UpdateHasDownloadedAndNotAttachedToLibraryFiles()
+    private bool CalculateHasDownloadedAndNotAttachedToLibraryFiles()
     {
         foreach (var node in ChildNodes)
         {
@@ -368,20 +373,17 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
                         case MusicFileLocation.Library:
                             continue;
                         case MusicFileLocation.Incoming:
-                            HasDownloadedAndNotAttachedToLibraryFiles = true;
-                            return;
+                            return true;
                     }
 
                     break;
                 case IConnectedDirectoryVM { HasDownloadedAndNotAttachedToLibraryFiles: true }:
-                    HasDownloadedAndNotAttachedToLibraryFiles = true;
-                    return;
+                    return true;
                 case IDownloadableVM { IsDownloaded: true }:
-                    HasDownloadedAndNotAttachedToLibraryFiles = true;
-                    return;
+                    return true;
             }
         }
 
-        HasDownloadedAndNotAttachedToLibraryFiles = false;
+        return false;
     }
 }
