@@ -146,8 +146,7 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 
             IsProcessing = true;
 
-            await _musicSourcesStorageService.SetMusicFileIsListenedAsync(_musicFile.Id, true);
-            IsListened = true;
+            await MarkAsListenedInternalAsync();
         }
         finally
         {
@@ -198,13 +197,16 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 
             IsProcessing = true;
 
-            await _filesDeletingService.DeleteAsync(_musicFile.Id);
-            Location = MusicFileLocation.NotDownloaded;
+            if (MessageBoxHelper.AskForDeletion(_musicFile) != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            await DeleteInternalAsync();
 
             if (!IsListened)
             {
-                await _musicSourcesStorageService.SetMusicFileIsListenedAsync(_musicFile.Id, true);
-                IsListened = true;
+                await MarkAsListenedInternalAsync();
             }
         }
         finally
@@ -267,6 +269,12 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
             IsProcessing = false;
             _lock.Release();
         }
+    }
+
+    private async Task MarkAsListenedInternalAsync()
+    {
+        await _musicSourcesStorageService.SetMusicFileIsListenedAsync(_musicFile.Id, true);
+        IsListened = true;
     }
 
     private async Task DeleteInternalAsync()
