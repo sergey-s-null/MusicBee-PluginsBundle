@@ -43,9 +43,9 @@ public static class DesignTimeData
             new ConnectedMusicFileDTVM("Song3.mp3", MusicFileLocation.Incoming, true),
             new ConnectedMusicFileDTVM("Song999.mp3", MusicFileLocation.Library, false),
             new ConnectedMusicFileDTVM("Song42.mp3", MusicFileLocation.NotDownloaded, true),
-            new ConnectedImageFileDTVM("aga.jpg", false, isProcessing: true),
-            new ConnectedImageFileDTVM("cover.jpg", true),
-            new ConnectedImageFileDTVM("alt_cover.jpg", true, true),
+            new ConnectedImageFileDTVM("aga.jpg", isProcessing: true),
+            new ConnectedImageFileDTVM("cover.jpg"),
+            new ConnectedImageFileDTVM("alt_cover.jpg", true),
         }, "quad.png", isProcessing: true),
         new ConnectedDirectoryDTVM("Epic Album 666", new INodeVM[]
         {
@@ -56,12 +56,12 @@ public static class DesignTimeData
                 new ConnectedUnknownFileDTVM("message from author.txt")
             }),
             new ConnectedMusicFileDTVM("Single.flac", MusicFileLocation.NotDownloaded, false),
-            new ConnectedImageFileDTVM("cover.png", true),
-            new ConnectedImageFileDTVM("some image.png", false)
+            new ConnectedImageFileDTVM("cover.png"),
+            new ConnectedImageFileDTVM("some image.png")
         }, "vertical.png", true),
         new ConnectedDirectoryDTVM("Just a joke", new INodeVM[]
         {
-            new ConnectedImageFileDTVM("only-cover.png", true)
+            new ConnectedImageFileDTVM("only-cover.png")
         }, "horizontal.png")
     };
 

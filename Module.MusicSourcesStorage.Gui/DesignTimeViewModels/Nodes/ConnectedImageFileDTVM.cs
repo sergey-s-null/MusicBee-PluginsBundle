@@ -24,12 +24,11 @@ public sealed class ConnectedImageFileDTVM : ImageFileDTVM, IConnectedImageFileV
     {
     }
 
-    // todo use isCover?
     public ConnectedImageFileDTVM(
         string path,
-        bool isCover,
         bool isDownloaded = false,
-        bool isProcessing = false) : base(path)
+        bool isProcessing = false)
+        : base(path)
     {
         IsDownloaded = isDownloaded;
         IsProcessing = isProcessing;
