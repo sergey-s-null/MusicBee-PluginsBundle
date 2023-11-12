@@ -15,6 +15,7 @@ public sealed class ConnectedUnknownFileDTVM : UnknownFileDTVM, IConnectedUnknow
 
     public ICommand Download => null!;
     public ICommand Delete => null!;
+    public ICommand DeleteNoPrompt => null!;
 
     public ConnectedUnknownFileDTVM()
     {

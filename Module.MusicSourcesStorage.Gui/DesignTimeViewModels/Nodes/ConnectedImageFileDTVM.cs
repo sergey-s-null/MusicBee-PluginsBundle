@@ -17,6 +17,7 @@ public sealed class ConnectedImageFileDTVM : ImageFileDTVM, IConnectedImageFileV
 
     public ICommand Download => null!;
     public ICommand Delete => null!;
+    public ICommand DeleteNoPrompt => null!;
     public ICommand SelectAsCover => null!;
 
     public ConnectedImageFileDTVM()

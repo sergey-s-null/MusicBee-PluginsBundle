@@ -28,9 +28,11 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
+    public ICommand DeleteNoPrompt => _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
 
     private ICommand? _downloadCmd;
     private ICommand? _deleteCmd;
+    private ICommand? _deleteNoPromptCmd;
 
     #endregion
 
@@ -138,5 +140,10 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
             IsProcessing = false;
             _lock.Release();
         }
+    }
+
+    private void DeleteNoPromptCmd()
+    {
+        throw new NotImplementedException();
     }
 }

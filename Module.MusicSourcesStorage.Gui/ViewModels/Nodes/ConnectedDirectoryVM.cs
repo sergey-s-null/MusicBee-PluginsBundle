@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Logic.Enums;
@@ -76,11 +77,13 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
+    public ICommand DeleteNoPrompt => _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
     public ICommand MarkAsListened => _markAsListenedCmd ??= new RelayCommand(MarkAsListenedCmd);
     public ICommand MarkAsNotListened => _markAsNotListenedCmd ??= new RelayCommand(MarkAsNotListenedCmd);
 
     private ICommand? _downloadCmd;
     private ICommand? _deleteCmd;
+    private ICommand? _deleteNoPromptCmd;
     private ICommand? _markAsListenedCmd;
     private ICommand? _markAsNotListenedCmd;
 
@@ -91,6 +94,8 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         RegisterCallbacks();
         UpdateState();
     }
+
+    #region Commands implementation
 
     private void DownloadCmd()
     {
@@ -116,15 +121,29 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             return;
         }
 
-        var nodesCanBeDeleted = ChildNodes
-            .OfType<IDeletableVM>()
-            .Where(x => x.CanDelete);
+        var result = MessageBox.Show(
+            $"Delete all files under folder \"{Name}\"?",
+            "\u255a(•\u2302•)\u255d",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question
+        );
 
-        foreach (var node in nodesCanBeDeleted)
+        if (result != MessageBoxResult.Yes)
         {
-            // todo use NoPrompt command
-            node.Delete.Execute(null);
+            return;
         }
+
+        CallDeleteNoPromptOnChildNodes();
+    }
+
+    private void DeleteNoPromptCmd()
+    {
+        if (!CanDelete)
+        {
+            return;
+        }
+
+        CallDeleteNoPromptOnChildNodes();
     }
 
     private void MarkAsListenedCmd()
@@ -152,6 +171,22 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             listenable.MarkAsNotListened.Execute(null);
         }
     }
+
+    #endregion
+
+    private void CallDeleteNoPromptOnChildNodes()
+    {
+        var nodesCanBeDeleted = ChildNodes
+            .OfType<IDeletableVM>()
+            .Where(x => x.CanDelete);
+
+        foreach (var node in nodesCanBeDeleted)
+        {
+            node.DeleteNoPrompt.Execute(null);
+        }
+    }
+
+    #region State calculation
 
     private void RegisterCallbacks()
     {
@@ -387,4 +422,6 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
         return false;
     }
+
+    #endregion
 }

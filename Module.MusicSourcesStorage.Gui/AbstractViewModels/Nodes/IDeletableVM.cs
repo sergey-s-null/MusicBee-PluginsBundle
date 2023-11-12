@@ -8,4 +8,5 @@ public interface IDeletableVM
     bool IsDeleted { get; }
 
     ICommand Delete { get; }
+    ICommand DeleteNoPrompt { get; }
 }

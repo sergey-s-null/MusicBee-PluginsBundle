@@ -46,11 +46,15 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
     public ICommand Delete =>
         _deleteCmd ??= new RelayCommand(DeleteCmd);
 
+    public ICommand DeleteNoPrompt =>
+        _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
+
     private ICommand? _downloadCmd;
     private ICommand? _markAsListenedCmd;
     private ICommand? _markAsNotListenedCmd;
     private ICommand? _deleteAndMarkAsListenedCmd;
     private ICommand? _deleteCmd;
+    private ICommand? _deleteNoPromptCmd;
 
     #endregion
 
@@ -232,5 +236,10 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
             IsProcessing = false;
             _lock.Release();
         }
+    }
+
+    private void DeleteNoPromptCmd()
+    {
+        throw new NotImplementedException();
     }
 }

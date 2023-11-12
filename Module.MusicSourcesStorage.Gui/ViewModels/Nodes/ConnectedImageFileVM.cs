@@ -30,10 +30,12 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
+    public ICommand DeleteNoPrompt => _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
     public ICommand SelectAsCover => _selectAsCoverCmd ??= new RelayCommand(SelectAsCoverCmd);
 
     private ICommand? _downloadCmd;
     private ICommand? _deleteCmd;
+    private ICommand? _deleteNoPromptCmd;
     private ICommand? _selectAsCoverCmd;
 
     #endregion
@@ -145,6 +147,11 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
             IsProcessing = false;
             _lock.Release();
         }
+    }
+
+    private void DeleteNoPromptCmd()
+    {
+        throw new NotImplementedException();
     }
 
     private void SelectAsCoverCmd()

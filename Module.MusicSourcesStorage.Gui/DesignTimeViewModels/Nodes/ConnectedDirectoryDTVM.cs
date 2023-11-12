@@ -30,6 +30,7 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
 
     public ICommand Download => null!;
     public ICommand Delete => null!;
+    public ICommand DeleteNoPrompt => null!;
     public ICommand MarkAsListened => null!;
     public ICommand MarkAsNotListened => null!;
 

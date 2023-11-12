@@ -22,6 +22,7 @@ public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileV
     public ICommand MarkAsNotListened => null!;
     public ICommand DeleteAndMarkAsListened => null!;
     public ICommand Delete => null!;
+    public ICommand DeleteNoPrompt => null!;
 
     public ConnectedMusicFileDTVM()
         : this(
