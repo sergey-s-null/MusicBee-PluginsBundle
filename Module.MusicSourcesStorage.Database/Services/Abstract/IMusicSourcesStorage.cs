@@ -36,4 +36,6 @@ public interface IMusicSourcesStorage
     );
 
     Task<FileModel> GetSourceFileAsync(int fileId, bool includeSource = false, CancellationToken token = default);
+
+    Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token = default);
 }

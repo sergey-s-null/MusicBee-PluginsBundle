@@ -24,7 +24,7 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         return model;
     }
 
-    public async Task DeleteAsync(int id, CancellationToken token = default)
+    public async Task DeleteAsync(int id, CancellationToken token)
     {
         using var context = _contextFactory();
 
@@ -55,7 +55,7 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         return source;
     }
 
-    public async Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token = default)
+    public async Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token)
     {
         using var context = _contextFactory();
 
@@ -122,5 +122,28 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         }
 
         return file;
+    }
+
+    public async Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
+    {
+        using var context = _contextFactory();
+
+        var file = await context.Files.FindAsync(token, musicFileId);
+        if (file is null)
+        {
+            throw new DatabaseException($"Could not find file with id {musicFileId}.");
+        }
+
+        if (file is not MusicFileModel musicFile)
+        {
+            throw new DatabaseException(
+                $"File with id {musicFileId} is not a music file. " +
+                $"Type of found model: {file.GetType()}."
+            );
+        }
+
+        musicFile.IsListened = isListened;
+
+        await context.SaveChangesAsync(token);
     }
 }

@@ -32,4 +32,6 @@ public interface IMusicSourcesStorageService
     );
 
     Task<SourceFile> GetSourceFileAsync(int id, CancellationToken token = default);
+
+    Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token = default);
 }

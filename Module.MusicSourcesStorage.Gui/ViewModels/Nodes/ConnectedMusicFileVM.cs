@@ -59,16 +59,19 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
     private readonly MusicFile _musicFile;
     private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
+    private readonly IMusicSourcesStorageService _musicSourcesStorageService;
 
     public ConnectedMusicFileVM(
         MusicFile musicFile,
         IFilesLocatingService filesLocatingService,
-        IFilesDownloadingService filesDownloadingService)
+        IFilesDownloadingService filesDownloadingService,
+        IMusicSourcesStorageService musicSourcesStorageService)
         : base(musicFile.Path)
     {
         _musicFile = musicFile;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
+        _musicSourcesStorageService = musicSourcesStorageService;
 
         IsListened = musicFile.IsListened;
 
@@ -118,14 +121,56 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
         }
     }
 
-    private void MarkAsListenedCmd()
+    private async void MarkAsListenedCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (IsListened)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            await _musicSourcesStorageService.SetMusicFileIsListenedAsync(_musicFile.Id, true);
+            IsListened = true;
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
-    private void MarkAsNotListenedCmd()
+    private async void MarkAsNotListenedCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!IsListened)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            await _musicSourcesStorageService.SetMusicFileIsListenedAsync(_musicFile.Id, false);
+            IsListened = false;
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
     private void DeleteAndMarkAsListenedCmd()

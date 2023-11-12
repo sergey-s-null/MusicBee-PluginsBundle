@@ -28,7 +28,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return _musicSourcesStorage.DeleteAsync(id, token);
     }
 
-    public async Task<MusicSource> GetMusicSourceByFileIdAsync(int fileId, CancellationToken token = default)
+    public async Task<MusicSource> GetMusicSourceByFileIdAsync(int fileId, CancellationToken token)
     {
         var model = await _musicSourcesStorage.GetSourceByFileIdAsync(fileId, true, token);
         return model.ToLogicModel();
@@ -65,9 +65,14 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return model.ToLogicModel();
     }
 
-    public async Task<SourceFile> GetSourceFileAsync(int id, CancellationToken token = default)
+    public async Task<SourceFile> GetSourceFileAsync(int id, CancellationToken token)
     {
         var model = await _musicSourcesStorage.GetSourceFileAsync(id, false, token);
         return model.ToLogicModel();
+    }
+
+    public Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
+    {
+        return _musicSourcesStorage.SetMusicFileIsListenedAsync(musicFileId, isListened, token);
     }
 }
