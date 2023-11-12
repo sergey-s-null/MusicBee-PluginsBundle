@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
 
@@ -21,7 +22,7 @@ public abstract class TaskWithProgressBase<TResult> : ITaskWithProgress<TResult>
                 SuccessfullyCompleted?.Invoke(this, new TaskResultEventArgs<TResult>(task.Result));
                 break;
             case { Status: TaskStatus.Canceled }:
-                Cancelled?.Invoke(this, EventArgs.Empty);
+                Cancelled?.Invoke(this, System.EventArgs.Empty);
                 break;
             case { Exception: not null }:
                 Failed?.Invoke(this, new TaskFailedEventArgs(task.Exception));

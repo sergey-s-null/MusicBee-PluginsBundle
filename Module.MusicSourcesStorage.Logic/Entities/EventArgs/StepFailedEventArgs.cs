@@ -1,4 +1,4 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿namespace Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 
 public sealed class StepFailedEventArgs : TaskFailedEventArgs
 {

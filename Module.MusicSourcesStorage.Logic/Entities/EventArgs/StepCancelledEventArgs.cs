@@ -1,7 +1,6 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿namespace Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 
-// todo move args in separate folder
-public sealed class StepCancelledEventArgs : EventArgs
+public sealed class StepCancelledEventArgs : System.EventArgs
 {
     /// <summary>
     /// Index of step which was cancelled.

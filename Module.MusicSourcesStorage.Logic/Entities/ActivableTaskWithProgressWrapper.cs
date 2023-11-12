@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 using Module.MusicSourcesStorage.Logic.Extensions;
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
@@ -42,7 +43,7 @@ public sealed class ActivableTaskWithProgressWrapper<TArgs, TResult> : IActivabl
             () => internalTask.Task.Result,
             token
         );
-        token.Register(() => Cancelled?.Invoke(this, EventArgs.Empty));
+        token.Register(() => Cancelled?.Invoke(this, System.EventArgs.Empty));
         IsActivated = true;
     }
 

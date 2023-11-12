@@ -1,6 +1,6 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿namespace Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 
-public class TaskFailedEventArgs : EventArgs
+public class TaskFailedEventArgs : System.EventArgs
 {
     public Exception Exception { get; }
 

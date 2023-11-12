@@ -1,6 +1,6 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿namespace Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 
-public class ProgressChangedEventArgs : EventArgs
+public class ProgressChangedEventArgs : System.EventArgs
 {
     /// <summary>
     /// Downloading progress in range [0; 1].
