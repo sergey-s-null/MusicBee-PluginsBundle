@@ -30,6 +30,8 @@ public sealed class FilesLocatingService : IFilesLocatingService
 
     public MusicFileLocation LocateMusicFile(int fileId, out string filePath)
     {
-        throw new NotImplementedException();
+        // todo implement
+        filePath = null!;
+        return MusicFileLocation.NotDownloaded;
     }
 }
