@@ -11,16 +11,44 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 {
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IProcessableVM"/>.<see cref="IProcessableVM.IsProcessing"/>
+    /// </summary>
     public bool IsProcessing { get; private set; }
 
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.CanDownload"/>
+    /// </summary>
     public bool CanDownload { get; private set; }
+
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.IsDownloaded"/>
+    /// </summary>
     public bool IsDownloaded { get; private set; }
 
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDeletableVM"/>.<see cref="IDeletableVM.CanDelete"/>
+    /// </summary>
     public bool CanDelete { get; private set; }
+
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDeletableVM"/>.<see cref="IDeletableVM.IsDeleted"/>
+    /// </summary>
     public bool IsDeleted { get; private set; }
 
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IMarkableAsListenedVM"/>.<see cref="IMarkableAsListenedVM.IsListened"/>
+    /// </summary>
     public bool IsListened { get; private set; }
 
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
+    /// <list type="number">
+    ///     <item><see cref="IConnectedMusicFileVM"/>.<see cref="IConnectedMusicFileVM.Location"/></item>
+    ///     <item><see cref="IConnectedDirectoryVM"/>.<see cref="IConnectedDirectoryVM.HasDownloadedAndNotAttachedToLibraryFiles"/></item>
+    ///     <item><see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.IsDownloaded"/></item>
+    /// </list>
+    /// </summary>
     public bool HasDownloadedAndNotAttachedToLibraryFiles { get; private set; }
 
     // todo
