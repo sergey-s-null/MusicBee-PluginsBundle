@@ -1,6 +1,8 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
+using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Module.Mvvm.Extension;
 using PropertyChanged;
 
@@ -51,12 +53,38 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 
     #endregion
 
-    public ConnectedMusicFileVM(string path) : base(path)
+    private readonly SemaphoreSlim _lock = new(1);
+
+    private readonly MusicFile _musicFile;
+    private readonly IFilesLocatingService _filesLocatingService;
+
+    public ConnectedMusicFileVM(
+        MusicFile musicFile,
+        IFilesLocatingService filesLocatingService)
+        : base(musicFile.Path)
     {
+        _musicFile = musicFile;
+        _filesLocatingService = filesLocatingService;
+
         // todo init
-        IsProcessing = false;
         IsListened = false;
-        Location = MusicFileLocation.NotDownloaded;
+
+        Initialize();
+    }
+
+    private async void Initialize()
+    {
+        await _lock.WaitAsync();
+        try
+        {
+            IsProcessing = true;
+            Location = _filesLocatingService.LocateMusicFile(_musicFile.Id, out _);
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
     private void DownloadCmd()
