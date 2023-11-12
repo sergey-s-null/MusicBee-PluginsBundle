@@ -48,12 +48,36 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private void DownloadCmd()
     {
-        throw new NotImplementedException();
+        if (!CanDownload)
+        {
+            return;
+        }
+
+        var nodesCanBeDownloaded = ChildNodes
+            .OfType<IDownloadableVM>()
+            .Where(x => x.CanDownload);
+
+        foreach (var node in nodesCanBeDownloaded)
+        {
+            node.Download.Execute(null);
+        }
     }
 
     private void DeleteCmd()
     {
-        throw new NotImplementedException();
+        if (!CanDelete)
+        {
+            return;
+        }
+
+        var nodesCanBeDeleted = ChildNodes
+            .OfType<IDeletableVM>()
+            .Where(x => x.CanDelete);
+
+        foreach (var node in nodesCanBeDeleted)
+        {
+            node.Delete.Execute(null);
+        }
     }
 
     private void MarkAsListenedCmd()
