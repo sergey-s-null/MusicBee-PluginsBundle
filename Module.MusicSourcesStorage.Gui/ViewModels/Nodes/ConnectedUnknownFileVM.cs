@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Module.Mvvm.Extension;
 using PropertyChanged;
@@ -36,14 +37,17 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
 
     private readonly int _fileId;
     private readonly IFilesLocatingService _filesLocatingService;
+    private readonly IFilesDownloadingService _filesDownloadingService;
 
     public ConnectedUnknownFileVM(
         UnknownFile unknownFile,
-        IFilesLocatingService filesLocatingService)
+        IFilesLocatingService filesLocatingService,
+        IFilesDownloadingService filesDownloadingService)
         : base(unknownFile.Path)
     {
-        _filesLocatingService = filesLocatingService;
         _fileId = unknownFile.Id;
+        _filesLocatingService = filesLocatingService;
+        _filesDownloadingService = filesDownloadingService;
 
         Initialize();
     }
@@ -64,9 +68,32 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
         }
     }
 
-    private void DownloadCmd()
+    private async void DownloadCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!CanDownload)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_fileId);
+            await task.Activated().Task;
+
+            IsDownloaded = true;
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
     private void DeleteCmd()
