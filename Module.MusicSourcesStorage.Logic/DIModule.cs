@@ -49,6 +49,10 @@ public sealed class DIModule : Autofac.Module
             .As<IFilesLocatingService>()
             .SingleInstance();
         builder
+            .RegisterType<FilesDeletingService>()
+            .As<IFilesDeletingService>()
+            .SingleInstance();
+        builder
             .RegisterType<MusicSourcesStorageService>()
             .As<IMusicSourcesStorageService>()
             .SingleInstance();
