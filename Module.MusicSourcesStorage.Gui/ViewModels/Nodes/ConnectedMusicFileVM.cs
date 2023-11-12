@@ -70,8 +70,7 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
 
-        // todo init
-        IsListened = false;
+        IsListened = musicFile.IsListened;
 
         Initialize();
     }
