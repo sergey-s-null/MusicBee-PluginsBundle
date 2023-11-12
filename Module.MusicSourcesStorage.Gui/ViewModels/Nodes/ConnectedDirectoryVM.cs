@@ -128,12 +128,28 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private void MarkAsListenedCmd()
     {
-        throw new NotImplementedException();
+        if (IsAllListened)
+        {
+            return;
+        }
+
+        foreach (var listenable in ChildNodes.OfType<IMarkableAsListenedVM>())
+        {
+            listenable.MarkAsListened.Execute(null);
+        }
     }
 
     private void MarkAsNotListenedCmd()
     {
-        throw new NotImplementedException();
+        if (IsAllNotListened)
+        {
+            return;
+        }
+
+        foreach (var listenable in ChildNodes.OfType<IMarkableAsListenedVM>())
+        {
+            listenable.MarkAsNotListened.Execute(null);
+        }
     }
 
     private void RegisterCallbacks()
