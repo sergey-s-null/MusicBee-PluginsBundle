@@ -1,5 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Extensions;
@@ -228,8 +230,12 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
 
             IsProcessing = true;
 
-            await _filesDeletingService.DeleteAsync(_musicFile.Id);
-            Location = MusicFileLocation.NotDownloaded;
+            if (MessageBoxHelper.AskForDeletion(_musicFile) != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            await DeleteInternalAsync();
         }
         finally
         {
@@ -238,8 +244,34 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
         }
     }
 
-    private void DeleteNoPromptCmd()
+    private async void DeleteNoPromptCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!CanDelete)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            await DeleteInternalAsync();
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
+    }
+
+    private async Task DeleteInternalAsync()
+    {
+        await _filesDeletingService.DeleteAsync(_musicFile.Id);
+        Location = MusicFileLocation.NotDownloaded;
     }
 }
