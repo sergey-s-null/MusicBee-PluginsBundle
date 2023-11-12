@@ -1,4 +1,4 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿namespace Module.MusicSourcesStorage.Logic.Entities.Args;
 
 /// <param name="Archive">Archive with required file.</param>
 /// <param name="SourceFile">Source file to download.</param>

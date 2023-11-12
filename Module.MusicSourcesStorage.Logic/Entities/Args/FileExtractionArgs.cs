@@ -1,4 +1,4 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities;
+﻿namespace Module.MusicSourcesStorage.Logic.Entities.Args;
 
 /// <param name="ArchiveFilePath">Path to archive with file to be extracted.</param>
 /// <param name="FilePathInArchive">Relative path of extracting file inside archive.</param>
