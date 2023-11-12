@@ -1,7 +1,7 @@
 ﻿using Module.MusicSourcesStorage.Logic.Delegates;
-using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-namespace Module.MusicSourcesStorage.Logic.Entities;
+namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
 public sealed class ActivableTaskWithProgress<TResult> :
     TaskWithProgressBase<TResult>,

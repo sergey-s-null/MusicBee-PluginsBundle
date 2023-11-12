@@ -1,8 +1,8 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-namespace Module.MusicSourcesStorage.Logic.Entities;
+namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-public sealed class ActivableMultiStepTaskWithArgs<TArgs, TResult> :
+public sealed class ActivableMultiStepTaskWithArgsWrapper<TArgs, TResult> :
     MultiStepTaskWrapperBase<TResult>,
     IActivableMultiStepTaskWithProgress<TResult>
 {
@@ -15,7 +15,7 @@ public sealed class ActivableMultiStepTaskWithArgs<TArgs, TResult> :
     private readonly IActivableMultiStepTaskWithProgress<TArgs, TResult> _internalTask;
     private readonly TArgs _args;
 
-    public ActivableMultiStepTaskWithArgs(
+    public ActivableMultiStepTaskWithArgsWrapper(
         IActivableMultiStepTaskWithProgress<TArgs, TResult> internalTask,
         TArgs args)
     {

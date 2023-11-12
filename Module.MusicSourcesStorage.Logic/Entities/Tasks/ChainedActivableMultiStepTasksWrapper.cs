@@ -1,8 +1,8 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-namespace Module.MusicSourcesStorage.Logic.Entities;
+namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-public sealed class ChainedActivableMultiStepTasks<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult> :
+public sealed class ChainedActivableMultiStepTasksWrapper<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult> :
     MultiStepTaskWrapperBase<TResult>,
     IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
 {
@@ -21,7 +21,7 @@ public sealed class ChainedActivableMultiStepTasks<TFirstArgs, TFirstResult, TSe
     private readonly IActivableMultiStepTaskWithProgress<TSecondArgs, TSecondResult> _secondTask;
     private readonly Func<TFirstArgs, TFirstResult, TSecondResult, TResult> _resultSelector;
 
-    public ChainedActivableMultiStepTasks(
+    public ChainedActivableMultiStepTasksWrapper(
         IActivableMultiStepTaskWithProgress<TFirstArgs, TFirstResult> firstTask,
         Func<TFirstArgs, TFirstResult, TSecondArgs> secondArgsSelector,
         IActivableMultiStepTaskWithProgress<TSecondArgs, TSecondResult> secondTask,

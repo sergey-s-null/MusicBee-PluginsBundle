@@ -3,7 +3,8 @@ using Module.Core.Helpers;
 using Module.MusicSourcesStorage.Core.Entities.Abstract;
 using Module.MusicSourcesStorage.Logic.Delegates;
 using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Entities.Tasks;
+using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services;

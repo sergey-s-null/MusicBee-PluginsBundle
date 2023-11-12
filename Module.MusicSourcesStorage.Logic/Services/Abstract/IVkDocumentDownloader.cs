@@ -1,5 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 

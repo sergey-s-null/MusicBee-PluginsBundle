@@ -1,7 +1,6 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities.Abstract;
-using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
+﻿using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 
-namespace Module.MusicSourcesStorage.Logic.Entities;
+namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
 public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTaskWithProgress<TResult>
 {

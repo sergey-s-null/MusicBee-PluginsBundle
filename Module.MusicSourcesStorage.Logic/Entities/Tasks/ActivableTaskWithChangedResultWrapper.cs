@@ -1,6 +1,6 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-namespace Module.MusicSourcesStorage.Logic.Entities;
+namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
 public sealed class ActivableTaskWithChangedResultWrapper<TArgs, TInternalResult, TChangedResult> :
     TaskWrapperBase<TChangedResult>,

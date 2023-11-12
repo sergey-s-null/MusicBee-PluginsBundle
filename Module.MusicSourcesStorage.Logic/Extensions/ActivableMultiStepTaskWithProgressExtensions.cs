@@ -1,5 +1,5 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Logic.Entities.Tasks;
+using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Extensions;
 
@@ -23,7 +23,7 @@ public static class ActivableMultiStepTaskWithProgressExtensions
             TArgs args
         )
     {
-        return new ActivableMultiStepTaskWithArgs<TArgs, TResult>(task, args);
+        return new ActivableMultiStepTaskWithArgsWrapper<TArgs, TResult>(task, args);
     }
 
     public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
@@ -34,7 +34,7 @@ public static class ActivableMultiStepTaskWithProgressExtensions
             Func<TFirstArgs, TFirstResult, TSecondResult, TResult> resultSelector
         )
     {
-        return new ChainedActivableMultiStepTasks<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult>(
+        return new ChainedActivableMultiStepTasksWrapper<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult>(
             firstTask,
             secondArgsSelector,
             secondTask,

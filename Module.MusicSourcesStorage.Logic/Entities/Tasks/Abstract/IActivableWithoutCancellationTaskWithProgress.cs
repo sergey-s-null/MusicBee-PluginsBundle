@@ -1,4 +1,4 @@
-﻿namespace Module.MusicSourcesStorage.Logic.Entities.Abstract;
+﻿namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
 public interface IActivableWithoutCancellationTaskWithProgress<TResult> :
     ITaskWithProgress<TResult>

@@ -1,6 +1,6 @@
 ﻿using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 
-namespace Module.MusicSourcesStorage.Logic.Entities.Abstract;
+namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
 public interface IMultiStepTaskWithProgress<TResult>
 {

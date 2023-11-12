@@ -1,8 +1,8 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-namespace Module.MusicSourcesStorage.Logic.Entities;
+namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-public sealed class ActivableTaskWithToken<TResult> :
+public sealed class ActivableTaskWithTokenWrapper<TResult> :
     TaskWrapperBase<TResult>,
     IActivableWithoutCancellationTaskWithProgress<TResult>
 {
@@ -13,7 +13,7 @@ public sealed class ActivableTaskWithToken<TResult> :
     private readonly IActivableTaskWithProgress<TResult> _internalTask;
     private readonly CancellationToken _token;
 
-    public ActivableTaskWithToken(
+    public ActivableTaskWithTokenWrapper(
         IActivableTaskWithProgress<TResult> internalTask,
         CancellationToken token)
     {
