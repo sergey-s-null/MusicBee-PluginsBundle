@@ -30,8 +30,8 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
-    public ICommand MarkAsListened => _markAsListenedCmd ??= new RelayCommand(MarkAllAsListenedCmd);
-    public ICommand MarkAsNotListened => _markAsNotListenedCmd ??= new RelayCommand(MarkAllAsNotListenedCmd);
+    public ICommand MarkAsListened => _markAsListenedCmd ??= new RelayCommand(MarkAsListenedCmd);
+    public ICommand MarkAsNotListened => _markAsNotListenedCmd ??= new RelayCommand(MarkAsNotListenedCmd);
 
     private ICommand? _downloadCmd;
     private ICommand? _deleteCmd;
@@ -56,12 +56,12 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         throw new NotImplementedException();
     }
 
-    private void MarkAllAsListenedCmd()
+    private void MarkAsListenedCmd()
     {
         throw new NotImplementedException();
     }
 
-    private void MarkAllAsNotListenedCmd()
+    private void MarkAsNotListenedCmd()
     {
         throw new NotImplementedException();
     }
