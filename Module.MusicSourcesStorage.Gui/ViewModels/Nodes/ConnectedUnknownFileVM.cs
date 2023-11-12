@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Extensions;
@@ -35,19 +36,22 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
 
     private readonly SemaphoreSlim _lock = new(1);
 
-    private readonly int _fileId;
+    private readonly UnknownFile _unknownFile;
     private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
+    private readonly IFilesDeletingService _filesDeletingService;
 
     public ConnectedUnknownFileVM(
         UnknownFile unknownFile,
         IFilesLocatingService filesLocatingService,
-        IFilesDownloadingService filesDownloadingService)
+        IFilesDownloadingService filesDownloadingService,
+        IFilesDeletingService filesDeletingService)
         : base(unknownFile.Path)
     {
-        _fileId = unknownFile.Id;
+        _unknownFile = unknownFile;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
+        _filesDeletingService = filesDeletingService;
 
         Initialize();
     }
@@ -58,7 +62,7 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
         IsProcessing = true;
         try
         {
-            var filePath = await _filesLocatingService.LocateFileAsync(_fileId);
+            var filePath = await _filesLocatingService.LocateFileAsync(_unknownFile.Id);
             IsDownloaded = filePath is not null;
         }
         finally
@@ -84,7 +88,7 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
 
             IsProcessing = true;
 
-            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_fileId);
+            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_unknownFile.Id);
             await task.Activated().Task;
 
             IsDownloaded = true;
@@ -96,8 +100,43 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
         }
     }
 
-    private void DeleteCmd()
+    private async void DeleteCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!CanDelete)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            var result = MessageBox.Show(
+                "Delete image file?\n" +
+                $"\tId: {_unknownFile.Id}\n" +
+                $"\tSource path: {_unknownFile.Path}",
+                "?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            await _filesDeletingService.DeleteAsync(_unknownFile.Id);
+            IsDownloaded = false;
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 }
