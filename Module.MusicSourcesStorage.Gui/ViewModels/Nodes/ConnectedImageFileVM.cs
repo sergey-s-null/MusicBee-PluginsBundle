@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -125,22 +126,12 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
             IsProcessing = true;
 
-            var result = MessageBox.Show(
-                "Delete image file?\n" +
-                $"\tId: {_imageFile.Id}\n" +
-                $"\tSource path: {_imageFile.Path}",
-                "?",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            );
-
-            if (result != MessageBoxResult.Yes)
+            if (MessageBoxHelper.AskForDeletion(_imageFile) != MessageBoxResult.Yes)
             {
                 return;
             }
 
-            await _filesDeletingService.DeleteAsync(_imageFile.Id);
-            IsDownloaded = false;
+            await DeleteInternalAsync();
         }
         finally
         {
@@ -149,13 +140,39 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         }
     }
 
-    private void DeleteNoPromptCmd()
+    private async void DeleteNoPromptCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!CanDelete)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            await DeleteInternalAsync();
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
     private void SelectAsCoverCmd()
     {
         throw new NotImplementedException();
+    }
+
+    private async Task DeleteInternalAsync()
+    {
+        await _filesDeletingService.DeleteAsync(_imageFile.Id);
+        IsDownloaded = false;
     }
 }
