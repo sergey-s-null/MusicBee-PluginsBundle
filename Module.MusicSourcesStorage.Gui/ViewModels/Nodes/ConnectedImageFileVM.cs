@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Extensions;
@@ -39,19 +40,22 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
     private readonly SemaphoreSlim _lock = new(1);
 
-    private readonly int _fileId;
+    private readonly ImageFile _imageFile;
     private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
+    private readonly IFilesDeletingService _filesDeletingService;
 
     public ConnectedImageFileVM(
         ImageFile imageFile,
         IFilesLocatingService filesLocatingService,
-        IFilesDownloadingService filesDownloadingService)
+        IFilesDownloadingService filesDownloadingService,
+        IFilesDeletingService filesDeletingService)
         : base(imageFile.Path)
     {
-        _fileId = imageFile.Id;
+        _imageFile = imageFile;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
+        _filesDeletingService = filesDeletingService;
 
         // todo init
         IsCover = false;
@@ -65,7 +69,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         IsProcessing = true;
         try
         {
-            var filePath = await _filesLocatingService.LocateFileAsync(_fileId);
+            var filePath = await _filesLocatingService.LocateFileAsync(_imageFile.Id);
             IsDownloaded = filePath is not null;
         }
         finally
@@ -91,7 +95,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
             IsProcessing = true;
 
-            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_fileId);
+            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_imageFile.Id);
             await task.Activated().Task;
 
             IsDownloaded = true;
@@ -103,9 +107,44 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         }
     }
 
-    private void DeleteCmd()
+    private async void DeleteCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!CanDelete)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            var result = MessageBox.Show(
+                "Delete image file?\n" +
+                $"\tId: {_imageFile.Id}\n" +
+                $"\tSource path: {_imageFile.Path}",
+                "?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            await _filesDeletingService.DeleteAsync(_imageFile.Id);
+            IsDownloaded = false;
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
     private void SelectAsCoverCmd()
