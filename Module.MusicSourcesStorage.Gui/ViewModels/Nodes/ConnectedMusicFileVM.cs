@@ -60,18 +60,21 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
     private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
+    private readonly IFilesDeletingService _filesDeletingService;
 
     public ConnectedMusicFileVM(
         MusicFile musicFile,
         IFilesLocatingService filesLocatingService,
         IFilesDownloadingService filesDownloadingService,
-        IMusicSourcesStorageService musicSourcesStorageService)
+        IMusicSourcesStorageService musicSourcesStorageService,
+        IFilesDeletingService filesDeletingService)
         : base(musicFile.Path)
     {
         _musicFile = musicFile;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
         _musicSourcesStorageService = musicSourcesStorageService;
+        _filesDeletingService = filesDeletingService;
 
         IsListened = musicFile.IsListened;
 
@@ -173,13 +176,61 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
         }
     }
 
-    private void DeleteAndMarkAsListenedCmd()
+    private async void DeleteAndMarkAsListenedCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!CanDelete)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            await _filesDeletingService.DeleteAsync(_musicFile.Id);
+            Location = MusicFileLocation.NotDownloaded;
+
+            if (!IsListened)
+            {
+                await _musicSourcesStorageService.SetMusicFileIsListenedAsync(_musicFile.Id, true);
+                IsListened = true;
+            }
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
-    private void DeleteCmd()
+    private async void DeleteCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!CanDelete)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            await _filesDeletingService.DeleteAsync(_musicFile.Id);
+            Location = MusicFileLocation.NotDownloaded;
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 }
