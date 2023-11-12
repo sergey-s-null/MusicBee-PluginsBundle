@@ -44,6 +44,24 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     /// <summary>
     /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
     /// <list type="number">
+    ///     <item><see cref="IConnectedDirectoryVM"/>.<see cref="IConnectedDirectoryVM.IsAllListened"/></item>
+    ///     <item><see cref="IMarkableAsListenedVM"/>.<see cref="IMarkableAsListenedVM.IsListened"/></item>
+    /// </list>
+    /// </summary>
+    public bool IsAllListened { get; private set; }
+
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
+    /// <list type="number">
+    ///     <item><see cref="IConnectedDirectoryVM"/>.<see cref="IConnectedDirectoryVM.IsAllNotListened"/></item>
+    ///     <item><see cref="IMarkableAsListenedVM"/>.<see cref="IMarkableAsListenedVM.IsListened"/></item>
+    /// </list>
+    /// </summary>
+    public bool IsAllNotListened { get; private set; }
+
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
+    /// <list type="number">
     ///     <item><see cref="IConnectedMusicFileVM"/>.<see cref="IConnectedMusicFileVM.Location"/></item>
     ///     <item><see cref="IConnectedDirectoryVM"/>.<see cref="IConnectedDirectoryVM.HasDownloadedAndNotAttachedToLibraryFiles"/></item>
     ///     <item><see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.IsDownloaded"/></item>
@@ -170,6 +188,48 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         {
             switch (node)
             {
+                case IConnectedDirectoryVM directory:
+                    ViewModelHelper.RegisterPropertyChangedCallback(
+                        directory,
+                        x => x.IsAllListened,
+                        (_, _) => IsAllListened = CalculateIsAllListened()
+                    );
+                    break;
+                case IMarkableAsListenedVM listenable:
+                    ViewModelHelper.RegisterPropertyChangedCallback(
+                        listenable,
+                        x => x.IsListened,
+                        (_, _) => IsAllListened = CalculateIsAllListened()
+                    );
+                    break;
+            }
+        }
+
+        foreach (var node in ChildNodes)
+        {
+            switch (node)
+            {
+                case IConnectedDirectoryVM directory:
+                    ViewModelHelper.RegisterPropertyChangedCallback(
+                        directory,
+                        x => x.IsAllNotListened,
+                        (_, _) => IsAllNotListened = CalculateIsAllNotListened()
+                    );
+                    break;
+                case IMarkableAsListenedVM listenable:
+                    ViewModelHelper.RegisterPropertyChangedCallback(
+                        listenable,
+                        x => x.IsListened,
+                        (_, _) => IsAllNotListened = CalculateIsAllNotListened()
+                    );
+                    break;
+            }
+        }
+
+        foreach (var node in ChildNodes)
+        {
+            switch (node)
+            {
                 case IConnectedMusicFileVM musicFile:
                     ViewModelHelper.RegisterPropertyChangedCallback(
                         musicFile,
@@ -246,6 +306,38 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         IsListened = ChildNodes
             .OfType<IMarkableAsListenedVM>()
             .All(x => x.IsListened);
+    }
+
+    private bool CalculateIsAllListened()
+    {
+        foreach (var node in ChildNodes)
+        {
+            switch (node)
+            {
+                case IConnectedDirectoryVM { IsAllListened: false }:
+                    return false;
+                case IMarkableAsListenedVM { IsListened: false }:
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool CalculateIsAllNotListened()
+    {
+        foreach (var node in ChildNodes)
+        {
+            switch (node)
+            {
+                case IConnectedDirectoryVM { IsAllNotListened: false }:
+                    return false;
+                case IMarkableAsListenedVM { IsListened: true }:
+                    return false;
+            }
+        }
+
+        return true;
     }
 
     private void UpdateHasDownloadedAndNotAttachedToLibraryFiles()

@@ -31,10 +31,11 @@
             <Style x:Key="MarkAllAsListenedStyle"
                    BasedOn="{StaticResource MarkAsListenedBaseStyle}"
                    TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsListened}"
-                                 Value="True">
-                        <Setter Property="IsEnabled" Value="False" />
+                    <DataTrigger Binding="{Binding IsAllListened}"
+                                 Value="False">
+                        <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -42,10 +43,11 @@
             <Style x:Key="MarkAllAsNotListenedStyle"
                    BasedOn="{StaticResource MarkAsNotListenedBaseStyle}"
                    TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsListened}"
+                    <DataTrigger Binding="{Binding IsAllNotListened}"
                                  Value="False">
-                        <Setter Property="IsEnabled" Value="False" />
+                        <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

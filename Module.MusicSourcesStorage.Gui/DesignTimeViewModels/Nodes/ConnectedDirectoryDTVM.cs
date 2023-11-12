@@ -21,6 +21,9 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
 
     public bool IsListened => false;
 
+    public bool IsAllListened => false;
+    public bool IsAllNotListened => true;
+
     public bool HasDownloadedAndNotAttachedToLibraryFiles { get; }
 
     public Stream? CoverStream { get; }

@@ -9,6 +9,9 @@ public interface IConnectedDirectoryVM :
     IMarkableAsListenedVM,
     IDeletableVM
 {
+    bool IsAllListened { get; }
+    bool IsAllNotListened { get; }
+
     bool HasDownloadedAndNotAttachedToLibraryFiles { get; }
 
     Stream? CoverStream { get; }
