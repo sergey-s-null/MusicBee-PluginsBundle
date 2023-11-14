@@ -124,6 +124,22 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         return file;
     }
 
+    public async Task<IReadOnlyList<FileModel>> ListSourceFilesBySourceIdAsync(
+        int sourceId,
+        bool includeSource,
+        CancellationToken token)
+    {
+        using var context = _contextFactory();
+
+        var files = includeSource
+            ? context.Files.Include(x => x.Source)
+            : context.Files;
+
+        return await files
+            .Where(x => x.SourceId == sourceId)
+            .ToListAsync(token);
+    }
+
     public async Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
     {
         using var context = _contextFactory();
@@ -143,6 +159,54 @@ public sealed class MusicSourcesStorage : IMusicSourcesStorage
         }
 
         musicFile.IsListened = isListened;
+
+        await context.SaveChangesAsync(token);
+    }
+
+    public async Task SetCoverAsync(int imageFileId, byte[] imageData, CancellationToken token)
+    {
+        using var context = _contextFactory();
+
+        var fileModel = await context.Files.FindAsync(token, imageFileId);
+        if (fileModel is null)
+        {
+            throw new DatabaseException($"Could not find source file with id {imageFileId}.");
+        }
+
+        if (fileModel is not ImageFileModel imageFileModel)
+        {
+            throw new DatabaseException(
+                $"Source file with id {imageFileId} is not image. " +
+                $"Actual type: {fileModel.GetType()}."
+            );
+        }
+
+        imageFileModel.IsCover = true;
+        imageFileModel.Data = imageData;
+
+        await context.SaveChangesAsync(token);
+    }
+
+    public async Task RemoveCoverAsync(int imageFileId, CancellationToken token = default)
+    {
+        using var context = _contextFactory();
+
+        var fileModel = await context.Files.FindAsync(token, imageFileId);
+        if (fileModel is null)
+        {
+            throw new DatabaseException($"Could not find source file with id {imageFileId}.");
+        }
+
+        if (fileModel is not ImageFileModel imageFileModel)
+        {
+            throw new DatabaseException(
+                $"Source file with id {imageFileId} is not image. " +
+                $"Actual type: {fileModel.GetType()}."
+            );
+        }
+
+        imageFileModel.IsCover = false;
+        imageFileModel.Data = null;
 
         await context.SaveChangesAsync(token);
     }

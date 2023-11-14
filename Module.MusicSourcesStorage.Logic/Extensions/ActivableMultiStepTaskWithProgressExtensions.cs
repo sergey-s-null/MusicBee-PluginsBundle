@@ -30,6 +30,19 @@ public static class ActivableMultiStepTaskWithProgressExtensions
     }
 
     public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
+        Chain<TFirstArgs, TFirstResult, TResult>(
+            this IActivableMultiStepTaskWithProgress<TFirstArgs, TFirstResult> firstTask,
+            IActivableTaskWithProgress<TFirstResult, TResult> secondTask
+        )
+    {
+        return firstTask.Chain(
+            (_, result) => result,
+            secondTask.AsMultiStep(),
+            (_, _, result) => result
+        );
+    }
+
+    public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
         Chain<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult>(
             this IActivableMultiStepTaskWithProgress<TFirstArgs, TFirstResult> firstTask,
             Func<TFirstArgs, TFirstResult, TSecondArgs> secondArgsSelector,

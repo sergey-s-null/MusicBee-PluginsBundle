@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Database.Services.Abstract;
+﻿using Module.MusicSourcesStorage.Database.Models;
+using Module.MusicSourcesStorage.Database.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -74,5 +75,22 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
     public Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
     {
         return _musicSourcesStorage.SetMusicFileIsListenedAsync(musicFileId, isListened, token);
+    }
+
+    public async Task SelectAsCoverAsync(int imageFileId, byte[] imageData, CancellationToken token)
+    {
+        var source = await _musicSourcesStorage.GetSourceByFileIdAsync(imageFileId, false, token);
+
+        var sourceFiles = await _musicSourcesStorage.ListSourceFilesBySourceIdAsync(source.Id, false, token);
+        var selectedAsCoverFiles = sourceFiles
+            .OfType<ImageFileModel>()
+            .Where(x => x.IsCover)
+            .ToList();
+        foreach (var selectedAsCoverFile in selectedAsCoverFiles)
+        {
+            await _musicSourcesStorage.RemoveCoverAsync(selectedAsCoverFile.Id, token);
+        }
+
+        await _musicSourcesStorage.SetCoverAsync(imageFileId, imageData, token);
     }
 }

@@ -37,5 +37,15 @@ public interface IMusicSourcesStorage
 
     Task<FileModel> GetSourceFileAsync(int fileId, bool includeSource = false, CancellationToken token = default);
 
+    Task<IReadOnlyList<FileModel>> ListSourceFilesBySourceIdAsync(
+        int sourceId,
+        bool includeSource = false,
+        CancellationToken token = default
+    );
+
     Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token = default);
+
+    Task SetCoverAsync(int imageFileId, byte[] imageData, CancellationToken token = default);
+
+    Task RemoveCoverAsync(int imageFileId, CancellationToken token = default);
 }
