@@ -13,6 +13,11 @@ public abstract class TaskWrapperBase<TResult> : ITaskWithProgress<TResult>
 
     public abstract Task<TResult> Task { get; }
 
+    protected void DispatchCancelledEvent()
+    {
+        Cancelled?.Invoke(this, System.EventArgs.Empty);
+    }
+
     protected void InitializeEvents(ITaskWithProgress<TResult> task)
     {
         InitializeCommonEvents(task);

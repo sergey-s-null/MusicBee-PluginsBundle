@@ -3,6 +3,7 @@ using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
+using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
@@ -22,7 +23,7 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         _vkArchiveFilesDownloadingService = vkArchiveFilesDownloadingService;
     }
 
-    public async Task<IActivableMultiStepTaskWithProgress<string>> CreateFileDownloadTaskAsync(
+    public async Task<IActivableMultiStepTaskWithProgress<Void, string>> CreateFileDownloadTaskAsync(
         int fileId,
         CancellationToken token)
     {
@@ -32,7 +33,17 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         return CreateFileDownloadTask(source, file);
     }
 
-    private IActivableMultiStepTaskWithProgress<string> CreateFileDownloadTask(MusicSource source, SourceFile file)
+    public async Task<IActivableMultiStepTaskWithProgress<Void, string>> CreateFileDownloadTaskAsync(
+        SourceFile file,
+        CancellationToken token)
+    {
+        var source = await _musicSourcesStorageService.GetMusicSourceByFileIdAsync(file.Id, token);
+
+        return CreateFileDownloadTask(source, file);
+    }
+
+    private IActivableMultiStepTaskWithProgress<Void, string> CreateFileDownloadTask(MusicSource source,
+        SourceFile file)
     {
         if (source is not VkPostWithArchiveSource vkPostWithArchiveSource)
         {

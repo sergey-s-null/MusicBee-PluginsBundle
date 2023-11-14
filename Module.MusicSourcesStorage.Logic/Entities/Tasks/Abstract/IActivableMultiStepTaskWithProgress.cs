@@ -1,10 +1,6 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-public interface IActivableMultiStepTaskWithProgress<TResult> : IMultiStepTaskWithProgress<TResult>
-{
-    void Activate(CancellationToken token = default);
-}
-
+// todo rename without "WithProgress"
 public interface IActivableMultiStepTaskWithProgress<in TArgs, TResult> : IMultiStepTaskWithProgress<TResult>
 {
     void Activate(TArgs args, CancellationToken token = default);

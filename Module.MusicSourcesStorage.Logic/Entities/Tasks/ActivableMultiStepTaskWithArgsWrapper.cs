@@ -4,7 +4,7 @@ namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
 public sealed class ActivableMultiStepTaskWithArgsWrapper<TArgs, TResult> :
     MultiStepTaskWrapperBase<TResult>,
-    IActivableMultiStepTaskWithProgress<TResult>
+    IActivableMultiStepTaskWithProgress<Void, TResult>
 {
     public override int StepCount => _internalTask.StepCount;
 
@@ -25,7 +25,7 @@ public sealed class ActivableMultiStepTaskWithArgsWrapper<TArgs, TResult> :
         InitializeEventsForFinalTask(_internalTask, 0);
     }
 
-    public void Activate(CancellationToken token)
+    public void Activate(Void _, CancellationToken token)
     {
         _internalTask.Activate(_args, token);
     }

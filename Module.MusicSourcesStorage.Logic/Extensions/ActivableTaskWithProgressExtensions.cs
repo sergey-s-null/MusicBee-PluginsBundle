@@ -1,35 +1,25 @@
 ﻿using Module.MusicSourcesStorage.Logic.Entities.Tasks;
 using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
+using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Extensions;
 
 public static class ActivableTaskWithProgressExtensions
 {
-    public static IActivableWithoutCancellationTaskWithProgress<TResult> WithToken<TResult>(
-        this IActivableTaskWithProgress<TResult> task,
-        CancellationToken token)
+    public static IActivableWithoutCancellationTaskWithProgress<TArgs, TResult>
+        WithToken<TArgs, TResult>(
+            this IActivableTaskWithProgress<TArgs, TResult> task,
+            CancellationToken token)
     {
-        return new ActivableTaskWithTokenWrapper<TResult>(task, token);
+        return new ActivableTaskWithTokenWrapper<TArgs, TResult>(task, token);
     }
 
-    public static IActivableTaskWithProgress<TResult> WithArgs<TArgs, TResult>(
-        this IActivableTaskWithProgress<TArgs, TResult> task,
-        TArgs args)
+    public static IActivableTaskWithProgress<Void, TResult>
+        WithArgs<TArgs, TResult>(
+            this IActivableTaskWithProgress<TArgs, TResult> task,
+            TArgs args)
     {
         return new ActivableTaskWithArgsWrapper<TArgs, TResult>(task, args);
-    }
-
-    public static IActivableTaskWithProgress<TResult> Activated<TResult>(
-        this IActivableTaskWithProgress<TResult> task,
-        CancellationToken token = default)
-    {
-        if (task.IsActivated)
-        {
-            return task;
-        }
-
-        task.Activate(token);
-        return task;
     }
 
     public static IActivableTaskWithProgress<TArgs, TResult> Activated<TArgs, TResult>(

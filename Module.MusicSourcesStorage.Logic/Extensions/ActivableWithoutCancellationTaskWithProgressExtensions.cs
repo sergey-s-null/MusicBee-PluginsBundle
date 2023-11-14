@@ -1,26 +1,20 @@
 ﻿using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
+using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Extensions;
 
 public static class ActivableWithoutCancellationTaskWithProgressExtensions
 {
-    public static IActivableWithoutCancellationTaskWithProgress<TResult> Activated<TResult>(
-        this IActivableWithoutCancellationTaskWithProgress<TResult> task)
+    public static IActivableWithoutCancellationTaskWithProgress<Void, TResult>
+        Activated<TResult>(
+            this IActivableWithoutCancellationTaskWithProgress<Void, TResult> task
+        )
     {
-        if (task.IsActivated)
+        if (!task.IsActivated)
         {
-            return task;
+            task.Activate(Void.Instance);
         }
 
-        task.Activate();
-        return task;
-    }
-
-    public static IActivableWithoutCancellationTaskWithProgress<TResult> With<TResult>(
-        this IActivableWithoutCancellationTaskWithProgress<TResult> task,
-        Action<IActivableWithoutCancellationTaskWithProgress<TResult>> modifier)
-    {
-        modifier(task);
         return task;
     }
 }

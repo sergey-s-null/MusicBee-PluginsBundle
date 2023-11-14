@@ -5,16 +5,19 @@ namespace Module.MusicSourcesStorage.Logic.Entities;
 
 public sealed class ActivableTaskWithTechnicalInfo<TResult>
 {
-    public IActivableTaskWithProgress<TResult> TaskWithProgress { get; }
-    public IActivableWithoutCancellationTaskWithProgress<TResult> TaskWithEmbeddedToken => _taskWithEmbeddedToken.Value;
+    public IActivableTaskWithProgress<Void, TResult> TaskWithProgress { get; }
+
+    public IActivableWithoutCancellationTaskWithProgress<Void, TResult> TaskWithEmbeddedToken =>
+        _taskWithEmbeddedToken.Value;
+
     public CancellationTokenSource TokenSource { get; }
     public int TaskRequestingCount => _taskRequestingCount;
 
     private int _taskRequestingCount;
-    private readonly Lazy<IActivableWithoutCancellationTaskWithProgress<TResult>> _taskWithEmbeddedToken;
+    private readonly Lazy<IActivableWithoutCancellationTaskWithProgress<Void, TResult>> _taskWithEmbeddedToken;
 
     public ActivableTaskWithTechnicalInfo(
-        IActivableTaskWithProgress<TResult> taskWithProgress,
+        IActivableTaskWithProgress<Void, TResult> taskWithProgress,
         CancellationTokenSource tokenSource,
         int taskRequestingInitCount)
     {
@@ -22,7 +25,7 @@ public sealed class ActivableTaskWithTechnicalInfo<TResult>
         TokenSource = tokenSource;
         _taskRequestingCount = taskRequestingInitCount;
 
-        _taskWithEmbeddedToken = new Lazy<IActivableWithoutCancellationTaskWithProgress<TResult>>(
+        _taskWithEmbeddedToken = new Lazy<IActivableWithoutCancellationTaskWithProgress<Void, TResult>>(
             () => TaskWithProgress.WithToken(tokenSource.Token)
         );
     }

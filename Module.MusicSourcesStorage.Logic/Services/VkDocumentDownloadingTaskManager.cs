@@ -3,6 +3,7 @@ using Module.MusicSourcesStorage.Logic.Entities.Tasks;
 using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
+using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
@@ -28,13 +29,13 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         return new ActivableTaskWithProgressWrapper<VkDocument, string>(GetInternalTask);
     }
 
-    private IActivableWithoutCancellationTaskWithProgress<string> GetInternalTask(
+    private IActivableWithoutCancellationTaskWithProgress<Void, string> GetInternalTask(
         VkDocument document,
         CancellationToken externalToken)
     {
         if (TryGetDownloadedDocumentPath(document.Id, out var documentPath))
         {
-            return new ActivableTaskWithProgress<string>(documentPath)
+            return new ActivableTaskWithProgress<Void, string>(documentPath)
                 .WithToken(externalToken);
         }
 
@@ -64,6 +65,7 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         var tokenSource = new CancellationTokenSource();
         var task = _vkDocumentDownloader
             .CreateDownloadTask()
+            // todo with token?
             .WithArgs(document);
 
         task.SuccessfullyCompleted += (_, args) => OnTaskSuccessfullyCompleted(document.Id, args.Result);

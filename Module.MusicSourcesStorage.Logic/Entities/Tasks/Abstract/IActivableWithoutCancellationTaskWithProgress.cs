@@ -1,8 +1,9 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-public interface IActivableWithoutCancellationTaskWithProgress<TResult> :
+// todo rename IActivableTaskWithoutCancellation
+public interface IActivableWithoutCancellationTaskWithProgress<in TArgs, TResult> :
     ITaskWithProgress<TResult>
 {
     /// <exception cref="InvalidOperationException">Task already activated.</exception>
-    void Activate();
+    void Activate(TArgs args);
 }

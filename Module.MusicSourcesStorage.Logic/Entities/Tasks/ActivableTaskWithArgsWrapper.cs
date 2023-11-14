@@ -4,7 +4,7 @@ namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
 public sealed class ActivableTaskWithArgsWrapper<TArgs, TResult> :
     TaskWrapperBase<TResult>,
-    IActivableTaskWithProgress<TResult>
+    IActivableTaskWithProgress<Void, TResult>
 {
     public override bool IsActivated => _internalTask.IsActivated;
 
@@ -23,7 +23,7 @@ public sealed class ActivableTaskWithArgsWrapper<TArgs, TResult> :
         InitializeEvents(_internalTask);
     }
 
-    public void Activate(CancellationToken token)
+    public void Activate(Void _, CancellationToken token)
     {
         _internalTask.Activate(_args, token);
     }

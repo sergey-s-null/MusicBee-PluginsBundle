@@ -1,29 +1,27 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
-using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
+﻿using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Module.MusicSourcesStorage.Logic.Extensions;
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-public sealed class ActivableTaskWithProgressWrapper<TArgs, TResult> : IActivableTaskWithProgress<TArgs, TResult>
+public sealed class ActivableTaskWithProgressWrapper<TArgs, TResult> :
+    TaskWrapperBase<TResult>,
+    IActivableTaskWithProgress<TArgs, TResult>
 {
-    public event EventHandler<ProgressChangedEventArgs>? ProgressChanged;
-    public event EventHandler<TaskFailedEventArgs>? Failed;
-    public event EventHandler? Cancelled;
-    public event EventHandler<TaskResultEventArgs<TResult>>? SuccessfullyCompleted;
+    public override bool IsActivated => _isActivated;
 
-    public bool IsActivated { get; private set; }
-
-    public Task<TResult> Task => IsActivated && _task is not null
+    public override Task<TResult> Task => IsActivated && _task is not null
         ? _task
         : throw new InvalidOperationException("Task is not activated.");
 
+    private bool _isActivated;
     private Task<TResult>? _task;
 
-    private readonly Func<TArgs, CancellationToken, IActivableWithoutCancellationTaskWithProgress<TResult>>
+    private readonly Func<TArgs, CancellationToken, IActivableWithoutCancellationTaskWithProgress<Void, TResult>>
         _internalTaskProvider;
 
     public ActivableTaskWithProgressWrapper(
-        Func<TArgs, CancellationToken, IActivableWithoutCancellationTaskWithProgress<TResult>> internalTaskProvider)
+        Func<TArgs, CancellationToken, IActivableWithoutCancellationTaskWithProgress<Void, TResult>>
+            internalTaskProvider)
     {
         _internalTaskProvider = internalTaskProvider;
     }
@@ -35,23 +33,15 @@ public sealed class ActivableTaskWithProgressWrapper<TArgs, TResult> : IActivabl
             throw new InvalidOperationException("Task already activated.");
         }
 
-        var internalTask = _internalTaskProvider(args, token)
-            .With(InitializeEvents)
-            .Activated();
+        var internalTask = _internalTaskProvider(args, token);
+        InitializeEvents(internalTask);
+        _ = internalTask.Activated();
 
         _task = System.Threading.Tasks.Task.Run(
             () => internalTask.Task.Result,
             token
         );
-        token.Register(() => Cancelled?.Invoke(this, System.EventArgs.Empty));
-        IsActivated = true;
-    }
-
-    private void InitializeEvents(ITaskWithProgress<TResult> internalTask)
-    {
-        internalTask.ProgressChanged += (_, args) => ProgressChanged?.Invoke(this, args);
-        internalTask.Failed += (_, args) => Failed?.Invoke(this, args);
-        internalTask.Cancelled += (_, args) => Cancelled?.Invoke(this, args);
-        internalTask.SuccessfullyCompleted += (_, args) => SuccessfullyCompleted?.Invoke(this, args);
+        token.Register(DispatchCancelledEvent);
+        _isActivated = true;
     }
 }

@@ -2,19 +2,19 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-public sealed class ActivableTaskWithTokenWrapper<TResult> :
+public sealed class ActivableTaskWithTokenWrapper<TArgs, TResult> :
     TaskWrapperBase<TResult>,
-    IActivableWithoutCancellationTaskWithProgress<TResult>
+    IActivableWithoutCancellationTaskWithProgress<TArgs, TResult>
 {
     public override bool IsActivated => _internalTask.IsActivated;
 
     public override Task<TResult> Task => _internalTask.Task;
 
-    private readonly IActivableTaskWithProgress<TResult> _internalTask;
+    private readonly IActivableTaskWithProgress<TArgs, TResult> _internalTask;
     private readonly CancellationToken _token;
 
     public ActivableTaskWithTokenWrapper(
-        IActivableTaskWithProgress<TResult> internalTask,
+        IActivableTaskWithProgress<TArgs, TResult> internalTask,
         CancellationToken token)
     {
         _internalTask = internalTask;
@@ -23,8 +23,8 @@ public sealed class ActivableTaskWithTokenWrapper<TResult> :
         InitializeEvents(_internalTask);
     }
 
-    public void Activate()
+    public void Activate(TArgs args)
     {
-        _internalTask.Activate(_token);
+        _internalTask.Activate(args, _token);
     }
 }
