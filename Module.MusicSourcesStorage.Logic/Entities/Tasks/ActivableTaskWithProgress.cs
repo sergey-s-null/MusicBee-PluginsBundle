@@ -18,27 +18,6 @@ public sealed class ActivableTaskWithProgress<TArgs, TResult> :
     private Task<TResult>? _task;
     private readonly TaskFunction<TArgs, TResult> _taskFunction;
 
-    public ActivableTaskWithProgress(TResult result)
-        : this(() => result)
-    {
-    }
-
-    public ActivableTaskWithProgress(Func<TResult> taskFunction)
-        : this((_, _) => taskFunction())
-    {
-    }
-
-    public ActivableTaskWithProgress(Func<TArgs, CancellationToken, TResult> taskFunction)
-        : this((args, progressCallback, token) =>
-        {
-            progressCallback(0);
-            var result = taskFunction(args, token);
-            progressCallback(1);
-            return result;
-        })
-    {
-    }
-
     public ActivableTaskWithProgress(TaskFunction<TArgs, TResult> taskFunction)
     {
         _taskFunction = taskFunction;

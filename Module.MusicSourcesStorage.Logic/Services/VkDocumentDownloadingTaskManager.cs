@@ -2,6 +2,7 @@
 using Module.MusicSourcesStorage.Logic.Entities.Tasks;
 using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Module.MusicSourcesStorage.Logic.Extensions;
+using Module.MusicSourcesStorage.Logic.Factories;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
@@ -35,7 +36,8 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
     {
         if (TryGetDownloadedDocumentPath(document.Id, out var documentPath))
         {
-            return new ActivableTaskWithProgress<Void, string>(documentPath)
+            return ActivableTaskFactory
+                .FromResult(documentPath)
                 .WithToken(externalToken);
         }
 
