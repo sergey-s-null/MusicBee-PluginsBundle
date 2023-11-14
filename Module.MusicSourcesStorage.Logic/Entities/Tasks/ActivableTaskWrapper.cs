@@ -3,9 +3,9 @@ using Module.MusicSourcesStorage.Logic.Extensions;
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-public sealed class ActivableTaskWithProgressWrapper<TArgs, TResult> :
+public sealed class ActivableTaskWrapper<TArgs, TResult> :
     TaskWrapperBase<TResult>,
-    IActivableTaskWithProgress<TArgs, TResult>
+    IActivableTask<TArgs, TResult>
 {
     public override bool IsActivated => _isActivated;
 
@@ -16,11 +16,11 @@ public sealed class ActivableTaskWithProgressWrapper<TArgs, TResult> :
     private bool _isActivated;
     private Task<TResult>? _task;
 
-    private readonly Func<TArgs, CancellationToken, IActivableWithoutCancellationTaskWithProgress<Void, TResult>>
+    private readonly Func<TArgs, CancellationToken, IActivableTaskWithoutCancellation<Void, TResult>>
         _internalTaskProvider;
 
-    public ActivableTaskWithProgressWrapper(
-        Func<TArgs, CancellationToken, IActivableWithoutCancellationTaskWithProgress<Void, TResult>>
+    public ActivableTaskWrapper(
+        Func<TArgs, CancellationToken, IActivableTaskWithoutCancellation<Void, TResult>>
             internalTaskProvider)
     {
         _internalTaskProvider = internalTaskProvider;

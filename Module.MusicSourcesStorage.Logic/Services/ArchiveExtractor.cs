@@ -14,9 +14,9 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class ArchiveExtractor : IArchiveExtractor
 {
-    public IActivableTaskWithProgress<FileExtractionArgs, string> CreateFileExtractionTask()
+    public IActivableTask<FileExtractionArgs, string> CreateFileExtractionTask()
     {
-        return new ActivableTaskWithProgress<FileExtractionArgs, string>(
+        return new ActivableTask<FileExtractionArgs, string>(
             (arg, progressCallback, internalToken) => ExtractInternal(
                 arg.ArchiveFilePath,
                 arg.FilePathInArchive,

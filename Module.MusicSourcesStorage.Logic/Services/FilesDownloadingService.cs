@@ -23,7 +23,7 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         _vkArchiveFilesDownloadingService = vkArchiveFilesDownloadingService;
     }
 
-    public async Task<IActivableMultiStepTaskWithProgress<Void, string>> CreateFileDownloadTaskAsync(
+    public async Task<IActivableMultiStepTask<Void, string>> CreateFileDownloadTaskAsync(
         int fileId,
         CancellationToken token)
     {
@@ -33,7 +33,7 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         return CreateFileDownloadTask(source, file);
     }
 
-    public async Task<IActivableMultiStepTaskWithProgress<Void, string>> CreateFileDownloadTaskAsync(
+    public async Task<IActivableMultiStepTask<Void, string>> CreateFileDownloadTaskAsync(
         SourceFile file,
         CancellationToken token)
     {
@@ -42,7 +42,7 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         return CreateFileDownloadTask(source, file);
     }
 
-    private IActivableMultiStepTaskWithProgress<Void, string> CreateFileDownloadTask(MusicSource source,
+    private IActivableMultiStepTask<Void, string> CreateFileDownloadTask(MusicSource source,
         SourceFile file)
     {
         if (source is not VkPostWithArchiveSource vkPostWithArchiveSource)

@@ -12,7 +12,7 @@ public interface ICoverSelectionService
 
     bool TryGetCover(int sourceId, string directoryRelativePath, out Image cover);
 
-    Task<IActivableMultiStepTaskWithProgress<Void, Void>> CreateImageFileAsCoverSelectionTaskAsync(
+    Task<IActivableMultiStepTask<Void, Void>> CreateImageFileAsCoverSelectionTaskAsync(
         ImageFile imageFile,
         CancellationToken token = default
     );

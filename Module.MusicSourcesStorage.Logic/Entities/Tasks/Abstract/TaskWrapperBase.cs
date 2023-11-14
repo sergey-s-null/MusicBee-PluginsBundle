@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-public abstract class TaskWrapperBase<TResult> : ITaskWithProgress<TResult>
+public abstract class TaskWrapperBase<TResult> : ITask<TResult>
 {
     public event EventHandler<ProgressChangedEventArgs>? ProgressChanged;
     public event EventHandler<TaskFailedEventArgs>? Failed;
@@ -18,7 +18,7 @@ public abstract class TaskWrapperBase<TResult> : ITaskWithProgress<TResult>
         Cancelled?.Invoke(this, System.EventArgs.Empty);
     }
 
-    protected void InitializeEvents(ITaskWithProgress<TResult> task)
+    protected void InitializeEvents(ITask<TResult> task)
     {
         InitializeCommonEvents(task);
         task.SuccessfullyCompleted += (_, args) => SuccessfullyCompleted?.Invoke(
@@ -28,7 +28,7 @@ public abstract class TaskWrapperBase<TResult> : ITaskWithProgress<TResult>
     }
 
     protected void InitializeEventsWithDifferentResult<TDifferentResult>(
-        ITaskWithProgress<TDifferentResult> task,
+        ITask<TDifferentResult> task,
         Func<TDifferentResult, TResult> resultSelector)
     {
         InitializeCommonEvents(task);
@@ -38,7 +38,7 @@ public abstract class TaskWrapperBase<TResult> : ITaskWithProgress<TResult>
         );
     }
 
-    private void InitializeCommonEvents<T>(ITaskWithProgress<T> task)
+    private void InitializeCommonEvents<T>(ITask<T> task)
     {
         task.ProgressChanged += (_, args) => ProgressChanged?.Invoke(
             this,

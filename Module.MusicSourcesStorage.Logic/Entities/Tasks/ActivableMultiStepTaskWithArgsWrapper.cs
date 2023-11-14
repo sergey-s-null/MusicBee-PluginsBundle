@@ -4,7 +4,7 @@ namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
 public sealed class ActivableMultiStepTaskWithArgsWrapper<TArgs, TResult> :
     MultiStepTaskWrapperBase<TResult>,
-    IActivableMultiStepTaskWithProgress<Void, TResult>
+    IActivableMultiStepTask<Void, TResult>
 {
     public override int StepCount => _internalTask.StepCount;
 
@@ -12,11 +12,11 @@ public sealed class ActivableMultiStepTaskWithArgsWrapper<TArgs, TResult> :
 
     public override Task<TResult> Task => _internalTask.Task;
 
-    private readonly IActivableMultiStepTaskWithProgress<TArgs, TResult> _internalTask;
+    private readonly IActivableMultiStepTask<TArgs, TResult> _internalTask;
     private readonly TArgs _args;
 
     public ActivableMultiStepTaskWithArgsWrapper(
-        IActivableMultiStepTaskWithProgress<TArgs, TResult> internalTask,
+        IActivableMultiStepTask<TArgs, TResult> internalTask,
         TArgs args)
     {
         _internalTask = internalTask;

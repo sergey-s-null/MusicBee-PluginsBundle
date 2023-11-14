@@ -5,5 +5,5 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 public interface IVkDocumentDownloadingTaskManager
 {
-    IActivableTaskWithProgress<VkDocument, string> CreateDownloadTask();
+    IActivableTask<VkDocument, string> CreateDownloadTask();
 }

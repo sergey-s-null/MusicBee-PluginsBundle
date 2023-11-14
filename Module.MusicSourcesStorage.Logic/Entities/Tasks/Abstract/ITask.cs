@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-public interface ITaskWithProgress<TResult>
+public interface ITask<TResult>
 {
     event EventHandler<ProgressChangedEventArgs> ProgressChanged;
     event EventHandler<TaskFailedEventArgs> Failed;

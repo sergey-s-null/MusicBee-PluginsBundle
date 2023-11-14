@@ -4,11 +4,11 @@ using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Extensions;
 
-public static class ActivableMultiStepTaskWithProgressExtensions
+public static class ActivableMultiStepTaskExtensions
 {
-    public static IActivableMultiStepTaskWithProgress<Void, TResult>
+    public static IActivableMultiStepTask<Void, TResult>
         Activated<TResult>(
-            this IActivableMultiStepTaskWithProgress<Void, TResult> task,
+            this IActivableMultiStepTask<Void, TResult> task,
             CancellationToken token = default
         )
     {
@@ -20,19 +20,19 @@ public static class ActivableMultiStepTaskWithProgressExtensions
         return task;
     }
 
-    public static IActivableMultiStepTaskWithProgress<Void, TResult>
+    public static IActivableMultiStepTask<Void, TResult>
         WithArgs<TArgs, TResult>(
-            this IActivableMultiStepTaskWithProgress<TArgs, TResult> task,
+            this IActivableMultiStepTask<TArgs, TResult> task,
             TArgs args
         )
     {
         return new ActivableMultiStepTaskWithArgsWrapper<TArgs, TResult>(task, args);
     }
 
-    public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
+    public static IActivableMultiStepTask<TFirstArgs, TResult>
         Chain<TFirstArgs, TFirstResult, TResult>(
-            this IActivableMultiStepTaskWithProgress<TFirstArgs, TFirstResult> firstTask,
-            IActivableTaskWithProgress<TFirstResult, TResult> secondTask
+            this IActivableMultiStepTask<TFirstArgs, TFirstResult> firstTask,
+            IActivableTask<TFirstResult, TResult> secondTask
         )
     {
         return firstTask.Chain(
@@ -42,11 +42,11 @@ public static class ActivableMultiStepTaskWithProgressExtensions
         );
     }
 
-    public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
+    public static IActivableMultiStepTask<TFirstArgs, TResult>
         Chain<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult>(
-            this IActivableMultiStepTaskWithProgress<TFirstArgs, TFirstResult> firstTask,
+            this IActivableMultiStepTask<TFirstArgs, TFirstResult> firstTask,
             Func<TFirstArgs, TFirstResult, TSecondArgs> secondArgsSelector,
-            IActivableMultiStepTaskWithProgress<TSecondArgs, TSecondResult> secondTask,
+            IActivableMultiStepTask<TSecondArgs, TSecondResult> secondTask,
             Func<TFirstArgs, TFirstResult, TSecondResult, TResult> resultSelector
         )
     {

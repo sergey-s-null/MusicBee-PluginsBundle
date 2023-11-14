@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-public abstract class TaskWithProgressBase<TResult> : ITaskWithProgress<TResult>
+public abstract class TaskBase<TResult> : ITask<TResult>
 {
     public event EventHandler<ProgressChangedEventArgs>? ProgressChanged;
     public event EventHandler<TaskFailedEventArgs>? Failed;

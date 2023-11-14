@@ -3,11 +3,11 @@ using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Extensions;
 
-public static class ActivableWithoutCancellationTaskWithProgressExtensions
+public static class ActivableWithoutCancellationTaskExtensions
 {
-    public static IActivableWithoutCancellationTaskWithProgress<Void, TResult>
+    public static IActivableTaskWithoutCancellation<Void, TResult>
         Activated<TResult>(
-            this IActivableWithoutCancellationTaskWithProgress<Void, TResult> task
+            this IActivableTaskWithoutCancellation<Void, TResult> task
         )
     {
         if (!task.IsActivated)

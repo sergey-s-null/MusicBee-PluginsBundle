@@ -33,7 +33,7 @@ public sealed class CoverSelectionService : ICoverSelectionService
         throw new NotImplementedException();
     }
 
-    public async Task<IActivableMultiStepTaskWithProgress<Void, Void>> CreateImageFileAsCoverSelectionTaskAsync(
+    public async Task<IActivableMultiStepTask<Void, Void>> CreateImageFileAsCoverSelectionTaskAsync(
         ImageFile imageFile,
         CancellationToken token)
     {

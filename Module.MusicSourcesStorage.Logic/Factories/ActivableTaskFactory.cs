@@ -7,19 +7,19 @@ namespace Module.MusicSourcesStorage.Logic.Factories;
 
 public static class ActivableTaskFactory
 {
-    public static IActivableTaskWithProgress<Void, TResult> FromResult<TResult>(
+    public static IActivableTask<Void, TResult> FromResult<TResult>(
         TResult result)
     {
         return Create(() => result);
     }
 
-    public static IActivableTaskWithProgress<Void, TResult> Create<TResult>(
+    public static IActivableTask<Void, TResult> Create<TResult>(
         Func<TResult> func)
     {
         return Create(_ => func());
     }
 
-    public static IActivableTaskWithProgress<Void, TResult> Create<TResult>(
+    public static IActivableTask<Void, TResult> Create<TResult>(
         Func<CancellationToken, TResult> func)
     {
         return Create<Void, TResult>(
@@ -33,10 +33,10 @@ public static class ActivableTaskFactory
         );
     }
 
-    public static IActivableTaskWithProgress<TArgs, Void> Create<TArgs>(
+    public static IActivableTask<TArgs, Void> Create<TArgs>(
         Action<TArgs> action)
     {
-        return new ActivableTaskWithProgress<TArgs, Void>(
+        return new ActivableTask<TArgs, Void>(
             (args, progressCallback, _) =>
             {
                 progressCallback(0);
@@ -47,7 +47,7 @@ public static class ActivableTaskFactory
         );
     }
 
-    public static IActivableTaskWithProgress<TArgs, TResult> Create<TArgs, TResult>(
+    public static IActivableTask<TArgs, TResult> Create<TArgs, TResult>(
         Func<TArgs, CancellationToken, TResult> func)
     {
         return Create<TArgs, TResult>(
@@ -61,9 +61,9 @@ public static class ActivableTaskFactory
         );
     }
 
-    public static IActivableTaskWithProgress<TArgs, TResult> Create<TArgs, TResult>(
+    public static IActivableTask<TArgs, TResult> Create<TArgs, TResult>(
         TaskFunction<TArgs, TResult> func)
     {
-        return new ActivableTaskWithProgress<TArgs, TResult>(func);
+        return new ActivableTask<TArgs, TResult>(func);
     }
 }

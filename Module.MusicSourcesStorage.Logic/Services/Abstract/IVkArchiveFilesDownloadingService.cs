@@ -6,5 +6,5 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 public interface IVkArchiveFilesDownloadingService
 {
     /// <returns>Task with result as path to downloaded file.</returns>
-    IActivableMultiStepTaskWithProgress<VkArchiveFileDownloadArgs, string> CreateDownloadTask();
+    IActivableMultiStepTask<VkArchiveFileDownloadArgs, string> CreateDownloadTask();
 }

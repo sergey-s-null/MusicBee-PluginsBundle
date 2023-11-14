@@ -18,7 +18,7 @@ public sealed class VkArchiveFilesDownloadingService : IVkArchiveFilesDownloadin
         _archiveExtractor = archiveExtractor;
     }
 
-    public IActivableMultiStepTaskWithProgress<VkArchiveFileDownloadArgs, string> CreateDownloadTask()
+    public IActivableMultiStepTask<VkArchiveFileDownloadArgs, string> CreateDownloadTask()
     {
         var archiveDownloadingTask = _vkDocumentDownloadingTaskManager.CreateDownloadTask();
         var fileExtractionTask = _archiveExtractor.CreateFileExtractionTask();

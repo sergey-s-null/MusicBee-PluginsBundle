@@ -3,10 +3,9 @@ using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-// todo remove "WithProgress" everywhere?
-public sealed class ActivableTaskWithProgress<TArgs, TResult> :
-    TaskWithProgressBase<TResult>,
-    IActivableTaskWithProgress<TArgs, TResult>
+public sealed class ActivableTask<TArgs, TResult> :
+    TaskBase<TResult>,
+    IActivableTask<TArgs, TResult>
 {
     public override bool IsActivated => _isActivated;
 
@@ -18,7 +17,7 @@ public sealed class ActivableTaskWithProgress<TArgs, TResult> :
     private Task<TResult>? _task;
     private readonly TaskFunction<TArgs, TResult> _taskFunction;
 
-    public ActivableTaskWithProgress(TaskFunction<TArgs, TResult> taskFunction)
+    public ActivableTask(TaskFunction<TArgs, TResult> taskFunction)
     {
         _taskFunction = taskFunction;
     }

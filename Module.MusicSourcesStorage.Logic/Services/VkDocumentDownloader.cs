@@ -18,9 +18,9 @@ public sealed class VkDocumentDownloader : IVkDocumentDownloader
         _configuration = configuration;
     }
 
-    public IActivableTaskWithProgress<VkDocument, string> CreateDownloadTask()
+    public IActivableTask<VkDocument, string> CreateDownloadTask()
     {
-        return new ActivableTaskWithProgress<VkDocument, string>(DownloadInternal);
+        return new ActivableTask<VkDocument, string>(DownloadInternal);
     }
 
     private string DownloadInternal(

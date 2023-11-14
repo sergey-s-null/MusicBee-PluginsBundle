@@ -4,7 +4,7 @@ namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
 public sealed class ChainedActivableMultiStepTasksWrapper<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult> :
     MultiStepTaskWrapperBase<TResult>,
-    IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
+    IActivableMultiStepTask<TFirstArgs, TResult>
 {
     public override int StepCount => _firstTask.StepCount + _secondTask.StepCount;
 
@@ -16,15 +16,15 @@ public sealed class ChainedActivableMultiStepTasksWrapper<TFirstArgs, TFirstResu
 
     private bool _isActivated;
     private Task<TResult>? _task;
-    private readonly IActivableMultiStepTaskWithProgress<TFirstArgs, TFirstResult> _firstTask;
+    private readonly IActivableMultiStepTask<TFirstArgs, TFirstResult> _firstTask;
     private readonly Func<TFirstArgs, TFirstResult, TSecondArgs> _secondArgsSelector;
-    private readonly IActivableMultiStepTaskWithProgress<TSecondArgs, TSecondResult> _secondTask;
+    private readonly IActivableMultiStepTask<TSecondArgs, TSecondResult> _secondTask;
     private readonly Func<TFirstArgs, TFirstResult, TSecondResult, TResult> _resultSelector;
 
     public ChainedActivableMultiStepTasksWrapper(
-        IActivableMultiStepTaskWithProgress<TFirstArgs, TFirstResult> firstTask,
+        IActivableMultiStepTask<TFirstArgs, TFirstResult> firstTask,
         Func<TFirstArgs, TFirstResult, TSecondArgs> secondArgsSelector,
-        IActivableMultiStepTaskWithProgress<TSecondArgs, TSecondResult> secondTask,
+        IActivableMultiStepTask<TSecondArgs, TSecondResult> secondTask,
         Func<TFirstArgs, TFirstResult, TSecondResult, TResult> resultSelector)
     {
         _firstTask = firstTask;

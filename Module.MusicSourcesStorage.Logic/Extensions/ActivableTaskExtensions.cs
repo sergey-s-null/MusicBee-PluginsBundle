@@ -4,26 +4,26 @@ using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Extensions;
 
-public static class ActivableTaskWithProgressExtensions
+public static class ActivableTaskExtensions
 {
-    public static IActivableWithoutCancellationTaskWithProgress<TArgs, TResult>
+    public static IActivableTaskWithoutCancellation<TArgs, TResult>
         WithToken<TArgs, TResult>(
-            this IActivableTaskWithProgress<TArgs, TResult> task,
+            this IActivableTask<TArgs, TResult> task,
             CancellationToken token)
     {
         return new ActivableTaskWithTokenWrapper<TArgs, TResult>(task, token);
     }
 
-    public static IActivableTaskWithProgress<Void, TResult>
+    public static IActivableTask<Void, TResult>
         WithArgs<TArgs, TResult>(
-            this IActivableTaskWithProgress<TArgs, TResult> task,
+            this IActivableTask<TArgs, TResult> task,
             TArgs args)
     {
         return new ActivableTaskWithArgsWrapper<TArgs, TResult>(task, args);
     }
 
-    public static IActivableTaskWithProgress<TArgs, TResult> Activated<TArgs, TResult>(
-        this IActivableTaskWithProgress<TArgs, TResult> task,
+    public static IActivableTask<TArgs, TResult> Activated<TArgs, TResult>(
+        this IActivableTask<TArgs, TResult> task,
         TArgs args,
         CancellationToken token = default)
     {
@@ -36,11 +36,11 @@ public static class ActivableTaskWithProgressExtensions
         return task;
     }
 
-    public static IActivableMultiStepTaskWithProgress<TFirstArgs, TResult>
+    public static IActivableMultiStepTask<TFirstArgs, TResult>
         Chain<TFirstArgs, TFirstResult, TSecondArgs, TResult>(
-            this IActivableTaskWithProgress<TFirstArgs, TFirstResult> firstTask,
+            this IActivableTask<TFirstArgs, TFirstResult> firstTask,
             Func<TFirstArgs, TFirstResult, TSecondArgs> secondArgsSelector,
-            IActivableTaskWithProgress<TSecondArgs, TResult> secondTask
+            IActivableTask<TSecondArgs, TResult> secondTask
         )
     {
         return firstTask
@@ -52,9 +52,9 @@ public static class ActivableTaskWithProgressExtensions
             );
     }
 
-    public static IActivableTaskWithProgress<TChangedArgs, TResult>
+    public static IActivableTask<TChangedArgs, TResult>
         ChangeArgs<TArgs, TResult, TChangedArgs>(
-            this IActivableTaskWithProgress<TArgs, TResult> task,
+            this IActivableTask<TArgs, TResult> task,
             Func<TChangedArgs, TArgs> oldArgsSelector
         )
     {
@@ -64,9 +64,9 @@ public static class ActivableTaskWithProgressExtensions
         );
     }
 
-    public static IActivableTaskWithProgress<TArgs, TChangedResult>
+    public static IActivableTask<TArgs, TChangedResult>
         ModifyResult<TArgs, TResult, TChangedResult>(
-            this IActivableTaskWithProgress<TArgs, TResult> task,
+            this IActivableTask<TArgs, TResult> task,
             Func<TArgs, TResult, TChangedResult> resultSelector
         )
     {
@@ -76,9 +76,9 @@ public static class ActivableTaskWithProgressExtensions
         );
     }
 
-    public static IActivableMultiStepTaskWithProgress<TArgs, TResult>
+    public static IActivableMultiStepTask<TArgs, TResult>
         AsMultiStep<TArgs, TResult>(
-            this IActivableTaskWithProgress<TArgs, TResult> task
+            this IActivableTask<TArgs, TResult> task
         )
     {
         return new ActivableMultiStepTaskWrapper<TArgs, TResult>(task);

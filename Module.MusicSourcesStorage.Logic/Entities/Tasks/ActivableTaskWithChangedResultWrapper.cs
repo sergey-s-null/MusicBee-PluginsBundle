@@ -4,7 +4,7 @@ namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
 public sealed class ActivableTaskWithChangedResultWrapper<TArgs, TInternalResult, TChangedResult> :
     TaskWrapperBase<TChangedResult>,
-    IActivableTaskWithProgress<TArgs, TChangedResult>
+    IActivableTask<TArgs, TChangedResult>
 {
     public override bool IsActivated => _isActivated;
 
@@ -14,11 +14,11 @@ public sealed class ActivableTaskWithChangedResultWrapper<TArgs, TInternalResult
 
     private bool _isActivated;
     private Task<TChangedResult>? _task;
-    private readonly IActivableTaskWithProgress<TArgs, TInternalResult> _internalTask;
+    private readonly IActivableTask<TArgs, TInternalResult> _internalTask;
     private readonly Func<TArgs, TInternalResult, TChangedResult> _resultSelector;
 
     public ActivableTaskWithChangedResultWrapper(
-        IActivableTaskWithProgress<TArgs, TInternalResult> internalTask,
+        IActivableTask<TArgs, TInternalResult> internalTask,
         Func<TArgs, TInternalResult, TChangedResult> resultSelector)
     {
         _internalTask = internalTask;

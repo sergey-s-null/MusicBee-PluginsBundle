@@ -9,7 +9,7 @@ public interface IFilesDownloadingService
     /// <param name="fileId">File to download.</param>
     /// <param name="token">Token.</param>
     /// <returns>Task with result as path to downloaded file.</returns>
-    Task<IActivableMultiStepTaskWithProgress<Void, string>> CreateFileDownloadTaskAsync(
+    Task<IActivableMultiStepTask<Void, string>> CreateFileDownloadTaskAsync(
         int fileId,
         CancellationToken token = default
     );
@@ -17,7 +17,7 @@ public interface IFilesDownloadingService
     /// <param name="file">File to download.</param>
     /// <param name="token">Token.</param>
     /// <returns>Task with result as path to downloaded file.</returns>
-    Task<IActivableMultiStepTaskWithProgress<Void, string>> CreateFileDownloadTaskAsync(
+    Task<IActivableMultiStepTask<Void, string>> CreateFileDownloadTaskAsync(
         SourceFile file,
         CancellationToken token = default
     );

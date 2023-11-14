@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-public interface IMultiStepTaskWithProgress<TResult>
+public interface IMultiStepTask<TResult>
 {
     event EventHandler<StepProgressChangedEventArgs> ProgressChanged;
     event EventHandler<StepFailedEventArgs> Failed;

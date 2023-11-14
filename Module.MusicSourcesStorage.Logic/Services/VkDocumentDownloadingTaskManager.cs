@@ -25,12 +25,12 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         _vkDocumentDownloader = vkDocumentDownloader;
     }
 
-    public IActivableTaskWithProgress<VkDocument, string> CreateDownloadTask()
+    public IActivableTask<VkDocument, string> CreateDownloadTask()
     {
-        return new ActivableTaskWithProgressWrapper<VkDocument, string>(GetInternalTask);
+        return new ActivableTaskWrapper<VkDocument, string>(GetInternalTask);
     }
 
-    private IActivableWithoutCancellationTaskWithProgress<Void, string> GetInternalTask(
+    private IActivableTaskWithoutCancellation<Void, string> GetInternalTask(
         VkDocument document,
         CancellationToken externalToken)
     {
@@ -156,7 +156,7 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
 
         try
         {
-            taskWithTechnicalInfo.TaskWithProgress.Task.Wait();
+            taskWithTechnicalInfo.ActivableTask.Task.Wait();
         }
         catch (AggregateException e)
         {

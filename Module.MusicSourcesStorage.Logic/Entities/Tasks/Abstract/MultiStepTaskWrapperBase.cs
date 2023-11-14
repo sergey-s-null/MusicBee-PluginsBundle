@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 
-public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTaskWithProgress<TResult>
+public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTask<TResult>
 {
     public event EventHandler<StepProgressChangedEventArgs>? ProgressChanged;
     public event EventHandler<StepFailedEventArgs>? Failed;
@@ -16,7 +16,7 @@ public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTaskWithProg
 
     public abstract Task<TResult> Task { get; }
 
-    protected void InitializeEventsForFinalTask(ITaskWithProgress<TResult> task, int stepIndex)
+    protected void InitializeEventsForFinalTask(ITask<TResult> task, int stepIndex)
     {
         InitializeCommonEvents(task, stepIndex);
         task.SuccessfullyCompleted += (_, args) =>
@@ -32,12 +32,12 @@ public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTaskWithProg
         };
     }
 
-    protected void InitializeEvents<T>(IMultiStepTaskWithProgress<T> task, int stepOffset)
+    protected void InitializeEvents<T>(IMultiStepTask<T> task, int stepOffset)
     {
         InitializeCommonEvents(task, stepOffset);
     }
 
-    protected void InitializeEventsForFinalTask(IMultiStepTaskWithProgress<TResult> task, int stepOffset)
+    protected void InitializeEventsForFinalTask(IMultiStepTask<TResult> task, int stepOffset)
     {
         InitializeCommonEvents(task, stepOffset);
         task.FullySuccessfullyCompleted += (_, args) => FullySuccessfullyCompleted?.Invoke(
@@ -47,7 +47,7 @@ public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTaskWithProg
     }
 
     protected void InitializeEventsForFinalTaskWithDifferentResult<TDifferentResult>(
-        IMultiStepTaskWithProgress<TDifferentResult> task,
+        IMultiStepTask<TDifferentResult> task,
         Func<TDifferentResult, TResult> resultSelector,
         int stepOffset)
     {
@@ -58,7 +58,7 @@ public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTaskWithProg
         );
     }
 
-    private void InitializeCommonEvents<T>(ITaskWithProgress<T> task, int stepIndex)
+    private void InitializeCommonEvents<T>(ITask<T> task, int stepIndex)
     {
         task.ProgressChanged += (_, args) =>
             ProgressChanged?.Invoke(
@@ -69,7 +69,7 @@ public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTaskWithProg
         task.Cancelled += (_, _) => Cancelled?.Invoke(this, new StepCancelledEventArgs(stepIndex));
     }
 
-    private void InitializeCommonEvents<T>(IMultiStepTaskWithProgress<T> task, int stepOffset)
+    private void InitializeCommonEvents<T>(IMultiStepTask<T> task, int stepOffset)
     {
         task.ProgressChanged += (_, args) => ProgressChanged?.Invoke(
             this,
