@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
-using Test.Common;
+using Debug.Common;
 using VkNet.Model.RequestParams;
 
-namespace Test.Console;
+namespace Debug.Console;
 
 internal static class Program
 {

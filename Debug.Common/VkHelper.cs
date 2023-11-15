@@ -4,7 +4,7 @@ using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
 using VkNet.Model;
 
-namespace Test.Common;
+namespace Debug.Common;
 
 public static class VkHelper
 {

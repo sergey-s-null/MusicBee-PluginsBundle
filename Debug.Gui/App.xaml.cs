@@ -8,7 +8,7 @@ using Module.MusicSourcesStorage.Gui.Views;
 using Module.VkAudioDownloader.GUI.DesignTimeViewModels;
 using Module.VkAudioDownloader.GUI.Views;
 
-namespace Test.Gui
+namespace Debug.Gui
 {
     /// <summary>
     /// Interaction logic for App.xaml

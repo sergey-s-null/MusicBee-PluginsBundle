@@ -1,4 +1,4 @@
-﻿namespace Test.Gui;
+﻿namespace Debug.Gui;
 
 public enum WindowType
 {
