@@ -11,4 +11,8 @@
 		<Reference Include="System.Net.Http"/>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Module.MusicSourcesStorage.Gui\Module.MusicSourcesStorage.Gui.csproj" />
+	</ItemGroup>
+
 </Project>
