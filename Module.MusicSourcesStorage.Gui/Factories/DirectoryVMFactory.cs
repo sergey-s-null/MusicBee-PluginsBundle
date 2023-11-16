@@ -3,6 +3,6 @@
 namespace Module.MusicSourcesStorage.Gui.Factories;
 
 public delegate IDirectoryVM DirectoryVMFactory(
-    string name,
+    string path,
     IReadOnlyList<INodeVM> childNodes
 );

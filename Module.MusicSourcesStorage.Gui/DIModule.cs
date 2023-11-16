@@ -137,13 +137,13 @@ public sealed class DIModule : Autofac.Module
             .As<IWizardStepVMFactory>();
         builder
             .Register<DirectoryVMFactory>(_ =>
-                (name, nodes) => new DirectoryVM(name, nodes)
+                (path, nodes) => new DirectoryVM(path, nodes)
             )
             .Keyed<DirectoryVMFactory>(ConnectionState.NotConnected)
             .SingleInstance();
         builder
             .Register<DirectoryVMFactory>(_ =>
-                (name, nodes) => new ConnectedDirectoryVM(name, nodes)
+                (path, nodes) => new ConnectedDirectoryVM(path, nodes)
             )
             .Keyed<DirectoryVMFactory>(ConnectionState.Connected)
             .SingleInstance();

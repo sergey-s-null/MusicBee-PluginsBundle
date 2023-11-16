@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+﻿using System.IO;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
@@ -10,9 +11,9 @@ public class DirectoryVM : IDirectoryVM
 
     public IReadOnlyList<INodeVM> ChildNodes { get; }
 
-    public DirectoryVM(string name, IReadOnlyList<INodeVM> childNodes)
+    public DirectoryVM(string path, IReadOnlyList<INodeVM> childNodes)
     {
-        Name = name;
+        Name = Path.GetFileName(path);
         ChildNodes = childNodes;
     }
 }

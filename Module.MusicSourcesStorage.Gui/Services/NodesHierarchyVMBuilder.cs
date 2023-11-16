@@ -49,8 +49,8 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 
     private INodeVM CreateNodeVM(Node<SourceFile, string> node)
     {
+        var path = string.Join(Path.DirectorySeparatorChar.ToString(), node.Path);
         var childNodes = CreateNodeViewModels(node.ChildNodes, node.Leaves);
-
-        return _directoryVMFactory(node.PathElement, childNodes);
+        return _directoryVMFactory(path, childNodes);
     }
 }
