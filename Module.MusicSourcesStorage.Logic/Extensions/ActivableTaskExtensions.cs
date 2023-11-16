@@ -58,7 +58,7 @@ public static class ActivableTaskExtensions
             Func<TChangedArgs, TArgs> oldArgsSelector
         )
     {
-        return new ActivableTaskWithChangedArgsWrapper<TArgs, TResult, TChangedArgs>(
+        return new ChangedArgsTaskWrapper<TArgs, TResult, TChangedArgs>(
             task,
             oldArgsSelector
         );

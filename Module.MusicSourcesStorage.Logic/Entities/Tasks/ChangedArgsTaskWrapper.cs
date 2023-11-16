@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-public sealed class ActivableTaskWithChangedArgsWrapper<TArgs, TResult, TChangedArgs> :
+public sealed class ChangedArgsTaskWrapper<TArgs, TResult, TChangedArgs> :
     TaskWrapperBase<TResult>,
     IActivableTask<TChangedArgs, TResult>
 {
@@ -13,7 +13,7 @@ public sealed class ActivableTaskWithChangedArgsWrapper<TArgs, TResult, TChanged
     private readonly IActivableTask<TArgs, TResult> _internalTask;
     private readonly Func<TChangedArgs, TArgs> _oldArgsSelector;
 
-    public ActivableTaskWithChangedArgsWrapper(
+    public ChangedArgsTaskWrapper(
         IActivableTask<TArgs, TResult> internalTask,
         Func<TChangedArgs, TArgs> oldArgsSelector)
     {
