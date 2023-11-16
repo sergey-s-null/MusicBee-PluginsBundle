@@ -3,7 +3,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Enums;
+using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Module.Mvvm.Extension;
 using Module.Mvvm.Extension.Helpers;
 using PropertyChanged;
@@ -71,7 +73,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     /// </summary>
     public bool HasDownloadedAndNotAttachedToLibraryFiles { get; private set; }
 
-    public BitmapSource? Cover => null;
+    public BitmapSource? Cover { get; private set; }
 
     #region Commands
 
@@ -89,14 +91,24 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     #endregion
 
+    private readonly int _sourceId;
+    private readonly string _path;
+    private readonly ICoverSelectionService _coverSelectionService;
+
     public ConnectedDirectoryVM(
         int sourceId,
         string path,
-        IReadOnlyList<INodeVM> childNodes)
+        IReadOnlyList<INodeVM> childNodes,
+        ICoverSelectionService coverSelectionService)
         : base(Path.GetFileName(path), childNodes)
     {
+        _sourceId = sourceId;
+        _path = path;
+        _coverSelectionService = coverSelectionService;
+
         RegisterCallbacks();
         UpdateState();
+        Initialize();
     }
 
     #region Commands implementation
@@ -177,6 +189,15 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     }
 
     #endregion
+
+    private async void Initialize()
+    {
+        var cover = await _coverSelectionService.GetCoverAsync(_sourceId, _path);
+        if (cover is not null)
+        {
+            Cover = ImageHelper.CreateBitmapSource(cover);
+        }
+    }
 
     private void CallDeleteNoPromptOnChildNodes()
     {
