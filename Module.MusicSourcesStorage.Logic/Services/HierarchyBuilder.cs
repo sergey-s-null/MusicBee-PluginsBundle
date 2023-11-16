@@ -17,29 +17,25 @@ public sealed class HierarchyBuilder<TValue, TPathElement> : IHierarchyBuilder<T
     }
 
     public void Build(
-        IReadOnlyList<TValue> flatItems,
+        IReadOnlyList<TValue> values,
         out IReadOnlyList<Node<TValue, TPathElement>> rootNodes,
         out IReadOnlyList<Leaf<TValue, TPathElement>> rootLeaves)
     {
-        var values = flatItems
-            .Select(BuildPathElements)
+        var flatItems = values
+            .Select(x => new Leaf<TValue, TPathElement>(_pathElementsFactory(x), x))
             .ToList();
 
-        Build(values, 0, out rootNodes, out rootLeaves);
-    }
-
-    private ValueWithPathElements<TValue, TPathElement> BuildPathElements(TValue value)
-    {
-        return new ValueWithPathElements<TValue, TPathElement>(value, _pathElementsFactory(value));
+        Build(Array.Empty<TPathElement>(), flatItems, 0, out rootNodes, out rootLeaves);
     }
 
     private void Build(
-        IReadOnlyList<ValueWithPathElements<TValue, TPathElement>> values,
+        IReadOnlyList<TPathElement> currentPath,
+        IReadOnlyList<Leaf<TValue, TPathElement>> items,
         int level,
         out IReadOnlyList<Node<TValue, TPathElement>> nodes,
         out IReadOnlyList<Leaf<TValue, TPathElement>> leaves)
     {
-        DistinguishLeaves(values, level, out var notLeaves, out leaves);
+        DistinguishLeavesAtLevel(items, level, out var notLeaves, out leaves);
 
         if (notLeaves.Count == 0)
         {
@@ -48,45 +44,46 @@ public sealed class HierarchyBuilder<TValue, TPathElement> : IHierarchyBuilder<T
         }
 
         nodes = notLeaves
-            .GroupBy(x => x.PathElements[level], _pathElementEqualityComparer)
-            .Select(x => BuildNode(x.Key, x.ToList(), level))
+            .GroupBy(x => x.Path[level], _pathElementEqualityComparer)
+            .Select(x => BuildNode(
+                currentPath.Append(x.Key).ToList(),
+                x.ToList(),
+                level
+            ))
             .ToList();
     }
 
     private Node<TValue, TPathElement> BuildNode(
-        TPathElement pathElement,
-        IReadOnlyList<ValueWithPathElements<TValue, TPathElement>> values,
+        IReadOnlyList<TPathElement> nodePath,
+        IReadOnlyList<Leaf<TValue, TPathElement>> values,
         int level)
     {
-        Build(values, level + 1, out var nodes, out var leaves);
+        Build(nodePath, values, level + 1, out var nodes, out var leaves);
         return new Node<TValue, TPathElement>(
-            pathElement,
+            nodePath,
             nodes,
             leaves
         );
     }
 
-    private static void DistinguishLeaves(
-        IReadOnlyList<ValueWithPathElements<TValue, TPathElement>> values,
+    private static void DistinguishLeavesAtLevel(
+        IReadOnlyList<Leaf<TValue, TPathElement>> items,
         int level,
-        out IReadOnlyList<ValueWithPathElements<TValue, TPathElement>> notLeaves,
+        out IReadOnlyList<Leaf<TValue, TPathElement>> notLeaves,
         out IReadOnlyList<Leaf<TValue, TPathElement>> leaves)
     {
-        var notLeavesInternal = new List<ValueWithPathElements<TValue, TPathElement>>();
+        var notLeavesInternal = new List<Leaf<TValue, TPathElement>>();
         var leavesInternal = new List<Leaf<TValue, TPathElement>>();
 
-        foreach (var value in values)
+        foreach (var item in items)
         {
-            if (IsLeaf(value, level))
+            if (IsLeafAtLevel(item, level))
             {
-                leavesInternal.Add(new Leaf<TValue, TPathElement>(
-                    value.PathElements[level],
-                    value.Value
-                ));
+                leavesInternal.Add(item);
             }
             else
             {
-                notLeavesInternal.Add(value);
+                notLeavesInternal.Add(item);
             }
         }
 
@@ -94,8 +91,8 @@ public sealed class HierarchyBuilder<TValue, TPathElement> : IHierarchyBuilder<T
         leaves = leavesInternal;
     }
 
-    private static bool IsLeaf(ValueWithPathElements<TValue, TPathElement> value, int level)
+    private static bool IsLeafAtLevel(Leaf<TValue, TPathElement> leaf, int level)
     {
-        return level + 1 == value.PathElements.Count;
+        return level + 1 == leaf.Path.Count;
     }
 }
