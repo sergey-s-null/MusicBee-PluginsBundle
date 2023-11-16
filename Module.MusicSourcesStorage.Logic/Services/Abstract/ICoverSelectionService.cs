@@ -11,7 +11,11 @@ public interface ICoverSelectionService
 {
     event EventHandler<CoverChangedEventArgs> CoverChanged;
 
-    bool TryGetCover(int sourceId, string directoryRelativePath, out Image cover);
+    Task<Image?> GetCoverAsync(
+        int sourceId,
+        string directoryRelativePath,
+        CancellationToken token = default
+    );
 
     Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateImageFileAsCoverSelectionTaskAsync(
         ImageFile imageFile,

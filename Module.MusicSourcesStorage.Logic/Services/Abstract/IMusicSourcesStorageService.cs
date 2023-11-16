@@ -33,7 +33,11 @@ public interface IMusicSourcesStorageService
 
     Task<SourceFile> GetSourceFileAsync(int id, CancellationToken token = default);
 
+    Task<IReadOnlyList<SourceFile>> ListSourceFilesBySourceIdAsync(int sourceId, CancellationToken token = default);
+
     Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token = default);
 
     Task SelectAsCoverAsync(int imageFileId, byte[] imageData, CancellationToken token = default);
+
+    Task<byte[]> GetCoverAsync(int coverFileId, CancellationToken token = default);
 }

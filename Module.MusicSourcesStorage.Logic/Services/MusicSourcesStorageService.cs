@@ -72,6 +72,12 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return model.ToLogicModel();
     }
 
+    public Task<IReadOnlyList<SourceFile>> ListSourceFilesBySourceIdAsync(int sourceId,
+        CancellationToken token = default)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
     {
         return _musicSourcesStorage.SetMusicFileIsListenedAsync(musicFileId, isListened, token);
@@ -92,5 +98,10 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         }
 
         await _musicSourcesStorage.SetCoverAsync(imageFileId, imageData, token);
+    }
+
+    public Task<byte[]> GetCoverAsync(int coverFileId, CancellationToken token = default)
+    {
+        throw new NotImplementedException();
     }
 }

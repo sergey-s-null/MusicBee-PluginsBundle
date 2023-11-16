@@ -16,4 +16,10 @@ public static class ImageHelper
         image.Save(memoryStream, format);
         return memoryStream.ToArray();
     }
+
+    public static Image FromBytes(byte[] bytes)
+    {
+        using var stream = new MemoryStream(bytes);
+        return new Bitmap(stream);
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Module.Core.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
@@ -29,9 +30,23 @@ public sealed class CoverSelectionService : ICoverSelectionService
         _musicSourcesStorageService = musicSourcesStorageService;
     }
 
-    public bool TryGetCover(int sourceId, string directoryRelativePath, out Image cover)
+    public async Task<Image?> GetCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var files = await _musicSourcesStorageService.ListSourceFilesBySourceIdAsync(sourceId, token);
+        var directoryUnifiedPath = PathHelper.UnifyDirectoryPath(directoryRelativePath);
+        var cover = files
+            .OfType<ImageFile>()
+            .Where(x => IsFileInDirectory(x, directoryUnifiedPath))
+            .FirstOrDefault(x => x.IsCover);
+
+        if (cover is null)
+        {
+            return null;
+        }
+
+        var binaryImage = await _musicSourcesStorageService.GetCoverAsync(cover.Id, token);
+
+        return ImageHelper.FromBytes(binaryImage);
     }
 
     public async Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateImageFileAsCoverSelectionTaskAsync(
@@ -83,5 +98,11 @@ public sealed class CoverSelectionService : ICoverSelectionService
             sourceFile.Path,
             binaryImage
         ));
+    }
+
+    private static bool IsFileInDirectory(SourceFile file, string directoryUnifiedPath)
+    {
+        var fileDirectory = Path.GetDirectoryName(file.Path) ?? string.Empty;
+        return PathHelper.UnifyDirectoryPath(fileDirectory) == directoryUnifiedPath;
     }
 }
