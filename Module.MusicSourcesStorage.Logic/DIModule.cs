@@ -15,8 +15,13 @@ public sealed class DIModule : Autofac.Module
             .As<IVkService>()
             .SingleInstance();
         builder
+            .RegisterType<CoverSelectionService>()
+            .As<ICoverSelectionService>()
+            .SingleInstance();
+        builder
             .RegisterType<FilesDownloadingService>()
-            .As<IFilesDownloadingService>();
+            .As<IFilesDownloadingService>()
+            .SingleInstance();
         builder
             .RegisterType<VkArchiveFilesDownloadingService>()
             .As<IVkArchiveFilesDownloadingService>()
@@ -67,6 +72,10 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<ArchiveExtractor>()
             .As<IArchiveExtractor>()
+            .SingleInstance();
+        builder
+            .RegisterType<ImageService>()
+            .As<IImageService>()
             .SingleInstance();
     }
 }
