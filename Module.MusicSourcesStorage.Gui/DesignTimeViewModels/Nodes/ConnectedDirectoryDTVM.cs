@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
@@ -26,7 +27,7 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
 
     public bool HasDownloadedAndNotAttachedToLibraryFiles { get; }
 
-    public Stream? CoverStream { get; }
+    public BitmapSource? Cover { get; }
 
     public ICommand Download => null!;
     public ICommand Delete => null!;
@@ -52,7 +53,12 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
         bool isProcessing = false)
         : base(name, childNodes)
     {
-        CoverStream = GetCoverStream(coverFileName);
+        var coverStream = GetCoverStream(coverFileName);
+        if (coverStream is not null)
+        {
+            Cover = CreateCoverSource(coverStream);
+        }
+
         HasDownloadedAndNotAttachedToLibraryFiles = hasDownloadedAndNotAttachedToLibraryFiles;
         IsProcessing = isProcessing;
     }
@@ -67,5 +73,15 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
         var resourceName = $"{DesignTimeCoversPath}.{coverFileName}";
         return Assembly.GetAssembly(typeof(ConnectedDirectoryDTVM))
             .GetManifestResourceStream(resourceName);
+    }
+
+    private static BitmapSource CreateCoverSource(Stream coverStream)
+    {
+        var coverSource = new BitmapImage();
+        coverSource.BeginInit();
+        coverSource.CacheOption = BitmapCacheOption.OnLoad;
+        coverSource.StreamSource = coverStream;
+        coverSource.EndInit();
+        return coverSource;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.Mvvm.Extension;
@@ -70,8 +71,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     /// </summary>
     public bool HasDownloadedAndNotAttachedToLibraryFiles { get; private set; }
 
-    // todo
-    public Stream? CoverStream => null;
+    public BitmapSource? Cover => null;
 
     #region Commands
 

@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Windows.Media.Imaging;
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
@@ -14,5 +14,5 @@ public interface IConnectedDirectoryVM :
 
     bool HasDownloadedAndNotAttachedToLibraryFiles { get; }
 
-    Stream? CoverStream { get; }
+    BitmapSource? Cover { get; }
 }

@@ -28,7 +28,7 @@
                 <Style.Triggers>
                     <DataTrigger
                         Binding="{
-                            Binding CoverStream,
+                            Binding Cover,
                             Converter={StaticResource DefaultNullabilityToBoolConverter}
                         }"
                         Value="True">
@@ -36,7 +36,7 @@
                         <Setter Property="Content">
                             <Setter.Value>
                                 <Border Style="{StaticResource AlbumCoverContainerStyle}">
-                                    <Image Source="{Binding CoverStream}" />
+                                    <Image Source="{Binding Cover}" />
                                 </Border>
                             </Setter.Value>
                         </Setter>
@@ -44,7 +44,7 @@
 
                     <DataTrigger
                         Binding="{
-                            Binding CoverStream,
+                            Binding Cover,
                             Converter={StaticResource DefaultNullabilityToBoolConverter}
                         }"
                         Value="False">
