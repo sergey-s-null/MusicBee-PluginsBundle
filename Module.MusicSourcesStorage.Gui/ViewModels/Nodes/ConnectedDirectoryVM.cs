@@ -106,9 +106,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         _path = path;
         _coverSelectionService = coverSelectionService;
 
-        RegisterCallbacks();
-        UpdateState();
-        Initialize();
+        InitializeAsync();
     }
 
     #region Commands implementation
@@ -190,7 +188,14 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     #endregion
 
-    private async void Initialize()
+    private async void InitializeAsync()
+    {
+        RegisterChildNodesCallbacks();
+        UpdateState();
+        await InitializeCoverAsync();
+    }
+
+    private async Task InitializeCoverAsync()
     {
         var cover = await _coverSelectionService.GetCoverAsync(_sourceId, _path);
         if (cover is not null)
@@ -213,7 +218,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     #region State calculation
 
-    private void RegisterCallbacks()
+    private void RegisterChildNodesCallbacks()
     {
         foreach (var processable in ChildNodes.OfType<IProcessableVM>())
         {
