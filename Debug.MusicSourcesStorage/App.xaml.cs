@@ -11,7 +11,7 @@ namespace Debug.MusicSourcesStorage
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var container = Container.Create();
+            var container = Container.Create(true);
             var window = container.Resolve<MusicSourcesWindow>();
             window.ShowDialog();
         }

@@ -1,14 +1,24 @@
 ﻿using Autofac;
+using Debug.Common;
 using Module.MusicSourcesStorage;
 using Module.MusicSourcesStorage.Core.Entities.Abstract;
+using VkNet.Abstractions;
 
 namespace Debug.MusicSourcesStorage;
 
 public static class Container
 {
-    public static IContainer Create()
+    public static IContainer Create(bool withVkApi)
     {
         var builder = new ContainerBuilder();
+
+        if (withVkApi)
+        {
+            var vkApi = VkHelper.GetAuthorizedVkApi();
+            builder
+                .RegisterInstance(vkApi)
+                .As<IVkApi>();
+        }
 
         builder.RegisterModule<MusicSourcesStorageModule>();
 
