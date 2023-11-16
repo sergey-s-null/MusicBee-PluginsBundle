@@ -20,6 +20,21 @@ public static class ActivableMultiStepTaskExtensions
         return task;
     }
 
+    public static IActivableMultiStepTask<TArgs, TResult>
+        Activated<TArgs, TResult>(
+            this IActivableMultiStepTask<TArgs, TResult> task,
+            TArgs args,
+            CancellationToken token = default
+        )
+    {
+        if (!task.IsActivated)
+        {
+            task.Activate(args, token);
+        }
+
+        return task;
+    }
+
     public static IActivableMultiStepTask<Void, TResult>
         WithArgs<TArgs, TResult>(
             this IActivableMultiStepTask<TArgs, TResult> task,
@@ -27,6 +42,24 @@ public static class ActivableMultiStepTaskExtensions
         )
     {
         return new ActivableMultiStepTaskWithArgsWrapper<TArgs, TResult>(task, args);
+    }
+
+    public static IActivableMultiStepTask<TChangedArgs, TResult>
+        ChangeArgs<TArgs, TResult, TChangedArgs>(
+            this IActivableMultiStepTask<TArgs, TResult> task,
+            Func<TChangedArgs, TArgs> oldArgsSelector
+        )
+    {
+        throw new NotImplementedException();
+    }
+
+    public static IActivableMultiStepTask<TArgs, TResult>
+        SkipByCondition<TArgs, TResult>(
+            this IActivableMultiStepTask<TArgs, TResult> task,
+            Func<TArgs, bool> skipCondition
+        )
+    {
+        throw new NotImplementedException();
     }
 
     public static IActivableMultiStepTask<TFirstArgs, TResult>

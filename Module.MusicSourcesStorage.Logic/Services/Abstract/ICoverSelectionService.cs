@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
@@ -12,7 +13,7 @@ public interface ICoverSelectionService
 
     bool TryGetCover(int sourceId, string directoryRelativePath, out Image cover);
 
-    Task<IActivableMultiStepTask<Void, Void>> CreateImageFileAsCoverSelectionTaskAsync(
+    Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateImageFileAsCoverSelectionTaskAsync(
         ImageFile imageFile,
         CancellationToken token = default
     );

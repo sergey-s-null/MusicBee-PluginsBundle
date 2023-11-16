@@ -3,7 +3,6 @@ using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
@@ -23,7 +22,7 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         _vkArchiveFilesDownloadingService = vkArchiveFilesDownloadingService;
     }
 
-    public async Task<IActivableMultiStepTask<Void, string>> CreateFileDownloadTaskAsync(
+    public async Task<IActivableMultiStepTask<FileDownloadArgs, string>> CreateFileDownloadTaskAsync(
         int fileId,
         CancellationToken token)
     {
@@ -33,7 +32,7 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         return CreateFileDownloadTask(source, file);
     }
 
-    public async Task<IActivableMultiStepTask<Void, string>> CreateFileDownloadTaskAsync(
+    public async Task<IActivableMultiStepTask<FileDownloadArgs, string>> CreateFileDownloadTaskAsync(
         SourceFile file,
         CancellationToken token)
     {
@@ -42,7 +41,8 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         return CreateFileDownloadTask(source, file);
     }
 
-    private IActivableMultiStepTask<Void, string> CreateFileDownloadTask(MusicSource source,
+    private IActivableMultiStepTask<FileDownloadArgs, string> CreateFileDownloadTask(
+        MusicSource source,
         SourceFile file)
     {
         if (source is not VkPostWithArchiveSource vkPostWithArchiveSource)
@@ -50,16 +50,15 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
             throw new NotSupportedException("Only vk post with archive source supported.");
         }
 
-        var args = CreateVkArchiveFileDownloadArgs(vkPostWithArchiveSource, file);
+        var targetPath = _sourceFilesPathService.GetSourceFileTargetPath(source.AdditionalInfo, file);
 
         return _vkArchiveFilesDownloadingService
             .CreateDownloadTask()
-            .WithArgs(args);
-    }
-
-    private VkArchiveFileDownloadArgs CreateVkArchiveFileDownloadArgs(VkPostWithArchiveSource source, SourceFile file)
-    {
-        var targetPath = _sourceFilesPathService.GetSourceFileTargetPath(source.AdditionalInfo, file);
-        return new VkArchiveFileDownloadArgs(source.Document, file, targetPath);
+            .ChangeArgs((FileDownloadArgs args) => new VkArchiveFileDownloadArgs(
+                vkPostWithArchiveSource.Document,
+                file,
+                args.SkipIfDownloaded,
+                targetPath
+            ));
     }
 }

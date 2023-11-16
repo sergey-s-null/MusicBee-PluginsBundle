@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Module.Mvvm.Extension;
@@ -99,7 +100,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
             IsProcessing = true;
 
             var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_imageFile.Id);
-            await task.Activated().Task;
+            await task.Activated(new FileDownloadArgs(true)).Task;
 
             IsDownloaded = true;
         }

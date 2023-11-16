@@ -33,6 +33,7 @@ public sealed class VkArchiveFilesDownloadingService : IVkArchiveFilesDownloadin
                     true
                 ),
                 fileExtractionTask
-            );
+            )
+            .SkipByCondition(x => x.SkipIfDownloaded && File.Exists(x.TargetFilePath));
     }
 }
