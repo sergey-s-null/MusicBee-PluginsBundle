@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Database.Models;
+﻿using Module.Core.Helpers;
+using Module.MusicSourcesStorage.Database.Models;
 using Module.MusicSourcesStorage.Database.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Extensions;
@@ -72,12 +73,6 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return model.ToLogicModel();
     }
 
-    public Task<IReadOnlyList<SourceFile>> ListSourceFilesBySourceIdAsync(int sourceId,
-        CancellationToken token = default)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
     {
         return _musicSourcesStorage.SetMusicFileIsListenedAsync(musicFileId, isListened, token);
@@ -100,8 +95,24 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         await _musicSourcesStorage.SetCoverAsync(imageFileId, imageData, token);
     }
 
-    public Task<byte[]> GetCoverAsync(int coverFileId, CancellationToken token = default)
+    public async Task<byte[]?> FindCoverAsync(
+        int sourceId,
+        string directoryRelativePath,
+        CancellationToken token)
     {
-        throw new NotImplementedException();
+        var files = await _musicSourcesStorage.ListSourceFilesBySourceIdAsync(sourceId, false, token);
+        var directoryUnifiedPath = PathHelper.UnifyDirectoryPath(directoryRelativePath);
+        var cover = files
+            .OfType<ImageFileModel>()
+            .Where(x => IsFileInDirectory(x, directoryUnifiedPath))
+            .FirstOrDefault(x => x.IsCover);
+
+        return cover?.Data;
+    }
+
+    private static bool IsFileInDirectory(FileModel file, string directoryUnifiedPath)
+    {
+        var fileDirectory = Path.GetDirectoryName(file.Path) ?? string.Empty;
+        return PathHelper.UnifyDirectoryPath(fileDirectory) == directoryUnifiedPath;
     }
 }
