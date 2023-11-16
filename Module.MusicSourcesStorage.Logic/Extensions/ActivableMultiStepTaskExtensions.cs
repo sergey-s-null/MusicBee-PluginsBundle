@@ -50,7 +50,10 @@ public static class ActivableMultiStepTaskExtensions
             Func<TChangedArgs, TArgs> oldArgsSelector
         )
     {
-        throw new NotImplementedException();
+        return new ChangedArgsMultiStepTaskWrapper<TArgs, TResult, TChangedArgs>(
+            task,
+            oldArgsSelector
+        );
     }
 
     public static IActivableMultiStepTask<TArgs, TResult>
