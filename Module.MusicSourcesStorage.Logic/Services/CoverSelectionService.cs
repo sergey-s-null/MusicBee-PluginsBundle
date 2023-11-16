@@ -37,7 +37,7 @@ public sealed class CoverSelectionService : ICoverSelectionService
             : null;
     }
 
-    public async Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateImageFileAsCoverSelectionTaskAsync(
+    public async Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateCoverSelectionTaskAsync(
         ImageFile imageFile,
         CancellationToken token)
     {

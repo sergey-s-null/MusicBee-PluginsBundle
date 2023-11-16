@@ -17,7 +17,7 @@ public interface ICoverSelectionService
         CancellationToken token = default
     );
 
-    Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateImageFileAsCoverSelectionTaskAsync(
+    Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateCoverSelectionTaskAsync(
         ImageFile imageFile,
         CancellationToken token = default
     );
