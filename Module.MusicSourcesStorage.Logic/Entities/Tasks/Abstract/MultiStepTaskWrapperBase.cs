@@ -16,6 +16,26 @@ public abstract class MultiStepTaskWrapperBase<TResult> : IMultiStepTask<TResult
 
     public abstract Task<TResult> Task { get; }
 
+    protected void DispatchEventsToSimulateFullCompletion(TResult result)
+    {
+        for (var i = 0; i < StepCount; i++)
+        {
+            ProgressChanged?.Invoke(
+                this,
+                new StepProgressChangedEventArgs(i, 1)
+            );
+            StepSuccessfullyCompleted?.Invoke(
+                this,
+                new StepSuccessfullyCompletedEventArgs(i)
+            );
+        }
+
+        FullySuccessfullyCompleted?.Invoke(
+            this,
+            new TaskResultEventArgs<TResult>(result)
+        );
+    }
+
     protected void InitializeEventsForFinalTask(ITask<TResult> task, int stepIndex)
     {
         InitializeCommonEvents(task, stepIndex);

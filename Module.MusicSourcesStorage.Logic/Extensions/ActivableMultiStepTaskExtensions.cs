@@ -54,12 +54,17 @@ public static class ActivableMultiStepTaskExtensions
     }
 
     public static IActivableMultiStepTask<TArgs, TResult>
-        SkipByCondition<TArgs, TResult>(
+        SkipUnderCondition<TArgs, TResult>(
             this IActivableMultiStepTask<TArgs, TResult> task,
-            Func<TArgs, bool> skipCondition
+            Func<TArgs, bool> skipCondition,
+            Func<TArgs, TResult> skipResultSelector
         )
     {
-        throw new NotImplementedException();
+        return new SkipUnderConditionMultiStepTaskWrapper<TArgs, TResult>(
+            task,
+            skipCondition,
+            skipResultSelector
+        );
     }
 
     public static IActivableMultiStepTask<TFirstArgs, TResult>
