@@ -3,7 +3,7 @@ using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
 
-public interface INodesHierarchyVMBuilder
+public interface INotConnectedNodesHierarchyVMBuilder
 {
     INodesHierarchyVM Build(IReadOnlyList<SourceFile> files);
 }

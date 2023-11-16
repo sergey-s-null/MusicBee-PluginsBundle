@@ -2,7 +2,8 @@
 
 namespace Module.MusicSourcesStorage.Gui.Factories;
 
-public delegate IDirectoryVM DirectoryVMFactory(
-    string name,
+public delegate IConnectedDirectoryVM ConnectedDirectoryVMFactory(
+    int sourceId,
+    string path,
     IReadOnlyList<INodeVM> childNodes
 );

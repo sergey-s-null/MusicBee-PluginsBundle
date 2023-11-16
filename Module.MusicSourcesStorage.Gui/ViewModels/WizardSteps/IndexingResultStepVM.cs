@@ -18,8 +18,7 @@ public sealed class IndexingResultStepVM : IIndexingResultStepVM
 
     public IndexingResultStepVM(
         IAddingVkPostWithArchiveContext context,
-        [KeyFilter(ConnectionState.NotConnected)]
-        INodesHierarchyVMBuilder nodesHierarchyVMBuilder)
+        INotConnectedNodesHierarchyVMBuilder nodesHierarchyVMBuilder)
     {
         context.ValidateHasIndexedFiles();
 

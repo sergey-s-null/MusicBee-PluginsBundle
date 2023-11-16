@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Core;
-using Autofac.Features.AttributeFilters;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
@@ -52,7 +51,6 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<MusicSourcesWindowVM>()
-            .WithAttributeFiltering()
             .As<IMusicSourcesWindowVM>();
         builder
             .RegisterType<WizardVM>()
@@ -60,6 +58,9 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<MusicSourceVM>()
             .As<IMusicSourceVM>();
+        builder
+            .RegisterType<ConnectedDirectoryVM>()
+            .As<IConnectedDirectoryVM>();
         builder
             .RegisterType<ConnectedMusicFileVM>()
             .As<IConnectedMusicFileVM>();
@@ -69,6 +70,9 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<ConnectedUnknownFileVM>()
             .As<IConnectedUnknownFileVM>();
+        builder
+            .RegisterType<DirectoryVM>()
+            .As<IDirectoryVM>();
     }
 
     private static void RegisterStepViewModels(ContainerBuilder builder)
@@ -94,8 +98,7 @@ public sealed class DIModule : Autofac.Module
             .Keyed<IWizardStepVM>(StepType.DownloadAndIndexArchive);
         builder
             .RegisterType<IndexingResultStepVM>()
-            .Keyed<IWizardStepVM>(StepType.IndexingResult)
-            .WithAttributeFiltering();
+            .Keyed<IWizardStepVM>(StepType.IndexingResult);
         builder
             .RegisterType<MusicSourceAdditionalInfoStepVM>()
             .Keyed<IWizardStepVM>(StepType.EditMusicSourceAdditionalInfo);
@@ -116,10 +119,20 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<WizardService>()
             .As<IWizardService>()
             .SingleInstance();
-        RegisterMusicSourceVMBuilder(builder, ConnectionState.Connected);
-        RegisterMusicSourceVMBuilder(builder, ConnectionState.NotConnected);
-        RegisterNodesHierarchyVMBuilder(builder, ConnectionState.Connected);
-        RegisterNodesHierarchyVMBuilder(builder, ConnectionState.NotConnected);
+        builder
+            .RegisterType<MusicSourceVMBuilder>()
+            .As<IMusicSourceVMBuilder>()
+            .SingleInstance();
+        builder
+            .RegisterType<ConnectedNodesHierarchyVMBuilder>()
+            .WithParameter(ResolvedParameter.ForKeyed<IFileVMBuilder>(ConnectionState.Connected))
+            .As<IConnectedNodesHierarchyVMBuilder>()
+            .SingleInstance();
+        builder
+            .RegisterType<NotConnectedNodesHierarchyVMBuilder>()
+            .WithParameter(ResolvedParameter.ForKeyed<IFileVMBuilder>(ConnectionState.NotConnected))
+            .As<INotConnectedNodesHierarchyVMBuilder>()
+            .SingleInstance();
         builder
             .RegisterType<ConnectedFileVMBuilder>()
             .Keyed<IFileVMBuilder>(ConnectionState.Connected)
@@ -135,36 +148,5 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<WizardStepVMFactory>()
             .As<IWizardStepVMFactory>();
-        builder
-            .Register<DirectoryVMFactory>(_ =>
-                (path, nodes) => new DirectoryVM(path, nodes)
-            )
-            .Keyed<DirectoryVMFactory>(ConnectionState.NotConnected)
-            .SingleInstance();
-        builder
-            .Register<DirectoryVMFactory>(_ =>
-                (path, nodes) => new ConnectedDirectoryVM(path, nodes)
-            )
-            .Keyed<DirectoryVMFactory>(ConnectionState.Connected)
-            .SingleInstance();
-    }
-
-    private static void RegisterMusicSourceVMBuilder(ContainerBuilder builder, ConnectionState connectionState)
-    {
-        builder
-            .RegisterType<MusicSourceVMBuilder>()
-            .WithParameter(ResolvedParameter.ForKeyed<INodesHierarchyVMBuilder>(connectionState))
-            .Keyed<IMusicSourceVMBuilder>(connectionState)
-            .SingleInstance();
-    }
-
-    private static void RegisterNodesHierarchyVMBuilder(ContainerBuilder builder, ConnectionState connectionState)
-    {
-        builder
-            .RegisterType<NodesHierarchyVMBuilder>()
-            .WithParameter(ResolvedParameter.ForKeyed<DirectoryVMFactory>(connectionState))
-            .WithParameter(ResolvedParameter.ForKeyed<IFileVMBuilder>(connectionState))
-            .Keyed<INodesHierarchyVMBuilder>(connectionState)
-            .SingleInstance();
     }
 }

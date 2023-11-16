@@ -89,8 +89,11 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     #endregion
 
-    public ConnectedDirectoryVM(string path, IReadOnlyList<INodeVM> childNodes)
-        : base(path, childNodes)
+    public ConnectedDirectoryVM(
+        int sourceId,
+        string path,
+        IReadOnlyList<INodeVM> childNodes)
+        : base(Path.GetFileName(path), childNodes)
     {
         RegisterCallbacks();
         UpdateState();

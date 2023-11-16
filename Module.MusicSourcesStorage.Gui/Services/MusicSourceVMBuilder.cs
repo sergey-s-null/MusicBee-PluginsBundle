@@ -9,11 +9,11 @@ namespace Module.MusicSourcesStorage.Gui.Services;
 public sealed class MusicSourceVMBuilder : IMusicSourceVMBuilder
 {
     private readonly ILifetimeScope _lifetimeScope;
-    private readonly INodesHierarchyVMBuilder _nodesHierarchyVMBuilder;
+    private readonly IConnectedNodesHierarchyVMBuilder _nodesHierarchyVMBuilder;
 
     public MusicSourceVMBuilder(
         ILifetimeScope lifetimeScope,
-        INodesHierarchyVMBuilder nodesHierarchyVMBuilder)
+        IConnectedNodesHierarchyVMBuilder nodesHierarchyVMBuilder)
     {
         _lifetimeScope = lifetimeScope;
         _nodesHierarchyVMBuilder = nodesHierarchyVMBuilder;
@@ -25,7 +25,10 @@ public sealed class MusicSourceVMBuilder : IMusicSourceVMBuilder
             new TypedParameter(typeof(int), musicSource.Id),
             new TypedParameter(typeof(MusicSourceAdditionalInfo), musicSource.AdditionalInfo),
             new TypedParameter(typeof(MusicSourceType), musicSource.Type),
-            new TypedParameter(typeof(INodesHierarchyVM), _nodesHierarchyVMBuilder.Build(musicSource.Files))
+            new TypedParameter(
+                typeof(INodesHierarchyVM),
+                _nodesHierarchyVMBuilder.Build(musicSource.Id, musicSource.Files)
+            )
         );
     }
 }
