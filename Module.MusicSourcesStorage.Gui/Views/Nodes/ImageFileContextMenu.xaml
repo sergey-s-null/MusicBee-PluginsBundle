@@ -38,8 +38,8 @@
                 </Setter>
 
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsCover}"
-                                 Value="False">
+                    <DataTrigger Binding="{Binding CanSelectAsCover}"
+                                 Value="True">
                         <Setter Property="IsEnabled" Value="True" />
                     </DataTrigger>
                 </Style.Triggers>
