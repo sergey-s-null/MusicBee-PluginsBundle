@@ -10,7 +10,6 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 public interface ICoverSelectionService
 {
     event EventHandler<CoverChangedEventArgs> CoverChanged;
-    // todo handle
     event EventHandler<CoverRemovedEventArgs> CoverRemoved;
 
     Task<Image?> GetCoverAsync(
