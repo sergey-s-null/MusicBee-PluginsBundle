@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using Module.Core.Helpers;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
@@ -55,6 +56,8 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
     private readonly int _sourceId;
     private readonly int _fileId;
     private readonly string _filePath;
+    private readonly Lazy<string> _parentDirectoryPath;
+    private readonly Lazy<string> _parentDirectoryUnifiedPath;
     private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
     private readonly IFilesDeletingService _filesDeletingService;
@@ -71,6 +74,12 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         _sourceId = imageFile.SourceId;
         _fileId = imageFile.Id;
         _filePath = imageFile.Path;
+        _parentDirectoryPath = new Lazy<string>(
+            () => System.IO.Path.GetDirectoryName(_filePath) ?? string.Empty
+        );
+        _parentDirectoryUnifiedPath = new Lazy<string>(() =>
+            PathHelper.UnifyDirectoryPath(_parentDirectoryPath.Value)
+        );
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
         _filesDeletingService = filesDeletingService;
@@ -96,7 +105,25 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
                 return;
             }
 
-            IsCover = args.ImageFileId == _fileId;
+            Application.Current.Dispatcher.Invoke(
+                () => IsCover = args.ImageFileId == _fileId
+            );
+        };
+        _coverSelectionService.CoverRemoved += (_, args) =>
+        {
+            if (args.SourceId != _sourceId)
+            {
+                return;
+            }
+
+            if (PathHelper.UnifyDirectoryPath(args.DirectoryPath) != _parentDirectoryUnifiedPath.Value)
+            {
+                return;
+            }
+
+            Application.Current.Dispatcher.Invoke(
+                () => IsCover = false
+            );
         };
     }
 
@@ -229,9 +256,33 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         }
     }
 
-    private void RemoveCoverCmd()
+    private async void RemoveCoverCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!IsCover)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            await _coverSelectionService.RemoveCoverAsync(
+                _sourceId,
+                _parentDirectoryPath.Value
+            );
+            IsCover = false;
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
     private async Task DeleteInternalAsync()
