@@ -14,11 +14,14 @@ public sealed class ConnectedImageFileDTVM : ImageFileDTVM, IConnectedImageFileV
     public bool IsDeleted => false;
 
     public bool IsCover => false;
+    public bool CanSelectAsCover => !IsCover;
+    public bool CanRemoveCover => IsCover;
 
     public ICommand Download => null!;
     public ICommand Delete => null!;
     public ICommand DeleteNoPrompt => null!;
     public ICommand SelectAsCover => null!;
+    public ICommand RemoveCover => null!;
 
     public ConnectedImageFileDTVM()
     {

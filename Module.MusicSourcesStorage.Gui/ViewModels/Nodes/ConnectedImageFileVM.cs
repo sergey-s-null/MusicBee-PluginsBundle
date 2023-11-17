@@ -28,17 +28,25 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
     public bool IsCover { get; private set; }
 
+    [DependsOn(nameof(IsCover), nameof(IsProcessing))]
+    public bool CanSelectAsCover => !IsCover && !IsProcessing;
+
+    [DependsOn(nameof(IsCover), nameof(IsProcessing))]
+    public bool CanRemoveCover => IsCover && !IsProcessing;
+
     #region MyRegion
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
     public ICommand DeleteNoPrompt => _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
     public ICommand SelectAsCover => _selectAsCoverCmd ??= new RelayCommand(SelectAsCoverCmd);
+    public ICommand RemoveCover => _removeCoverCmd ??= new RelayCommand(RemoveCoverCmd);
 
     private ICommand? _downloadCmd;
     private ICommand? _deleteCmd;
     private ICommand? _deleteNoPromptCmd;
     private ICommand? _selectAsCoverCmd;
+    private ICommand? _removeCoverCmd;
 
     #endregion
 
@@ -219,6 +227,11 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
             IsProcessing = false;
             _lock.Release();
         }
+    }
+
+    private void RemoveCoverCmd()
+    {
+        throw new NotImplementedException();
     }
 
     private async Task DeleteInternalAsync()
