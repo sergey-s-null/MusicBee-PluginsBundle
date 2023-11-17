@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/MarkAsListenedBaseStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/MarkAsNotListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/RemoveCoverMenuItemBaseStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
@@ -53,6 +54,19 @@
                 </Style.Triggers>
             </Style>
 
+            <Style x:Key="RemoveCoverStyle"
+                   BasedOn="{StaticResource RemoveCoverMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanRemoveCover}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
             <Style x:Key="DeleteAllStyle"
                    BasedOn="{StaticResource DeleteMenuItemBaseStyle}"
                    TargetType="MenuItem">
@@ -79,6 +93,12 @@
     <MenuItem Header="Mark all as not listened"
               Style="{StaticResource MarkAllAsNotListenedStyle}"
               Command="{Binding MarkAsNotListened}" />
+
+    <Separator />
+
+    <MenuItem Header="Remove cover"
+              Style="{StaticResource RemoveCoverStyle}"
+              Command="{Binding RemoveCover}" />
 
     <Separator />
 
