@@ -1,5 +1,5 @@
 ﻿namespace Module.MusicSourcesStorage.Logic.Entities.Args;
 
-public abstract record CoverSelectionArgs(
+public sealed record CoverSelectionArgs(
     bool SkipImageDownloadingIfDownloaded
 );

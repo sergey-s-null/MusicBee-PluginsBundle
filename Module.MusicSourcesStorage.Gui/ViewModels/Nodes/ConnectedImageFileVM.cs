@@ -44,36 +44,42 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
     private readonly SemaphoreSlim _lock = new(1);
 
-    private readonly ImageFile _imageFile;
+    private readonly int _fileId;
+    private readonly string _filePath;
     private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
     private readonly IFilesDeletingService _filesDeletingService;
+    private readonly ICoverSelectionService _coverSelectionService;
 
     public ConnectedImageFileVM(
         ImageFile imageFile,
         IFilesLocatingService filesLocatingService,
         IFilesDownloadingService filesDownloadingService,
-        IFilesDeletingService filesDeletingService)
+        IFilesDeletingService filesDeletingService,
+        ICoverSelectionService coverSelectionService)
         : base(imageFile.Path)
     {
-        _imageFile = imageFile;
+        _fileId = imageFile.Id;
+        _filePath = imageFile.Path;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
         _filesDeletingService = filesDeletingService;
+        _coverSelectionService = coverSelectionService;
 
-        // todo init
-        IsCover = false;
+        IsCover = imageFile.IsCover;
 
-        Initialize();
+        // todo handle cover change event
+        
+        InitializeDownloadedState();
     }
 
-    private async void Initialize()
+    private async void InitializeDownloadedState()
     {
         await _lock.WaitAsync();
         IsProcessing = true;
         try
         {
-            var filePath = await _filesLocatingService.LocateFileAsync(_imageFile.Id);
+            var filePath = await _filesLocatingService.LocateFileAsync(_fileId);
             IsDownloaded = filePath is not null;
         }
         finally
@@ -82,6 +88,8 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
             _lock.Release();
         }
     }
+
+    #region Commands Implementation
 
     private async void DownloadCmd()
     {
@@ -99,7 +107,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
             IsProcessing = true;
 
-            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_imageFile.Id);
+            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_fileId);
             await task.Activated(new FileDownloadArgs(true)).Task;
 
             IsDownloaded = true;
@@ -127,7 +135,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
             IsProcessing = true;
 
-            if (MessageBoxHelper.AskForDeletion(_imageFile) != MessageBoxResult.Yes)
+            if (MessageBoxHelper.AskForDeletion(_fileId, _filePath) != MessageBoxResult.Yes)
             {
                 return;
             }
@@ -166,14 +174,39 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         }
     }
 
-    private void SelectAsCoverCmd()
+    private async void SelectAsCoverCmd()
     {
-        throw new NotImplementedException();
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (IsCover)
+            {
+                return;
+            }
+
+            IsProcessing = true;
+
+            var task = await _coverSelectionService.CreateCoverSelectionTaskAsync(_fileId);
+            await task.Activated(new CoverSelectionArgs(true)).Task;
+
+            IsCover = true;
+        }
+        finally
+        {
+            IsProcessing = false;
+            _lock.Release();
+        }
     }
 
     private async Task DeleteInternalAsync()
     {
-        await _filesDeletingService.DeleteAsync(_imageFile.Id);
+        await _filesDeletingService.DeleteAsync(_fileId);
         IsDownloaded = false;
     }
+
+    #endregion
 }

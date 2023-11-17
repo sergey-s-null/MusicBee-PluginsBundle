@@ -7,10 +7,15 @@ public static class MessageBoxHelper
 {
     public static MessageBoxResult AskForDeletion(SourceFile file)
     {
+        return AskForDeletion(file.Id, file.Path);
+    }
+
+    public static MessageBoxResult AskForDeletion(int fileId, string filePath)
+    {
         return MessageBox.Show(
             "Delete file?\n" +
-            $"\tId: {file.Id}\n" +
-            $"\tSource path: {file.Path}",
+            $"\tId: {fileId}\n" +
+            $"\tSource path: {filePath}",
             "?",
             MessageBoxButton.YesNo,
             MessageBoxImage.Question

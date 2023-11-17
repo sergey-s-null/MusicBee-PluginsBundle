@@ -18,6 +18,11 @@ public interface ICoverSelectionService
     );
 
     Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateCoverSelectionTaskAsync(
+        int imageFileId,
+        CancellationToken token = default
+    );
+
+    Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateCoverSelectionTaskAsync(
         ImageFile imageFile,
         CancellationToken token = default
     );

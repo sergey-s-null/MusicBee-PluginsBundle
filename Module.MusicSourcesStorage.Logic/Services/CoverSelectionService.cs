@@ -38,6 +38,22 @@ public sealed class CoverSelectionService : ICoverSelectionService
     }
 
     public async Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateCoverSelectionTaskAsync(
+        int imageFileId,
+        CancellationToken token)
+    {
+        var file = await _musicSourcesStorageService.GetSourceFileAsync(imageFileId, token);
+        if (file is not ImageFile imageFile)
+        {
+            throw new InvalidOperationException(
+                $"File with id {imageFileId} is not image file. " +
+                $"Actual type: {file.GetType()}."
+            );
+        }
+
+        return await CreateCoverSelectionTaskAsync(imageFile, token);
+    }
+
+    public async Task<IActivableMultiStepTask<CoverSelectionArgs, Void>> CreateCoverSelectionTaskAsync(
         ImageFile imageFile,
         CancellationToken token)
     {
