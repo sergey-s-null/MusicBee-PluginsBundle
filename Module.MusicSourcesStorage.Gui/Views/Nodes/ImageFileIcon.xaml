@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Module.MusicSourcesStorage.Gui.Views.Nodes.ImageFileIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
+             xmlns:avm="clr-namespace:Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Nodes/NodeIconStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:IsInstanceOfConverter x:Key="IsInstanceOfConverter" />
+
+            <Style x:Key="IconStyle"
+                   TargetType="iconPacks:PackIconUnicons"
+                   BasedOn="{StaticResource NodeIconStyle}">
+                <Setter Property="Kind" Value="ImageV" />
+                <Setter Property="Background" Value="Transparent" />
+
+                <Style.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition
+                                Binding="{
+                                    Binding .,
+                                    Converter={StaticResource IsInstanceOfConverter},
+                                    ConverterParameter={x:Type avm:IConnectedImageFileVM}
+                                }"
+                                Value="True" />
+                            <Condition
+                                Binding="{Binding Path=.(avm:IConnectedImageFileVM.IsCover)}"
+                                Value="True" />
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter Property="Kind" Value="ImageCheck" />
+                        <Setter Property="Foreground" Value="#1A4C87" />
+                        <Setter Property="ToolTip" Value="Selected as cover" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <iconPacks:PackIconUnicons
+        Style="{StaticResource IconStyle}" />
+</UserControl>

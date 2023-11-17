@@ -5,7 +5,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:nodes="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Nodes"
     mc:Ignorable="d"
     d:DesignWidth="300"
@@ -14,7 +13,6 @@
     <nodes:HierarchyNodeBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles/Nodes/NodeIconStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/NodeIconContainerStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/NodeContainerStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/NodeTextStyle.xaml" />
@@ -31,8 +29,7 @@
 
         <Grid Grid.Column="0"
               Style="{StaticResource NodeIconContainerStyle}">
-            <iconPacks:PackIconUnicons Kind="ImageV"
-                                       Style="{StaticResource NodeIconStyle}" />
+            <nodes:ImageFileIcon />
         </Grid>
 
         <Grid Grid.Column="1">
