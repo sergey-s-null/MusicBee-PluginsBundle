@@ -16,10 +16,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 {
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IProcessableVM"/>.<see cref="IProcessableVM.IsProcessing"/>
-    /// </summary>
-    public bool IsProcessing { get; private set; }
+    [DependsOn(nameof(IsProcessingInternal), nameof(IsChildNodesProcessing))]
+    public bool IsProcessing => IsProcessingInternal || IsChildNodesProcessing;
 
     /// <summary>
     /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.CanDownload"/>
@@ -64,6 +62,9 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     /// </summary>
     public bool IsAllNotListened { get; private set; }
 
+    [DependsOn(nameof(Cover), nameof(IsProcessing))]
+    public bool CanRemoveCover => Cover is not null && !IsProcessing;
+
     /// <summary>
     /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
     /// <list type="number">
@@ -76,6 +77,13 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     public BitmapSource? Cover { get; private set; }
 
+    private bool IsProcessingInternal { get; set; }
+
+    /// <summary>
+    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IProcessableVM"/>.<see cref="IProcessableVM.IsProcessing"/>
+    /// </summary>
+    private bool IsChildNodesProcessing { get; set; }
+
     #region Commands
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
@@ -83,14 +91,18 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     public ICommand DeleteNoPrompt => _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
     public ICommand MarkAsListened => _markAsListenedCmd ??= new RelayCommand(MarkAsListenedCmd);
     public ICommand MarkAsNotListened => _markAsNotListenedCmd ??= new RelayCommand(MarkAsNotListenedCmd);
+    public ICommand RemoveCover => _removeCoverCmd ??= new RelayCommand(RemoveCoverCmd);
 
     private ICommand? _downloadCmd;
     private ICommand? _deleteCmd;
     private ICommand? _deleteNoPromptCmd;
     private ICommand? _markAsListenedCmd;
     private ICommand? _markAsNotListenedCmd;
+    private ICommand? _removeCoverCmd;
 
     #endregion
+
+    private readonly SemaphoreSlim _lock = new(1);
 
     private readonly int _sourceId;
     private readonly string _path;
@@ -189,6 +201,32 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         }
     }
 
+    private async void RemoveCoverCmd()
+    {
+        if (!await _lock.WaitAsync(TimeSpan.Zero))
+        {
+            return;
+        }
+
+        try
+        {
+            if (!CanRemoveCover)
+            {
+                return;
+            }
+
+            IsProcessingInternal = true;
+
+            await _coverSelectionService.RemoveCoverAsync(_sourceId, _path);
+            Cover = null;
+        }
+        finally
+        {
+            IsProcessingInternal = false;
+            _lock.Release();
+        }
+    }
+
     #endregion
 
     private async void InitializeAsync()
@@ -264,7 +302,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             ViewModelHelper.RegisterPropertyChangedCallback(
                 processable,
                 x => x.IsProcessing,
-                (_, _) => IsProcessing = CalculateIsProcessing()
+                (_, _) => IsChildNodesProcessing = CalculateIsProcessing()
             );
         }
 
@@ -381,7 +419,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private void UpdateState()
     {
-        IsProcessing = CalculateIsProcessing();
+        IsChildNodesProcessing = CalculateIsProcessing();
         CanDownload = CalculateCanDownload();
         IsDownloaded = CalculateIsDownloaded();
         CanDelete = CalculateCanDelete();

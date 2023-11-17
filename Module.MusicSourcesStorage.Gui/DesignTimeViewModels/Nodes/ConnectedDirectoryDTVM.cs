@@ -25,9 +25,13 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
     public bool IsAllListened => false;
     public bool IsAllNotListened => true;
 
+    public bool CanRemoveCover => Cover is not null;
+
     public bool HasDownloadedAndNotAttachedToLibraryFiles { get; }
 
     public BitmapSource? Cover { get; }
+
+    public ICommand RemoveCover => null!;
 
     public ICommand Download => null!;
     public ICommand Delete => null!;
