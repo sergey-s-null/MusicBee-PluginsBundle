@@ -44,6 +44,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
     private readonly SemaphoreSlim _lock = new(1);
 
+    private readonly int _sourceId;
     private readonly int _fileId;
     private readonly string _filePath;
     private readonly IFilesLocatingService _filesLocatingService;
@@ -59,6 +60,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         ICoverSelectionService coverSelectionService)
         : base(imageFile.Path)
     {
+        _sourceId = imageFile.SourceId;
         _fileId = imageFile.Id;
         _filePath = imageFile.Path;
         _filesLocatingService = filesLocatingService;
@@ -68,12 +70,29 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
         IsCover = imageFile.IsCover;
 
-        // todo handle cover change event
-        
-        InitializeDownloadedState();
+        Initialize();
     }
 
-    private async void InitializeDownloadedState()
+    private async void Initialize()
+    {
+        InitializeCoverChangedHandler();
+        await InitializeDownloadedState();
+    }
+
+    private void InitializeCoverChangedHandler()
+    {
+        _coverSelectionService.CoverChanged += (_, args) =>
+        {
+            if (args.SourceId != _sourceId)
+            {
+                return;
+            }
+
+            IsCover = args.ImageFileId == _fileId;
+        };
+    }
+
+    private async Task InitializeDownloadedState()
     {
         await _lock.WaitAsync();
         IsProcessing = true;
