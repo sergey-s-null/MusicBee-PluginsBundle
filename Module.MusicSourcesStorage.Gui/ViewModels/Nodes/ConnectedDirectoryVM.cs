@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using Module.Core.Helpers;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Enums;
@@ -93,6 +94,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private readonly int _sourceId;
     private readonly string _path;
+    private readonly Lazy<string> _unifiedPath;
     private readonly ICoverSelectionService _coverSelectionService;
 
     public ConnectedDirectoryVM(
@@ -104,6 +106,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     {
         _sourceId = sourceId;
         _path = path;
+        _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(_path));
         _coverSelectionService = coverSelectionService;
 
         InitializeAsync();
@@ -190,9 +193,33 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private async void InitializeAsync()
     {
+        InitializeCoverChangedHandler();
         RegisterChildNodesCallbacks();
         UpdateState();
         await InitializeCoverAsync();
+    }
+
+    private void InitializeCoverChangedHandler()
+    {
+        _coverSelectionService.CoverChanged += (_, args) =>
+        {
+            if (args.SourceId != _sourceId)
+            {
+                return;
+            }
+
+            var coverChangedDirectoryUnifiedPath = PathHelper.UnifyDirectoryPath(
+                Path.GetDirectoryName(args.ImageFileRelativePath) ?? string.Empty
+            );
+            if (_unifiedPath.Value != coverChangedDirectoryUnifiedPath)
+            {
+                return;
+            }
+
+            Application.Current.Dispatcher.Invoke(
+                () => Cover = ImageHelper.CreateBitmapSource(args.ImageData)
+            );
+        };
     }
 
     private async Task InitializeCoverAsync()
