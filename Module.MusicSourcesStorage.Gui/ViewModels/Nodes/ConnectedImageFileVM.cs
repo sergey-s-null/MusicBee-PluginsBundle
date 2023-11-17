@@ -70,13 +70,13 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
         IsCover = imageFile.IsCover;
 
-        Initialize();
+        InitializeAsync();
     }
 
-    private async void Initialize()
+    private async void InitializeAsync()
     {
         InitializeCoverChangedHandler();
-        await InitializeDownloadedState();
+        await InitializeDownloadedStateAsync();
     }
 
     private void InitializeCoverChangedHandler()
@@ -92,7 +92,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         };
     }
 
-    private async Task InitializeDownloadedState()
+    private async Task InitializeDownloadedStateAsync()
     {
         await _lock.WaitAsync();
         IsProcessing = true;
