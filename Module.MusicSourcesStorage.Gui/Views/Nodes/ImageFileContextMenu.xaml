@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/RemoveCoverMenuItemBaseStyle.xaml" />
                 <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
@@ -45,6 +46,19 @@
                 </Style.Triggers>
             </Style>
 
+            <Style x:Key="RemoveCoverStyle"
+                   TargetType="MenuItem"
+                   BasedOn="{StaticResource RemoveCoverMenuItemBaseStyle}">
+                <Setter Property="IsEnabled" Value="False" />
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanRemoveCover}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
             <Style x:Key="DeleteStyle"
                    BasedOn="{StaticResource DeleteMenuItemBaseStyle}"
                    TargetType="MenuItem">
@@ -69,6 +83,9 @@
     <MenuItem Header="Select as cover"
               Style="{StaticResource SelectAsCoverStyle}"
               Command="{Binding SelectAsCover}" />
+    <MenuItem Header="Remove cover"
+              Style="{StaticResource RemoveCoverStyle}"
+              Command="{Binding RemoveCover}" />
 
     <Separator />
 
