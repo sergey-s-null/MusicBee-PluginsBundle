@@ -92,11 +92,11 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
     private async void InitializeAsync()
     {
-        InitializeCoverChangedHandler();
+        InitializeCoverSelectionEventsHandlers();
         await InitializeDownloadedStateAsync();
     }
 
-    private void InitializeCoverChangedHandler()
+    private void InitializeCoverSelectionEventsHandlers()
     {
         _coverSelectionService.CoverChanged += (_, args) =>
         {
