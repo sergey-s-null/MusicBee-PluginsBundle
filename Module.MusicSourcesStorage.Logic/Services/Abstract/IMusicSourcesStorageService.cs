@@ -38,4 +38,6 @@ public interface IMusicSourcesStorageService
     Task SelectAsCoverAsync(int imageFileId, byte[] imageData, CancellationToken token = default);
 
     Task<byte[]?> FindCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token = default);
+
+    Task RemoveCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token = default);
 }

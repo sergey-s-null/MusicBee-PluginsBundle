@@ -110,6 +110,23 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return cover?.Data;
     }
 
+    public async Task RemoveCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token)
+    {
+        var files = await _musicSourcesStorage.ListSourceFilesBySourceIdAsync(sourceId, false, token);
+
+        var directoryUnifiedPath = PathHelper.UnifyDirectoryPath(directoryRelativePath);
+        var coversToRemove = files
+            .OfType<ImageFileModel>()
+            .Where(x => x.IsCover)
+            .Where(x => IsFileInDirectory(x, directoryUnifiedPath))
+            .ToList();
+
+        foreach (var cover in coversToRemove)
+        {
+            await _musicSourcesStorage.RemoveCoverAsync(cover.Id, token);
+        }
+    }
+
     private static bool IsFileInDirectory(FileModel file, string directoryUnifiedPath)
     {
         var fileDirectory = Path.GetDirectoryName(file.Path) ?? string.Empty;

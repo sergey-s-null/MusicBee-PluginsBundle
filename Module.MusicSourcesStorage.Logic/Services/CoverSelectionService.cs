@@ -14,6 +14,7 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 public sealed class CoverSelectionService : ICoverSelectionService
 {
     public event EventHandler<CoverChangedEventArgs>? CoverChanged;
+    public event EventHandler<CoverRemovedEventArgs>? CoverRemoved;
 
     private readonly IFilesDownloadingService _filesDownloadingService;
     private readonly IImageService _imageService;
@@ -71,6 +72,12 @@ public sealed class CoverSelectionService : ICoverSelectionService
             .Chain(loadingAndResizingTask)
             .Chain(selectAsCoverInStorageTask)
             .Chain(dispatchEventTask);
+    }
+
+    public async Task RemoveCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token)
+    {
+        await _musicSourcesStorageService.RemoveCoverAsync(sourceId, directoryRelativePath, token);
+        CoverRemoved?.Invoke(this, new CoverRemovedEventArgs(sourceId, directoryRelativePath));
     }
 
     private Image LoadAndResizeImage(string imageFilePath, CancellationToken token)
