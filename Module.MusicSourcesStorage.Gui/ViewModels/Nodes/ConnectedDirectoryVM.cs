@@ -193,13 +193,13 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private async void InitializeAsync()
     {
-        InitializeCoverChangedHandler();
+        InitializeCoverSelectionEventHandlers();
         RegisterChildNodesCallbacks();
         UpdateState();
         await InitializeCoverAsync();
     }
 
-    private void InitializeCoverChangedHandler()
+    private void InitializeCoverSelectionEventHandlers()
     {
         _coverSelectionService.CoverChanged += (_, args) =>
         {
@@ -218,6 +218,18 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
             Application.Current.Dispatcher.Invoke(
                 () => Cover = BitmapSourceHelper.Create(args.ImageData)
+            );
+        };
+        _coverSelectionService.CoverRemoved += (_, args) =>
+        {
+            if (args.SourceId != _sourceId
+                || PathHelper.UnifyDirectoryPath(args.DirectoryPath) != _unifiedPath.Value)
+            {
+                return;
+            }
+
+            Application.Current.Dispatcher.Invoke(
+                () => Cover = null
             );
         };
     }
