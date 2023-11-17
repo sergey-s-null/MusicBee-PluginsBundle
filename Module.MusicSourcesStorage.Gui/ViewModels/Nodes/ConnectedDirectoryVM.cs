@@ -217,7 +217,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             }
 
             Application.Current.Dispatcher.Invoke(
-                () => Cover = ImageHelper.CreateBitmapSource(args.ImageData)
+                () => Cover = BitmapSourceHelper.Create(args.ImageData)
             );
         };
     }
@@ -227,7 +227,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         var cover = await _coverSelectionService.GetCoverAsync(_sourceId, _path);
         if (cover is not null)
         {
-            Cover = ImageHelper.CreateBitmapSource(cover);
+            Cover = BitmapSourceHelper.Create(cover);
         }
     }
 

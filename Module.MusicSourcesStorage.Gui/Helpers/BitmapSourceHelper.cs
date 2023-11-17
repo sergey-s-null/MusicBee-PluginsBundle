@@ -5,16 +5,16 @@ using System.Windows.Media.Imaging;
 
 namespace Module.MusicSourcesStorage.Gui.Helpers;
 
-public static class ImageHelper
+public static class BitmapSourceHelper
 {
-    public static BitmapSource CreateBitmapSource(byte[] binaryImage)
+    public static BitmapSource Create(byte[] binaryImage)
     {
         using var stream = new MemoryStream(binaryImage);
 
         return CreateFromStream(stream);
     }
 
-    public static BitmapSource CreateBitmapSource(Image image)
+    public static BitmapSource Create(Image image)
     {
         using var stream = new MemoryStream();
         image.Save(stream, ImageFormat.Png);
