@@ -133,8 +133,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         IsProcessing = true;
         try
         {
-            var filePath = await _filesLocatingService.LocateFileAsync(_fileId);
-            IsDownloaded = filePath is not null;
+            await UpdateDownloadedStateNotLockedAsync();
         }
         finally
         {
@@ -248,6 +247,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
             await task.Activated(new CoverSelectionArgs(true)).Task;
 
             IsCover = true;
+            await UpdateDownloadedStateNotLockedAsync();
         }
         finally
         {
@@ -292,4 +292,10 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
     }
 
     #endregion
+
+    private async Task UpdateDownloadedStateNotLockedAsync()
+    {
+        var filePath = await _filesLocatingService.LocateFileAsync(_fileId);
+        IsDownloaded = filePath is not null;
+    }
 }
