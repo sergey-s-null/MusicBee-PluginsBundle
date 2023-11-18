@@ -5,7 +5,7 @@ namespace Module.Core.GUI.Converters;
 
 public sealed class IsInstanceOfConverter : IValueConverter
 {
-    public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (parameter is not Type baseType)
         {
@@ -15,7 +15,7 @@ public sealed class IsInstanceOfConverter : IValueConverter
         return baseType.IsInstanceOfType(value);
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();
     }
