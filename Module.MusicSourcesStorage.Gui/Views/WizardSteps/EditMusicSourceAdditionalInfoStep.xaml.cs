@@ -2,9 +2,9 @@
 
 namespace Module.MusicSourcesStorage.Gui.Views.WizardSteps;
 
-public partial class MusicSourceAdditionalInfoStep : UserControl
+public partial class EditMusicSourceAdditionalInfoStep : UserControl
 {
-    public MusicSourceAdditionalInfoStep()
+    public EditMusicSourceAdditionalInfoStep()
     {
         InitializeComponent();
     }

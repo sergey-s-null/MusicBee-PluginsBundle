@@ -17,7 +17,7 @@ public sealed class WizardStepsViewMapper : ViewMapperBase
             [typeof(IErrorStepVM)] = () => new ErrorStep(),
             [typeof(ISelectDocumentFromVkPostStepVM)] = () => new SelectDocumentFromVkPostStep(),
             [typeof(IIndexingResultStepVM)] = () => new IndexingResultStep(),
-            [typeof(IEditMusicSourceAdditionalInfoStepVM)] = () => new MusicSourceAdditionalInfoStep(),
+            [typeof(IEditMusicSourceAdditionalInfoStepVM)] = () => new EditMusicSourceAdditionalInfoStep(),
             [typeof(ISuccessResultStepVM)] = () => new SuccessResultStep(),
         }
     };
