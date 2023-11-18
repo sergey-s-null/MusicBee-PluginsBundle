@@ -1,6 +1,9 @@
-﻿using Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Delegates;
+using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Exceptions;
+using Module.MusicSourcesStorage.Logic.Factories;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using SharpCompress.Archives.Zip;
 
@@ -17,12 +20,37 @@ public sealed class ArchiveIndexer : IArchiveIndexer
 
     public IReadOnlyList<SourceFile> Index(string filePath)
     {
+        return Index(filePath, null, default);
+    }
+
+    public IActivableTask<string, IReadOnlyList<SourceFile>> CreateIndexingTask()
+    {
+        return ActivableTaskFactory.Create<string, IReadOnlyList<SourceFile>>(Index);
+    }
+
+    private IReadOnlyList<SourceFile> Index(
+        string filePath,
+        RelativeProgressCallback? progressCallback,
+        CancellationToken token)
+    {
         using var archive = OpenArchive(filePath);
 
-        return archive.Entries
+        token.ThrowIfCancellationRequested();
+
+        var files = archive.Entries
             .Where(x => !x.IsDirectory)
-            .Select(CreateModel)
             .ToList();
+
+        var result = new List<SourceFile>(files.Count);
+        progressCallback?.Invoke(0);
+        for (var i = 0; i < files.Count; i++)
+        {
+            result.Add(CreateModel(files[i]));
+            progressCallback?.Invoke((double)i / files.Count);
+            token.ThrowIfCancellationRequested();
+        }
+
+        return result;
     }
 
     private SourceFile CreateModel(ZipArchiveEntry zipArchiveEntry)
