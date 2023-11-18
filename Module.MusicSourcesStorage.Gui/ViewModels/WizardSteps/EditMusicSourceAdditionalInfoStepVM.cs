@@ -60,16 +60,18 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
 
     private void OnTargetFilesDirectoryChanged()
     {
-        if (TargetFilesDirectory.Trim().Length == 0)
+        var trimmedDirectory = TargetFilesDirectory.Trim();
+
+        if (trimmedDirectory.Length == 0)
         {
             TargetFilesDirectoryError = "Path is empty";
         }
-        else if (PathHelper.HasInvalidChars(TargetFilesDirectory))
+        else if (PathHelper.HasInvalidChars(trimmedDirectory))
         {
             TargetFilesDirectoryError =
                 "Path has invalid chars. Common invalid chars: \", <, >, |, :, *, ?, \\, /";
         }
-        else if (Path.IsPathRooted(TargetFilesDirectory))
+        else if (Path.IsPathRooted(trimmedDirectory))
         {
             TargetFilesDirectoryError = "Path is rooted";
         }
