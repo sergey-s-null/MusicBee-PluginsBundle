@@ -1,4 +1,6 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+﻿using System.IO;
+using Module.Core.Helpers;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Logic.Entities;
@@ -12,7 +14,15 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
     [OnChangedMethod(nameof(OnNameChanged))]
     public string Name { get; set; } = string.Empty;
 
-    public bool IsValidState { get; private set; }
+    public string? NameError { get; private set; }
+
+    [OnChangedMethod(nameof(OnTargetFilesDirectoryChanged))]
+    public string TargetFilesDirectory { get; set; } = string.Empty;
+
+    public string? TargetFilesDirectoryError { get; private set; }
+
+    [DependsOn(nameof(NameError), nameof(TargetFilesDirectoryError))]
+    public bool IsValidState => NameError is null && TargetFilesDirectoryError is null;
 
     private readonly IMusicSourceAdditionalInfoContext _context;
 
@@ -30,6 +40,7 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
             throw new InvalidOperationException();
         }
 
+        // todo use target files directory
         _context.AdditionalInfo = new MusicSourceAdditionalInfo(Name);
 
         return StepResult.Success;
@@ -37,14 +48,36 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
 
     private void RestoreState()
     {
-        if (_context.AdditionalInfo is not null)
-        {
-            Name = _context.AdditionalInfo.Name;
-        }
+        Name = _context.AdditionalInfo?.Name ?? string.Empty;
+        // todo get from additional info
+        TargetFilesDirectory = string.Empty;
     }
 
     private void OnNameChanged()
     {
-        IsValidState = Name.Trim().Length != 0;
+        NameError = Name.Trim().Length == 0
+            ? "Name is empty"
+            : null;
+    }
+
+    private void OnTargetFilesDirectoryChanged()
+    {
+        if (TargetFilesDirectory.Trim().Length == 0)
+        {
+            TargetFilesDirectoryError = "Path is empty";
+        }
+        else if (PathHelper.HasInvalidChars(TargetFilesDirectory))
+        {
+            TargetFilesDirectoryError =
+                $"Path has invalid chars. Invalid chars: {string.Join(", ", Path.GetInvalidPathChars())}";
+        }
+        else if (Path.IsPathRooted(TargetFilesDirectory))
+        {
+            TargetFilesDirectoryError = "Path is rooted";
+        }
+        else
+        {
+            TargetFilesDirectoryError = null;
+        }
     }
 }
