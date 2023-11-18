@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
@@ -12,6 +13,7 @@ public abstract class ProcessingStepBaseVM : IProcessingStepVM
     public event EventHandler<StepResultEventArgs>? ProcessingCompleted;
 
     public abstract string Text { get; protected set; }
+    public abstract IProgressVM? Progress { get; protected set; }
 
     public ICommand Cancel => _cancelCmd ??= new RelayCommand(CancelCmd);
 

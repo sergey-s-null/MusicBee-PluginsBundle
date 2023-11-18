@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
@@ -7,6 +8,7 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 public sealed class ReceiveMusicSourceAdditionalInfoStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
+    public override IProgressVM? Progress { get; protected set; }
 
     private readonly IMusicSourceContext _musicSourceContext;
     private readonly IWizardErrorContext _errorContext;

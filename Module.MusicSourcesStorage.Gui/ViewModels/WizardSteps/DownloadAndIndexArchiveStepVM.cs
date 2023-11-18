@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
 using Module.MusicSourcesStorage.Logic.Extensions;
@@ -11,6 +12,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
+    // todo use it
+    public override IProgressVM? Progress { get; protected set; }
 
     private readonly IAddingVkPostWithArchiveContext _context;
     private readonly IVkDocumentDownloadingTaskManager _vkDocumentDownloadingTaskManager;

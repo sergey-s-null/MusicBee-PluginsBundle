@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Gui.Entities.Abstract;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -10,6 +11,7 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 public sealed class ReceiveVkPostDocumentsStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
+    public override IProgressVM? Progress { get; protected set; }
 
     private readonly long _postOwnerId;
     private readonly long _postId;
