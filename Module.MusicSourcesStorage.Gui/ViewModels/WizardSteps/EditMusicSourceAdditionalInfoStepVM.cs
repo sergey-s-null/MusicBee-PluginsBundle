@@ -40,7 +40,7 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
             throw new InvalidOperationException();
         }
 
-        _context.AdditionalInfo = new MusicSourceAdditionalInfo(Name, TargetFilesDirectory);
+        _context.AdditionalInfo = new MusicSourceAdditionalInfo(Name, TargetFilesDirectory.Trim());
 
         return StepResult.Success;
     }
@@ -67,7 +67,7 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
         else if (PathHelper.HasInvalidChars(TargetFilesDirectory))
         {
             TargetFilesDirectoryError =
-                $"Path has invalid chars. Invalid chars: {string.Join(", ", Path.GetInvalidPathChars())}";
+                "Path has invalid chars. Common invalid chars: \", <, >, |, :, *, ?, \\, /";
         }
         else if (Path.IsPathRooted(TargetFilesDirectory))
         {
