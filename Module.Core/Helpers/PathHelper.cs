@@ -66,14 +66,14 @@ public static class PathHelper
 
     public static bool HasInvalidChars(string path)
     {
-        var invalidPathChars = Path.GetInvalidPathChars();
+        var invalidPathChars = Path.GetInvalidFileNameChars();
         return path.Any(x => invalidPathChars.Contains(x));
     }
 
     // todo replace Characters -> Chars
     public static string ReplaceInvalidCharacters(string path, string replaceWith)
     {
-        return string.Join(replaceWith, path.Split(Path.GetInvalidPathChars()));
+        return string.Join(replaceWith, path.Split(Path.GetInvalidFileNameChars()));
     }
 
     private static string UnifyPath(string path, bool isDirectory)
