@@ -51,6 +51,6 @@ public sealed class VkDocumentDownloader : IVkDocumentDownloader
         token.Register(webClient.CancelAsync);
         webClient.DownloadProgressChanged += (_, args) => progressCallback(args.ProgressPercentage / 100.0);
 
-        webClient.DownloadFile(sourceUri, targetFilePath);
+        webClient.DownloadFileTaskAsync(new Uri(sourceUri), targetFilePath).Wait(token);
     }
 }
