@@ -81,6 +81,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -96,6 +97,11 @@
                      Text="{Binding TargetFilesDirectory, UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBlock Grid.Row="1" Grid.Column="1"
+                       Text="Use '.' for saving in root directory"
+                       FontSize="9"
+                       Foreground="DimGray" />
+
+            <TextBlock Grid.Row="2" Grid.Column="1"
                        Text="{Binding TargetFilesDirectoryError}"
                        Style="{StaticResource ErrorTextStyle}" />
         </Grid>
