@@ -3,29 +3,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+             xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
              mc:Ignorable="d"
-             d:DesignWidth="300">
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance dtvm:ProgressDTVM}">
+
+    <UserControl.Resources>
+        <converters:EqualityToBoolConverter
+            x:Key="NotEqualsToTrueConverter"
+            ValueOnEqual="False" />
+        <sys:Int32 x:Key="One">1</sys:Int32>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <ProgressBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                      Height="6"
-                     Value="50" />
+                     Minimum="0"
+                     Maximum="100"
+                     Value="{Binding Percentage, Mode=OneWay}" />
 
-        <TextBlock Grid.Row="1" Grid.Column="0"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   Text="Step 1/2" />
+        <ContentControl Grid.Row="1" Grid.Column="0">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{
+                                Binding StepCount, 
+                                Converter={StaticResource NotEqualsToTrueConverter}, 
+                                ConverterParameter={StaticResource One}
+                            }"
+                            Value="True">
+
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <TextBlock
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center">
+
+                                        <TextBlock xml:space="preserve">Step </TextBlock>
+                                        <TextBlock Text="{Binding StepNumber}" />
+                                        <TextBlock>/</TextBlock>
+                                        <TextBlock Text="{Binding StepCount}" />
+                                    </TextBlock>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+
         <TextBlock Grid.Row="1" Grid.Column="1"
                    HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="100%" />
+                   VerticalAlignment="Center">
+            <TextBlock.Inlines>
+                <TextBlock Text="{Binding Percentage}" />
+                <TextBlock>%</TextBlock>
+            </TextBlock.Inlines>
+        </TextBlock>
     </Grid>
 </UserControl>
