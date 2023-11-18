@@ -86,7 +86,7 @@ public sealed class CoverSelectionService : ICoverSelectionService
             .Run(
                 () =>
                 {
-                    var image = Image.FromFile(imageFilePath);
+                    var image = ImageHelper.FromFileSafely(imageFilePath);
                     return _imageService.ResizeForStorage(image);
                 },
                 token

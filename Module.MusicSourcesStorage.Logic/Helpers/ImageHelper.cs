@@ -17,6 +17,14 @@ public static class ImageHelper
         return memoryStream.ToArray();
     }
 
+    /// <summary>
+    /// "Safely" means that it does not store file descriptor - just read bytes from file and use it.
+    /// </summary>
+    public static Image FromFileSafely(string filePath)
+    {
+        return FromBytes(File.ReadAllBytes(filePath));
+    }
+
     public static Image FromBytes(byte[] bytes)
     {
         using var stream = new MemoryStream(bytes);
