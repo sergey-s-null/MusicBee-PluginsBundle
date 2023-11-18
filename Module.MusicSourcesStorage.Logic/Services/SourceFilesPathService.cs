@@ -18,7 +18,7 @@ public sealed class SourceFilesPathService : ISourceFilesPathService
     {
         return Path.Combine(
             _configuration.SourceFilesDownloadingDirectory,
-            PathHelper.ReplaceInvalidCharacters(sourceAdditionalInfo.TargetFilesDirectory, "_"),
+            PathHelper.ReplaceInvalidChars(sourceAdditionalInfo.TargetFilesDirectory, "_"),
             file.Path
         );
     }

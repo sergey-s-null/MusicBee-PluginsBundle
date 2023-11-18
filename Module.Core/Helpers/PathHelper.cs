@@ -70,8 +70,7 @@ public static class PathHelper
         return path.Any(x => invalidPathChars.Contains(x));
     }
 
-    // todo replace Characters -> Chars
-    public static string ReplaceInvalidCharacters(string path, string replaceWith)
+    public static string ReplaceInvalidChars(string path, string replaceWith)
     {
         return string.Join(replaceWith, path.Split(Path.GetInvalidFileNameChars()));
     }

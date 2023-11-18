@@ -37,7 +37,7 @@ public sealed class VkDocumentDownloader : IVkDocumentDownloader
 
     private string GetTargetFilePath(VkDocument document)
     {
-        var fileName = PathHelper.ReplaceInvalidCharacters(document.Name, "_");
+        var fileName = PathHelper.ReplaceInvalidChars(document.Name, "_");
         return Path.Combine(_configuration.VkDocumentsDownloadingDirectory, fileName);
     }
 

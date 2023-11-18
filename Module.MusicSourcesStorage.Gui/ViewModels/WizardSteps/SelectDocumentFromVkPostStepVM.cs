@@ -54,7 +54,7 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
 
         _context.AdditionalInfo ??= new MusicSourceAdditionalInfo(
             selectedDocument.Name,
-            PathHelper.ReplaceInvalidCharacters(selectedDocument.Name, "_")
+            PathHelper.ReplaceInvalidChars(selectedDocument.Name, "_")
         );
 
         return StepResult.Success;
