@@ -6,7 +6,7 @@
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance dtvm:MusicSourceAdditionalInfoStepDTVM}">
+             d:DataContext="{d:DesignInstance dtvm:EditMusicSourceAdditionalInfoStepDTVM}">
     <Grid Margin="6" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

@@ -7,7 +7,7 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class MusicSourceAdditionalInfoStepVM : IMusicSourceAdditionalInfoStepVM
+public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditionalInfoStepVM
 {
     [OnChangedMethod(nameof(OnNameChanged))]
     public string Name { get; set; } = string.Empty;
@@ -16,7 +16,7 @@ public sealed class MusicSourceAdditionalInfoStepVM : IMusicSourceAdditionalInfo
 
     private readonly IMusicSourceAdditionalInfoContext _context;
 
-    public MusicSourceAdditionalInfoStepVM(IMusicSourceAdditionalInfoContext context)
+    public EditMusicSourceAdditionalInfoStepVM(IMusicSourceAdditionalInfoContext context)
     {
         _context = context;
 

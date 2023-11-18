@@ -1,6 +1,6 @@
 ﻿namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 
-public interface IMusicSourceAdditionalInfoStepVM : IManualWizardStepVM
+public interface IEditMusicSourceAdditionalInfoStepVM : IManualWizardStepVM
 {
     string Name { get; set; }
 }

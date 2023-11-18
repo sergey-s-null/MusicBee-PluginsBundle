@@ -5,7 +5,7 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class MusicSourceAdditionalInfoStepDTVM : IMusicSourceAdditionalInfoStepVM
+public sealed class EditMusicSourceAdditionalInfoStepDTVM : IEditMusicSourceAdditionalInfoStepVM
 {
     public string Name { get; set; } = string.Empty;
     public bool IsValidState => true;
