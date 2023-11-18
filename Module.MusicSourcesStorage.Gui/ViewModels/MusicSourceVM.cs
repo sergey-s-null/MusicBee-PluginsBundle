@@ -26,8 +26,10 @@ public sealed class MusicSourceVM : IMusicSourceVM
     private ICommand? _deleteCmd;
 
     private readonly int _musicSourceId;
+    private MusicSourceAdditionalInfo _additionalInfo;
     private readonly IWizardService _wizardService;
     private readonly IMusicSourcesStorageService _storageService;
+    private readonly ISourceFilesRetargetingService _sourceFilesRetargetingService;
 
     public MusicSourceVM(
         int musicSourceId,
@@ -35,24 +37,28 @@ public sealed class MusicSourceVM : IMusicSourceVM
         MusicSourceType type,
         INodesHierarchyVM items,
         IWizardService wizardService,
-        IMusicSourcesStorageService storageService)
+        IMusicSourcesStorageService storageService,
+        ISourceFilesRetargetingService sourceFilesRetargetingService)
     {
         _musicSourceId = musicSourceId;
+        _additionalInfo = additionalInfo;
         _wizardService = wizardService;
         _storageService = storageService;
+        _sourceFilesRetargetingService = sourceFilesRetargetingService;
 
-        UpdateFields(additionalInfo);
+        UpdateFields();
         Type = type;
         Items = items;
     }
 
-    private void EditCmd()
+    private async void EditCmd()
     {
         var modifiedAdditionalInfo = _wizardService.EditMusicSourceAdditionalInfo(_musicSourceId);
         if (modifiedAdditionalInfo is not null)
         {
-            // todo retarget files or update states of all files vm
-            UpdateFields(modifiedAdditionalInfo);
+            await _sourceFilesRetargetingService.RetargetAsync(_musicSourceId, _additionalInfo, modifiedAdditionalInfo);
+            _additionalInfo = modifiedAdditionalInfo;
+            UpdateFields();
         }
     }
 
@@ -72,8 +78,8 @@ public sealed class MusicSourceVM : IMusicSourceVM
         }
     }
 
-    private void UpdateFields(MusicSourceAdditionalInfo additionalInfo)
+    private void UpdateFields()
     {
-        Name = additionalInfo.Name;
+        Name = _additionalInfo.Name;
     }
 }
