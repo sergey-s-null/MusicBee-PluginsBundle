@@ -2,6 +2,7 @@
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
+using Module.MusicSourcesStorage.Gui.Factories;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using PropertyChanged;
@@ -12,7 +13,6 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
-    // todo use it
     public override IProgressVM? Progress { get; protected set; }
 
     private readonly IAddingVkPostWithArchiveContext _context;
@@ -36,14 +36,17 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
 
     protected override async Task<StepResult> ProcessAsync(CancellationToken token)
     {
-        Text = "Downloading archive";
-        var downloadingTask = _vkDocumentDownloadingTaskManager
-            .CreateDownloadTask()
-            .Activated(_context.SelectedDocument!, token);
-        var downloadedDocumentPath = await downloadingTask.Task;
+        Text = "Downloading and indexing archive";
 
-        Text = "Indexing archive";
-        var files = _archiveIndexer.Index(downloadedDocumentPath);
+        var task = _vkDocumentDownloadingTaskManager
+            .CreateDownloadTask()
+            .Chain(_archiveIndexer.CreateIndexingTask());
+
+        Progress = ProgressVMFactory.Create(task);
+
+        var files = await task
+            .Activated(_context.SelectedDocument!, token)
+            .Task;
 
         _context.IndexedFiles = files;
 
