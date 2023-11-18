@@ -4,10 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.WizardSteps"
-             xmlns:components="clr-namespace:Module.Core.GUI.Views.Components;assembly=Module.Core"
+             xmlns:coreComponents="clr-namespace:Module.Core.GUI.Views.Components;assembly=Module.Core"
+             xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
+             xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance dtvm:ProcessingStepDTVM}">
+
+    <UserControl.Resources>
+        <converters:NullabilityToBoolConverter
+            x:Key="NotNullConverter"
+            ValueOnNotNull="True" />
+
+        <Style x:Key="ProgressContentControlStyle"
+               TargetType="ContentControl">
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{
+                                Binding Progress, 
+                                Converter={StaticResource NotNullConverter}
+                            }"
+                    Value="True">
+
+                    <Setter Property="Margin" Value="0 6 0 0" />
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <components:Progress DataContext="{Binding Progress}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
 
     <Grid HorizontalAlignment="Center"
           VerticalAlignment="Center">
@@ -15,16 +43,20 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <components:ProcessingAnimation Grid.Row="0" />
+        <coreComponents:ProcessingAnimation Grid.Row="0" />
 
         <TextBlock Grid.Row="1"
                    HorizontalAlignment="Center"
                    FontSize="24"
                    Text="{Binding Text}" />
 
-        <Button Grid.Row="2"
+        <ContentControl Grid.Row="2"
+                        Style="{StaticResource ProgressContentControlStyle}" />
+
+        <Button Grid.Row="3"
                 Content="Cancel"
                 Margin="0 20 0 0"
                 HorizontalAlignment="Center"
