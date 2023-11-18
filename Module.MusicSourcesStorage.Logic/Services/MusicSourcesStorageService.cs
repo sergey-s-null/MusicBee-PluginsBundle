@@ -73,6 +73,14 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return model.ToLogicModel();
     }
 
+    public async Task<IReadOnlyList<SourceFile>> ListSourceFilesBySourceIdAsync(int sourceId, CancellationToken token)
+    {
+        var models = await _musicSourcesStorage.ListSourceFilesBySourceIdAsync(sourceId, false, token);
+        return models
+            .Select(x => x.ToLogicModel())
+            .ToList();
+    }
+
     public Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
     {
         return _musicSourcesStorage.SetMusicFileIsListenedAsync(musicFileId, isListened, token);

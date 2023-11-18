@@ -14,12 +14,25 @@ public sealed class SourceFilesPathService : ISourceFilesPathService
         _configuration = configuration;
     }
 
-    public string GetSourceFileTargetPath(MusicSourceAdditionalInfo sourceAdditionalInfo, SourceFile file)
+    public string GetSourceFilesRootDirectory(MusicSourceAdditionalInfo additionalInfo)
     {
         return Path.Combine(
             _configuration.SourceFilesDownloadingDirectory,
-            PathHelper.ReplaceInvalidChars(sourceAdditionalInfo.TargetFilesDirectory, "_"),
+            GetFixedTargetFilesDirectory(additionalInfo)
+        );
+    }
+
+    public string GetSourceFileTargetPath(MusicSourceAdditionalInfo additionalInfo, SourceFile file)
+    {
+        return Path.Combine(
+            _configuration.SourceFilesDownloadingDirectory,
+            GetFixedTargetFilesDirectory(additionalInfo),
             file.Path
         );
+    }
+
+    private static string GetFixedTargetFilesDirectory(MusicSourceAdditionalInfo additionalInfo)
+    {
+        return PathHelper.ReplaceInvalidChars(additionalInfo.TargetFilesDirectory, "_");
     }
 }

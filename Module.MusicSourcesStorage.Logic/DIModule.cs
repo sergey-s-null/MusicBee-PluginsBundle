@@ -58,6 +58,10 @@ public sealed class DIModule : Autofac.Module
             .As<IFilesDeletingService>()
             .SingleInstance();
         builder
+            .RegisterType<SourceFilesRetargetingService>()
+            .As<ISourceFilesRetargetingService>()
+            .SingleInstance();
+        builder
             .RegisterType<MusicSourcesStorageService>()
             .As<IMusicSourcesStorageService>()
             .SingleInstance();

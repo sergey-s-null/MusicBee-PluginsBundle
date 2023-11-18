@@ -52,4 +52,31 @@ public static class DirectoryHelper
 
         Directory.CreateDirectory(directory);
     }
+
+    /// <summary>
+    /// Delete directory if it's empty.
+    /// <br/>
+    /// Delete all empty subdirectories if <paramref name="recursively"/> is set to true.
+    /// </summary>
+    public static void DeleteEmpty(string directory, bool recursively)
+    {
+        if (recursively)
+        {
+            var subDirectories = Directory.GetDirectories(directory);
+            foreach (var subDirectory in subDirectories)
+            {
+                DeleteEmpty(subDirectory, true);
+            }
+        }
+
+        if (IsEmpty(directory))
+        {
+            Directory.Delete(directory);
+        }
+    }
+
+    public static bool IsEmpty(string directory)
+    {
+        return !Directory.EnumerateFileSystemEntries(directory).Any();
+    }
 }
