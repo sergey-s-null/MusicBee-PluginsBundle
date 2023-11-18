@@ -46,7 +46,8 @@ public static class LogicToDbMappingExtensions
     {
         return new MusicSourceAdditionalInfoModel
         {
-            Name = additionalInfo.Name
+            Name = additionalInfo.Name,
+            TargetFilesDirectory = additionalInfo.TargetFilesDirectory
         };
     }
 

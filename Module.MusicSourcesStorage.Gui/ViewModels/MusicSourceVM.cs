@@ -51,6 +51,7 @@ public sealed class MusicSourceVM : IMusicSourceVM
         var modifiedAdditionalInfo = _wizardService.EditMusicSourceAdditionalInfo(_musicSourceId);
         if (modifiedAdditionalInfo is not null)
         {
+            // todo retarget files or update states of all files vm
             UpdateFields(modifiedAdditionalInfo);
         }
     }

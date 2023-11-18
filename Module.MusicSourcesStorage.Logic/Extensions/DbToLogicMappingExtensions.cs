@@ -42,7 +42,7 @@ public static class DbToLogicMappingExtensions
 
     public static MusicSourceAdditionalInfo ToLogicModel(this MusicSourceAdditionalInfoModel model)
     {
-        return new MusicSourceAdditionalInfo(model.Name);
+        return new MusicSourceAdditionalInfo(model.Name, model.TargetFilesDirectory);
     }
 
     public static SourceFile ToLogicModel(this FileModel model)

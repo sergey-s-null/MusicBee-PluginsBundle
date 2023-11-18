@@ -40,8 +40,7 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
             throw new InvalidOperationException();
         }
 
-        // todo use target files directory
-        _context.AdditionalInfo = new MusicSourceAdditionalInfo(Name);
+        _context.AdditionalInfo = new MusicSourceAdditionalInfo(Name, TargetFilesDirectory);
 
         return StepResult.Success;
     }
@@ -49,8 +48,7 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
     private void RestoreState()
     {
         Name = _context.AdditionalInfo?.Name ?? string.Empty;
-        // todo get from additional info
-        TargetFilesDirectory = string.Empty;
+        TargetFilesDirectory = _context.AdditionalInfo?.TargetFilesDirectory ?? string.Empty;
     }
 
     private void OnNameChanged()

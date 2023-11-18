@@ -1,4 +1,5 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+﻿using Module.Core.Helpers;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
@@ -51,7 +52,10 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
 
         _context.SelectedDocument = selectedDocument;
 
-        _context.AdditionalInfo ??= new MusicSourceAdditionalInfo(selectedDocument.Name);
+        _context.AdditionalInfo ??= new MusicSourceAdditionalInfo(
+            selectedDocument.Name,
+            PathHelper.ReplaceInvalidCharacters(selectedDocument.Name, "_")
+        );
 
         return StepResult.Success;
     }
