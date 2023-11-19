@@ -15,7 +15,7 @@ public sealed class SelectTorrentFileStepVM : ISelectTorrentFileStepVM
     public bool IsValidState => TorrentFilePathError is null;
 
     [OnChangedMethod(nameof(OnTorrentFilePathChanged))]
-    public string TorrentFilePath { get; set; }
+    public string TorrentFilePath { get; set; } = string.Empty;
 
     public string? TorrentFilePathError { get; private set; }
 
@@ -29,7 +29,7 @@ public sealed class SelectTorrentFileStepVM : ISelectTorrentFileStepVM
     {
         _torrentFileContext = torrentFileContext;
 
-        TorrentFilePath = string.Empty;
+        RestoreState();
     }
 
     public StepResult Confirm()
@@ -37,6 +37,11 @@ public sealed class SelectTorrentFileStepVM : ISelectTorrentFileStepVM
         _torrentFileContext.TorrentFilePath = TorrentFilePath.Trim();
 
         return StepResult.Success;
+    }
+
+    private void RestoreState()
+    {
+        TorrentFilePath = _torrentFileContext.TorrentFilePath ?? string.Empty;
     }
 
     private void OnTorrentFilePathChanged()
