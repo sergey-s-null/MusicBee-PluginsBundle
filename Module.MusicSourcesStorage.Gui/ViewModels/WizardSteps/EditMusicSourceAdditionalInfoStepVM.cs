@@ -71,7 +71,7 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
         else if (PathHelper.HasInvalidChars(trimmedDirectory))
         {
             TargetFilesDirectoryError =
-                "Path has invalid chars. Common invalid chars: \", <, >, |, :, *, ?, \\, /";
+                $"Path has invalid chars. Common invalid chars: {string.Join(", ", PathHelper.CommonInvalidChars)}";
         }
         else if (Path.IsPathRooted(trimmedDirectory))
         {

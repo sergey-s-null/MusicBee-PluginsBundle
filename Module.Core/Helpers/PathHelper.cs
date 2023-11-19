@@ -4,6 +4,19 @@ namespace Module.Core.Helpers;
 
 public static class PathHelper
 {
+    public static readonly IReadOnlyList<char> CommonInvalidChars = new[]
+    {
+        '"',
+        '<',
+        '>',
+        '|',
+        ':',
+        '*',
+        '?',
+        '\\',
+        '/',
+    };
+
     public static string GetRelativeToDirectoryPath(string relativeTo, string path)
     {
         // ToDirectoryPath вызывается для того, чтобы 
