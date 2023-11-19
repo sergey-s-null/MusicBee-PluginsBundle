@@ -2,5 +2,4 @@
 
 public interface IFileVM : INodeVM
 {
-    string Path { get; }
 }

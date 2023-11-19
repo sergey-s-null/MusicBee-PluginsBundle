@@ -3,5 +3,7 @@
 public interface INodeVM
 {
     string Name { get; }
+    string Path { get; }
+
     IReadOnlyList<INodeVM> ChildNodes { get; }
 }

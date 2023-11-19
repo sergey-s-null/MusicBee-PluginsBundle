@@ -7,12 +7,14 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 public class DirectoryVM : IDirectoryVM
 {
     public string Name { get; }
+    public string Path { get; }
 
     public IReadOnlyList<INodeVM> ChildNodes { get; }
 
-    public DirectoryVM(string name, IReadOnlyList<INodeVM> childNodes)
+    public DirectoryVM(string path, IReadOnlyList<INodeVM> childNodes)
     {
-        Name = name;
+        Name = System.IO.Path.GetFileName(path);
+        Path = path;
         ChildNodes = childNodes;
     }
 }

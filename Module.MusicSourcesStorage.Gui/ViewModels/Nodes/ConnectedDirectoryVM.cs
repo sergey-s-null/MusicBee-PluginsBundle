@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Module.Core.Helpers;
@@ -105,7 +104,6 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     private readonly SemaphoreSlim _lock = new(1);
 
     private readonly int _sourceId;
-    private readonly string _path;
     private readonly Lazy<string> _unifiedPath;
     private readonly ICoverSelectionService _coverSelectionService;
 
@@ -114,11 +112,10 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         string path,
         IReadOnlyList<INodeVM> childNodes,
         ICoverSelectionService coverSelectionService)
-        : base(Path.GetFileName(path), childNodes)
+        : base(path, childNodes)
     {
         _sourceId = sourceId;
-        _path = path;
-        _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(_path));
+        _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(Path));
         _coverSelectionService = coverSelectionService;
 
         InitializeAsync();
@@ -217,7 +214,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
             IsProcessingInternal = true;
 
-            await _coverSelectionService.RemoveCoverAsync(_sourceId, _path);
+            await _coverSelectionService.RemoveCoverAsync(_sourceId, Path);
             Cover = null;
         }
         finally
@@ -247,7 +244,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
             }
 
             var coverChangedDirectoryUnifiedPath = PathHelper.UnifyDirectoryPath(
-                Path.GetDirectoryName(args.ImageFileRelativePath) ?? string.Empty
+                System.IO.Path.GetDirectoryName(args.ImageFileRelativePath) ?? string.Empty
             );
             if (_unifiedPath.Value != coverChangedDirectoryUnifiedPath)
             {
@@ -274,7 +271,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private async Task InitializeCoverAsync()
     {
-        var cover = await _coverSelectionService.GetCoverAsync(_sourceId, _path);
+        var cover = await _coverSelectionService.GetCoverAsync(_sourceId, Path);
         if (cover is not null)
         {
             Cover = BitmapSourceHelper.Create(cover);

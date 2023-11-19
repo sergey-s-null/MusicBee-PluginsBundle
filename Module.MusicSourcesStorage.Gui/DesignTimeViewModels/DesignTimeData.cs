@@ -18,7 +18,7 @@ public static class DesignTimeData
         }),
         new DirectoryDTVM("Epic Album 666", new INodeVM[]
         {
-            new DirectoryDTVM("Special", new INodeVM[]
+            new DirectoryDTVM("Epic Album 666/Special", new INodeVM[]
             {
                 new UnknownFileDTVM("song lyrics.txt"),
                 new UnknownFileDTVM("message from author.txt")
@@ -49,7 +49,7 @@ public static class DesignTimeData
         }, "quad.png", isProcessing: true),
         new ConnectedDirectoryDTVM("Epic Album 666", new INodeVM[]
         {
-            new ConnectedDirectoryDTVM("Special", new INodeVM[]
+            new ConnectedDirectoryDTVM("Epic Album 666/Special", new INodeVM[]
             {
                 new ConnectedUnknownFileDTVM("song lyrics.txt", isProcessing: true),
                 new ConnectedUnknownFileDTVM("song lyrics.txt", true),

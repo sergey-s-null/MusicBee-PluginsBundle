@@ -1,7 +1,6 @@
 ﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
-using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Logic.Enums;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
@@ -32,11 +31,11 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
             {
                 new ConnectedDirectoryDTVM("Right", new INodeVM[]
                 {
-                    new ConnectedDirectoryDTVM("Into", new INodeVM[]
+                    new ConnectedDirectoryDTVM("Right/Into", new INodeVM[]
                     {
-                        new ConnectedDirectoryDTVM("The", new INodeVM[]
+                        new ConnectedDirectoryDTVM("Right/Into/The", new INodeVM[]
                         {
-                            new ConnectedDirectoryDTVM("Abyss")
+                            new ConnectedDirectoryDTVM("Right/Into/The/Abyss")
                         })
                     })
                 })

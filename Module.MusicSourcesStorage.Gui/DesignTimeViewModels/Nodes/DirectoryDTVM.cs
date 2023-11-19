@@ -5,19 +5,22 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 public class DirectoryDTVM : IDirectoryVM
 {
     public string Name { get; }
+    public string Path { get; }
+
     public IReadOnlyList<INodeVM> ChildNodes { get; }
 
-    public DirectoryDTVM() : this("SomeDirectory")
+    public DirectoryDTVM() : this("path/to/SomeDirectory")
     {
     }
 
-    public DirectoryDTVM(string name) : this(name, Array.Empty<INodeVM>())
+    public DirectoryDTVM(string path) : this(path, Array.Empty<INodeVM>())
     {
     }
 
-    public DirectoryDTVM(string name, IReadOnlyList<INodeVM> childNodes)
+    public DirectoryDTVM(string path, IReadOnlyList<INodeVM> childNodes)
     {
-        Name = name;
+        Name = System.IO.Path.GetFileName(path);
+        Path = path;
         ChildNodes = childNodes;
     }
 }

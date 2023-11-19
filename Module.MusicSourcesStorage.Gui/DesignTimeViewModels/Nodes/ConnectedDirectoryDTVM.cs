@@ -40,22 +40,22 @@ public sealed class ConnectedDirectoryDTVM : DirectoryDTVM, IConnectedDirectoryV
     public ICommand MarkAsNotListened => null!;
 
     public ConnectedDirectoryDTVM()
-        : this("Some connected directory")
+        : this("path/to/Some connected directory")
     {
     }
 
-    public ConnectedDirectoryDTVM(string name)
-        : this(name, Array.Empty<INodeVM>())
+    public ConnectedDirectoryDTVM(string path)
+        : this(path, Array.Empty<INodeVM>())
     {
     }
 
     public ConnectedDirectoryDTVM(
-        string name,
+        string path,
         IReadOnlyList<INodeVM> childNodes,
         string? coverFileName = null,
         bool hasDownloadedAndNotAttachedToLibraryFiles = false,
         bool isProcessing = false)
-        : base(name, childNodes)
+        : base(path, childNodes)
     {
         var coverStream = GetCoverStream(coverFileName);
         if (coverStream is not null)
