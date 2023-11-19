@@ -97,9 +97,12 @@ public sealed class WizardPipelines : IWizardPipelines
     {
         var step1 = new WizardStepDescriptor(StepType.SelectTorrentFile);
 
-        // 2. (Auto) Index torrent file
-        // 3. Show indexing result
-        // 4. Edit music source additional info
+        var step2 = new WizardStepDescriptor(StepType.IndexTorrent);
+
+        var step3 = new WizardStepDescriptor(StepType.IndexingResult);
+
+        var step4 = new WizardStepDescriptor(StepType.EditMusicSourceAdditionalInfo);
+
         // 5. (Auto) Add music source to database
         throw new NotImplementedException();
     }
