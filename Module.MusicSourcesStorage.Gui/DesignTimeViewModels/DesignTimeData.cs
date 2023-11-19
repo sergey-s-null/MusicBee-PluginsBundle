@@ -33,7 +33,7 @@ public static class DesignTimeData
         })
     };
 
-    public static readonly IReadOnlyList<INodeVM> ConnectedAllTypesNodes = new INodeVM[]
+    public static readonly IReadOnlyList<IConnectedNodeVM> ConnectedAllTypesNodes = new IConnectedNodeVM[]
     {
         new ConnectedDirectoryDTVM("Album 1", new INodeVM[]
         {

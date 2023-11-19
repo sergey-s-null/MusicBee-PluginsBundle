@@ -5,9 +5,9 @@ using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services;
 
-public sealed class NotConnectedFileVMBuilder : IFileVMBuilder
+public sealed class FileVMBuilder : IFileVMBuilder
 {
-    public IFileVM Build(SourceFile sourceFile)
+    public INodeVM Build(SourceFile sourceFile)
     {
         return sourceFile switch
         {

@@ -1,8 +1,6 @@
-﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+﻿namespace Module.MusicSourcesStorage.Gui.AbstractViewModels;
 
-namespace Module.MusicSourcesStorage.Gui.AbstractViewModels;
-
-public interface INodesHierarchyVM
+public interface INodesHierarchyVM<out TNode>
 {
-    IReadOnlyList<INodeVM> RootNodes { get; }
+    IReadOnlyList<TNode> RootNodes { get; }
 }

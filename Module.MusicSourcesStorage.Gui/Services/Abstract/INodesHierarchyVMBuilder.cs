@@ -4,7 +4,7 @@ using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
 
-public interface IConnectedNodesHierarchyVMBuilder
+public interface INodesHierarchyVMBuilder
 {
-    INodesHierarchyVM<IConnectedNodeVM> Build(int sourceId, IReadOnlyList<SourceFile> files);
+    INodesHierarchyVM<INodeVM> Build(IReadOnlyList<SourceFile> files);
 }

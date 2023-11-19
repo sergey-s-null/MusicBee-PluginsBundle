@@ -4,11 +4,8 @@ using System.Windows.Media.Imaging;
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
 public interface IConnectedDirectoryVM :
-    IDirectoryVM,
-    IProcessableVM,
-    IDownloadableVM,
-    IMarkableAsListenedVM,
-    IDeletableVM
+    IConnectedNodeVM,
+    IMarkableAsListenedVM
 {
     bool IsAllListened { get; }
     bool IsAllNotListened { get; }

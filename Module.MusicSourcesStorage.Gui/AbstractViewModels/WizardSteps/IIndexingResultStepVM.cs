@@ -1,6 +1,8 @@
-﻿namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+﻿using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+
+namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 
 public interface IIndexingResultStepVM : IManualWizardStepVM
 {
-    INodesHierarchyVM Items { get; }
+    INodesHierarchyVM<INodeVM> Items { get; }
 }

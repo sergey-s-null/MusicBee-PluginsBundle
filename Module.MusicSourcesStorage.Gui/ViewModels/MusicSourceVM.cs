@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
@@ -17,7 +18,7 @@ public sealed class MusicSourceVM : IMusicSourceVM
 
     public string Name { get; private set; } = string.Empty;
     public MusicSourceType Type { get; }
-    public INodesHierarchyVM Items { get; }
+    public INodesHierarchyVM<IConnectedNodeVM> Items { get; }
 
     public ICommand Edit => _editCmd ??= new RelayCommand(EditCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
@@ -35,7 +36,7 @@ public sealed class MusicSourceVM : IMusicSourceVM
         int musicSourceId,
         MusicSourceAdditionalInfo additionalInfo,
         MusicSourceType type,
-        INodesHierarchyVM items,
+        INodesHierarchyVM<IConnectedNodeVM> items,
         IWizardService wizardService,
         IMusicSourcesStorageService storageService,
         ISourceFilesRetargetingService sourceFilesRetargetingService)

@@ -14,29 +14,29 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
 {
     private readonly ConnectedDirectoryVMFactory _directoryVMFactory;
     private readonly IHierarchyBuilder<SourceFile, string> _hierarchyBuilder;
-    private readonly IFileVMBuilder _fileVMBuilder;
+    private readonly IConnectedFileVMBuilder _connectedFileVMBuilder;
 
     public ConnectedNodesHierarchyVMBuilder(
         ConnectedDirectoryVMFactory directoryVMFactory,
         IHierarchyBuilderFactory hierarchyBuilderFactory,
-        IFileVMBuilder fileVMBuilder)
+        IConnectedFileVMBuilder connectedFileVMBuilder)
     {
         _directoryVMFactory = directoryVMFactory;
         _hierarchyBuilder = hierarchyBuilderFactory.Create<SourceFile, string>(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase
         );
-        _fileVMBuilder = fileVMBuilder;
+        _connectedFileVMBuilder = connectedFileVMBuilder;
     }
 
-    public INodesHierarchyVM Build(int sourceId, IReadOnlyList<SourceFile> files)
+    public INodesHierarchyVM<IConnectedNodeVM> Build(int sourceId, IReadOnlyList<SourceFile> files)
     {
         _hierarchyBuilder.Build(files, out var rootNodes, out var rootLeaves);
 
-        return new NodesHierarchyVM(CreateNodeViewModels(sourceId, rootNodes, rootLeaves));
+        return new NodesHierarchyVM<IConnectedNodeVM>(CreateNodeViewModels(sourceId, rootNodes, rootLeaves));
     }
 
-    private IReadOnlyList<INodeVM> CreateNodeViewModels(
+    private IReadOnlyList<IConnectedNodeVM> CreateNodeViewModels(
         int sourceId,
         IReadOnlyList<Node<SourceFile, string>> nodes,
         IReadOnlyList<Leaf<SourceFile, string>> leaves)
@@ -44,11 +44,11 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
         return nodes
             .Select(x => CreateNodeVM(sourceId, x))
             .Concat(leaves
-                .Select(x => _fileVMBuilder.Build(x.Value)))
+                .Select(x => _connectedFileVMBuilder.Build(x.Value)))
             .ToList();
     }
 
-    private INodeVM CreateNodeVM(int sourceId, Node<SourceFile, string> node)
+    private IConnectedNodeVM CreateNodeVM(int sourceId, Node<SourceFile, string> node)
     {
         var path = string.Join(Path.DirectorySeparatorChar.ToString(), node.Path);
         var childNodes = CreateNodeViewModels(sourceId, node.ChildNodes, node.Leaves);

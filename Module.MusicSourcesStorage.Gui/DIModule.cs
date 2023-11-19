@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Core;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
@@ -125,21 +124,19 @@ public sealed class DIModule : Autofac.Module
             .SingleInstance();
         builder
             .RegisterType<ConnectedNodesHierarchyVMBuilder>()
-            .WithParameter(ResolvedParameter.ForKeyed<IFileVMBuilder>(ConnectionState.Connected))
             .As<IConnectedNodesHierarchyVMBuilder>()
             .SingleInstance();
         builder
-            .RegisterType<NotConnectedNodesHierarchyVMBuilder>()
-            .WithParameter(ResolvedParameter.ForKeyed<IFileVMBuilder>(ConnectionState.NotConnected))
-            .As<INotConnectedNodesHierarchyVMBuilder>()
+            .RegisterType<NodesHierarchyVMBuilder>()
+            .As<INodesHierarchyVMBuilder>()
             .SingleInstance();
         builder
             .RegisterType<ConnectedFileVMBuilder>()
-            .Keyed<IFileVMBuilder>(ConnectionState.Connected)
+            .As<IConnectedFileVMBuilder>()
             .SingleInstance();
         builder
-            .RegisterType<NotConnectedFileVMBuilder>()
-            .Keyed<IFileVMBuilder>(ConnectionState.NotConnected)
+            .RegisterType<FileVMBuilder>()
+            .As<IFileVMBuilder>()
             .SingleInstance();
     }
 

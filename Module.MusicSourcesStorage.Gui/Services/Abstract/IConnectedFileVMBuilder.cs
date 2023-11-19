@@ -3,7 +3,7 @@ using Module.MusicSourcesStorage.Logic.Entities;
 
 namespace Module.MusicSourcesStorage.Gui.Services.Abstract;
 
-public interface IFileVMBuilder
+public interface IConnectedFileVMBuilder
 {
-    INodeVM Build(SourceFile sourceFile);
+    IConnectedNodeVM Build(SourceFile sourceFile);
 }

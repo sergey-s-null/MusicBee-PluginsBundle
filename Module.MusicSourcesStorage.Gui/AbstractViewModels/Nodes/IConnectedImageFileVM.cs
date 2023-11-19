@@ -2,11 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-public interface IConnectedImageFileVM :
-    IImageFileVM,
-    IProcessableVM,
-    IDownloadableVM,
-    IDeletableVM
+public interface IConnectedImageFileVM : IConnectedNodeVM
 {
     bool IsCover { get; }
     bool CanSelectAsCover { get; }

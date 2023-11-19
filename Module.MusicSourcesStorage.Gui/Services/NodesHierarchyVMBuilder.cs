@@ -10,13 +10,13 @@ using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.Services;
 
-public sealed class NotConnectedNodesHierarchyVMBuilder : INotConnectedNodesHierarchyVMBuilder
+public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 {
     private readonly DirectoryVMFactory _directoryVMFactory;
     private readonly IHierarchyBuilder<SourceFile, string> _hierarchyBuilder;
     private readonly IFileVMBuilder _fileVMBuilder;
 
-    public NotConnectedNodesHierarchyVMBuilder(
+    public NodesHierarchyVMBuilder(
         DirectoryVMFactory directoryVMFactory,
         IHierarchyBuilderFactory hierarchyBuilderFactory,
         IFileVMBuilder fileVMBuilder)
@@ -29,11 +29,11 @@ public sealed class NotConnectedNodesHierarchyVMBuilder : INotConnectedNodesHier
         _fileVMBuilder = fileVMBuilder;
     }
 
-    public INodesHierarchyVM Build(IReadOnlyList<SourceFile> files)
+    public INodesHierarchyVM<INodeVM> Build(IReadOnlyList<SourceFile> files)
     {
         _hierarchyBuilder.Build(files, out var rootNodes, out var rootLeaves);
 
-        return new NodesHierarchyVM(CreateNodeViewModels(rootNodes, rootLeaves));
+        return new NodesHierarchyVM<INodeVM>(CreateNodeViewModels(rootNodes, rootLeaves));
     }
 
     private IReadOnlyList<INodeVM> CreateNodeViewModels(

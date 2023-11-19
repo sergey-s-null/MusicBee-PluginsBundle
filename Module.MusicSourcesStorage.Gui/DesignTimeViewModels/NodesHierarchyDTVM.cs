@@ -3,24 +3,26 @@ using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
-public sealed class NodesHierarchyDTVM : INodesHierarchyVM
+public static class NodesHierarchyDTVM
 {
-    public static readonly INodesHierarchyVM Empty =
-        new NodesHierarchyDTVM(Array.Empty<INodeVM>());
+    public static readonly INodesHierarchyVM<INodeVM> Empty =
+        new NodesHierarchyDTVM<INodeVM>(Array.Empty<INodeVM>());
 
-    public static readonly INodesHierarchyVM NotConnectedAllTypes =
-        new NodesHierarchyDTVM(DesignTimeData.NotConnectedAllTypesNodes);
+    public static readonly INodesHierarchyVM<IConnectedNodeVM> EmptyConnected =
+        new NodesHierarchyDTVM<IConnectedNodeVM>(Array.Empty<IConnectedNodeVM>());
 
-    public static readonly INodesHierarchyVM ConnectedAllTypes =
-        new NodesHierarchyDTVM(DesignTimeData.ConnectedAllTypesNodes);
+    public static readonly INodesHierarchyVM<INodeVM> NotConnectedAllTypes =
+        new NodesHierarchyDTVM<INodeVM>(DesignTimeData.NotConnectedAllTypesNodes);
 
-    public IReadOnlyList<INodeVM> RootNodes { get; }
+    public static readonly INodesHierarchyVM<IConnectedNodeVM> ConnectedAllTypes =
+        new NodesHierarchyDTVM<IConnectedNodeVM>(DesignTimeData.ConnectedAllTypesNodes);
+}
 
-    public NodesHierarchyDTVM() : this(DesignTimeData.NotConnectedAllTypesNodes)
-    {
-    }
+public sealed class NodesHierarchyDTVM<TNode> : INodesHierarchyVM<TNode>
+{
+    public IReadOnlyList<TNode> RootNodes { get; }
 
-    public NodesHierarchyDTVM(IReadOnlyList<INodeVM> rootNodes)
+    public NodesHierarchyDTVM(IReadOnlyList<TNode> rootNodes)
     {
         RootNodes = rootNodes;
     }

@@ -12,7 +12,7 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
 
     public MusicSourcesWindowDTVM()
     {
-        var hundred = new List<INodeVM>();
+        var hundred = new List<IConnectedNodeVM>();
         for (var i = 0; i < 100; i++)
         {
             hundred.Add(new ConnectedMusicFileDTVM($"Song{i}.mp3", MusicFileLocation.NotDownloaded, false));
@@ -21,26 +21,29 @@ public sealed class MusicSourcesWindowDTVM : IMusicSourcesWindowVM
         MusicSources = new List<IMusicSourceVM>
         {
             new MusicSourceDTVM("First", MusicSourceType.Torrent, NodesHierarchyDTVM.ConnectedAllTypes),
-            new MusicSourceDTVM("NOT CONNECTED", MusicSourceType.Torrent, NodesHierarchyDTVM.NotConnectedAllTypes),
-            new MusicSourceDTVM("2nd", MusicSourceType.VkPostWithArchive, new NodesHierarchyDTVM(new INodeVM[]
-            {
-                new ConnectedMusicFileDTVM("Hello.mp3", MusicFileLocation.Library, true),
-                new ConnectedMusicFileDTVM("There.mp3", MusicFileLocation.NotDownloaded, true)
-            })),
-            new MusicSourceDTVM("So Deep", MusicSourceType.VkPostWithArchive, new NodesHierarchyDTVM(new INodeVM[]
-            {
-                new ConnectedDirectoryDTVM("Right", new INodeVM[]
+            new MusicSourceDTVM("2nd", MusicSourceType.VkPostWithArchive, new NodesHierarchyDTVM<IConnectedNodeVM>(
+                new IConnectedNodeVM[]
                 {
-                    new ConnectedDirectoryDTVM("Right/Into", new INodeVM[]
+                    new ConnectedMusicFileDTVM("Hello.mp3", MusicFileLocation.Library, true),
+                    new ConnectedMusicFileDTVM("There.mp3", MusicFileLocation.NotDownloaded, true)
+                }
+            )),
+            new MusicSourceDTVM("So Deep", MusicSourceType.VkPostWithArchive, new NodesHierarchyDTVM<IConnectedNodeVM>(
+                new IConnectedNodeVM[]
+                {
+                    new ConnectedDirectoryDTVM("Right", new INodeVM[]
                     {
-                        new ConnectedDirectoryDTVM("Right/Into/The", new INodeVM[]
+                        new ConnectedDirectoryDTVM("Right/Into", new INodeVM[]
                         {
-                            new ConnectedDirectoryDTVM("Right/Into/The/Abyss")
+                            new ConnectedDirectoryDTVM("Right/Into/The", new INodeVM[]
+                            {
+                                new ConnectedDirectoryDTVM("Right/Into/The/Abyss")
+                            })
                         })
                     })
-                })
-            })),
-            new MusicSourceDTVM("So BIG", MusicSourceType.Torrent, new NodesHierarchyDTVM(hundred))
+                }
+            )),
+            new MusicSourceDTVM("So BIG", MusicSourceType.Torrent, new NodesHierarchyDTVM<IConnectedNodeVM>(hundred))
         };
 
         for (var i = 0; i < 100; i++)
