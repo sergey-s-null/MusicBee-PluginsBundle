@@ -9,7 +9,7 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
+public sealed class AddVkPostWithArchiveSourceToDatabaseStepVM : ProcessingStepBaseVM
 {
     public override string Text { get; protected set; }
     public override IProgressVM? Progress { get; protected set; }
@@ -19,7 +19,7 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
     private readonly IIndexedFilesContext _indexedFilesContext;
     private readonly IMusicSourcesStorageService _storageService;
 
-    public AddMusicSourceToDatabaseStepVM(
+    public AddVkPostWithArchiveSourceToDatabaseStepVM(
         IAddingVkPostWithArchiveContext context,
         IEditMusicSourceAdditionalInfoContext additionalInfoContext,
         IIndexedFilesContext indexedFilesContext,

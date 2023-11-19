@@ -108,8 +108,8 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<EditMusicSourceAdditionalInfoStepVM>()
             .Keyed<IWizardStepVM>(StepType.EditMusicSourceAdditionalInfo);
         builder
-            .RegisterType<AddMusicSourceToDatabaseStepVM>()
-            .Keyed<IWizardStepVM>(StepType.AddMusicSourceToDatabase);
+            .RegisterType<AddVkPostWithArchiveSourceToDatabaseStepVM>()
+            .Keyed<IWizardStepVM>(StepType.AddVkPostWithArchiveSourceToDatabase);
         builder
             .RegisterType<ReceiveMusicSourceAdditionalInfoStepVM>()
             .Keyed<IWizardStepVM>(StepType.ReceiveMusicSourceAdditionalInfo);

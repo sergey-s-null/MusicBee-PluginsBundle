@@ -43,7 +43,7 @@ public sealed class WizardPipelines : IWizardPipelines
 
         var step6 = new WizardStepDescriptor(StepType.EditMusicSourceAdditionalInfo);
 
-        var step7 = new WizardStepDescriptor(StepType.AddMusicSourceToDatabase);
+        var step7 = new WizardStepDescriptor(StepType.AddVkPostWithArchiveSourceToDatabase);
         var step7Error = new WizardStepDescriptor(StepType.Error);
         var step7Success = new SuccessStepDescriptor("Music source added to database");
 
