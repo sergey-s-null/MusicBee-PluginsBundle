@@ -5,6 +5,7 @@ public enum StepType
     SuccessResult,
     Error,
     SelectVkPost,
+    SelectTorrentFile,
     ReceiveVkPostDocumentsStepVM,
     SelectDocumentFromVkPost,
     DownloadAndIndexArchive,

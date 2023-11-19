@@ -13,6 +13,7 @@ public sealed class WizardStepsViewMapper : ViewMapperBase
         new Dictionary<Type, Func<FrameworkElement>>
         {
             [typeof(ISelectVkPostStepVM)] = () => new SelectVkPostStep(),
+            [typeof(ISelectTorrentFileStepVM)] = () => new SelectTorrentFileStep(),
             [typeof(IProcessingStepVM)] = () => new ProcessingStep(),
             [typeof(IErrorStepVM)] = () => new ErrorStep(),
             [typeof(ISelectDocumentFromVkPostStepVM)] = () => new SelectDocumentFromVkPostStep(),

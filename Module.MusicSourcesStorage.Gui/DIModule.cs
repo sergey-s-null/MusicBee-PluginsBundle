@@ -87,6 +87,9 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<SelectVkPostStepVM>()
             .Keyed<IWizardStepVM>(StepType.SelectVkPost);
         builder
+            .RegisterType<SelectTorrentFileStepVM>()
+            .Keyed<IWizardStepVM>(StepType.SelectTorrentFile);
+        builder
             .RegisterType<ReceiveVkPostDocumentsStepVM>()
             .Keyed<IWizardStepVM>(StepType.ReceiveVkPostDocumentsStepVM);
         builder
