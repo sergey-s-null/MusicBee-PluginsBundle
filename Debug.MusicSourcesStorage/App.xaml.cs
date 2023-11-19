@@ -16,15 +16,20 @@ namespace Debug.MusicSourcesStorage
             OpenMusicSourcesWindow(container);
         }
 
-        private static void OpenMusicSourcesWindow(IComponentContext container)
+        private static void OpenMusicSourcesWindow(IComponentContext context)
         {
-            var window = container.Resolve<MusicSourcesWindow>();
+            var window = context.Resolve<MusicSourcesWindow>();
             window.ShowDialog();
         }
 
-        private static void AddVkPostWithArchiveSource(IComponentContext container)
+        private static void AddVkPostWithArchiveSource(IComponentContext context)
         {
-            container.Resolve<IWizardService>().AddVkPostWithArchiveSource();
+            context.Resolve<IWizardService>().AddVkPostWithArchiveSource();
+        }
+
+        private static void AddTorrentSource(IComponentContext context)
+        {
+            context.Resolve<IWizardService>().AddTorrentSource();
         }
     }
 }
