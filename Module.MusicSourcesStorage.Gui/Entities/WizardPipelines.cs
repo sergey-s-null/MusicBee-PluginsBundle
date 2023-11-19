@@ -8,6 +8,8 @@ public sealed class WizardPipelines : IWizardPipelines
     private readonly Lazy<IWizardStepDescriptor> _addingVkPostWithArchivePipeline =
         new(CreateAddingVkPostWithArchivePipeline);
 
+    private readonly Lazy<IWizardStepDescriptor> _addTorrentPipeline = new(CreateAddTorrentPipeline);
+
     private readonly Lazy<IWizardStepDescriptor> _editMusicSourceAdditionalInfoPipeline =
         new(CreateEditMusicSourceAdditionalInfoPipeline);
 
@@ -16,6 +18,7 @@ public sealed class WizardPipelines : IWizardPipelines
         return wizardType switch
         {
             WizardType.AddingVkPostWithArchive => _addingVkPostWithArchivePipeline.Value,
+            WizardType.AddTorrent => _addTorrentPipeline.Value,
             WizardType.EditMusicSourceAdditionalInfo => _editMusicSourceAdditionalInfoPipeline.Value,
             _ => throw new ArgumentOutOfRangeException(nameof(wizardType), wizardType, "Unknown wizard type.")
         };
@@ -80,6 +83,11 @@ public sealed class WizardPipelines : IWizardPipelines
         step7Success.CustomCloseWizardCommandName = "Done";
 
         return step1;
+    }
+
+    private static IWizardStepDescriptor CreateAddTorrentPipeline()
+    {
+        throw new NotImplementedException();
     }
 
     private static IWizardStepDescriptor CreateEditMusicSourceAdditionalInfoPipeline()
