@@ -5,7 +5,8 @@ namespace Module.MusicSourcesStorage.Gui.Entities;
 
 public sealed class AddingVkPostWithArchiveContext :
     IAddingVkPostWithArchiveContext,
-    IInitialMusicSourceAdditionalInfoContext
+    IInitialMusicSourceAdditionalInfoContext,
+    IIndexedFilesContext
 {
     public string? Error { get; set; }
 

@@ -28,12 +28,4 @@ public static class AddingVkPostWithArchiveContextExtensions
             throw new ValidationException("Context has not selected document.");
         }
     }
-
-    public static void ValidateHasIndexedFiles(this IAddingVkPostWithArchiveContext context)
-    {
-        if (context.IndexedFiles is null)
-        {
-            throw new ValidationException("Context has not indexed files.");
-        }
-    }
 }

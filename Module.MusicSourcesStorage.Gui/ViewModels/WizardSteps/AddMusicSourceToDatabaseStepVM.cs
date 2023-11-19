@@ -16,16 +16,19 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
 
     private readonly IAddingVkPostWithArchiveContext _context;
     private readonly IEditMusicSourceAdditionalInfoContext _additionalInfoContext;
+    private readonly IIndexedFilesContext _indexedFilesContext;
     private readonly IMusicSourcesStorageService _storageService;
 
     public AddMusicSourceToDatabaseStepVM(
         IAddingVkPostWithArchiveContext context,
         IEditMusicSourceAdditionalInfoContext additionalInfoContext,
+        IIndexedFilesContext indexedFilesContext,
         IMusicSourcesStorageService storageService)
         : base(context)
     {
         _context = context;
         _additionalInfoContext = additionalInfoContext;
+        _indexedFilesContext = indexedFilesContext;
         _storageService = storageService;
 
         ValidateContext();
@@ -39,7 +42,7 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
 
         var source = VkPostWithArchiveSource.New(
             _additionalInfoContext.EditedAdditionalInfo ?? _additionalInfoContext.InitialAdditionalInfo!,
-            _context.IndexedFiles!,
+            _indexedFilesContext.IndexedFiles!,
             new VkPost(_context.PostId!),
             _context.SelectedDocument!
         );
@@ -54,7 +57,7 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
     {
         _context.ValidateHasPostId();
         _context.ValidateHasSelectedDocument();
-        _context.ValidateHasIndexedFiles();
+        _indexedFilesContext.ValidateHasIndexedFiles();
         _additionalInfoContext.ValidateHasInitialAdditionalInfo();
     }
 }

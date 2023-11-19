@@ -16,16 +16,19 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
     public override IProgressVM? Progress { get; protected set; }
 
     private readonly IAddingVkPostWithArchiveContext _context;
+    private readonly IIndexedFilesContext _indexedFilesContext;
     private readonly IVkDocumentDownloadingTaskManager _vkDocumentDownloadingTaskManager;
     private readonly IArchiveIndexer _archiveIndexer;
 
     public DownloadAndIndexArchiveStepVM(
         IAddingVkPostWithArchiveContext context,
+        IIndexedFilesContext indexedFilesContext,
         IVkDocumentDownloadingTaskManager vkDocumentDownloadingTaskManager,
         IArchiveIndexer archiveIndexer)
         : base(context)
     {
         _context = context;
+        _indexedFilesContext = indexedFilesContext;
         _vkDocumentDownloadingTaskManager = vkDocumentDownloadingTaskManager;
         _archiveIndexer = archiveIndexer;
 
@@ -48,7 +51,7 @@ public sealed class DownloadAndIndexArchiveStepVM : ProcessingStepBaseVM
             .Activated(_context.SelectedDocument!, token)
             .Task;
 
-        _context.IndexedFiles = files;
+        _indexedFilesContext.IndexedFiles = files;
 
         return StepResult.Success;
     }

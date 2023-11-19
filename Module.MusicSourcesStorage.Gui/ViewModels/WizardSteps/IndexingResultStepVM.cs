@@ -17,7 +17,7 @@ public sealed class IndexingResultStepVM : IIndexingResultStepVM
     public INodesHierarchyVM<INodeVM> Items { get; }
 
     public IndexingResultStepVM(
-        IAddingVkPostWithArchiveContext context,
+        IIndexedFilesContext context,
         INodesHierarchyVMBuilder nodesHierarchyVMBuilder)
     {
         context.ValidateHasIndexedFiles();

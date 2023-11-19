@@ -31,6 +31,7 @@ public sealed class WizardService : IWizardService
             builder
                 .RegisterInstance(context)
                 .As<IAddingVkPostWithArchiveContext>()
+                .As<IIndexedFilesContext>()
                 .As<IInitialMusicSourceAdditionalInfoContext>()
                 .As<IEditMusicSourceAdditionalInfoContext>()
                 .As<IWizardErrorContext>()

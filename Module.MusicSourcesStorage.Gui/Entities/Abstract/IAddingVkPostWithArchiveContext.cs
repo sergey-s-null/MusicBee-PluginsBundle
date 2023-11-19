@@ -9,5 +9,4 @@ public interface IAddingVkPostWithArchiveContext :
     VkOwnedEntityId? PostId { get; set; }
     IReadOnlyList<VkDocument>? AttachedDocuments { get; set; }
     VkDocument? SelectedDocument { get; set; }
-    IReadOnlyList<SourceFile>? IndexedFiles { get; set; }
 }
