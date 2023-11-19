@@ -111,6 +111,9 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<AddVkPostWithArchiveSourceToDatabaseStepVM>()
             .Keyed<IWizardStepVM>(StepType.AddVkPostWithArchiveSourceToDatabase);
         builder
+            .RegisterType<AddTorrentSourceToDatabaseStepVM>()
+            .Keyed<IWizardStepVM>(StepType.AddTorrentSourceToDatabase);
+        builder
             .RegisterType<ReceiveMusicSourceAdditionalInfoStepVM>()
             .Keyed<IWizardStepVM>(StepType.ReceiveMusicSourceAdditionalInfo);
         builder

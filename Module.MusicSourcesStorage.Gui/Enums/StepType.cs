@@ -13,6 +13,7 @@ public enum StepType
     IndexingResult,
     EditMusicSourceAdditionalInfo,
     AddVkPostWithArchiveSourceToDatabase,
+    AddTorrentSourceToDatabase,
     ReceiveMusicSourceAdditionalInfo,
     UpdateMusicSourceAdditionalInfoInDatabase,
     RetargetSourceFiles,
