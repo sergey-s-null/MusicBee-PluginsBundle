@@ -26,6 +26,8 @@ public sealed class WizardPipelines : IWizardPipelines
 
     private static IWizardStepDescriptor CreateAddingVkPostWithArchivePipeline()
     {
+        #region Steps declaration
+
         var step1 = new WizardStepDescriptor(StepType.SelectVkPost);
         var step1Error = new WizardStepDescriptor(StepType.Error);
 
@@ -44,6 +46,10 @@ public sealed class WizardPipelines : IWizardPipelines
         var step7 = new WizardStepDescriptor(StepType.AddMusicSourceToDatabase);
         var step7Error = new WizardStepDescriptor(StepType.Error);
         var step7Success = new SuccessStepDescriptor("Music source added to database");
+
+        #endregion
+
+        #region Steps initialization
 
         step1.NextStepDescriptor = step2;
         step1.ErrorStepDescriptor = step1Error;
@@ -81,6 +87,8 @@ public sealed class WizardPipelines : IWizardPipelines
 
         step7Success.CanSafelyCloseWizard = true;
         step7Success.CustomCloseWizardCommandName = "Done";
+
+        #endregion
 
         return step1;
     }
