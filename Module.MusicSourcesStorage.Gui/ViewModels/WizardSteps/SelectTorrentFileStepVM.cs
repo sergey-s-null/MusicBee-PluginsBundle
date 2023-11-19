@@ -1,8 +1,10 @@
-﻿using System.Windows.Input;
+﻿using System.IO;
+using System.Windows.Input;
 using Module.Core.Helpers;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.Mvvm.Extension;
 using PropertyChanged;
 
@@ -24,17 +26,28 @@ public sealed class SelectTorrentFileStepVM : ISelectTorrentFileStepVM
     private ICommand? _changeTorrentFilePath;
 
     private readonly ITorrentFileContext _torrentFileContext;
+    private readonly IInitialMusicSourceAdditionalInfoContext _additionalInfoContext;
 
-    public SelectTorrentFileStepVM(ITorrentFileContext torrentFileContext)
+    public SelectTorrentFileStepVM(
+        ITorrentFileContext torrentFileContext,
+        IInitialMusicSourceAdditionalInfoContext additionalInfoContext)
     {
         _torrentFileContext = torrentFileContext;
+        _additionalInfoContext = additionalInfoContext;
 
         RestoreState();
     }
 
     public StepResult Confirm()
     {
-        _torrentFileContext.TorrentFilePath = TorrentFilePath.Trim();
+        var trimmedPath = TorrentFilePath.Trim();
+        var fileName = Path.GetFileName(trimmedPath);
+
+        _torrentFileContext.TorrentFilePath = trimmedPath;
+        _additionalInfoContext.InitialAdditionalInfo = new MusicSourceAdditionalInfo(
+            fileName,
+            fileName
+        );
 
         return StepResult.Success;
     }
