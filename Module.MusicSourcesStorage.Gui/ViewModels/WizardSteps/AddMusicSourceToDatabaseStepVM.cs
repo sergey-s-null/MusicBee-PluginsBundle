@@ -15,14 +15,17 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
     public override IProgressVM? Progress { get; protected set; }
 
     private readonly IAddingVkPostWithArchiveContext _context;
+    private readonly IEditMusicSourceAdditionalInfoContext _additionalInfoContext;
     private readonly IMusicSourcesStorageService _storageService;
 
     public AddMusicSourceToDatabaseStepVM(
         IAddingVkPostWithArchiveContext context,
+        IEditMusicSourceAdditionalInfoContext additionalInfoContext,
         IMusicSourcesStorageService storageService)
         : base(context)
     {
         _context = context;
+        _additionalInfoContext = additionalInfoContext;
         _storageService = storageService;
 
         ValidateContext();
@@ -35,7 +38,7 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
         Text = "Adding music source to database";
 
         var source = VkPostWithArchiveSource.New(
-            _context.AdditionalInfo!,
+            _additionalInfoContext.EditedAdditionalInfo ?? _additionalInfoContext.InitialAdditionalInfo!,
             _context.IndexedFiles!,
             new VkPost(_context.PostId!),
             _context.SelectedDocument!
@@ -52,6 +55,6 @@ public sealed class AddMusicSourceToDatabaseStepVM : ProcessingStepBaseVM
         _context.ValidateHasPostId();
         _context.ValidateHasSelectedDocument();
         _context.ValidateHasIndexedFiles();
-        _context.ValidateHasAdditionalInfo();
+        _additionalInfoContext.ValidateHasInitialAdditionalInfo();
     }
 }

@@ -3,7 +3,6 @@
 namespace Module.MusicSourcesStorage.Gui.Entities.Abstract;
 
 public interface IAddingVkPostWithArchiveContext :
-    IMusicSourceAdditionalInfoContext,
     IWizardErrorContext,
     IWizardResultContext<MusicSource>
 {

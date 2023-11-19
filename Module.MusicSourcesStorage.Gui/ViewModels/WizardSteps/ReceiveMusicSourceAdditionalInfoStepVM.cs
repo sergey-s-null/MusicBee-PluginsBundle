@@ -12,18 +12,18 @@ public sealed class ReceiveMusicSourceAdditionalInfoStepVM : ProcessingStepBaseV
 
     private readonly IMusicSourceContext _musicSourceContext;
     private readonly IWizardErrorContext _errorContext;
-    private readonly IMusicSourceAdditionalInfoContext _additionalInfoContext;
+    private readonly IInitialMusicSourceAdditionalInfoContext _initialAdditionalInfoContext;
     private readonly IMusicSourcesStorageService _storageService;
 
     public ReceiveMusicSourceAdditionalInfoStepVM(
         IMusicSourceContext musicSourceContext,
         IWizardErrorContext errorContext,
-        IMusicSourceAdditionalInfoContext additionalInfoContext,
+        IInitialMusicSourceAdditionalInfoContext initialAdditionalInfoContext,
         IMusicSourcesStorageService storageService) : base(errorContext)
     {
         _musicSourceContext = musicSourceContext;
         _errorContext = errorContext;
-        _additionalInfoContext = additionalInfoContext;
+        _initialAdditionalInfoContext = initialAdditionalInfoContext;
         _storageService = storageService;
 
         Text = "Starting";
@@ -42,7 +42,7 @@ public sealed class ReceiveMusicSourceAdditionalInfoStepVM : ProcessingStepBaseV
             return StepResult.Error;
         }
 
-        _additionalInfoContext.AdditionalInfo = additionalInfo;
+        _initialAdditionalInfoContext.InitialAdditionalInfo = additionalInfo;
 
         return StepResult.Success;
     }

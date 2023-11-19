@@ -13,13 +13,13 @@ public sealed class UpdateMusicSourceAdditionalInfoInDatabaseVM : ProcessingStep
     public override IProgressVM? Progress { get; protected set; }
 
     private readonly IMusicSourceContext _musicSourceContext;
-    private readonly IMusicSourceAdditionalInfoContext _additionalInfoContext;
+    private readonly IEditMusicSourceAdditionalInfoContext _additionalInfoContext;
     private readonly IMusicSourcesStorageService _storageService;
     private readonly IWizardResultContext<MusicSourceAdditionalInfo> _resultContext;
 
     public UpdateMusicSourceAdditionalInfoInDatabaseVM(
         IMusicSourceContext musicSourceContext,
-        IMusicSourceAdditionalInfoContext additionalInfoContext,
+        IEditMusicSourceAdditionalInfoContext additionalInfoContext,
         IMusicSourcesStorageService storageService,
         IWizardResultContext<MusicSourceAdditionalInfo> resultContext,
         IWizardErrorContext errorContext)
@@ -41,7 +41,7 @@ public sealed class UpdateMusicSourceAdditionalInfoInDatabaseVM : ProcessingStep
 
         var result = await _storageService.UpdateAdditionalInfoAsync(
             _musicSourceContext.MusicSourceId,
-            _additionalInfoContext.AdditionalInfo!,
+            _additionalInfoContext.EditedAdditionalInfo ?? _additionalInfoContext.InitialAdditionalInfo!,
             token
         );
 
@@ -52,6 +52,6 @@ public sealed class UpdateMusicSourceAdditionalInfoInDatabaseVM : ProcessingStep
 
     private void ValidateContext()
     {
-        _additionalInfoContext.ValidateHasAdditionalInfo();
+        _additionalInfoContext.ValidateHasInitialAdditionalInfo();
     }
 }

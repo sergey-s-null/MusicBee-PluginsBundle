@@ -22,12 +22,16 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
     public IVkDocumentVM? SelectedDocument { get; set; }
 
     private readonly IAddingVkPostWithArchiveContext _context;
+    private readonly IInitialMusicSourceAdditionalInfoContext _initialAdditionalInfoContext;
 
     private readonly IReadOnlyDictionary<IVkDocumentVM, VkDocument> _documentsMap;
 
-    public SelectDocumentFromVkPostStepVM(IAddingVkPostWithArchiveContext context)
+    public SelectDocumentFromVkPostStepVM(
+        IAddingVkPostWithArchiveContext context,
+        IInitialMusicSourceAdditionalInfoContext initialAdditionalInfoContext)
     {
         _context = context;
+        _initialAdditionalInfoContext = initialAdditionalInfoContext;
 
         ValidateContext();
 
@@ -52,7 +56,7 @@ public sealed class SelectDocumentFromVkPostStepVM : ISelectDocumentFromVkPostSt
 
         _context.SelectedDocument = selectedDocument;
 
-        _context.AdditionalInfo ??= new MusicSourceAdditionalInfo(
+        _initialAdditionalInfoContext.InitialAdditionalInfo = new MusicSourceAdditionalInfo(
             selectedDocument.Name,
             PathHelper.ReplaceInvalidChars(selectedDocument.Name, "_")
         );

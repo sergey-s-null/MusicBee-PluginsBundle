@@ -31,7 +31,8 @@ public sealed class WizardService : IWizardService
             builder
                 .RegisterInstance(context)
                 .As<IAddingVkPostWithArchiveContext>()
-                .As<IMusicSourceAdditionalInfoContext>()
+                .As<IInitialMusicSourceAdditionalInfoContext>()
+                .As<IEditMusicSourceAdditionalInfoContext>()
                 .As<IWizardErrorContext>()
                 .As<IWizardResultContext<MusicSource>>()
                 .SingleInstance();
@@ -53,7 +54,8 @@ public sealed class WizardService : IWizardService
             builder
                 .RegisterInstance(context)
                 .As<IMusicSourceContext>()
-                .As<IMusicSourceAdditionalInfoContext>()
+                .As<IInitialMusicSourceAdditionalInfoContext>()
+                .As<IEditMusicSourceAdditionalInfoContext>()
                 .As<IWizardErrorContext>()
                 .As<IWizardResultContext<MusicSourceAdditionalInfo>>();
         });

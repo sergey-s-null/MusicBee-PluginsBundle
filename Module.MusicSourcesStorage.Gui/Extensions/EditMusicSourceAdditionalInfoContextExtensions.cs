@@ -3,11 +3,11 @@ using Module.MusicSourcesStorage.Gui.Exceptions;
 
 namespace Module.MusicSourcesStorage.Gui.Extensions;
 
-public static class MusicSourceAdditionalInfoContextExtensions
+public static class EditMusicSourceAdditionalInfoContextExtensions
 {
-    public static void ValidateHasAdditionalInfo(this IMusicSourceAdditionalInfoContext context)
+    public static void ValidateHasInitialAdditionalInfo(this IEditMusicSourceAdditionalInfoContext context)
     {
-        if (context.AdditionalInfo is null)
+        if (context.InitialAdditionalInfo is null)
         {
             throw new ValidationException("Context has not additional info.");
         }

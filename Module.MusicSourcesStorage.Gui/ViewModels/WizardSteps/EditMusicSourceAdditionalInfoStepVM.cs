@@ -3,6 +3,7 @@ using Module.Core.Helpers;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
+using Module.MusicSourcesStorage.Gui.Extensions;
 using Module.MusicSourcesStorage.Logic.Entities;
 using PropertyChanged;
 
@@ -24,12 +25,13 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
     [DependsOn(nameof(NameError), nameof(TargetFilesDirectoryError))]
     public bool IsValidState => NameError is null && TargetFilesDirectoryError is null;
 
-    private readonly IMusicSourceAdditionalInfoContext _context;
+    private readonly IEditMusicSourceAdditionalInfoContext _context;
 
-    public EditMusicSourceAdditionalInfoStepVM(IMusicSourceAdditionalInfoContext context)
+    public EditMusicSourceAdditionalInfoStepVM(IEditMusicSourceAdditionalInfoContext context)
     {
         _context = context;
 
+        ValidateContext();
         RestoreState();
     }
 
@@ -40,15 +42,15 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
             throw new InvalidOperationException();
         }
 
-        _context.AdditionalInfo = new MusicSourceAdditionalInfo(Name, TargetFilesDirectory.Trim());
+        _context.EditedAdditionalInfo = new MusicSourceAdditionalInfo(Name, TargetFilesDirectory.Trim());
 
         return StepResult.Success;
     }
 
     private void RestoreState()
     {
-        Name = _context.AdditionalInfo?.Name ?? string.Empty;
-        TargetFilesDirectory = _context.AdditionalInfo?.TargetFilesDirectory ?? string.Empty;
+        Name = _context.InitialAdditionalInfo!.Name;
+        TargetFilesDirectory = _context.InitialAdditionalInfo.TargetFilesDirectory;
     }
 
     private void OnNameChanged()
@@ -79,5 +81,10 @@ public sealed class EditMusicSourceAdditionalInfoStepVM : IEditMusicSourceAdditi
         {
             TargetFilesDirectoryError = null;
         }
+    }
+
+    private void ValidateContext()
+    {
+        _context.ValidateHasInitialAdditionalInfo();
     }
 }
