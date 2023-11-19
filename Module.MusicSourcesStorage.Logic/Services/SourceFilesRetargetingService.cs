@@ -1,6 +1,11 @@
 ﻿using Module.Core.Helpers;
+using Module.MusicSourcesStorage.Logic.Delegates;
 using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Entities.Args;
+using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
+using Module.MusicSourcesStorage.Logic.Factories;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
+using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
@@ -17,38 +22,61 @@ public sealed class SourceFilesRetargetingService : ISourceFilesRetargetingServi
         _sourceFilesPathService = sourceFilesPathService;
     }
 
-    public async Task RetargetAsync(
+    public IActivableTask<FilesRetargetingArgs, Void> CreateRetargetingTask()
+    {
+        return ActivableTaskFactory.CreateWithoutResult<FilesRetargetingArgs>(Retarget);
+    }
+
+    private void Retarget(FilesRetargetingArgs args, RelativeProgressCallback progressCallback, CancellationToken token)
+    {
+        Retarget(args.SourceId, args.PreviousAdditionalInfo, args.CurrentAdditionalInfo, progressCallback, token);
+    }
+
+    private void Retarget(
         int sourceId,
-        MusicSourceAdditionalInfo oldAdditionalInfo,
-        MusicSourceAdditionalInfo newAdditionalInfo,
+        MusicSourceAdditionalInfo previousAdditionalInfo,
+        MusicSourceAdditionalInfo currentAdditionalInfo,
+        RelativeProgressCallback? progressCallback,
         CancellationToken token)
     {
-        var files = await _musicSourcesStorageService.ListSourceFilesBySourceIdAsync(sourceId, token);
+        var files = _musicSourcesStorageService.ListSourceFilesBySourceIdAsync(sourceId, token).Result;
 
-        foreach (var file in files)
+        progressCallback?.Invoke(0);
+        for (var i = 0; i < files.Count; i++)
         {
-            var oldPath = _sourceFilesPathService.GetSourceFileTargetPath(oldAdditionalInfo, file);
-            if (!File.Exists(oldPath))
-            {
-                continue;
-            }
-
-            var newPath = _sourceFilesPathService.GetSourceFileTargetPath(newAdditionalInfo, file);
-            if (PathHelper.UnifyFilePath(oldPath) == PathHelper.UnifyFilePath(newPath))
-            {
-                continue;
-            }
-
-            var newDirectory = Path.GetDirectoryName(newPath);
-            if (newDirectory is not null && !Directory.Exists(newDirectory))
-            {
-                Directory.CreateDirectory(newDirectory);
-            }
-
-            File.Move(oldPath, newPath);
+            token.ThrowIfCancellationRequested();
+            RetargetFile(previousAdditionalInfo, currentAdditionalInfo, files[i]);
+            progressCallback?.Invoke((double)(i + 1) / (files.Count + 1));
         }
 
-        var oldRoot = _sourceFilesPathService.GetSourceFilesRootDirectory(oldAdditionalInfo);
-        DirectoryHelper.DeleteEmpty(oldRoot, true);
+        var previousRoot = _sourceFilesPathService.GetSourceFilesRootDirectory(previousAdditionalInfo);
+        DirectoryHelper.DeleteEmpty(previousRoot, true);
+        progressCallback?.Invoke(1);
+    }
+
+    private void RetargetFile(
+        MusicSourceAdditionalInfo previousAdditionalInfo,
+        MusicSourceAdditionalInfo currentAdditionalInfo,
+        SourceFile sourceFile)
+    {
+        var previousPath = _sourceFilesPathService.GetSourceFileTargetPath(previousAdditionalInfo, sourceFile);
+        if (!File.Exists(previousPath))
+        {
+            return;
+        }
+
+        var currentPath = _sourceFilesPathService.GetSourceFileTargetPath(currentAdditionalInfo, sourceFile);
+        if (PathHelper.UnifyFilePath(previousPath) == PathHelper.UnifyFilePath(currentPath))
+        {
+            return;
+        }
+
+        var currentDirectory = Path.GetDirectoryName(currentPath);
+        if (currentDirectory is not null && !Directory.Exists(currentDirectory))
+        {
+            Directory.CreateDirectory(currentDirectory);
+        }
+
+        File.Move(previousPath, currentPath);
     }
 }

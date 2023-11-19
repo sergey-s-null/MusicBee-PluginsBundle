@@ -2,6 +2,9 @@
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
 using Module.MusicSourcesStorage.Gui.Extensions;
+using Module.MusicSourcesStorage.Gui.Factories;
+using Module.MusicSourcesStorage.Logic.Entities.Args;
+using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
@@ -35,13 +38,20 @@ public sealed class RetargetSourceFilesStepVM : ProcessingStepBaseVM
     protected override async Task<StepResult> ProcessAsync(CancellationToken token)
     {
         Text = "Retarget source files";
-        // todo use task with progress
-        await _sourceFilesRetargetingService.RetargetAsync(
-            _musicSourceContext.MusicSourceId,
-            _additionalInfoContext.InitialAdditionalInfo!,
-            _additionalInfoContext.EditedAdditionalInfo!,
-            token
-        );
+
+        var task = _sourceFilesRetargetingService.CreateRetargetingTask();
+        Progress = ProgressVMFactory.Create(task);
+
+        await task
+            .Activated(
+                new FilesRetargetingArgs(
+                    _musicSourceContext.MusicSourceId,
+                    _additionalInfoContext.InitialAdditionalInfo!,
+                    _additionalInfoContext.EditedAdditionalInfo!
+                ),
+                token
+            )
+            .Task;
 
         Text = "Files retargeted";
         return StepResult.Success;

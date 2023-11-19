@@ -66,4 +66,14 @@ public static class ActivableTaskFactory
     {
         return new ActivableTask<TArgs, TResult>(func);
     }
+
+    public static IActivableTask<TArgs, Void> CreateWithoutResult<TArgs>(
+        TaskAction<TArgs> func)
+    {
+        return new ActivableTask<TArgs, Void>((args, progressCallback, token) =>
+        {
+            func(args, progressCallback, token);
+            return Void.Instance;
+        });
+    }
 }
