@@ -1,5 +1,5 @@
 ﻿namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-public interface IMusicFileVM : IFileVM
+public interface IMusicFileVM : INodeVM
 {
 }
