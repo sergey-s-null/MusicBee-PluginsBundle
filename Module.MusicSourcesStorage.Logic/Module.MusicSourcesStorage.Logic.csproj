@@ -13,6 +13,7 @@
 
     <ItemGroup>
         <PackageReference Include="Autofac" Version="6.5.0" />
+        <PackageReference Include="MonoTorrent" Version="2.0.7" />
         <PackageReference Include="SharpCompress" Version="0.34.1" />
         <PackageReference Include="VkNet" Version="1.72.0" />
     </ItemGroup>
