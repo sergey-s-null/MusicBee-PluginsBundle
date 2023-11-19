@@ -39,6 +39,10 @@ public sealed class DIModule : Autofac.Module
             .As<IArchiveIndexer>()
             .SingleInstance();
         builder
+            .RegisterType<TorrentIndexer>()
+            .As<ITorrentIndexer>()
+            .SingleInstance();
+        builder
             .RegisterType<FileClassifier>()
             .As<IFileClassifier>()
             .SingleInstance();
