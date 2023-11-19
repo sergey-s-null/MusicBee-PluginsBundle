@@ -10,6 +10,11 @@ public interface IWizardService
     MusicSource? AddVkPostWithArchiveSource();
 
     /// <returns>
+    /// Added music source or null if cancelled.
+    /// </returns>
+    MusicSource? AddTorrentSource();
+
+    /// <returns>
     /// Modified music source additional info or null if cancelled.
     /// </returns>
     MusicSourceAdditionalInfo? EditMusicSourceAdditionalInfo(int musicSourceId);

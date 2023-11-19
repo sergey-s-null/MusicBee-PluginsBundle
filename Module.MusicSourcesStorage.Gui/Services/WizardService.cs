@@ -44,6 +44,11 @@ public sealed class WizardService : IWizardService
         return context.Result;
     }
 
+    public MusicSource? AddTorrentSource()
+    {
+        throw new NotImplementedException();
+    }
+
     public MusicSourceAdditionalInfo? EditMusicSourceAdditionalInfo(int musicSourceId)
     {
         var context = new EditMusicSourceAdditionalInfoContext(musicSourceId);
