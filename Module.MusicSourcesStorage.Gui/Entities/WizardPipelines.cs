@@ -95,16 +95,57 @@ public sealed class WizardPipelines : IWizardPipelines
 
     private static IWizardStepDescriptor CreateAddTorrentPipeline()
     {
+        #region Steps declaration
+
         var step1 = new WizardStepDescriptor(StepType.SelectTorrentFile);
+        var step1Error = new WizardStepDescriptor(StepType.Error);
 
         var step2 = new WizardStepDescriptor(StepType.IndexTorrent);
+        var step2Error = new WizardStepDescriptor(StepType.Error);
 
         var step3 = new WizardStepDescriptor(StepType.IndexingResult);
 
         var step4 = new WizardStepDescriptor(StepType.EditMusicSourceAdditionalInfo);
 
-        // 5. (Auto) Add music source to database
-        throw new NotImplementedException();
+        var step5 = new WizardStepDescriptor(StepType.AddTorrentSourceToDatabase);
+        var step5Error = new WizardStepDescriptor(StepType.Error);
+        var step5Success = new SuccessStepDescriptor("Torrent source added to database");
+
+        #endregion
+
+        #region Steps initialization
+
+        step1.NextStepDescriptor = step2;
+        step1.ErrorStepDescriptor = step1Error;
+        step1.CanSafelyCloseWizard = true;
+
+        step1Error.PreviousStepDescriptor = step1;
+
+        step2.NextStepDescriptor = step3;
+        step2.PreviousStepDescriptor = step1;
+        step2.ErrorStepDescriptor = step2Error;
+
+        step2Error.PreviousStepDescriptor = step1;
+
+        step3.NextStepDescriptor = step4;
+        step3.PreviousStepDescriptor = step1;
+
+        step4.NextStepDescriptor = step5;
+        step4.PreviousStepDescriptor = step3;
+
+        step5.PreviousStepDescriptor = step4;
+        step5.ErrorStepDescriptor = step5Error;
+        step5.NextStepDescriptor = step5Success;
+        step5.CustomNextCommandName = "Add";
+
+        step5Error.PreviousStepDescriptor = step5;
+
+        step5Success.CanSafelyCloseWizard = true;
+        step5Success.CustomCloseWizardCommandName = "Done";
+
+        #endregion
+
+        return step1;
     }
 
     private static IWizardStepDescriptor CreateEditMusicSourceAdditionalInfoPipeline()
