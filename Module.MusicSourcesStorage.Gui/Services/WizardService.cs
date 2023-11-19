@@ -47,7 +47,26 @@ public sealed class WizardService : IWizardService
 
     public MusicSource? AddTorrentSource()
     {
-        throw new NotImplementedException();
+        var context = new AddingTorrentContext();
+
+        var wizardScope = _lifetimeScope.BeginLifetimeScope(builder =>
+        {
+            RegisterRootDescriptor(builder, WizardType.AddTorrent);
+            builder
+                .RegisterInstance(context)
+                .As<ITorrentFileContext>()
+                .As<IIndexedFilesContext>()
+                .As<IInitialMusicSourceAdditionalInfoContext>()
+                .As<IEditMusicSourceAdditionalInfoContext>()
+                .As<IWizardErrorContext>()
+                .As<IWizardResultContext<MusicSource>>()
+                .SingleInstance();
+        });
+
+        var wizard = wizardScope.Resolve<Wizard>();
+        wizard.ShowDialog();
+
+        return context.Result;
     }
 
     public MusicSourceAdditionalInfo? EditMusicSourceAdditionalInfo(int musicSourceId)
