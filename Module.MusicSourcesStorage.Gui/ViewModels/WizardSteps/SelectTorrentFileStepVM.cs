@@ -49,7 +49,7 @@ public sealed class SelectTorrentFileStepVM : ISelectTorrentFileStepVM
         else if (PathHelper.HasInvalidChars(trimmedPath))
         {
             TorrentFilePathError =
-                $"Path has invalid chars. Common invalid chars: {string.Join(", ", PathHelper.CommonInvalidChars)}";
+                $"Path has invalid chars. Common invalid chars: {string.Join(", ", FilePathHelper.CommonInvalidChars)}";
         }
         else
         {

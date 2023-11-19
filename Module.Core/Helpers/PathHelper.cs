@@ -4,19 +4,6 @@ namespace Module.Core.Helpers;
 
 public static class PathHelper
 {
-    public static readonly IReadOnlyList<char> CommonInvalidChars = new[]
-    {
-        '"',
-        '<',
-        '>',
-        '|',
-        ':',
-        '*',
-        '?',
-        '\\',
-        '/',
-    };
-
     public static string GetRelativeToDirectoryPath(string relativeTo, string path)
     {
         // ToDirectoryPath вызывается для того, чтобы 
@@ -79,13 +66,26 @@ public static class PathHelper
 
     public static bool HasInvalidChars(string path)
     {
-        var invalidPathChars = Path.GetInvalidFileNameChars();
-        return path.Any(x => invalidPathChars.Contains(x));
+        IEnumerable<string> pathElements = path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+        pathElements = Path.IsPathRooted(path)
+            ? pathElements.Skip(1)
+            : pathElements;
+
+        return pathElements.Any(FilePathHelper.HasInvalidChars);
     }
 
     public static string ReplaceInvalidChars(string path, string replaceWith)
     {
-        return string.Join(replaceWith, path.Split(Path.GetInvalidFileNameChars()));
+        IEnumerable<string> pathElements = path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+        pathElements = Path.IsPathRooted(path)
+            ? pathElements.Skip(1)
+            : pathElements;
+
+        var replacedPathElements = pathElements.Select(x => FilePathHelper.ReplaceInvalidChars(x, replaceWith));
+
+        return string.Join(Path.DirectorySeparatorChar.ToString(), replacedPathElements);
     }
 
     private static string UnifyPath(string path, bool isDirectory)
