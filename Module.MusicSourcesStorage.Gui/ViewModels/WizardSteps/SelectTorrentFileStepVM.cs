@@ -12,7 +12,7 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.WizardSteps;
 public sealed class SelectTorrentFileStepVM : ISelectTorrentFileStepVM
 {
     [DependsOn(nameof(TorrentFilePathError))]
-    public bool IsValidState => TorrentFilePathError is not null;
+    public bool IsValidState => TorrentFilePathError is null;
 
     [OnChangedMethod(nameof(OnTorrentFilePathChanged))]
     public string TorrentFilePath { get; set; }
