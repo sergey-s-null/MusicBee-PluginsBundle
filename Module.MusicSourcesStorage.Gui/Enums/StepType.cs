@@ -9,6 +9,7 @@ public enum StepType
     ReceiveVkPostDocumentsStepVM,
     SelectDocumentFromVkPost,
     DownloadAndIndexArchive,
+    IndexTorrent,
     IndexingResult,
     EditMusicSourceAdditionalInfo,
     AddMusicSourceToDatabase,

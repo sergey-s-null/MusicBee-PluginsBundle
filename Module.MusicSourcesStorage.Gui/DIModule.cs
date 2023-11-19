@@ -99,6 +99,9 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<DownloadAndIndexArchiveStepVM>()
             .Keyed<IWizardStepVM>(StepType.DownloadAndIndexArchive);
         builder
+            .RegisterType<IndexTorrentStepVM>()
+            .Keyed<IWizardStepVM>(StepType.IndexTorrent);
+        builder
             .RegisterType<IndexingResultStepVM>()
             .Keyed<IWizardStepVM>(StepType.IndexingResult);
         builder
