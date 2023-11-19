@@ -13,4 +13,5 @@ public enum StepType
     AddMusicSourceToDatabase,
     ReceiveMusicSourceAdditionalInfo,
     UpdateMusicSourceAdditionalInfoInDatabase,
+    RetargetSourceFiles,
 }

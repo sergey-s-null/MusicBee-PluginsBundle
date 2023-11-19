@@ -30,7 +30,6 @@ public sealed class MusicSourceVM : IMusicSourceVM
     private MusicSourceAdditionalInfo _additionalInfo;
     private readonly IWizardService _wizardService;
     private readonly IMusicSourcesStorageService _storageService;
-    private readonly ISourceFilesRetargetingService _sourceFilesRetargetingService;
 
     public MusicSourceVM(
         int musicSourceId,
@@ -38,26 +37,23 @@ public sealed class MusicSourceVM : IMusicSourceVM
         MusicSourceType type,
         INodesHierarchyVM<IConnectedNodeVM> items,
         IWizardService wizardService,
-        IMusicSourcesStorageService storageService,
-        ISourceFilesRetargetingService sourceFilesRetargetingService)
+        IMusicSourcesStorageService storageService)
     {
         _musicSourceId = musicSourceId;
         _additionalInfo = additionalInfo;
         _wizardService = wizardService;
         _storageService = storageService;
-        _sourceFilesRetargetingService = sourceFilesRetargetingService;
 
         UpdateFields();
         Type = type;
         Items = items;
     }
 
-    private async void EditCmd()
+    private void EditCmd()
     {
         var modifiedAdditionalInfo = _wizardService.EditMusicSourceAdditionalInfo(_musicSourceId);
         if (modifiedAdditionalInfo is not null)
         {
-            await _sourceFilesRetargetingService.RetargetAsync(_musicSourceId, _additionalInfo, modifiedAdditionalInfo);
             _additionalInfo = modifiedAdditionalInfo;
             UpdateFields();
         }

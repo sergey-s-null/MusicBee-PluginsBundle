@@ -92,16 +92,25 @@ public sealed class WizardPipelines : IWizardPipelines
         var step3 = new WizardStepDescriptor(StepType.UpdateMusicSourceAdditionalInfoInDatabase);
         var step3Error = new WizardStepDescriptor(StepType.Error);
 
+        var step4 = new WizardStepDescriptor(StepType.RetargetSourceFiles);
+        var step4Error = new WizardStepDescriptor(StepType.Error);
+
         step1.NextStepDescriptor = step2;
         step1.ErrorStepDescriptor = step1Error;
 
         step2.NextStepDescriptor = step3;
         step2.CustomNextCommandName = "Save";
 
+        step3.NextStepDescriptor = step4;
         step3.PreviousStepDescriptor = step2;
         step3.ErrorStepDescriptor = step3Error;
 
         step3Error.PreviousStepDescriptor = step2;
+
+        step4.PreviousStepDescriptor = step2;
+        step4.ErrorStepDescriptor = step4Error;
+
+        step4Error.PreviousStepDescriptor = step2;
 
         return step1;
     }
