@@ -9,7 +9,6 @@ public interface IConnectedImageFileVM :
     IDeletableVM
 {
     bool IsCover { get; }
-    // todo use it in view
     bool CanSelectAsCover { get; }
     bool CanRemoveCover { get; }
 
