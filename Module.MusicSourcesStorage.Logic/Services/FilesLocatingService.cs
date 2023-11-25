@@ -1,19 +1,28 @@
-﻿using Module.MusicSourcesStorage.Logic.Enums;
+﻿using Mead.MusicBee.Api.Services.Abstract;
+using Module.MusicSourcesStorage.Core.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Enums;
+using Module.MusicSourcesStorage.Logic.Exceptions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class FilesLocatingService : IFilesLocatingService
 {
+    private readonly IModuleConfiguration _configuration;
     private readonly ISourceFilesPathService _sourceFilesPathService;
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
+    private readonly IMusicBeeApi _musicBeeApi;
 
     public FilesLocatingService(
+        IModuleConfiguration configuration,
         ISourceFilesPathService sourceFilesPathService,
-        IMusicSourcesStorageService musicSourcesStorageService)
+        IMusicSourcesStorageService musicSourcesStorageService,
+        IMusicBeeApi musicBeeApi)
     {
+        _configuration = configuration;
         _sourceFilesPathService = sourceFilesPathService;
         _musicSourcesStorageService = musicSourcesStorageService;
+        _musicBeeApi = musicBeeApi;
     }
 
     public async Task<string?> LocateFileAsync(int fileId, CancellationToken token)
@@ -30,8 +39,58 @@ public sealed class FilesLocatingService : IFilesLocatingService
 
     public MusicFileLocation LocateMusicFile(int fileId, out string filePath)
     {
-        // todo implement
-        filePath = null!;
+        if (TryFindInInbox(fileId, out filePath))
+        {
+            return MusicFileLocation.Incoming;
+        }
+
+        if (TryFindInLibrary(fileId, out filePath))
+        {
+            return MusicFileLocation.Library;
+        }
+
         return MusicFileLocation.NotDownloaded;
+    }
+
+    private bool TryFindInInbox(int fileId, out string filePath)
+    {
+        // 4 - Inbox
+        return TryFindMusicFile(fileId, 4, out filePath);
+    }
+
+    private bool TryFindInLibrary(int fileId, out string filePath)
+    {
+        // 1 - Library
+        return TryFindMusicFile(fileId, 1, out filePath);
+    }
+
+    private bool TryFindMusicFile(int fileId, int sourceType, out string filePath)
+    {
+        var query =
+            $"<Source Type=\"{sourceType}\">" +
+            $"    <Conditions CombineMethod=\"All\">" +
+            $"        <Condition Field=\"{_configuration.FileIdField}\" Comparison=\"Is\" Value=\"{fileId}\" />" +
+            $"    </Conditions>" +
+            $"</Source>";
+
+        var result = _musicBeeApi.Library_QueryFilesEx(query, out var files);
+        if (!result)
+        {
+            throw new FileLocatingException("Error on query files using MusicBee API.");
+        }
+
+        if (files is null || files.Length == 0)
+        {
+            filePath = null!;
+            return false;
+        }
+
+        if (files.Length != 1)
+        {
+            throw new FileLocatingException($"Got multiple files for file id {fileId}");
+        }
+
+        filePath = files[0];
+        return true;
     }
 }

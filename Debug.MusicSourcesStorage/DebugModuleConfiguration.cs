@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Mead.MusicBee.Enums;
 using Module.MusicSourcesStorage.Core.Entities.Abstract;
 
 namespace Debug.MusicSourcesStorage;
@@ -22,4 +23,6 @@ public sealed class DebugModuleConfiguration : IModuleConfiguration
                                                       $"AttachDBFilename={DatabaseFilePath};";
 
     public int CoverSize => 100;
+
+    public MetaDataType FileIdField => MetaDataType.Custom10;
 }

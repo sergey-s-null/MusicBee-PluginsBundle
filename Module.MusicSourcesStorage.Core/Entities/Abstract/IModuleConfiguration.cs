@@ -1,4 +1,6 @@
-﻿namespace Module.MusicSourcesStorage.Core.Entities.Abstract;
+﻿using Mead.MusicBee.Enums;
+
+namespace Module.MusicSourcesStorage.Core.Entities.Abstract;
 
 public interface IModuleConfiguration
 {
@@ -6,4 +8,9 @@ public interface IModuleConfiguration
     string SourceFilesDownloadingDirectory { get; }
     string DatabaseConnectionString { get; }
     int CoverSize { get; }
+
+    /// <summary>
+    /// MusicBee file field where should be located id of file from database.
+    /// </summary>
+    MetaDataType FileIdField { get; }
 }
