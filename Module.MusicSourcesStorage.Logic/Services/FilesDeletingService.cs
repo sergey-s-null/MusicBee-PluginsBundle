@@ -15,7 +15,7 @@ public sealed class FilesDeletingService : IFilesDeletingService
         _pathService = pathService;
     }
 
-    public async Task DeleteAsync(int fileId, CancellationToken token = default)
+    public async Task DeleteAsync(int fileId, CancellationToken token)
     {
         var file = await _musicSourcesStorageService.GetSourceFileAsync(fileId, token);
         var additionalInfo = await _musicSourcesStorageService.GetAdditionalInfoByIdAsync(file.SourceId, token);
