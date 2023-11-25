@@ -5,6 +5,10 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 public interface IVkArchiveFilesDownloadingService
 {
-    /// <returns>Task with result as path to downloaded file.</returns>
+    /// <summary>
+    /// Return task with<br/>
+    /// - Args (<see cref="VkArchiveFileDownloadArgs"/>) - file downloading args;<br/>
+    /// - Result (<see cref="string"/>) - downloaded file path.
+    /// </summary>
     IActivableMultiStepTask<VkArchiveFileDownloadArgs, string> CreateDownloadTask();
 }
