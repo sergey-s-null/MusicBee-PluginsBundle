@@ -68,6 +68,23 @@ public static class ActivableTaskFactory
     }
 
     public static IActivableTask<TArgs, Void> CreateWithoutResult<TArgs>(
+        Action<TArgs> action)
+    {
+        return CreateWithoutResult<TArgs>((args, _) => action(args));
+    }
+
+    public static IActivableTask<TArgs, Void> CreateWithoutResult<TArgs>(
+        Action<TArgs, CancellationToken> action)
+    {
+        return CreateWithoutResult<TArgs>((args, progressCallback, token) =>
+        {
+            progressCallback(0);
+            action(args, token);
+            progressCallback(1);
+        });
+    }
+
+    public static IActivableTask<TArgs, Void> CreateWithoutResult<TArgs>(
         TaskAction<TArgs> func)
     {
         return new ActivableTask<TArgs, Void>((args, progressCallback, token) =>

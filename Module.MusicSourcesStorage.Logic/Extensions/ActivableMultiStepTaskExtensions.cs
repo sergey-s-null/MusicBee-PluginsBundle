@@ -84,6 +84,35 @@ public static class ActivableMultiStepTaskExtensions
     }
 
     public static IActivableMultiStepTask<TFirstArgs, TResult>
+        Chain<TFirstArgs, TFirstResult, TSecondResult, TResult>(
+            this IActivableMultiStepTask<TFirstArgs, TFirstResult> firstTask,
+            IActivableTask<TFirstResult, TSecondResult> secondTask,
+            Func<TFirstArgs, TFirstResult, TSecondResult, TResult> resultSelector
+        )
+    {
+        return firstTask.Chain(
+            (_, result) => result,
+            secondTask,
+            resultSelector
+        );
+    }
+
+    public static IActivableMultiStepTask<TFirstArgs, TResult>
+        Chain<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult>(
+            this IActivableMultiStepTask<TFirstArgs, TFirstResult> firstTask,
+            Func<TFirstArgs, TFirstResult, TSecondArgs> secondArgsSelector,
+            IActivableTask<TSecondArgs, TSecondResult> secondTask,
+            Func<TFirstArgs, TFirstResult, TSecondResult, TResult> resultSelector
+        )
+    {
+        return firstTask.Chain(
+            secondArgsSelector,
+            secondTask.AsMultiStep(),
+            resultSelector
+        );
+    }
+
+    public static IActivableMultiStepTask<TFirstArgs, TResult>
         Chain<TFirstArgs, TFirstResult, TSecondArgs, TSecondResult, TResult>(
             this IActivableMultiStepTask<TFirstArgs, TFirstResult> firstTask,
             Func<TFirstArgs, TFirstResult, TSecondArgs> secondArgsSelector,
