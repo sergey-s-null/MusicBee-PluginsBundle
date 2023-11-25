@@ -47,9 +47,9 @@ public class Plugin : PluginBase
         return new PluginInfo
         {
             PluginInfoVersion = PluginInfoVersion,
-            Name = "Laiser399: Plugins Bundle",
+            Name = "Plugins Bundle",
             Description = "Contains list of plugins",
-            Author = "Laiser399",
+            Author = "s.s.d",
             TargetApplication = "",
             Type = PluginType.General,
             VersionMajor = 1,
@@ -76,38 +76,38 @@ public class Plugin : PluginBase
         var inboxRelocateContextMenuFactory = container.Resolve<Func<InboxRelocateContextMenu>>();
 
         mbApi.MB_AddMenuItem(
-            "mnuTools/Laiser399: Search Artworks",
-            "Laiser399: Search Artworks",
+            "mnuTools/s.s.d: Search Artworks",
+            "s.s.d: Search Artworks",
             (_, _) => pluginActions.SearchArtworks());
 
         mbApi.MB_AddMenuItem(
-            "mnuTools/Laiser399: Download Vk Audio",
-            "Laiser399: Download Vk Audio",
+            "mnuTools/s.s.d: Download Vk Audio",
+            "s.s.d: Download Vk Audio",
             (_, _) => pluginActions.DownloadVkAudios());
 
         mbApi.MB_AddMenuItem(
-            "mnuTools/Laiser399: Compare Vk And Local Audios",
-            "Laiser399: Compare Vk And Local Audios",
+            "mnuTools/s.s.d: Compare Vk And Local Audios",
+            "s.s.d: Compare Vk And Local Audios",
             (_, _) => pluginActions.CompareVkAndLocalAudios());
 
         mbApi.MB_AddMenuItem(
-            "mnuTools/Laiser399: Add to Library",
-            "Laiser399: Add to Library",
+            "mnuTools/s.s.d: Add to Library",
+            "s.s.d: Add to Library",
             (_, _) => pluginActions.AddSelectedFileToLibrary());
 
         mbApi.MB_AddMenuItem(
-            "mnuTools/Laiser399: Export Playlists",
-            "Laiser399: Export Playlists",
+            "mnuTools/s.s.d: Export Playlists",
+            "s.s.d: Export Playlists",
             (_, _) => pluginActions.ExportPlaylists());
 
         mbApi.MB_AddMenuItem(
-            "mnuTools/Laiser399: Export Library Data",
-            "Laiser399: Export Library Data",
+            "mnuTools/s.s.d: Export Library Data",
+            "s.s.d: Export Library Data",
             (_, _) => pluginActions.ExportLibraryData());
 
         mbApi.MB_AddMenuItem(
-            "mnuTools/Laiser399: Inbox relocate context menu",
-            "Laiser399: Inbox relocate context menu",
+            "mnuTools/s.s.d: Inbox relocate context menu",
+            "s.s.d: Open inbox relocate context menu",
             (_, _) =>
             {
                 var inboxRelocateContextMenu = inboxRelocateContextMenuFactory();
