@@ -69,7 +69,7 @@ public class Plugin : PluginBase
         AppDomain.CurrentDomain.AssemblyResolve += assemblyResolver.ResolveHandler;
     }
 
-    private static void CreateMenuItems(IContainer container)
+    private static void CreateMenuItems(IComponentContext container)
     {
         var mbApi = container.Resolve<IMusicBeeApi>();
         var pluginActions = container.Resolve<IPluginActions>();
@@ -78,32 +78,38 @@ public class Plugin : PluginBase
         mbApi.MB_AddMenuItem(
             "mnuTools/s.s.d: Search Artworks",
             "s.s.d: Search Artworks",
-            (_, _) => pluginActions.SearchArtworks());
+            (_, _) => pluginActions.SearchArtworks()
+        );
 
         mbApi.MB_AddMenuItem(
             "mnuTools/s.s.d: Download Vk Audio",
             "s.s.d: Download Vk Audio",
-            (_, _) => pluginActions.DownloadVkAudios());
+            (_, _) => pluginActions.DownloadVkAudios()
+        );
 
         mbApi.MB_AddMenuItem(
             "mnuTools/s.s.d: Compare Vk And Local Audios",
             "s.s.d: Compare Vk And Local Audios",
-            (_, _) => pluginActions.CompareVkAndLocalAudios());
+            (_, _) => pluginActions.CompareVkAndLocalAudios()
+        );
 
         mbApi.MB_AddMenuItem(
             "mnuTools/s.s.d: Add to Library",
             "s.s.d: Add to Library",
-            (_, _) => pluginActions.AddSelectedFileToLibrary());
+            (_, _) => pluginActions.AddSelectedFileToLibrary()
+        );
 
         mbApi.MB_AddMenuItem(
             "mnuTools/s.s.d: Export Playlists",
             "s.s.d: Export Playlists",
-            (_, _) => pluginActions.ExportPlaylists());
+            (_, _) => pluginActions.ExportPlaylists()
+        );
 
         mbApi.MB_AddMenuItem(
             "mnuTools/s.s.d: Export Library Data",
             "s.s.d: Export Library Data",
-            (_, _) => pluginActions.ExportLibraryData());
+            (_, _) => pluginActions.ExportLibraryData()
+        );
 
         mbApi.MB_AddMenuItem(
             "mnuTools/s.s.d: Inbox relocate context menu",
@@ -112,7 +118,8 @@ public class Plugin : PluginBase
             {
                 var inboxRelocateContextMenu = inboxRelocateContextMenuFactory();
                 inboxRelocateContextMenu.IsOpen = true;
-            });
+            }
+        );
     }
 
     private void InitSettings()
