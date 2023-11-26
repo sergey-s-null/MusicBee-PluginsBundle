@@ -23,6 +23,8 @@ public sealed class DebugModuleConfiguration : IModuleConfiguration
                                                       "Initial Catalog=MusicSourcesStorage;" +
                                                       $"AttachDBFilename={DatabaseFilePath};";
 
+    public string SettingsArea => "music-sources-storage";
+
     public int CoverSize => 100;
 
     public MetaDataType FileIdField => MetaDataType.Custom10;
