@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Mead.MusicBee.Enums;
-using Module.MusicSourcesStorage.Core.Entities.Abstract;
+using Module.MusicSourcesStorage.Core;
 
 namespace Debug.MusicSourcesStorage;
 

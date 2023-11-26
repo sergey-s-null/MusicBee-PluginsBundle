@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using Module.MusicSourcesStorage.Core.Entities.Abstract;
+using Module.MusicSourcesStorage.Core;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services;

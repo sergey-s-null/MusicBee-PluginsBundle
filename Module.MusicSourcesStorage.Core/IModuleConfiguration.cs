@@ -1,6 +1,6 @@
 ﻿using Mead.MusicBee.Enums;
 
-namespace Module.MusicSourcesStorage.Core.Entities.Abstract;
+namespace Module.MusicSourcesStorage.Core;
 
 public interface IModuleConfiguration
 {

@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Module.MusicSourcesStorage.Core.Entities.Abstract;
+using Module.MusicSourcesStorage.Core;
 using Module.MusicSourcesStorage.Database.Models;
 
 namespace Module.MusicSourcesStorage.Database;

@@ -1,5 +1,5 @@
 ﻿using Mead.MusicBee.Api.Services.Abstract;
-using Module.MusicSourcesStorage.Core.Entities.Abstract;
+using Module.MusicSourcesStorage.Core;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Exceptions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;

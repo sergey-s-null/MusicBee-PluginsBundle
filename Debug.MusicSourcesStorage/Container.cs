@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Debug.Common;
 using Module.MusicSourcesStorage;
-using Module.MusicSourcesStorage.Core.Entities.Abstract;
+using Module.MusicSourcesStorage.Core;
 using VkNet.Abstractions;
 
 namespace Debug.MusicSourcesStorage;
