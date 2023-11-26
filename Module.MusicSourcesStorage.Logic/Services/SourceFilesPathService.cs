@@ -1,5 +1,4 @@
 ﻿using Module.Core.Helpers;
-using Module.MusicSourcesStorage.Core;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
@@ -7,17 +6,17 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class SourceFilesPathService : ISourceFilesPathService
 {
-    private readonly IModuleConfiguration _configuration;
+    private readonly IMusicSourcesStorageSettingsAccessor _settingsAccessor;
 
-    public SourceFilesPathService(IModuleConfiguration configuration)
+    public SourceFilesPathService(IMusicSourcesStorageSettingsAccessor settingsAccessor)
     {
-        _configuration = configuration;
+        _settingsAccessor = settingsAccessor;
     }
 
     public string GetSourceFilesRootDirectory(MusicSourceAdditionalInfo additionalInfo)
     {
         return Path.Combine(
-            _configuration.SourceFilesDownloadingDirectory,
+            _settingsAccessor.SourceFilesDownloadingDirectory,
             GetFixedTargetFilesDirectory(additionalInfo)
         );
     }
@@ -25,7 +24,7 @@ public sealed class SourceFilesPathService : ISourceFilesPathService
     public string GetSourceFileTargetPath(MusicSourceAdditionalInfo additionalInfo, SourceFile file)
     {
         return Path.Combine(
-            _configuration.SourceFilesDownloadingDirectory,
+            _settingsAccessor.SourceFilesDownloadingDirectory,
             GetFixedTargetFilesDirectory(additionalInfo),
             file.Path
         );

@@ -11,8 +11,4 @@
         <Reference Include="System.Net.Http" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Mead.MusicBee.Api" Version="1.0.0" />
-    </ItemGroup>
-
 </Project>

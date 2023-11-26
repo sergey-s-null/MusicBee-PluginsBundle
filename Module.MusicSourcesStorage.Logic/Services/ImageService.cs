@@ -1,21 +1,20 @@
 ﻿using System.Drawing;
-using Module.MusicSourcesStorage.Core;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class ImageService : IImageService
 {
-    private readonly IModuleConfiguration _configuration;
+    private readonly IMusicSourcesStorageSettingsAccessor _settingsAccessor;
 
-    public ImageService(IModuleConfiguration configuration)
+    public ImageService(IMusicSourcesStorageSettingsAccessor settingsAccessor)
     {
-        _configuration = configuration;
+        _settingsAccessor = settingsAccessor;
     }
 
     public Image ResizeForStorage(Image image)
     {
-        var targetSize = GetTargetSize(image.Size, _configuration.CoverSize);
+        var targetSize = GetTargetSize(image.Size, _settingsAccessor.CoverSize);
         var target = new Bitmap(image, targetSize);
         return target;
     }

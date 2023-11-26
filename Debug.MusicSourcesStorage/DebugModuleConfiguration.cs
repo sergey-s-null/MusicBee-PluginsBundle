@@ -5,6 +5,7 @@ using Module.MusicSourcesStorage.Core;
 
 namespace Debug.MusicSourcesStorage;
 
+// todo remove useless values
 public sealed class DebugModuleConfiguration : IModuleConfiguration
 {
     private static readonly string DebugFolder = Path.Combine(

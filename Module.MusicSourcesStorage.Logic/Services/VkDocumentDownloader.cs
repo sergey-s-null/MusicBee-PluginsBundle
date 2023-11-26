@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using Module.Core.Helpers;
-using Module.MusicSourcesStorage.Core;
 using Module.MusicSourcesStorage.Logic.Delegates;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Entities.Tasks;
@@ -11,11 +10,11 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class VkDocumentDownloader : IVkDocumentDownloader
 {
-    private readonly IModuleConfiguration _configuration;
+    private readonly IMusicSourcesStorageSettingsAccessor _settingsAccessor;
 
-    public VkDocumentDownloader(IModuleConfiguration configuration)
+    public VkDocumentDownloader(IMusicSourcesStorageSettingsAccessor settingsAccessor)
     {
-        _configuration = configuration;
+        _settingsAccessor = settingsAccessor;
     }
 
     public IActivableTask<VkDocument, string> CreateDownloadTask()
@@ -38,7 +37,7 @@ public sealed class VkDocumentDownloader : IVkDocumentDownloader
     private string GetTargetFilePath(VkDocument document)
     {
         var fileName = PathHelper.ReplaceInvalidChars(document.Name, "_");
-        return Path.Combine(_configuration.VkDocumentsDownloadingDirectory, fileName);
+        return Path.Combine(_settingsAccessor.VkDocumentsDownloadingDirectory, fileName);
     }
 
     private static void DownloadFile(

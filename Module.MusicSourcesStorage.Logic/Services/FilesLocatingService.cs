@@ -1,5 +1,4 @@
 ﻿using Mead.MusicBee.Api.Services.Abstract;
-using Module.MusicSourcesStorage.Core;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Exceptions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -8,18 +7,18 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class FilesLocatingService : IFilesLocatingService
 {
-    private readonly IModuleConfiguration _configuration;
+    private readonly IMusicSourcesStorageSettingsAccessor _settingsAccessor;
     private readonly ISourceFilesPathService _sourceFilesPathService;
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
     private readonly IMusicBeeApi _musicBeeApi;
 
     public FilesLocatingService(
-        IModuleConfiguration configuration,
+        IMusicSourcesStorageSettingsAccessor settingsAccessor,
         ISourceFilesPathService sourceFilesPathService,
         IMusicSourcesStorageService musicSourcesStorageService,
         IMusicBeeApi musicBeeApi)
     {
-        _configuration = configuration;
+        _settingsAccessor = settingsAccessor;
         _sourceFilesPathService = sourceFilesPathService;
         _musicSourcesStorageService = musicSourcesStorageService;
         _musicBeeApi = musicBeeApi;
@@ -69,7 +68,7 @@ public sealed class FilesLocatingService : IFilesLocatingService
         var query =
             $"<Source Type=\"{sourceType}\">" +
             $"    <Conditions CombineMethod=\"All\">" +
-            $"        <Condition Field=\"{_configuration.FileIdField}\" Comparison=\"Is\" Value=\"{fileId}\" />" +
+            $"        <Condition Field=\"{_settingsAccessor.FileIdField}\" Comparison=\"Is\" Value=\"{fileId}\" />" +
             $"    </Conditions>" +
             $"</Source>";
 

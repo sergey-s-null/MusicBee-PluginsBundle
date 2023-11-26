@@ -1,5 +1,4 @@
-﻿using Module.MusicSourcesStorage.Core;
-using Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Newtonsoft.Json;
 
@@ -14,10 +13,10 @@ public sealed class DownloadedVkDocumentsCache : IDownloadedVkDocumentsCache
     private readonly Lazy<string> _metaInfoFilePath;
     private readonly Lazy<IDictionary<VkOwnedEntityId, string>> _downloadedVkDocuments;
 
-    public DownloadedVkDocumentsCache(IModuleConfiguration configuration)
+    public DownloadedVkDocumentsCache(IMusicSourcesStorageSettingsAccessor settingsAccessor)
     {
         _metaInfoFilePath = new Lazy<string>(() =>
-            Path.Combine(configuration.VkDocumentsDownloadingDirectory, MetaInfoFileName)
+            Path.Combine(settingsAccessor.VkDocumentsDownloadingDirectory, MetaInfoFileName)
         );
         _downloadedVkDocuments = new Lazy<IDictionary<VkOwnedEntityId, string>>(LoadMetaInfo);
     }
