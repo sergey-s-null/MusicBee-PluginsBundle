@@ -15,4 +15,8 @@
         <PackageReference Include="EntityFramework" Version="6.4.4" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\Module.Settings.Core\Module.Settings.Core.csproj" />
+    </ItemGroup>
+
 </Project>
