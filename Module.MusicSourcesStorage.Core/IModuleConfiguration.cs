@@ -3,4 +3,5 @@
 public interface IModuleConfiguration
 {
     string DatabaseConnectionString { get; }
+    string SettingsArea { get; }
 }
