@@ -7,25 +7,32 @@ public sealed class MusicSourcesStorageSettings : IMusicSourcesStorageSettings
 {
     public string VkDocumentsDownloadingDirectory
     {
-        get => throw new NotImplementedException();
-        set => throw new NotImplementedException();
+        get => _settingHoldersProvider.VkDocumentsDownloadingDirectory.Value;
+        set => _settingHoldersProvider.VkDocumentsDownloadingDirectory.Value = value;
     }
 
     public string SourceFilesDownloadingDirectory
     {
-        get => throw new NotImplementedException();
-        set => throw new NotImplementedException();
+        get => _settingHoldersProvider.SourceFilesDownloadingDirectory.Value;
+        set => _settingHoldersProvider.SourceFilesDownloadingDirectory.Value = value;
     }
 
     public int CoverSize
     {
-        get => throw new NotImplementedException();
-        set => throw new NotImplementedException();
+        get => _settingHoldersProvider.CoverSize.Value;
+        set => _settingHoldersProvider.CoverSize.Value = value;
     }
 
     public MetaDataType FileIdField
     {
-        get => throw new NotImplementedException();
-        set => throw new NotImplementedException();
+        get => _settingHoldersProvider.FileIdField.Value;
+        set => _settingHoldersProvider.FileIdField.Value = value;
+    }
+
+    private readonly IMusicSourcesStorageSettingHoldersProvider _settingHoldersProvider;
+
+    public MusicSourcesStorageSettings(IMusicSourcesStorageSettingHoldersProvider settingHoldersProvider)
+    {
+        _settingHoldersProvider = settingHoldersProvider;
     }
 }
