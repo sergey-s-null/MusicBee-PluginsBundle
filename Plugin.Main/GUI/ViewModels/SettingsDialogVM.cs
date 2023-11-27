@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using Module.ArtworksSearcher.GUI.Settings;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Settings.Exceptions;
 using Module.Vk.GUI.AbstractViewModels;
@@ -11,12 +12,13 @@ using PropertyChanged;
 namespace Plugin.Main.GUI.ViewModels;
 
 [AddINotifyPropertyChangedInterface]
-public class SettingsDialogVM : ISettingsDialogVM
+public sealed class SettingsDialogVM : ISettingsDialogVM
 {
     public IVkSettingsVM VkSettingsVM { get; }
     public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
     public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
     public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
+    public IMusicSourcesStorageSettingsVM MusicSourcesStorageSettingsVM { get; }
 
     public IList<IModuleSettingsVM> SettingsModules { get; } = new ObservableCollection<IModuleSettingsVM>();
 
@@ -26,12 +28,14 @@ public class SettingsDialogVM : ISettingsDialogVM
         IVkSettingsVM vkSettingsVM,
         IMusicDownloaderSettingsVM musicDownloaderSettingsVM,
         IArtworksSearcherSettingsVM artworksSearcherSettingsVM,
-        IPlaylistsExporterSettingsVM playlistsExporterSettingsVM)
+        IPlaylistsExporterSettingsVM playlistsExporterSettingsVM,
+        IMusicSourcesStorageSettingsVM musicSourcesStorageSettingsVM)
     {
         VkSettingsVM = vkSettingsVM;
         MusicDownloaderSettingsVM = musicDownloaderSettingsVM;
         ArtworksSearcherSettingsVM = artworksSearcherSettingsVM;
         PlaylistsExporterSettingsVM = playlistsExporterSettingsVM;
+        MusicSourcesStorageSettingsVM = musicSourcesStorageSettingsVM;
 
         SettingsModules.Add(new ModuleSettingsVM("Vk",
             vkSettingsVM));
@@ -41,6 +45,8 @@ public class SettingsDialogVM : ISettingsDialogVM
             artworksSearcherSettingsVM));
         SettingsModules.Add(new ModuleSettingsVM("Playlists exporter",
             playlistsExporterSettingsVM));
+        SettingsModules.Add(new ModuleSettingsVM("Music sources",
+            musicSourcesStorageSettingsVM));
 
         SelectedSettingsModule = SettingsModules.First();
 

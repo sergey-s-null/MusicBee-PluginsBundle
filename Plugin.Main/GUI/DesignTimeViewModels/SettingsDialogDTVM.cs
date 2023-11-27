@@ -1,4 +1,6 @@
 ﻿using Module.ArtworksSearcher.GUI.Settings;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.GUI.DesignTimeViewModels;
@@ -17,7 +19,8 @@ public sealed class SettingsDialogDTVM : ISettingsDialogVM
     public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
     public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
     public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
-        
+    public IMusicSourcesStorageSettingsVM MusicSourcesStorageSettingsVM { get; }
+
     public IList<IModuleSettingsVM> SettingsModules { get; }
     public IModuleSettingsVM SelectedSettingsModule { get; set; }
 
@@ -27,13 +30,15 @@ public sealed class SettingsDialogDTVM : ISettingsDialogVM
         MusicDownloaderSettingsVM = new MusicDownloaderSettingsDTVM();
         ArtworksSearcherSettingsVM = new ArtworksSearcherSettingsDTVM();
         PlaylistsExporterSettingsVM = new PlaylistsExporterSettingsDTVM();
-            
+        MusicSourcesStorageSettingsVM = new MusicSourcesStorageSettingsDTVM();
+
         SettingsModules = new List<IModuleSettingsVM>
         {
             new ModuleSettingsVM("Vk", VkSettingsVM),
             new ModuleSettingsVM("Music downloader", MusicDownloaderSettingsVM),
             new ModuleSettingsVM("Artworks searcher", ArtworksSearcherSettingsVM),
             new ModuleSettingsVM("Playlists exporter", PlaylistsExporterSettingsVM),
+            new ModuleSettingsVM("Music sources", MusicSourcesStorageSettingsVM),
         };
         SelectedSettingsModule = SettingsModules.First();
     }

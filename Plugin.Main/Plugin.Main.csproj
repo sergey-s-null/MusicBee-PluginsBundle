@@ -1,37 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<LangVersion>11</LangVersion>
-		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-		<UseWpf>true</UseWpf>
-		<AssemblyName>mb_PluginsBundle</AssemblyName>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <UseWpf>true</UseWpf>
+        <AssemblyName>mb_PluginsBundle</AssemblyName>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Include="GUI\Views\InboxRelocateContextMenu.xaml" />
-	</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="GUI\Views\InboxRelocateContextMenu.xaml" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="System.Net.Http" />
-		<Reference Include="System.Windows.Forms" />
-	</ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+        <Reference Include="System.Windows.Forms" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\HackModule.AssemblyBindingRedirect\HackModule.AssemblyBindingRedirect.csproj" />
-		<ProjectReference Include="..\Module.ArtworksSearcher\Module.ArtworksSearcher.csproj" />
-		<ProjectReference Include="..\Module.AudioSourcesComparer\Module.AudioSourcesComparer.csproj" />
-		<ProjectReference Include="..\Module.DataExporter\Module.DataExporter.csproj" />
-		<ProjectReference Include="..\Module.InboxAdder\Module.InboxAdder.csproj" />
-		<ProjectReference Include="..\Module.PlaylistsExporter\Module.PlaylistsExporter.csproj" />
-		<ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
-		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\HackModule.AssemblyBindingRedirect\HackModule.AssemblyBindingRedirect.csproj" />
+        <ProjectReference Include="..\Module.ArtworksSearcher\Module.ArtworksSearcher.csproj" />
+        <ProjectReference Include="..\Module.AudioSourcesComparer\Module.AudioSourcesComparer.csproj" />
+        <ProjectReference Include="..\Module.DataExporter\Module.DataExporter.csproj" />
+        <ProjectReference Include="..\Module.InboxAdder\Module.InboxAdder.csproj" />
+        <ProjectReference Include="..\Module.MusicSourcesStorage.Gui\Module.MusicSourcesStorage.Gui.csproj" />
+        <ProjectReference Include="..\Module.PlaylistsExporter\Module.PlaylistsExporter.csproj" />
+        <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
+        <ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
+    </ItemGroup>
 
 </Project>
