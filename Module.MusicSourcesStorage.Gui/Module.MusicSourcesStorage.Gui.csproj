@@ -22,6 +22,7 @@
         <ProjectReference Include="..\Module.Core\Module.Core.csproj" />
         <ProjectReference Include="..\Module.MusicSourcesStorage.Logic\Module.MusicSourcesStorage.Logic.csproj" />
         <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\Module.Settings.Gui\Module.Settings.Gui.csproj" />
     </ItemGroup>
 
     <ItemGroup>
