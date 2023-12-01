@@ -8,11 +8,12 @@ namespace Plugin.Main.GUI.AbstractViewModels;
 
 public interface ISettingsDialogVM
 {
-    IVkSettingsVM VkSettingsVM { get; }
-    IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
-    IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
-    IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
-    IMusicSourcesStorageSettingsVM MusicSourcesStorageSettingsVM { get; }
+    // todo use ViewMapper
+    IVkSettingsVM VkSettings { get; }
+    IMusicDownloaderSettingsVM MusicDownloaderSettings { get; }
+    IArtworksSearcherSettingsVM ArtworksSearcherSettings { get; }
+    IPlaylistsExporterSettingsVM PlaylistsExporterSettings { get; }
+    IMusicSourcesStorageSettingsVM MusicSourcesStorageSettings { get; }
 
     IList<IModuleSettingsVM> SettingsModules { get; }
     IModuleSettingsVM SelectedSettingsModule { get; set; }

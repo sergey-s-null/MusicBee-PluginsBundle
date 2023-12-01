@@ -14,11 +14,11 @@ namespace Plugin.Main.GUI.ViewModels;
 [AddINotifyPropertyChangedInterface]
 public sealed class SettingsDialogVM : ISettingsDialogVM
 {
-    public IVkSettingsVM VkSettingsVM { get; }
-    public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
-    public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
-    public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
-    public IMusicSourcesStorageSettingsVM MusicSourcesStorageSettingsVM { get; }
+    public IVkSettingsVM VkSettings { get; }
+    public IMusicDownloaderSettingsVM MusicDownloaderSettings { get; }
+    public IArtworksSearcherSettingsVM ArtworksSearcherSettings { get; }
+    public IPlaylistsExporterSettingsVM PlaylistsExporterSettings { get; }
+    public IMusicSourcesStorageSettingsVM MusicSourcesStorageSettings { get; }
 
     public IList<IModuleSettingsVM> SettingsModules { get; } = new ObservableCollection<IModuleSettingsVM>();
 
@@ -31,11 +31,11 @@ public sealed class SettingsDialogVM : ISettingsDialogVM
         IPlaylistsExporterSettingsVM playlistsExporterSettingsVM,
         IMusicSourcesStorageSettingsVM musicSourcesStorageSettingsVM)
     {
-        VkSettingsVM = vkSettingsVM;
-        MusicDownloaderSettingsVM = musicDownloaderSettingsVM;
-        ArtworksSearcherSettingsVM = artworksSearcherSettingsVM;
-        PlaylistsExporterSettingsVM = playlistsExporterSettingsVM;
-        MusicSourcesStorageSettingsVM = musicSourcesStorageSettingsVM;
+        VkSettings = vkSettingsVM;
+        MusicDownloaderSettings = musicDownloaderSettingsVM;
+        ArtworksSearcherSettings = artworksSearcherSettingsVM;
+        PlaylistsExporterSettings = playlistsExporterSettingsVM;
+        MusicSourcesStorageSettings = musicSourcesStorageSettingsVM;
 
         SettingsModules.Add(new ModuleSettingsVM("Vk",
             vkSettingsVM));
