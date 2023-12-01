@@ -376,6 +376,12 @@
           "Mead.MusicBee.Api.Autofac.DependencyInjection": "[1.0.1, )"
         }
       },
+      "module.musicsourcesstorage": {
+        "type": "Project",
+        "dependencies": {
+          "Module.MusicSourcesStorage.Gui": "[1.0.0, )"
+        }
+      },
       "module.musicsourcesstorage.core": {
         "type": "Project"
       },
@@ -437,6 +443,7 @@
       "module.settings.database": {
         "type": "Project",
         "dependencies": {
+          "Autofac": "[6.5.0, )",
           "EntityFramework": "[6.4.4, )",
           "Module.Settings.Core": "[1.0.0, )"
         }
