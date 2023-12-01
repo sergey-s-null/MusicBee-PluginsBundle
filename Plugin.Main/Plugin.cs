@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 using System.Windows;
+using System.Windows.Forms;
 using Autofac;
 using HackModule.AssemblyBindingRedirect.Services;
 using Mead.MusicBee.Api.Services.Abstract;
@@ -8,10 +9,12 @@ using Mead.MusicBee.Entities;
 using Mead.MusicBee.Enums;
 using Mead.MusicBee.Services;
 using Module.MusicBee.Extension.Services.Abstract;
+using Module.MusicSourcesStorage.Services.Abstract;
 using Plugin.Main;
 using Plugin.Main.Factories;
 using Plugin.Main.GUI.Views;
 using Plugin.Main.Services;
+using MessageBox = System.Windows.MessageBox;
 
 // ReSharper disable once CheckNamespace
 namespace MusicBeePlugin;
@@ -73,6 +76,7 @@ public class Plugin : PluginBase
     {
         var mbApi = container.Resolve<IMusicBeeApi>();
         var pluginActions = container.Resolve<IPluginActions>();
+        var musicSourcesStorageModuleActions = container.Resolve<IMusicSourcesStorageModuleActions>();
         var inboxRelocateContextMenuFactory = container.Resolve<Func<InboxRelocateContextMenu>>();
 
         mbApi.MB_AddMenuItem(
@@ -120,6 +124,23 @@ public class Plugin : PluginBase
                 inboxRelocateContextMenu.IsOpen = true;
             }
         );
+
+        var musicSourcesStorageRootItem = (ToolStripMenuItem)mbApi.MB_AddMenuItem(
+            "mnuTools/s.s.d: Music sources storage",
+            "s.s.d: Music sources storage plugin actions",
+            (_, _) => { }
+        );
+        musicSourcesStorageRootItem.AllowDrop = true;
+        musicSourcesStorageRootItem.DropDownItems.Add(mbApi.MB_AddMenuItem(
+            "Show music sources",
+            "Open dialog with music sources",
+            (_, _) => musicSourcesStorageModuleActions.ShowMusicSources()
+        ));
+        musicSourcesStorageRootItem.DropDownItems.Add(mbApi.MB_AddMenuItem(
+            "Add VK post with archive source",
+            "Open wizard for adding new source",
+            (_, _) => musicSourcesStorageModuleActions.AddVkPostWithArchiveSource()
+        ));
     }
 
     private void InitSettings()
