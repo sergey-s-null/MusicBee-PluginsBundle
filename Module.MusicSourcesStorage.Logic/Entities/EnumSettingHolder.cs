@@ -12,7 +12,7 @@ public sealed class EnumSettingHolder<T> : ISettingHolder<T> where T : Enum
 
     public T Value
     {
-        get => (T?)(object?)_settingsRepository.FindInt32(Area, Id) ?? DefaultValue;
+        get => GetValue();
         set => _settingsRepository.Set(Area, Id, (int)(object)value);
     }
 
@@ -29,5 +29,16 @@ public sealed class EnumSettingHolder<T> : ISettingHolder<T> where T : Enum
         DefaultValue = defaultValue;
 
         _settingsRepository = settingsRepository;
+    }
+
+    private T GetValue()
+    {
+        var intValue = _settingsRepository.FindInt32(Area, Id);
+        if (intValue is null)
+        {
+            return DefaultValue;
+        }
+
+        return (T)(object)intValue;
     }
 }
