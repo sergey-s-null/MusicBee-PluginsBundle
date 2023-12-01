@@ -1,12 +1,8 @@
-﻿using Mead.MusicBee.Api.Services.Abstract;
-using Mead.MusicBee.Enums;
-using Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Entities.Tasks.Abstract;
 using Module.MusicSourcesStorage.Logic.Extensions;
-using Module.MusicSourcesStorage.Logic.Factories;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using Void = Module.MusicSourcesStorage.Logic.Entities.Void;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
@@ -15,18 +11,18 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
     private readonly ISourceFilesPathService _sourceFilesPathService;
     private readonly IVkArchiveFilesDownloadingService _vkArchiveFilesDownloadingService;
-    private readonly IMusicBeeApi _musicBeeApi;
+    private readonly INewFileInitializationService _newFileInitializationService;
 
     public FilesDownloadingService(
         IMusicSourcesStorageService musicSourcesStorageService,
         ISourceFilesPathService sourceFilesPathService,
-        IVkArchiveFilesDownloadingService vkArchiveFilesDownloadingService,
-        IMusicBeeApi musicBeeApi)
+        IVkArchiveFilesDownloadingService vkArchiveFilesDownloadingService, 
+        INewFileInitializationService newFileInitializationService)
     {
         _musicSourcesStorageService = musicSourcesStorageService;
         _sourceFilesPathService = sourceFilesPathService;
         _vkArchiveFilesDownloadingService = vkArchiveFilesDownloadingService;
-        _musicBeeApi = musicBeeApi;
+        _newFileInitializationService = newFileInitializationService;
     }
 
     public async Task<IActivableMultiStepTask<FileDownloadArgs, string>> CreateFileDownloadTaskAsync(
@@ -64,7 +60,8 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
         if (file is MusicFile)
         {
             task = task.Chain(
-                CreateAddMusicFileToInboxTask(),
+                (_, filePath) => new NewFileInitializationArgs(file.Id, filePath),
+                _newFileInitializationService.CreateTask(),
                 (_, downloadedFilePath, _) => downloadedFilePath
             );
         }
@@ -76,15 +73,5 @@ public sealed class FilesDownloadingService : IFilesDownloadingService
                 args.SkipIfDownloaded,
                 targetPath
             ));
-    }
-
-    private IActivableTask<string, Void> CreateAddMusicFileToInboxTask()
-    {
-        return ActivableTaskFactory.CreateWithoutResult<string>(AddMusicFileToInbox);
-    }
-
-    private void AddMusicFileToInbox(string musicFilePath)
-    {
-        _musicBeeApi.Library_AddFileToLibrary(musicFilePath, LibraryCategory.Inbox);
     }
 }

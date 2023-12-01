@@ -89,6 +89,10 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<MusicSourcesStorageBufferedSettings>()
             .As<IMusicSourcesStorageBufferedSettings>();
         builder
+            .RegisterType<NewFileInitializationService>()
+            .As<INewFileInitializationService>()
+            .SingleInstance();
+        builder
             .RegisterType<MusicSourcesStorageSettings>()
             .As<IMusicSourcesStorageSettings>()
             .As<IMusicSourcesStorageSettingsAccessor>()
