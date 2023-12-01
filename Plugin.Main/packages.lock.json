@@ -413,6 +413,7 @@
           "Module.MusicSourcesStorage.Core": "[1.0.0, )",
           "Module.MusicSourcesStorage.Database": "[1.0.0, )",
           "Module.Settings.Database": "[1.0.0, )",
+          "Module.Vk": "[1.0.0, )",
           "MonoTorrent": "[2.0.7, )",
           "SharpCompress": "[0.34.1, )",
           "VkNet": "[1.72.0, )"
