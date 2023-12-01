@@ -60,6 +60,11 @@ public static class DirectoryHelper
     /// </summary>
     public static void DeleteEmpty(string directory, bool recursively)
     {
+        if (!Directory.Exists(directory))
+        {
+            return;
+        }
+
         if (recursively)
         {
             var subDirectories = Directory.GetDirectories(directory);
