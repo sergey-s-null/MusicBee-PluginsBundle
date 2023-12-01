@@ -13,13 +13,16 @@ public sealed class SourceFilesRetargetingService : ISourceFilesRetargetingServi
 {
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
     private readonly ISourceFilesPathService _sourceFilesPathService;
+    private readonly INewFileInitializationService _newFileInitializationService;
 
     public SourceFilesRetargetingService(
         IMusicSourcesStorageService musicSourcesStorageService,
-        ISourceFilesPathService sourceFilesPathService)
+        ISourceFilesPathService sourceFilesPathService,
+        INewFileInitializationService newFileInitializationService)
     {
         _musicSourcesStorageService = musicSourcesStorageService;
         _sourceFilesPathService = sourceFilesPathService;
+        _newFileInitializationService = newFileInitializationService;
     }
 
     public IActivableTask<FilesRetargetingArgs, Void> CreateRetargetingTask()
@@ -78,5 +81,6 @@ public sealed class SourceFilesRetargetingService : ISourceFilesRetargetingServi
         }
 
         File.Move(previousPath, currentPath);
+        _newFileInitializationService.InitializeNewFile(sourceFile.Id, currentPath);
     }
 }

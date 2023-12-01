@@ -7,4 +7,6 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 public interface INewFileInitializationService
 {
     IActivableTask<NewFileInitializationArgs, Void> CreateTask();
+
+    void InitializeNewFile(int fileId, string filePath);
 }

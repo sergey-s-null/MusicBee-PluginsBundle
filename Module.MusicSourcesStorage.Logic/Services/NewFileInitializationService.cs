@@ -26,16 +26,16 @@ public sealed class NewFileInitializationService : INewFileInitializationService
         return ActivableTaskFactory.CreateWithoutResult<NewFileInitializationArgs>(InitializeNewFile);
     }
 
-    private void InitializeNewFile(NewFileInitializationArgs args)
-    {
-        InitializeNewFile(args.FileId, args.FilePath);
-    }
-
-    private void InitializeNewFile(int fileId, string filePath)
+    public void InitializeNewFile(int fileId, string filePath)
     {
         _musicBeeApi.Library_AddFileToLibrary(filePath, LibraryCategory.Inbox);
 
         _musicBeeApi.Library_SetFileTag(filePath, _settingsAccessor.FileIdField, fileId.ToString());
         _musicBeeApi.Library_CommitTagsToFile(filePath);
+    }
+
+    private void InitializeNewFile(NewFileInitializationArgs args)
+    {
+        InitializeNewFile(args.FileId, args.FilePath);
     }
 }
