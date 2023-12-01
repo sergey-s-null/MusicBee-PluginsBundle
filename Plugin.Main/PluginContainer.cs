@@ -12,6 +12,7 @@ using Module.MusicSourcesStorage.Core;
 using Module.PlaylistsExporter;
 using Module.Settings.Database;
 using Module.Vk;
+using Module.Vk.Services.Abstract;
 using Module.VkAudioDownloader;
 using Plugin.Main.Configurations;
 using Plugin.Main.Configurations.Abstract;
@@ -60,6 +61,10 @@ public static class PluginContainer
             .As<IPluginActions>()
             .SingleInstance();
 
+        builder
+            .RegisterType<VkApiProvider>()
+            .As<IVkApiProvider>()
+            .SingleInstance();
         builder
             .RegisterType<VkApiAuthorizationsService>()
             .As<IVkApiAuthorizationsService>()
