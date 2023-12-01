@@ -49,6 +49,9 @@ public sealed class DIModule : Autofac.Module
     private static void RegisterViewModels(ContainerBuilder builder)
     {
         builder
+            .RegisterType<MusicSourcesStorageSettingsVM>()
+            .As<IMusicSourcesStorageSettingsVM>();
+        builder
             .RegisterType<MusicSourcesWindowVM>()
             .As<IMusicSourcesWindowVM>();
         builder
