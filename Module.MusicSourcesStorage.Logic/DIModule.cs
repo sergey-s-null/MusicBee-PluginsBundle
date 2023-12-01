@@ -91,6 +91,7 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<MusicSourcesStorageSettings>()
             .As<IMusicSourcesStorageSettings>()
+            .As<IMusicSourcesStorageSettingsAccessor>()
             .SingleInstance();
         builder
             .RegisterType<MusicSourcesStorageSettingHoldersProvider>()
