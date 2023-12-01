@@ -9,8 +9,10 @@ public interface IBaseSettingsVM
 
     bool Loaded { get; }
 
+    // todo nullable?
     string LoadingErrorMessage { get; }
 
+    // todo only command is available in VMs
     void Load();
 
     /// <returns>true - settings saved successfully. false - user-side error occurred, saving cancelled.</returns>
