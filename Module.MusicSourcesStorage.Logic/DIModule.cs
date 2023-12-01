@@ -85,5 +85,16 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<ImageService>()
             .As<IImageService>()
             .SingleInstance();
+        builder
+            .RegisterType<MusicSourcesStorageBufferedSettings>()
+            .As<IMusicSourcesStorageBufferedSettings>();
+        builder
+            .RegisterType<MusicSourcesStorageSettings>()
+            .As<IMusicSourcesStorageSettings>()
+            .SingleInstance();
+        builder
+            .RegisterType<MusicSourcesStorageSettingHoldersProvider>()
+            .As<IMusicSourcesStorageSettingHoldersProvider>()
+            .SingleInstance();
     }
 }
