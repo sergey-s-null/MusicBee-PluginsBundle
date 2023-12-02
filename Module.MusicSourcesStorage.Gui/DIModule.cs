@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Module.Core.Enums;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
@@ -136,11 +137,11 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<MusicSourceVMBuilder>()
             .As<IMusicSourceVMBuilder>()
-            .SingleInstance();
+            .InstancePerMatchingLifetimeScope(Scope.UiDispatcher);
         builder
             .RegisterType<ConnectedNodesHierarchyVMBuilder>()
             .As<IConnectedNodesHierarchyVMBuilder>()
-            .SingleInstance();
+            .InstancePerMatchingLifetimeScope(Scope.UiDispatcher);
         builder
             .RegisterType<NodesHierarchyVMBuilder>()
             .As<INodesHierarchyVMBuilder>()
@@ -148,7 +149,7 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<ConnectedFileVMBuilder>()
             .As<IConnectedFileVMBuilder>()
-            .SingleInstance();
+            .InstancePerMatchingLifetimeScope(Scope.UiDispatcher);
         builder
             .RegisterType<FileVMBuilder>()
             .As<IFileVMBuilder>()

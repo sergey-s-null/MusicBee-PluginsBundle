@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Module.Core.Helpers;
+using Module.Core.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Enums;
@@ -105,17 +106,20 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private readonly int _sourceId;
     private readonly Lazy<string> _unifiedPath;
+    private readonly IUiDispatcherProvider _dispatcherProvider;
     private readonly ICoverSelectionService _coverSelectionService;
 
     public ConnectedDirectoryVM(
         int sourceId,
         string path,
         IReadOnlyList<INodeVM> childNodes,
+        IUiDispatcherProvider dispatcherProvider,
         ICoverSelectionService coverSelectionService)
         : base(path, childNodes)
     {
         _sourceId = sourceId;
         _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(Path));
+        _dispatcherProvider = dispatcherProvider;
         _coverSelectionService = coverSelectionService;
 
         InitializeAsync();
@@ -251,7 +255,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
                 return;
             }
 
-            Application.Current.Dispatcher.Invoke(
+            _dispatcherProvider.Dispatcher.Invoke(
                 () => Cover = BitmapSourceHelper.Create(args.ImageData)
             );
         };
@@ -263,9 +267,7 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
                 return;
             }
 
-            Application.Current.Dispatcher.Invoke(
-                () => Cover = null
-            );
+            _dispatcherProvider.Dispatcher.Invoke(() => Cover = null);
         };
     }
 

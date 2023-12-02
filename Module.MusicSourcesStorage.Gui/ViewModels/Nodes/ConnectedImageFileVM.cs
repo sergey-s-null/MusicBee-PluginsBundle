@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Module.Core.Helpers;
+using Module.Core.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
@@ -58,6 +59,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
     private readonly string _filePath;
     private readonly Lazy<string> _parentDirectoryPath;
     private readonly Lazy<string> _parentDirectoryUnifiedPath;
+    private readonly IUiDispatcherProvider _dispatcherProvider;
     private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
     private readonly IFilesDeletingService _filesDeletingService;
@@ -65,6 +67,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
 
     public ConnectedImageFileVM(
         ImageFile imageFile,
+        IUiDispatcherProvider dispatcherProvider,
         IFilesLocatingService filesLocatingService,
         IFilesDownloadingService filesDownloadingService,
         IFilesDeletingService filesDeletingService,
@@ -80,6 +83,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
         _parentDirectoryUnifiedPath = new Lazy<string>(() =>
             PathHelper.UnifyDirectoryPath(_parentDirectoryPath.Value)
         );
+        _dispatcherProvider = dispatcherProvider;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
         _filesDeletingService = filesDeletingService;
@@ -105,7 +109,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
                 return;
             }
 
-            Application.Current.Dispatcher.Invoke(
+            _dispatcherProvider.Dispatcher.Invoke(
                 () => IsCover = args.ImageFileId == _fileId
             );
         };
@@ -121,9 +125,7 @@ public sealed class ConnectedImageFileVM : ImageFileVM, IConnectedImageFileVM
                 return;
             }
 
-            Application.Current.Dispatcher.Invoke(
-                () => IsCover = false
-            );
+            _dispatcherProvider.Dispatcher.Invoke(() => IsCover = false);
         };
     }
 
