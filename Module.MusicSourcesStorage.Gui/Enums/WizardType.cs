@@ -2,8 +2,7 @@
 
 public enum WizardType
 {
-    // todo rename to "Add"?
-    AddingVkPostWithArchive,
+    AddVkPostWithArchive,
     AddTorrent,
     EditMusicSourceAdditionalInfo,
 }

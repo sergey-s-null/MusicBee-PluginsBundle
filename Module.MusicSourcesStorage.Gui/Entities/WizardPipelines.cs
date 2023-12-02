@@ -17,7 +17,7 @@ public sealed class WizardPipelines : IWizardPipelines
     {
         return wizardType switch
         {
-            WizardType.AddingVkPostWithArchive => _addingVkPostWithArchivePipeline.Value,
+            WizardType.AddVkPostWithArchive => _addingVkPostWithArchivePipeline.Value,
             WizardType.AddTorrent => _addTorrentPipeline.Value,
             WizardType.EditMusicSourceAdditionalInfo => _editMusicSourceAdditionalInfoPipeline.Value,
             _ => throw new ArgumentOutOfRangeException(nameof(wizardType), wizardType, "Unknown wizard type.")

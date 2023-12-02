@@ -27,7 +27,7 @@ public sealed class WizardService : IWizardService
 
         var wizardScope = _lifetimeScope.BeginLifetimeScope(builder =>
         {
-            RegisterRootDescriptor(builder, WizardType.AddingVkPostWithArchive);
+            RegisterRootDescriptor(builder, WizardType.AddVkPostWithArchive);
             builder
                 .RegisterInstance(context)
                 .As<IAddingVkPostWithArchiveContext>()
