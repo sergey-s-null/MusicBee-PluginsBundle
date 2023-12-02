@@ -11,6 +11,7 @@
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Modules_002FModule_002ESettings_002EDatabase_002FMigrations_002F202312021857060_005FInit/@EntryIndexedValue">True</s:Boolean>
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Modules_002FMusicSourcesStorage_002FModule_002EMusicSourcesStorage_002EDatabase_002FMigrations_002F202312021901440_005FInit/@EntryIndexedValue">True</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
