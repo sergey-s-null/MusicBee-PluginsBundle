@@ -9,7 +9,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Debug.Common\Debug.Common.csproj" />
-        <ProjectReference Include="..\Module.MusicSourcesStorage\Module.MusicSourcesStorage.csproj" />
+        <ProjectReference Include="..\Modules\MusicSourcesStorage\Module.MusicSourcesStorage\Module.MusicSourcesStorage.csproj" />
     </ItemGroup>
 
 </Project>

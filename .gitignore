@@ -1,6 +1,6 @@
 .vs
-*/bin
-*/obj
+**/bin
+**/obj
 */FodyWeavers.xsd
 packages
 Python\ VkApi

@@ -25,7 +25,7 @@
         <ProjectReference Include="..\Module.AudioSourcesComparer\Module.AudioSourcesComparer.csproj" />
         <ProjectReference Include="..\Module.DataExporter\Module.DataExporter.csproj" />
         <ProjectReference Include="..\Module.InboxAdder\Module.InboxAdder.csproj" />
-        <ProjectReference Include="..\Module.MusicSourcesStorage\Module.MusicSourcesStorage.csproj" />
+        <ProjectReference Include="..\Modules\MusicSourcesStorage\Module.MusicSourcesStorage\Module.MusicSourcesStorage.csproj" />
         <ProjectReference Include="..\Module.PlaylistsExporter\Module.PlaylistsExporter.csproj" />
         <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
         <ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />

@@ -398,10 +398,7 @@
         "dependencies": {
           "Autofac": "[6.5.0, )",
           "MahApps.Metro.IconPacks": "[4.11.0, )",
-          "Module.Core": "[1.0.0, )",
-          "Module.MusicSourcesStorage.Logic": "[1.0.0, )",
-          "Module.Mvvm.Extension": "[1.0.0, )",
-          "Module.Settings.Gui": "[1.0.0, )"
+          "Module.MusicSourcesStorage.Logic": "[1.0.0, )"
         }
       },
       "module.musicsourcesstorage.logic": {
