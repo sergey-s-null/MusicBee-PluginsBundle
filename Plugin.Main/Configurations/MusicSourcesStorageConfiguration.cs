@@ -33,7 +33,7 @@ public sealed class MusicSourcesStorageConfiguration : IModuleConfiguration
 
     private string GetDatabaseConnectionString()
     {
-        return "Data Source=(LocalDb)\\MSSQLLocalDB;" +
+        return $"Data Source={_pluginConfiguration.DataSource};" +
                "Initial Catalog=MusicSourcesStorage;" +
                $"AttachDBFilename={GetDatabaseFilePath()};";
     }

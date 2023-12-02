@@ -2,5 +2,6 @@
 
 public interface IPluginConfiguration
 {
+    string DataSource { get; }
     string PersistentStoragePath { get; }
 }

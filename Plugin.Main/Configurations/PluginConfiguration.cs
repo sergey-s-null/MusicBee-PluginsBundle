@@ -6,6 +6,7 @@ namespace Plugin.Main.Configurations;
 
 public sealed class PluginConfiguration : IPluginConfiguration
 {
+    public string DataSource => "(LocalDb)\\MusicBeePlugins";
     public string PersistentStoragePath => _persistentStoragePath.Value;
 
     private readonly Lazy<string> _persistentStoragePath;

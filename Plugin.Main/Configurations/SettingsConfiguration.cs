@@ -32,7 +32,7 @@ public sealed class SettingsConfiguration : IModuleConfiguration
 
     private string GetDatabaseConnectionString()
     {
-        return "Data Source=(LocalDb)\\MSSQLLocalDB;" +
+        return $"Data Source={_pluginConfiguration.DataSource};" +
                "Initial Catalog=Settings;" +
                $"AttachDBFilename={GetDatabaseFilePath()};";
     }
