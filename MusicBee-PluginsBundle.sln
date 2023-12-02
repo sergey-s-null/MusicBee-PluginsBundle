@@ -8,6 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 		copy_dll.ps1 = copy_dll.ps1
 		configuration.json = configuration.json
 		configuration.schema.json = configuration.schema.json
+		ef6.ps1 = ef6.ps1
+		migrations.enable.ps1 = migrations.enable.ps1
+		migrations_common.ps1 = migrations_common.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debug", "Debug", "{09040EAB-CB3C-4F82-B73E-98BDADDC5511}"
