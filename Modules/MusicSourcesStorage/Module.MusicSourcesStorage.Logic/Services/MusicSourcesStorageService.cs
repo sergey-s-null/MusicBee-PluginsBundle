@@ -9,36 +9,36 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 {
-    private readonly IMusicSourcesStorage _musicSourcesStorage;
+    private readonly IMusicSourcesRepository _musicSourcesRepository;
 
-    public MusicSourcesStorageService(IMusicSourcesStorage musicSourcesStorage)
+    public MusicSourcesStorageService(IMusicSourcesRepository musicSourcesRepository)
     {
-        _musicSourcesStorage = musicSourcesStorage;
+        _musicSourcesRepository = musicSourcesRepository;
     }
 
     public async Task<MusicSource> AddMusicSourceAsync(MusicSource musicSource, CancellationToken token)
     {
         var model = musicSource.ToDbModel();
 
-        model = await _musicSourcesStorage.AddAsync(model, token);
+        model = await _musicSourcesRepository.AddAsync(model, token);
 
         return model.ToLogicModel();
     }
 
     public Task DeleteMusicSourceAsync(int id, CancellationToken token = default)
     {
-        return _musicSourcesStorage.DeleteAsync(id, token);
+        return _musicSourcesRepository.DeleteAsync(id, token);
     }
 
     public async Task<MusicSource> GetMusicSourceByFileIdAsync(int fileId, CancellationToken token)
     {
-        var model = await _musicSourcesStorage.GetSourceByFileIdAsync(fileId, true, token);
+        var model = await _musicSourcesRepository.GetSourceByFileIdAsync(fileId, true, token);
         return model.ToLogicModel();
     }
 
     public async Task<IReadOnlyList<MusicSource>> GetMusicSourcesAsync(CancellationToken token)
     {
-        var models = await _musicSourcesStorage.GetAllAsync(token);
+        var models = await _musicSourcesRepository.GetAllAsync(token);
 
         return models
             .Select(x => x.ToLogicModel())
@@ -47,13 +47,13 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 
     public async Task<MusicSourceAdditionalInfo?> FindAdditionalInfoByIdAsync(int id, CancellationToken token)
     {
-        var model = await _musicSourcesStorage.FindAdditionalInfoAsync(id, token);
+        var model = await _musicSourcesRepository.FindAdditionalInfoAsync(id, token);
         return model?.ToLogicModel();
     }
 
     public async Task<MusicSourceAdditionalInfo> GetAdditionalInfoByIdAsync(int id, CancellationToken token)
     {
-        var model = await _musicSourcesStorage.GetAdditionalInfoAsync(id, token);
+        var model = await _musicSourcesRepository.GetAdditionalInfoAsync(id, token);
         return model.ToLogicModel();
     }
 
@@ -63,19 +63,19 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         CancellationToken token)
     {
         var model = additionalInfo.ToDbModel();
-        model = await _musicSourcesStorage.UpdateAdditionalInfo(id, model, token);
+        model = await _musicSourcesRepository.UpdateAdditionalInfo(id, model, token);
         return model.ToLogicModel();
     }
 
     public async Task<SourceFile> GetSourceFileAsync(int id, CancellationToken token)
     {
-        var model = await _musicSourcesStorage.GetSourceFileAsync(id, false, token);
+        var model = await _musicSourcesRepository.GetSourceFileAsync(id, false, token);
         return model.ToLogicModel();
     }
 
     public async Task<IReadOnlyList<SourceFile>> ListSourceFilesBySourceIdAsync(int sourceId, CancellationToken token)
     {
-        var models = await _musicSourcesStorage.ListSourceFilesBySourceIdAsync(sourceId, false, token);
+        var models = await _musicSourcesRepository.ListSourceFilesBySourceIdAsync(sourceId, false, token);
         return models
             .Select(x => x.ToLogicModel())
             .ToList();
@@ -83,24 +83,24 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 
     public Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
     {
-        return _musicSourcesStorage.SetMusicFileIsListenedAsync(musicFileId, isListened, token);
+        return _musicSourcesRepository.SetMusicFileIsListenedAsync(musicFileId, isListened, token);
     }
 
     public async Task SelectAsCoverAsync(int imageFileId, byte[] imageData, CancellationToken token)
     {
-        var source = await _musicSourcesStorage.GetSourceByFileIdAsync(imageFileId, false, token);
+        var source = await _musicSourcesRepository.GetSourceByFileIdAsync(imageFileId, false, token);
 
-        var sourceFiles = await _musicSourcesStorage.ListSourceFilesBySourceIdAsync(source.Id, false, token);
+        var sourceFiles = await _musicSourcesRepository.ListSourceFilesBySourceIdAsync(source.Id, false, token);
         var selectedAsCoverFiles = sourceFiles
             .OfType<ImageFileModel>()
             .Where(x => x.IsCover)
             .ToList();
         foreach (var selectedAsCoverFile in selectedAsCoverFiles)
         {
-            await _musicSourcesStorage.RemoveCoverAsync(selectedAsCoverFile.Id, token);
+            await _musicSourcesRepository.RemoveCoverAsync(selectedAsCoverFile.Id, token);
         }
 
-        await _musicSourcesStorage.SetCoverAsync(imageFileId, imageData, token);
+        await _musicSourcesRepository.SetCoverAsync(imageFileId, imageData, token);
     }
 
     public async Task<byte[]?> FindCoverAsync(
@@ -108,7 +108,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         string directoryRelativePath,
         CancellationToken token)
     {
-        var files = await _musicSourcesStorage.ListSourceFilesBySourceIdAsync(sourceId, false, token);
+        var files = await _musicSourcesRepository.ListSourceFilesBySourceIdAsync(sourceId, false, token);
         var directoryUnifiedPath = PathHelper.UnifyDirectoryPath(directoryRelativePath);
         var cover = files
             .OfType<ImageFileModel>()
@@ -120,7 +120,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 
     public async Task RemoveCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token)
     {
-        var files = await _musicSourcesStorage.ListSourceFilesBySourceIdAsync(sourceId, false, token);
+        var files = await _musicSourcesRepository.ListSourceFilesBySourceIdAsync(sourceId, false, token);
 
         var directoryUnifiedPath = PathHelper.UnifyDirectoryPath(directoryRelativePath);
         var coversToRemove = files
@@ -131,7 +131,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
 
         foreach (var cover in coversToRemove)
         {
-            await _musicSourcesStorage.RemoveCoverAsync(cover.Id, token);
+            await _musicSourcesRepository.RemoveCoverAsync(cover.Id, token);
         }
     }
 

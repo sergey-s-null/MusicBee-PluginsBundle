@@ -2,7 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Database.Services.Abstract;
 
-public interface IMusicSourcesStorage
+public interface IMusicSourcesRepository
 {
     /// <summary>
     /// Add music source to storage and return added model with valid ids.
