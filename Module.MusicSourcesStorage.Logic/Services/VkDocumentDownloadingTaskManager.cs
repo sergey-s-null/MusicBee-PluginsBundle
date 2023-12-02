@@ -67,7 +67,6 @@ public sealed class VkDocumentDownloadingTaskManager : IVkDocumentDownloadingTas
         var tokenSource = new CancellationTokenSource();
         var task = _vkDocumentDownloader
             .CreateDownloadTask()
-            // todo with token?
             .WithArgs(document);
 
         task.SuccessfullyCompleted += (_, args) => OnTaskSuccessfullyCompleted(document.Id, args.Result);
