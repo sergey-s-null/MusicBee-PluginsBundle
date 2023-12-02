@@ -18,15 +18,10 @@ public sealed class SettingsRepository : ISettingsRepository
         using var context = _contextFactory();
 
         var setting = context.Settings
-            .Include(x => x.Values)
+            .Include(x => x.Value)
             .FirstOrDefault(x => x.Area == area && x.Id == id);
-        if (setting is null || setting.Values.Count == 0)
-        {
-            return null;
-        }
 
-        var value = setting.Values.First();
-        return value is StringSettingValue stringValue
+        return setting?.Value is StringSettingValue stringValue
             ? stringValue.Value
             : null;
     }
@@ -36,15 +31,10 @@ public sealed class SettingsRepository : ISettingsRepository
         using var context = _contextFactory();
 
         var setting = context.Settings
-            .Include(x => x.Values)
+            .Include(x => x.Value)
             .FirstOrDefault(x => x.Area == area && x.Id == id);
-        if (setting is null || setting.Values.Count == 0)
-        {
-            return null;
-        }
 
-        var value = setting.Values.First();
-        return value is Int32SettingValue int32Value
+        return setting?.Value is Int32SettingValue int32Value
             ? int32Value.Value
             : null;
     }
@@ -54,15 +44,12 @@ public sealed class SettingsRepository : ISettingsRepository
         using var context = _contextFactory();
 
         var setting = context.Settings
-            .Include(x => x.Values)
+            .Include(x => x.Value)
             .FirstOrDefault(x => x.Area == area && x.Id == id);
 
         if (setting is not null)
         {
-            setting.Values = new List<SettingValue>
-            {
-                new StringSettingValue { Value = value }
-            };
+            setting.Value = new StringSettingValue { Value = value };
         }
         else
         {
@@ -70,10 +57,7 @@ public sealed class SettingsRepository : ISettingsRepository
             {
                 Area = area,
                 Id = id,
-                Values =
-                {
-                    new StringSettingValue { Value = value }
-                }
+                Value = new StringSettingValue { Value = value }
             });
         }
 
@@ -85,15 +69,12 @@ public sealed class SettingsRepository : ISettingsRepository
         using var context = _contextFactory();
 
         var setting = context.Settings
-            .Include(x => x.Values)
+            .Include(x => x.Value)
             .FirstOrDefault(x => x.Area == area && x.Id == id);
 
         if (setting is not null)
         {
-            setting.Values = new List<SettingValue>
-            {
-                new Int32SettingValue { Value = value }
-            };
+            setting.Value = new Int32SettingValue { Value = value };
         }
         else
         {
@@ -101,10 +82,7 @@ public sealed class SettingsRepository : ISettingsRepository
             {
                 Area = area,
                 Id = id,
-                Values =
-                {
-                    new Int32SettingValue { Value = value }
-                }
+                Value = new Int32SettingValue { Value = value }
             });
         }
 
