@@ -1,0 +1,13 @@
+{
+  "title": "Solution build configuration",
+  "type": "object",
+  "properties": {
+    "configuration": {
+      "description": "Build configuration",
+      "enum": [
+        "Debug",
+        "Release"
+      ]
+    }
+  }
+}

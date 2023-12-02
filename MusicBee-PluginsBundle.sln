@@ -7,6 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 		.gitignore = .gitignore
 		copy_dll_debug.ps1 = copy_dll_debug.ps1
 		copy_dll_release.ps1 = copy_dll_release.ps1
+		copy_dll.ps1 = copy_dll.ps1
+		configuration.json = configuration.json
+		configuration.schema.json = configuration.schema.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debug", "Debug", "{09040EAB-CB3C-4F82-B73E-98BDADDC5511}"
