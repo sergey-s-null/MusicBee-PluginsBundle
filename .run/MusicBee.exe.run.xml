@@ -9,7 +9,7 @@
     <option name="RUNTIME_ARGUMENTS" value="" />
     <method v="2">
       <option name="Build Solution" enabled="true" />
-      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Copy DLL (Debug)" run_configuration_type="PowerShellRunType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Copy Dll's" run_configuration_type="PowerShellRunType" />
     </method>
   </configuration>
 </component>
