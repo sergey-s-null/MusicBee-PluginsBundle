@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Module.MusicSourcesStorage.Core;
+using Module.MusicSourcesStorage.Database.Migrations;
 using Module.MusicSourcesStorage.Database.Models;
 
 namespace Module.MusicSourcesStorage.Database;
@@ -18,5 +19,8 @@ public sealed class MusicSourcesStorageContext : DbContext
     public MusicSourcesStorageContext(IModuleConfiguration configuration)
         : base(configuration.DatabaseConnectionString)
     {
+        System.Data.Entity.Database.SetInitializer(
+            new MigrateDatabaseToLatestVersion<MusicSourcesStorageContext, Configuration>()
+        );
     }
 }
