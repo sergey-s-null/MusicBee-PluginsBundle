@@ -5,8 +5,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{65A07AE9-C73B-445C-9612-105D94E65F3C}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		copy_dll_debug.ps1 = copy_dll_debug.ps1
-		copy_dll_release.ps1 = copy_dll_release.ps1
 		copy_dll.ps1 = copy_dll.ps1
 		configuration.json = configuration.json
 		configuration.schema.json = configuration.schema.json
