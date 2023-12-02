@@ -8,6 +8,32 @@
         "Debug",
         "Release"
       ]
+    },
+    "ef6-projects": {
+      "description": "Meta info about projects that uses Entity Framework",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ef6-project"
+      }
+    }
+  },
+  "definitions": {
+    "ef6-project": {
+      "type": "object",
+      "properties": {
+        "alias": {
+          "description": "Short alias for project",
+          "type": "string"
+        },
+        "name": {
+          "description": "Full name of the project",
+          "type": "string"
+        },
+        "project-directory": {
+          "description": "Path to project directory inside solution",
+          "type": "string"
+        }
+      }
     }
   }
 }
