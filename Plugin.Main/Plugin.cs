@@ -137,7 +137,7 @@ public class Plugin : PluginBase
             (_, _) => musicSourcesStorageModuleActions.ShowMusicSources()
         ));
         musicSourcesStorageRootItem.DropDownItems.Add(mbApi.MB_AddMenuItem(
-            "Add VK post with archive source",
+            "Add Vk post with archive source",
             "Open wizard for adding new source",
             (_, _) => musicSourcesStorageModuleActions.AddVkPostWithArchiveSource()
         ));
