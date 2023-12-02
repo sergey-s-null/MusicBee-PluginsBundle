@@ -1,0 +1,15 @@
+{
+  "configuration": "Debug",
+  "ef6-projects": [
+    {
+      "alias": "Settings",
+      "name": "Module.Settings.Database",
+      "project-directory": "Module.Settings.Database"
+    },
+    {
+      "alias": "MusicSourcesStorage",
+      "name": "Module.MusicSourcesStorage.Database",
+      "project-directory": "Modules/MusicSourcesStorage/Module.MusicSourcesStorage.Database"
+    }
+  ]
+}

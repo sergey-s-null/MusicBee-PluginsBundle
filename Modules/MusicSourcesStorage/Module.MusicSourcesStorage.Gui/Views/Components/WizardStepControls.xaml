@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Module.MusicSourcesStorage.Gui.Views.Components.WizardStepControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:avm="clr-namespace:Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+             xmlns:converters="clr-namespace:Module.Core.GUI.Converters;assembly=Module.Core"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance dtvm:WizardDTVM}">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter
+            x:Key="FalseToHiddenVisibilityConverter"
+            VisibilityOnFalse="Hidden"
+            VisibilityOnTrue="Visible" />
+        <converters:NullCoalescingConverter x:Key="NullCoalescingConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0"
+                Content="Back"
+                Padding="6 0"
+                Visibility="{
+                    Binding HasPreviousStep,
+                    Converter={StaticResource FalseToHiddenVisibilityConverter}
+                }"
+                Command="{Binding Back}" />
+
+        <Button Grid.Column="1"
+                Margin="12 0 0 0" Padding="6 0"
+                Content="{
+                    Binding CustomNextCommandName,
+                    Converter={StaticResource NullCoalescingConverter},
+                    ConverterParameter=Next
+                }"
+                Visibility="{
+                    Binding HasNextStep,
+                    Converter={StaticResource FalseToHiddenVisibilityConverter}
+                }"
+                IsEnabled="{Binding Path=CurrentStep.(avm:IManualWizardStepVM.IsValidState), FallbackValue=False}"
+                Command="{Binding Next}" />
+
+        <Button Grid.Column="2"
+                Margin="12 0 0 0" Padding="6 0"
+                Content="{
+                    Binding CustomCloseWizardCommandName,
+                    Converter={StaticResource NullCoalescingConverter},
+                    ConverterParameter=Cancel
+                }"
+                Command="{Binding Close}" />
+    </Grid>
+</UserControl>

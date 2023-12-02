@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>11</LangVersion>
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+		<UseWpf>true</UseWpf>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="System.Net.Http"/>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Module.MusicSourcesStorage.Gui\Module.MusicSourcesStorage.Gui.csproj" />
+	</ItemGroup>
+
+</Project>

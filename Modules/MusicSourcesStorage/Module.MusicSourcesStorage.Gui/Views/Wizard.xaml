@@ -1,0 +1,32 @@
+<Window x:Class="Module.MusicSourcesStorage.Gui.Views.Wizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
+        xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
+        xmlns:mappers="clr-namespace:Module.MusicSourcesStorage.Gui.ViewMappers"
+        mc:Ignorable="d"
+        Title="SourceAddingWizard" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance dtvm:WizardDTVM}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <components:ViewSelector
+            Grid.Row="0"
+            ViewModel="{Binding CurrentStep}"
+            ViewMapper="{x:Static mappers:WizardStepsViewMapper.Instance}" />
+
+        <Border Grid.Row="1"
+                BorderThickness="0 1 0 0" BorderBrush="Black"
+                Height="40">
+            <components:WizardControls
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right" />
+        </Border>
+    </Grid>
+</Window>

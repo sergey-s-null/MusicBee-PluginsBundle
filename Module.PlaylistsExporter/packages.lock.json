@@ -43,6 +43,11 @@
         "resolved": "6.6.4",
         "contentHash": "vLZS+oa+ndUHYPlx/8n9bBTT3dHkCF0riml4paKq4D663+cZd47x1uagQo32D/gKFZ/sfmV1oqKaLmH0elxq4A=="
       },
+      "MahApps.Metro.IconPacks": {
+        "type": "Transitive",
+        "resolved": "4.11.0",
+        "contentHash": "hanveh4ZZLYZ00ONrwjyzDJnekxWcgFQ7rHHrmC7GppO3js3tAEhmW+lo0rNgG4naxkggEYZFLeH+rxeJLMSuQ=="
+      },
       "Mead.MusicBee": {
         "type": "Transitive",
         "resolved": "1.1.1",
@@ -127,6 +132,7 @@
       "module.core": {
         "type": "Project",
         "dependencies": {
+          "MahApps.Metro.IconPacks": "[4.11.0, )",
           "System.Linq.Async": "[6.0.1, )"
         }
       },

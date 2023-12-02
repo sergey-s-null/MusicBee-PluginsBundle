@@ -1,5 +1,6 @@
 ﻿namespace Module.MusicBee.Extension.Services.Abstract;
 
+[Obsolete("мусор какой-то")]
 public interface IResourceManager
 {
     void CreateRootIfNeeded();

@@ -1,0 +1,108 @@
+<ContextMenu x:Class="Module.MusicSourcesStorage.Gui.Views.Nodes.DirectoryContextMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
+             mc:Ignorable="d"
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance dtvm:ConnectedDirectoryDTVM}">
+
+    <ContextMenu.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/MarkAsListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/MarkAsNotListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/RemoveCoverMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="DownloadStyle"
+                   BasedOn="{StaticResource DownloadMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDownload}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MarkAllAsListenedStyle"
+                   BasedOn="{StaticResource MarkAsListenedBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsAllListened}"
+                                 Value="False">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MarkAllAsNotListenedStyle"
+                   BasedOn="{StaticResource MarkAsNotListenedBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsAllNotListened}"
+                                 Value="False">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="RemoveCoverStyle"
+                   BasedOn="{StaticResource RemoveCoverMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanRemoveCover}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DeleteAllStyle"
+                   BasedOn="{StaticResource DeleteMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDelete}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContextMenu.Resources>
+
+    <MenuItem Header="Download files"
+              Style="{StaticResource DownloadStyle}"
+              Command="{Binding Download}" />
+
+    <Separator />
+
+    <MenuItem Header="Mark all as listened"
+              Style="{StaticResource MarkAllAsListenedStyle}"
+              Command="{Binding MarkAsListened}" />
+    <MenuItem Header="Mark all as not listened"
+              Style="{StaticResource MarkAllAsNotListenedStyle}"
+              Command="{Binding MarkAsNotListened}" />
+
+    <Separator />
+
+    <MenuItem Header="Remove cover"
+              Style="{StaticResource RemoveCoverStyle}"
+              Command="{Binding RemoveCover}" />
+
+    <Separator />
+
+    <MenuItem Header="Delete all"
+              Style="{StaticResource DeleteAllStyle}"
+              Command="{Binding Delete}" />
+</ContextMenu>

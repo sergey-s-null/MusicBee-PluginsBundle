@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <UseWpf>true</UseWpf>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.5.0" />
+        <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Module.MusicSourcesStorage.Logic\Module.MusicSourcesStorage.Logic.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\DesignTime\Covers\horizontal.png" />
+        <EmbeddedResource Include="Resources\DesignTime\Covers\quad.png" />
+        <EmbeddedResource Include="Resources\DesignTime\Covers\vertical.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Resources\Fonts\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Resources\Fonts\Roboto-Regular.ttf" />
+    </ItemGroup>
+
+</Project>

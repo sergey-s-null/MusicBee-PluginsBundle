@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net472</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <LangVersion>11</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Module.AudioSourcesComparer\Module.AudioSourcesComparer.csproj" />
+        <ProjectReference Include="..\Modules\MusicSourcesStorage\Module.MusicSourcesStorage\Module.MusicSourcesStorage.csproj" />
+        <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
+        <ProjectReference Include="..\Debug.Common\Debug.Common.csproj" />
+    </ItemGroup>
+
+</Project>

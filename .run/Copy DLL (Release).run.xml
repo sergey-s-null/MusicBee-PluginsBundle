@@ -1,6 +1,0 @@
-﻿<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Copy DLL (Release)" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="copy_dll_release.ps1" workingDirectory="$SolutionDir$" executablePath="C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe">
-    <envs />
-    <method v="2" />
-  </configuration>
-</component>

@@ -2,14 +2,18 @@
 	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">DoNotShowAndRun</s:String>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="D:\_SyncRoot\Projects_Sync\C#_Projects\MusicBee PluginsBundle\packages\Ninject.Extensions.Factory.3.3.3\lib\net45\Ninject.Extensions.Factory.dll" /&gt;&#xD;
-  &lt;PhysicalFolder Path="C:\Users\Sergey\.nuget\packages\system.linq.async\5.0.0" Loaded="True" /&gt;&#xD;
-  &lt;PhysicalFolder Path="D:\_SyncRoot\Projects_Sync\C#_Projects\MusicBee PluginsBundle\packages\System.Linq.Async.5.0.0" Loaded="True" /&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.16\System.Linq.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Core.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\Sergestus Shimonov\.nuget\packages\sharpcompress\0.34.1\lib\net462\SharpCompress.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/EntityFrameworkOptions/IsAlreadyNotifiedAboutEntityFramework/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=48934c0a_002Dc4b7_002D4929_002Db5f4_002Db8e25e64484c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Modules_002FModule_002ESettings_002EDatabase_002FMigrations_002F202312021857060_005FInit/@EntryIndexedValue">True</s:Boolean>
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Modules_002FMusicSourcesStorage_002FModule_002EMusicSourcesStorage_002EDatabase_002FMigrations_002F202312021901440_005FInit/@EntryIndexedValue">True</s:Boolean>
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Crossfade/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Scrobble/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

@@ -8,6 +8,8 @@
         xmlns:vkavm="clr-namespace:Module.Vk.GUI.AbstractViewModels;assembly=Module.Vk"
         xmlns:ass="clr-namespace:Module.ArtworksSearcher.GUI.Settings;assembly=Module.ArtworksSearcher"
         xmlns:pes="clr-namespace:Module.PlaylistsExporter.GUI.Settings;assembly=Module.PlaylistsExporter"
+        xmlns:mssavm="clr-namespace:Module.MusicSourcesStorage.Gui.AbstractViewModels;assembly=Module.MusicSourcesStorage.Gui"
+        xmlns:mssv="clr-namespace:Module.MusicSourcesStorage.Gui.Views;assembly=Module.MusicSourcesStorage.Gui"
         xmlns:avm="clr-namespace:Module.VkAudioDownloader.GUI.AbstractViewModels;assembly=Module.VkAudioDownloader"
         xmlns:views="clr-namespace:Module.VkAudioDownloader.GUI.Views;assembly=Module.VkAudioDownloader"
         xmlns:dtvm="clr-namespace:Plugin.Main.GUI.DesignTimeViewModels"
@@ -33,9 +35,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180px"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="180px" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <ListView Grid.Column="0"
@@ -112,7 +114,7 @@
                             Converter={StaticResource SettingsVisibilityConverter},
                             ConverterParameter={x:Type vkavm:IVkSettingsVM}}">
                         <vkviews:VkSettings
-                            DataContext="{Binding VkSettingsVM}"
+                            DataContext="{Binding VkSettings}"
                             Margin="6" />
                     </Grid>
                     <Grid
@@ -121,7 +123,7 @@
                             Converter={StaticResource SettingsVisibilityConverter}, 
                             ConverterParameter={x:Type avm:IMusicDownloaderSettingsVM}}">
                         <views:MusicDownloaderSettings
-                            DataContext="{Binding MusicDownloaderSettingsVM, Mode=OneWay}" />
+                            DataContext="{Binding MusicDownloaderSettings, Mode=OneWay}" />
                     </Grid>
                     <Grid
                         Row="0"
@@ -129,7 +131,7 @@
                             Converter={StaticResource SettingsVisibilityConverter}, 
                             ConverterParameter={x:Type ass:IArtworksSearcherSettingsVM}}">
                         <ass:ArtworksSearcherSettings
-                            DataContext="{Binding ArtworksSearcherSettingsVM, Mode=OneWay}" />
+                            DataContext="{Binding ArtworksSearcherSettings, Mode=OneWay}" />
                     </Grid>
                     <Grid
                         Row="0"
@@ -137,7 +139,15 @@
                             Converter={StaticResource SettingsVisibilityConverter}, 
                             ConverterParameter={x:Type pes:IPlaylistsExporterSettingsVM}}">
                         <pes:PlaylistsExporterSettings
-                            DataContext="{Binding PlaylistsExporterSettingsVM, Mode=OneWay}" />
+                            DataContext="{Binding PlaylistsExporterSettings, Mode=OneWay}" />
+                    </Grid>
+                    <Grid
+                        Row="0"
+                        Visibility="{Binding SelectedSettingsModule.ModuleSettings, 
+                            Converter={StaticResource SettingsVisibilityConverter}, 
+                            ConverterParameter={x:Type mssavm:IMusicSourcesStorageSettingsVM}}">
+                        <mssv:MusicSourcesStorageSettings
+                            DataContext="{Binding MusicSourcesStorageSettings, Mode=OneWay}" />
                     </Grid>
 
                     <Grid Grid.Row="1">

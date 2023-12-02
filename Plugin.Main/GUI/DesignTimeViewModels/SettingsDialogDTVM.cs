@@ -1,4 +1,6 @@
 ﻿using Module.ArtworksSearcher.GUI.Settings;
+using Module.MusicSourcesStorage.Gui.AbstractViewModels;
+using Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Vk.GUI.AbstractViewModels;
 using Module.Vk.GUI.DesignTimeViewModels;
@@ -13,27 +15,30 @@ namespace Plugin.Main.GUI.DesignTimeViewModels;
 [AddINotifyPropertyChangedInterface]
 public sealed class SettingsDialogDTVM : ISettingsDialogVM
 {
-    public IVkSettingsVM VkSettingsVM { get; }
-    public IMusicDownloaderSettingsVM MusicDownloaderSettingsVM { get; }
-    public IArtworksSearcherSettingsVM ArtworksSearcherSettingsVM { get; }
-    public IPlaylistsExporterSettingsVM PlaylistsExporterSettingsVM { get; }
-        
+    public IVkSettingsVM VkSettings { get; }
+    public IMusicDownloaderSettingsVM MusicDownloaderSettings { get; }
+    public IArtworksSearcherSettingsVM ArtworksSearcherSettings { get; }
+    public IPlaylistsExporterSettingsVM PlaylistsExporterSettings { get; }
+    public IMusicSourcesStorageSettingsVM MusicSourcesStorageSettings { get; }
+
     public IList<IModuleSettingsVM> SettingsModules { get; }
     public IModuleSettingsVM SelectedSettingsModule { get; set; }
 
     public SettingsDialogDTVM()
     {
-        VkSettingsVM = new VkSettingsDTVM();
-        MusicDownloaderSettingsVM = new MusicDownloaderSettingsDTVM();
-        ArtworksSearcherSettingsVM = new ArtworksSearcherSettingsDTVM();
-        PlaylistsExporterSettingsVM = new PlaylistsExporterSettingsDTVM();
-            
+        VkSettings = new VkSettingsDTVM();
+        MusicDownloaderSettings = new MusicDownloaderSettingsDTVM();
+        ArtworksSearcherSettings = new ArtworksSearcherSettingsDTVM();
+        PlaylistsExporterSettings = new PlaylistsExporterSettingsDTVM();
+        MusicSourcesStorageSettings = new MusicSourcesStorageSettingsDTVM();
+
         SettingsModules = new List<IModuleSettingsVM>
         {
-            new ModuleSettingsVM("Vk", VkSettingsVM),
-            new ModuleSettingsVM("Music downloader", MusicDownloaderSettingsVM),
-            new ModuleSettingsVM("Artworks searcher", ArtworksSearcherSettingsVM),
-            new ModuleSettingsVM("Playlists exporter", PlaylistsExporterSettingsVM),
+            new ModuleSettingsVM("Vk", VkSettings),
+            new ModuleSettingsVM("Music downloader", MusicDownloaderSettings),
+            new ModuleSettingsVM("Artworks searcher", ArtworksSearcherSettings),
+            new ModuleSettingsVM("Playlists exporter", PlaylistsExporterSettings),
+            new ModuleSettingsVM("Music sources", MusicSourcesStorageSettings),
         };
         SelectedSettingsModule = SettingsModules.First();
     }

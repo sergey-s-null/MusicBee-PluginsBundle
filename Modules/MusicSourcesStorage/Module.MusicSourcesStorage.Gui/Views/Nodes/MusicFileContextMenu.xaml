@@ -1,0 +1,106 @@
+<ContextMenu x:Class="Module.MusicSourcesStorage.Gui.Views.Nodes.MusicFileContextMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes"
+             mc:Ignorable="d"
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance dtvm:ConnectedMusicFileDTVM}">
+
+    <ContextMenu.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Nodes/DownloadMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/MarkAsListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/MarkAsNotListenedBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/DeleteMenuItemBaseStyle.xaml" />
+                <ResourceDictionary Source="../Styles/Nodes/AltDeleteMenuItemBaseStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="DownloadStyle"
+                   BasedOn="{StaticResource DownloadMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDownload}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MarkAsListenedStyle"
+                   BasedOn="{StaticResource MarkAsListenedBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsListened}"
+                                 Value="False">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MarkAsNotListenedStyle"
+                   BasedOn="{StaticResource MarkAsNotListenedBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsListened}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DeleteFileAndMarkAsListenedStyle"
+                   BasedOn="{StaticResource AltDeleteMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDelete}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DeleteFileStyle"
+                   BasedOn="{StaticResource DeleteMenuItemBaseStyle}"
+                   TargetType="MenuItem">
+                <Setter Property="IsEnabled" Value="False" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CanDelete}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContextMenu.Resources>
+
+
+    <MenuItem Header="Download"
+              Style="{StaticResource DownloadStyle}"
+              Command="{Binding Download}" />
+
+    <Separator />
+
+    <MenuItem Header="Mark as listened"
+              Style="{StaticResource MarkAsListenedStyle}"
+              Command="{Binding MarkAsListened}" />
+    <MenuItem Header="Mark as not listened"
+              Style="{StaticResource MarkAsNotListenedStyle}"
+              Command="{Binding MarkAsNotListened}" />
+
+    <Separator />
+
+    <MenuItem Header="Delete file and mark as listened"
+              Style="{StaticResource DeleteFileAndMarkAsListenedStyle}"
+              Command="{Binding DeleteAndMarkAsListened}" />
+    <MenuItem Header="Delete file"
+              Style="{StaticResource DeleteFileStyle}"
+              Command="{Binding Delete}" />
+
+</ContextMenu>

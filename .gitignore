@@ -1,7 +1,7 @@
 .vs
-*/bin
-*/obj
-*/FodyWeavers.xsd
+**/bin
+**/obj
+**/FodyWeavers.xsd
 packages
 Python\ VkApi
 ConsoleTests/delete_this
