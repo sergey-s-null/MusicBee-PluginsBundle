@@ -2,10 +2,11 @@
 using Module.Settings.Entities.Abstract;
 using Module.Settings.Exceptions;
 using Module.Settings.Services.Abstract;
+using Module.Vk.Logic.Services.Abstract;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Module.Vk.Settings;
+namespace Module.Vk.Logic.Services;
 
 public sealed class VkSettings : BaseSettings, IVkSettings
 {

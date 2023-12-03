@@ -11,4 +11,9 @@
         <Reference Include="System.Net.Http" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\Module.Core\Module.Core.csproj" />
+        <ProjectReference Include="..\..\Module.Settings\Module.Settings.csproj" />
+    </ItemGroup>
+
 </Project>

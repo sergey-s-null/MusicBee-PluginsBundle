@@ -1,6 +1,6 @@
 ﻿using Module.Settings.Entities.Abstract;
 
-namespace Module.Vk.Settings;
+namespace Module.Vk.Logic.Services.Abstract;
 
 public interface IVkSettings : ISettings
 {
