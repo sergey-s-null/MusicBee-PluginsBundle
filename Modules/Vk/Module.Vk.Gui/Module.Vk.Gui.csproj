@@ -5,7 +5,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>11</LangVersion>
-        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
         <UseWpf>true</UseWpf>
     </PropertyGroup>
 
@@ -14,11 +13,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Modules\Module.Vk.Gui\Module.Vk.Gui.csproj" />
+        <ProjectReference Include="..\..\..\Module.Core\Module.Core.csproj" />
+        <ProjectReference Include="..\..\..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\..\..\Module.Settings.Gui\Module.Settings.Gui.csproj" />
+        <ProjectReference Include="..\Module.Vk.Logic\Module.Vk.Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="VkNet.AudioBypassService" Version="1.7.4" />
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
     </ItemGroup>
 
 </Project>

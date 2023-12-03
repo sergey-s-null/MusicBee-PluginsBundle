@@ -1,28 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<LangVersion>11</LangVersion>
-		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-		<UseWpf>true</UseWpf>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <UseWpf>true</UseWpf>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<Reference Include="System.Net.Http" />
-	</ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
-		<ProjectReference Include="..\Module.Vk\Module.Vk.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\Modules\Vk\Module.Vk\Module.Vk.csproj" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-		<PackageReference Include="Mead.MusicBee.Api" Version="1.0.0" />
-		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
-		<PackageReference Include="WindowsAPICodePack" Version="7.0.1" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+        <PackageReference Include="Mead.MusicBee.Api" Version="1.0.0" />
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
+        <PackageReference Include="WindowsAPICodePack" Version="7.0.1" />
+    </ItemGroup>
 
 </Project>
