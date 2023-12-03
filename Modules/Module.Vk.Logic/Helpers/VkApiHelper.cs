@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
-using Module.Vk.Exceptions;
+using Module.Vk.Logic.Exceptions;
 using VkNet.Abstractions;
 using VkNet.Exception;
 using VkNet.Model;
 
-namespace Module.Vk.Helpers;
+namespace Module.Vk.Logic.Helpers;
 
 public static class VkApiHelper
 {

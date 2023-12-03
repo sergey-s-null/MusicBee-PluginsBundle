@@ -16,4 +16,8 @@
         <ProjectReference Include="..\..\Module.Settings\Module.Settings.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="VkNet" Version="1.72.0" />
+    </ItemGroup>
+
 </Project>

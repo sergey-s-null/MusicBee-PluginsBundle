@@ -1,4 +1,4 @@
-﻿namespace Module.Vk.Exceptions;
+﻿namespace Module.Vk.Logic.Exceptions;
 
 public sealed class VkApiAuthorizationException : Exception
 {
