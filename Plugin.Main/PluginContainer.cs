@@ -62,15 +62,6 @@ public static class PluginContainer
             .SingleInstance();
 
         builder
-            .RegisterType<VkApiProvider>()
-            .As<IVkApiProvider>()
-            .SingleInstance();
-        builder
-            .RegisterType<VkApiAuthorizationsService>()
-            .As<IVkApiAuthorizationsService>()
-            .SingleInstance();
-
-        builder
             .RegisterType<SettingsDialogVM>()
             .AsSelf();
         builder
