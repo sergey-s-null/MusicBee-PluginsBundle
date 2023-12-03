@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Module.Settings.Gui.ViewModels;
 using Module.Vk.GUI.AbstractViewModels;
-using Module.Vk.Settings;
+using Module.Vk.Logic.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.Vk.GUI.ViewModels;
