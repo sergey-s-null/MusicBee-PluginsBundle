@@ -3,6 +3,7 @@ using Debug.Common;
 using Module.MusicSourcesStorage;
 using Module.MusicSourcesStorage.Core;
 using Module.Vk.Gui.Services.Abstract;
+using Moq;
 using VkNet.Abstractions;
 
 namespace Debug.MusicSourcesStorage;
@@ -15,16 +16,15 @@ public static class Container
 
         if (withVkApi)
         {
-            // todo use mock?
-            builder
-                .RegisterType<DebugVkApiProvider>()
-                .As<IVkApiProvider>()
-                .SingleInstance();
-
             var vkApi = VkHelper.GetAuthorizedVkApi();
             builder
                 .RegisterInstance(vkApi)
                 .As<IVkApi>();
+
+            builder
+                .RegisterInstance(GetVkApiProviderMock(vkApi))
+                .As<IVkApiProvider>()
+                .SingleInstance();
         }
 
         builder.RegisterModule<MusicSourcesStorageModule>();
@@ -35,5 +35,13 @@ public static class Container
             .SingleInstance();
 
         return builder.Build();
+    }
+
+    private static IVkApiProvider GetVkApiProviderMock(IVkApi vkApi)
+    {
+        var mock = new Mock<IVkApiProvider>();
+        mock.Setup(x => x.TryProvideAuthorizedVkApi(out vkApi))
+            .Returns(true);
+        return mock.Object;
     }
 }

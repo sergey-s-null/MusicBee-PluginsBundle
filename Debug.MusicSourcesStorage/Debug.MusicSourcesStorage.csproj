@@ -13,4 +13,8 @@
         <ProjectReference Include="..\Modules\MusicSourcesStorage\Module.MusicSourcesStorage\Module.MusicSourcesStorage.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Moq" Version="4.20.70" />
+    </ItemGroup>
+
 </Project>
