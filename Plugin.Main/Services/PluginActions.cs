@@ -5,11 +5,11 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Module.ArtworksSearcher.Factories;
 using Module.AudioSourcesComparer.GUI.Factories;
 using Module.Core.Helpers;
-using Module.Core.Services.Abstract;
 using Module.DataExporter.Exceptions;
 using Module.DataExporter.Services;
 using Module.InboxAdder.Services;
 using Module.PlaylistsExporter.Services;
+using Module.Vk.Gui.Services.Abstract;
 using Module.VkAudioDownloader.GUI.Factories;
 
 namespace Plugin.Main.Services;
