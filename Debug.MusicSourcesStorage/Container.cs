@@ -22,6 +22,10 @@ public static class Container
             .RegisterInstance(configuration)
             .As<IModuleConfiguration>();
 
+        builder
+            .RegisterInstance(GetSettingsRepositoryMock(configuration))
+            .As<ISettingsRepository>();
+
         if (withVkApi)
         {
             var vkApi = VkHelper.GetAuthorizedVkApi();
@@ -32,9 +36,6 @@ public static class Container
             builder
                 .RegisterInstance(GetVkApiProviderMock(vkApi))
                 .As<IVkApiProvider>();
-            builder
-                .RegisterInstance(GetSettingsRepositoryMock(configuration))
-                .As<ISettingsRepository>();
         }
 
         builder.RegisterModule<MusicSourcesStorageModule>();
