@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using Module.Settings.Exceptions;
+using Module.Settings.Logic.Exceptions;
 
 namespace Module.Settings.Gui.AbstractViewModels;
 

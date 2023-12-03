@@ -112,7 +112,7 @@
       "module.mvvm.extension": {
         "type": "Project"
       },
-      "module.settings": {
+      "module.settings.logic": {
         "type": "Project",
         "dependencies": {
           "Module.MusicBee.Extension": "[1.0.0, )",
