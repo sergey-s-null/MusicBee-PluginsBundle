@@ -1,6 +1,6 @@
 ﻿using VkNet.Abstractions;
 
-namespace Module.Vk.Services.Abstract;
+namespace Module.Vk.Gui.Services.Abstract;
 
 public interface IVkApiProvider
 {

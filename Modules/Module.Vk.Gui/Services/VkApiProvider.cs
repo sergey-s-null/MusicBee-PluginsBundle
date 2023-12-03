@@ -1,10 +1,8 @@
-﻿using Module.Core.Services.Abstract;
-using Module.Vk.Services.Abstract;
+﻿using Module.Vk.Gui.Services.Abstract;
 using VkNet.Abstractions;
 
-namespace Plugin.Main.Services;
+namespace Module.Vk.Gui.Services;
 
-// todo move to vk module after move VkApiAuthorizationsService
 public sealed class VkApiProvider : IVkApiProvider
 {
     private readonly IVkApi _vkApi;
