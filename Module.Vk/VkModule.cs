@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using VkNet;
 using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
+using GuiDIModule = Module.Vk.Gui.DIModule;
+using LogicDIModule = Module.Vk.Logic.DIModule;
 
 namespace Module.Vk;
 
@@ -17,7 +19,8 @@ public sealed class VkModule : Autofac.Module
 
     protected override void Load(ContainerBuilder builder)
     {
-        // todo register GUI and Logic modules
+        builder.RegisterModule<GuiDIModule>();
+        builder.RegisterModule<LogicDIModule>();
 
         builder
             .Register(x => CreateVkApi())
