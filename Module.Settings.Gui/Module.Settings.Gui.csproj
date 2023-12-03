@@ -1,24 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<LangVersion>11</LangVersion>
-		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<Reference Include="System.Net.Http" />
-	</ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
-		<ProjectReference Include="..\Module.Settings\Module.Settings.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
+    </ItemGroup>
 
 </Project>
