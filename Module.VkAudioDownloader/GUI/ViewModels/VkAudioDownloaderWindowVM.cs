@@ -6,7 +6,7 @@ using Mead.MusicBee.Api.Services.Abstract;
 using Mead.MusicBee.Enums;
 using Module.MusicBee.Extension.Helpers;
 using Module.Mvvm.Extension;
-using Module.Vk.Helpers;
+using Module.Vk.Logic.Helpers;
 using Module.VkAudioDownloader.Entities;
 using Module.VkAudioDownloader.Extensions;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
