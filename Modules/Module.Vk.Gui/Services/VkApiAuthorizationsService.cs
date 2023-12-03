@@ -1,23 +1,23 @@
 ﻿using System.Windows;
-using Module.Core.Services.Abstract;
 using Module.Vk.Exceptions;
+using Module.Vk.Gui.Services.Abstract;
+using Module.Vk.Gui.Views;
 using Module.Vk.Helpers;
 using Module.Vk.Settings;
-using Module.VkAudioDownloader.GUI.Factories;
 using VkNet.Abstractions;
 
-namespace Plugin.Main.Services;
+namespace Module.Vk.Gui.Services;
 
 public sealed class VkApiAuthorizationsService : IVkApiAuthorizationsService
 {
     private readonly IVkApi _vkApi;
     private readonly IVkSettings _vkSettings;
-    private readonly AuthorizationWindowFactory _authorizationWindowFactory;
+    private readonly Func<AuthorizationWindow> _authorizationWindowFactory;
 
     public VkApiAuthorizationsService(
         IVkApi vkApi,
         IVkSettings vkSettings,
-        AuthorizationWindowFactory authorizationWindowFactory)
+        Func<AuthorizationWindow> authorizationWindowFactory)
     {
         _vkApi = vkApi;
         _vkSettings = vkSettings;

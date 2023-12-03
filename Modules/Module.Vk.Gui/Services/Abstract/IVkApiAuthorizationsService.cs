@@ -1,10 +1,10 @@
-﻿namespace Module.Core.Services.Abstract;
+﻿namespace Module.Vk.Gui.Services.Abstract;
 
 public interface IVkApiAuthorizationsService
 {
     /// <summary>
     /// Perform IVkApi authorization.
     /// </summary>
-    /// <returns>Auth result.</returns>
+    /// <returns>true - authorized, false - otherwise.</returns>
     bool AuthorizeVkApiIfNeeded();
 }
