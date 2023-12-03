@@ -7,7 +7,9 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 
 public sealed class MusicSourceDTVM : IMusicSourceVM
 {
+#pragma warning disable CS0067
     public event EventHandler? Deleted;
+#pragma warning restore
 
     public string Name { get; }
     public MusicSourceType Type { get; }

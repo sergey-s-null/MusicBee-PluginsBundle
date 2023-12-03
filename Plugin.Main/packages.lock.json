@@ -466,8 +466,7 @@
           "Module.Core": "[1.0.0, )",
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Settings.Gui": "[1.0.0, )",
-          "Module.Vk.Logic": "[1.0.0, )",
-          "PropertyChanged.Fody": "[4.1.0, )"
+          "Module.Vk.Logic": "[1.0.0, )"
         }
       },
       "module.vk.logic": {

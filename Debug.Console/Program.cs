@@ -10,7 +10,7 @@ internal static class Program
     private static readonly string M3U8FilePath = Path.GetFullPath(@"../../delete_this/index.m3u8");
     private static readonly string BaseUrlFilePath = Path.GetFullPath(@"../../delete_this/baseUrl.txt");
 
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
     }
 
