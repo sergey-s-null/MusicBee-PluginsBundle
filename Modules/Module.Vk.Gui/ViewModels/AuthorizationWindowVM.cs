@@ -3,9 +3,8 @@ using System.Windows.Input;
 using Module.Mvvm.Extension;
 using Module.Settings.Exceptions;
 using Module.Vk.Gui.AbstractViewModels;
-using Module.Vk.Helpers;
+using Module.Vk.Logic.Helpers;
 using Module.Vk.Logic.Services.Abstract;
-using Module.Vk.Settings;
 using PropertyChanged;
 using VkNet.Abstractions;
 
