@@ -39,7 +39,7 @@ public sealed class WizardStepVMFactory : IWizardStepVMFactory
             throw new ArgumentOutOfRangeException(
                 nameof(descriptor.StepType),
                 descriptor.StepType,
-                "Could not resolve wizard step vm factory for specified step type."
+                @"Could not resolve wizard step vm factory for specified step type."
             );
         }
 

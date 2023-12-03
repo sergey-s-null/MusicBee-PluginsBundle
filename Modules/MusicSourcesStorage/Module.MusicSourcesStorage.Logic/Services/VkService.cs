@@ -2,18 +2,19 @@
 using Module.MusicSourcesStorage.Logic.Exceptions;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using Module.Vk.Gui.Services.Abstract;
+using Module.Vk.Logic.Entities.Abstract;
+using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
 public sealed class VkService : IVkService
 {
-    private readonly IVkApiProvider _vkApiProvider;
+    private readonly IVkApi _vkApi;
 
-    public VkService(IVkApiProvider vkApiProvider)
+    public VkService(IAuthorizedVkApiProvider authorizedVkApiProvider)
     {
-        _vkApiProvider = vkApiProvider;
+        _vkApi = authorizedVkApiProvider.AuthorizedVkApi;
     }
 
     public async Task<IReadOnlyList<VkDocument>> GetAttachedDocumentsFromPostAsync(
@@ -42,13 +43,8 @@ public sealed class VkService : IVkService
 
     private async Task<Post> GetPostByIdAsync(long postOwnerId, long postId, CancellationToken token)
     {
-        if (!_vkApiProvider.TryProvideAuthorizedVkApi(out var vkApi))
-        {
-            throw new NotAuthorizedException("Could not get authorized Vk Api.");
-        }
-
         var result = await Task.Run(
-            () => vkApi.Wall.GetById(new[] { GetPostGlobalIdString(postOwnerId, postId) }),
+            () => _vkApi.Wall.GetById(new[] { GetPostGlobalIdString(postOwnerId, postId) }),
             token
         );
 

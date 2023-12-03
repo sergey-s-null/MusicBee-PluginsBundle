@@ -104,24 +104,6 @@
         "resolved": "13.0.2",
         "contentHash": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg=="
       },
-      "protobuf-net": {
-        "type": "Transitive",
-        "resolved": "3.1.25",
-        "contentHash": "vej8g3+5KpwuwA20xoOMJK9nUM/hr7maSu56pIqItmX28JbXF0co1/pD6Mg84+mhLYRQpKiSlOxIDvtaYojKWA==",
-        "dependencies": {
-          "System.Memory": "4.5.4",
-          "protobuf-net.Core": "3.1.25"
-        }
-      },
-      "protobuf-net.Core": {
-        "type": "Transitive",
-        "resolved": "3.1.25",
-        "contentHash": "LqDpeU+rbzO/uD2iYUBIGCgaeCBrxwmCDGVmUNZ67yShrGLlLJHwFMcDsGZUCxE2iHdRJawMUkTfs3HYIXiqWg==",
-        "dependencies": {
-          "System.Collections.Immutable": "1.7.1",
-          "System.Memory": "4.5.4"
-        }
-      },
       "ReusableTasks": {
         "type": "Transitive",
         "resolved": "2.0.0",
@@ -141,14 +123,6 @@
         "type": "Transitive",
         "resolved": "4.5.1",
         "contentHash": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg=="
-      },
-      "System.Collections.Immutable": {
-        "type": "Transitive",
-        "resolved": "1.7.1",
-        "contentHash": "B43Zsz5EfMwyEbnObwRxW5u85fzJma3lrDeGcSAV1qkhSRTNY5uXAByTn9h9ddNdhM+4/YoLc/CI43umjwIl9Q==",
-        "dependencies": {
-          "System.Memory": "4.5.4"
-        }
       },
       "System.Diagnostics.DiagnosticSource": {
         "type": "Transitive",
@@ -215,15 +189,6 @@
           "System.Text.Encoding.CodePages": "6.0.0"
         }
       },
-      "VkNet.AudioBypassService": {
-        "type": "Transitive",
-        "resolved": "1.7.4",
-        "contentHash": "t0TBi7/GMS7VWPW1DWl4A2ctXU6h+PoLqAFzMtdGVqHKxsqcrOtKvQekADSHPHXATtBp3kC69K5MQ+GNcQohGA==",
-        "dependencies": {
-          "VkNet": "1.72.0",
-          "protobuf-net": "3.1.25"
-        }
-      },
       "ZstdSharp.Port": {
         "type": "Transitive",
         "resolved": "0.7.2",
@@ -264,7 +229,9 @@
         "dependencies": {
           "Autofac": "[6.5.0, )",
           "MahApps.Metro.IconPacks": "[4.11.0, )",
-          "Module.MusicSourcesStorage.Logic": "[1.0.0, )"
+          "Module.MusicSourcesStorage.Logic": "[1.0.0, )",
+          "Module.Mvvm.Extension": "[1.0.0, )",
+          "Module.Vk.Gui": "[1.0.0, )"
         }
       },
       "module.musicsourcesstorage.logic": {
@@ -276,7 +243,7 @@
           "Module.MusicSourcesStorage.Core": "[1.0.0, )",
           "Module.MusicSourcesStorage.Database": "[1.0.0, )",
           "Module.Settings.Database": "[1.0.0, )",
-          "Module.Vk": "[1.0.0, )",
+          "Module.Vk.Logic": "[1.0.0, )",
           "MonoTorrent": "[2.0.7, )",
           "SharpCompress": "[0.34.1, )",
           "VkNet": "[1.72.0, )"
@@ -308,13 +275,6 @@
         "dependencies": {
           "Module.MusicBee.Extension": "[1.0.0, )",
           "Newtonsoft.Json": "[13.0.2, )"
-        }
-      },
-      "module.vk": {
-        "type": "Project",
-        "dependencies": {
-          "Module.Vk.Gui": "[1.0.0, )",
-          "VkNet.AudioBypassService": "[1.7.4, )"
         }
       },
       "module.vk.gui": {

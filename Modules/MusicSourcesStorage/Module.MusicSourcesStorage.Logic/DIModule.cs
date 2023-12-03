@@ -12,8 +12,7 @@ public sealed class DIModule : Autofac.Module
     {
         builder
             .RegisterType<VkService>()
-            .As<IVkService>()
-            .SingleInstance();
+            .As<IVkService>();
         builder
             .RegisterType<CoverSelectionService>()
             .As<ICoverSelectionService>()

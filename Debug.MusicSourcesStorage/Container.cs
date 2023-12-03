@@ -2,6 +2,7 @@
 using Debug.Common;
 using Module.MusicSourcesStorage;
 using Module.MusicSourcesStorage.Core;
+using Module.Vk.Gui.Services.Abstract;
 using VkNet.Abstractions;
 
 namespace Debug.MusicSourcesStorage;
@@ -14,6 +15,12 @@ public static class Container
 
         if (withVkApi)
         {
+            // todo use mock?
+            builder
+                .RegisterType<DebugVkApiProvider>()
+                .As<IVkApiProvider>()
+                .SingleInstance();
+
             var vkApi = VkHelper.GetAuthorizedVkApi();
             builder
                 .RegisterInstance(vkApi)
