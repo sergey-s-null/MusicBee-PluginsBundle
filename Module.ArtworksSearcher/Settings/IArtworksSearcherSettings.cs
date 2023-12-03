@@ -1,4 +1,4 @@
-﻿using Module.Settings.Entities.Abstract;
+﻿using Module.Settings.Logic.Entities.Abstract;
 
 namespace Module.ArtworksSearcher.Settings;
 

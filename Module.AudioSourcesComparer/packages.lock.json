@@ -225,13 +225,6 @@
       "module.mvvm.extension": {
         "type": "Project"
       },
-      "module.settings": {
-        "type": "Project",
-        "dependencies": {
-          "Module.MusicBee.Extension": "[1.0.0, )",
-          "Newtonsoft.Json": "[13.0.2, )"
-        }
-      },
       "module.settings.gui": {
         "type": "Project",
         "dependencies": {
@@ -266,7 +259,7 @@
         "type": "Project",
         "dependencies": {
           "Module.Core": "[1.0.0, )",
-          "Module.Settings": "[1.0.0, )",
+          "Module.Settings.Logic": "[1.0.0, )",
           "VkNet": "[1.72.0, )"
         }
       }

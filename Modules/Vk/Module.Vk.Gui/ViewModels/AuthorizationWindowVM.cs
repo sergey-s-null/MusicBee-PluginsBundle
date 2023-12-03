@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Module.Mvvm.Extension;
-using Module.Settings.Exceptions;
+using Module.Settings.Logic.Exceptions;
 using Module.Vk.Gui.AbstractViewModels;
 using Module.Vk.Logic.Helpers;
 using Module.Vk.Logic.Services.Abstract;
