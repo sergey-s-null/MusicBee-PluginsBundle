@@ -3,6 +3,7 @@ using Module.Vk.Exceptions;
 using Module.Vk.Gui.Services.Abstract;
 using Module.Vk.Gui.Views;
 using Module.Vk.Helpers;
+using Module.Vk.Logic.Services.Abstract;
 using Module.Vk.Settings;
 using VkNet.Abstractions;
 

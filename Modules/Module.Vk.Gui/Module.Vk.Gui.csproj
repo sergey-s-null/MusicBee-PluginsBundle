@@ -15,6 +15,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Module.Core\Module.Core.csproj" />
         <ProjectReference Include="..\..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\Module.Vk.Logic\Module.Vk.Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>
