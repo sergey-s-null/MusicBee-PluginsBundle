@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
 using Module.Mvvm.Extension;
-using Module.Settings.Entities.Abstract;
-using Module.Settings.Exceptions;
 using Module.Settings.Gui.AbstractViewModels;
+using Module.Settings.Logic.Entities.Abstract;
+using Module.Settings.Logic.Exceptions;
 using PropertyChanged;
 
 namespace Module.Settings.Gui.ViewModels;

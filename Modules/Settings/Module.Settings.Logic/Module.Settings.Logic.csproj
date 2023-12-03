@@ -5,7 +5,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>11</LangVersion>
-        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,12 +12,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Module.Core\Module.Core.csproj" />
-        <ProjectReference Include="..\..\Settings\Module.Settings.Logic\Module.Settings.Logic.csproj" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="VkNet" Version="1.72.0" />
+        <ProjectReference Include="..\..\..\Module.MusicBee.Extension\Module.MusicBee.Extension.csproj" />
     </ItemGroup>
 
 </Project>

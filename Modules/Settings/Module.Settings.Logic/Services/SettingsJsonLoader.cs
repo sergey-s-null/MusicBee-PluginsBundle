@@ -1,10 +1,10 @@
 ﻿using Module.MusicBee.Extension.Services.Abstract;
-using Module.Settings.Exceptions;
-using Module.Settings.Services.Abstract;
+using Module.Settings.Logic.Exceptions;
+using Module.Settings.Logic.Services.Abstract;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Module.Settings.Services;
+namespace Module.Settings.Logic.Services;
 
 public sealed class SettingsJsonLoader : ISettingsJsonLoader
 {

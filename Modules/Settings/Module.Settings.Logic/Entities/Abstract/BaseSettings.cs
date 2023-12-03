@@ -1,8 +1,8 @@
-﻿using Module.Settings.Exceptions;
-using Module.Settings.Services.Abstract;
+﻿using Module.Settings.Logic.Exceptions;
+using Module.Settings.Logic.Services.Abstract;
 using Newtonsoft.Json.Linq;
 
-namespace Module.Settings.Entities.Abstract;
+namespace Module.Settings.Logic.Entities.Abstract;
 
 public abstract class BaseSettings : ISettings
 {

@@ -1,4 +1,4 @@
-﻿namespace Module.Settings.Exceptions;
+﻿namespace Module.Settings.Logic.Exceptions;
 
 public sealed class SettingsLoadException : Exception
 {

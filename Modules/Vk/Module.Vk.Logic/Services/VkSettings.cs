@@ -1,7 +1,7 @@
 ﻿using Module.Core.Helpers;
-using Module.Settings.Entities.Abstract;
-using Module.Settings.Exceptions;
-using Module.Settings.Services.Abstract;
+using Module.Settings.Logic.Entities.Abstract;
+using Module.Settings.Logic.Exceptions;
+using Module.Settings.Logic.Services.Abstract;
 using Module.Vk.Logic.Services.Abstract;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

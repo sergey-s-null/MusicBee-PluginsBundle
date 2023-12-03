@@ -6,7 +6,6 @@
         <Nullable>enable</Nullable>
         <LangVersion>11</LangVersion>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-        <UseWpf>true</UseWpf>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,13 +13,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Modules\Settings\Module.Settings.Gui\Module.Settings.Gui.csproj" />
-        <ProjectReference Include="..\Module.Core\Module.Core.csproj" />
+        <ProjectReference Include="..\..\..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\Module.Settings.Logic\Module.Settings.Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Mead.MusicBee.Api" Version="1.0.0" />
-        <PackageReference Include="morelinq" Version="3.3.2" />
         <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
     </ItemGroup>
 

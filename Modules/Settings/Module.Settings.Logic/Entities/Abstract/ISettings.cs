@@ -1,6 +1,6 @@
-﻿using Module.Settings.Exceptions;
+﻿using Module.Settings.Logic.Exceptions;
 
-namespace Module.Settings.Entities.Abstract;
+namespace Module.Settings.Logic.Entities.Abstract;
 
 public interface ISettings
 {

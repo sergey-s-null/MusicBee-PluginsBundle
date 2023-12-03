@@ -1,25 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<LangVersion>11</LangVersion>
-		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-		<UseWPF>true</UseWPF>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="Autofac" Version="6.5.0" />
-	  <PackageReference Include="morelinq" Version="3.3.2" />
-	  <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
-	  <PackageReference Include="System.Linq.Async" Version="6.0.1" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.5.0" />
+        <PackageReference Include="morelinq" Version="3.3.2" />
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
+        <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
-	  <ProjectReference Include="..\Module.Settings.Gui\Module.Settings.Gui.csproj" />
-	  <ProjectReference Include="..\Module.Core\Module.Core.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\Modules\Settings\Module.Settings.Gui\Module.Settings.Gui.csproj" />
+        <ProjectReference Include="..\Module.Core\Module.Core.csproj" />
+    </ItemGroup>
 
 </Project>

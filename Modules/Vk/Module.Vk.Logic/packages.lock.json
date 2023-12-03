@@ -177,6 +177,13 @@
           "Module.MusicBee.Extension": "[1.0.0, )",
           "Newtonsoft.Json": "[13.0.2, )"
         }
+      },
+      "module.settings.logic": {
+        "type": "Project",
+        "dependencies": {
+          "Module.MusicBee.Extension": "[1.0.0, )",
+          "Newtonsoft.Json": "[13.0.2, )"
+        }
       }
     }
   }

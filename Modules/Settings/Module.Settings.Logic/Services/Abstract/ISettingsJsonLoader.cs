@@ -1,7 +1,7 @@
-﻿using Module.Settings.Exceptions;
+﻿using Module.Settings.Logic.Exceptions;
 using Newtonsoft.Json.Linq;
 
-namespace Module.Settings.Services.Abstract;
+namespace Module.Settings.Logic.Services.Abstract;
 
 public interface ISettingsJsonLoader
 {
