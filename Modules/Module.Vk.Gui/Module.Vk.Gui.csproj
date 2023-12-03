@@ -15,8 +15,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Module.Core\Module.Core.csproj" />
         <ProjectReference Include="..\..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
-        <!-- todo dont ref to Module.Vk -->
-        <ProjectReference Include="..\..\Module.Vk\Module.Vk.csproj" />
     </ItemGroup>
 
     <ItemGroup>
