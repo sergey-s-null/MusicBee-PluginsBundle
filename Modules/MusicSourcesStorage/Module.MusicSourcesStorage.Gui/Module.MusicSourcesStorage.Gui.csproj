@@ -20,6 +20,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\..\Vk\Module.Vk.Gui\Module.Vk.Gui.csproj" />
         <ProjectReference Include="..\Module.MusicSourcesStorage.Logic\Module.MusicSourcesStorage.Logic.csproj" />
     </ItemGroup>
 

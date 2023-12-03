@@ -398,7 +398,9 @@
         "dependencies": {
           "Autofac": "[6.5.0, )",
           "MahApps.Metro.IconPacks": "[4.11.0, )",
-          "Module.MusicSourcesStorage.Logic": "[1.0.0, )"
+          "Module.MusicSourcesStorage.Logic": "[1.0.0, )",
+          "Module.Mvvm.Extension": "[1.0.0, )",
+          "Module.Vk.Gui": "[1.0.0, )"
         }
       },
       "module.musicsourcesstorage.logic": {
@@ -410,7 +412,7 @@
           "Module.MusicSourcesStorage.Core": "[1.0.0, )",
           "Module.MusicSourcesStorage.Database": "[1.0.0, )",
           "Module.Settings.Database": "[1.0.0, )",
-          "Module.Vk": "[1.0.0, )",
+          "Module.Vk.Logic": "[1.0.0, )",
           "MonoTorrent": "[2.0.7, )",
           "SharpCompress": "[0.34.1, )",
           "VkNet": "[1.72.0, )"
