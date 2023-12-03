@@ -19,6 +19,7 @@ public sealed class MusicSourcesStorageContext : DbContext
     public MusicSourcesStorageContext(IModuleConfiguration configuration)
         : base(configuration.DatabaseConnectionString)
     {
+        // todo use Database.Initialize method ?
         System.Data.Entity.Database.SetInitializer(
             new MigrateDatabaseToLatestVersion<MusicSourcesStorageContext, Configuration>()
         );
