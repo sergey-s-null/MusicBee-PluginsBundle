@@ -2,13 +2,13 @@
 using System.Windows.Input;
 using Module.Mvvm.Extension;
 using Module.Settings.Exceptions;
+using Module.Vk.Gui.AbstractViewModels;
 using Module.Vk.Helpers;
 using Module.Vk.Settings;
-using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using PropertyChanged;
 using VkNet.Abstractions;
 
-namespace Module.VkAudioDownloader.GUI.ViewModels;
+namespace Module.Vk.Gui.ViewModels;
 
 [AddINotifyPropertyChangedInterface]
 public sealed class AuthorizationWindowVM : IAuthorizationWindowVM

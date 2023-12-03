@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using Module.Vk.Gui.AbstractViewModels;
 
-namespace Module.VkAudioDownloader.GUI.Views;
+namespace Module.Vk.Gui.Views;
 
 /// <summary>
 /// Логика взаимодействия для AuthDialog.xaml

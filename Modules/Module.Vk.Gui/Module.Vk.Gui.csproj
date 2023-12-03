@@ -12,4 +12,14 @@
         <Reference Include="System.Net.Http" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\Module.Core\Module.Core.csproj" />
+        <ProjectReference Include="..\..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\..\Module.Vk\Module.Vk.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    </ItemGroup>
+
 </Project>

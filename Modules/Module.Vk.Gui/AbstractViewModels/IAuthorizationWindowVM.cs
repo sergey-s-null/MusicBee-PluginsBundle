@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Module.VkAudioDownloader.GUI.AbstractViewModels;
+namespace Module.Vk.Gui.AbstractViewModels;
 
 public interface IAuthorizationWindowVM
 {

@@ -1,11 +1,7 @@
 ﻿using System.Windows.Input;
-using Module.Mvvm.Extension;
-using Module.VkAudioDownloader.GUI.AbstractViewModels;
+using Module.Vk.Gui.AbstractViewModels;
 
-// Unused variable warning
-#pragma warning disable CS0067
-
-namespace Module.VkAudioDownloader.GUI.DesignTimeViewModels;
+namespace Module.Vk.Gui.DesignTimeViewModels;
 
 public sealed class AuthorizationWindowDTVM : IAuthorizationWindowVM
 {
@@ -16,9 +12,9 @@ public sealed class AuthorizationWindowDTVM : IAuthorizationWindowVM
     public string TwoFactorAuthCode { get; set; } = "5GU78";
 
     public bool AuthorizationInProgress => true;
-    public ICommand AuthorizeCmd { get; } = new RelayCommand(_ => { });
+    public ICommand AuthorizeCmd => null!;
     public bool CodeRequested => true;
-    public ICommand Pass2FACodeCmd { get; } = new RelayCommand(_ => { });
+    public ICommand Pass2FACodeCmd => null!;
 
     public bool AuthorizationResult => true;
 }
