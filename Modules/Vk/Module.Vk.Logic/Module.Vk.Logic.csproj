@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Module.Core\Module.Core.csproj" />
+        <ProjectReference Include="..\..\..\Module.Settings\Module.Settings.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="VkNet" Version="1.72.0" />
+    </ItemGroup>
+
+</Project>

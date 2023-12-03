@@ -2,7 +2,7 @@
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.DesignTimeViewModels;
 using Module.PlaylistsExporter.GUI.Settings;
-using Module.Vk.GUI.AbstractViewModels;
+using Module.Vk.Gui.AbstractViewModels;
 using Module.Vk.GUI.DesignTimeViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.DesignTimeViewModels;

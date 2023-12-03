@@ -33,15 +33,9 @@ public sealed class MusicDownloaderModule : Autofac.Module
         builder
             .RegisterType<MusicDownloaderSettingsVM>()
             .As<IMusicDownloaderSettingsVM>();
-        builder
-            .RegisterType<AuthorizationWindowVM>()
-            .As<IAuthorizationWindowVM>();
 
         builder
             .RegisterType<VkAudioDownloaderWindow>()
-            .AsSelf();
-        builder
-            .RegisterType<AuthorizationWindow>()
             .AsSelf();
     }
 }

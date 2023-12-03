@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <UseWpf>true</UseWpf>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Module.Vk.Gui\Module.Vk.Gui.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="VkNet.AudioBypassService" Version="1.7.4" />
+    </ItemGroup>
+
+</Project>

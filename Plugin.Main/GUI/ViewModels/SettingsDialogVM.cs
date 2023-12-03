@@ -4,7 +4,7 @@ using Module.ArtworksSearcher.GUI.Settings;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.PlaylistsExporter.GUI.Settings;
 using Module.Settings.Exceptions;
-using Module.Vk.GUI.AbstractViewModels;
+using Module.Vk.Gui.AbstractViewModels;
 using Module.VkAudioDownloader.GUI.AbstractViewModels;
 using Plugin.Main.GUI.AbstractViewModels;
 using PropertyChanged;

@@ -242,10 +242,26 @@
       "module.vk": {
         "type": "Project",
         "dependencies": {
-          "Module.Core": "[1.0.0, )",
-          "Module.Settings.Gui": "[1.0.0, )",
-          "VkNet": "[1.72.0, )",
+          "Module.Vk.Gui": "[1.0.0, )",
           "VkNet.AudioBypassService": "[1.7.4, )"
+        }
+      },
+      "module.vk.gui": {
+        "type": "Project",
+        "dependencies": {
+          "Module.Core": "[1.0.0, )",
+          "Module.Mvvm.Extension": "[1.0.0, )",
+          "Module.Settings.Gui": "[1.0.0, )",
+          "Module.Vk.Logic": "[1.0.0, )",
+          "PropertyChanged.Fody": "[4.1.0, )"
+        }
+      },
+      "module.vk.logic": {
+        "type": "Project",
+        "dependencies": {
+          "Module.Core": "[1.0.0, )",
+          "Module.Settings": "[1.0.0, )",
+          "VkNet": "[1.72.0, )"
         }
       }
     }

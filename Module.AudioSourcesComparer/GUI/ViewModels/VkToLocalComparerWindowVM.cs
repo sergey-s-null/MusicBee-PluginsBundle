@@ -8,7 +8,7 @@ using Module.AudioSourcesComparer.GUI.Factories;
 using Module.AudioSourcesComparer.Services.Abstract;
 using Module.Core.Helpers;
 using Module.Mvvm.Extension;
-using Module.Vk.Settings;
+using Module.Vk.Logic.Services.Abstract;
 using PropertyChanged;
 using VkNet.Abstractions;
 using VkNet.Exception;

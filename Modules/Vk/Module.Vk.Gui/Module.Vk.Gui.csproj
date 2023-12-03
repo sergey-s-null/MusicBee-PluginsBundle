@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <UseWpf>true</UseWpf>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Module.Core\Module.Core.csproj" />
+        <ProjectReference Include="..\..\..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\..\..\Module.Settings.Gui\Module.Settings.Gui.csproj" />
+        <ProjectReference Include="..\Module.Vk.Logic\Module.Vk.Logic.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    </ItemGroup>
+
+</Project>

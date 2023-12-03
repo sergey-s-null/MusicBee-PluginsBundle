@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "dependencies": {
+    ".NETFramework,Version=v4.7.2": {
+      "PropertyChanged.Fody": {
+        "type": "Direct",
+        "requested": "[4.1.0, )",
+        "resolved": "4.1.0",
+        "contentHash": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
+        "dependencies": {
+          "Fody": "6.6.4"
+        }
+      },
+      "Autofac": {
+        "type": "Transitive",
+        "resolved": "6.5.0",
+        "contentHash": "sm6HWWBDEoTPGXeyOchMygJ/7L89VxmVH72BFxakG88J34AVjA8RMi5jbv3PdpUtXI/d9ZLKOaxCmOSIo2K4aA==",
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "1.1.0",
+          "System.Diagnostics.DiagnosticSource": "4.7.1"
+        }
+      },
+      "Fody": {
+        "type": "Transitive",
+        "resolved": "6.6.4",
+        "contentHash": "vLZS+oa+ndUHYPlx/8n9bBTT3dHkCF0riml4paKq4D663+cZd47x1uagQo32D/gKFZ/sfmV1oqKaLmH0elxq4A=="
+      },
+      "HtmlAgilityPack": {
+        "type": "Transitive",
+        "resolved": "1.11.46",
+        "contentHash": "dLMn4EVfJBHWmWK4Uh0XGD76FPLHI0qr2Tm0s1m/xmgiHb1JUb9zB8AzO8HtrkBBlMN6JfCUBYddhqC0hZNR+g=="
+      },
+      "MahApps.Metro.IconPacks": {
+        "type": "Transitive",
+        "resolved": "4.11.0",
+        "contentHash": "hanveh4ZZLYZ00ONrwjyzDJnekxWcgFQ7rHHrmC7GppO3js3tAEhmW+lo0rNgG4naxkggEYZFLeH+rxeJLMSuQ=="
+      },
+      "Mead.MusicBee": {
+        "type": "Transitive",
+        "resolved": "1.1.1",
+        "contentHash": "CibfHF0f3boyoUDYWCBqHgn/EOi5dbyDzxL50mIQ61eVlP2e1ipcGBQFjEKZK7xCZMVtOyhSvma6xU5gZEBmcw=="
+      },
+      "Mead.MusicBee.Api": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "8Wo1JNU+NBPuFt975jCKZwM+HIq+XZl7dB7dTyOOqC9hFKHd6rTH8w1sD/5h2ZcNcU3TECnlKxbP9H43LPdEwA==",
+        "dependencies": {
+          "Mead.MusicBee": "1.1.1"
+        }
+      },
+      "Mead.MusicBee.Api.Autofac.DependencyInjection": {
+        "type": "Transitive",
+        "resolved": "1.0.1",
+        "contentHash": "dYqF1cgxyUbl1C7hu1SDi1LjqG6AaAC9Y0T5qg10UxVvv2lknKzjfAHxCogJSJD/b8JIuxShuYhm2GdSfMowTQ==",
+        "dependencies": {
+          "Autofac": "6.5.0",
+          "Mead.MusicBee.Api": "1.0.0"
+        }
+      },
+      "Microsoft.Bcl.AsyncInterfaces": {
+        "type": "Transitive",
+        "resolved": "6.0.0",
+        "contentHash": "UcSjPsst+DfAdJGVDsu346FX0ci0ah+lw3WRtn18NUwEqRt70HaOQ7lI72vy3+1LxtqI3T5GWwV39rQSrCzAeg==",
+        "dependencies": {
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection": {
+        "type": "Transitive",
+        "resolved": "6.0.1",
+        "contentHash": "vWXPg3HJQIpZkENn1KWq8SfbqVujVD7S7vIAyFXXqK5xkf1Vho+vG0bLBCHxU36lD1cLLtmGpfYf0B3MYFi9tQ==",
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions": {
+        "type": "Transitive",
+        "resolved": "6.0.0",
+        "contentHash": "xlzi2IYREJH3/m6+lUrQlujzX8wDitm4QGnUu6kUXTQAWPuZY8i+ticFJbzfqaetLA6KR/rO6Ew/HuYD+bxifg==",
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions": {
+        "type": "Transitive",
+        "resolved": "6.0.2",
+        "contentHash": "pwXCZKaA7m5wgmCj49dW+H1RPSY7U62SKLTQYCcavf/k3Nyt/WnBgAjG4jMGnwy9rElfAZ2KvxvM5CJzJWG0hg==",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Memory": "4.5.4"
+        }
+      },
+      "Newtonsoft.Json": {
+        "type": "Transitive",
+        "resolved": "13.0.2",
+        "contentHash": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg=="
+      },
+      "System.Buffers": {
+        "type": "Transitive",
+        "resolved": "4.5.1",
+        "contentHash": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg=="
+      },
+      "System.Diagnostics.DiagnosticSource": {
+        "type": "Transitive",
+        "resolved": "4.7.1",
+        "contentHash": "j81Lovt90PDAq8kLpaJfJKV/rWdWuEk6jfV+MBkee33vzYLEUsy4gXK8laa9V2nZlLM9VM9yA/OOQxxPEJKAMw==",
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        }
+      },
+      "System.Linq.Async": {
+        "type": "Transitive",
+        "resolved": "6.0.1",
+        "contentHash": "0YhHcaroWpQ9UCot3Pizah7ryAzQhNvobLMSxeDIGmnXfkQn8u5owvpOH0K6EVB+z9L7u6Cc4W17Br/+jyttEQ==",
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "6.0.0"
+        }
+      },
+      "System.Memory": {
+        "type": "Transitive",
+        "resolved": "4.5.4",
+        "contentHash": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        }
+      },
+      "System.Numerics.Vectors": {
+        "type": "Transitive",
+        "resolved": "4.5.0",
+        "contentHash": "QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ=="
+      },
+      "System.Runtime.CompilerServices.Unsafe": {
+        "type": "Transitive",
+        "resolved": "6.0.0",
+        "contentHash": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg=="
+      },
+      "System.Text.Encoding.CodePages": {
+        "type": "Transitive",
+        "resolved": "6.0.0",
+        "contentHash": "ZFCILZuOvtKPauZ/j/swhvw68ZRi9ATCfvGbk1QfydmcXBkIWecWKn/250UH7rahZ5OoDBaiAudJtPvLwzw85A==",
+        "dependencies": {
+          "System.Memory": "4.5.4",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        }
+      },
+      "System.Threading.Tasks.Extensions": {
+        "type": "Transitive",
+        "resolved": "4.5.4",
+        "contentHash": "zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        }
+      },
+      "VkNet": {
+        "type": "Transitive",
+        "resolved": "1.72.0",
+        "contentHash": "/3RfpiMQVnVASxSKZqQdOpRcGne9MjyVka4s5yEPVfDvo2jU9TCJ/1NDT4lE1g0OoaearL39DWJThh7qP515iw==",
+        "dependencies": {
+          "HtmlAgilityPack": "1.11.46",
+          "Microsoft.Extensions.DependencyInjection": "6.0.1",
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.2",
+          "Newtonsoft.Json": "13.0.1",
+          "System.Text.Encoding.CodePages": "6.0.0"
+        }
+      },
+      "module.core": {
+        "type": "Project",
+        "dependencies": {
+          "MahApps.Metro.IconPacks": "[4.11.0, )",
+          "System.Linq.Async": "[6.0.1, )"
+        }
+      },
+      "module.musicbee.extension": {
+        "type": "Project",
+        "dependencies": {
+          "Autofac": "[6.5.0, )",
+          "Mead.MusicBee.Api": "[1.0.0, )",
+          "Mead.MusicBee.Api.Autofac.DependencyInjection": "[1.0.1, )"
+        }
+      },
+      "module.mvvm.extension": {
+        "type": "Project"
+      },
+      "module.settings": {
+        "type": "Project",
+        "dependencies": {
+          "Module.MusicBee.Extension": "[1.0.0, )",
+          "Newtonsoft.Json": "[13.0.2, )"
+        }
+      },
+      "module.settings.gui": {
+        "type": "Project",
+        "dependencies": {
+          "Module.Mvvm.Extension": "[1.0.0, )",
+          "Module.Settings": "[1.0.0, )"
+        }
+      },
+      "module.vk.logic": {
+        "type": "Project",
+        "dependencies": {
+          "Module.Core": "[1.0.0, )",
+          "Module.Settings": "[1.0.0, )",
+          "VkNet": "[1.72.0, )"
+        }
+      }
+    }
+  }
+}
