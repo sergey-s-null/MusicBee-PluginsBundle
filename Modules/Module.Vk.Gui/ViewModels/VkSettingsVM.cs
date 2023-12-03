@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using Module.Settings.Gui.ViewModels;
-using Module.Vk.GUI.AbstractViewModels;
+using Module.Vk.Gui.AbstractViewModels;
 using Module.Vk.Logic.Services.Abstract;
 using PropertyChanged;
 
-namespace Module.Vk.GUI.ViewModels;
+namespace Module.Vk.Gui.ViewModels;
 
 [AddINotifyPropertyChangedInterface]
 public sealed class VkSettingsVM : BaseSettingsVM, IVkSettingsVM

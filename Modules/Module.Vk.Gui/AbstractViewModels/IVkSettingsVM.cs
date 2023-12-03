@@ -1,6 +1,6 @@
 ﻿using Module.Settings.Gui.AbstractViewModels;
 
-namespace Module.Vk.GUI.AbstractViewModels;
+namespace Module.Vk.Gui.AbstractViewModels;
 
 public interface IVkSettingsVM : IBaseSettingsVM
 {
