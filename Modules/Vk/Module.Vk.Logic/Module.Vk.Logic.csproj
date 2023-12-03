@@ -14,7 +14,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\Module.Core\Module.Core.csproj" />
-        <ProjectReference Include="..\..\Module.Settings.Logic\Module.Settings.Logic.csproj" />
+        <ProjectReference Include="..\..\Settings\Module.Settings.Logic\Module.Settings.Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>

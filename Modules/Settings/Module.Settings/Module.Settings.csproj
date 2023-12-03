@@ -15,7 +15,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Module.Settings.Database\Module.Settings.Database.csproj" />
         <ProjectReference Include="..\Module.Settings.Gui\Module.Settings.Gui.csproj" />
-        <ProjectReference Include="..\Modules\Module.Settings.Logic\Module.Settings.Logic.csproj" />
+        <ProjectReference Include="..\Module.Settings.Logic\Module.Settings.Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>

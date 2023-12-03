@@ -24,7 +24,7 @@
         <ProjectReference Include="..\..\..\Module.Core\Module.Core.csproj" />
         <ProjectReference Include="..\Module.MusicSourcesStorage.Core\Module.MusicSourcesStorage.Core.csproj" />
         <ProjectReference Include="..\Module.MusicSourcesStorage.Database\Module.MusicSourcesStorage.Database.csproj" />
-        <ProjectReference Include="..\..\..\Module.Settings.Database\Module.Settings.Database.csproj" />
+        <ProjectReference Include="..\..\Settings\Module.Settings.Database\Module.Settings.Database.csproj" />
         <ProjectReference Include="..\..\Vk\Module.Vk\Module.Vk.csproj" />
     </ItemGroup>
 

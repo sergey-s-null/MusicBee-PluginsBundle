@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
-        <ProjectReference Include="..\Modules\Module.Settings.Logic\Module.Settings.Logic.csproj" />
+        <ProjectReference Include="..\..\..\Module.Mvvm.Extension\Module.Mvvm.Extension.csproj" />
+        <ProjectReference Include="..\Module.Settings.Logic\Module.Settings.Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>
