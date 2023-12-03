@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using Module.MusicBee.Extension;
+using LogicDIModule = Module.Settings.Logic.DIModule;
+using DatabaseDIModule = Module.Settings.Database.DIModule;
 
 namespace Module.Settings;
 
@@ -7,9 +8,7 @@ public class SettingsModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        // todo ???
-        builder.RegisterModule<MusicBeeExtensionModule>();
-        
-        // todo register child DIModule's
+        builder.RegisterModule<LogicDIModule>();
+        builder.RegisterModule<DatabaseDIModule>();
     }
 }

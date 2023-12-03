@@ -17,6 +17,11 @@
           "System.Diagnostics.DiagnosticSource": "4.7.1"
         }
       },
+      "EntityFramework": {
+        "type": "Transitive",
+        "resolved": "6.4.4",
+        "contentHash": "yj1+/4tci7Panu3jKDHYizxwVm0Jvm7b7m057b5h4u8NUHGCR8WIWirBTw+8EptRffwftIWPBeIRGNKD1ewEMQ=="
+      },
       "Mead.MusicBee": {
         "type": "Transitive",
         "resolved": "1.1.1",
@@ -94,6 +99,34 @@
           "Autofac": "[6.5.0, )",
           "Mead.MusicBee.Api": "[1.0.0, )",
           "Mead.MusicBee.Api.Autofac.DependencyInjection": "[1.0.1, )"
+        }
+      },
+      "module.mvvm.extension": {
+        "type": "Project"
+      },
+      "module.settings.core": {
+        "type": "Project"
+      },
+      "module.settings.database": {
+        "type": "Project",
+        "dependencies": {
+          "Autofac": "[6.5.0, )",
+          "EntityFramework": "[6.4.4, )",
+          "Module.Settings.Core": "[1.0.0, )"
+        }
+      },
+      "module.settings.gui": {
+        "type": "Project",
+        "dependencies": {
+          "Module.Mvvm.Extension": "[1.0.0, )",
+          "Module.Settings.Logic": "[1.0.0, )"
+        }
+      },
+      "module.settings.logic": {
+        "type": "Project",
+        "dependencies": {
+          "Module.MusicBee.Extension": "[1.0.0, )",
+          "Newtonsoft.Json": "[13.0.2, )"
         }
       }
     }
