@@ -6,7 +6,7 @@ namespace Debug.MusicSourcesStorage;
 
 public sealed class DebugModuleConfiguration : IModuleConfiguration
 {
-    private static readonly string DebugFolder = Path.Combine(
+    public static readonly string DebugFolder = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
         "DebugMusicSourcesStorage"
     );

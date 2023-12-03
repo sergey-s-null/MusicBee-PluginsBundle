@@ -1,7 +1,9 @@
-﻿using Autofac;
+﻿using System.IO;
+using Autofac;
 using Debug.Common;
 using Module.MusicSourcesStorage;
 using Module.MusicSourcesStorage.Core;
+using Module.Settings.Database.Services.Abstract;
 using Module.Vk.Gui.Services.Abstract;
 using Moq;
 using VkNet.Abstractions;
@@ -14,6 +16,12 @@ public static class Container
     {
         var builder = new ContainerBuilder();
 
+        var configuration = new DebugModuleConfiguration();
+
+        builder
+            .RegisterInstance(configuration)
+            .As<IModuleConfiguration>();
+
         if (withVkApi)
         {
             var vkApi = VkHelper.GetAuthorizedVkApi();
@@ -23,16 +31,13 @@ public static class Container
 
             builder
                 .RegisterInstance(GetVkApiProviderMock(vkApi))
-                .As<IVkApiProvider>()
-                .SingleInstance();
+                .As<IVkApiProvider>();
+            builder
+                .RegisterInstance(GetSettingsRepositoryMock(configuration))
+                .As<ISettingsRepository>();
         }
 
         builder.RegisterModule<MusicSourcesStorageModule>();
-
-        builder
-            .RegisterType<DebugModuleConfiguration>()
-            .As<IModuleConfiguration>()
-            .SingleInstance();
 
         return builder.Build();
     }
@@ -42,6 +47,24 @@ public static class Container
         var mock = new Mock<IVkApiProvider>();
         mock.Setup(x => x.TryProvideAuthorizedVkApi(out vkApi))
             .Returns(true);
+        return mock.Object;
+    }
+
+    private static ISettingsRepository GetSettingsRepositoryMock(IModuleConfiguration configuration)
+    {
+        var mock = new Mock<ISettingsRepository>();
+
+        mock.Setup(x => x.FindString(
+                configuration.SettingsArea,
+                "vk-documents-downloading-directory")
+            )
+            .Returns(Path.Combine(DebugModuleConfiguration.DebugFolder, "VkDocuments"));
+        mock.Setup(x => x.FindString(
+                configuration.SettingsArea,
+                "source-files-downloading-directory")
+            )
+            .Returns(Path.Combine(DebugModuleConfiguration.DebugFolder, "SourceFiles"));
+
         return mock.Object;
     }
 }
