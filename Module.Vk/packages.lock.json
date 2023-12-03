@@ -2,28 +2,6 @@
   "version": 1,
   "dependencies": {
     ".NETFramework,Version=v4.7.2": {
-      "PropertyChanged.Fody": {
-        "type": "Direct",
-        "requested": "[4.1.0, )",
-        "resolved": "4.1.0",
-        "contentHash": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
-        "dependencies": {
-          "Fody": "6.6.4"
-        }
-      },
-      "VkNet": {
-        "type": "Direct",
-        "requested": "[1.72.0, )",
-        "resolved": "1.72.0",
-        "contentHash": "/3RfpiMQVnVASxSKZqQdOpRcGne9MjyVka4s5yEPVfDvo2jU9TCJ/1NDT4lE1g0OoaearL39DWJThh7qP515iw==",
-        "dependencies": {
-          "HtmlAgilityPack": "1.11.46",
-          "Microsoft.Extensions.DependencyInjection": "6.0.1",
-          "Microsoft.Extensions.Logging.Abstractions": "6.0.2",
-          "Newtonsoft.Json": "13.0.1",
-          "System.Text.Encoding.CodePages": "6.0.0"
-        }
-      },
       "VkNet.AudioBypassService": {
         "type": "Direct",
         "requested": "[1.7.4, )",
@@ -122,6 +100,14 @@
         "resolved": "13.0.2",
         "contentHash": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg=="
       },
+      "PropertyChanged.Fody": {
+        "type": "Transitive",
+        "resolved": "4.1.0",
+        "contentHash": "6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
+        "dependencies": {
+          "Fody": "6.6.4"
+        }
+      },
       "protobuf-net": {
         "type": "Transitive",
         "resolved": "3.1.25",
@@ -206,6 +192,18 @@
           "System.Runtime.CompilerServices.Unsafe": "4.5.3"
         }
       },
+      "VkNet": {
+        "type": "Transitive",
+        "resolved": "1.72.0",
+        "contentHash": "/3RfpiMQVnVASxSKZqQdOpRcGne9MjyVka4s5yEPVfDvo2jU9TCJ/1NDT4lE1g0OoaearL39DWJThh7qP515iw==",
+        "dependencies": {
+          "HtmlAgilityPack": "1.11.46",
+          "Microsoft.Extensions.DependencyInjection": "6.0.1",
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.2",
+          "Newtonsoft.Json": "13.0.1",
+          "System.Text.Encoding.CodePages": "6.0.0"
+        }
+      },
       "module.core": {
         "type": "Project",
         "dependencies": {
@@ -236,6 +234,24 @@
         "dependencies": {
           "Module.Mvvm.Extension": "[1.0.0, )",
           "Module.Settings": "[1.0.0, )"
+        }
+      },
+      "module.vk.gui": {
+        "type": "Project",
+        "dependencies": {
+          "Module.Core": "[1.0.0, )",
+          "Module.Mvvm.Extension": "[1.0.0, )",
+          "Module.Settings.Gui": "[1.0.0, )",
+          "Module.Vk.Logic": "[1.0.0, )",
+          "PropertyChanged.Fody": "[4.1.0, )"
+        }
+      },
+      "module.vk.logic": {
+        "type": "Project",
+        "dependencies": {
+          "Module.Core": "[1.0.0, )",
+          "Module.Settings": "[1.0.0, )",
+          "VkNet": "[1.72.0, )"
         }
       }
     }

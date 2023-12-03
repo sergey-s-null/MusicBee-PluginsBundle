@@ -1,8 +1,5 @@
 ﻿using Autofac;
 using Microsoft.Extensions.DependencyInjection;
-using Module.Vk.GUI.AbstractViewModels;
-using Module.Vk.GUI.ViewModels;
-using Module.Vk.Settings;
 using VkNet;
 using VkNet.Abstractions;
 using VkNet.AudioBypassService.Extensions;
@@ -20,19 +17,12 @@ public sealed class VkModule : Autofac.Module
 
     protected override void Load(ContainerBuilder builder)
     {
-        builder
-            .RegisterType<VkSettings>()
-            .As<IVkSettings>()
-            .SingleInstance();
+        // todo register GUI and Logic modules
 
         builder
             .Register(x => CreateVkApi())
             .As<IVkApi>()
             .SingleInstance();
-
-        builder
-            .RegisterType<VkSettingsVM>()
-            .As<IVkSettingsVM>();
     }
 
     private IVkApi CreateVkApi()

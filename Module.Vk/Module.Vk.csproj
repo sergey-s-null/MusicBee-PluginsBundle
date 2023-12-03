@@ -1,27 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<LangVersion>11</LangVersion>
-		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-		<UseWpf>true</UseWpf>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <UseWpf>true</UseWpf>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<Reference Include="System.Net.Http" />
-	</ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Module.Settings.Gui\Module.Settings.Gui.csproj" />
-		<ProjectReference Include="..\Module.Core\Module.Core.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Modules\Module.Vk.Gui\Module.Vk.Gui.csproj" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
-		<PackageReference Include="VkNet" Version="1.72.0" />
-		<PackageReference Include="VkNet.AudioBypassService" Version="1.7.4" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="VkNet.AudioBypassService" Version="1.7.4" />
+    </ItemGroup>
 
 </Project>
