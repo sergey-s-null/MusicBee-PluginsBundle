@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Autofac;
 using Debug.Common;
+using Mead.MusicBee.Api.Services.Abstract;
 using Module.MusicSourcesStorage;
 using Module.MusicSourcesStorage.Core;
 using Module.Settings.Database.Services.Abstract;
@@ -25,6 +27,9 @@ public static class Container
         builder
             .RegisterInstance(GetSettingsRepositoryMock(configuration))
             .As<ISettingsRepository>();
+        builder
+            .RegisterInstance(GetMusicBeeApiMock())
+            .As<IMusicBeeApi>();
 
         if (withVkApi)
         {
@@ -65,6 +70,17 @@ public static class Container
                 "source-files-downloading-directory")
             )
             .Returns(Path.Combine(DebugModuleConfiguration.DebugFolder, "SourceFiles"));
+
+        return mock.Object;
+    }
+
+    private static IMusicBeeApi GetMusicBeeApiMock()
+    {
+        var mock = new Mock<IMusicBeeApi>();
+
+        var files = Array.Empty<string>();
+        mock.Setup(x => x.Library_QueryFilesEx(It.IsAny<string>(), out files))
+            .Returns(true);
 
         return mock.Object;
     }

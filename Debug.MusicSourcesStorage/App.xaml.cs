@@ -13,7 +13,7 @@ namespace Debug.MusicSourcesStorage
         {
             var container = Container.Create(true);
             var actions = container.Resolve<IMusicSourcesStorageModuleActions>();
-            actions.AddVkPostWithArchiveSource();
+            actions.ShowMusicSources();
         }
     }
 }
