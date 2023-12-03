@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Module.AudioSourcesComparer.GUI.AbstractViewModels;
 using Module.Mvvm.Extension;
-using Module.Vk.Settings;
+using Module.Vk.Logic.Services.Abstract;
 using VkNet.Abstractions;
 using VkNet.Exception;
 

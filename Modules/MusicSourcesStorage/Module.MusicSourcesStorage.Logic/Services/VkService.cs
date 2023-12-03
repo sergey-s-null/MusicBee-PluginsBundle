@@ -2,7 +2,7 @@
 using Module.MusicSourcesStorage.Logic.Exceptions;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using Module.Vk.Services.Abstract;
+using Module.Vk.Gui.Services.Abstract;
 using VkNet.Model.Attachments;
 
 namespace Module.MusicSourcesStorage.Logic.Services;

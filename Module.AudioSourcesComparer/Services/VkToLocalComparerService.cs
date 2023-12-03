@@ -5,7 +5,7 @@ using Module.AudioSourcesComparer.Exceptions;
 using Module.AudioSourcesComparer.Services.Abstract;
 using Module.Core.Helpers;
 using Module.MusicBee.Extension.Helpers;
-using Module.Vk.Helpers;
+using Module.Vk.Logic.Helpers;
 using VkNet.Abstractions;
 using VkNet.Model.Attachments;
 using VkNet.Model.RequestParams;

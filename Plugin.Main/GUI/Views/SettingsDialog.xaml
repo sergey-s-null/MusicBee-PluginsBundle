@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:vkviews="clr-namespace:Module.Vk.GUI.Views;assembly=Module.Vk.Gui"
-        xmlns:vkavm="clr-namespace:Module.Vk.GUI.AbstractViewModels;assembly=Module.Vk.Gui"
+        xmlns:vkavm="clr-namespace:Module.Vk.Gui.AbstractViewModels;assembly=Module.Vk.Gui"
         xmlns:ass="clr-namespace:Module.ArtworksSearcher.GUI.Settings;assembly=Module.ArtworksSearcher"
         xmlns:pes="clr-namespace:Module.PlaylistsExporter.GUI.Settings;assembly=Module.PlaylistsExporter"
         xmlns:mssavm="clr-namespace:Module.MusicSourcesStorage.Gui.AbstractViewModels;assembly=Module.MusicSourcesStorage.Gui"

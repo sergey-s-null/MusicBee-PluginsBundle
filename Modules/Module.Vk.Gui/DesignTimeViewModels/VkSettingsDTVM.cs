@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using Module.Mvvm.Extension;
-using Module.Vk.GUI.AbstractViewModels;
+using Module.Vk.Gui.AbstractViewModels;
 
 namespace Module.Vk.GUI.DesignTimeViewModels;
 
