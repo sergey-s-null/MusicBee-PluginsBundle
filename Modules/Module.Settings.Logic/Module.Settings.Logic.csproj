@@ -8,7 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Reference Include="System.Net.Http" />
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Module.MusicBee.Extension\Module.MusicBee.Extension.csproj" />
     </ItemGroup>
 
 </Project>
