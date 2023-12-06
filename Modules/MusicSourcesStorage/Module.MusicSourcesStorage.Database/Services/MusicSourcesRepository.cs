@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using Module.MusicSourcesStorage.Database.Factories.Abstract;
 using Module.MusicSourcesStorage.Database.Models;
 using Module.MusicSourcesStorage.Database.Services.Abstract;
 
@@ -6,16 +7,16 @@ namespace Module.MusicSourcesStorage.Database.Services;
 
 public sealed class MusicSourcesRepository : IMusicSourcesRepository
 {
-    private readonly Func<MusicSourcesStorageContext> _contextFactory;
+    private readonly IMusicSourcesStorageContextFactory _contextFactory;
 
-    public MusicSourcesRepository(Func<MusicSourcesStorageContext> contextFactory)
+    public MusicSourcesRepository(IMusicSourcesStorageContextFactory contextFactory)
     {
         _contextFactory = contextFactory;
     }
 
     public async Task<MusicSourceModel> AddAsync(MusicSourceModel musicSource, CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var model = context.Sources.Add(musicSource);
 
@@ -26,7 +27,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
 
     public async Task DeleteAsync(int id, CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var model = await context.Sources.FindAsync(token, id);
         context.Sources.Remove(model);
@@ -36,7 +37,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
 
     public async Task<MusicSourceModel> GetSourceByFileIdAsync(int fileId, bool includeFiles, CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var sources = includeFiles
             ? context.Sources.Include(x => x.Files)
@@ -57,7 +58,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
 
     public async Task<IReadOnlyList<MusicSourceModel>> GetAllAsync(CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         return await context.Sources
             .Include(x => x.Files)
@@ -66,7 +67,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
 
     public async Task<MusicSourceAdditionalInfoModel?> FindAdditionalInfoAsync(int id, CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var model = await context.Sources.FindAsync(token, id);
 
@@ -90,7 +91,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
         MusicSourceAdditionalInfoModel additionalInfo,
         CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var model = await context.Sources.FindAsync(token, id);
         if (model is null)
@@ -106,7 +107,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
 
     public async Task<FileModel> GetSourceFileAsync(int fileId, bool includeSource, CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var files = includeSource
             ? context.Files.Include(x => x.Source)
@@ -129,7 +130,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
         bool includeSource,
         CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var files = includeSource
             ? context.Files.Include(x => x.Source)
@@ -142,7 +143,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
 
     public async Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var file = await context.Files.FindAsync(token, musicFileId);
         if (file is null)
@@ -165,7 +166,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
 
     public async Task SetCoverAsync(int imageFileId, byte[] imageData, CancellationToken token)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var fileModel = await context.Files.FindAsync(token, imageFileId);
         if (fileModel is null)
@@ -189,7 +190,7 @@ public sealed class MusicSourcesRepository : IMusicSourcesRepository
 
     public async Task RemoveCoverAsync(int imageFileId, CancellationToken token = default)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var fileModel = await context.Files.FindAsync(token, imageFileId);
         if (fileModel is null)
