@@ -5,6 +5,7 @@ using System.Windows;
 using Autofac;
 using Module.Settings.Database;
 using Module.Settings.Database.Models;
+using Module.Settings.Database.Services.Abstract;
 
 namespace Debug.Settings
 {
@@ -24,7 +25,7 @@ namespace Debug.Settings
 
         private static void AddSettingEntry(IContainer container)
         {
-            using var context = container.Resolve<SettingsContext>();
+            using var context = container.Resolve<ISettingsContextFactory>().Create();
 
             context.Settings.Add(new SettingEntry
             {
@@ -71,7 +72,7 @@ namespace Debug.Settings
 
         private static SettingEntry GetLoadedSettingEntry(IContainer container)
         {
-            using var context = container.Resolve<SettingsContext>();
+            using var context = container.Resolve<ISettingsContextFactory>().Create();
             var entry = context.Settings
                 .Include(x => x.Value)
                 .First(x => x.Area == "area" && x.Id == "1");

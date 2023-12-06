@@ -6,16 +6,16 @@ namespace Module.Settings.Database.Services;
 
 public sealed class SettingsRepository : ISettingsRepository
 {
-    private readonly Func<SettingsContext> _contextFactory;
+    private readonly ISettingsContextFactory _contextFactory;
 
-    public SettingsRepository(Func<SettingsContext> contextFactory)
+    public SettingsRepository(ISettingsContextFactory contextFactory)
     {
         _contextFactory = contextFactory;
     }
 
     public string? FindString(string area, string id)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var setting = context.Settings
             .Include(x => x.Value)
@@ -28,7 +28,7 @@ public sealed class SettingsRepository : ISettingsRepository
 
     public int? FindInt32(string area, string id)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var setting = context.Settings
             .Include(x => x.Value)
@@ -41,7 +41,7 @@ public sealed class SettingsRepository : ISettingsRepository
 
     public void Set(string area, string id, string value)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var setting = context.Settings
             .Include(x => x.Value)
@@ -66,7 +66,7 @@ public sealed class SettingsRepository : ISettingsRepository
 
     public void Set(string area, string id, int value)
     {
-        using var context = _contextFactory();
+        using var context = _contextFactory.Create();
 
         var setting = context.Settings
             .Include(x => x.Value)
