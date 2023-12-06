@@ -430,6 +430,15 @@
           "morelinq": "[3.3.2, )"
         }
       },
+      "module.settings": {
+        "type": "Project",
+        "dependencies": {
+          "Module.Settings.Database": "[1.0.0, )",
+          "Module.Settings.Gui": "[1.0.0, )",
+          "Module.Settings.Logic": "[1.0.0, )",
+          "Newtonsoft.Json": "[13.0.2, )"
+        }
+      },
       "module.settings.core": {
         "type": "Project"
       },

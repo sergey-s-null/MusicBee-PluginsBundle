@@ -9,7 +9,9 @@ using Mead.MusicBee.Entities;
 using Mead.MusicBee.Enums;
 using Mead.MusicBee.Services;
 using Module.MusicBee.Extension.Services.Abstract;
+using Module.MusicSourcesStorage.Database.Services.Abstract;
 using Module.MusicSourcesStorage.Services.Abstract;
+using Module.Settings.Database.Services.Abstract;
 using Plugin.Main;
 using Plugin.Main.Factories;
 using Plugin.Main.GUI.Views;
@@ -38,6 +40,8 @@ public class Plugin : PluginBase
     {
         var container = PluginContainer.Create(musicBeeApi);
 
+        ApplyMigrations(container);
+
         _settingsDialogFactory = container.Resolve<SettingsDialogFactory>();
         _resourceManager = container.Resolve<IResourceManager>();
 
@@ -63,6 +67,17 @@ public class Plugin : PluginBase
             ReceiveNotifications = ReceiveNotificationFlags.StartupOnly,
             ConfigurationPanelHeight = 0
         };
+    }
+
+    private static void ApplyMigrations(IContainer container)
+    {
+        container
+            .Resolve<ISettingsDbMigrator>()
+            .UpdateToLatest();
+
+        container
+            .Resolve<IMusicSourcesStorageMigrator>()
+            .UpdateToLatest();
     }
 
     private static void ApplyAssembliesResolution()

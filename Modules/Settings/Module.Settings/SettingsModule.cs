@@ -4,7 +4,7 @@ using DatabaseDIModule = Module.Settings.Database.DIModule;
 
 namespace Module.Settings;
 
-public class SettingsModule : Autofac.Module
+public sealed class SettingsModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {

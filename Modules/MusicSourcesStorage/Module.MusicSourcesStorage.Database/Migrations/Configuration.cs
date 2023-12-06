@@ -4,6 +4,9 @@ namespace Module.MusicSourcesStorage.Database.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<MusicSourcesStorageContext>
     {
+        public const string DesignDatabaseConnectionString = "Data Source=(LocalDb)\\MusicBeePlugins-Design;" +
+                                                             "Initial Catalog=MusicSourcesStorage;";
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;

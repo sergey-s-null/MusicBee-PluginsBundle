@@ -9,7 +9,7 @@ using Module.MusicBee.Extension;
 using Module.MusicSourcesStorage;
 using Module.MusicSourcesStorage.Core;
 using Module.PlaylistsExporter;
-using Module.Settings.Database;
+using Module.Settings;
 using Module.Vk;
 using Module.VkAudioDownloader;
 using Plugin.Main.Configurations;
@@ -28,9 +28,6 @@ public static class PluginContainer
 
         builder.RegisterMusicBeeApi(mbApiMemoryContainer);
 
-        // todo dont use DIModule directly
-        builder.RegisterModule<DIModule>();
-
         builder.RegisterModule<MusicBeeExtensionModule>();
         builder.RegisterModule(new VkModule(true));
         builder.RegisterModule<MusicDownloaderModule>();
@@ -39,6 +36,7 @@ public static class PluginContainer
         builder.RegisterModule<InboxAdderModule>();
         builder.RegisterModule<DataExporterModule>();
         builder.RegisterModule<AudioSourcesComparerModule>();
+        builder.RegisterModule<SettingsModule>();
         builder.RegisterModule<MusicSourcesStorageModule>();
 
         builder

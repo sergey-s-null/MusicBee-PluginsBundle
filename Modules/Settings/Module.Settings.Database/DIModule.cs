@@ -13,7 +13,12 @@ public sealed class DIModule : Autofac.Module
             .As<ISettingsRepository>()
             .SingleInstance();
         builder
-            .RegisterType<SettingsContext>()
-            .AsSelf();
+            .RegisterType<SettingsDbMigrator>()
+            .As<ISettingsDbMigrator>()
+            .SingleInstance();
+        builder
+            .RegisterType<SettingsContextFactory>()
+            .As<ISettingsContextFactory>()
+            .SingleInstance();
     }
 }

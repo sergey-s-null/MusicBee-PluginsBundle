@@ -4,7 +4,7 @@
     {
       "alias": "Settings",
       "name": "Module.Settings.Database",
-      "project-directory": "Module.Settings.Database"
+      "project-directory": "Modules/Settings/Module.Settings.Database"
     },
     {
       "alias": "MusicSourcesStorage",
