@@ -28,6 +28,7 @@
         <ProjectReference Include="..\Modules\MusicSourcesStorage\Module.MusicSourcesStorage\Module.MusicSourcesStorage.csproj" />
         <ProjectReference Include="..\Module.PlaylistsExporter\Module.PlaylistsExporter.csproj" />
         <ProjectReference Include="..\Module.VkAudioDownloader\Module.VkAudioDownloader.csproj" />
+        <ProjectReference Include="..\Modules\Settings\Module.Settings\Module.Settings.csproj" />
     </ItemGroup>
 
     <ItemGroup>
