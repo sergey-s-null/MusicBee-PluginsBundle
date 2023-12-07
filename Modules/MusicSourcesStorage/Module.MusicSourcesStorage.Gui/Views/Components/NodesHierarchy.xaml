@@ -22,8 +22,16 @@
 
     <TreeView
         ItemsSource="{Binding RootNodes}"
-        ItemContainerStyle="{StaticResource TreeViewItemStyle}"
         HorizontalContentAlignment="Stretch"
         PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown"
-        ItemTemplateSelector="{StaticResource NodesDataTemplateSelector}" />
+        ItemTemplateSelector="{StaticResource NodesDataTemplateSelector}">
+
+        <TreeView.ItemContainerStyle>
+            <Style TargetType="TreeViewItem"
+                   BasedOn="{StaticResource TreeViewItemStyle}">
+                <Setter Property="IsExpanded"
+                        Value="{Binding IsExpanded, Mode=TwoWay}" />
+            </Style>
+        </TreeView.ItemContainerStyle>
+    </TreeView>
 </UserControl>

@@ -7,6 +7,8 @@ public class DirectoryDTVM : IDirectoryVM
     public string Name { get; }
     public string Path { get; }
 
+    public bool IsExpanded { get; set; }
+
     public IReadOnlyList<INodeVM> ChildNodes { get; }
 
     public DirectoryDTVM() : this("path/to/SomeDirectory")

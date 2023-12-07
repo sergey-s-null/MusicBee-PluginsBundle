@@ -2,11 +2,10 @@
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
-public class ImageFileDTVM : IImageFileVM
+public class ImageFileDTVM : FileBaseDTVM, IImageFileVM
 {
-    public string Name { get; }
-    public string Path { get; }
-    public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
+    public override string Name { get; }
+    public override string Path { get; }
 
     public ImageFileDTVM() : this("some/path/to/image.png")
     {

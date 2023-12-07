@@ -9,6 +9,7 @@ public abstract class FileBaseVM : INodeVM
     public string Name { get; }
     public string Path { get; }
 
+    public bool IsExpanded { get; set; }
     public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
 
     protected FileBaseVM(string path)

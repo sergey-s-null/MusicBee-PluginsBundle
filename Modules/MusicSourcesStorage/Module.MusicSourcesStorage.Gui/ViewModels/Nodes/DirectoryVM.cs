@@ -4,11 +4,12 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 
 [AddINotifyPropertyChangedInterface]
-public class DirectoryVM : IDirectoryVM
+public sealed class DirectoryVM : IDirectoryVM
 {
     public string Name { get; }
     public string Path { get; }
 
+    public bool IsExpanded { get; set; }
     public IReadOnlyList<INodeVM> ChildNodes { get; }
 
     public DirectoryVM(string path, IReadOnlyList<INodeVM> childNodes)
