@@ -6,7 +6,9 @@
         xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
         xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
         mc:Ignorable="d"
-        Title="MusicSourcesWindow" Height="450" Width="800"
+        Title="MusicSourcesWindow" 
+        Height="600" Width="1100"
+        WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance dtvm:MusicSourcesWindowDTVM}">
 
     <Grid>
