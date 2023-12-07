@@ -2,6 +2,7 @@
 
 namespace Module.MusicSourcesStorage.Gui.ViewMappers;
 
+// todo use DataTemplateSelector instead
 public abstract class ViewMapperBase : IViewMapper
 {
     protected abstract IReadOnlyList<IReadOnlyDictionary<Type, Func<FrameworkElement>>> PrioritizedMaps { get; }

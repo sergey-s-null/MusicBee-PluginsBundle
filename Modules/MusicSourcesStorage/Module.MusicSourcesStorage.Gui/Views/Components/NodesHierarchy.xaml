@@ -5,26 +5,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
-    xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
+    xmlns:dts="clr-namespace:Module.MusicSourcesStorage.Gui.DataTemplateSelectors"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="300"
     d:DataContext="{x:Static dtvm:NodesHierarchyDTVM.NotConnectedAllTypes}">
 
     <UserControl.Resources>
-        <ResourceDictionary Source="../Styles/Nodes/TreeViewItemStyle.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Nodes/TreeViewItemStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <dts:NodesDataTemplateSelector x:Key="NodesDataTemplateSelector" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <TreeView
         ItemsSource="{Binding RootNodes}"
         ItemContainerStyle="{StaticResource TreeViewItemStyle}"
         HorizontalContentAlignment="Stretch"
-        PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown">
-
-        <TreeView.ItemTemplate>
-            <HierarchicalDataTemplate ItemsSource="{Binding ChildNodes}">
-                <components:HierarchyNodesViewSelector
-                    ViewModel="{Binding .}" />
-            </HierarchicalDataTemplate>
-        </TreeView.ItemTemplate>
-    </TreeView>
+        PreviewMouseRightButtonDown="OnPreviewMouseRightButtonDown"
+        ItemTemplateSelector="{StaticResource NodesDataTemplateSelector}" />
 </UserControl>

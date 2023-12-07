@@ -4,6 +4,7 @@ using Module.MusicSourcesStorage.Gui.Views.WizardSteps;
 
 namespace Module.MusicSourcesStorage.Gui.ViewMappers;
 
+// todo use DataTemplateSelector instead
 public sealed class WizardStepsViewMapper : ViewMapperBase
 {
     public static readonly IViewMapper Instance = new WizardStepsViewMapper();
