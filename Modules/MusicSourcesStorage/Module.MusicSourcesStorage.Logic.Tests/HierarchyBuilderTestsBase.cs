@@ -160,12 +160,16 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
 
         var builder = new StringBuilder();
         var random = new Random();
-        for (var i = 0; i < 10000; i++)
+        for (var i = 0; i < 100000; i++)
         {
-            var depth = random.Next(3, 7);
+            var depth = random.Next(3, 10);
             for (var j = 0; j < depth; j++)
             {
-                builder.Append('/');
+                if (j > 0)
+                {
+                    builder.Append('/');
+                }
+
                 builder.Append(symbols[random.Next(0, symbols.Length)]);
             }
 

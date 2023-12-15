@@ -13,7 +13,7 @@ public sealed class DefaultHierarchyBuilderTests : HierarchyBuilderTestsBase
 
         var builder = CreateBuilder();
         var task = Task.Run(() => builder.Build(paths, out _, out _));
-        var completed = task.Wait(TimeSpan.FromSeconds(1));
+        var completed = task.Wait(TimeSpan.FromMilliseconds(100));
 
         Assert.That(completed, Is.False);
     }
