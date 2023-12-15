@@ -5,6 +5,7 @@ using Module.MusicSourcesStorage.Gui.Factories;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.ViewModels;
 using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Entities.Abstract;
 using Module.MusicSourcesStorage.Logic.Factories.Abstract;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
@@ -38,8 +39,8 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
 
     private IReadOnlyList<IConnectedNodeVM> CreateNodeViewModels(
         int sourceId,
-        IReadOnlyList<Node<SourceFile, string>> nodes,
-        IReadOnlyList<Leaf<SourceFile, string>> leaves)
+        IReadOnlyList<INode<SourceFile, string>> nodes,
+        IReadOnlyList<ILeaf<SourceFile, string>> leaves)
     {
         return nodes
             .Select(x => CreateNodeVM(sourceId, x))
@@ -48,7 +49,7 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
             .ToList();
     }
 
-    private IConnectedNodeVM CreateNodeVM(int sourceId, Node<SourceFile, string> node)
+    private IConnectedNodeVM CreateNodeVM(int sourceId, INode<SourceFile, string> node)
     {
         var path = string.Join(Path.DirectorySeparatorChar.ToString(), node.Path);
         var childNodes = CreateNodeViewModels(sourceId, node.ChildNodes, node.Leaves);
