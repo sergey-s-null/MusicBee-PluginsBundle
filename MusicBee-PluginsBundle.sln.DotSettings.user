@@ -7,9 +7,7 @@
   &lt;Assembly Path="C:\Users\Sergestus Shimonov\.nuget\packages\sharpcompress\0.34.1\lib\net462\SharpCompress.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/EntityFrameworkOptions/IsAlreadyNotifiedAboutEntityFramework/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=48934c0a_002Dc4b7_002D4929_002Db5f4_002Db8e25e64484c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8123cdfb_002D62f8_002D43aa_002Dbd2e_002D6f943cd29a2a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::569FC2F7-0AC0-4A32-8312-DFA5BEE728F8::.NETFramework,Version=v4.7.2::Module.MusicSourcesStorage.Logic.Tests.DefaultHierarchyBuilderTests&lt;/TestId&gt;&#xD;
