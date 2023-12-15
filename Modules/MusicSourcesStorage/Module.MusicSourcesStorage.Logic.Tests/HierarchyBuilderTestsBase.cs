@@ -29,7 +29,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
         {
             "first/dir/file.txt",
             "root_file.exe",
-            "/first/dir/another.txt",
+            "first/dir/another.txt",
             "first/extra_file.txt",
         };
 
@@ -45,7 +45,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
         var firstNode = rootNodes[0];
         Assert.Multiple(() =>
         {
-            Assert.That(firstNode.Path, Is.SameAs(new[] { "first" }));
+            Assert.That(firstNode.Path, Is.EqualTo(new[] { "first" }));
             Assert.That(firstNode.ChildNodes, Has.Count.EqualTo(1));
             Assert.That(firstNode.Leaves, Has.Count.EqualTo(1));
         });
@@ -53,7 +53,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
         var dirNode = firstNode.ChildNodes[0];
         Assert.Multiple(() =>
         {
-            Assert.That(dirNode.Path, Is.SameAs(new[] { "first", "dir" }));
+            Assert.That(dirNode.Path, Is.EqualTo(new[] { "first", "dir" }));
             Assert.That(dirNode.ChildNodes, Has.Count.EqualTo(0));
             Assert.That(dirNode.Leaves, Has.Count.EqualTo(2));
         });
@@ -78,7 +78,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
         var rootFile = rootLeaves[0];
         Assert.Multiple(() =>
         {
-            Assert.That(rootFile.Path, Is.Empty);
+            Assert.That(rootFile.Path, Is.EqualTo(new[] { "root_file.exe" }));
             Assert.That(rootFile.Value, Is.EqualTo("root_file.exe"));
         });
     }
