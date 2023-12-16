@@ -64,7 +64,7 @@ public sealed class DIModule : Autofac.Module
             .As<IMusicSourceVM>();
         builder
             .RegisterType<ConnectedDirectoryVM>()
-            .As<IConnectedDirectoryVM>();
+            .AsSelf();
         builder
             .RegisterType<ConnectedMusicFileVM>()
             .As<IConnectedMusicFileVM>();
