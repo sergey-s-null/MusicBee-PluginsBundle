@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Autofac.Features.AttributeFilters;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Factories;
@@ -6,6 +7,7 @@ using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.ViewModels;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Factories.Abstract;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
@@ -19,6 +21,7 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
 
     public ConnectedNodesHierarchyVMBuilder(
         ConnectedDirectoryVMFactory directoryVMFactory,
+        [KeyFilter(HierarchyMode.Lazy)]
         IHierarchyBuilderFactory hierarchyBuilderFactory,
         IConnectedFileVMBuilder connectedFileVMBuilder)
     {

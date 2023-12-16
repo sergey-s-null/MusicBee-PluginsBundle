@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Features.AttributeFilters;
 using Module.Core.Enums;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
@@ -140,10 +141,12 @@ public sealed class DIModule : Autofac.Module
             .InstancePerMatchingLifetimeScope(Scope.UiDispatcher);
         builder
             .RegisterType<ConnectedNodesHierarchyVMBuilder>()
+            .WithAttributeFiltering()
             .As<IConnectedNodesHierarchyVMBuilder>()
             .InstancePerMatchingLifetimeScope(Scope.UiDispatcher);
         builder
             .RegisterType<NodesHierarchyVMBuilder>()
+            .WithAttributeFiltering()
             .As<INodesHierarchyVMBuilder>()
             .SingleInstance();
         builder
