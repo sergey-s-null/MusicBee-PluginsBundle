@@ -2,9 +2,9 @@
 
 namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 
-public interface ILeavesSeparator<TValue, TPathElement>
+public interface ILeavesSeparator
 {
-    void SeparateLeavesAtLevel(
+    void SeparateLeavesAtLevel<TValue, TPathElement>(
         IReadOnlyList<ILeaf<TValue, TPathElement>> rawLeaves,
         int level,
         out IReadOnlyList<ILeaf<TValue, TPathElement>> notLeaves,

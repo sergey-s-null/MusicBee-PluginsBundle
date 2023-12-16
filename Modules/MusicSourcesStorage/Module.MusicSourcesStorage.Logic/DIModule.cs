@@ -103,8 +103,8 @@ public sealed class DIModule : Autofac.Module
             .As<IMusicSourcesStorageSettingHoldersProvider>()
             .SingleInstance();
         builder
-            .RegisterGeneric(typeof(LeavesSeparator<,>))
-            .As(typeof(ILeavesSeparator<,>))
+            .RegisterType<LeavesSeparator>()
+            .As<ILeavesSeparator>()
             .SingleInstance();
     }
 }

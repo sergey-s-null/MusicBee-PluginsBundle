@@ -3,9 +3,9 @@ using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Services;
 
-public sealed class LeavesSeparator<TValue, TPathElement> : ILeavesSeparator<TValue, TPathElement>
+public sealed class LeavesSeparator : ILeavesSeparator
 {
-    public void SeparateLeavesAtLevel(
+    public void SeparateLeavesAtLevel<TValue, TPathElement>(
         IReadOnlyList<ILeaf<TValue, TPathElement>> rawLeaves,
         int level,
         out IReadOnlyList<ILeaf<TValue, TPathElement>> notLeaves,
@@ -30,7 +30,9 @@ public sealed class LeavesSeparator<TValue, TPathElement> : ILeavesSeparator<TVa
         leaves = leavesInternal;
     }
 
-    private static bool IsLeafAtLevel(ILeaf<TValue, TPathElement> leaf, int level)
+    private static bool IsLeafAtLevel<TValue, TPathElement>(
+        ILeaf<TValue, TPathElement> leaf,
+        int level)
     {
         return level + 1 == leaf.Path.Count;
     }
