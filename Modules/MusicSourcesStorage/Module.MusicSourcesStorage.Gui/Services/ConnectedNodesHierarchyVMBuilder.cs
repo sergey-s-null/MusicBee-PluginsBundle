@@ -29,7 +29,7 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
         _hierarchyBuilder = hierarchyBuilderFactory.Create<SourceFile, string>(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase,
-            LeavesGroupingConfiguration.Default // todo not default?
+            LeavesGroupingConfiguration.Default
         );
         _connectedFileVMBuilder = connectedFileVMBuilder;
     }
