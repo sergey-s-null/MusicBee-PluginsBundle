@@ -1,10 +1,13 @@
 ﻿using System.IO;
+using Autofac.Features.AttributeFilters;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
-using Module.MusicSourcesStorage.Gui.Factories;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.ViewModels;
+using Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 using Module.MusicSourcesStorage.Logic.Entities;
+using Module.MusicSourcesStorage.Logic.Entities.Abstract;
+using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Factories.Abstract;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
@@ -12,19 +15,20 @@ namespace Module.MusicSourcesStorage.Gui.Services;
 
 public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyVMBuilder
 {
-    private readonly ConnectedDirectoryVMFactory _directoryVMFactory;
+    private readonly ConnectedDirectoryVM.Factory _directoryVMFactory;
     private readonly IHierarchyBuilder<SourceFile, string> _hierarchyBuilder;
     private readonly IConnectedFileVMBuilder _connectedFileVMBuilder;
 
     public ConnectedNodesHierarchyVMBuilder(
-        ConnectedDirectoryVMFactory directoryVMFactory,
-        IHierarchyBuilderFactory hierarchyBuilderFactory,
+        ConnectedDirectoryVM.Factory directoryVMFactory,
+        [KeyFilter(HierarchyMode.Lazy)] IHierarchyBuilderFactory hierarchyBuilderFactory,
         IConnectedFileVMBuilder connectedFileVMBuilder)
     {
         _directoryVMFactory = directoryVMFactory;
         _hierarchyBuilder = hierarchyBuilderFactory.Create<SourceFile, string>(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
-            StringComparer.InvariantCultureIgnoreCase
+            StringComparer.InvariantCultureIgnoreCase,
+            LeavesGroupingConfiguration.Default
         );
         _connectedFileVMBuilder = connectedFileVMBuilder;
     }
@@ -38,8 +42,8 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
 
     private IReadOnlyList<IConnectedNodeVM> CreateNodeViewModels(
         int sourceId,
-        IReadOnlyList<Node<SourceFile, string>> nodes,
-        IReadOnlyList<Leaf<SourceFile, string>> leaves)
+        IReadOnlyList<INode<SourceFile, string>> nodes,
+        IReadOnlyList<ILeaf<SourceFile, string>> leaves)
     {
         return nodes
             .Select(x => CreateNodeVM(sourceId, x))
@@ -48,10 +52,13 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
             .ToList();
     }
 
-    private IConnectedNodeVM CreateNodeVM(int sourceId, Node<SourceFile, string> node)
+    private IConnectedNodeVM CreateNodeVM(int sourceId, INode<SourceFile, string> node)
     {
         var path = string.Join(Path.DirectorySeparatorChar.ToString(), node.Path);
-        var childNodes = CreateNodeViewModels(sourceId, node.ChildNodes, node.Leaves);
-        return _directoryVMFactory(sourceId, path, childNodes);
+        return _directoryVMFactory(
+            sourceId,
+            path,
+            () => CreateNodeViewModels(sourceId, node.ChildNodes, node.Leaves)
+        );
     }
 }

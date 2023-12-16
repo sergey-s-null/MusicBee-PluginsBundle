@@ -13,7 +13,7 @@ public sealed class DebugModuleConfiguration : IModuleConfiguration
 
     private static readonly string DatabaseFilePath = Path.Combine(DebugFolder, "MusicSourcesStorage.mdf");
 
-    public string DatabaseConnectionString { get; } = "Data Source=(LocalDb)\\MSSQLLocalDB;" +
+    public string DatabaseConnectionString { get; } = "Data Source=(LocalDb)\\MusicBeePlugins-Debug;" +
                                                       "Initial Catalog=MusicSourcesStorage;" +
                                                       $"AttachDBFilename={DatabaseFilePath};";
 

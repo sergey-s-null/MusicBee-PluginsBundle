@@ -5,10 +5,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dtvm="clr-namespace:Module.MusicSourcesStorage.Gui.DesignTimeViewModels"
         xmlns:components="clr-namespace:Module.MusicSourcesStorage.Gui.Views.Components"
-        xmlns:mappers="clr-namespace:Module.MusicSourcesStorage.Gui.ViewMappers"
+        xmlns:dts="clr-namespace:Module.MusicSourcesStorage.Gui.DataTemplateSelectors"
         mc:Ignorable="d"
         Title="SourceAddingWizard" Height="450" Width="800"
         d:DataContext="{d:DesignInstance dtvm:WizardDTVM}">
+
+    <Window.Resources>
+        <dts:WizardStepsDataTemplateSelector x:Key="WizardStepsDataTemplateSelector" />
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,10 +20,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <components:ViewSelector
+        <ContentControl
             Grid.Row="0"
-            ViewModel="{Binding CurrentStep}"
-            ViewMapper="{x:Static mappers:WizardStepsViewMapper.Instance}" />
+            Content="{Binding CurrentStep}"
+            ContentTemplateSelector="{StaticResource WizardStepsDataTemplateSelector}" />
 
         <Border Grid.Row="1"
                 BorderThickness="0 1 0 0" BorderBrush="Black"

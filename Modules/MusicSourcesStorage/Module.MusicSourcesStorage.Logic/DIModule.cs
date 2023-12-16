@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Factories;
 using Module.MusicSourcesStorage.Logic.Factories.Abstract;
 using Module.MusicSourcesStorage.Logic.Services;
@@ -47,11 +48,12 @@ public sealed class DIModule : Autofac.Module
             .SingleInstance();
         builder
             .RegisterType<HierarchyBuilderFactory>()
-            .As<IHierarchyBuilderFactory>()
+            .Keyed<IHierarchyBuilderFactory>(HierarchyMode.Default)
             .SingleInstance();
         builder
-            .RegisterGeneric(typeof(HierarchyBuilder<,>))
-            .As(typeof(IHierarchyBuilder<,>));
+            .RegisterType<LazyHierarchyBuilderFactory>()
+            .Keyed<IHierarchyBuilderFactory>(HierarchyMode.Lazy)
+            .SingleInstance();
         builder
             .RegisterType<FilesLocatingService>()
             .As<IFilesLocatingService>()
@@ -99,6 +101,10 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<MusicSourcesStorageSettingHoldersProvider>()
             .As<IMusicSourcesStorageSettingHoldersProvider>()
+            .SingleInstance();
+        builder
+            .RegisterType<LeavesSeparator>()
+            .As<ILeavesSeparator>()
             .SingleInstance();
     }
 }

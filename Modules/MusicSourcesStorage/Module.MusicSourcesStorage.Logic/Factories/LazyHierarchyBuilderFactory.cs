@@ -5,11 +5,11 @@ using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Logic.Factories;
 
-public sealed class HierarchyBuilderFactory : IHierarchyBuilderFactory
+public sealed class LazyHierarchyBuilderFactory : IHierarchyBuilderFactory
 {
     private readonly Func<ILeavesSeparator> _leavesSeparatorProvider;
 
-    public HierarchyBuilderFactory(Func<ILeavesSeparator> leavesSeparatorProvider)
+    public LazyHierarchyBuilderFactory(Func<ILeavesSeparator> leavesSeparatorProvider)
     {
         _leavesSeparatorProvider = leavesSeparatorProvider;
     }
@@ -21,7 +21,7 @@ public sealed class HierarchyBuilderFactory : IHierarchyBuilderFactory
     {
         return new HierarchyBuilder<TValue, TPathElement>(
             pathElementsFactory,
-            new LeavesGroupingService<TValue, TPathElement>(
+            new LazyLeavesGroupingService<TValue, TPathElement>(
                 configuration,
                 _leavesSeparatorProvider(),
                 pathElementEqualityComparer

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Module.Core.Helpers;
@@ -14,10 +15,46 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
+public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 {
+    #region INodeVM properties
+
+    public string Name { get; }
+    public string Path { get; }
+
+    public bool IsExpanded
+    {
+        get => _isExpanded;
+        set
+        {
+            if (value)
+            {
+                LoadChildNodes();
+            }
+            else
+            {
+                UnloadChildNodes();
+            }
+
+            _isExpanded = value;
+        }
+    }
+
+    private bool _isExpanded;
+
+    public IReadOnlyList<INodeVM> ChildNodes => _childNodesCollection;
+    private readonly ObservableCollection<INodeVM> _childNodesCollection = new() { null! }; // todo use placeholder?
+
+    #endregion
+
+    #region IProcessableVM properties
+
     [DependsOn(nameof(IsProcessingInternal), nameof(IsChildNodesProcessing))]
     public bool IsProcessing => IsProcessingInternal || IsChildNodesProcessing;
+
+    #endregion
+
+    #region IDownloadableVM properties
 
     /// <summary>
     /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.CanDownload"/>
@@ -29,6 +66,10 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     /// </summary>
     public bool IsDownloaded { get; private set; }
 
+    #endregion
+
+    #region IDeletableVM properties
+
     /// <summary>
     /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDeletableVM"/>.<see cref="IDeletableVM.CanDelete"/>
     /// </summary>
@@ -39,10 +80,25 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     /// </summary>
     public bool IsDeleted { get; private set; }
 
+    #endregion
+
+    #region IMarkableAsListenedVM properties
+
     /// <summary>
     /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IMarkableAsListenedVM"/>.<see cref="IMarkableAsListenedVM.IsListened"/>
     /// </summary>
     public bool IsListened { get; private set; }
+
+    #endregion
+
+    #region ICoverRemovableVM properties
+
+    [DependsOn(nameof(Cover), nameof(IsProcessing))]
+    public bool CanRemoveCover => Cover is not null && !IsProcessing;
+
+    #endregion
+
+    #region IConnectedDirectoryVM properties
 
     /// <summary>
     /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
@@ -62,9 +118,6 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     /// </summary>
     public bool IsAllNotListened { get; private set; }
 
-    [DependsOn(nameof(Cover), nameof(IsProcessing))]
-    public bool CanRemoveCover => Cover is not null && !IsProcessing;
-
     /// <summary>
     /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
     /// <list type="number">
@@ -76,6 +129,8 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
     public bool HasDownloadedAndNotAttachedToLibraryFiles { get; private set; }
 
     public BitmapSource? Cover { get; private set; }
+
+    #endregion
 
     private bool IsProcessingInternal { get; set; }
 
@@ -104,23 +159,37 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
 
     private readonly SemaphoreSlim _lock = new(1);
 
-    private readonly int _sourceId;
-    private readonly Lazy<string> _unifiedPath;
     private readonly IUiDispatcherProvider _dispatcherProvider;
     private readonly ICoverSelectionService _coverSelectionService;
+
+    private bool _isChildNodesLoaded;
+
+    private readonly int _sourceId;
+    private readonly Lazy<string> _unifiedPath;
+    private readonly Lazy<IReadOnlyList<INodeVM>> _childNodes;
+
+    public delegate ConnectedDirectoryVM Factory(
+        int sourceId,
+        string path,
+        Func<IReadOnlyList<INodeVM>> childNodesFactory
+    );
 
     public ConnectedDirectoryVM(
         int sourceId,
         string path,
-        IReadOnlyList<INodeVM> childNodes,
+        Func<IReadOnlyList<INodeVM>> childNodesFactory,
         IUiDispatcherProvider dispatcherProvider,
         ICoverSelectionService coverSelectionService)
-        : base(path, childNodes)
     {
-        _sourceId = sourceId;
-        _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(Path));
         _dispatcherProvider = dispatcherProvider;
         _coverSelectionService = coverSelectionService;
+
+        Path = path;
+        Name = System.IO.Path.GetFileName(path);
+
+        _childNodes = new Lazy<IReadOnlyList<INodeVM>>(childNodesFactory);
+        _sourceId = sourceId;
+        _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(Path));
 
         InitializeAsync();
     }
@@ -278,6 +347,35 @@ public sealed class ConnectedDirectoryVM : DirectoryVM, IConnectedDirectoryVM
         {
             Cover = BitmapSourceHelper.Create(cover);
         }
+    }
+
+    private void LoadChildNodes()
+    {
+        if (_isChildNodesLoaded)
+        {
+            return;
+        }
+
+        _childNodesCollection.Clear();
+        foreach (var childNode in _childNodes.Value)
+        {
+            _childNodesCollection.Add(childNode);
+        }
+
+        _isChildNodesLoaded = true;
+    }
+
+    private void UnloadChildNodes()
+    {
+        if (!_isChildNodesLoaded)
+        {
+            return;
+        }
+
+        _childNodesCollection.Clear();
+        _childNodesCollection.Add(null!);
+
+        _isChildNodesLoaded = false;
     }
 
     private void CallDeleteNoPromptOnChildNodes()

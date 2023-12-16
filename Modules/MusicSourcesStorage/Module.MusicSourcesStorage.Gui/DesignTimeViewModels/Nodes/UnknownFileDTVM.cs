@@ -2,11 +2,10 @@
 
 namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
-public class UnknownFileDTVM : IUnknownFileVM
+public class UnknownFileDTVM : FileBaseDTVM, IUnknownFileVM
 {
-    public string Name { get; }
-    public string Path { get; }
-    public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
+    public override string Name { get; }
+    public override string Path { get; }
 
     // ReSharper disable once UnusedMember.Global
     public UnknownFileDTVM() : this("some/path/to/unknown_file")
