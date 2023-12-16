@@ -16,8 +16,19 @@ public abstract class LeavesGroupingServiceBase<TValue, TPathElement> : ILeavesG
         _pathElementEqualityComparer = pathElementEqualityComparer;
     }
 
-    public void Group(IReadOnlyList<TPathElement> basePath, IReadOnlyList<ILeaf<TValue, TPathElement>> rawLeaves,
-        out IReadOnlyList<INode<TValue, TPathElement>> nodes, out IReadOnlyList<ILeaf<TValue, TPathElement>> leaves)
+    public void Group(
+        IReadOnlyList<ILeaf<TValue, TPathElement>> rawLeaves,
+        out IReadOnlyList<INode<TValue, TPathElement>> nodes,
+        out IReadOnlyList<ILeaf<TValue, TPathElement>> leaves)
+    {
+        Group(Array.Empty<TPathElement>(), rawLeaves, out nodes, out leaves);
+    }
+
+    public void Group(
+        IReadOnlyList<TPathElement> basePath,
+        IReadOnlyList<ILeaf<TValue, TPathElement>> rawLeaves,
+        out IReadOnlyList<INode<TValue, TPathElement>> nodes,
+        out IReadOnlyList<ILeaf<TValue, TPathElement>> leaves)
     {
         var level = basePath.Count;
         _leavesSeparator.SeparateLeavesAtLevel(

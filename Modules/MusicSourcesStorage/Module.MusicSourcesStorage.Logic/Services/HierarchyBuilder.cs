@@ -27,6 +27,6 @@ public sealed class HierarchyBuilder<TValue, TPathElement> : IHierarchyBuilder<T
             .Select(x => new Leaf<TValue, TPathElement>(_pathElementsFactory(x), x))
             .ToList();
 
-        _leavesGroupingService.Group(Array.Empty<TPathElement>(), rawLeaves, out rootNodes, out rootLeaves);
+        _leavesGroupingService.Group(rawLeaves, out rootNodes, out rootLeaves);
     }
 }

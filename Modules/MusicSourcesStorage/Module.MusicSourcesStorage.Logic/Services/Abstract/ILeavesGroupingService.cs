@@ -4,6 +4,12 @@ namespace Module.MusicSourcesStorage.Logic.Services.Abstract;
 
 public interface ILeavesGroupingService<TValue, TPathElement>
 {
+    void Group(
+        IReadOnlyList<ILeaf<TValue, TPathElement>> rawLeaves,
+        out IReadOnlyList<INode<TValue, TPathElement>> nodes,
+        out IReadOnlyList<ILeaf<TValue, TPathElement>> leaves
+    );
+
     /// <param name="basePath">Common path for all <paramref name="rawLeaves"/></param>
     /// <param name="rawLeaves">Not grouped leaves.</param>
     /// <param name="nodes">Grouped nodes.</param>
