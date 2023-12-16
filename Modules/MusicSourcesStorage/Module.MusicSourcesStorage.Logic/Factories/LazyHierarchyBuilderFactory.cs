@@ -1,5 +1,4 @@
-﻿using Autofac;
-using Module.MusicSourcesStorage.Logic.Entities;
+﻿using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Factories.Abstract;
 using Module.MusicSourcesStorage.Logic.Services;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -8,11 +7,11 @@ namespace Module.MusicSourcesStorage.Logic.Factories;
 
 public sealed class LazyHierarchyBuilderFactory : IHierarchyBuilderFactory
 {
-    private readonly ILifetimeScope _lifetimeScope;
+    private readonly Func<ILeavesSeparator> _leavesSeparatorProvider;
 
-    public LazyHierarchyBuilderFactory(ILifetimeScope lifetimeScope)
+    public LazyHierarchyBuilderFactory(Func<ILeavesSeparator> leavesSeparatorProvider)
     {
-        _lifetimeScope = lifetimeScope;
+        _leavesSeparatorProvider = leavesSeparatorProvider;
     }
 
     public IHierarchyBuilder<TValue, TPathElement> Create<TValue, TPathElement>(
@@ -23,10 +22,10 @@ public sealed class LazyHierarchyBuilderFactory : IHierarchyBuilderFactory
         return new HierarchyBuilder<TValue, TPathElement>(
             pathElementsFactory,
             new LazyLeavesGroupingService<TValue, TPathElement>(
-                _lifetimeScope.Resolve<ILeavesSeparator<TValue, TPathElement>>(),
+                configuration,
+                _leavesSeparatorProvider(),
                 pathElementEqualityComparer
-            ),
-            configuration
+            )
         );
     }
 }

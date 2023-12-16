@@ -7,9 +7,10 @@ namespace Module.MusicSourcesStorage.Logic.Services;
 public sealed class LeavesGroupingService<TValue, TPathElement> : LeavesGroupingServiceBase<TValue, TPathElement>
 {
     public LeavesGroupingService(
-        ILeavesSeparator<TValue, TPathElement> leavesSeparator,
+        HierarchyBuilderConfiguration configuration,
+        ILeavesSeparator leavesSeparator,
         IEqualityComparer<TPathElement> pathElementEqualityComparer)
-        : base(leavesSeparator, pathElementEqualityComparer)
+        : base(configuration, leavesSeparator, pathElementEqualityComparer)
     {
     }
 
