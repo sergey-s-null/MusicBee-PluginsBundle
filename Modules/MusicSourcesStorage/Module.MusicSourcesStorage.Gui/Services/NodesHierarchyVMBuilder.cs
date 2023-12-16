@@ -2,9 +2,9 @@
 using Autofac.Features.AttributeFilters;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
-using Module.MusicSourcesStorage.Gui.Factories;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.ViewModels;
+using Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Entities.Abstract;
 using Module.MusicSourcesStorage.Logic.Enums;
@@ -15,17 +15,13 @@ namespace Module.MusicSourcesStorage.Gui.Services;
 
 public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
 {
-    private readonly DirectoryVMFactory _directoryVMFactory;
     private readonly IHierarchyBuilder<SourceFile, string> _hierarchyBuilder;
     private readonly IFileVMBuilder _fileVMBuilder;
 
     public NodesHierarchyVMBuilder(
-        DirectoryVMFactory directoryVMFactory,
-        [KeyFilter(HierarchyMode.Lazy)]
-        IHierarchyBuilderFactory hierarchyBuilderFactory,
+        [KeyFilter(HierarchyMode.Lazy)] IHierarchyBuilderFactory hierarchyBuilderFactory,
         IFileVMBuilder fileVMBuilder)
     {
-        _directoryVMFactory = directoryVMFactory;
         _hierarchyBuilder = hierarchyBuilderFactory.Create<SourceFile, string>(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase,
@@ -56,6 +52,6 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
     {
         var childNodes = CreateNodeViewModels(node.ChildNodes, node.Leaves);
         var path = string.Join(Path.DirectorySeparatorChar.ToString(), node.Path);
-        return _directoryVMFactory(path, childNodes);
+        return new DirectoryVM(path, childNodes);
     }
 }

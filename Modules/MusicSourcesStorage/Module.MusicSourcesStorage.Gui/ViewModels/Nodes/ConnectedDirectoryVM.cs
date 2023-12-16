@@ -168,6 +168,12 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
     private readonly Lazy<string> _unifiedPath;
     private readonly IReadOnlyList<INodeVM> _childNodes;
 
+    public delegate ConnectedDirectoryVM Factory(
+        int sourceId,
+        string path,
+        IReadOnlyList<INodeVM> childNodes
+    );
+
     public ConnectedDirectoryVM(
         int sourceId,
         string path,
