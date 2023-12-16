@@ -1,3 +1,4 @@
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
 
 namespace Module.MusicSourcesStorage.Logic.Tests;
@@ -11,7 +12,7 @@ public sealed class DefaultHierarchyBuilderTests : HierarchyBuilderTestsBase
     {
         var paths = CreateTooMuchPaths();
 
-        var builder = CreateBuilder();
+        var builder = CreateBuilder(HierarchyBuilderConfiguration.Default);
         var task = Task.Run(() => builder.Build(paths, out _, out _));
         var completed = task.Wait(TimeSpan.FromMilliseconds(100));
 

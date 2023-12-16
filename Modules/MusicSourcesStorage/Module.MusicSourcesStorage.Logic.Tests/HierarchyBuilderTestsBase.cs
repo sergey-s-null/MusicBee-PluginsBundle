@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using Autofac;
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
+using Module.MusicSourcesStorage.Logic.Exceptions;
 using Module.MusicSourcesStorage.Logic.Factories.Abstract;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 
@@ -19,7 +21,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
     [Test]
     public void BuilderCreated()
     {
-        CreateBuilder();
+        CreateBuilder(HierarchyBuilderConfiguration.Default);
     }
 
     [Test]
@@ -33,7 +35,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "first/extra_file.txt",
         };
 
-        var builder = CreateBuilder();
+        var builder = CreateBuilder(HierarchyBuilderConfiguration.Default);
         builder.Build(paths, out var rootNodes, out var rootLeaves);
 
         Assert.Multiple(() =>
@@ -84,15 +86,36 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
     }
 
     [Test]
-    public void DuplicatesInLeavesSkipped()
+    public void KeepAllDuplicatedLeaves()
     {
         var paths = new[]
         {
             "file.txt",
+            "file.txt",
             "file.TXT",
         };
 
-        var builder = CreateBuilder();
+        var builder = CreateBuilder(HierarchyBuilderConfiguration.Default);
+        builder.Build(paths, out var rootNodes, out var rootLeaves);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(rootNodes, Is.Empty);
+            Assert.That(rootLeaves, Has.Count.EqualTo(3));
+        });
+    }
+
+    [Test]
+    public void SkipDuplicatedLeaves()
+    {
+        var paths = new[]
+        {
+            "file.txt",
+            "file.txt",
+            "file.TXT",
+        };
+
+        var builder = CreateBuilder(new HierarchyBuilderConfiguration(LeavesDuplicationResolutionMode.TakeFirst));
         builder.Build(paths, out var rootNodes, out var rootLeaves);
 
         Assert.Multiple(() =>
@@ -100,6 +123,20 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             Assert.That(rootNodes, Is.Empty);
             Assert.That(rootLeaves, Has.Count.EqualTo(1));
         });
+    }
+
+    [Test]
+    public void ThrowOnDuplicatedLeaves()
+    {
+        var paths = new[]
+        {
+            "file.txt",
+            "file.txt",
+            "file.TXT",
+        };
+
+        var builder = CreateBuilder(new HierarchyBuilderConfiguration(LeavesDuplicationResolutionMode.ThrowException));
+        Assert.Throws<LeavesDuplicationException>(() => builder.Build(paths, out _, out _));
     }
 
     [Test]
@@ -111,7 +148,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "NOde/another.txt",
         };
 
-        var builder = CreateBuilder();
+        var builder = CreateBuilder(HierarchyBuilderConfiguration.Default);
         builder.Build(paths, out var rootNodes, out var rootLeaves);
 
         Assert.Multiple(() =>
@@ -125,7 +162,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
     }
 
     [Test]
-    public void PathToNodeDontBecameLeaf()
+    public void KeepLeafWithNodeName()
     {
         var paths = new[]
         {
@@ -133,7 +170,47 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "node/file.txt",
         };
 
-        var builder = CreateBuilder();
+        var configuration = new HierarchyBuilderConfiguration(
+            LeafHasNodeNameResolutionMode: LeafHasNodeNameResolutionMode.KeepAsLeaf
+        );
+        var builder = CreateBuilder(configuration);
+        builder.Build(paths, out var rootNodes, out var rootLeaves);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(rootNodes, Has.Count.EqualTo(1));
+            Assert.That(rootLeaves, Has.Count.EqualTo(1));
+        });
+
+        var nodeAsLeaf = rootLeaves[0];
+        Assert.Multiple(() =>
+        {
+            Assert.That(nodeAsLeaf.Path, Is.EqualTo(new[] { "node" }));
+            Assert.That(nodeAsLeaf.Value, Is.EqualTo("node"));
+        });
+
+        var nodeAsNode = rootNodes[0];
+        Assert.Multiple(() =>
+        {
+            Assert.That(nodeAsNode.Path, Is.EqualTo(new[] { "node" }));
+            Assert.That(nodeAsNode.Leaves, Has.Count.EqualTo(1));
+            Assert.That(nodeAsNode.ChildNodes, Is.Empty);
+        });
+    }
+
+    [Test]
+    public void SkipLeafWithNodeName()
+    {
+        var paths = new[]
+        {
+            "node",
+            "node/file.txt",
+        };
+
+        var configuration = new HierarchyBuilderConfiguration(
+            LeafHasNodeNameResolutionMode: LeafHasNodeNameResolutionMode.SkipLeaf
+        );
+        var builder = CreateBuilder(configuration);
         builder.Build(paths, out var rootNodes, out var rootLeaves);
 
         Assert.Multiple(() =>
@@ -143,7 +220,23 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
         });
     }
 
-    protected IHierarchyBuilder<string, string> CreateBuilder()
+    [Test]
+    public void ThrowOnLeafWithNodeName()
+    {
+        var paths = new[]
+        {
+            "node",
+            "node/file.txt",
+        };
+
+        var configuration = new HierarchyBuilderConfiguration(
+            LeafHasNodeNameResolutionMode: LeafHasNodeNameResolutionMode.ThrowException
+        );
+        var builder = CreateBuilder(configuration);
+        Assert.Throws<LeafHasNodeNameException>(() => builder.Build(paths, out _, out _));
+    }
+
+    protected IHierarchyBuilder<string, string> CreateBuilder(HierarchyBuilderConfiguration configuration)
     {
         var factory = Container.ResolveKeyed<IHierarchyBuilderFactory>(HierarchyMode);
         return factory.Create<string, string>(
