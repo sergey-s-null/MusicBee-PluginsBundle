@@ -2,10 +2,10 @@
 
 namespace Module.MusicSourcesStorage.Logic.Entities;
 
-public sealed record HierarchyBuilderConfiguration(
+public sealed record LeavesGroupingConfiguration(
     LeavesDuplicationResolutionMode LeavesDuplicationResolutionMode = LeavesDuplicationResolutionMode.KeepAll,
     LeafHasNodeNameResolutionMode LeafHasNodeNameResolutionMode = LeafHasNodeNameResolutionMode.KeepAsLeaf
 )
 {
-    public static readonly HierarchyBuilderConfiguration Default = new();
+    public static readonly LeavesGroupingConfiguration Default = new();
 }

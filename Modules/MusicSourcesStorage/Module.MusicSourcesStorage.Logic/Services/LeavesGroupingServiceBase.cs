@@ -15,7 +15,7 @@ public abstract class LeavesGroupingServiceBase<TValue, TPathElement> : ILeavesG
     private readonly IEqualityComparer<TPathElement> _pathElementEqualityComparer;
 
     protected LeavesGroupingServiceBase(
-        HierarchyBuilderConfiguration configuration,
+        LeavesGroupingConfiguration configuration,
         ILeavesSeparator leavesSeparator,
         IEqualityComparer<TPathElement> pathElementEqualityComparer)
     {

@@ -17,7 +17,7 @@ public sealed class HierarchyBuilderFactory : IHierarchyBuilderFactory
     public IHierarchyBuilder<TValue, TPathElement> Create<TValue, TPathElement>(
         Func<TValue, IReadOnlyList<TPathElement>> pathElementsFactory,
         IEqualityComparer<TPathElement> pathElementEqualityComparer,
-        HierarchyBuilderConfiguration configuration)
+        LeavesGroupingConfiguration configuration)
     {
         return new HierarchyBuilder<TValue, TPathElement>(
             pathElementsFactory,

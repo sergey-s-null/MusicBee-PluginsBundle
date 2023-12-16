@@ -26,7 +26,7 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
         _hierarchyBuilder = hierarchyBuilderFactory.Create<SourceFile, string>(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
             StringComparer.InvariantCultureIgnoreCase,
-            HierarchyBuilderConfiguration.Default // todo not default?
+            LeavesGroupingConfiguration.Default // todo not default?
         );
         _connectedFileVMBuilder = connectedFileVMBuilder;
     }

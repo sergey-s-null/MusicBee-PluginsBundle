@@ -12,7 +12,7 @@ public sealed class DefaultHierarchyBuilderTests : HierarchyBuilderTestsBase
     {
         var paths = CreateTooMuchPaths();
 
-        var builder = CreateBuilder(HierarchyBuilderConfiguration.Default);
+        var builder = CreateBuilder(LeavesGroupingConfiguration.Default);
         var task = Task.Run(() => builder.Build(paths, out _, out _));
         var completed = task.Wait(TimeSpan.FromMilliseconds(100));
 

@@ -21,7 +21,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
     [Test]
     public void BuilderCreated()
     {
-        CreateBuilder(HierarchyBuilderConfiguration.Default);
+        CreateBuilder(LeavesGroupingConfiguration.Default);
     }
 
     [Test]
@@ -35,7 +35,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "first/extra_file.txt",
         };
 
-        var builder = CreateBuilder(HierarchyBuilderConfiguration.Default);
+        var builder = CreateBuilder(LeavesGroupingConfiguration.Default);
         builder.Build(paths, out var rootNodes, out var rootLeaves);
 
         Assert.Multiple(() =>
@@ -95,7 +95,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "file.TXT",
         };
 
-        var builder = CreateBuilder(HierarchyBuilderConfiguration.Default);
+        var builder = CreateBuilder(LeavesGroupingConfiguration.Default);
         builder.Build(paths, out var rootNodes, out var rootLeaves);
 
         Assert.Multiple(() =>
@@ -115,7 +115,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "file.TXT",
         };
 
-        var builder = CreateBuilder(new HierarchyBuilderConfiguration(LeavesDuplicationResolutionMode.TakeFirst));
+        var builder = CreateBuilder(new LeavesGroupingConfiguration(LeavesDuplicationResolutionMode.TakeFirst));
         builder.Build(paths, out var rootNodes, out var rootLeaves);
 
         Assert.Multiple(() =>
@@ -135,7 +135,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "file.TXT",
         };
 
-        var builder = CreateBuilder(new HierarchyBuilderConfiguration(LeavesDuplicationResolutionMode.ThrowException));
+        var builder = CreateBuilder(new LeavesGroupingConfiguration(LeavesDuplicationResolutionMode.ThrowException));
         Assert.Throws<LeavesDuplicationException>(() => builder.Build(paths, out _, out _));
     }
 
@@ -148,7 +148,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "NOde/another.txt",
         };
 
-        var builder = CreateBuilder(HierarchyBuilderConfiguration.Default);
+        var builder = CreateBuilder(LeavesGroupingConfiguration.Default);
         builder.Build(paths, out var rootNodes, out var rootLeaves);
 
         Assert.Multiple(() =>
@@ -170,7 +170,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "node/file.txt",
         };
 
-        var configuration = new HierarchyBuilderConfiguration(
+        var configuration = new LeavesGroupingConfiguration(
             LeafHasNodeNameResolutionMode: LeafHasNodeNameResolutionMode.KeepAsLeaf
         );
         var builder = CreateBuilder(configuration);
@@ -207,7 +207,7 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "node/file.txt",
         };
 
-        var configuration = new HierarchyBuilderConfiguration(
+        var configuration = new LeavesGroupingConfiguration(
             LeafHasNodeNameResolutionMode: LeafHasNodeNameResolutionMode.SkipLeaf
         );
         var builder = CreateBuilder(configuration);
@@ -229,14 +229,14 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
             "node/file.txt",
         };
 
-        var configuration = new HierarchyBuilderConfiguration(
+        var configuration = new LeavesGroupingConfiguration(
             LeafHasNodeNameResolutionMode: LeafHasNodeNameResolutionMode.ThrowException
         );
         var builder = CreateBuilder(configuration);
         Assert.Throws<LeafHasNodeNameException>(() => builder.Build(paths, out _, out _));
     }
 
-    protected IHierarchyBuilder<string, string> CreateBuilder(HierarchyBuilderConfiguration configuration)
+    protected IHierarchyBuilder<string, string> CreateBuilder(LeavesGroupingConfiguration configuration)
     {
         var factory = Container.ResolveKeyed<IHierarchyBuilderFactory>(HierarchyMode);
         return factory.Create<string, string>(
