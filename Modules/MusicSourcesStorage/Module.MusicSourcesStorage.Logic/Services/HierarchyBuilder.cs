@@ -11,7 +11,8 @@ public sealed class HierarchyBuilder<TValue, TPathElement> : IHierarchyBuilder<T
 
     public HierarchyBuilder(
         Func<TValue, IReadOnlyList<TPathElement>> pathElementsFactory,
-        ILeavesGroupingService<TValue, TPathElement> leavesGroupingService)
+        ILeavesGroupingService<TValue, TPathElement> leavesGroupingService,
+        HierarchyBuilderConfiguration configuration)
     {
         _pathElementsFactory = pathElementsFactory;
         _leavesGroupingService = leavesGroupingService;

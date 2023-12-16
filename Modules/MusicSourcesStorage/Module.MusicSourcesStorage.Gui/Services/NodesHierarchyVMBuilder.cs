@@ -25,7 +25,8 @@ public sealed class NodesHierarchyVMBuilder : INodesHierarchyVMBuilder
         _directoryVMFactory = directoryVMFactory;
         _hierarchyBuilder = hierarchyBuilderFactory.Create<SourceFile, string>(
             x => x.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
-            StringComparer.InvariantCultureIgnoreCase
+            StringComparer.InvariantCultureIgnoreCase,
+            HierarchyBuilderConfiguration.Default // todo not default?
         );
         _fileVMBuilder = fileVMBuilder;
     }

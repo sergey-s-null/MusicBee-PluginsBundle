@@ -241,7 +241,8 @@ public abstract class HierarchyBuilderTestsBase : TestsBase
         var factory = Container.ResolveKeyed<IHierarchyBuilderFactory>(HierarchyMode);
         return factory.Create<string, string>(
             x => x.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
-            StringComparer.InvariantCultureIgnoreCase
+            StringComparer.InvariantCultureIgnoreCase,
+            configuration
         );
     }
 

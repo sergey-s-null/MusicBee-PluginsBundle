@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Factories.Abstract;
 using Module.MusicSourcesStorage.Logic.Services;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -16,14 +17,16 @@ public sealed class HierarchyBuilderFactory : IHierarchyBuilderFactory
 
     public IHierarchyBuilder<TValue, TPathElement> Create<TValue, TPathElement>(
         Func<TValue, IReadOnlyList<TPathElement>> pathElementsFactory,
-        IEqualityComparer<TPathElement> pathElementEqualityComparer)
+        IEqualityComparer<TPathElement> pathElementEqualityComparer,
+        HierarchyBuilderConfiguration configuration)
     {
         return new HierarchyBuilder<TValue, TPathElement>(
             pathElementsFactory,
             new LeavesGroupingService<TValue, TPathElement>(
                 _lifetimeScope.Resolve<ILeavesSeparator<TValue, TPathElement>>(),
                 pathElementEqualityComparer
-            )
+            ),
+            configuration
         );
     }
 }
