@@ -21,8 +21,7 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
 
     public ConnectedNodesHierarchyVMBuilder(
         ConnectedDirectoryVM.Factory directoryVMFactory,
-        [KeyFilter(HierarchyMode.Lazy)]
-        IHierarchyBuilderFactory hierarchyBuilderFactory,
+        [KeyFilter(HierarchyMode.Lazy)] IHierarchyBuilderFactory hierarchyBuilderFactory,
         IConnectedFileVMBuilder connectedFileVMBuilder)
     {
         _directoryVMFactory = directoryVMFactory;
@@ -56,7 +55,10 @@ public sealed class ConnectedNodesHierarchyVMBuilder : IConnectedNodesHierarchyV
     private IConnectedNodeVM CreateNodeVM(int sourceId, INode<SourceFile, string> node)
     {
         var path = string.Join(Path.DirectorySeparatorChar.ToString(), node.Path);
-        var childNodes = CreateNodeViewModels(sourceId, node.ChildNodes, node.Leaves);
-        return _directoryVMFactory(sourceId, path, childNodes);
+        return _directoryVMFactory(
+            sourceId,
+            path,
+            () => CreateNodeViewModels(sourceId, node.ChildNodes, node.Leaves)
+        );
     }
 }

@@ -166,18 +166,18 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
     private readonly int _sourceId;
     private readonly Lazy<string> _unifiedPath;
-    private readonly IReadOnlyList<INodeVM> _childNodes;
+    private readonly Lazy<IReadOnlyList<INodeVM>> _childNodes;
 
     public delegate ConnectedDirectoryVM Factory(
         int sourceId,
         string path,
-        IReadOnlyList<INodeVM> childNodes
+        Func<IReadOnlyList<INodeVM>> childNodesFactory
     );
 
     public ConnectedDirectoryVM(
         int sourceId,
         string path,
-        IReadOnlyList<INodeVM> childNodes,
+        Func<IReadOnlyList<INodeVM>> childNodesFactory,
         IUiDispatcherProvider dispatcherProvider,
         ICoverSelectionService coverSelectionService)
     {
@@ -187,7 +187,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
         Path = path;
         Name = System.IO.Path.GetFileName(path);
 
-        _childNodes = childNodes;
+        _childNodes = new Lazy<IReadOnlyList<INodeVM>>(childNodesFactory);
         _sourceId = sourceId;
         _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(Path));
 
@@ -357,7 +357,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
         }
 
         _childNodesCollection.Clear();
-        foreach (var childNode in _childNodes)
+        foreach (var childNode in _childNodes.Value)
         {
             _childNodesCollection.Add(childNode);
         }
