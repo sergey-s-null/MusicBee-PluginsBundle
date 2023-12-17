@@ -7,9 +7,7 @@
   &lt;Assembly Path="C:\Users\Sergestus Shimonov\.nuget\packages\sharpcompress\0.34.1\lib\net462\SharpCompress.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/EntityFrameworkOptions/IsAlreadyNotifiedAboutEntityFramework/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1c305dea_002Db612_002D4bda_002Dba15_002Df79e0ca47c11/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
 	
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Modules_002FModule_002ESettings_002EDatabase_002FMigrations_002F202312021857060_005FInit/@EntryIndexedValue">True</s:Boolean>
