@@ -3,7 +3,7 @@ using Module.MusicSourcesStorage.Logic.Extensions;
 
 namespace Module.MusicSourcesStorage.Logic.Entities.Tasks;
 
-public sealed class ActivableTaskWrapper<TArgs, TResult> :
+public sealed class SharedTaskWrapper<TArgs, TResult> :
     TaskWrapperBase<TResult>,
     IActivableTask<TArgs, TResult>
 {
@@ -16,14 +16,12 @@ public sealed class ActivableTaskWrapper<TArgs, TResult> :
     private bool _isActivated;
     private Task<TResult>? _task;
 
-    private readonly Func<TArgs, CancellationToken, IActivableTaskWithoutCancellation<Void, TResult>>
-        _internalTaskProvider;
+    private readonly Func<TArgs, ISharedTask<TResult>> _sharedTaskProvider;
 
-    public ActivableTaskWrapper(
-        Func<TArgs, CancellationToken, IActivableTaskWithoutCancellation<Void, TResult>>
-            internalTaskProvider)
+    public SharedTaskWrapper(
+        Func<TArgs, ISharedTask<TResult>> sharedTaskProvider)
     {
-        _internalTaskProvider = internalTaskProvider;
+        _sharedTaskProvider = sharedTaskProvider;
     }
 
     public void Activate(TArgs args, CancellationToken token)
@@ -33,15 +31,22 @@ public sealed class ActivableTaskWrapper<TArgs, TResult> :
             throw new InvalidOperationException("Task already activated.");
         }
 
-        var internalTask = _internalTaskProvider(args, token);
-        InitializeEvents(internalTask);
-        _ = internalTask.Activated();
+        var sharedTask = _sharedTaskProvider(args);
+        InitializeEvents(sharedTask);
+        sharedTask.Acquire();
+        _ = sharedTask.Activated();
 
         _task = System.Threading.Tasks.Task.Run(
-            () => internalTask.Task.Result,
+            () => sharedTask.Task.Result,
             token
         );
-        token.Register(DispatchCancelledEvent);
+
+        token.Register(() =>
+        {
+            sharedTask.Release();
+            DispatchCancelledEvent();
+        });
+
         _isActivated = true;
     }
 }
