@@ -33,20 +33,6 @@ public static class ActivableTaskFactory
         );
     }
 
-    public static IActivableTask<TArgs, Void> Create<TArgs>(
-        Action<TArgs> action)
-    {
-        return new ActivableTask<TArgs, Void>(
-            (args, progressCallback, _) =>
-            {
-                progressCallback(0);
-                action(args);
-                progressCallback(1);
-                return Void.Instance;
-            }
-        );
-    }
-
     public static IActivableTask<TArgs, TResult> Create<TArgs, TResult>(
         Func<TArgs, CancellationToken, TResult> func)
     {
