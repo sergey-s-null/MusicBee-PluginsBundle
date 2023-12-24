@@ -22,7 +22,7 @@ public sealed class ActivableTask<TArgs, TResult> :
         _taskFunction = taskFunction;
     }
 
-    public void Activate(TArgs args, CancellationToken token = default)
+    public void Activate(TArgs args, CancellationToken token)
     {
         if (IsActivated || _task is not null)
         {

@@ -10,41 +10,7 @@ public static class ActivableTaskFactory
     public static IActivableTask<Void, TResult> FromResult<TResult>(
         TResult result)
     {
-        return Create(() => result);
-    }
-
-    public static IActivableTask<Void, TResult> Create<TResult>(
-        Func<TResult> func)
-    {
-        return Create(_ => func());
-    }
-
-    public static IActivableTask<Void, TResult> Create<TResult>(
-        Func<CancellationToken, TResult> func)
-    {
-        return Create<Void, TResult>(
-            (_, progressCallback, token) =>
-            {
-                progressCallback(0);
-                var result = func(token);
-                progressCallback(1);
-                return result;
-            }
-        );
-    }
-
-    public static IActivableTask<TArgs, Void> Create<TArgs>(
-        Action<TArgs> action)
-    {
-        return new ActivableTask<TArgs, Void>(
-            (args, progressCallback, _) =>
-            {
-                progressCallback(0);
-                action(args);
-                progressCallback(1);
-                return Void.Instance;
-            }
-        );
+        return CreateWithoutArgs(() => result);
     }
 
     public static IActivableTask<TArgs, TResult> Create<TArgs, TResult>(
@@ -65,6 +31,26 @@ public static class ActivableTaskFactory
         TaskFunction<TArgs, TResult> func)
     {
         return new ActivableTask<TArgs, TResult>(func);
+    }
+
+    public static IActivableTask<Void, TResult> CreateWithoutArgs<TResult>(
+        Func<TResult> func)
+    {
+        return CreateWithoutArgs(_ => func());
+    }
+
+    public static IActivableTask<Void, TResult> CreateWithoutArgs<TResult>(
+        Func<CancellationToken, TResult> func)
+    {
+        return Create<Void, TResult>(
+            (_, progressCallback, token) =>
+            {
+                progressCallback(0);
+                var result = func(token);
+                progressCallback(1);
+                return result;
+            }
+        );
     }
 
     public static IActivableTask<TArgs, Void> CreateWithoutResult<TArgs>(

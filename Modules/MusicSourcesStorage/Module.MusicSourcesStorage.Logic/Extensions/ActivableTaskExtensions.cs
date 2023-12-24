@@ -96,4 +96,10 @@ public static class ActivableTaskExtensions
     {
         return new ActivableMultiStepTaskWrapper<TArgs, TResult>(task);
     }
+
+    public static ISharedTask<TResult> ToShared<TResult>(
+        this IActivableTask<Void, TResult> task)
+    {
+        return new SharedTask<TResult>(() => task);
+    }
 }

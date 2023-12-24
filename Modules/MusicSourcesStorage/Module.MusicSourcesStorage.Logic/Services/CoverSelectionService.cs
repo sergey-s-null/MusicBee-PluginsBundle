@@ -63,7 +63,7 @@ public sealed class CoverSelectionService : ICoverSelectionService
         var selectAsCoverInStorageTask = ActivableTaskFactory.Create<Image, byte[]>(
             (image, internalToken) => SelectImageAsCoverInStorage(imageFile, image, internalToken)
         );
-        var dispatchEventTask = ActivableTaskFactory.Create<byte[]>(
+        var dispatchEventTask = ActivableTaskFactory.CreateWithoutResult<byte[]>(
             binaryImage => DispatchCoverChangedEvent(imageFile, binaryImage)
         );
 
