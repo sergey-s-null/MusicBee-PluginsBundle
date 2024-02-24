@@ -28,6 +28,7 @@ public static class PluginContainer
 
         builder.RegisterMusicBeeApi(mbApiMemoryContainer);
 
+        builder.RegisterModule<CoreModule>();
         builder.RegisterModule<MusicBeeExtensionModule>();
         builder.RegisterModule(new VkModule(true));
         builder.RegisterModule<MusicDownloaderModule>();
