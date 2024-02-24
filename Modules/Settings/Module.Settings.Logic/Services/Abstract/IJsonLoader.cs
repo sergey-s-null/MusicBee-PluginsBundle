@@ -3,11 +3,11 @@ using Newtonsoft.Json.Linq;
 
 namespace Module.Settings.Logic.Services.Abstract;
 
-public interface ISettingsJsonLoader
+public interface IJsonLoader
 {
     /// <exception cref="SettingsIOException">IO or Json error on setting loading.</exception>
-    JObject Load(string path);
+    JObject Load(string filePath);
 
     /// <exception cref="SettingsIOException">IO or Json error on setting saving.</exception>
-    void Save(string path, JObject settings);
+    void Save(string filePath, JObject json);
 }
