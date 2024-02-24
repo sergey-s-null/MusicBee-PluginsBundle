@@ -6,16 +6,16 @@ namespace Module.Settings.Logic.Entities.Abstract;
 
 public abstract class BaseSettings : ISettings
 {
-    private readonly string _settingsPath;
+    private readonly string _settingsFilePath;
 
-    private readonly ISettingsJsonLoader _settingsJsonLoader;
+    private readonly IJsonLoader _jsonLoader;
 
     protected BaseSettings(
-        string settingsPath,
-        ISettingsJsonLoader settingsJsonLoader)
+        string settingsFilePath,
+        IJsonLoader jsonLoader)
     {
-        _settingsPath = settingsPath;
-        _settingsJsonLoader = settingsJsonLoader;
+        _settingsFilePath = settingsFilePath;
+        _jsonLoader = jsonLoader;
 
         Load();
     }
@@ -25,11 +25,11 @@ public abstract class BaseSettings : ISettings
         JObject jSettings;
         try
         {
-            jSettings = _settingsJsonLoader.Load(_settingsPath);
+            jSettings = _jsonLoader.Load(_settingsFilePath);
         }
         catch (SettingsIOException e)
         {
-            throw new SettingsLoadException($"Error on load settings at path \"{_settingsPath}\".", e);
+            throw new SettingsLoadException($"Error on load settings at path \"{_settingsFilePath}\".", e);
         }
 
         SetSettingsFromJObject(jSettings);
@@ -40,11 +40,11 @@ public abstract class BaseSettings : ISettings
         var jSettings = GetSettingsAsJObject();
         try
         {
-            _settingsJsonLoader.Save(_settingsPath, jSettings);
+            _jsonLoader.Save(_settingsFilePath, jSettings);
         }
         catch (SettingsIOException e)
         {
-            throw new SettingsSaveException($"Error on save settings at path \"{_settingsPath}\".", e);
+            throw new SettingsSaveException($"Error on save settings at path \"{_settingsFilePath}\".", e);
         }
     }
 
