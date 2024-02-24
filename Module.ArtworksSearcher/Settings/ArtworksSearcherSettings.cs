@@ -46,14 +46,23 @@ public sealed class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSe
     {
     }
 
+    protected override void SetDefaultSettings()
+    {
+        GoogleCX = string.Empty;
+        GoogleKey = string.Empty;
+        ParallelDownloadsCount = default;
+        OsuSongsDir = string.Empty;
+        MinOsuImageByteSize = default;
+    }
+
     protected override void SetSettingsFromJObject(JObject rootObj)
     {
         try
         {
-            GoogleCX = rootObj.Value<string>(nameof(GoogleCX)) ?? "";
-            GoogleKey = rootObj.Value<string>(nameof(GoogleKey)) ?? "";
+            GoogleCX = rootObj.Value<string>(nameof(GoogleCX)) ?? string.Empty;
+            GoogleKey = rootObj.Value<string>(nameof(GoogleKey)) ?? string.Empty;
             ParallelDownloadsCount = rootObj.Value<int>(nameof(ParallelDownloadsCount));
-            OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir)) ?? "";
+            OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir)) ?? string.Empty;
             MinOsuImageByteSize = rootObj.Value<long>(nameof(MinOsuImageByteSize));
         }
         catch (JsonException e)

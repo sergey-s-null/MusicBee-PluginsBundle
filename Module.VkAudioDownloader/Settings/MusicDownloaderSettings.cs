@@ -19,12 +19,18 @@ public sealed class MusicDownloaderSettings : BaseSettings, IMusicDownloaderSett
     {
     }
 
+    protected override void SetDefaultSettings()
+    {
+        DownloadDirTemplate = string.Empty;
+        FileNameTemplate = string.Empty;
+    }
+
     protected override void SetSettingsFromJObject(JObject rootObj)
     {
         try
         {
-            DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate)) ?? "";
-            FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate)) ?? "";
+            DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate)) ?? string.Empty;
+            FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate)) ?? string.Empty;
         }
         catch (JsonException e)
         {

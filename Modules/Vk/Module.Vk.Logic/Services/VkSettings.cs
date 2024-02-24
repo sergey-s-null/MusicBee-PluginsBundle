@@ -20,6 +20,12 @@ public sealed class VkSettings : BaseSettings, IVkSettings
     {
     }
 
+    protected override void SetDefaultSettings()
+    {
+        AccessToken = string.Empty;
+        UserId = default;
+    }
+
     protected override void SetSettingsFromJObject(JObject jSettings)
     {
         try

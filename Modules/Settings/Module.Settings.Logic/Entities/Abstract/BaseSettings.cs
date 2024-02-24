@@ -22,22 +22,44 @@ public abstract class BaseSettings : ISettings
 
     public void Load()
     {
-        JObject jSettings;
-        try
+        if (!File.Exists(_settingsFilePath))
         {
-            jSettings = _jsonLoader.Load(_settingsFilePath);
+            SetDefaultSettings();
         }
-        catch (SettingsIOException e)
+        else
         {
-            throw new SettingsLoadException($"Error on load settings at path \"{_settingsFilePath}\".", e);
+            var jSettings = LoadJSettings();
+            SetSettingsFromJObject(jSettings);
         }
-
-        SetSettingsFromJObject(jSettings);
     }
 
     public void Save()
     {
         var jSettings = GetSettingsAsJObject();
+        Save(jSettings);
+    }
+
+    protected abstract void SetDefaultSettings();
+
+    /// <exception cref="SettingsLoadException">Error on extract values from json object.</exception>
+    protected abstract void SetSettingsFromJObject(JObject jSettings);
+
+    protected abstract JObject GetSettingsAsJObject();
+
+    private JObject LoadJSettings()
+    {
+        try
+        {
+            return _jsonLoader.Load(_settingsFilePath);
+        }
+        catch (SettingsIOException e)
+        {
+            throw new SettingsLoadException($"Error on load settings at path \"{_settingsFilePath}\".", e);
+        }
+    }
+
+    private void Save(JObject jSettings)
+    {
         try
         {
             _jsonLoader.Save(_settingsFilePath, jSettings);
@@ -47,9 +69,4 @@ public abstract class BaseSettings : ISettings
             throw new SettingsSaveException($"Error on save settings at path \"{_settingsFilePath}\".", e);
         }
     }
-
-    /// <exception cref="SettingsLoadException">Error on extract values from json object.</exception>
-    protected abstract void SetSettingsFromJObject(JObject jSettings);
-
-    protected abstract JObject GetSettingsAsJObject();
 }

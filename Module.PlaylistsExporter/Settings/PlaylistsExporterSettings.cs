@@ -23,13 +23,21 @@ public sealed class PlaylistsExporterSettings : BaseSettings, IPlaylistsExporter
     {
     }
 
+    protected override void SetDefaultSettings()
+    {
+        PlaylistsDirectoryPath = string.Empty;
+        FilesLibraryPath = string.Empty;
+        PlaylistsNewDirectoryName = string.Empty;
+        PlaylistsForExport = Array.Empty<string>();
+    }
+
     protected override void SetSettingsFromJObject(JObject rootObj)
     {
         try
         {
-            PlaylistsDirectoryPath = rootObj.Value<string>(nameof(PlaylistsDirectoryPath)) ?? "";
-            FilesLibraryPath = rootObj.Value<string>(nameof(FilesLibraryPath)) ?? "";
-            PlaylistsNewDirectoryName = rootObj.Value<string>(nameof(PlaylistsNewDirectoryName)) ?? "";
+            PlaylistsDirectoryPath = rootObj.Value<string>(nameof(PlaylistsDirectoryPath)) ?? string.Empty;
+            FilesLibraryPath = rootObj.Value<string>(nameof(FilesLibraryPath)) ?? string.Empty;
+            PlaylistsNewDirectoryName = rootObj.Value<string>(nameof(PlaylistsNewDirectoryName)) ?? string.Empty;
             PlaylistsForExport = rootObj.Value<JArray>(nameof(PlaylistsForExport))?
                                      .Values<string>()
                                      .WhereNotNull()
