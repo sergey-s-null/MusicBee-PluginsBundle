@@ -12,8 +12,11 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFileVM
+public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
 {
+    public override string Name { get; }
+    public override string Path { get; }
+
     public bool IsProcessing { get; private set; }
 
     [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
@@ -50,8 +53,9 @@ public sealed class ConnectedUnknownFileVM : UnknownFileVM, IConnectedUnknownFil
         IFilesLocatingService filesLocatingService,
         IFilesDownloadingService filesDownloadingService,
         IFilesDeletingService filesDeletingService)
-        : base(unknownFile.Path)
     {
+        Name = System.IO.Path.GetFileName(unknownFile.Path);
+        Path = unknownFile.Path;
         _unknownFile = unknownFile;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;

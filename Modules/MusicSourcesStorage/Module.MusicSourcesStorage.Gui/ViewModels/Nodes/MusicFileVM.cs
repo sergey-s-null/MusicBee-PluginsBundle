@@ -4,7 +4,7 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 
 [AddINotifyPropertyChangedInterface]
-public class MusicFileVM : FileBaseVM, IMusicFileVM
+public sealed class MusicFileVM : FileBaseVM, IMusicFileVM
 {
     public override string Name { get; }
     public override string Path { get; }

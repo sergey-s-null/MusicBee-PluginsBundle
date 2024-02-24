@@ -13,8 +13,11 @@ using PropertyChanged;
 namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 
 [AddINotifyPropertyChangedInterface]
-public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
+public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
 {
+    public override string Name { get; }
+    public override string Path { get; }
+
     public bool IsProcessing { get; private set; }
 
     [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
@@ -75,8 +78,9 @@ public sealed class ConnectedMusicFileVM : MusicFileVM, IConnectedMusicFileVM
         IFilesDownloadingService filesDownloadingService,
         IMusicSourcesStorageService musicSourcesStorageService,
         IFilesDeletingService filesDeletingService)
-        : base(musicFile.Path)
     {
+        Name = System.IO.Path.GetFileName(musicFile.Path);
+        Path = musicFile.Path;
         _musicFile = musicFile;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
