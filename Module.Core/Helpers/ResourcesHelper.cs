@@ -1,5 +1,6 @@
 ﻿namespace Module.Core.Helpers;
 
+[Obsolete("Use ISettingsFiles")]
 public static class ResourcesHelper
 {
     public const string ArtworksSearcherSettingsPath = "ArtworksSearcher/settings.json";
