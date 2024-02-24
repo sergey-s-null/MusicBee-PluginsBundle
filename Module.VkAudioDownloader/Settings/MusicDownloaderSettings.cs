@@ -1,4 +1,4 @@
-﻿using Module.Core.Helpers;
+﻿using Module.Core.Services.Abstract;
 using Module.Settings.Logic.Entities.Abstract;
 using Module.Settings.Logic.Exceptions;
 using Module.Settings.Logic.Services.Abstract;
@@ -12,8 +12,10 @@ public sealed class MusicDownloaderSettings : BaseSettings, IMusicDownloaderSett
     public string DownloadDirTemplate { get; set; } = "";
     public string FileNameTemplate { get; set; } = "";
 
-    public MusicDownloaderSettings(ISettingsJsonLoader settingsJsonLoader)
-        : base(ResourcesHelper.AudioDownloaderSettingsPath, settingsJsonLoader)
+    public MusicDownloaderSettings(
+        ISettingsFiles settingsFiles,
+        IJsonLoader jsonLoader)
+        : base(settingsFiles.AudioDownloaderSettingsFilePath, jsonLoader)
     {
     }
 
