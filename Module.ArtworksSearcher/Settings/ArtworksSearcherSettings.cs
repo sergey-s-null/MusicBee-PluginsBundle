@@ -1,4 +1,4 @@
-﻿using Module.Core.Helpers;
+﻿using Module.Core.Services.Abstract;
 using Module.Settings.Logic.Entities.Abstract;
 using Module.Settings.Logic.Exceptions;
 using Module.Settings.Logic.Services.Abstract;
@@ -39,8 +39,10 @@ public sealed class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSe
     public string OsuSongsDir { get; set; } = "";
     public long MinOsuImageByteSize { get; set; }
 
-    public ArtworksSearcherSettings(ISettingsJsonLoader settingsJsonLoader)
-        : base(ResourcesHelper.ArtworksSearcherSettingsPath, settingsJsonLoader)
+    public ArtworksSearcherSettings(
+        ISettingsFiles settingsFiles,
+        IJsonLoader jsonLoader)
+        : base(settingsFiles.ArtworksSearcherSettingsFilePath, jsonLoader)
     {
     }
 
