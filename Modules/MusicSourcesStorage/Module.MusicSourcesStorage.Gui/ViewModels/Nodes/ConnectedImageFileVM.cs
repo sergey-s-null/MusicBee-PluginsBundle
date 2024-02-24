@@ -39,7 +39,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     [DependsOn(nameof(IsCover), nameof(IsProcessing))]
     public bool CanRemoveCover => IsCover && !IsProcessing;
 
-    #region MyRegion
+    #region Commands
 
     public ICommand Download => _downloadCmd ??= new RelayCommand(DownloadCmd);
     public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
