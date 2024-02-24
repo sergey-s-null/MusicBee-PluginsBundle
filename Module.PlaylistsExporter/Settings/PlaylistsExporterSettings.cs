@@ -1,4 +1,5 @@
 ﻿using Module.Core.Helpers;
+using Module.Core.Services.Abstract;
 using Module.Settings.Logic.Entities.Abstract;
 using Module.Settings.Logic.Exceptions;
 using Module.Settings.Logic.Services.Abstract;
@@ -15,18 +16,28 @@ public sealed class PlaylistsExporterSettings : BaseSettings, IPlaylistsExporter
     public string PlaylistsNewDirectoryName { get; set; } = "";
     public IReadOnlyCollection<string> PlaylistsForExport { get; set; } = Array.Empty<string>();
 
-    public PlaylistsExporterSettings(ISettingsJsonLoader settingsJsonLoader)
-        : base(ResourcesHelper.PlaylistExporterSettingsPath, settingsJsonLoader)
+    public PlaylistsExporterSettings(
+        ISettingsFiles settingsFiles,
+        IJsonLoader jsonLoader)
+        : base(settingsFiles.PlaylistExporterSettingsFilePath, jsonLoader)
     {
+    }
+
+    protected override void SetDefaultSettings()
+    {
+        PlaylistsDirectoryPath = string.Empty;
+        FilesLibraryPath = string.Empty;
+        PlaylistsNewDirectoryName = string.Empty;
+        PlaylistsForExport = Array.Empty<string>();
     }
 
     protected override void SetSettingsFromJObject(JObject rootObj)
     {
         try
         {
-            PlaylistsDirectoryPath = rootObj.Value<string>(nameof(PlaylistsDirectoryPath)) ?? "";
-            FilesLibraryPath = rootObj.Value<string>(nameof(FilesLibraryPath)) ?? "";
-            PlaylistsNewDirectoryName = rootObj.Value<string>(nameof(PlaylistsNewDirectoryName)) ?? "";
+            PlaylistsDirectoryPath = rootObj.Value<string>(nameof(PlaylistsDirectoryPath)) ?? string.Empty;
+            FilesLibraryPath = rootObj.Value<string>(nameof(FilesLibraryPath)) ?? string.Empty;
+            PlaylistsNewDirectoryName = rootObj.Value<string>(nameof(PlaylistsNewDirectoryName)) ?? string.Empty;
             PlaylistsForExport = rootObj.Value<JArray>(nameof(PlaylistsForExport))?
                                      .Values<string>()
                                      .WhereNotNull()

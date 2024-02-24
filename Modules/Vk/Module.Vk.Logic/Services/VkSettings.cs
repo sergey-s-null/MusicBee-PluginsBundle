@@ -1,4 +1,4 @@
-﻿using Module.Core.Helpers;
+﻿using Module.Core.Services.Abstract;
 using Module.Settings.Logic.Entities.Abstract;
 using Module.Settings.Logic.Exceptions;
 using Module.Settings.Logic.Services.Abstract;
@@ -13,9 +13,17 @@ public sealed class VkSettings : BaseSettings, IVkSettings
     public string AccessToken { get; set; } = string.Empty;
     public long UserId { get; set; }
 
-    public VkSettings(ISettingsJsonLoader settingsJsonLoader)
-        : base(ResourcesHelper.VkSettingsPath, settingsJsonLoader)
+    public VkSettings(
+        ISettingsFiles settingsFiles,
+        IJsonLoader jsonLoader)
+        : base(settingsFiles.VkSettingsFilePath, jsonLoader)
     {
+    }
+
+    protected override void SetDefaultSettings()
+    {
+        AccessToken = string.Empty;
+        UserId = default;
     }
 
     protected override void SetSettingsFromJObject(JObject jSettings)

@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Net;
-using System.Windows;
 using System.Windows.Forms;
 using Autofac;
 using HackModule.AssemblyBindingRedirect.Services;
@@ -8,7 +7,6 @@ using Mead.MusicBee.Api.Services.Abstract;
 using Mead.MusicBee.Entities;
 using Mead.MusicBee.Enums;
 using Mead.MusicBee.Services;
-using Module.MusicBee.Extension.Services.Abstract;
 using Module.MusicSourcesStorage.Database.Services.Abstract;
 using Module.MusicSourcesStorage.Services.Abstract;
 using Module.Settings.Database.Services.Abstract;
@@ -16,7 +14,6 @@ using Plugin.Main;
 using Plugin.Main.Factories;
 using Plugin.Main.GUI.Views;
 using Plugin.Main.Services;
-using MessageBox = System.Windows.MessageBox;
 
 // ReSharper disable once CheckNamespace
 namespace MusicBeePlugin;
@@ -28,7 +25,6 @@ public class Plugin : PluginBase
     private const short MinApiRevision = 53;
 
     private SettingsDialogFactory? _settingsDialogFactory;
-    private IResourceManager? _resourceManager;
 
     static Plugin()
     {
@@ -43,9 +39,7 @@ public class Plugin : PluginBase
         ApplyMigrations(container);
 
         _settingsDialogFactory = container.Resolve<SettingsDialogFactory>();
-        _resourceManager = container.Resolve<IResourceManager>();
 
-        InitSettings();
         CreateMenuItems(container);
     }
 
@@ -158,11 +152,6 @@ public class Plugin : PluginBase
         ));
     }
 
-    private void InitSettings()
-    {
-        _resourceManager!.CreateRootIfNeeded();
-    }
-
     public override bool Configure(IntPtr _)
     {
         _settingsDialogFactory?
@@ -174,14 +163,16 @@ public class Plugin : PluginBase
 
     public override void Uninstall()
     {
-        var result = MessageBox.Show(
-            "Delete settings?",
-            "o(╥﹏╥)o",
-            MessageBoxButton.YesNo);
+        // todo maybe implement later
+        // var result = MessageBox.Show(
+        //     "Delete settings?",
+        //     "o(╥﹏╥)o",
+        //     MessageBoxButton.YesNo);
 
-        if (result == MessageBoxResult.Yes)
-        {
-            _resourceManager!.DeleteRoot();
-        }
+        // todo use IPluginConfiguration.PersistentStoragePath
+        // if (result == MessageBoxResult.Yes)
+        // {
+        //     _resourceManager!.DeleteRoot();
+        // }
     }
 }

@@ -6,50 +6,73 @@ namespace Module.Settings.Logic.Entities.Abstract;
 
 public abstract class BaseSettings : ISettings
 {
-    private readonly string _settingsPath;
+    private readonly string _settingsFilePath;
 
-    private readonly ISettingsJsonLoader _settingsJsonLoader;
+    private readonly IJsonLoader _jsonLoader;
 
     protected BaseSettings(
-        string settingsPath,
-        ISettingsJsonLoader settingsJsonLoader)
+        string settingsFilePath,
+        IJsonLoader jsonLoader)
     {
-        _settingsPath = settingsPath;
-        _settingsJsonLoader = settingsJsonLoader;
+        _settingsFilePath = settingsFilePath;
+        _jsonLoader = jsonLoader;
 
         Load();
     }
 
     public void Load()
     {
-        JObject jSettings;
-        try
+        if (!File.Exists(_settingsFilePath))
         {
-            jSettings = _settingsJsonLoader.Load(_settingsPath);
+            SetDefaultSettings();
         }
-        catch (SettingsIOException e)
+        else
         {
-            throw new SettingsLoadException($"Error on load settings at path \"{_settingsPath}\".", e);
+            var jSettings = LoadJSettings();
+            SetSettingsFromJObject(jSettings);
         }
-
-        SetSettingsFromJObject(jSettings);
     }
 
     public void Save()
     {
         var jSettings = GetSettingsAsJObject();
-        try
-        {
-            _settingsJsonLoader.Save(_settingsPath, jSettings);
-        }
-        catch (SettingsIOException e)
-        {
-            throw new SettingsSaveException($"Error on save settings at path \"{_settingsPath}\".", e);
-        }
+        Save(jSettings);
     }
+
+    protected abstract void SetDefaultSettings();
 
     /// <exception cref="SettingsLoadException">Error on extract values from json object.</exception>
     protected abstract void SetSettingsFromJObject(JObject jSettings);
 
     protected abstract JObject GetSettingsAsJObject();
+
+    private JObject LoadJSettings()
+    {
+        try
+        {
+            return _jsonLoader.Load(_settingsFilePath);
+        }
+        catch (SettingsIOException e)
+        {
+            throw new SettingsLoadException($"Error on load settings at path \"{_settingsFilePath}\".", e);
+        }
+    }
+
+    private void Save(JObject jSettings)
+    {
+        var fileDirectory = Path.GetDirectoryName(_settingsFilePath) ?? string.Empty;
+        if (!Directory.Exists(fileDirectory))
+        {
+            Directory.CreateDirectory(fileDirectory);
+        }
+
+        try
+        {
+            _jsonLoader.Save(_settingsFilePath, jSettings);
+        }
+        catch (SettingsIOException e)
+        {
+            throw new SettingsSaveException($"Error on save settings at path \"{_settingsFilePath}\".", e);
+        }
+    }
 }

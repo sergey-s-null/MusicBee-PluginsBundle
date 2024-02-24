@@ -1,23 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<LangVersion>11</LangVersion>
-		<UseWpf>true</UseWpf>
-		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <UseWpf>true</UseWpf>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    </PropertyGroup>
 
-	<ItemGroup>
-	  <Reference Include="PresentationCore" />
-	  <Reference Include="PresentationFramework" />
-	  <Reference Include="System.Net.Http" />
-	</ItemGroup>
+    <ItemGroup>
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-	  <PackageReference Include="System.Linq.Async" Version="6.0.1" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.5.0" />
+        <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+        <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using Module.Core.Helpers;
+﻿using Module.Core.Services.Abstract;
 using Module.Settings.Logic.Entities.Abstract;
 using Module.Settings.Logic.Exceptions;
 using Module.Settings.Logic.Services.Abstract;
@@ -39,19 +39,30 @@ public sealed class ArtworksSearcherSettings : BaseSettings, IArtworksSearcherSe
     public string OsuSongsDir { get; set; } = "";
     public long MinOsuImageByteSize { get; set; }
 
-    public ArtworksSearcherSettings(ISettingsJsonLoader settingsJsonLoader)
-        : base(ResourcesHelper.ArtworksSearcherSettingsPath, settingsJsonLoader)
+    public ArtworksSearcherSettings(
+        ISettingsFiles settingsFiles,
+        IJsonLoader jsonLoader)
+        : base(settingsFiles.ArtworksSearcherSettingsFilePath, jsonLoader)
     {
+    }
+
+    protected override void SetDefaultSettings()
+    {
+        GoogleCX = string.Empty;
+        GoogleKey = string.Empty;
+        ParallelDownloadsCount = default;
+        OsuSongsDir = string.Empty;
+        MinOsuImageByteSize = default;
     }
 
     protected override void SetSettingsFromJObject(JObject rootObj)
     {
         try
         {
-            GoogleCX = rootObj.Value<string>(nameof(GoogleCX)) ?? "";
-            GoogleKey = rootObj.Value<string>(nameof(GoogleKey)) ?? "";
+            GoogleCX = rootObj.Value<string>(nameof(GoogleCX)) ?? string.Empty;
+            GoogleKey = rootObj.Value<string>(nameof(GoogleKey)) ?? string.Empty;
             ParallelDownloadsCount = rootObj.Value<int>(nameof(ParallelDownloadsCount));
-            OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir)) ?? "";
+            OsuSongsDir = rootObj.Value<string>(nameof(OsuSongsDir)) ?? string.Empty;
             MinOsuImageByteSize = rootObj.Value<long>(nameof(MinOsuImageByteSize));
         }
         catch (JsonException e)

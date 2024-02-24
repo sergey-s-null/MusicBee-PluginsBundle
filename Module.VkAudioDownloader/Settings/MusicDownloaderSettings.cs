@@ -1,4 +1,4 @@
-﻿using Module.Core.Helpers;
+﻿using Module.Core.Services.Abstract;
 using Module.Settings.Logic.Entities.Abstract;
 using Module.Settings.Logic.Exceptions;
 using Module.Settings.Logic.Services.Abstract;
@@ -12,17 +12,25 @@ public sealed class MusicDownloaderSettings : BaseSettings, IMusicDownloaderSett
     public string DownloadDirTemplate { get; set; } = "";
     public string FileNameTemplate { get; set; } = "";
 
-    public MusicDownloaderSettings(ISettingsJsonLoader settingsJsonLoader)
-        : base(ResourcesHelper.AudioDownloaderSettingsPath, settingsJsonLoader)
+    public MusicDownloaderSettings(
+        ISettingsFiles settingsFiles,
+        IJsonLoader jsonLoader)
+        : base(settingsFiles.AudioDownloaderSettingsFilePath, jsonLoader)
     {
+    }
+
+    protected override void SetDefaultSettings()
+    {
+        DownloadDirTemplate = string.Empty;
+        FileNameTemplate = string.Empty;
     }
 
     protected override void SetSettingsFromJObject(JObject rootObj)
     {
         try
         {
-            DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate)) ?? "";
-            FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate)) ?? "";
+            DownloadDirTemplate = rootObj.Value<string>(nameof(DownloadDirTemplate)) ?? string.Empty;
+            FileNameTemplate = rootObj.Value<string>(nameof(FileNameTemplate)) ?? string.Empty;
         }
         catch (JsonException e)
         {
