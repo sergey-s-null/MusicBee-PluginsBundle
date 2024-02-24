@@ -1,6 +1,6 @@
 ﻿using System.IO;
+using Module.Core;
 using Module.Settings.Core;
-using Plugin.Main.Configurations.Abstract;
 
 namespace Plugin.Main.Configurations;
 
