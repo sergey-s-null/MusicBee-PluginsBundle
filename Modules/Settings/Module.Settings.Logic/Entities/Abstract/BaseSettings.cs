@@ -60,6 +60,12 @@ public abstract class BaseSettings : ISettings
 
     private void Save(JObject jSettings)
     {
+        var fileDirectory = Path.GetDirectoryName(_settingsFilePath) ?? string.Empty;
+        if (!Directory.Exists(fileDirectory))
+        {
+            Directory.CreateDirectory(fileDirectory);
+        }
+
         try
         {
             _jsonLoader.Save(_settingsFilePath, jSettings);
