@@ -12,7 +12,7 @@ public abstract class FileBaseVM : INodeVM
     public bool IsExpanded
     {
         get => false;
-        set => throw new NotSupportedException();
+        set { }
     }
 
     public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
