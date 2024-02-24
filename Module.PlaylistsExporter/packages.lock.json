@@ -132,6 +132,7 @@
       "module.core": {
         "type": "Project",
         "dependencies": {
+          "Autofac": "[6.5.0, )",
           "MahApps.Metro.IconPacks": "[4.11.0, )",
           "System.Linq.Async": "[6.0.1, )"
         }

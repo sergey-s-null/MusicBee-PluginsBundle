@@ -159,6 +159,7 @@
       "module.core": {
         "type": "Project",
         "dependencies": {
+          "Autofac": "[6.5.0, )",
           "MahApps.Metro.IconPacks": "[4.11.0, )",
           "System.Linq.Async": "[6.0.1, )"
         }
@@ -169,13 +170,6 @@
           "Autofac": "[6.5.0, )",
           "Mead.MusicBee.Api": "[1.0.0, )",
           "Mead.MusicBee.Api.Autofac.DependencyInjection": "[1.0.1, )"
-        }
-      },
-      "module.settings": {
-        "type": "Project",
-        "dependencies": {
-          "Module.MusicBee.Extension": "[1.0.0, )",
-          "Newtonsoft.Json": "[13.0.2, )"
         }
       },
       "module.settings.logic": {
