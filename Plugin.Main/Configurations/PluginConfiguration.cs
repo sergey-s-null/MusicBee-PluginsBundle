@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using Mead.MusicBee.Api.Services.Abstract;
-using Plugin.Main.Configurations.Abstract;
+using Module.Core;
 
 namespace Plugin.Main.Configurations;
 

@@ -1,7 +1,9 @@
-﻿namespace Plugin.Main.Configurations.Abstract;
+﻿namespace Module.Core;
 
 public interface IPluginConfiguration
 {
     string DataSource { get; }
+
+    // todo rename
     string PersistentStoragePath { get; }
 }
