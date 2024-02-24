@@ -1,4 +1,5 @@
 ﻿using Module.Core.Helpers;
+using Module.Core.Services.Abstract;
 using Module.Settings.Logic.Entities.Abstract;
 using Module.Settings.Logic.Exceptions;
 using Module.Settings.Logic.Services.Abstract;
@@ -15,8 +16,10 @@ public sealed class PlaylistsExporterSettings : BaseSettings, IPlaylistsExporter
     public string PlaylistsNewDirectoryName { get; set; } = "";
     public IReadOnlyCollection<string> PlaylistsForExport { get; set; } = Array.Empty<string>();
 
-    public PlaylistsExporterSettings(ISettingsJsonLoader settingsJsonLoader)
-        : base(ResourcesHelper.PlaylistExporterSettingsPath, settingsJsonLoader)
+    public PlaylistsExporterSettings(
+        ISettingsFiles settingsFiles,
+        IJsonLoader jsonLoader)
+        : base(settingsFiles.PlaylistExporterSettingsFilePath, jsonLoader)
     {
     }
 
