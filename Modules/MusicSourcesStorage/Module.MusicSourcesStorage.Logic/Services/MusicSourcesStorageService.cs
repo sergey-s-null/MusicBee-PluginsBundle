@@ -86,6 +86,12 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return _musicSourcesRepository.SetMusicFileIsListenedAsync(musicFileId, isListened, token);
     }
 
+    public async Task<bool> IsSelectedAsCoverAsync(int fileId, CancellationToken token)
+    {
+        var file = await _musicSourcesRepository.GetSourceFileAsync(fileId, includeSource: false, token);
+        return file is ImageFileModel { IsCover: true };
+    }
+    
     public async Task SelectAsCoverAsync(int imageFileId, byte[] imageData, CancellationToken token)
     {
         var source = await _musicSourcesRepository.GetSourceByFileIdAsync(imageFileId, false, token);
