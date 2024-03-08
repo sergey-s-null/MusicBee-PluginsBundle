@@ -11,6 +11,7 @@ namespace Module.MusicSourcesStorage.Gui.Commands;
 public sealed class DownloadFileCommand : ICommand
 {
     public event EventHandler? CanExecuteChanged;
+    // todo is this useful?
     public event EventHandler<ProcessingStateChangedEventArgs>? ProcessingStateChanged;
     public event EventHandler? Downloaded;
 
