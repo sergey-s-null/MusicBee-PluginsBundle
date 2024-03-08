@@ -152,6 +152,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
     private async void DownloadCmd()
     {
+        // TODO use command
         if (!await _lock.WaitAsync(TimeSpan.Zero))
         {
             return;

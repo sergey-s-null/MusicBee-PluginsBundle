@@ -24,6 +24,12 @@ public sealed class FilesLocatingService : IFilesLocatingService
         _musicBeeApi = musicBeeApi;
     }
 
+    public async Task<bool> IsFileExistsAsync(int fileId, CancellationToken token = default)
+    {
+        var filePath = await LocateFileAsync(fileId, token);
+        return filePath is not null;
+    }
+
     public async Task<string?> LocateFileAsync(int fileId, CancellationToken token)
     {
         var sourceFile = await _musicSourcesStorageService.GetSourceFileAsync(fileId, token);
