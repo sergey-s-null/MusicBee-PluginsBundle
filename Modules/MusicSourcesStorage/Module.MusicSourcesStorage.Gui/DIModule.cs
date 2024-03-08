@@ -157,6 +157,10 @@ public sealed class DIModule : Autofac.Module
             .RegisterType<FileVMBuilder>()
             .As<IFileVMBuilder>()
             .SingleInstance();
+        builder
+            .RegisterType<FileOperationLocker>()
+            .As<IFileOperationLocker>()
+            .SingleInstance();
     }
 
     private static void RegisterFactories(ContainerBuilder builder)
