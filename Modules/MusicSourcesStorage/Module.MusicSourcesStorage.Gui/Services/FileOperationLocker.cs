@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using Module.MusicSourcesStorage.Gui.Entities;
+using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 
 namespace Module.MusicSourcesStorage.Gui.Services;
@@ -26,7 +27,7 @@ public sealed class FileOperationLocker : IFileOperationLocker
 
         if (!lockObject.Wait(timeout))
         {
-            throw new TimeoutException($"Could not acquire lock for file {fileId} after timeout {timeout}.");
+            throw new LockTimeoutException($"Could not acquire lock for file {fileId} after timeout {timeout}.");
         }
 
         RaiseLocked(fileId);

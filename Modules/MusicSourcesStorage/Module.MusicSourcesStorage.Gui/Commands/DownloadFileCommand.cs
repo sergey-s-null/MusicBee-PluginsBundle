@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.Entities;
+using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
@@ -11,6 +12,7 @@ namespace Module.MusicSourcesStorage.Gui.Commands;
 public sealed class DownloadFileCommand : ICommand
 {
     public event EventHandler? CanExecuteChanged;
+
     // todo is this useful?
     public event EventHandler<ProcessingStateChangedEventArgs>? ProcessingStateChanged;
     public event EventHandler? Downloaded;
@@ -55,7 +57,7 @@ public sealed class DownloadFileCommand : ICommand
             RaiseNotProcessing();
             RaiseDownloaded();
         }
-        catch (TimeoutException)
+        catch (LockTimeoutException)
         {
         }
     }

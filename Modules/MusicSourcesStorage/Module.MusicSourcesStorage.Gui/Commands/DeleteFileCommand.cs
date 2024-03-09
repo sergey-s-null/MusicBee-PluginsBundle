@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.Entities;
+using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -57,7 +58,7 @@ public sealed class DeleteFileCommand : ICommand
 
             _filesDeletingService.DeleteAsync(_fileId).Wait();
         }
-        catch (TimeoutException)
+        catch (LockTimeoutException)
         {
         }
     }

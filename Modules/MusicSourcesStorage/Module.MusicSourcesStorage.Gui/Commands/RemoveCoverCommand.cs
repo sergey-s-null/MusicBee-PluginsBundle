@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.Entities;
+using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
@@ -44,7 +45,7 @@ public sealed class RemoveCoverCommand : ICommand
             using var _ = _fileOperationLocker.Lock(_fileId, TimeSpan.Zero);
             _coverSelectionService.RemoveCoverAsync(_fileId).Wait();
         }
-        catch (TimeoutException)
+        catch (LockTimeoutException)
         {
         }
     }

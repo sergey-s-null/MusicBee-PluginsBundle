@@ -1,4 +1,5 @@
 ﻿using Module.MusicSourcesStorage.Gui.Entities;
+using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Services;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 
@@ -85,7 +86,7 @@ public sealed class FileOperationLockerTests
         var fileId = GetRandomFileId();
 
         using var _ = _locker!.Lock(fileId, TimeSpan.Zero);
-        Assert.Throws<TimeoutException>(() => _locker.Lock(fileId, TimeSpan.Zero));
+        Assert.Throws<LockTimeoutException>(() => _locker.Lock(fileId, TimeSpan.Zero));
     }
 
     [Test]

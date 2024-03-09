@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.Entities;
+using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
@@ -48,7 +49,7 @@ public sealed class SelectAsCoverCommand : ICommand
             var task = _coverSelectionService.CreateCoverSelectionTaskAsync(_fileId).Result;
             task.Activated(new CoverSelectionArgs(true)).Task.Wait();
         }
-        catch (TimeoutException)
+        catch (LockTimeoutException)
         {
         }
     }
