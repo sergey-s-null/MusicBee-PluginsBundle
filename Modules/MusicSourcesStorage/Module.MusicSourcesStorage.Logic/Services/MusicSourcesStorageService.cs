@@ -91,7 +91,7 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         var file = await _musicSourcesRepository.GetSourceFileAsync(fileId, includeSource: false, token);
         return file is ImageFileModel { IsCover: true };
     }
-    
+
     public async Task SelectAsCoverAsync(int imageFileId, byte[] imageData, CancellationToken token)
     {
         var source = await _musicSourcesRepository.GetSourceByFileIdAsync(imageFileId, false, token);
@@ -124,21 +124,9 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return cover?.Data;
     }
 
-    public async Task RemoveCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token)
+    public Task RemoveCoverAsync(int fileId, CancellationToken token)
     {
-        var files = await _musicSourcesRepository.ListSourceFilesBySourceIdAsync(sourceId, false, token);
-
-        var directoryUnifiedPath = PathHelper.UnifyDirectoryPath(directoryRelativePath);
-        var coversToRemove = files
-            .OfType<ImageFileModel>()
-            .Where(x => x.IsCover)
-            .Where(x => IsFileInDirectory(x, directoryUnifiedPath))
-            .ToList();
-
-        foreach (var cover in coversToRemove)
-        {
-            await _musicSourcesRepository.RemoveCoverAsync(cover.Id, token);
-        }
+        return _musicSourcesRepository.RemoveCoverAsync(fileId, token);
     }
 
     private static bool IsFileInDirectory(FileModel file, string directoryUnifiedPath)

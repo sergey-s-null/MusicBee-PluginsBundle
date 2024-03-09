@@ -14,6 +14,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
 {
+    public int Id { get; }
+
     public override string Name { get; }
     public override string Path { get; }
 
@@ -54,6 +56,7 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
         IFilesDownloadingService filesDownloadingService,
         IFilesDeletingService filesDeletingService)
     {
+        Id = unknownFile.Id;
         Name = System.IO.Path.GetFileName(unknownFile.Path);
         Path = unknownFile.Path;
         _unknownFile = unknownFile;

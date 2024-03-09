@@ -13,20 +13,17 @@ public sealed class SelectAsCoverCommand : ICommand
     public event EventHandler? CanExecuteChanged;
 
     private readonly int _fileId;
-    private readonly int _sourceId;
     private readonly IFileOperationLocker _fileOperationLocker;
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
     private readonly ICoverSelectionService _coverSelectionService;
 
     public SelectAsCoverCommand(
         int fileId,
-        int sourceId,
         IFileOperationLocker fileOperationLocker,
         IMusicSourcesStorageService musicSourcesStorageService,
         ICoverSelectionService coverSelectionService)
     {
         _fileId = fileId;
-        _sourceId = sourceId;
         _fileOperationLocker = fileOperationLocker;
         _musicSourcesStorageService = musicSourcesStorageService;
         _coverSelectionService = coverSelectionService;
@@ -74,7 +71,7 @@ public sealed class SelectAsCoverCommand : ICommand
 
     private void OnCoverRemoved(object _, CoverRemovedEventArgs args)
     {
-        if (args.SourceId == _sourceId)
+        if (args.FileId == _fileId)
         {
             RaiseCanExecuteChanged();
         }

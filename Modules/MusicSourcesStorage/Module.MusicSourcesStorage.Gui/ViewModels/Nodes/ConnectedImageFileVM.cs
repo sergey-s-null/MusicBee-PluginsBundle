@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using Module.Core.Helpers;
 using Module.Core.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Helpers;
@@ -16,6 +15,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 {
+    public int Id { get; }
+
     public override string Name { get; }
     public override string Path { get; }
 
@@ -58,10 +59,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     private readonly SemaphoreSlim _lock = new(1);
 
     private readonly int _sourceId;
-    private readonly int _fileId;
     private readonly string _filePath;
-    private readonly Lazy<string> _parentDirectoryPath;
-    private readonly Lazy<string> _parentDirectoryUnifiedPath;
     private readonly IUiDispatcherProvider _dispatcherProvider;
     private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
@@ -76,17 +74,11 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         IFilesDeletingService filesDeletingService,
         ICoverSelectionService coverSelectionService)
     {
+        Id = imageFile.Id;
         Name = System.IO.Path.GetFileName(imageFile.Path);
         Path = imageFile.Path;
         _sourceId = imageFile.SourceId;
-        _fileId = imageFile.Id;
         _filePath = imageFile.Path;
-        _parentDirectoryPath = new Lazy<string>(
-            () => System.IO.Path.GetDirectoryName(_filePath) ?? string.Empty
-        );
-        _parentDirectoryUnifiedPath = new Lazy<string>(() =>
-            PathHelper.UnifyDirectoryPath(_parentDirectoryPath.Value)
-        );
         _dispatcherProvider = dispatcherProvider;
         _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
@@ -114,22 +106,15 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
             }
 
             _dispatcherProvider.Dispatcher.Invoke(
-                () => IsCover = args.ImageFileId == _fileId
+                () => IsCover = args.ImageFileId == Id
             );
         };
         _coverSelectionService.CoverRemoved += (_, args) =>
         {
-            if (args.SourceId != _sourceId)
+            if (args.FileId == Id)
             {
-                return;
+                _dispatcherProvider.Dispatcher.Invoke(() => IsCover = false);
             }
-
-            if (PathHelper.UnifyDirectoryPath(args.DirectoryPath) != _parentDirectoryUnifiedPath.Value)
-            {
-                return;
-            }
-
-            _dispatcherProvider.Dispatcher.Invoke(() => IsCover = false);
         };
     }
 
@@ -167,7 +152,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
             IsProcessing = true;
 
-            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_fileId);
+            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(Id);
             await task.Activated(new FileDownloadArgs(true)).Task;
 
             IsDownloaded = true;
@@ -195,7 +180,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
             IsProcessing = true;
 
-            if (MessageBoxHelper.AskForDeletion(_fileId, _filePath) != MessageBoxResult.Yes)
+            if (MessageBoxHelper.AskForDeletion(Id, _filePath) != MessageBoxResult.Yes)
             {
                 return;
             }
@@ -250,7 +235,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
             IsProcessing = true;
 
-            var task = await _coverSelectionService.CreateCoverSelectionTaskAsync(_fileId);
+            var task = await _coverSelectionService.CreateCoverSelectionTaskAsync(Id);
             await task.Activated(new CoverSelectionArgs(true)).Task;
 
             IsCover = true;
@@ -279,10 +264,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
             IsProcessing = true;
 
-            await _coverSelectionService.RemoveCoverAsync(
-                _sourceId,
-                _parentDirectoryPath.Value
-            );
+            await _coverSelectionService.RemoveCoverAsync(Id);
             IsCover = false;
         }
         finally
@@ -294,7 +276,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
     private async Task DeleteInternalAsync()
     {
-        await _filesDeletingService.DeleteAsync(_fileId);
+        await _filesDeletingService.DeleteAsync(Id);
         IsDownloaded = false;
     }
 
@@ -302,7 +284,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
     private async Task UpdateDownloadedStateNotLockedAsync()
     {
-        var filePath = await _filesLocatingService.LocateFileAsync(_fileId);
+        var filePath = await _filesLocatingService.LocateFileAsync(Id);
         IsDownloaded = filePath is not null;
     }
 }

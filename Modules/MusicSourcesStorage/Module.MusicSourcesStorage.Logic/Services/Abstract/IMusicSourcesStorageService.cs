@@ -43,5 +43,5 @@ public interface IMusicSourcesStorageService
 
     Task<byte[]?> FindCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token = default);
 
-    Task RemoveCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token = default);
+    Task RemoveCoverAsync(int fileId, CancellationToken token = default);
 }

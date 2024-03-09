@@ -15,6 +15,8 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
 {
+    public int Id { get; }
+
     public override string Name { get; }
     public override string Path { get; }
 
@@ -79,6 +81,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         IMusicSourcesStorageService musicSourcesStorageService,
         IFilesDeletingService filesDeletingService)
     {
+        Id = musicFile.Id;
         Name = System.IO.Path.GetFileName(musicFile.Path);
         Path = musicFile.Path;
         _musicFile = musicFile;

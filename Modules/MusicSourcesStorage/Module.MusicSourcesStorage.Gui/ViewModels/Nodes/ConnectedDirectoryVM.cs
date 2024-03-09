@@ -315,13 +315,13 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
         };
         _coverSelectionService.CoverRemoved += (_, args) =>
         {
-            if (args.SourceId != _sourceId
-                || PathHelper.UnifyDirectoryPath(args.DirectoryPath) != _unifiedPath.Value)
+            var isCoverRemovedUnderCurrentDir = _childNodes.Value
+                .OfType<IConnectedFileVM>()
+                .Any(x => x.Id == args.FileId);
+            if (isCoverRemovedUnderCurrentDir)
             {
-                return;
+                _dispatcherProvider.Dispatcher.Invoke(() => Cover = null);
             }
-
-            _dispatcherProvider.Dispatcher.Invoke(() => Cover = null);
         };
     }
 

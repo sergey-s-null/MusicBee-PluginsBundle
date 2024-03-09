@@ -74,10 +74,10 @@ public sealed class CoverSelectionService : ICoverSelectionService
             .Chain(dispatchEventTask);
     }
 
-    public async Task RemoveCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token)
+    public async Task RemoveCoverAsync(int fileId, CancellationToken token)
     {
-        await _musicSourcesStorageService.RemoveCoverAsync(sourceId, directoryRelativePath, token);
-        CoverRemoved?.Invoke(this, new CoverRemovedEventArgs(sourceId, directoryRelativePath));
+        await _musicSourcesStorageService.RemoveCoverAsync(fileId, token);
+        CoverRemoved?.Invoke(this, new CoverRemovedEventArgs(fileId));
     }
 
     private Image LoadAndResizeImage(string imageFilePath, CancellationToken token)

@@ -4,7 +4,7 @@ using Module.MusicSourcesStorage.Logic.Enums;
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
 public interface IConnectedMusicFileVM :
-    IConnectedNodeVM,
+    IConnectedFileVM,
     IMarkableAsListenedVM
 {
     MusicFileLocation Location { get; }
