@@ -157,8 +157,6 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
     #endregion
 
-    private readonly SemaphoreSlim _lock = new(1);
-
     private readonly IUiDispatcherProvider _dispatcherProvider;
     private readonly ICoverSelectionService _coverSelectionService;
 
@@ -271,29 +269,16 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
         }
     }
 
-    private async void RemoveCoverCmd()
+    private void RemoveCoverCmd()
     {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
+        var images = _childNodes.Value
+            .OfType<IConnectedImageFileVM>()
+            .Where(x => x.CanRemoveCover)
+            .ToList();
 
-        try
+        foreach (var image in images)
         {
-            if (!CanRemoveCover)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            await _coverSelectionService.RemoveCoverAsync(_sourceId, Path);
-            Cover = null;
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
+            image.RemoveCover.Execute(null);
         }
     }
 
