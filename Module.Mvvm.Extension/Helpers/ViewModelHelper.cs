@@ -42,6 +42,14 @@ public static class ViewModelHelper
         unregisterHandler = () => notifier.PropertyChanged -= wrappedHandler;
     }
 
+    public static void RegisterPropertyDependency<TViewModel, TTargetProperty, TSourceProperty>(
+        TViewModel viewModel,
+        Expression<Func<TViewModel, TTargetProperty>> targetPropertySelector,
+        Expression<Func<TViewModel, TSourceProperty>> sourcePropertySelector)
+    {
+        throw new NotImplementedException();
+    }
+
     private static string GetPropertyName<TViewModel, TProperty>(
         Expression<Func<TViewModel, TProperty>> propertySelector)
     {
