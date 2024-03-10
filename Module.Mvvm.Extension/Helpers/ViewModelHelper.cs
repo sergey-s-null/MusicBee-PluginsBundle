@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 
 namespace Module.Mvvm.Extension.Helpers;
 
-// todo rename to NotifyPropertyChangedHelper
 public static class ViewModelHelper
 {
     public static void RegisterPropertyChangedHandler<TViewModel, TProperty>(
