@@ -381,7 +381,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
     {
         foreach (var processable in ChildNodes.OfType<IProcessableVM>())
         {
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 processable,
                 x => x.IsProcessing,
                 (_, _) => IsChildNodesProcessing = CalculateIsProcessing()
@@ -390,12 +390,12 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
         foreach (var downloadable in ChildNodes.OfType<IDownloadableVM>())
         {
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 downloadable,
                 x => x.CanDownload,
                 (_, _) => CanDownload = CalculateCanDownload()
             );
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 downloadable,
                 x => x.IsDownloaded,
                 (_, _) => IsDownloaded = CalculateIsDownloaded()
@@ -404,12 +404,12 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
         foreach (var deletable in ChildNodes.OfType<IDeletableVM>())
         {
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 deletable,
                 x => x.CanDelete,
                 (_, _) => CanDelete = CalculateCanDelete()
             );
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 deletable,
                 x => x.IsDeleted,
                 (_, _) => IsDeleted = CalculateIsDeleted()
@@ -418,7 +418,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
         foreach (var listenable in ChildNodes.OfType<IMarkableAsListenedVM>())
         {
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 listenable,
                 x => x.IsListened,
                 (_, _) => IsListened = CalculateIsListened()
@@ -430,14 +430,14 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
             switch (node)
             {
                 case IConnectedDirectoryVM directory:
-                    ViewModelHelper.RegisterPropertyChangedCallback(
+                    ViewModelHelper.RegisterPropertyChangedHandler(
                         directory,
                         x => x.IsAllListened,
                         (_, _) => IsAllListened = CalculateIsAllListened()
                     );
                     break;
                 case IMarkableAsListenedVM listenable:
-                    ViewModelHelper.RegisterPropertyChangedCallback(
+                    ViewModelHelper.RegisterPropertyChangedHandler(
                         listenable,
                         x => x.IsListened,
                         (_, _) => IsAllListened = CalculateIsAllListened()
@@ -451,14 +451,14 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
             switch (node)
             {
                 case IConnectedDirectoryVM directory:
-                    ViewModelHelper.RegisterPropertyChangedCallback(
+                    ViewModelHelper.RegisterPropertyChangedHandler(
                         directory,
                         x => x.IsAllNotListened,
                         (_, _) => IsAllNotListened = CalculateIsAllNotListened()
                     );
                     break;
                 case IMarkableAsListenedVM listenable:
-                    ViewModelHelper.RegisterPropertyChangedCallback(
+                    ViewModelHelper.RegisterPropertyChangedHandler(
                         listenable,
                         x => x.IsListened,
                         (_, _) => IsAllNotListened = CalculateIsAllNotListened()
@@ -472,7 +472,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
             switch (node)
             {
                 case IConnectedMusicFileVM musicFile:
-                    ViewModelHelper.RegisterPropertyChangedCallback(
+                    ViewModelHelper.RegisterPropertyChangedHandler(
                         musicFile,
                         x => x.Location,
                         (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =
@@ -480,7 +480,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
                     );
                     break;
                 case IConnectedDirectoryVM directory:
-                    ViewModelHelper.RegisterPropertyChangedCallback(
+                    ViewModelHelper.RegisterPropertyChangedHandler(
                         directory,
                         x => x.HasDownloadedAndNotAttachedToLibraryFiles,
                         (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =
@@ -488,7 +488,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
                     );
                     break;
                 case IDownloadableVM downloadable:
-                    ViewModelHelper.RegisterPropertyChangedCallback(
+                    ViewModelHelper.RegisterPropertyChangedHandler(
                         downloadable,
                         x => x.IsDownloaded,
                         (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =

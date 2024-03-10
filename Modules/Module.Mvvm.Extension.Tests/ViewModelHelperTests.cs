@@ -16,7 +16,7 @@ public sealed class ViewModelHelperTests
         ThirdVM? actualViewModel = null;
         var handlerCallCount = 0;
         var changedValue = 0;
-        ViewModelHelper.RegisterPropertyChangedCallback(
+        ViewModelHelper.RegisterPropertyChangedHandler(
             vm,
             x => x.Value,
             (viewModel, value) =>
@@ -67,7 +67,7 @@ public sealed class ViewModelHelperTests
     {
         var vm = new FirstVM();
         Assert.Throws<ArgumentException>(() =>
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 vm, x => 42, (_, _) => { }
             )
         );
@@ -78,7 +78,7 @@ public sealed class ViewModelHelperTests
     {
         var vm = new FirstVM();
         Assert.Throws<ArgumentException>(() =>
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 vm, x => x, (_, _) => { }
             )
         );
@@ -89,7 +89,7 @@ public sealed class ViewModelHelperTests
     {
         var vm = new FirstVM();
         Assert.Throws<ArgumentException>(() =>
-            ViewModelHelper.RegisterPropertyChangedCallback(
+            ViewModelHelper.RegisterPropertyChangedHandler(
                 vm, x => x.Second!.Third, (_, _) => { }
             )
         );

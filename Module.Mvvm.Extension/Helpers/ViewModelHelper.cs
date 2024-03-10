@@ -6,13 +6,12 @@ namespace Module.Mvvm.Extension.Helpers;
 // todo rename to NotifyPropertyChangedHelper
 public static class ViewModelHelper
 {
-    // todo rename to "Handler"
-    public static void RegisterPropertyChangedCallback<TViewModel, TProperty>(
+    public static void RegisterPropertyChangedHandler<TViewModel, TProperty>(
         TViewModel viewModel,
         Expression<Func<TViewModel, TProperty>> propertySelector,
-        Action<TViewModel, TProperty> callback)
+        Action<TViewModel, TProperty> handler)
     {
-        RegisterPropertyChangedHandler(viewModel, propertySelector, callback, out _);
+        RegisterPropertyChangedHandler(viewModel, propertySelector, handler, out _);
     }
 
     public static void RegisterPropertyChangedHandler<TViewModel, TProperty>(
