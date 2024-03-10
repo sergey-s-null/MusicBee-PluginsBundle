@@ -87,6 +87,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicSourcesStorage.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.MusicSourcesStorage.Gui.Tests", "Modules\MusicSourcesStorage\Module.MusicSourcesStorage.Gui.Tests\Module.MusicSourcesStorage.Gui.Tests.csproj", "{335D5A6D-8114-4FC0-8A49-8357466F0E01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Mvvm.Extension.Tests", "Modules\Module.Mvvm.Extension.Tests\Module.Mvvm.Extension.Tests.csproj", "{DBD41855-F78C-496C-85D1-A7DE82A20BD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -221,6 +223,10 @@ Global
 		{335D5A6D-8114-4FC0-8A49-8357466F0E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{335D5A6D-8114-4FC0-8A49-8357466F0E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{335D5A6D-8114-4FC0-8A49-8357466F0E01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBD41855-F78C-496C-85D1-A7DE82A20BD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD41855-F78C-496C-85D1-A7DE82A20BD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD41855-F78C-496C-85D1-A7DE82A20BD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD41855-F78C-496C-85D1-A7DE82A20BD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E9ED5B16-E1DF-4911-A579-947EC6A67928} = {D7E52F12-14D4-46BC-AB5A-E1EEC8E39D88}
@@ -257,5 +263,6 @@ Global
 		{F63E07F4-B9D5-4756-9EF9-FAC879D414CC} = {EB3FD1DF-B6EC-4742-8FBE-A41498D4FAC1}
 		{569FC2F7-0AC0-4A32-8312-DFA5BEE728F8} = {8920EA49-0D7F-4AFE-B3BB-E42D458099A8}
 		{335D5A6D-8114-4FC0-8A49-8357466F0E01} = {8920EA49-0D7F-4AFE-B3BB-E42D458099A8}
+		{DBD41855-F78C-496C-85D1-A7DE82A20BD1} = {D7E52F12-14D4-46BC-AB5A-E1EEC8E39D88}
 	EndGlobalSection
 EndGlobal
