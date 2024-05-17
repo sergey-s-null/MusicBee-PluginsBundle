@@ -33,7 +33,6 @@ public class ViewModelDependencyServiceTests
         );
     }
 
-
     [TestCaseSource(nameof(InvalidDependencyPropertiesTestCases))]
     public void ExceptionOnRegisterDependencyWithInvalidDependencyProperty<TProperty>(
         Expression<Func<DependencyVM, TProperty>> invalidDependencyProperty)
