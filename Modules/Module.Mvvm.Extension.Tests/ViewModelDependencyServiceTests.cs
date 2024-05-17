@@ -1,6 +1,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using Module.Mvvm.Extension.Services;
 using Module.Mvvm.Extension.Services.Abstract;
 using Module.Mvvm.Extension.Tests.ViewModels;
 
@@ -15,7 +16,7 @@ public class ViewModelDependencyServiceTests
     [SetUp]
     public void Setup()
     {
-        _viewModelDependencyService = null;
+        _viewModelDependencyService = new ViewModelDependencyService();
     }
 
     [Test]
