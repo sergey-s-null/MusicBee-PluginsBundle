@@ -1,7 +1,10 @@
 using System.Collections;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using Module.Mvvm.Extension.Services.Abstract;
 using Module.Mvvm.Extension.Tests.ViewModels;
+
+// ReSharper disable SuspiciousTypeConversion.Global
 
 namespace Module.Mvvm.Extension.Tests;
 
@@ -13,6 +16,178 @@ public class ViewModelDependencyServiceTests
     public void Setup()
     {
         _viewModelDependencyService = null;
+    }
+
+    [Test]
+    public void RegisteredSuccessfully()
+    {
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        _viewModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Child!.Text,
+            out _
+        );
+    }
+
+    [Test]
+    public void EventRaisedWhenSimpleDependencyRegistered()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        _viewModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Number,
+            out _
+        );
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        object? actualSender = null;
+        string? actualPropertyName = null;
+        dependentInterface.PropertyChanged += (sender, args) =>
+        {
+            eventRaisedCount++;
+            actualSender = sender;
+            actualPropertyName = args.PropertyName;
+        };
+
+        // ACT
+        dependency.Number = 42;
+
+        // ASSERT
+        Assert.Multiple(() =>
+        {
+            Assert.That(eventRaisedCount, Is.EqualTo(1));
+            Assert.That(actualSender, Is.EqualTo(dependent));
+            Assert.That(actualPropertyName, Is.EqualTo(nameof(DependentVM.Value)));
+        });
+    }
+
+    [Test]
+    public void EventRaisedWhenDeepPropertyChanged()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM
+        {
+            Child = new ChildVM
+            {
+                Child = new ChildVM()
+            }
+        };
+
+        _viewModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Child!.Child!.Text,
+            out _
+        );
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        dependentInterface.PropertyChanged += (_, _) => eventRaisedCount++;
+
+        // ACT
+        dependency.Child.Child.Text = "some text";
+
+        // ASSERT
+        Assert.That(eventRaisedCount, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void EventRaisedWhenPropertyChangedInMiddleOfPath()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        _viewModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Child!.Text,
+            out _
+        );
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        dependentInterface.PropertyChanged += (_, _) => eventRaisedCount++;
+
+        // ACT
+        dependency.Child = new ChildVM();
+
+        // ASSERT
+        Assert.That(eventRaisedCount, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void EventRaisedWhenPropertyChangedInNewlyAddedObjectInMiddleOfPath()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        _viewModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Child!.Text,
+            out _
+        );
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        dependentInterface.PropertyChanged += (_, _) => eventRaisedCount++;
+
+        // ACT
+        dependency.Child = new ChildVM();
+        dependency.Child.Text = "some text";
+
+        // ASSERT
+        Assert.That(eventRaisedCount, Is.EqualTo(2));
+    }
+
+    [Test]
+    public void EventNotRaisedWhenPropertyChangedInObjectRemovedFromDependencyChain()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var previousChild = new ChildVM();
+        var dependency = new DependencyVM
+        {
+            Child = previousChild
+        };
+
+        _viewModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Child!.Text,
+            out _
+        );
+
+        dependency.Child.Text = "some text";
+
+        dependency.Child = null;
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        dependentInterface.PropertyChanged += (_, _) => eventRaisedCount++;
+
+        // ACT
+        previousChild.Text = "another text";
+
+        // ASSERT
+        Assert.That(eventRaisedCount, Is.EqualTo(0));
     }
 
     [TestCaseSource(nameof(InvalidDependentPropertiesTestCases))]
