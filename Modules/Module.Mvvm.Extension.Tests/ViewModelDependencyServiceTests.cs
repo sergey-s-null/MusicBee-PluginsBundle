@@ -226,6 +226,23 @@ public class ViewModelDependencyServiceTests
         );
     }
 
+    [Test]
+    public void ExceptionOnIncorrectTypeInDependencyPath()
+    {
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        Assert.Throws<ArgumentException>(() =>
+            _viewModelDependencyService!.RegisterDependency(
+                dependent,
+                x => x.Value,
+                dependency,
+                x => x.Container!.Value,
+                out _
+            )
+        );
+    }
+
     private static IEnumerable InvalidDependentPropertiesTestCases()
     {
         Expression<Func<DependentVM, int>> property1 = vm => 42;
