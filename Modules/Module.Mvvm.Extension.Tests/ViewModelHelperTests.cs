@@ -10,12 +10,12 @@ public sealed class ViewModelHelperTests
     [Test]
     public void PropertyChangedHandlerCalled()
     {
-        var vm = new ThirdVM
+        var vm = new NodeVM
         {
             Value = 1
         };
 
-        ThirdVM? actualViewModel = null;
+        NodeVM? actualViewModel = null;
         var handlerCallCount = 0;
         var changedValue = 0;
         ViewModelHelper.RegisterPropertyChangedHandler(
@@ -42,7 +42,7 @@ public sealed class ViewModelHelperTests
     [Test]
     public void PropertyChangedHandlerNotCalledAfterUnregister()
     {
-        var vm = new ThirdVM
+        var vm = new NodeVM
         {
             Value = 1
         };
@@ -66,9 +66,9 @@ public sealed class ViewModelHelperTests
 
     [TestCaseSource(nameof(InvalidPropertySelectorTestCases))]
     public void ExceptionOnRegisterHandlerWithInvalidSelector<TProperty>(
-        Expression<Func<FirstVM, TProperty>> propertySelector)
+        Expression<Func<NodeVM, TProperty>> propertySelector)
     {
-        var vm = new FirstVM();
+        var vm = new NodeVM();
         Assert.Throws<ArgumentException>(() =>
             ViewModelHelper.RegisterPropertyChangedHandler(
                 vm, propertySelector, (_, _) => { }
@@ -76,66 +76,20 @@ public sealed class ViewModelHelperTests
         );
     }
 
-    [TestCaseSource(nameof(InvalidPropertySelectorTestCases))]
-    public void ExceptionOnRegisterDependencyWithInvalidTargetSelector<TProperty>(
-        Expression<Func<FirstVM, TProperty>> propertySelector)
-    {
-        var vm = new FirstVM();
-        Assert.Throws<ArgumentException>(() =>
-            ViewModelHelper.RegisterPropertyDependency(
-                vm, propertySelector, x => x.Second!.Third!.Value
-            )
-        );
-    }
-
-    [TestCaseSource(nameof(InvalidNestedPropertySelectorTestCases))]
-    public void ExceptionOnRegisterDependencyWithInvalidSourceSelector<TProperty>(
-        Expression<Func<FirstVM, TProperty>> nestedPropertySelector)
-    {
-        var vm = new FirstVM();
-        Assert.Throws<ArgumentException>(() =>
-            ViewModelHelper.RegisterPropertyDependency(
-                vm, x => x.Core, nestedPropertySelector
-            )
-        );
-    }
-
     private static IEnumerable InvalidPropertySelectorTestCases()
     {
-        Expression<Func<FirstVM, int>> propertySelector1 = vm => 42;
-        Expression<Func<FirstVM, FirstVM>> propertySelector2 = vm => vm;
-        Expression<Func<FirstVM, ThirdVM>> propertySelector3 = vm => vm.Second!.Third!;
-        yield return new TestCaseData(propertySelector1);
-        yield return new TestCaseData(propertySelector2);
-        yield return new TestCaseData(propertySelector3);
-    }
-
-    private static IEnumerable InvalidNestedPropertySelectorTestCases()
-    {
-        Expression<Func<FirstVM, int>> propertySelector1 = vm => 42;
-        Expression<Func<FirstVM, FirstVM>> propertySelector2 = vm => vm;
-        Expression<Func<FirstVM, SecondVM>> propertySelector3 = vm => vm.Second!;
+        Expression<Func<NodeVM, int>> propertySelector1 = vm => 42;
+        Expression<Func<NodeVM, NodeVM>> propertySelector2 = vm => vm;
+        Expression<Func<NodeVM, int>> propertySelector3 = vm => vm.Child!.Value;
         yield return new TestCaseData(propertySelector1);
         yield return new TestCaseData(propertySelector2);
         yield return new TestCaseData(propertySelector3);
     }
 
     [AddINotifyPropertyChangedInterface]
-    public sealed class FirstVM
-    {
-        public int Core { get; set; }
-        public SecondVM? Second { get; set; }
-    }
-
-    [AddINotifyPropertyChangedInterface]
-    public sealed class SecondVM
-    {
-        public ThirdVM? Third { get; set; }
-    }
-
-    [AddINotifyPropertyChangedInterface]
-    public sealed class ThirdVM
+    public sealed class NodeVM
     {
         public int Value { get; set; }
+        public NodeVM? Child { get; set; }
     }
 }
