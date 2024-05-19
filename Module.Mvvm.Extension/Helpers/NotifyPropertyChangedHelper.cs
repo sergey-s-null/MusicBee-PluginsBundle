@@ -24,12 +24,7 @@ public static class NotifyPropertyChangedHelper
     private static FieldInfo GetPropertyChangedFieldInfo(object viewModel)
     {
         var type = viewModel.GetType();
-        var propertyChangedFieldInfo = type.GetField(
-            nameof(INotifyPropertyChanged.PropertyChanged),
-            BindingFlags.Instance | BindingFlags.NonPublic
-        );
-
-        if (propertyChangedFieldInfo is null)
+        if (!TryGetPropertyChangedFieldInfoInClassHierarchy(type, out var propertyChangedFieldInfo))
         {
             throw new InvalidOperationException(
                 $"Could not get field \"{nameof(INotifyPropertyChanged.PropertyChanged)}\" from type {type}. Value is null."
@@ -37,5 +32,40 @@ public static class NotifyPropertyChangedHelper
         }
 
         return propertyChangedFieldInfo;
+    }
+
+    private static bool TryGetPropertyChangedFieldInfoInClassHierarchy(Type rootType, out FieldInfo fieldInfo)
+    {
+        foreach (var type in EnumerateTypesHierarchy(rootType))
+        {
+            if (TryGetPropertyChangedField(type, out fieldInfo))
+            {
+                return true;
+            }
+        }
+
+        fieldInfo = null!;
+        return false;
+    }
+
+    private static IEnumerable<Type> EnumerateTypesHierarchy(Type type)
+    {
+        var typeTemp = type;
+        while (typeTemp is not null)
+        {
+            yield return typeTemp;
+            typeTemp = typeTemp.BaseType;
+        }
+    }
+
+    private static bool TryGetPropertyChangedField(Type type, out FieldInfo fieldInfo)
+    {
+        var propertyChangedFieldInfo = type.GetField(
+            nameof(INotifyPropertyChanged.PropertyChanged),
+            BindingFlags.Instance | BindingFlags.NonPublic
+        );
+
+        fieldInfo = propertyChangedFieldInfo!;
+        return propertyChangedFieldInfo is not null;
     }
 }
