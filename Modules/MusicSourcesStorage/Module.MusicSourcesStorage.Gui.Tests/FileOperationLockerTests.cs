@@ -20,16 +20,29 @@ public sealed class FileOperationLockerTests
     [Test]
     public void FileNotLockedByDefault()
     {
+        // ARRANGE
+        var fileId = GetRandomFileId();
+
+        // ACT
+        var isLocked = _locker!.IsLocked(fileId);
+
+        // ASSERT
+        Assert.That(isLocked, Is.False);
+    }
+
+    [Test]
+    public void EventNotRaisedOnIsLockedCheck()
+    {
+        // ARRANGE
         var lockStateChanged = false;
         _locker!.LockStateChanged += (_, _) => lockStateChanged = true;
         var fileId = GetRandomFileId();
-        var isLocked = _locker.IsLocked(fileId);
 
-        Assert.Multiple(() =>
-        {
-            Assert.That(isLocked, Is.False);
-            Assert.That(lockStateChanged, Is.False);
-        });
+        // ACT
+        _locker.IsLocked(fileId);
+
+        // ASSERT
+        Assert.That(lockStateChanged, Is.False);
     }
 
     [Test]
