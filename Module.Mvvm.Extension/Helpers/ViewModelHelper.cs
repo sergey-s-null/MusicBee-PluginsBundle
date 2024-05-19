@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
+using CommunityToolkit.Diagnostics;
 
 namespace Module.Mvvm.Extension.Helpers;
 
@@ -39,7 +40,9 @@ public static class ViewModelHelper
         Action<TViewModel, object> handler,
         out Action unregisterHandler)
     {
-        var type = typeof(TViewModel);
+        Guard.IsNotNull(viewModel);
+
+        var type = viewModel.GetType();
         var getMethod = GetPropertyGetMethod(type, propertyName);
 
         RegisterPropertyChangedHandler(

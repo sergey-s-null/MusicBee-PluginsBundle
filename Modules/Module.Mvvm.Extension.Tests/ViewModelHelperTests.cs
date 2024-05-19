@@ -77,6 +77,30 @@ public sealed class ViewModelHelperTests
     }
 
     [Test]
+    public void PropertyChangedHandlerCalledWhenViewModelPassedAsObject()
+    {
+        // ARRANGE
+        var vm = new NodeVM
+        {
+            Value = 1
+        };
+
+        var handlerCalledCount = 0;
+        ViewModelHelper.RegisterPropertyChangedHandler(
+            (object)vm,
+            nameof(NodeVM.Value),
+            (_, _) => handlerCalledCount++,
+            out _
+        );
+
+        // ACT
+        vm.Value = 42;
+
+        // ASSERT
+        Assert.That(handlerCalledCount, Is.EqualTo(1));
+    }
+
+    [Test]
     public void PropertyChangedHandlerNotCalledAfterUnregister()
     {
         var vm = new NodeVM
