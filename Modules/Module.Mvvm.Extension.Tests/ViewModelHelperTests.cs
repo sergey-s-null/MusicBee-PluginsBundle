@@ -16,7 +16,7 @@ public sealed class ViewModelHelperTests
         };
 
         NodeVM? actualViewModel = null;
-        var handlerCallCount = 0;
+        var handlerCalledCount = 0;
         var changedValue = 0;
         ViewModelHelper.RegisterPropertyChangedHandler(
             vm,
@@ -24,7 +24,7 @@ public sealed class ViewModelHelperTests
             (viewModel, value) =>
             {
                 actualViewModel = viewModel;
-                handlerCallCount++;
+                handlerCalledCount++;
                 changedValue = value;
             }
         );
@@ -32,7 +32,7 @@ public sealed class ViewModelHelperTests
         vm.Value = 42;
         Assert.Multiple(() =>
         {
-            Assert.That(handlerCallCount, Is.EqualTo(1));
+            Assert.That(handlerCalledCount, Is.EqualTo(1));
             Assert.That(changedValue, Is.EqualTo(42));
             Assert.That(actualViewModel, Is.Not.Null);
         });
@@ -47,21 +47,21 @@ public sealed class ViewModelHelperTests
             Value = 1
         };
 
-        var handlerCallCount = 0;
+        var handlerCalledCount = 0;
         ViewModelHelper.RegisterPropertyChangedHandler(
             vm,
             x => x.Value,
-            (_, _) => handlerCallCount++,
+            (_, _) => handlerCalledCount++,
             out var unregisterHandler
         );
 
         vm.Value = 42;
-        Assert.That(handlerCallCount, Is.EqualTo(1));
+        Assert.That(handlerCalledCount, Is.EqualTo(1));
 
         unregisterHandler();
 
         vm.Value = 100;
-        Assert.That(handlerCallCount, Is.EqualTo(1));
+        Assert.That(handlerCalledCount, Is.EqualTo(1));
     }
 
     [TestCaseSource(nameof(InvalidPropertySelectorTestCases))]
