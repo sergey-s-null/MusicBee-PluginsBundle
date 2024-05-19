@@ -7,7 +7,13 @@ namespace Module.Mvvm.Extension.Entities;
 
 public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency, TDependencyProperty>
 {
+    private readonly TDependent _dependentViewModel;
+    private readonly TDependency _dependencyViewModel;
+    private readonly PropertyDescriptor _dependentPropertyDescriptor;
+    private readonly IReadOnlyList<PropertyDescriptor> _dependencyPropertyDescriptors;
     private readonly Stack<Action> _unregisters = new();
+
+    private bool _isRegistered;
 
     public DependencyHolder(
         TDependent dependentViewModel,
@@ -20,43 +26,38 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         Guard.IsNotNull(dependencyViewModel);
         Guard.IsNotNull(dependencyProperty);
 
-        var dependentPropertyDescriptor = BuildSinglePropertyDescriptor(dependentProperty);
-        var dependencyPropertyDescriptors = BuildPropertyDescriptors(dependencyProperty);
+        _dependentViewModel = dependentViewModel;
+        _dependencyViewModel = dependencyViewModel;
+        _dependentPropertyDescriptor = BuildSinglePropertyDescriptor(dependentProperty);
+        _dependencyPropertyDescriptors = BuildPropertyDescriptors(dependencyProperty);
+    }
 
-        object viewModel = dependencyViewModel;
-        foreach (var dependencyPropertyDescriptor in dependencyPropertyDescriptors)
+    public void Register()
+    {
+        if (_isRegistered)
         {
-            if (viewModel is null)
-            {
-                break;
-            }
-
-            ViewModelHelper.RegisterPropertyChangedHandler(
-                viewModel,
-                dependencyPropertyDescriptor.Name,
-                (_, _) =>
-                {
-                    NotifyPropertyChangedHelper.RaisePropertyChangedEvent(
-                        dependentViewModel,
-                        dependentPropertyDescriptor.Name
-                    );
-                },
-                out var unregisterHandler
-            );
-
-            _unregisters.Push(unregisterHandler);
-
-            viewModel = dependencyPropertyDescriptor.ValueSelector(viewModel);
+            throw new InvalidOperationException("Already registered.");
         }
+
+        RegisterHandlersUnder(_dependencyViewModel, 0);
+
+        _isRegistered = true;
     }
 
     public void Unregister()
     {
+        if (!_isRegistered)
+        {
+            throw new InvalidOperationException("Already unregistered.");
+        }
+
         while (_unregisters.Count > 0)
         {
             var unregister = _unregisters.Pop();
             unregister();
         }
+
+        _isRegistered = false;
     }
 
     private static PropertyDescriptor BuildSinglePropertyDescriptor<T, TProperty>(
@@ -95,6 +96,7 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         descriptors.Reverse();
         return descriptors;
     }
+
 
     private static IEnumerable<PropertyDescriptor> EnumeratePropertyDescriptors(Expression expression)
     {
@@ -160,5 +162,60 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         }
 
         return propertyInfo;
+    }
+
+    private void RegisterHandlersUnder(object? root, int startIndex)
+    {
+        var item = root;
+        for (var i = startIndex; i < _dependencyPropertyDescriptors.Count; i++)
+        {
+            if (item is null)
+            {
+                break;
+            }
+
+            var descriptor = _dependencyPropertyDescriptors[i];
+
+            RegisterPropertyChangedHandler(item, descriptor.Name, i, out var unregisterHandler);
+            _unregisters.Push(unregisterHandler);
+
+            item = descriptor.ValueSelector(item);
+        }
+    }
+
+    private void RegisterPropertyChangedHandler(
+        object item,
+        string propertyName,
+        int propertyIndex,
+        out Action unregisterHandler)
+    {
+        ViewModelHelper.RegisterPropertyChangedHandler(
+            item,
+            propertyName,
+            (_, value) =>
+            {
+                UnregisterUpToExclusively(propertyIndex);
+                RegisterHandlersUnder(value, propertyIndex + 1);
+                RaiseDependentPropertyChanged();
+            },
+            out unregisterHandler
+        );
+    }
+
+    private void UnregisterUpToExclusively(int propertyIndex)
+    {
+        while (_unregisters.Count > propertyIndex + 1)
+        {
+            var unregister = _unregisters.Pop();
+            unregister();
+        }
+    }
+
+    private void RaiseDependentPropertyChanged()
+    {
+        NotifyPropertyChangedHelper.RaisePropertyChangedEvent(
+            _dependentViewModel!,
+            _dependentPropertyDescriptor.Name
+        );
     }
 }
