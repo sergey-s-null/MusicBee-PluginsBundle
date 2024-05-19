@@ -7,14 +7,14 @@ namespace Module.Mvvm.Extension.Services;
 public sealed class ViewModelDependencyService : IViewModelDependencyService
 {
     public void RegisterDependency<TDependent, TDependentProperty, TDependency, TDependencyProperty>(
-        TDependent dependentViewModel,
+        TDependent dependentObject,
         Expression<Func<TDependent, TDependentProperty>> dependentProperty,
-        TDependency dependencyViewModel,
+        TDependency dependencyObject,
         Expression<Func<TDependency, TDependencyProperty>> dependencyProperty,
         out Action unregisterDependency)
     {
         var dependency = new DependencyHolder<TDependent, TDependentProperty, TDependency, TDependencyProperty>(
-            dependentViewModel, dependentProperty, dependencyViewModel, dependencyProperty
+            dependentObject, dependentProperty, dependencyObject, dependencyProperty
         );
 
         dependency.Register();

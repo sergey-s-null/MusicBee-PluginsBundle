@@ -20,15 +20,15 @@ public interface IViewModelDependencyService
     /// </code>
     /// In this case <c>firstObject</c> will raise event when either <c>secondObject.Settings</c> or <c>secondObject.Settings.Value</c> changed.
     /// </summary>
-    /// <param name="dependentViewModel">Dependent object implementing <see cref="INotifyPropertyChanged"/>.</param>
+    /// <param name="dependentObject">Dependent object implementing <see cref="INotifyPropertyChanged"/>.</param>
     /// <param name="dependentProperty">Direct dependent property.</param>
-    /// <param name="dependencyViewModel">Dependency object implementing <see cref="INotifyPropertyChanged"/>.</param>
+    /// <param name="dependencyObject">Dependency object implementing <see cref="INotifyPropertyChanged"/>.</param>
     /// <param name="dependencyProperty">Dependency property path.</param>
     /// <param name="unregisterDependency">Callback to unregister dependency.</param>
     void RegisterDependency<TDependent, TDependentProperty, TDependency, TDependencyProperty>(
-        TDependent dependentViewModel,
+        TDependent dependentObject,
         Expression<Func<TDependent, TDependentProperty>> dependentProperty,
-        TDependency dependencyViewModel,
+        TDependency dependencyObject,
         Expression<Func<TDependency, TDependencyProperty>> dependencyProperty,
         out Action unregisterDependency
     );

@@ -8,8 +8,8 @@ namespace Module.Mvvm.Extension.Entities;
 
 public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency, TDependencyProperty>
 {
-    private readonly TDependent _dependentViewModel;
-    private readonly TDependency _dependencyViewModel;
+    private readonly TDependent _dependentObject;
+    private readonly TDependency _dependencyObject;
     private readonly PropertyDescriptor _dependentPropertyDescriptor;
     private readonly IReadOnlyList<PropertyDescriptor> _dependencyPropertyDescriptors;
     private readonly Stack<Action> _unregisters = new();
@@ -17,18 +17,18 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
     private bool _isRegistered;
 
     public DependencyHolder(
-        TDependent dependentViewModel,
+        TDependent dependentObject,
         Expression<Func<TDependent, TDependentProperty>> dependentProperty,
-        TDependency dependencyViewModel,
+        TDependency dependencyObject,
         Expression<Func<TDependency, TDependencyProperty>> dependencyProperty)
     {
-        Guard.IsNotNull(dependentViewModel);
+        Guard.IsNotNull(dependentObject);
         Guard.IsNotNull(dependentProperty);
-        Guard.IsNotNull(dependencyViewModel);
+        Guard.IsNotNull(dependencyObject);
         Guard.IsNotNull(dependencyProperty);
 
-        _dependentViewModel = dependentViewModel;
-        _dependencyViewModel = dependencyViewModel;
+        _dependentObject = dependentObject;
+        _dependencyObject = dependencyObject;
         _dependentPropertyDescriptor = BuildSinglePropertyDescriptor(dependentProperty);
         _dependencyPropertyDescriptors = BuildPropertyDescriptors(dependencyProperty);
 
@@ -42,7 +42,7 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
             throw new InvalidOperationException("Already registered.");
         }
 
-        RegisterHandlersUnder(_dependencyViewModel, 0);
+        RegisterHandlersUnder(_dependencyObject, 0);
 
         _isRegistered = true;
     }
@@ -228,7 +228,7 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
     private void RaiseDependentPropertyChanged()
     {
         NotifyPropertyChangedHelper.RaisePropertyChangedEvent(
-            _dependentViewModel!,
+            _dependentObject!,
             _dependentPropertyDescriptor.Name
         );
     }
