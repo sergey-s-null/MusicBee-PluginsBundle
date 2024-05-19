@@ -158,6 +158,33 @@ public class ViewModelDependencyServiceTests
     }
 
     [Test]
+    public void EventNotRaisedWhenUnregistered()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        _viewModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Number,
+            out var unregisterDependency
+        );
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        dependentInterface.PropertyChanged += (_, _) => eventRaisedCount++;
+
+        // ACT
+        unregisterDependency();
+        dependency.Number = 42;
+
+        // ASSERT
+        Assert.That(eventRaisedCount, Is.EqualTo(0));
+    }
+
+    [Test]
     public void EventNotRaisedWhenNeighboringPropertyChanged()
     {
         // ARRANGE
