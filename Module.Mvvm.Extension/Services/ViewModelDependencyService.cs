@@ -1,7 +1,10 @@
-﻿using System.Linq.Expressions;
+﻿using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Reflection;
-using Module.Mvvm.Extension.Entities;
+using CommunityToolkit.Diagnostics;
+using Module.Mvvm.Extension.Helpers;
 using Module.Mvvm.Extension.Services.Abstract;
+using PropertyDescriptor = Module.Mvvm.Extension.Entities.PropertyDescriptor;
 
 namespace Module.Mvvm.Extension.Services;
 
@@ -14,10 +17,34 @@ public sealed class ViewModelDependencyService : IViewModelDependencyService
         Expression<Func<TDependency, TDependencyProperty>> dependencyProperty,
         out Action unregisterDependency)
     {
-        var a = BuildSinglePropertyDescriptor(dependentProperty);
-        var b = BuildPropertyDescriptors(dependencyProperty);
+        Guard.IsNotNull(dependentViewModel);
+        Guard.IsNotNull(dependentProperty);
+        Guard.IsNotNull(dependencyViewModel);
+        Guard.IsNotNull(dependencyProperty);
 
-        throw new NotImplementedException();
+        var dependentPropertyDescriptor = BuildSinglePropertyDescriptor(dependentProperty);
+        var dependencyPropertyDescriptors = BuildPropertyDescriptors(dependencyProperty);
+
+        object viewModel = dependencyViewModel;
+        foreach (var dependencyPropertyDescriptor in dependencyPropertyDescriptors)
+        {
+            if (viewModel is null)
+            {
+                break;
+            }
+
+            ViewModelHelper.RegisterPropertyChangedHandler(
+                viewModel,
+                dependencyPropertyDescriptor.Name,
+                (_, _) => { RaisePropertyChangedEvent(dependentViewModel, dependentPropertyDescriptor.Name); },
+                out _
+            );
+
+            viewModel = dependencyPropertyDescriptor.ValueSelector(viewModel);
+        }
+
+        unregisterDependency = null;
+        // throw new NotImplementedException();
     }
 
     private static PropertyDescriptor BuildSinglePropertyDescriptor<T, TProperty>(
@@ -95,6 +122,40 @@ public sealed class ViewModelDependencyService : IViewModelDependencyService
             propertyName,
             x => propertyGetMethod.Invoke(x, new object[] { })
         );
+    }
+
+    private static void RaisePropertyChangedEvent(object viewModel, string propertyName)
+    {
+        var propertyChangedFieldInfo = GetPropertyChangedFieldInfo(viewModel);
+        var eventDelegate = (MulticastDelegate)propertyChangedFieldInfo.GetValue(viewModel);
+        if (eventDelegate is null)
+        {
+            return;
+        }
+
+        foreach (var handler in eventDelegate.GetInvocationList())
+        {
+            var args = new PropertyChangedEventArgs(propertyName);
+            handler.Method.Invoke(handler.Target, new[] { viewModel, args });
+        }
+    }
+
+    private static FieldInfo GetPropertyChangedFieldInfo(object viewModel)
+    {
+        var type = viewModel.GetType();
+        var propertyChangedFieldInfo = type.GetField(
+            nameof(INotifyPropertyChanged.PropertyChanged),
+            BindingFlags.Instance | BindingFlags.NonPublic
+        );
+
+        if (propertyChangedFieldInfo is null)
+        {
+            throw new InvalidOperationException(
+                $"Could not get field \"{nameof(INotifyPropertyChanged.PropertyChanged)}\" from type {type}. Value is null."
+            );
+        }
+
+        return propertyChangedFieldInfo;
     }
 
     private static Type GetDeclaringType(MemberInfo member)
