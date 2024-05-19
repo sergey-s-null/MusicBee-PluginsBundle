@@ -158,6 +158,32 @@ public class ViewModelDependencyServiceTests
     }
 
     [Test]
+    public void EventNotRaisedWhenNeighboringPropertyChanged()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        _viewModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Child,
+            out _
+        );
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        dependentInterface.PropertyChanged += (_, _) => eventRaisedCount++;
+
+        // ACT
+        dependency.Number = 42;
+
+        // ASSERT
+        Assert.That(eventRaisedCount, Is.EqualTo(0));
+    }
+
+    [Test]
     public void EventNotRaisedWhenPropertyChangedInObjectRemovedFromDependencyChain()
     {
         // ARRANGE
