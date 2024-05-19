@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Reflection;
 using CommunityToolkit.Diagnostics;
 using Module.Mvvm.Extension.Helpers;
@@ -30,6 +31,8 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         _dependencyViewModel = dependencyViewModel;
         _dependentPropertyDescriptor = BuildSinglePropertyDescriptor(dependentProperty);
         _dependencyPropertyDescriptors = BuildPropertyDescriptors(dependencyProperty);
+
+        Guard.HasSizeGreaterThan(_dependencyPropertyDescriptors, 0);
     }
 
     public void Register()
@@ -127,6 +130,7 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         }
 
         var declaringType = GetDeclaringType(member);
+        CheckImplementNotifyPropertyChanged(declaringType);
 
         var propertyName = member.Name;
         var propertyInfo = GetPropertyInfo(declaringType, propertyName);
@@ -149,6 +153,16 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         }
 
         return declaringType;
+    }
+
+    private static void CheckImplementNotifyPropertyChanged(Type type)
+    {
+        if (!typeof(INotifyPropertyChanged).IsAssignableFrom(type))
+        {
+            throw new ArgumentException(
+                $"Type {type} does not implement interface {nameof(INotifyPropertyChanged)}."
+            );
+        }
     }
 
     private static PropertyInfo GetPropertyInfo(Type type, string propertyName)
