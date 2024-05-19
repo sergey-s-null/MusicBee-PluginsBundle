@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Module.Mvvm.Extension.Services.Abstract;
 
-public interface IViewModelDependencyService
+public interface IComponentModelDependencyService
 {
     /// <summary>
     /// Create dependency based on <see cref="INotifyPropertyChanged"/>.<br/>

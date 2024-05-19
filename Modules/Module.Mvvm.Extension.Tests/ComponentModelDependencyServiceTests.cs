@@ -9,14 +9,14 @@ using Module.Mvvm.Extension.Tests.ViewModels;
 
 namespace Module.Mvvm.Extension.Tests;
 
-public class ViewModelDependencyServiceTests
+public class ComponentModelDependencyServiceTests
 {
-    private IViewModelDependencyService? _viewModelDependencyService;
+    private IComponentModelDependencyService? _componentModelDependencyService;
 
     [SetUp]
     public void Setup()
     {
-        _viewModelDependencyService = new ViewModelDependencyService();
+        _componentModelDependencyService = new ComponentModelDependencyService();
     }
 
     [Test]
@@ -25,7 +25,7 @@ public class ViewModelDependencyServiceTests
         var dependent = new DependentVM();
         var dependency = new DependencyVM();
 
-        _viewModelDependencyService!.RegisterDependency(
+        _componentModelDependencyService!.RegisterDependency(
             dependent,
             x => x.Value,
             dependency,
@@ -41,7 +41,7 @@ public class ViewModelDependencyServiceTests
         var dependent = new DependentVM();
         var dependency = new DependencyVM();
 
-        _viewModelDependencyService!.RegisterDependency(
+        _componentModelDependencyService!.RegisterDependency(
             dependent,
             x => x.Value,
             dependency,
@@ -85,7 +85,7 @@ public class ViewModelDependencyServiceTests
             }
         };
 
-        _viewModelDependencyService!.RegisterDependency(
+        _componentModelDependencyService!.RegisterDependency(
             dependent,
             x => x.Value,
             dependency,
@@ -111,7 +111,7 @@ public class ViewModelDependencyServiceTests
         var dependent = new DependentVM();
         var dependency = new DependencyVM();
 
-        _viewModelDependencyService!.RegisterDependency(
+        _componentModelDependencyService!.RegisterDependency(
             dependent,
             x => x.Value,
             dependency,
@@ -137,7 +137,7 @@ public class ViewModelDependencyServiceTests
         var dependent = new DependentVM();
         var dependency = new DependencyVM();
 
-        _viewModelDependencyService!.RegisterDependency(
+        _componentModelDependencyService!.RegisterDependency(
             dependent,
             x => x.Value,
             dependency,
@@ -164,7 +164,7 @@ public class ViewModelDependencyServiceTests
         var dependent = new DependentVM();
         var dependency = new DependencyVM();
 
-        _viewModelDependencyService!.RegisterDependency(
+        _componentModelDependencyService!.RegisterDependency(
             dependent,
             x => x.Value,
             dependency,
@@ -191,7 +191,7 @@ public class ViewModelDependencyServiceTests
         var dependent = new DependentVM();
         var dependency = new DependencyVM();
 
-        _viewModelDependencyService!.RegisterDependency(
+        _componentModelDependencyService!.RegisterDependency(
             dependent,
             x => x.Value,
             dependency,
@@ -221,7 +221,7 @@ public class ViewModelDependencyServiceTests
             Child = previousChild
         };
 
-        _viewModelDependencyService!.RegisterDependency(
+        _componentModelDependencyService!.RegisterDependency(
             dependent,
             x => x.Value,
             dependency,
@@ -252,7 +252,7 @@ public class ViewModelDependencyServiceTests
         var dependency = new DependencyVM();
 
         Assert.Throws<ArgumentException>(() =>
-            _viewModelDependencyService!.RegisterDependency(
+            _componentModelDependencyService!.RegisterDependency(
                 dependent,
                 invalidDependentProperty,
                 dependency,
@@ -270,7 +270,7 @@ public class ViewModelDependencyServiceTests
         var dependency = new DependencyVM();
 
         Assert.Throws<ArgumentException>(() =>
-            _viewModelDependencyService!.RegisterDependency(
+            _componentModelDependencyService!.RegisterDependency(
                 dependent,
                 x => x.Value,
                 dependency,
@@ -287,7 +287,7 @@ public class ViewModelDependencyServiceTests
         var dependency = new DependencyVM();
 
         Assert.Throws<ArgumentException>(() =>
-            _viewModelDependencyService!.RegisterDependency(
+            _componentModelDependencyService!.RegisterDependency(
                 dependent,
                 x => x.Value,
                 dependency,

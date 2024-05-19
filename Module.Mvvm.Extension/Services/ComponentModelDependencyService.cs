@@ -4,7 +4,7 @@ using Module.Mvvm.Extension.Services.Abstract;
 
 namespace Module.Mvvm.Extension.Services;
 
-public sealed class ViewModelDependencyService : IViewModelDependencyService
+public sealed class ComponentModelDependencyService : IComponentModelDependencyService
 {
     public void RegisterDependency<TDependent, TDependentProperty, TDependency, TDependencyProperty>(
         TDependent dependentObject,
