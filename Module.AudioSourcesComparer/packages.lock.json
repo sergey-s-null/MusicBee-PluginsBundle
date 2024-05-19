@@ -234,6 +234,7 @@
       "module.mvvm.extension": {
         "type": "Project",
         "dependencies": {
+          "Autofac": "[6.5.0, )",
           "CommunityToolkit.Diagnostics": "[8.2.2, )"
         }
       },
