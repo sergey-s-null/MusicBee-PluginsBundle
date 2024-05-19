@@ -20,6 +20,5 @@ public sealed class ViewModelDependencyService : IViewModelDependencyService
         dependency.Register();
 
         unregisterDependency = () => dependency.Unregister();
-        // throw new NotImplementedException();
     }
 }
