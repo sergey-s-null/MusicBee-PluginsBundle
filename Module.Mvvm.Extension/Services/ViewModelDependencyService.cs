@@ -25,6 +25,8 @@ public sealed class ViewModelDependencyService : IViewModelDependencyService
         var dependentPropertyDescriptor = BuildSinglePropertyDescriptor(dependentProperty);
         var dependencyPropertyDescriptors = BuildPropertyDescriptors(dependencyProperty);
 
+        var unregisters = new List<Action>();
+
         object viewModel = dependencyViewModel;
         foreach (var dependencyPropertyDescriptor in dependencyPropertyDescriptors)
         {
@@ -37,13 +39,21 @@ public sealed class ViewModelDependencyService : IViewModelDependencyService
                 viewModel,
                 dependencyPropertyDescriptor.Name,
                 (_, _) => { RaisePropertyChangedEvent(dependentViewModel, dependentPropertyDescriptor.Name); },
-                out _
+                out var unregisterHandler
             );
+
+            unregisters.Add(unregisterHandler);
 
             viewModel = dependencyPropertyDescriptor.ValueSelector(viewModel);
         }
 
-        unregisterDependency = null;
+        unregisterDependency = () =>
+        {
+            foreach (var unregister in unregisters)
+            {
+                unregister();
+            }
+        };
         // throw new NotImplementedException();
     }
 
