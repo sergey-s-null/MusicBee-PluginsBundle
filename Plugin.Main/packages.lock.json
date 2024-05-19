@@ -20,6 +20,14 @@
           "System.Diagnostics.DiagnosticSource": "4.7.1"
         }
       },
+      "CommunityToolkit.Diagnostics": {
+        "type": "Transitive",
+        "resolved": "8.2.2",
+        "contentHash": "iILVyo7VvzTlQT7b2qOs1ZDcneKsmuy2mTuxCCaBWEfg3tjw35B/ImO9Xw6It7xi2ie8/2PWfXhFn+Prztg03w==",
+        "dependencies": {
+          "System.Memory": "4.5.5"
+        }
+      },
       "EntityFramework": {
         "type": "Transitive",
         "resolved": "6.4.4",
@@ -420,7 +428,10 @@
         }
       },
       "module.mvvm.extension": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "CommunityToolkit.Diagnostics": "[8.2.2, )"
+        }
       },
       "module.playlistsexporter": {
         "type": "Project",
