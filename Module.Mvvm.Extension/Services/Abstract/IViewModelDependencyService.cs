@@ -10,7 +10,7 @@ public interface IViewModelDependencyService
     /// <b>Example</b>:<br/>
     /// If property <c>firstObject.Value</c> should depends on <c>secondObject.Settings.Value</c> then you should write
     /// <code>
-    /// IViewModelDependencyService.RegisterDependency(
+    /// RegisterDependency(
     ///     firstObject,
     ///     x => x.Value,
     ///     secondObject,
