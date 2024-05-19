@@ -40,6 +40,43 @@ public sealed class ViewModelHelperTests
     }
 
     [Test]
+    public void PropertyChangedHandlerCalledWhenRegisteredByPropertyName()
+    {
+        // ARRANGE
+        var vm = new NodeVM
+        {
+            Value = 1
+        };
+
+        NodeVM? actualViewModel = null;
+        var handlerCalledCount = 0;
+        object? changedValue = null;
+        ViewModelHelper.RegisterPropertyChangedHandler(
+            vm,
+            nameof(NodeVM.Value),
+            (viewModel, value) =>
+            {
+                actualViewModel = viewModel;
+                handlerCalledCount++;
+                changedValue = value;
+            },
+            out _
+        );
+
+        // ACT
+        vm.Value = 42;
+
+        // ASSERT
+        Assert.Multiple(() =>
+        {
+            Assert.That(handlerCalledCount, Is.EqualTo(1));
+            Assert.That(changedValue, Is.EqualTo(42));
+            Assert.That(actualViewModel, Is.Not.Null);
+        });
+        Assert.That(actualViewModel, Is.EqualTo(vm));
+    }
+
+    [Test]
     public void PropertyChangedHandlerNotCalledAfterUnregister()
     {
         var vm = new NodeVM
