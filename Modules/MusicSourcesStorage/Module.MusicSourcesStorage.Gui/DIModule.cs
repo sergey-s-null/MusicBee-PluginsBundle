@@ -136,6 +136,9 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<DownloadFileCommand>()
             .AsSelf();
+        builder
+            .RegisterType<DeleteFileCommand>()
+            .AsSelf();
     }
 
     private static void RegisterServices(ContainerBuilder builder)
