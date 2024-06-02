@@ -1,9 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Module.Core.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Commands;
-using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Extensions;
@@ -24,7 +22,10 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     public override string Path { get; }
 
     [DependsOn(nameof(IsProcessingInternal))]
-    public bool IsProcessing => IsProcessingInternal || _downloadCmd.IsProcessing;
+    public bool IsProcessing => IsProcessingInternal
+                                || _downloadCmd.IsProcessing
+                                || _deleteCmd.IsProcessing
+                                || _deleteNoPromptCmd.IsProcessing;
 
     [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
     public bool CanDownload => !IsDownloaded && !IsProcessing;
@@ -49,14 +50,14 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     #region Commands
 
     public ICommand Download => _downloadCmd;
-    public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
-    public ICommand DeleteNoPrompt => _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
+    public ICommand Delete => _deleteCmd;
+    public ICommand DeleteNoPrompt => _deleteNoPromptCmd;
     public ICommand SelectAsCover => _selectAsCoverCmd ??= new RelayCommand(SelectAsCoverCmd);
     public ICommand RemoveCover => _removeCoverCmd ??= new RelayCommand(RemoveCoverCmd);
 
     private readonly DownloadFileCommand _downloadCmd;
-    private ICommand? _deleteCmd;
-    private ICommand? _deleteNoPromptCmd;
+    private readonly DeleteFileCommand _deleteCmd;
+    private readonly DeleteFileCommand _deleteNoPromptCmd;
     private ICommand? _selectAsCoverCmd;
     private ICommand? _removeCoverCmd;
 
@@ -65,10 +66,8 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     private readonly SemaphoreSlim _lock = new(1);
 
     private readonly int _sourceId;
-    private readonly string _filePath;
     private readonly IUiDispatcherProvider _dispatcherProvider;
     private readonly IFilesLocatingService _filesLocatingService;
-    private readonly IFilesDeletingService _filesDeletingService;
     private readonly ICoverSelectionService _coverSelectionService;
 
     public ConnectedImageFileVM(
@@ -76,32 +75,57 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         IComponentModelDependencyService componentModelDependencyService,
         IUiDispatcherProvider dispatcherProvider,
         IFilesLocatingService filesLocatingService,
-        IFilesDeletingService filesDeletingService,
         ICoverSelectionService coverSelectionService,
-        DownloadFileCommand.Factory downloadFileCommandFactory)
+        DownloadFileCommand.Factory downloadFileCommandFactory,
+        DeleteFileCommand.Factory deleteFileCommandFactory)
     {
         Id = imageFile.Id;
         Name = System.IO.Path.GetFileName(imageFile.Path);
         Path = imageFile.Path;
         _sourceId = imageFile.SourceId;
-        _filePath = imageFile.Path;
         _dispatcherProvider = dispatcherProvider;
         _filesLocatingService = filesLocatingService;
-        _filesDeletingService = filesDeletingService;
         _coverSelectionService = coverSelectionService;
 
         IsCover = imageFile.IsCover;
 
         _downloadCmd = downloadFileCommandFactory(imageFile.Id);
+        _deleteCmd = deleteFileCommandFactory(imageFile.Id, imageFile.Path, askBeforeDelete: true);
+        _deleteNoPromptCmd = deleteFileCommandFactory(imageFile.Id, imageFile.Path, askBeforeDelete: false);
+
+        RegisterCommandHandlers();
+        RegisterCommandDependencies(componentModelDependencyService);
+
+        InitializeAsync();
+    }
+
+    private void RegisterCommandHandlers()
+    {
         _downloadCmd.Downloaded += (_, _) => IsDownloaded = true;
-        componentModelDependencyService.RegisterDependency(
+        _deleteCmd.Deleted += (_, _) => IsDownloaded = false;
+        _deleteNoPromptCmd.Deleted += (_, _) => IsDownloaded = false;
+    }
+
+    private void RegisterCommandDependencies(IComponentModelDependencyService dependencyService)
+    {
+        dependencyService.RegisterDependency(
             this,
             x => x.IsProcessing,
             _downloadCmd,
             x => x.IsProcessing
         );
-
-        InitializeAsync();
+        dependencyService.RegisterDependency(
+            this,
+            x => x.IsProcessing,
+            _deleteCmd,
+            x => x.IsProcessing
+        );
+        dependencyService.RegisterDependency(
+            this,
+            x => x.IsProcessing,
+            _deleteNoPromptCmd,
+            x => x.IsProcessing
+        );
     }
 
     private async void InitializeAsync()
@@ -148,61 +172,6 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     }
 
     #region Commands Implementation
-
-    private async void DeleteCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!CanDelete)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            if (MessageBoxHelper.AskForDeletion(Id, _filePath) != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
-            await DeleteInternalAsync();
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
-
-    private async void DeleteNoPromptCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!CanDelete)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            await DeleteInternalAsync();
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
 
     private async void SelectAsCoverCmd()
     {
@@ -257,12 +226,6 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
             IsProcessingInternal = false;
             _lock.Release();
         }
-    }
-
-    private async Task DeleteInternalAsync()
-    {
-        await _filesDeletingService.DeleteAsync(Id);
-        IsDownloaded = false;
     }
 
     #endregion
