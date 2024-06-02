@@ -11,12 +11,12 @@ namespace Module.MusicSourcesStorage.Gui.Commands;
 
 public sealed class SelectAsCoverCommand : ICommand
 {
-    public event EventHandler? CanExecuteChanged;
-
     private readonly int _fileId;
     private readonly IFileOperationLocker _fileOperationLocker;
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
     private readonly ICoverSelectionService _coverSelectionService;
+
+    public delegate SelectAsCoverCommand Factory(int fileId);
 
     public SelectAsCoverCommand(
         int fileId,
@@ -34,20 +34,30 @@ public sealed class SelectAsCoverCommand : ICommand
         _coverSelectionService.CoverRemoved += OnCoverRemoved;
     }
 
+    public event EventHandler? CanExecuteChanged;
+    public event EventHandler? Selected;
+
+    public bool IsProcessing { get; private set; }
+
     public bool CanExecute(object parameter)
     {
         return !_fileOperationLocker.IsLocked(_fileId)
                && !_musicSourcesStorageService.IsSelectedAsCoverAsync(_fileId).Result;
     }
 
-    public void Execute(object parameter)
+    public async void Execute(object parameter)
     {
         try
         {
             using var _ = _fileOperationLocker.Lock(_fileId, TimeSpan.Zero);
 
-            var task = _coverSelectionService.CreateCoverSelectionTaskAsync(_fileId).Result;
-            task.Activated(new CoverSelectionArgs(true)).Task.Wait();
+            IsProcessing = true;
+
+            var task = await _coverSelectionService.CreateCoverSelectionTaskAsync(_fileId);
+            await task.Activated(new CoverSelectionArgs(true)).Task;
+
+            IsProcessing = false;
+            RaiseSelected();
         }
         catch (LockTimeoutException)
         {
@@ -81,5 +91,10 @@ public sealed class SelectAsCoverCommand : ICommand
     private void RaiseCanExecuteChanged()
     {
         CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void RaiseSelected()
+    {
+        Selected?.Invoke(this, EventArgs.Empty);
     }
 }
