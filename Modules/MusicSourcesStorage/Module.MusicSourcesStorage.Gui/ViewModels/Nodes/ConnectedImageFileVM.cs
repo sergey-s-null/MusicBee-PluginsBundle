@@ -3,8 +3,6 @@ using Module.Core.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Commands;
 using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Entities.Args;
-using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Module.Mvvm.Extension;
 using Module.Mvvm.Extension.Extensions;
@@ -25,7 +23,8 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     public bool IsProcessing => IsProcessingInternal
                                 || _downloadCmd.IsProcessing
                                 || _deleteCmd.IsProcessing
-                                || _deleteNoPromptCmd.IsProcessing;
+                                || _deleteNoPromptCmd.IsProcessing
+                                || _selectAsCoverCmd.IsProcessing;
 
     [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
     public bool CanDownload => !IsDownloaded && !IsProcessing;
@@ -52,13 +51,13 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     public ICommand Download => _downloadCmd;
     public ICommand Delete => _deleteCmd;
     public ICommand DeleteNoPrompt => _deleteNoPromptCmd;
-    public ICommand SelectAsCover => _selectAsCoverCmd ??= new RelayCommand(SelectAsCoverCmd);
+    public ICommand SelectAsCover => _selectAsCoverCmd;
     public ICommand RemoveCover => _removeCoverCmd ??= new RelayCommand(RemoveCoverCmd);
 
     private readonly DownloadFileCommand _downloadCmd;
     private readonly DeleteFileCommand _deleteCmd;
     private readonly DeleteFileCommand _deleteNoPromptCmd;
-    private ICommand? _selectAsCoverCmd;
+    private readonly SelectAsCoverCommand _selectAsCoverCmd;
     private ICommand? _removeCoverCmd;
 
     #endregion
@@ -77,7 +76,8 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         IFilesLocatingService filesLocatingService,
         ICoverSelectionService coverSelectionService,
         DownloadFileCommand.Factory downloadFileCommandFactory,
-        DeleteFileCommand.Factory deleteFileCommandFactory)
+        DeleteFileCommand.Factory deleteFileCommandFactory,
+        SelectAsCoverCommand.Factory selectAsCoverCommandFactory)
     {
         Id = imageFile.Id;
         Name = System.IO.Path.GetFileName(imageFile.Path);
@@ -92,6 +92,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         _downloadCmd = downloadFileCommandFactory(imageFile.Id);
         _deleteCmd = deleteFileCommandFactory(imageFile.Id, imageFile.Path, askBeforeDelete: true);
         _deleteNoPromptCmd = deleteFileCommandFactory(imageFile.Id, imageFile.Path, askBeforeDelete: false);
+        _selectAsCoverCmd = selectAsCoverCommandFactory(imageFile.Id);
 
         RegisterCommandHandlers();
         RegisterCommandDependencies(componentModelDependencyService);
@@ -104,6 +105,11 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         _downloadCmd.Downloaded += (_, _) => IsDownloaded = true;
         _deleteCmd.Deleted += (_, _) => IsDownloaded = false;
         _deleteNoPromptCmd.Deleted += (_, _) => IsDownloaded = false;
+        _selectAsCoverCmd.Selected += async (_, _) =>
+        {
+            IsCover = true;
+            await UpdateDownloadedStateNotLockedAsync();
+        };
     }
 
     private void RegisterCommandDependencies(IComponentModelDependencyService dependencyService)
@@ -124,6 +130,12 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
             this,
             x => x.IsProcessing,
             _deleteNoPromptCmd,
+            x => x.IsProcessing
+        );
+        dependencyService.RegisterDependency(
+            this,
+            x => x.IsProcessing,
+            _selectAsCoverCmd,
             x => x.IsProcessing
         );
     }
@@ -172,35 +184,6 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     }
 
     #region Commands Implementation
-
-    private async void SelectAsCoverCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (IsCover)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            var task = await _coverSelectionService.CreateCoverSelectionTaskAsync(Id);
-            await task.Activated(new CoverSelectionArgs(true)).Task;
-
-            IsCover = true;
-            await UpdateDownloadedStateNotLockedAsync();
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
 
     private async void RemoveCoverCmd()
     {
