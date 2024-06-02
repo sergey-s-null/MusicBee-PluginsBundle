@@ -4,6 +4,7 @@ using Module.Core.Enums;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.WizardSteps;
+using Module.MusicSourcesStorage.Gui.Commands;
 using Module.MusicSourcesStorage.Gui.Entities;
 using Module.MusicSourcesStorage.Gui.Entities.Abstract;
 using Module.MusicSourcesStorage.Gui.Enums;
@@ -26,6 +27,7 @@ public sealed class DIModule : Autofac.Module
         RegisterViews(builder);
         RegisterViewModels(builder);
         RegisterStepViewModels(builder);
+        RegisterCommands(builder);
         RegisterServices(builder);
         RegisterFactories(builder);
     }
@@ -127,6 +129,13 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<RetargetSourceFilesStepVM>()
             .Keyed<IWizardStepVM>(StepType.RetargetSourceFiles);
+    }
+
+    private static void RegisterCommands(ContainerBuilder builder)
+    {
+        builder
+            .RegisterType<DownloadFileCommand>()
+            .AsSelf();
     }
 
     private static void RegisterServices(ContainerBuilder builder)
