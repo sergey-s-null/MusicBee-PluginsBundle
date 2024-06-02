@@ -3,79 +3,60 @@ using Module.MusicSourcesStorage.Gui.Entities;
 using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
 using Module.MusicSourcesStorage.Logic.Entities.Args;
-using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
+using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.Commands;
 
+[AddINotifyPropertyChangedInterface]
 public sealed class DownloadFileCommand : ICommand
 {
-    public event EventHandler? CanExecuteChanged;
-
-    // todo is this useful?
-    public event EventHandler<ProcessingStateChangedEventArgs>? ProcessingStateChanged;
-    public event EventHandler? Downloaded;
-
     private readonly int _fileId;
     private readonly IFileOperationLocker _fileOperationLocker;
-    private readonly IFilesLocatingService _filesLocatingService;
     private readonly IFilesDownloadingService _filesDownloadingService;
+
+    public delegate DownloadFileCommand Factory(int fileId);
 
     public DownloadFileCommand(
         int fileId,
         IFileOperationLocker fileOperationLocker,
-        IFilesLocatingService filesLocatingService,
         IFilesDownloadingService filesDownloadingService)
     {
         _fileId = fileId;
         _fileOperationLocker = fileOperationLocker;
-        _filesLocatingService = filesLocatingService;
         _filesDownloadingService = filesDownloadingService;
 
         _fileOperationLocker.LockStateChanged += OnLockStateChanged;
     }
 
+    public event EventHandler? CanExecuteChanged;
+    public event EventHandler? Downloaded;
+
+    public bool IsProcessing { get; private set; }
+
     public bool CanExecute(object parameter)
     {
-        // todo subscribe on existence event -> CanExecuteChanged
-        return !_fileOperationLocker.IsLocked(_fileId)
-               && _filesLocatingService.IsFileExistsAsync(_fileId).Result;
+        return !_fileOperationLocker.IsLocked(_fileId);
     }
 
-    public void Execute(object parameter)
+    public async void Execute(object parameter)
     {
         try
         {
             using var _ = _fileOperationLocker.Lock(_fileId, TimeSpan.Zero);
 
-            RaiseProcessing();
+            IsProcessing = true;
 
-            var task = _filesDownloadingService.CreateFileDownloadTaskAsync(_fileId).Result;
-            task.Activated(new FileDownloadArgs(true)).Task.Wait();
+            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_fileId);
+            await task.Activated(new FileDownloadArgs(true)).Task;
 
-            RaiseNotProcessing();
+            IsProcessing = false;
             RaiseDownloaded();
         }
         catch (LockTimeoutException)
         {
         }
-    }
-
-    private void RaiseProcessing()
-    {
-        ProcessingStateChanged?.Invoke(
-            this,
-            new ProcessingStateChangedEventArgs(true)
-        );
-    }
-
-    private void RaiseNotProcessing()
-    {
-        ProcessingStateChanged?.Invoke(
-            this,
-            new ProcessingStateChangedEventArgs(false)
-        );
     }
 
     private void RaiseDownloaded()
