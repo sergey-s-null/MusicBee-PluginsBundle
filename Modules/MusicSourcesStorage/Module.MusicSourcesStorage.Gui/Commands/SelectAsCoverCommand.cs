@@ -7,9 +7,11 @@ using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Entities.EventArgs;
 using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
+using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.Commands;
 
+[AddINotifyPropertyChangedInterface]
 public sealed class SelectAsCoverCommand : ICommand
 {
     private readonly int _fileId;
