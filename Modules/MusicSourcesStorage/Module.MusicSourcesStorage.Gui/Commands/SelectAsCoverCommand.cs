@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using Module.Core.Helpers;
 using Module.MusicSourcesStorage.Gui.Entities;
 using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
@@ -42,7 +43,7 @@ public sealed class SelectAsCoverCommand : ICommand
     public bool CanExecute(object parameter)
     {
         return !_fileOperationLocker.IsLocked(_fileId)
-               && !_musicSourcesStorageService.IsSelectedAsCoverAsync(_fileId).Result;
+               && !AsyncHelper.Synchronize(() => _musicSourcesStorageService.IsSelectedAsCoverAsync(_fileId));
     }
 
     public async void Execute(object parameter)
