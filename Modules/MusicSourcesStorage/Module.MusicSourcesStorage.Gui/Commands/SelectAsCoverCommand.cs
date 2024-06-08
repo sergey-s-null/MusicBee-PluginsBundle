@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Module.Core.Helpers;
+using Module.Core.Services.Abstract;
 using Module.MusicSourcesStorage.Gui.Entities;
 using Module.MusicSourcesStorage.Gui.Exceptions;
 using Module.MusicSourcesStorage.Gui.Services.Abstract;
@@ -15,6 +16,7 @@ namespace Module.MusicSourcesStorage.Gui.Commands;
 public sealed class SelectAsCoverCommand : ICommand
 {
     private readonly int _fileId;
+    private readonly IUiDispatcherProvider _dispatcherProvider;
     private readonly IFileOperationLocker _fileOperationLocker;
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
     private readonly ICoverSelectionService _coverSelectionService;
@@ -23,11 +25,13 @@ public sealed class SelectAsCoverCommand : ICommand
 
     public SelectAsCoverCommand(
         int fileId,
+        IUiDispatcherProvider dispatcherProvider,
         IFileOperationLocker fileOperationLocker,
         IMusicSourcesStorageService musicSourcesStorageService,
         ICoverSelectionService coverSelectionService)
     {
         _fileId = fileId;
+        _dispatcherProvider = dispatcherProvider;
         _fileOperationLocker = fileOperationLocker;
         _musicSourcesStorageService = musicSourcesStorageService;
         _coverSelectionService = coverSelectionService;
@@ -93,7 +97,9 @@ public sealed class SelectAsCoverCommand : ICommand
 
     private void RaiseCanExecuteChanged()
     {
-        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        _dispatcherProvider.Dispatcher.Invoke(
+            () => CanExecuteChanged?.Invoke(this, EventArgs.Empty)
+        );
     }
 
     private void RaiseSelected()
