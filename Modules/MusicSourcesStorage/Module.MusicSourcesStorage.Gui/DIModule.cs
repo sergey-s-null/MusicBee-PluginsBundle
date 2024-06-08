@@ -142,6 +142,9 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<SelectAsCoverCommand>()
             .AsSelf();
+        builder
+            .RegisterType<RemoveCoverCommand>()
+            .AsSelf();
     }
 
     private static void RegisterServices(ContainerBuilder builder)
