@@ -139,6 +139,9 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<DeleteFileCommand>()
             .AsSelf();
+        builder
+            .RegisterType<SelectAsCoverCommand>()
+            .AsSelf();
     }
 
     private static void RegisterServices(ContainerBuilder builder)
