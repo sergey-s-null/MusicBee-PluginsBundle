@@ -29,12 +29,8 @@ public static class ViewModelHelper
         Action<TViewModel, TProperty> handler,
         out Action unregisterHandler)
     {
-        if (viewModel is not INotifyPropertyChanged)
-        {
-            throw new ArgumentException(
-                $"View model {viewModel} does not implement {nameof(INotifyPropertyChanged)}."
-            );
-        }
+        Guard.IsNotNull(viewModel);
+        Guard.IsAssignableToType<INotifyPropertyChanged>(viewModel);
 
         var propertyName = GetPropertyName(propertyExpression);
         var propertySelector = propertyExpression.Compile();
@@ -49,6 +45,7 @@ public static class ViewModelHelper
         out Action unregisterHandler)
     {
         Guard.IsNotNull(viewModel);
+        Guard.IsAssignableToType<INotifyPropertyChanged>(viewModel);
 
         var type = viewModel.GetType();
         var getMethod = GetPropertyGetMethod(type, propertyName);

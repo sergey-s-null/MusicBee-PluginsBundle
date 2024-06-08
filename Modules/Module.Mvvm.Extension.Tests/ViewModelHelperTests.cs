@@ -145,6 +145,34 @@ public sealed class ViewModelHelperTests
         Assert.That(handlerCalledCount, Is.EqualTo(1));
     }
 
+    [Test]
+    public void ExceptionOnObjectNotImplementInterfaceWhenRegisterByDelegate()
+    {
+        var obj = new Node();
+
+        Assert.Throws<ArgumentException>(() =>
+            ViewModelHelper.RegisterPropertyChangedHandler(
+                obj,
+                x => x.Value,
+                (_, _) => { }
+            )
+        );
+    }
+
+    [Test]
+    public void ExceptionOnObjectNotImplementInterfaceWhenRegisterByPropertyName()
+    {
+        var obj = new Node();
+
+        Assert.Throws<ArgumentException>(() =>
+            ViewModelHelper.RegisterPropertyChangedHandler(
+                obj,
+                nameof(Node.Value),
+                (_, _) => { }
+            )
+        );
+    }
+
     [TestCaseSource(nameof(InvalidPropertySelectorTestCases))]
     public void ExceptionOnRegisterHandlerWithInvalidSelector<TProperty>(
         Expression<Func<NodeVM, TProperty>> propertySelector)
@@ -178,5 +206,10 @@ public sealed class ViewModelHelperTests
         {
             InternalValue = newValue;
         }
+    }
+
+    public sealed class Node
+    {
+        public int Value { get; set; }
     }
 }
