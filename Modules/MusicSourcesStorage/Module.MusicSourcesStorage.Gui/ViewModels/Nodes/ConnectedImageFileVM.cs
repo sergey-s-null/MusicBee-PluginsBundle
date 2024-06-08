@@ -18,7 +18,6 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     public override string Name { get; }
     public override string Path { get; }
 
-    [DependsOn(nameof(IsProcessingInternal))]
     public bool IsProcessing => IsProcessingInternal
                                 || _downloadCmd.IsProcessing
                                 || _deleteCmd.IsProcessing
@@ -26,22 +25,18 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
                                 || _selectAsCoverCmd.IsProcessing
                                 || _removeCoverCmd.IsProcessing;
 
-    [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
     public bool CanDownload => !IsDownloaded && !IsProcessing;
 
     public bool IsDownloaded { get; private set; }
 
-    [DependsOn(nameof(IsDeleted), nameof(IsProcessing))]
     public bool CanDelete => !IsDeleted && !IsProcessing;
 
-    [DependsOn(nameof(IsDownloaded))] public bool IsDeleted => !IsDownloaded;
+    public bool IsDeleted => !IsDownloaded;
 
     public bool IsCover { get; private set; }
 
-    [DependsOn(nameof(IsCover), nameof(IsProcessing))]
     public bool CanSelectAsCover => !IsCover && !IsProcessing;
 
-    [DependsOn(nameof(IsCover), nameof(IsProcessing))]
     public bool CanRemoveCover => IsCover && !IsProcessing;
 
     private bool IsProcessingInternal { get; set; }
@@ -71,7 +66,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
     public ConnectedImageFileVM(
         ImageFile imageFile,
-        IComponentModelDependencyService componentModelDependencyService,
+        IComponentModelDependencyServiceFactory componentModelDependencyServiceFactory,
         IUiDispatcherProvider dispatcherProvider,
         IFilesLocatingService filesLocatingService,
         ICoverSelectionService coverSelectionService,
@@ -97,7 +92,9 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         _removeCoverCmd = removeCoverCommandFactory(imageFile.Id);
 
         RegisterCommandHandlers();
-        RegisterCommandDependencies(componentModelDependencyService);
+
+        var dependencyService = componentModelDependencyServiceFactory.CreateScoped(this);
+        RegisterDependencies(dependencyService);
 
         InitializeAsync();
     }
@@ -125,38 +122,103 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         );
     }
 
-    private void RegisterCommandDependencies(IComponentModelDependencyService dependencyService)
+    private void RegisterDependencies(
+        IScopedComponentModelDependencyService<ConnectedImageFileVM> dependencyService)
     {
+        #region IsProcessing
+
         dependencyService.RegisterDependency(
-            this,
+            x => x.IsProcessing,
+            x => x.IsProcessingInternal
+        );
+        dependencyService.RegisterDependency(
             x => x.IsProcessing,
             _downloadCmd,
             x => x.IsProcessing
         );
         dependencyService.RegisterDependency(
-            this,
             x => x.IsProcessing,
             _deleteCmd,
             x => x.IsProcessing
         );
         dependencyService.RegisterDependency(
-            this,
             x => x.IsProcessing,
             _deleteNoPromptCmd,
             x => x.IsProcessing
         );
         dependencyService.RegisterDependency(
-            this,
             x => x.IsProcessing,
             _selectAsCoverCmd,
             x => x.IsProcessing
         );
         dependencyService.RegisterDependency(
-            this,
             x => x.IsProcessing,
             _removeCoverCmd,
             x => x.IsProcessing
         );
+
+        #endregion
+
+        #region CanDownload
+
+        dependencyService.RegisterDependency(
+            x => x.CanDownload,
+            x => x.IsDownloaded
+        );
+        dependencyService.RegisterDependency(
+            x => x.CanDownload,
+            x => x.IsProcessing
+        );
+
+        #endregion
+
+        #region CanDelete
+
+        dependencyService.RegisterDependency(
+            x => x.CanDelete,
+            x => x.IsDeleted
+        );
+        dependencyService.RegisterDependency(
+            x => x.CanDelete,
+            x => x.IsProcessing
+        );
+
+        #endregion
+
+        #region IsDeleted
+
+        dependencyService.RegisterDependency(
+            x => x.IsDeleted,
+            x => x.IsDownloaded
+        );
+
+        #endregion
+
+        #region CanSelectAsCover
+
+        dependencyService.RegisterDependency(
+            x => x.CanSelectAsCover,
+            x => x.IsCover
+        );
+        dependencyService.RegisterDependency(
+            x => x.CanSelectAsCover,
+            x => x.IsProcessing
+        );
+
+        #endregion
+
+        #region CanRemoveCover
+
+        dependencyService.RegisterDependency(
+            x => x.CanRemoveCover,
+            x => x.IsCover
+        );
+        dependencyService.RegisterDependency(
+            x => x.CanRemoveCover,
+            x => x.IsProcessing
+        );
+
+        #endregion
     }
 
     private async void InitializeAsync()
