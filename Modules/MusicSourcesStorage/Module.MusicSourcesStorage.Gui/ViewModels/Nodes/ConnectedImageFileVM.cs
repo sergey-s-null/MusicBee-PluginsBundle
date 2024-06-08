@@ -110,13 +110,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         _deleteNoPromptCmd.Deleted += (_, _) => _dispatcherProvider.Dispatcher.Invoke(
             () => IsDownloaded = false
         );
-        _selectAsCoverCmd.Selected += async (_, _) => await _dispatcherProvider.Dispatcher.Invoke(
-            async () =>
-            {
-                IsCover = true;
-                await UpdateDownloadedStateNotLockedAsync();
-            }
-        );
+        _selectAsCoverCmd.Selected += async (_, _) => await UpdateDownloadedStateNotLockedAsync();
     }
 
     private void RegisterDependencies(
@@ -264,6 +258,8 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     private async Task UpdateDownloadedStateNotLockedAsync()
     {
         var filePath = await _filesLocatingService.LocateFileAsync(Id);
-        IsDownloaded = filePath is not null;
+        _dispatcherProvider.Dispatcher.Invoke(
+            () => IsDownloaded = filePath is not null
+        );
     }
 }
