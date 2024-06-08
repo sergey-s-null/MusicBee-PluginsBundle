@@ -38,8 +38,13 @@ public interface IMusicSourcesStorageService
     Task SetMusicFileIsListenedAsync(int musicFileId, bool isListened, CancellationToken token = default);
 
     Task<bool> IsSelectedAsCoverAsync(int fileId, CancellationToken token = default);
-    
-    Task SelectAsCoverAsync(int imageFileId, byte[] imageData, CancellationToken token = default);
+
+    /// <returns>Unselected images.</returns>
+    Task<IReadOnlyList<ImageFile>> SelectAsCoverAsync(
+        int imageFileId,
+        byte[] imageData,
+        CancellationToken token = default
+    );
 
     Task<byte[]?> FindCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token = default);
 

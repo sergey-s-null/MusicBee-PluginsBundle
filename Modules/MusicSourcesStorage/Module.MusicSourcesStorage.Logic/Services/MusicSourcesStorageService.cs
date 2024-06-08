@@ -92,7 +92,10 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         return file is ImageFileModel { IsCover: true };
     }
 
-    public async Task SelectAsCoverAsync(int imageFileId, byte[] imageData, CancellationToken token)
+    public async Task<IReadOnlyList<ImageFile>> SelectAsCoverAsync(
+        int imageFileId,
+        byte[] imageData,
+        CancellationToken token)
     {
         var source = await _musicSourcesRepository.GetSourceByFileIdAsync(imageFileId, false, token);
 
@@ -107,6 +110,8 @@ public sealed class MusicSourcesStorageService : IMusicSourcesStorageService
         }
 
         await _musicSourcesRepository.SetCoverAsync(imageFileId, imageData, token);
+
+        return selectedAsCoverFiles.Select(x => x.ToLogicModel()).ToList();
     }
 
     public async Task<byte[]?> FindCoverAsync(
