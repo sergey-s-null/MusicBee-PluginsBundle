@@ -12,7 +12,7 @@ public sealed class DependencyVM
 
     public ChildVM? Child { get; set; }
 
-    public ValueContainer? Container { get; set; }
+    public IValueContainer? Container { get; set; }
 
     private int InternalNumber { get; set; }
 

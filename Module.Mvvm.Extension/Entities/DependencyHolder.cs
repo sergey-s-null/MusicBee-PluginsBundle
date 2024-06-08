@@ -130,7 +130,6 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         }
 
         var declaringType = GetDeclaringType(member);
-        CheckImplementNotifyPropertyChanged(declaringType);
 
         var propertyName = member.Name;
         var propertyInfo = GetPropertyInfo(declaringType, propertyName);
@@ -153,16 +152,6 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         }
 
         return declaringType;
-    }
-
-    private static void CheckImplementNotifyPropertyChanged(Type type)
-    {
-        if (!typeof(INotifyPropertyChanged).IsAssignableFrom(type))
-        {
-            throw new ArgumentException(
-                $"Type {type} does not implement interface {nameof(INotifyPropertyChanged)}."
-            );
-        }
     }
 
     private static PropertyInfo GetPropertyInfo(Type type, string propertyName)
@@ -207,6 +196,14 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
         int propertyIndex,
         out Action unregisterHandler)
     {
+        if (item is not INotifyPropertyChanged)
+        {
+            throw new InvalidOperationException(
+                $"Could not register property changed handler to object with type {item.GetType()}, " +
+                $"because it does not implement {nameof(INotifyPropertyChanged)} interface."
+            );
+        }
+
         ViewModelHelper.RegisterPropertyChangedHandler(
             item,
             propertyName,

@@ -329,12 +329,31 @@ public class ComponentModelDependencyServiceTests
     }
 
     [Test]
-    public void ExceptionOnIncorrectTypeInDependencyPath()
+    public void RegisteredWhenDependencyNotExplicitlyImplementInterface()
     {
+        // ARRANGE
         var dependent = new DependentVM();
         var dependency = new DependencyVM();
 
-        Assert.Throws<ArgumentException>(() =>
+        // ACT
+        _componentModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Container!.Value,
+            out _
+        );
+    }
+
+    [Test]
+    public void ExceptionOnRegisterDependencyWithoutInterfaceImplemented()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM { Container = new ValueContainer() };
+
+        // ACT & ASSERT
+        Assert.Throws<InvalidOperationException>(() =>
             _componentModelDependencyService!.RegisterDependency(
                 dependent,
                 x => x.Value,
@@ -342,6 +361,30 @@ public class ComponentModelDependencyServiceTests
                 x => x.Container!.Value,
                 out _
             )
+        );
+    }
+
+    [Test]
+    public void ExceptionOnSetValueWithoutInterfaceImplemented()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM
+        {
+            Container = new ValueContainerWithPropertyChanged()
+        };
+
+        _componentModelDependencyService!.RegisterDependency(
+            dependent,
+            x => x.Value,
+            dependency,
+            x => x.Container!.Value,
+            out _
+        );
+
+        // ACT & ASSERT
+        Assert.Throws<InvalidOperationException>(() =>
+            dependency.Container = new ValueContainer { Value = 42 }
         );
     }
 
