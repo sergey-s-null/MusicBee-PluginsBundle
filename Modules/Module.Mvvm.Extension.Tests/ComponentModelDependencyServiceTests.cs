@@ -158,6 +158,54 @@ public class ComponentModelDependencyServiceTests
     }
 
     [Test]
+    public void EventRaisedWhenDependentPropertyIsPrivate()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        dependent.RegisterIntervalValueDependency(
+            _componentModelDependencyService!,
+            dependency,
+            x => x.Child
+        );
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        dependentInterface.PropertyChanged += (_, _) => eventRaisedCount++;
+
+        // ACT
+        dependency.Child = new ChildVM();
+
+        // ASSERT
+        Assert.That(eventRaisedCount, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void EventRaisedWhenDependencyPropertyIsPrivate()
+    {
+        // ARRANGE
+        var dependent = new DependentVM();
+        var dependency = new DependencyVM();
+
+        dependency.RegisterDependentOnInternalNumberProperty(
+            _componentModelDependencyService!,
+            dependent,
+            x => x.Value
+        );
+
+        var dependentInterface = (INotifyPropertyChanged)(object)dependent;
+        var eventRaisedCount = 0;
+        dependentInterface.PropertyChanged += (_, _) => eventRaisedCount++;
+
+        // ACT
+        dependency.ChangeInternalNumber(42);
+
+        // ASSERT
+        Assert.That(eventRaisedCount, Is.EqualTo(1));
+    }
+
+    [Test]
     public void EventNotRaisedWhenUnregistered()
     {
         // ARRANGE

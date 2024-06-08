@@ -167,7 +167,11 @@ public sealed class DependencyHolder<TDependent, TDependentProperty, TDependency
 
     private static PropertyInfo GetPropertyInfo(Type type, string propertyName)
     {
-        var propertyInfo = type.GetProperty(propertyName);
+        var propertyInfo = type.GetProperty(
+            propertyName,
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+        );
+
         if (propertyInfo is null)
         {
             throw new InvalidOperationException(
