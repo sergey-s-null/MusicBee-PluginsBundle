@@ -6,6 +6,9 @@ namespace Module.Mvvm.Extension.Services.Abstract;
 public interface IComponentModelDependencyService
 {
     /// <summary>
+    /// <b>WARNING!</b><br/>
+    /// This logic does not compatible with <c>DependsOnAttribute</c> from PropertyChanged package.<br/>
+    /// <br/>
     /// Create dependency based on <see cref="INotifyPropertyChanged"/>.<br/>
     /// <b>Example</b>:<br/>
     /// If property <c>firstObject.Value</c> should depends on <c>secondObject.Settings.Value</c> then you should write
