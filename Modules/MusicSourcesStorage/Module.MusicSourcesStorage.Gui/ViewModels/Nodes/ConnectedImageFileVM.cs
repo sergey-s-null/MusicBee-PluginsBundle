@@ -4,7 +4,6 @@ using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Commands;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using Module.Mvvm.Extension;
 using Module.Mvvm.Extension.Extensions;
 using Module.Mvvm.Extension.Services.Abstract;
 using PropertyChanged;
@@ -24,7 +23,8 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
                                 || _downloadCmd.IsProcessing
                                 || _deleteCmd.IsProcessing
                                 || _deleteNoPromptCmd.IsProcessing
-                                || _selectAsCoverCmd.IsProcessing;
+                                || _selectAsCoverCmd.IsProcessing
+                                || _removeCoverCmd.IsProcessing;
 
     [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
     public bool CanDownload => !IsDownloaded && !IsProcessing;
@@ -52,13 +52,13 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
     public ICommand Delete => _deleteCmd;
     public ICommand DeleteNoPrompt => _deleteNoPromptCmd;
     public ICommand SelectAsCover => _selectAsCoverCmd;
-    public ICommand RemoveCover => _removeCoverCmd ??= new RelayCommand(RemoveCoverCmd);
+    public ICommand RemoveCover => _removeCoverCmd;
 
     private readonly DownloadFileCommand _downloadCmd;
     private readonly DeleteFileCommand _deleteCmd;
     private readonly DeleteFileCommand _deleteNoPromptCmd;
     private readonly SelectAsCoverCommand _selectAsCoverCmd;
-    private ICommand? _removeCoverCmd;
+    private readonly RemoveCoverCommand _removeCoverCmd;
 
     #endregion
 
@@ -77,7 +77,8 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         ICoverSelectionService coverSelectionService,
         DownloadFileCommand.Factory downloadFileCommandFactory,
         DeleteFileCommand.Factory deleteFileCommandFactory,
-        SelectAsCoverCommand.Factory selectAsCoverCommandFactory)
+        SelectAsCoverCommand.Factory selectAsCoverCommandFactory,
+        RemoveCoverCommand.Factory removeCoverCommandFactory)
     {
         Id = imageFile.Id;
         Name = System.IO.Path.GetFileName(imageFile.Path);
@@ -93,6 +94,7 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
         _deleteCmd = deleteFileCommandFactory(imageFile.Id, imageFile.Path, askBeforeDelete: true);
         _deleteNoPromptCmd = deleteFileCommandFactory(imageFile.Id, imageFile.Path, askBeforeDelete: false);
         _selectAsCoverCmd = selectAsCoverCommandFactory(imageFile.Id);
+        _removeCoverCmd = removeCoverCommandFactory(imageFile.Id);
 
         RegisterCommandHandlers();
         RegisterCommandDependencies(componentModelDependencyService);
@@ -117,6 +119,9 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
                 IsCover = true;
                 await UpdateDownloadedStateNotLockedAsync();
             }
+        );
+        _removeCoverCmd.CoverRemoved += (_, _) => _dispatcherProvider.Dispatcher.Invoke(
+            () => IsCover = false
         );
     }
 
@@ -144,6 +149,12 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
             this,
             x => x.IsProcessing,
             _selectAsCoverCmd,
+            x => x.IsProcessing
+        );
+        dependencyService.RegisterDependency(
+            this,
+            x => x.IsProcessing,
+            _removeCoverCmd,
             x => x.IsProcessing
         );
     }
@@ -190,36 +201,6 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
             _lock.Release();
         }
     }
-
-    #region Commands Implementation
-
-    private async void RemoveCoverCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!IsCover)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            await _coverSelectionService.RemoveCoverAsync(Id);
-            IsCover = false;
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
-
-    #endregion
 
     private async Task UpdateDownloadedStateNotLockedAsync()
     {
