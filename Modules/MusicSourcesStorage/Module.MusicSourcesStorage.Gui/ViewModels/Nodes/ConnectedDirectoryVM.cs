@@ -9,7 +9,8 @@ using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Module.Mvvm.Extension;
-using Module.Mvvm.Extension.Helpers;
+using Module.Mvvm.Extension.Extensions;
+using Module.Mvvm.Extension.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
@@ -49,95 +50,50 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
     #region IProcessableVM properties
 
-    [DependsOn(nameof(IsProcessingInternal), nameof(IsChildNodesProcessing))]
-    public bool IsProcessing => IsProcessingInternal || IsChildNodesProcessing;
+    public bool IsProcessing => Calculate_IsProcessing();
 
     #endregion
 
     #region IDownloadableVM properties
 
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.CanDownload"/>
-    /// </summary>
-    public bool CanDownload { get; private set; }
+    public bool CanDownload => Calculate_CanDownload();
 
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.IsDownloaded"/>
-    /// </summary>
-    public bool IsDownloaded { get; private set; }
+    public bool IsDownloaded => Calculate_IsDownloaded();
 
     #endregion
 
     #region IDeletableVM properties
 
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDeletableVM"/>.<see cref="IDeletableVM.CanDelete"/>
-    /// </summary>
-    public bool CanDelete { get; private set; }
+    public bool CanDelete => Calculate_CanDelete();
 
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IDeletableVM"/>.<see cref="IDeletableVM.IsDeleted"/>
-    /// </summary>
-    public bool IsDeleted { get; private set; }
+    public bool IsDeleted => Calculate_IsDeleted();
 
     #endregion
 
     #region IMarkableAsListenedVM properties
 
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IMarkableAsListenedVM"/>.<see cref="IMarkableAsListenedVM.IsListened"/>
-    /// </summary>
-    public bool IsListened { get; private set; }
+    public bool IsListened => Calculate_IsListened();
 
     #endregion
 
     #region ICoverRemovableVM properties
 
-    [DependsOn(nameof(Cover), nameof(IsProcessing))]
     public bool CanRemoveCover => Cover is not null && !IsProcessing;
 
     #endregion
 
     #region IConnectedDirectoryVM properties
 
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
-    /// <list type="number">
-    ///     <item><see cref="IConnectedDirectoryVM"/>.<see cref="IConnectedDirectoryVM.IsAllListened"/></item>
-    ///     <item><see cref="IMarkableAsListenedVM"/>.<see cref="IMarkableAsListenedVM.IsListened"/></item>
-    /// </list>
-    /// </summary>
-    public bool IsAllListened { get; private set; }
+    public bool IsAllListened => Calculate_IsAllListened();
 
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
-    /// <list type="number">
-    ///     <item><see cref="IConnectedDirectoryVM"/>.<see cref="IConnectedDirectoryVM.IsAllNotListened"/></item>
-    ///     <item><see cref="IMarkableAsListenedVM"/>.<see cref="IMarkableAsListenedVM.IsListened"/></item>
-    /// </list>
-    /// </summary>
-    public bool IsAllNotListened { get; private set; }
+    public bool IsAllNotListened => Calculate_IsAllNotListened();
 
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing:<br/>
-    /// <list type="number">
-    ///     <item><see cref="IConnectedMusicFileVM"/>.<see cref="IConnectedMusicFileVM.Location"/></item>
-    ///     <item><see cref="IConnectedDirectoryVM"/>.<see cref="IConnectedDirectoryVM.HasDownloadedAndNotAttachedToLibraryFiles"/></item>
-    ///     <item><see cref="IDownloadableVM"/>.<see cref="IDownloadableVM.IsDownloaded"/></item>
-    /// </list>
-    /// </summary>
-    public bool HasDownloadedAndNotAttachedToLibraryFiles { get; private set; }
+    public bool HasDownloadedAndNotAttachedToLibraryFiles =>
+        Calculate_HasDownloadedAndNotAttachedToLibraryFiles();
 
     public BitmapSource? Cover { get; private set; }
 
     #endregion
-
-    private bool IsProcessingInternal { get; set; }
-
-    /// <summary>
-    /// Depends on <see cref="INodeVM.ChildNodes"/> implementing <see cref="IProcessableVM"/>.<see cref="IProcessableVM.IsProcessing"/>
-    /// </summary>
-    private bool IsChildNodesProcessing { get; set; }
 
     #region Commands
 
@@ -157,6 +113,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
     #endregion
 
+    private readonly IScopedComponentModelDependencyService<ConnectedDirectoryVM> _dependencyService;
     private readonly IUiDispatcherProvider _dispatcherProvider;
     private readonly ICoverSelectionService _coverSelectionService;
 
@@ -164,6 +121,7 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
     private readonly int _sourceId;
     private readonly Lazy<string> _unifiedPath;
+    private readonly Func<IReadOnlyList<INodeVM>> _childNodesFactory;
     private readonly Lazy<IReadOnlyList<INodeVM>> _childNodes;
 
     public delegate ConnectedDirectoryVM Factory(
@@ -176,18 +134,21 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
         int sourceId,
         string path,
         Func<IReadOnlyList<INodeVM>> childNodesFactory,
+        IComponentModelDependencyServiceFactory dependencyServiceFactory,
         IUiDispatcherProvider dispatcherProvider,
         ICoverSelectionService coverSelectionService)
     {
+        _dependencyService = dependencyServiceFactory.CreateScoped(this);
         _dispatcherProvider = dispatcherProvider;
         _coverSelectionService = coverSelectionService;
 
         Path = path;
         Name = System.IO.Path.GetFileName(path);
 
-        _childNodes = new Lazy<IReadOnlyList<INodeVM>>(childNodesFactory);
         _sourceId = sourceId;
-        _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(Path));
+        _unifiedPath = new Lazy<string>(() => PathHelper.UnifyDirectoryPath(path));
+        _childNodesFactory = childNodesFactory;
+        _childNodes = new Lazy<IReadOnlyList<INodeVM>>(CreateChildNodesAndRegisterDependencies);
 
         InitializeAsync();
     }
@@ -284,12 +245,43 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
 
     #endregion
 
+    private IReadOnlyList<INodeVM> CreateChildNodesAndRegisterDependencies()
+    {
+        var childNodes = _childNodesFactory();
+        RegisterDependenciesOnChildNodes(childNodes);
+        return childNodes;
+    }
+
+    private void RegisterDependenciesOnChildNodes(IReadOnlyList<INodeVM> childNodes)
+    {
+        RegisterDependencies_CanDownload(childNodes);
+        RegisterDependencies_IsDownloaded(childNodes);
+        RegisterDependencies_CanDelete(childNodes);
+        RegisterDependencies_IsDeleted(childNodes);
+        RegisterDependencies_IsListened(childNodes);
+        RegisterDependencies_IsAllListened(childNodes);
+        RegisterDependencies_IsAllNotListened(childNodes);
+        RegisterDependencies_HasDownloadedAndNotAttachedToLibraryFiles(childNodes);
+        RegisterDependencies_IsProcessing(childNodes);
+    }
+
     private async void InitializeAsync()
     {
+        RegisterDependencies();
         InitializeCoverSelectionEventHandlers();
-        RegisterChildNodesCallbacks();
-        UpdateState();
         await InitializeCoverAsync();
+    }
+
+    private void RegisterDependencies()
+    {
+        _dependencyService.RegisterDependency(
+            x => x.CanRemoveCover,
+            x => x.Cover
+        );
+        _dependencyService.RegisterDependency(
+            x => x.CanRemoveCover,
+            x => x.IsProcessing
+        );
     }
 
     private void InitializeCoverSelectionEventHandlers()
@@ -375,241 +367,231 @@ public sealed class ConnectedDirectoryVM : IConnectedDirectoryVM
         }
     }
 
-    #region State calculation
+    #region Properties calculation and dependencies
 
-    private void RegisterChildNodesCallbacks()
+    private bool Calculate_CanDownload()
     {
-        foreach (var processable in ChildNodes.OfType<IProcessableVM>())
-        {
-            ViewModelHelper.RegisterPropertyChangedHandler(
-                processable,
-                x => x.IsProcessing,
-                (_, _) => IsChildNodesProcessing = CalculateIsProcessing()
-            );
-        }
-
-        foreach (var downloadable in ChildNodes.OfType<IDownloadableVM>())
-        {
-            ViewModelHelper.RegisterPropertyChangedHandler(
-                downloadable,
-                x => x.CanDownload,
-                (_, _) => CanDownload = CalculateCanDownload()
-            );
-            ViewModelHelper.RegisterPropertyChangedHandler(
-                downloadable,
-                x => x.IsDownloaded,
-                (_, _) => IsDownloaded = CalculateIsDownloaded()
-            );
-        }
-
-        foreach (var deletable in ChildNodes.OfType<IDeletableVM>())
-        {
-            ViewModelHelper.RegisterPropertyChangedHandler(
-                deletable,
-                x => x.CanDelete,
-                (_, _) => CanDelete = CalculateCanDelete()
-            );
-            ViewModelHelper.RegisterPropertyChangedHandler(
-                deletable,
-                x => x.IsDeleted,
-                (_, _) => IsDeleted = CalculateIsDeleted()
-            );
-        }
-
-        foreach (var listenable in ChildNodes.OfType<IMarkableAsListenedVM>())
-        {
-            ViewModelHelper.RegisterPropertyChangedHandler(
-                listenable,
-                x => x.IsListened,
-                (_, _) => IsListened = CalculateIsListened()
-            );
-        }
-
-        foreach (var node in ChildNodes)
-        {
-            switch (node)
-            {
-                case IConnectedDirectoryVM directory:
-                    ViewModelHelper.RegisterPropertyChangedHandler(
-                        directory,
-                        x => x.IsAllListened,
-                        (_, _) => IsAllListened = CalculateIsAllListened()
-                    );
-                    break;
-                case IMarkableAsListenedVM listenable:
-                    ViewModelHelper.RegisterPropertyChangedHandler(
-                        listenable,
-                        x => x.IsListened,
-                        (_, _) => IsAllListened = CalculateIsAllListened()
-                    );
-                    break;
-            }
-        }
-
-        foreach (var node in ChildNodes)
-        {
-            switch (node)
-            {
-                case IConnectedDirectoryVM directory:
-                    ViewModelHelper.RegisterPropertyChangedHandler(
-                        directory,
-                        x => x.IsAllNotListened,
-                        (_, _) => IsAllNotListened = CalculateIsAllNotListened()
-                    );
-                    break;
-                case IMarkableAsListenedVM listenable:
-                    ViewModelHelper.RegisterPropertyChangedHandler(
-                        listenable,
-                        x => x.IsListened,
-                        (_, _) => IsAllNotListened = CalculateIsAllNotListened()
-                    );
-                    break;
-            }
-        }
-
-        foreach (var node in ChildNodes)
-        {
-            switch (node)
-            {
-                case IConnectedMusicFileVM musicFile:
-                    ViewModelHelper.RegisterPropertyChangedHandler(
-                        musicFile,
-                        x => x.Location,
-                        (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =
-                            CalculateHasDownloadedAndNotAttachedToLibraryFiles()
-                    );
-                    break;
-                case IConnectedDirectoryVM directory:
-                    ViewModelHelper.RegisterPropertyChangedHandler(
-                        directory,
-                        x => x.HasDownloadedAndNotAttachedToLibraryFiles,
-                        (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =
-                            CalculateHasDownloadedAndNotAttachedToLibraryFiles()
-                    );
-                    break;
-                case IDownloadableVM downloadable:
-                    ViewModelHelper.RegisterPropertyChangedHandler(
-                        downloadable,
-                        x => x.IsDownloaded,
-                        (_, _) => HasDownloadedAndNotAttachedToLibraryFiles =
-                            CalculateHasDownloadedAndNotAttachedToLibraryFiles()
-                    );
-                    break;
-            }
-        }
-    }
-
-    private void UpdateState()
-    {
-        IsChildNodesProcessing = CalculateIsProcessing();
-        CanDownload = CalculateCanDownload();
-        IsDownloaded = CalculateIsDownloaded();
-        CanDelete = CalculateCanDelete();
-        IsDeleted = CalculateIsDeleted();
-        IsListened = CalculateIsListened();
-        IsAllListened = CalculateIsAllListened();
-        IsAllNotListened = CalculateIsAllNotListened();
-        HasDownloadedAndNotAttachedToLibraryFiles = CalculateHasDownloadedAndNotAttachedToLibraryFiles();
-    }
-
-    private bool CalculateIsProcessing()
-    {
-        return ChildNodes
-            .OfType<IProcessableVM>()
-            .Any(x => x.IsProcessing);
-    }
-
-    private bool CalculateCanDownload()
-    {
-        return ChildNodes
+        return _childNodes.Value
             .OfType<IDownloadableVM>()
             .Any(x => x.CanDownload);
     }
 
-    private bool CalculateIsDownloaded()
+    private void RegisterDependencies_CanDownload(IReadOnlyList<INodeVM> childNodes)
     {
-        return ChildNodes
+        foreach (var downloadable in childNodes.OfType<IDownloadableVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.CanDownload,
+                downloadable,
+                x => x.CanDownload
+            );
+        }
+    }
+
+    private bool Calculate_IsDownloaded()
+    {
+        return _childNodes.Value
             .OfType<IDownloadableVM>()
             .All(x => x.IsDownloaded);
     }
 
-    private bool CalculateCanDelete()
+    private void RegisterDependencies_IsDownloaded(IReadOnlyList<INodeVM> childNodes)
     {
-        return ChildNodes
+        foreach (var downloadable in childNodes.OfType<IDownloadableVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.IsDownloaded,
+                downloadable,
+                x => x.IsDownloaded
+            );
+        }
+    }
+
+    private bool Calculate_CanDelete()
+    {
+        return _childNodes.Value
             .OfType<IDeletableVM>()
             .Any(x => x.CanDelete);
     }
 
-    private bool CalculateIsDeleted()
+    private void RegisterDependencies_CanDelete(IReadOnlyList<INodeVM> childNodes)
     {
-        return ChildNodes
+        foreach (var deletable in childNodes.OfType<IDeletableVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.CanDelete,
+                deletable,
+                x => x.CanDelete
+            );
+        }
+    }
+
+    private bool Calculate_IsDeleted()
+    {
+        return _childNodes.Value
             .OfType<IDeletableVM>()
             .All(x => x.IsDeleted);
     }
 
-    private bool CalculateIsListened()
+    private void RegisterDependencies_IsDeleted(IReadOnlyList<INodeVM> childNodes)
     {
-        return ChildNodes
+        foreach (var deletable in childNodes.OfType<IDeletableVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.IsDeleted,
+                deletable,
+                x => x.IsDeleted
+            );
+        }
+    }
+
+    private bool Calculate_IsListened()
+    {
+        return _childNodes.Value
             .OfType<IMarkableAsListenedVM>()
             .All(x => x.IsListened);
     }
 
-    private bool CalculateIsAllListened()
+    private void RegisterDependencies_IsListened(IReadOnlyList<INodeVM> childNodes)
     {
-        foreach (var node in ChildNodes)
+        foreach (var markableAsListened in childNodes.OfType<IMarkableAsListenedVM>())
         {
-            switch (node)
-            {
-                case IConnectedDirectoryVM { IsAllListened: false }:
-                    return false;
-                case IMarkableAsListenedVM { IsListened: false }:
-                    return false;
-            }
+            _dependencyService.RegisterDependency(
+                x => x.IsListened,
+                markableAsListened,
+                x => x.IsListened
+            );
         }
-
-        return true;
     }
 
-    private bool CalculateIsAllNotListened()
+    private bool Calculate_IsAllListened()
     {
-        foreach (var node in ChildNodes)
-        {
-            switch (node)
-            {
-                case IConnectedDirectoryVM { IsAllNotListened: false }:
-                    return false;
-                case IMarkableAsListenedVM { IsListened: true }:
-                    return false;
-            }
-        }
-
-        return true;
+        return _childNodes.Value
+                   .OfType<IMarkableAsListenedVM>()
+                   .All(x => x.IsListened)
+               && _childNodes.Value
+                   .OfType<IConnectedDirectoryVM>()
+                   .All(x => x.IsAllListened);
     }
 
-    private bool CalculateHasDownloadedAndNotAttachedToLibraryFiles()
+    private void RegisterDependencies_IsAllListened(IReadOnlyList<INodeVM> childNodes)
     {
-        foreach (var node in ChildNodes)
+        foreach (var markableAsListened in childNodes.OfType<IMarkableAsListenedVM>())
         {
-            switch (node)
-            {
-                case IConnectedMusicFileVM musicFile:
-                    switch (musicFile.Location)
-                    {
-                        case MusicFileLocation.Library:
-                            continue;
-                        case MusicFileLocation.Incoming:
-                            return true;
-                    }
-
-                    break;
-                case IConnectedDirectoryVM { HasDownloadedAndNotAttachedToLibraryFiles: true }:
-                    return true;
-                case IDownloadableVM { IsDownloaded: true }:
-                    return true;
-            }
+            _dependencyService.RegisterDependency(
+                x => x.IsAllListened,
+                markableAsListened,
+                x => x.IsListened
+            );
         }
 
-        return false;
+        foreach (var directory in childNodes.OfType<IConnectedDirectoryVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.IsAllListened,
+                directory,
+                x => x.IsAllListened
+            );
+        }
+    }
+
+    private bool Calculate_IsAllNotListened()
+    {
+        return _childNodes.Value
+                   .OfType<IMarkableAsListenedVM>()
+                   .All(x => !x.IsListened)
+               && _childNodes.Value
+                   .OfType<IConnectedDirectoryVM>()
+                   .All(x => x.IsAllNotListened);
+    }
+
+    private void RegisterDependencies_IsAllNotListened(IReadOnlyList<INodeVM> childNodes)
+    {
+        foreach (var markableAsListened in childNodes.OfType<IMarkableAsListenedVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.IsAllNotListened,
+                markableAsListened,
+                x => x.IsListened
+            );
+        }
+
+        foreach (var directory in childNodes.OfType<IConnectedDirectoryVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.IsAllNotListened,
+                directory,
+                x => x.IsAllNotListened
+            );
+        }
+    }
+
+    private bool Calculate_HasDownloadedAndNotAttachedToLibraryFiles()
+    {
+        return _childNodes.Value
+                   .OfType<IConnectedMusicFileVM>()
+                   .Any(x => x.Location == MusicFileLocation.Incoming)
+               || _childNodes.Value
+                   .OfType<IDownloadableVM>()
+                   .Where(x => x is not IConnectedDirectoryVM or IConnectedMusicFileVM)
+                   .Any(x => x.IsDownloaded)
+               || _childNodes.Value
+                   .OfType<IConnectedDirectoryVM>()
+                   .Any(x => x.HasDownloadedAndNotAttachedToLibraryFiles);
+    }
+
+    private void RegisterDependencies_HasDownloadedAndNotAttachedToLibraryFiles(IReadOnlyList<INodeVM> childNodes)
+    {
+        foreach (var musicFile in childNodes.OfType<IConnectedMusicFileVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.HasDownloadedAndNotAttachedToLibraryFiles,
+                musicFile,
+                x => x.Location
+            );
+        }
+
+        foreach (var downloadable in childNodes.OfType<IDownloadableVM>())
+        {
+            if (downloadable is IConnectedDirectoryVM or IConnectedMusicFileVM)
+            {
+                continue;
+            }
+
+            _dependencyService.RegisterDependency(
+                x => x.HasDownloadedAndNotAttachedToLibraryFiles,
+                downloadable,
+                x => x.IsDownloaded
+            );
+        }
+
+        foreach (var directory in childNodes.OfType<IConnectedDirectoryVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.HasDownloadedAndNotAttachedToLibraryFiles,
+                directory,
+                x => x.HasDownloadedAndNotAttachedToLibraryFiles
+            );
+        }
+    }
+
+    private bool Calculate_IsProcessing()
+    {
+        return _childNodes.Value
+            .OfType<IProcessableVM>()
+            .Any(x => x.IsProcessing);
+    }
+
+    private void RegisterDependencies_IsProcessing(IReadOnlyList<INodeVM> childNodes)
+    {
+        foreach (var processable in childNodes.OfType<IProcessableVM>())
+        {
+            _dependencyService.RegisterDependency(
+                x => x.IsProcessing,
+                processable,
+                x => x.IsProcessing
+            );
+        }
     }
 
     #endregion
