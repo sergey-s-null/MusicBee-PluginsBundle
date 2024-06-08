@@ -9,6 +9,13 @@ public sealed class MvvmExtensionModule : Autofac.Module
     protected override void Load(ContainerBuilder builder)
     {
         builder
+            .RegisterGeneric(typeof(ScopedComponentModelDependencyService<>))
+            .AsSelf();
+        builder
+            .RegisterType<ComponentModelDependencyServiceFactory>()
+            .As<IComponentModelDependencyServiceFactory>()
+            .SingleInstance();
+        builder
             .RegisterType<ComponentModelDependencyService>()
             .As<IComponentModelDependencyService>()
             .SingleInstance();
