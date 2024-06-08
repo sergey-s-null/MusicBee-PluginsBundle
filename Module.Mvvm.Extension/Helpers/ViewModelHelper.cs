@@ -15,6 +15,14 @@ public static class ViewModelHelper
         RegisterPropertyChangedHandler(viewModel, propertySelector, handler, out _);
     }
 
+    public static void RegisterPropertyChangedHandler<TViewModel>(
+        TViewModel viewModel,
+        string propertyName,
+        Action<TViewModel, object> handler)
+    {
+        RegisterPropertyChangedHandler(viewModel, propertyName, handler, out _);
+    }
+
     public static void RegisterPropertyChangedHandler<TViewModel, TProperty>(
         TViewModel viewModel,
         Expression<Func<TViewModel, TProperty>> propertyExpression,
@@ -105,7 +113,11 @@ public static class ViewModelHelper
 
     private static MethodInfo GetPropertyGetMethod(Type type, string propertyName)
     {
-        var propertyInfo = type.GetProperty(propertyName);
+        var propertyInfo = type.GetProperty(
+            propertyName,
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+        );
+
         if (propertyInfo is null)
         {
             throw new InvalidOperationException(

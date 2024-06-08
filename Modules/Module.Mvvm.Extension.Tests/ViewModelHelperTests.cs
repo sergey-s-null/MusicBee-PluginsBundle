@@ -101,6 +101,26 @@ public sealed class ViewModelHelperTests
     }
 
     [Test]
+    public void PropertyChangedHandlerCalledWhenRegisteringPrivateProperty()
+    {
+        // ARRANGE
+        var vm = new NodeVM();
+
+        object changedValue = 0;
+        ViewModelHelper.RegisterPropertyChangedHandler(
+            vm,
+            "InternalValue",
+            (_, value) => changedValue = value
+        );
+
+        // ACT
+        vm.ChangeInternalValue(42);
+
+        // ASSERT
+        Assert.That(changedValue, Is.EqualTo(42));
+    }
+
+    [Test]
     public void PropertyChangedHandlerNotCalledAfterUnregister()
     {
         var vm = new NodeVM
@@ -152,5 +172,11 @@ public sealed class ViewModelHelperTests
     {
         public int Value { get; set; }
         public NodeVM? Child { get; set; }
+        private int InternalValue { get; set; }
+
+        public void ChangeInternalValue(int newValue)
+        {
+            InternalValue = newValue;
+        }
     }
 }
