@@ -117,9 +117,6 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
                 await UpdateDownloadedStateNotLockedAsync();
             }
         );
-        _removeCoverCmd.CoverRemoved += (_, _) => _dispatcherProvider.Dispatcher.Invoke(
-            () => IsCover = false
-        );
     }
 
     private void RegisterDependencies(

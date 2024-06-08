@@ -40,7 +40,6 @@ public sealed class RemoveCoverCommand : ICommand
     }
 
     public event EventHandler? CanExecuteChanged;
-    public event EventHandler? CoverRemoved;
 
     public bool IsProcessing { get; private set; }
 
@@ -61,7 +60,6 @@ public sealed class RemoveCoverCommand : ICommand
             await _coverSelectionService.RemoveCoverAsync(_fileId);
 
             IsProcessing = false;
-            RaiseRemoved();
         }
         catch (LockTimeoutException)
         {
@@ -97,10 +95,5 @@ public sealed class RemoveCoverCommand : ICommand
         _uiDispatcherProvider.Dispatcher.Invoke(
             () => CanExecuteChanged?.Invoke(this, EventArgs.Empty)
         );
-    }
-
-    private void RaiseRemoved()
-    {
-        CoverRemoved?.Invoke(this, EventArgs.Empty);
     }
 }
