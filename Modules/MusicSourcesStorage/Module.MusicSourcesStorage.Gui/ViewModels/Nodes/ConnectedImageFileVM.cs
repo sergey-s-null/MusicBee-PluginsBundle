@@ -102,14 +102,22 @@ public sealed class ConnectedImageFileVM : FileBaseVM, IConnectedImageFileVM
 
     private void RegisterCommandHandlers()
     {
-        _downloadCmd.Downloaded += (_, _) => IsDownloaded = true;
-        _deleteCmd.Deleted += (_, _) => IsDownloaded = false;
-        _deleteNoPromptCmd.Deleted += (_, _) => IsDownloaded = false;
-        _selectAsCoverCmd.Selected += async (_, _) =>
-        {
-            IsCover = true;
-            await UpdateDownloadedStateNotLockedAsync();
-        };
+        _downloadCmd.Downloaded += (_, _) => _dispatcherProvider.Dispatcher.Invoke(
+            () => IsDownloaded = true
+        );
+        _deleteCmd.Deleted += (_, _) => _dispatcherProvider.Dispatcher.Invoke(
+            () => IsDownloaded = false
+        );
+        _deleteNoPromptCmd.Deleted += (_, _) => _dispatcherProvider.Dispatcher.Invoke(
+            () => IsDownloaded = false
+        );
+        _selectAsCoverCmd.Selected += async (_, _) => await _dispatcherProvider.Dispatcher.Invoke(
+            async () =>
+            {
+                IsCover = true;
+                await UpdateDownloadedStateNotLockedAsync();
+            }
+        );
     }
 
     private void RegisterCommandDependencies(IComponentModelDependencyService dependencyService)
