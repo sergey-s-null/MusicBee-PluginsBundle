@@ -44,8 +44,6 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
 
     #endregion
 
-    private readonly SemaphoreSlim _lock = new(1);
-
     private readonly UnknownFile _unknownFile;
 
     private readonly IScopedComponentModelDependencyService<ConnectedUnknownFileVM> _dependencyService;
@@ -126,7 +124,6 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
 
     private async void Initialize()
     {
-        await _lock.WaitAsync();
         IsProcessingInternal = true;
         try
         {
@@ -136,7 +133,6 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
         finally
         {
             IsProcessingInternal = false;
-            _lock.Release();
         }
     }
 }
