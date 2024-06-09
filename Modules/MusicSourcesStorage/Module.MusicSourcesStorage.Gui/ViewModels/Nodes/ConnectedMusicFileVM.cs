@@ -182,7 +182,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         );
     }
 
-    private async void Initialize()
+    private void Initialize()
     {
         try
         {
