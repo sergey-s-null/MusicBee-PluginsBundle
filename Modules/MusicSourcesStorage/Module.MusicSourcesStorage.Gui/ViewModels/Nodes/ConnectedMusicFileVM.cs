@@ -63,7 +63,6 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
 
     #endregion
 
-    private readonly MusicFile _musicFile;
     private readonly IScopedComponentModelDependencyService<ConnectedMusicFileVM> _dependencyService;
     private readonly IFilesLocatingService _filesLocatingService;
 
@@ -79,7 +78,6 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         Id = musicFile.Id;
         Name = System.IO.Path.GetFileName(musicFile.Path);
         Path = musicFile.Path;
-        _musicFile = musicFile;
         _dependencyService = dependencyServiceFactory.CreateScoped(this);
         _filesLocatingService = filesLocatingService;
 
@@ -187,7 +185,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         try
         {
             IsProcessingInternal = true;
-            Location = _filesLocatingService.LocateMusicFile(_musicFile.Id, out _);
+            Location = _filesLocatingService.LocateMusicFile(Id, out _);
         }
         finally
         {
