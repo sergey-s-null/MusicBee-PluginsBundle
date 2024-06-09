@@ -1,13 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
+using Module.MusicSourcesStorage.Gui.Commands;
 using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
-using Module.MusicSourcesStorage.Logic.Entities.Args;
 using Module.MusicSourcesStorage.Logic.Enums;
-using Module.MusicSourcesStorage.Logic.Extensions;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
 using Module.Mvvm.Extension;
+using Module.Mvvm.Extension.Extensions;
+using Module.Mvvm.Extension.Services.Abstract;
 using PropertyChanged;
 
 namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
@@ -20,18 +21,18 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
     public override string Name { get; }
     public override string Path { get; }
 
-    public bool IsProcessing { get; private set; }
+    public bool IsProcessing => IsProcessingInternal
+                                || _downloadCommand.IsProcessing;
 
-    [DependsOn(nameof(IsDownloaded), nameof(IsProcessing))]
+    private bool IsProcessingInternal { get; set; }
+
     public bool CanDownload => !IsDownloaded && !IsProcessing;
 
-    [DependsOn(nameof(Location))]
     public bool IsDownloaded => Location is MusicFileLocation.Incoming or MusicFileLocation.Library;
 
-    [DependsOn(nameof(IsDeleted), nameof(IsProcessing))]
     public bool CanDelete => !IsDeleted && !IsProcessing;
 
-    [DependsOn(nameof(IsDownloaded))] public bool IsDeleted => !IsDownloaded;
+    public bool IsDeleted => !IsDownloaded;
 
     public bool IsListened { get; private set; }
 
@@ -39,8 +40,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
 
     #region Commands
 
-    public ICommand Download =>
-        _downloadCmd ??= new RelayCommand(DownloadCmd);
+    public ICommand Download => _downloadCommand;
 
     public ICommand MarkAsListened =>
         _markAsListenedCmd ??= new RelayCommand(MarkAsListenedCmd);
@@ -57,7 +57,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
     public ICommand DeleteNoPrompt =>
         _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
 
-    private ICommand? _downloadCmd;
+    private readonly DownloadFileCommand _downloadCommand;
     private ICommand? _markAsListenedCmd;
     private ICommand? _markAsNotListenedCmd;
     private ICommand? _deleteAndMarkAsListenedCmd;
@@ -69,30 +69,77 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
     private readonly SemaphoreSlim _lock = new(1);
 
     private readonly MusicFile _musicFile;
+    private readonly IScopedComponentModelDependencyService<ConnectedMusicFileVM> _dependencyService;
     private readonly IFilesLocatingService _filesLocatingService;
-    private readonly IFilesDownloadingService _filesDownloadingService;
     private readonly IMusicSourcesStorageService _musicSourcesStorageService;
     private readonly IFilesDeletingService _filesDeletingService;
 
     public ConnectedMusicFileVM(
         MusicFile musicFile,
+        IComponentModelDependencyServiceFactory dependencyServiceFactory,
         IFilesLocatingService filesLocatingService,
-        IFilesDownloadingService filesDownloadingService,
         IMusicSourcesStorageService musicSourcesStorageService,
-        IFilesDeletingService filesDeletingService)
+        IFilesDeletingService filesDeletingService,
+        DownloadFileCommand.Factory downloadFileCommandFactory)
     {
         Id = musicFile.Id;
         Name = System.IO.Path.GetFileName(musicFile.Path);
         Path = musicFile.Path;
         _musicFile = musicFile;
+        _dependencyService = dependencyServiceFactory.CreateScoped(this);
         _filesLocatingService = filesLocatingService;
-        _filesDownloadingService = filesDownloadingService;
         _musicSourcesStorageService = musicSourcesStorageService;
         _filesDeletingService = filesDeletingService;
 
         IsListened = musicFile.IsListened;
 
+        _downloadCommand = downloadFileCommandFactory(musicFile.Id);
+        _downloadCommand.Downloaded += (_, _) => Location = MusicFileLocation.Incoming;
+
+        RegisterDependencies();
         Initialize();
+    }
+
+    private void RegisterDependencies()
+    {
+        // IsProcessing
+        _dependencyService.RegisterDependency(
+            x => x.IsProcessing,
+            x => x.IsProcessingInternal
+        );
+        _dependencyService.RegisterDependency(
+            x => x.IsProcessing,
+            _downloadCommand,
+            x => x.IsProcessing
+        );
+        // CanDownload
+        _dependencyService.RegisterDependency(
+            x => x.CanDownload,
+            x => x.IsDownloaded
+        );
+        _dependencyService.RegisterDependency(
+            x => x.CanDownload,
+            x => x.IsProcessing
+        );
+        // IsDownloaded
+        _dependencyService.RegisterDependency(
+            x => x.IsDownloaded,
+            x => x.Location
+        );
+        // CanDelete
+        _dependencyService.RegisterDependency(
+            x => x.CanDelete,
+            x => x.IsDeleted
+        );
+        _dependencyService.RegisterDependency(
+            x => x.CanDelete,
+            x => x.IsProcessing
+        );
+        // IsDeleted
+        _dependencyService.RegisterDependency(
+            x => x.IsDeleted,
+            x => x.IsDownloaded
+        );
     }
 
     private async void Initialize()
@@ -100,40 +147,12 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         await _lock.WaitAsync();
         try
         {
-            IsProcessing = true;
+            IsProcessingInternal = true;
             Location = _filesLocatingService.LocateMusicFile(_musicFile.Id, out _);
         }
         finally
         {
-            IsProcessing = false;
-            _lock.Release();
-        }
-    }
-
-    private async void DownloadCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!CanDownload)
-            {
-                return;
-            }
-
-            IsProcessing = true;
-
-            var task = await _filesDownloadingService.CreateFileDownloadTaskAsync(_musicFile.Id);
-            await task.Activated(new FileDownloadArgs(true)).Task;
-
-            Location = MusicFileLocation.Incoming;
-        }
-        finally
-        {
-            IsProcessing = false;
+            IsProcessingInternal = false;
             _lock.Release();
         }
     }
@@ -152,13 +171,13 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
                 return;
             }
 
-            IsProcessing = true;
+            IsProcessingInternal = true;
 
             await MarkAsListenedInternalAsync();
         }
         finally
         {
-            IsProcessing = false;
+            IsProcessingInternal = false;
             _lock.Release();
         }
     }
@@ -177,14 +196,14 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
                 return;
             }
 
-            IsProcessing = true;
+            IsProcessingInternal = true;
 
             await _musicSourcesStorageService.SetMusicFileIsListenedAsync(_musicFile.Id, false);
             IsListened = false;
         }
         finally
         {
-            IsProcessing = false;
+            IsProcessingInternal = false;
             _lock.Release();
         }
     }
@@ -203,7 +222,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
                 return;
             }
 
-            IsProcessing = true;
+            IsProcessingInternal = true;
 
             if (MessageBoxHelper.AskForDeletion(_musicFile) != MessageBoxResult.Yes)
             {
@@ -219,7 +238,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         }
         finally
         {
-            IsProcessing = false;
+            IsProcessingInternal = false;
             _lock.Release();
         }
     }
@@ -238,7 +257,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
                 return;
             }
 
-            IsProcessing = true;
+            IsProcessingInternal = true;
 
             if (MessageBoxHelper.AskForDeletion(_musicFile) != MessageBoxResult.Yes)
             {
@@ -249,7 +268,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         }
         finally
         {
-            IsProcessing = false;
+            IsProcessingInternal = false;
             _lock.Release();
         }
     }
@@ -268,13 +287,13 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
                 return;
             }
 
-            IsProcessing = true;
+            IsProcessingInternal = true;
 
             await DeleteInternalAsync();
         }
         finally
         {
-            IsProcessing = false;
+            IsProcessingInternal = false;
             _lock.Release();
         }
     }
