@@ -3,7 +3,7 @@
 namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
 public interface IConnectedImageFileVM :
-    IConnectedNodeVM,
+    IConnectedFileVM,
     ICoverRemovableVM
 {
     bool IsCover { get; }

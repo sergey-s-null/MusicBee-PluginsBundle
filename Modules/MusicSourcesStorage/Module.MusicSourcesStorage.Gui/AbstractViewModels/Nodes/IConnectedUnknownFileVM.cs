@@ -1,5 +1,5 @@
 ﻿namespace Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 
-public interface IConnectedUnknownFileVM : IConnectedNodeVM
+public interface IConnectedUnknownFileVM : IConnectedFileVM
 {
 }

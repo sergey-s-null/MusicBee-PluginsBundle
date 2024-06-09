@@ -60,24 +60,28 @@ public sealed class CoverSelectionService : ICoverSelectionService
     {
         var imageDownloadingTask = await _filesDownloadingService.CreateFileDownloadTaskAsync(imageFile, token);
         var loadingAndResizingTask = ActivableTaskFactory.Create<string, Image>(LoadAndResizeImage);
-        var selectAsCoverInStorageTask = ActivableTaskFactory.Create<Image, byte[]>(
+        var selectAsCoverInStorageTask = ActivableTaskFactory.Create<Image, (byte[], IReadOnlyList<ImageFile>)>(
             (image, internalToken) => SelectImageAsCoverInStorage(imageFile, image, internalToken)
         );
-        var dispatchEventTask = ActivableTaskFactory.CreateWithoutResult<byte[]>(
-            binaryImage => DispatchCoverChangedEvent(imageFile, binaryImage)
-        );
-
+        var dispatchEventsTask = ActivableTaskFactory
+            .CreateWithoutResult<(byte[] BinaryImage, IReadOnlyList<ImageFile> UnselectedImages)>(
+                args =>
+                {
+                    DispatchCoverChangedEvent(imageFile, args.BinaryImage);
+                    DispatchCoverRemovedEvents(args.UnselectedImages.Select(x => x.Id));
+                }
+            );
         return imageDownloadingTask
             .ChangeArgs((CoverSelectionArgs args) => new FileDownloadArgs(args.SkipImageDownloadingIfDownloaded))
             .Chain(loadingAndResizingTask)
             .Chain(selectAsCoverInStorageTask)
-            .Chain(dispatchEventTask);
+            .Chain(dispatchEventsTask);
     }
 
-    public async Task RemoveCoverAsync(int sourceId, string directoryRelativePath, CancellationToken token)
+    public async Task RemoveCoverAsync(int fileId, CancellationToken token)
     {
-        await _musicSourcesStorageService.RemoveCoverAsync(sourceId, directoryRelativePath, token);
-        CoverRemoved?.Invoke(this, new CoverRemovedEventArgs(sourceId, directoryRelativePath));
+        await _musicSourcesStorageService.RemoveCoverAsync(fileId, token);
+        DispatchCoverRemovedEvent(fileId);
     }
 
     private Image LoadAndResizeImage(string imageFilePath, CancellationToken token)
@@ -94,11 +98,12 @@ public sealed class CoverSelectionService : ICoverSelectionService
             .Result;
     }
 
-    private byte[] SelectImageAsCoverInStorage(SourceFile sourceFile, Image image, CancellationToken token)
+    private (byte[], IReadOnlyList<ImageFile>) SelectImageAsCoverInStorage(SourceFile sourceFile, Image image,
+        CancellationToken token)
     {
         var binaryImage = ImageHelper.ToBytes(image);
-        _musicSourcesStorageService.SelectAsCoverAsync(sourceFile.Id, binaryImage, token).Wait(token);
-        return binaryImage;
+        var unselectedImages = _musicSourcesStorageService.SelectAsCoverAsync(sourceFile.Id, binaryImage, token).Result;
+        return (binaryImage, unselectedImages);
     }
 
     private void DispatchCoverChangedEvent(SourceFile sourceFile, byte[] binaryImage)
@@ -109,5 +114,18 @@ public sealed class CoverSelectionService : ICoverSelectionService
             sourceFile.Path,
             binaryImage
         ));
+    }
+
+    private void DispatchCoverRemovedEvents(IEnumerable<int> fileIds)
+    {
+        foreach (var fileId in fileIds)
+        {
+            DispatchCoverRemovedEvent(fileId);
+        }
+    }
+
+    private void DispatchCoverRemovedEvent(int fileId)
+    {
+        CoverRemoved?.Invoke(this, new CoverRemovedEventArgs(fileId));
     }
 }

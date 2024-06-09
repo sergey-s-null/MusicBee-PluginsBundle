@@ -6,6 +6,8 @@ namespace Module.MusicSourcesStorage.Gui.DesignTimeViewModels.Nodes;
 
 public sealed class ConnectedMusicFileDTVM : MusicFileDTVM, IConnectedMusicFileVM
 {
+    public int Id => 42;
+
     public bool IsProcessing { get; }
 
     public bool CanDownload => Location is MusicFileLocation.NotDownloaded;

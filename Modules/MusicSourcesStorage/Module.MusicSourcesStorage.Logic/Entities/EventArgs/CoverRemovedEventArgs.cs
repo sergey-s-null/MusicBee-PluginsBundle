@@ -2,12 +2,10 @@
 
 public sealed class CoverRemovedEventArgs : System.EventArgs
 {
-    public int SourceId { get; }
-    public string DirectoryPath { get; }
+    public int FileId { get; }
 
-    public CoverRemovedEventArgs(int sourceId, string directoryPath)
+    public CoverRemovedEventArgs(int fileId)
     {
-        SourceId = sourceId;
-        DirectoryPath = directoryPath;
+        FileId = fileId;
     }
 }

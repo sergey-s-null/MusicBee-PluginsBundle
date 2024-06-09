@@ -17,6 +17,14 @@
           "System.Diagnostics.DiagnosticSource": "4.7.1"
         }
       },
+      "CommunityToolkit.Diagnostics": {
+        "type": "Transitive",
+        "resolved": "8.2.2",
+        "contentHash": "iILVyo7VvzTlQT7b2qOs1ZDcneKsmuy2mTuxCCaBWEfg3tjw35B/ImO9Xw6It7xi2ie8/2PWfXhFn+Prztg03w==",
+        "dependencies": {
+          "System.Memory": "4.5.5"
+        }
+      },
       "EntityFramework": {
         "type": "Transitive",
         "resolved": "6.4.4",
@@ -67,8 +75,8 @@
       },
       "System.Memory": {
         "type": "Transitive",
-        "resolved": "4.5.4",
-        "contentHash": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+        "resolved": "4.5.5",
+        "contentHash": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
         "dependencies": {
           "System.Buffers": "4.5.1",
           "System.Numerics.Vectors": "4.5.0",
@@ -102,7 +110,11 @@
         }
       },
       "module.mvvm.extension": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "Autofac": "[6.5.0, )",
+          "CommunityToolkit.Diagnostics": "[8.2.2, )"
+        }
       },
       "module.settings.core": {
         "type": "Project"

@@ -7,6 +7,15 @@
   &lt;Assembly Path="C:\Users\Sergestus Shimonov\.nuget\packages\sharpcompress\0.34.1\lib\net462\SharpCompress.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/EntityFrameworkOptions/IsAlreadyNotifiedAboutEntityFramework/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=425a3bc6_002Dfdc9_002D464a_002D9bd6_002Dd7a0e6285bb0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FileOperationLockerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::335D5A6D-8114-4FC0-8A49-8357466F0E01::.NETFramework,Version=v4.7.2::Module.MusicSourcesStorage.Gui.Tests.FileOperationLockerTests&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;Project Location="D:\_SyncNodes\Projects\CSharp\MusicBee-PluginsBundle\Modules\Module.Mvvm.Extension.Tests" Presentation="&amp;lt;Modules&amp;gt;\&amp;lt;Module.Mvvm.Extension.Tests&amp;gt;" /&gt;&#xD;
+    &lt;Project Location="D:\_SyncNodes\Projects\CSharp\MusicBee-PluginsBundle\Modules\Module.Core.Tests" Presentation="&amp;lt;Modules&amp;gt;\&amp;lt;Module.Core.Tests&amp;gt;" /&gt;&#xD;
+  &lt;/Or&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
 	
 	

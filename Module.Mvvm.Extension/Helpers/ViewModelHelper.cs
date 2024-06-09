@@ -1,32 +1,83 @@
 ﻿using System.ComponentModel;
 using System.Linq.Expressions;
-using Module.Mvvm.Extension.Exceptions;
+using System.Reflection;
+using CommunityToolkit.Diagnostics;
 
 namespace Module.Mvvm.Extension.Helpers;
 
 public static class ViewModelHelper
 {
-    public static void RegisterPropertyChangedCallback<TViewModel, TProperty>(
+    public static void RegisterPropertyChangedHandler<TViewModel, TProperty>(
         TViewModel viewModel,
         Expression<Func<TViewModel, TProperty>> propertySelector,
-        Action<TViewModel, TProperty> callback)
+        Action<TViewModel, TProperty> handler)
     {
-        if (viewModel is not INotifyPropertyChanged notifier)
-        {
-            throw new CallbackRegistrationException(
-                $"View model {viewModel} does not implement {nameof(INotifyPropertyChanged)}."
-            );
-        }
+        RegisterPropertyChangedHandler(viewModel, propertySelector, handler, out _);
+    }
 
-        var propertyName = GetPropertyName(propertySelector);
-        var selector = propertySelector.Compile();
-        notifier.PropertyChanged += (_, args) =>
+    public static void RegisterPropertyChangedHandler<TViewModel>(
+        TViewModel viewModel,
+        string propertyName,
+        Action<TViewModel, object> handler)
+    {
+        RegisterPropertyChangedHandler(viewModel, propertyName, handler, out _);
+    }
+
+    public static void RegisterPropertyChangedHandler<TViewModel, TProperty>(
+        TViewModel viewModel,
+        Expression<Func<TViewModel, TProperty>> propertyExpression,
+        Action<TViewModel, TProperty> handler,
+        out Action unregisterHandler)
+    {
+        Guard.IsNotNull(viewModel);
+        Guard.IsAssignableToType<INotifyPropertyChanged>(viewModel);
+
+        var propertyName = GetPropertyName(propertyExpression);
+        var propertySelector = propertyExpression.Compile();
+
+        RegisterPropertyChangedHandler(viewModel, propertyName, propertySelector, handler, out unregisterHandler);
+    }
+
+    public static void RegisterPropertyChangedHandler<TViewModel>(
+        TViewModel viewModel,
+        string propertyName,
+        Action<TViewModel, object> handler,
+        out Action unregisterHandler)
+    {
+        Guard.IsNotNull(viewModel);
+        Guard.IsAssignableToType<INotifyPropertyChanged>(viewModel);
+
+        var type = viewModel.GetType();
+        var getMethod = GetPropertyGetMethod(type, propertyName);
+
+        RegisterPropertyChangedHandler(
+            viewModel,
+            propertyName,
+            x => getMethod.Invoke(x, new object[] { }),
+            handler,
+            out unregisterHandler
+        );
+    }
+
+    private static void RegisterPropertyChangedHandler<TViewModel, TProperty>(
+        TViewModel viewModel,
+        string propertyName,
+        Func<TViewModel, TProperty> propertySelector,
+        Action<TViewModel, TProperty> handler,
+        out Action unregisterHandler)
+    {
+        PropertyChangedEventHandler wrappedHandler = (_, args) =>
         {
             if (args.PropertyName == propertyName)
             {
-                callback(viewModel, selector(viewModel));
+                handler(viewModel, propertySelector(viewModel));
             }
         };
+
+        var notifier = (INotifyPropertyChanged)viewModel!;
+
+        notifier.PropertyChanged += wrappedHandler;
+        unregisterHandler = () => notifier.PropertyChanged -= wrappedHandler;
     }
 
     private static string GetPropertyName<TViewModel, TProperty>(
@@ -40,11 +91,37 @@ public static class ViewModelHelper
 
         if (body is not MemberExpression memberExpression)
         {
-            throw new CallbackRegistrationException(
-                "Could not get property name. Body is not a member expression."
+            throw new ArgumentException(
+                "Could not get property name. Body is not a member expression.",
+                nameof(propertySelector)
+            );
+        }
+
+        if (memberExpression.Expression is not ParameterExpression)
+        {
+            throw new ArgumentException(
+                "Property selector is invalid.",
+                nameof(propertySelector)
             );
         }
 
         return memberExpression.Member.Name;
+    }
+
+    private static MethodInfo GetPropertyGetMethod(Type type, string propertyName)
+    {
+        var propertyInfo = type.GetProperty(
+            propertyName,
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+        );
+
+        if (propertyInfo is null)
+        {
+            throw new InvalidOperationException(
+                $"Could not get property info by name \"{propertyName}\" on type {type}. Value is null."
+            );
+        }
+
+        return propertyInfo.GetMethod;
     }
 }

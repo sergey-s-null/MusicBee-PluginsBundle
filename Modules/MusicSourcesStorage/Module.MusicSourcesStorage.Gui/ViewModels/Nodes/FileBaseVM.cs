@@ -6,15 +6,14 @@ namespace Module.MusicSourcesStorage.Gui.ViewModels.Nodes;
 [AddINotifyPropertyChangedInterface]
 public abstract class FileBaseVM : INodeVM
 {
-    public string Name { get; }
-    public string Path { get; }
+    public abstract string Name { get; }
+    public abstract string Path { get; }
 
-    public bool IsExpanded { get; set; }
-    public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
-
-    protected FileBaseVM(string path)
+    public bool IsExpanded
     {
-        Name = System.IO.Path.GetFileName(path);
-        Path = path;
+        get => false;
+        set { }
     }
+
+    public IReadOnlyList<INodeVM> ChildNodes { get; } = Array.Empty<INodeVM>();
 }

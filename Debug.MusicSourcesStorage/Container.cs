@@ -5,6 +5,7 @@ using Debug.Common;
 using Mead.MusicBee.Api.Services.Abstract;
 using Module.MusicSourcesStorage;
 using Module.MusicSourcesStorage.Core;
+using Module.Mvvm.Extension;
 using Module.Settings.Database.Services.Abstract;
 using Module.Vk.Gui.Services.Abstract;
 using Moq;
@@ -43,6 +44,7 @@ public static class Container
                 .As<IVkApiProvider>();
         }
 
+        builder.RegisterModule<MvvmExtensionModule>();
         builder.RegisterModule<MusicSourcesStorageModule>();
 
         return builder.Build();
