@@ -145,6 +145,9 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<RemoveCoverCommand>()
             .AsSelf();
+        builder
+            .RegisterType<ChangeMusicListenedStateCommand>()
+            .AsSelf();
     }
 
     private static void RegisterServices(ContainerBuilder builder)
