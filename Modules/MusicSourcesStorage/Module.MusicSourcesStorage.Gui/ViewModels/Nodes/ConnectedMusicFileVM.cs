@@ -22,7 +22,9 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
     public override string Path { get; }
 
     public bool IsProcessing => IsProcessingInternal
-                                || _downloadCommand.IsProcessing;
+                                || _downloadCommand.IsProcessing
+                                || _deleteCommand.IsProcessing
+                                || _deleteNoPromptCommand.IsProcessing;
 
     private bool IsProcessingInternal { get; set; }
 
@@ -51,18 +53,16 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
     public ICommand DeleteAndMarkAsListened =>
         _deleteAndMarkAsListenedCmd ??= new RelayCommand(DeleteAndMarkAsListenedCmd);
 
-    public ICommand Delete =>
-        _deleteCmd ??= new RelayCommand(DeleteCmd);
+    public ICommand Delete => _deleteCommand;
 
-    public ICommand DeleteNoPrompt =>
-        _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
+    public ICommand DeleteNoPrompt => _deleteNoPromptCommand;
 
     private readonly DownloadFileCommand _downloadCommand;
     private ICommand? _markAsListenedCmd;
     private ICommand? _markAsNotListenedCmd;
     private ICommand? _deleteAndMarkAsListenedCmd;
-    private ICommand? _deleteCmd;
-    private ICommand? _deleteNoPromptCmd;
+    private readonly DeleteFileCommand _deleteCommand;
+    private readonly DeleteFileCommand _deleteNoPromptCommand;
 
     #endregion
 
@@ -80,7 +80,8 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         IFilesLocatingService filesLocatingService,
         IMusicSourcesStorageService musicSourcesStorageService,
         IFilesDeletingService filesDeletingService,
-        DownloadFileCommand.Factory downloadFileCommandFactory)
+        DownloadFileCommand.Factory downloadFileCommandFactory,
+        DeleteFileCommand.Factory deleteFileCommandFactory)
     {
         Id = musicFile.Id;
         Name = System.IO.Path.GetFileName(musicFile.Path);
@@ -94,7 +95,12 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         IsListened = musicFile.IsListened;
 
         _downloadCommand = downloadFileCommandFactory(musicFile.Id);
+        _deleteCommand = deleteFileCommandFactory(musicFile.Id, musicFile.Path, askBeforeDelete: true);
+        _deleteNoPromptCommand = deleteFileCommandFactory(musicFile.Id, musicFile.Path, askBeforeDelete: false);
+
         _downloadCommand.Downloaded += (_, _) => Location = MusicFileLocation.Incoming;
+        _deleteCommand.Deleted += (_, _) => Location = MusicFileLocation.NotDownloaded;
+        _deleteNoPromptCommand.Deleted += (_, _) => Location = MusicFileLocation.NotDownloaded;
 
         RegisterDependencies();
         Initialize();
@@ -110,6 +116,16 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         _dependencyService.RegisterDependency(
             x => x.IsProcessing,
             _downloadCommand,
+            x => x.IsProcessing
+        );
+        _dependencyService.RegisterDependency(
+            x => x.IsProcessing,
+            _deleteCommand,
+            x => x.IsProcessing
+        );
+        _dependencyService.RegisterDependency(
+            x => x.IsProcessing,
+            _deleteNoPromptCommand,
             x => x.IsProcessing
         );
         // CanDownload
@@ -235,61 +251,6 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
             {
                 await MarkAsListenedInternalAsync();
             }
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
-
-    private async void DeleteCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!CanDelete)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            if (MessageBoxHelper.AskForDeletion(_musicFile) != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
-            await DeleteInternalAsync();
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
-
-    private async void DeleteNoPromptCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!CanDelete)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            await DeleteInternalAsync();
         }
         finally
         {
