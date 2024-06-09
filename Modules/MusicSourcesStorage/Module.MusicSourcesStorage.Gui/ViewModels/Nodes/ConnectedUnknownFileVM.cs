@@ -44,8 +44,6 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
 
     #endregion
 
-    private readonly UnknownFile _unknownFile;
-
     private readonly IScopedComponentModelDependencyService<ConnectedUnknownFileVM> _dependencyService;
     private readonly IFilesLocatingService _filesLocatingService;
 
@@ -59,7 +57,6 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
         Id = unknownFile.Id;
         Name = System.IO.Path.GetFileName(unknownFile.Path);
         Path = unknownFile.Path;
-        _unknownFile = unknownFile;
         _dependencyService = dependencyServiceFactory.CreateScoped(this);
         _filesLocatingService = filesLocatingService;
 
@@ -127,7 +124,7 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
         IsProcessingInternal = true;
         try
         {
-            var filePath = await _filesLocatingService.LocateFileAsync(_unknownFile.Id);
+            var filePath = await _filesLocatingService.LocateFileAsync(Id);
             IsDownloaded = filePath is not null;
         }
         finally
