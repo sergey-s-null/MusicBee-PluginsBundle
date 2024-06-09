@@ -1,12 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Commands;
-using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Enums;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using Module.Mvvm.Extension;
 using Module.Mvvm.Extension.Extensions;
 using Module.Mvvm.Extension.Services.Abstract;
 using PropertyChanged;
@@ -25,6 +22,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
                                 || _downloadCommand.IsProcessing
                                 || _markAsListenedCommand.IsProcessing
                                 || _markAsNotListenedCommand.IsProcessing
+                                || _deleteAndMarkAsListenedCommand.IsProcessing
                                 || _deleteCommand.IsProcessing
                                 || _deleteNoPromptCommand.IsProcessing;
 
@@ -50,8 +48,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
 
     public ICommand MarkAsNotListened => _markAsNotListenedCommand;
 
-    public ICommand DeleteAndMarkAsListened =>
-        _deleteAndMarkAsListenedCmd ??= new RelayCommand(DeleteAndMarkAsListenedCmd);
+    public ICommand DeleteAndMarkAsListened => _deleteAndMarkAsListenedCommand;
 
     public ICommand Delete => _deleteCommand;
 
@@ -60,7 +57,7 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
     private readonly DownloadFileCommand _downloadCommand;
     private readonly ChangeMusicListenedStateCommand _markAsListenedCommand;
     private readonly ChangeMusicListenedStateCommand _markAsNotListenedCommand;
-    private ICommand? _deleteAndMarkAsListenedCmd;
+    private readonly DeleteMusicFileAndMarkAsListenedCommand _deleteAndMarkAsListenedCommand;
     private readonly DeleteFileCommand _deleteCommand;
     private readonly DeleteFileCommand _deleteNoPromptCommand;
 
@@ -71,17 +68,14 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
     private readonly MusicFile _musicFile;
     private readonly IScopedComponentModelDependencyService<ConnectedMusicFileVM> _dependencyService;
     private readonly IFilesLocatingService _filesLocatingService;
-    private readonly IMusicSourcesStorageService _musicSourcesStorageService;
-    private readonly IFilesDeletingService _filesDeletingService;
 
     public ConnectedMusicFileVM(
         MusicFile musicFile,
         IComponentModelDependencyServiceFactory dependencyServiceFactory,
         IFilesLocatingService filesLocatingService,
-        IMusicSourcesStorageService musicSourcesStorageService,
-        IFilesDeletingService filesDeletingService,
         DownloadFileCommand.Factory downloadFileCommandFactory,
         ChangeMusicListenedStateCommand.Factory changeMusicListenedStateCommandFactory,
+        DeleteMusicFileAndMarkAsListenedCommand.Factory deleteMusicFileAndMarkAsListenedCommandFactory,
         DeleteFileCommand.Factory deleteFileCommandFactory)
     {
         Id = musicFile.Id;
@@ -90,20 +84,28 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         _musicFile = musicFile;
         _dependencyService = dependencyServiceFactory.CreateScoped(this);
         _filesLocatingService = filesLocatingService;
-        _musicSourcesStorageService = musicSourcesStorageService;
-        _filesDeletingService = filesDeletingService;
 
         IsListened = musicFile.IsListened;
 
         _downloadCommand = downloadFileCommandFactory(musicFile.Id);
         _markAsListenedCommand = changeMusicListenedStateCommandFactory(musicFile.Id, isListened: true);
         _markAsNotListenedCommand = changeMusicListenedStateCommandFactory(musicFile.Id, isListened: false);
+        _deleteAndMarkAsListenedCommand = deleteMusicFileAndMarkAsListenedCommandFactory(
+            musicFile.Id,
+            musicFile.Path,
+            askBeforeDelete: true
+        );
         _deleteCommand = deleteFileCommandFactory(musicFile.Id, musicFile.Path, askBeforeDelete: true);
         _deleteNoPromptCommand = deleteFileCommandFactory(musicFile.Id, musicFile.Path, askBeforeDelete: false);
 
         _downloadCommand.Downloaded += (_, _) => Location = MusicFileLocation.Incoming;
         _markAsListenedCommand.Changed += (_, _) => IsListened = true;
         _markAsNotListenedCommand.Changed += (_, _) => IsListened = false;
+        _deleteAndMarkAsListenedCommand.DeletedAndMarkedAsListened += (_, _) =>
+        {
+            Location = MusicFileLocation.NotDownloaded;
+            IsListened = true;
+        };
         _deleteCommand.Deleted += (_, _) => Location = MusicFileLocation.NotDownloaded;
         _deleteNoPromptCommand.Deleted += (_, _) => Location = MusicFileLocation.NotDownloaded;
 
@@ -131,6 +133,11 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         _dependencyService.RegisterDependency(
             x => x.IsProcessing,
             _markAsNotListenedCommand,
+            x => x.IsProcessing
+        );
+        _dependencyService.RegisterDependency(
+            x => x.IsProcessing,
+            _deleteAndMarkAsListenedCommand,
             x => x.IsProcessing
         );
         _dependencyService.RegisterDependency(
@@ -186,52 +193,5 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
             IsProcessingInternal = false;
             _lock.Release();
         }
-    }
-
-    private async void DeleteAndMarkAsListenedCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!CanDelete)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            if (MessageBoxHelper.AskForDeletion(_musicFile) != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
-            await DeleteInternalAsync();
-
-            if (!IsListened)
-            {
-                await MarkAsListenedInternalAsync();
-            }
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
-
-    private async Task MarkAsListenedInternalAsync()
-    {
-        await _musicSourcesStorageService.SetMusicFileIsListenedAsync(_musicFile.Id, true);
-        IsListened = true;
-    }
-
-    private async Task DeleteInternalAsync()
-    {
-        await _filesDeletingService.DeleteAsync(_musicFile.Id);
-        Location = MusicFileLocation.NotDownloaded;
     }
 }
