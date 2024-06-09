@@ -63,8 +63,6 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
 
     #endregion
 
-    private readonly SemaphoreSlim _lock = new(1);
-
     private readonly MusicFile _musicFile;
     private readonly IScopedComponentModelDependencyService<ConnectedMusicFileVM> _dependencyService;
     private readonly IFilesLocatingService _filesLocatingService;
@@ -186,7 +184,6 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
 
     private async void Initialize()
     {
-        await _lock.WaitAsync();
         try
         {
             IsProcessingInternal = true;
@@ -195,7 +192,6 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         finally
         {
             IsProcessingInternal = false;
-            _lock.Release();
         }
     }
 }
