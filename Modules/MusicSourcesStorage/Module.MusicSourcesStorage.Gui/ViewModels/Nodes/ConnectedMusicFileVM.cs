@@ -98,6 +98,13 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         _deleteCommand = deleteFileCommandFactory(musicFile.Id, musicFile.Path, askBeforeDelete: true);
         _deleteNoPromptCommand = deleteFileCommandFactory(musicFile.Id, musicFile.Path, askBeforeDelete: false);
 
+        InitializeCommandHandlers();
+        RegisterDependencies();
+        Initialize();
+    }
+
+    private void InitializeCommandHandlers()
+    {
         _downloadCommand.Downloaded += (_, _) => Location = MusicFileLocation.Incoming;
         _markAsListenedCommand.Changed += (_, _) => IsListened = true;
         _markAsNotListenedCommand.Changed += (_, _) => IsListened = false;
@@ -108,9 +115,6 @@ public sealed class ConnectedMusicFileVM : FileBaseVM, IConnectedMusicFileVM
         };
         _deleteCommand.Deleted += (_, _) => Location = MusicFileLocation.NotDownloaded;
         _deleteNoPromptCommand.Deleted += (_, _) => Location = MusicFileLocation.NotDownloaded;
-
-        RegisterDependencies();
-        Initialize();
     }
 
     private void RegisterDependencies()
