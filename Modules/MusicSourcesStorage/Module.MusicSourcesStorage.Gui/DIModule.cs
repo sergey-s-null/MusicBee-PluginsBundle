@@ -148,6 +148,9 @@ public sealed class DIModule : Autofac.Module
         builder
             .RegisterType<ChangeMusicListenedStateCommand>()
             .AsSelf();
+        builder
+            .RegisterType<DeleteMusicFileAndMarkAsListenedCommand>()
+            .AsSelf();
     }
 
     private static void RegisterServices(ContainerBuilder builder)
