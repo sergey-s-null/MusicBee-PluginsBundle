@@ -1,11 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Module.MusicSourcesStorage.Gui.AbstractViewModels.Nodes;
 using Module.MusicSourcesStorage.Gui.Commands;
-using Module.MusicSourcesStorage.Gui.Helpers;
 using Module.MusicSourcesStorage.Logic.Entities;
 using Module.MusicSourcesStorage.Logic.Services.Abstract;
-using Module.Mvvm.Extension;
 using Module.Mvvm.Extension.Extensions;
 using Module.Mvvm.Extension.Services.Abstract;
 using PropertyChanged;
@@ -21,7 +18,9 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
     public override string Path { get; }
 
     public bool IsProcessing => IsProcessingInternal
-                                || _downloadCommand.IsProcessing;
+                                || _downloadCommand.IsProcessing
+                                || _deleteCommand.IsProcessing
+                                || _deleteNoPromptCommand.IsProcessing;
 
     private bool IsProcessingInternal { get; set; }
 
@@ -36,12 +35,12 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
     #region Commands
 
     public ICommand Download => _downloadCommand;
-    public ICommand Delete => _deleteCmd ??= new RelayCommand(DeleteCmd);
-    public ICommand DeleteNoPrompt => _deleteNoPromptCmd ??= new RelayCommand(DeleteNoPromptCmd);
+    public ICommand Delete => _deleteCommand;
+    public ICommand DeleteNoPrompt => _deleteNoPromptCommand;
 
     private readonly DownloadFileCommand _downloadCommand;
-    private ICommand? _deleteCmd;
-    private ICommand? _deleteNoPromptCmd;
+    private readonly DeleteFileCommand _deleteCommand;
+    private readonly DeleteFileCommand _deleteNoPromptCommand;
 
     #endregion
 
@@ -51,14 +50,13 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
 
     private readonly IScopedComponentModelDependencyService<ConnectedUnknownFileVM> _dependencyService;
     private readonly IFilesLocatingService _filesLocatingService;
-    private readonly IFilesDeletingService _filesDeletingService;
 
     public ConnectedUnknownFileVM(
         UnknownFile unknownFile,
         IComponentModelDependencyServiceFactory dependencyServiceFactory,
         IFilesLocatingService filesLocatingService,
-        IFilesDeletingService filesDeletingService,
-        DownloadFileCommand.Factory downloadFileCommandFactory)
+        DownloadFileCommand.Factory downloadFileCommandFactory,
+        DeleteFileCommand.Factory deleteFileCommandFactory)
     {
         Id = unknownFile.Id;
         Name = System.IO.Path.GetFileName(unknownFile.Path);
@@ -66,10 +64,14 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
         _unknownFile = unknownFile;
         _dependencyService = dependencyServiceFactory.CreateScoped(this);
         _filesLocatingService = filesLocatingService;
-        _filesDeletingService = filesDeletingService;
 
         _downloadCommand = downloadFileCommandFactory(unknownFile.Id);
+        _deleteCommand = deleteFileCommandFactory(unknownFile.Id, unknownFile.Path, askBeforeDelete: true);
+        _deleteNoPromptCommand = deleteFileCommandFactory(unknownFile.Id, unknownFile.Path, askBeforeDelete: false);
+
         _downloadCommand.Downloaded += (_, _) => IsDownloaded = true;
+        _deleteCommand.Deleted += (_, _) => IsDownloaded = false;
+        _deleteNoPromptCommand.Deleted += (_, _) => IsDownloaded = false;
 
         RegisterDependencies();
         Initialize();
@@ -85,6 +87,16 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
         _dependencyService.RegisterDependency(
             x => x.IsProcessing,
             _downloadCommand,
+            x => x.IsProcessing
+        );
+        _dependencyService.RegisterDependency(
+            x => x.IsProcessing,
+            _deleteCommand,
+            x => x.IsProcessing
+        );
+        _dependencyService.RegisterDependency(
+            x => x.IsProcessing,
+            _deleteNoPromptCommand,
             x => x.IsProcessing
         );
         // CanDownload
@@ -126,66 +138,5 @@ public sealed class ConnectedUnknownFileVM : FileBaseVM, IConnectedUnknownFileVM
             IsProcessingInternal = false;
             _lock.Release();
         }
-    }
-
-    private async void DeleteCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!CanDelete)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            if (MessageBoxHelper.AskForDeletion(_unknownFile) != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
-            await DeleteInternalAsync();
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
-
-    private async void DeleteNoPromptCmd()
-    {
-        if (!await _lock.WaitAsync(TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            if (!CanDelete)
-            {
-                return;
-            }
-
-            IsProcessingInternal = true;
-
-            await DeleteInternalAsync();
-        }
-        finally
-        {
-            IsProcessingInternal = false;
-            _lock.Release();
-        }
-    }
-
-    private async Task DeleteInternalAsync()
-    {
-        await _filesDeletingService.DeleteAsync(_unknownFile.Id);
-        IsDownloaded = false;
     }
 }
